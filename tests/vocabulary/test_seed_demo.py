@@ -2,7 +2,7 @@ import pytest
 from django.core.management import call_command
 from django.core.management.base import CommandError
 
-from .models import Deck, DeckTerm, Term
+from vocabulary.models import Deck, DeckTerm, Term
 
 
 def test_seed_demo_adds_sample_data(user, capsys):

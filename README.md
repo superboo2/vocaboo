@@ -400,8 +400,12 @@ static/       project-wide static files
   js/study.js   test screen: turning the card, keyboard, time measuring, legend
   js/tree.js    dashboard tree: moving decks by drag and drop
   vendor/       third-party files kept in the repository (see below)
-tests/        project-wide tests (app tests live in each app: tests.py, test_*.py)
-conftest.py   shared pytest fixtures (users, languages, fast password hashing)
+tests/        all tests, one folder per app
+  conftest.py   shared pytest fixtures (users, languages, fast password hashing)
+  project/      whole project: database, layout, help pages
+  accounts/     users, login, settings
+  vocabulary/   languages, decks, words, duplicates, sentences, seed_demo
+  study/        intervals, sessions, cards, test screen, dashboard numbers
 docs/         specification and plan (Czech)
 ```
 
@@ -448,7 +452,9 @@ HTMX requests send the CSRF token automatically (`hx-headers` on `<body>` in `ba
 uv run ruff check           # lint
 uv run ruff check --fix     # lint and fix what can be fixed automatically
 uv run ruff format          # format code
-uv run pytest               # run tests
+uv run pytest               # run all tests
+uv run pytest tests/study   # only the tests of one app
+uv run pytest -k duplicate  # only tests with "duplicate" in the name
 ```
 
 ---

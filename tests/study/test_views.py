@@ -3,10 +3,9 @@
 import pytest
 from django.urls import reverse
 
+from study import services
+from study.models import ReviewLog, ReviewState, StudySession
 from vocabulary import services as vocabulary
-
-from . import services
-from .models import ReviewLog, ReviewState, StudySession
 
 HTMX = {"HX-Request": "true"}
 

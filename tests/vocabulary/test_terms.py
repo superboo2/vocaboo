@@ -5,9 +5,8 @@ from django.core.exceptions import ValidationError
 from django.utils import timezone
 
 from study.models import Direction, ReviewState
-
-from . import services
-from .models import DeckTerm, Term
+from vocabulary import services
+from vocabulary.models import DeckTerm, Term
 
 
 @pytest.fixture

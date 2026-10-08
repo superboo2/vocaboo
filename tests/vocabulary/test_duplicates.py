@@ -4,8 +4,8 @@ import pytest
 from django.core.exceptions import ValidationError
 from django.urls import reverse
 
-from . import services
-from .models import DeckTerm, Term
+from vocabulary import services
+from vocabulary.models import DeckTerm, Term
 
 
 @pytest.fixture

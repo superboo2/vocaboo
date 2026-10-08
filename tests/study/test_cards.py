@@ -4,13 +4,12 @@ from datetime import timedelta
 
 import pytest
 
+from study import services
+from study.cards import build_card
+from study.formatting import format_interval
+from study.models import Direction, ReviewState, StudyDirection
 from vocabulary import services as vocabulary
 from vocabulary.models import DeckTerm
-
-from . import services
-from .cards import build_card
-from .formatting import format_interval
-from .models import Direction, ReviewState, StudyDirection
 
 # Formatting
 

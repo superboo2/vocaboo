@@ -6,11 +6,10 @@ import pytest
 from django.core.exceptions import ValidationError
 from django.utils import timezone
 
+from study import services
+from study.models import Direction, ReviewLog, ReviewState, StudyDirection, StudyScope
 from vocabulary import services as vocabulary
 from vocabulary.models import DeckTerm
-
-from . import services
-from .models import Direction, ReviewLog, ReviewState, StudyDirection, StudyScope
 
 
 @pytest.fixture

@@ -1,8 +1,8 @@
 import pytest
 from django.core.exceptions import ValidationError
 
-from . import services
-from .models import Deck
+from vocabulary import services
+from vocabulary.models import Deck
 
 
 @pytest.fixture

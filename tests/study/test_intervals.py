@@ -3,9 +3,9 @@ from zoneinfo import ZoneInfo
 
 import pytest
 
-from .models import Result, ReviewState
-from .ratings import MAX_INTERVAL, RATINGS, get_rating
-from .services import apply_rating, next_interval, preview_intervals, round_interval
+from study.models import Result, ReviewState
+from study.ratings import MAX_INTERVAL, RATINGS, get_rating
+from study.services import apply_rating, next_interval, preview_intervals, round_interval
 
 PRAGUE = ZoneInfo("Europe/Prague")
 

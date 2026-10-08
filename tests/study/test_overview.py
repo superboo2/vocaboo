@@ -6,12 +6,11 @@ import pytest
 from django.urls import reverse
 from django.utils import timezone
 
+from study import services
+from study.models import Direction, ReviewState
+from study.templatetags.study_tags import due_text, seconds
 from vocabulary import services as vocabulary
 from vocabulary.models import DeckTerm
-
-from . import services
-from .models import Direction, ReviewState
-from .templatetags.study_tags import due_text, seconds
 
 
 @pytest.fixture

@@ -3,7 +3,7 @@
 import pytest
 from django.template import Context, Template
 
-from .sentences import cloze, has_word, highlight, plain, split_sentence
+from vocabulary.sentences import cloze, has_word, highlight, plain, split_sentence
 
 GAP = '<span class="cloze" aria-label="vynechané slovo">___</span>'
 

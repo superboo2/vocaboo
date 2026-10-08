@@ -4,7 +4,7 @@ from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.urls import reverse
 
-from .models import Language
+from vocabulary.models import Language
 
 User = get_user_model()
 
