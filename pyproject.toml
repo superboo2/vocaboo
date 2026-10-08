@@ -1,0 +1,31 @@
+[project]
+name = "vokie"
+version = "0.1.0"
+description = "Web app for learning vocabulary with spaced repetition"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "django~=6.1",
+    "gunicorn>=23",
+    "psycopg[binary]~=3.3",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "pytest-django>=4.14.0",
+    "ruff>=0.16.10",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+extend-exclude = ["*/migrations/*"]
+
+[tool.ruff.lint]
+# E/W: style, F: errors, I: import order, B: likely bugs, UP: modern syntax, DJ: Django rules
+select = ["E", "W", "F", "I", "B", "UP", "DJ"]
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "config.settings"
+python_files = ["test_*.py", "tests.py"]

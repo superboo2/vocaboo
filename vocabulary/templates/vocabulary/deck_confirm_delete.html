@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Smazat slovník" %} · Vokie{% endblock %}
+
+{% block content %}
+  {% include "vocabulary/_breadcrumbs.html" with current=_("Smazat") %}
+
+  <article class="form-box">
+    <header>
+      <h1>{% translate "Smazat slovník" %}</h1>
+    </header>
+
+    <p>{% blocktranslate with name=deck.name %}Opravdu smazat slovník „{{ name }}“?{% endblocktranslate %}</p>
+    {% if child_count %}
+      <p><strong>
+        {% blocktranslate count counter=child_count %}Smaže se i {{ counter }} podslovník.{% plural %}Smaže se i {{ counter }} podslovníků.{% endblocktranslate %}
+      </strong></p>
+    {% endif %}
+    {% if term_count %}
+      <p><strong>
+        {% blocktranslate count counter=term_count %}Smaže se i {{ counter }} slovíčko, které není v žádném jiném slovníku.{% plural %}Smaže se i {{ counter }} slovíček, která nejsou v žádném jiném slovníku.{% endblocktranslate %}
+      </strong></p>
+    {% endif %}
+    <p class="muted">{% translate "Tuto akci nejde vrátit." %}</p>
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="actions">
+        <button type="submit" class="danger">{% translate "Smazat" %}</button>
+        <a href="{% url 'vocabulary:deck_detail' deck.pk %}" role="button" class="secondary outline">{% translate "Zrušit" %}</a>
+      </div>
+    </form>
+  </article>
+{% endblock %}

@@ -1,0 +1,77 @@
+{% load i18n study_tags %}
+{# One flash card. After a rating HTMX puts the next card in place of this one. #}
+{# Both sides are in the page; turning the card is done in the browser (study.js). #}
+<div id="card" class="card-box" data-card>
+  <p class="card-progress muted">
+    {% blocktranslate with done=session.answered left=remaining %}Hotovo {{ done }} · zbývá {{ left }}{% endblocktranslate %}
+    · <small>{{ card.state.get_direction_display }}</small>
+  </p>
+
+  <article class="flashcard">
+    <div class="card-front">
+      <p class="card-question">
+        <span class="card-main">{{ card.question.0 }}</span>
+        {% if card.question|length > 1 %}
+          <span class="card-others">({% translate "také" %}: {{ card.question|slice:"1:"|join:", " }})</span>
+        {% endif %}
+      </p>
+      {% if card.front_hint %}<p class="card-hint">({{ card.front_hint }})</p>{% endif %}
+      {% if card.sentence_on_front %}<p class="card-sentence">„{{ card.sentence }}“</p>{% endif %}
+    </div>
+
+    <div class="card-back" hidden>
+      <hr>
+      <p class="card-answer">
+        {{ card.answer|join:" · " }}
+        {% if card.term.meaning_hint %}<small class="hint">({{ card.term.meaning_hint }})</small>{% endif %}
+      </p>
+      {% if card.sentence and not card.sentence_on_front %}
+        <p class="card-sentence">„{{ card.sentence }}“</p>
+      {% endif %}
+      {% if card.source or card.other_occurrences %}
+        <p class="muted card-meta">
+          {% if card.source %}{{ card.source }}{% endif %}
+          {% if card.other_occurrences %}
+            {% if card.source %} · {% endif %}{% blocktranslate count counter=card.other_occurrences %}+{{ counter }} další výskyt{% plural %}+{{ counter }} dalších výskytů{% endblocktranslate %}
+          {% endif %}
+        </p>
+      {% endif %}
+      {% if card.other_meanings %}
+        <p class="muted">
+          {% translate "Další významy:" %}
+          {% for hint, natives in card.other_meanings %}{{ natives|join:" · " }}{% if hint %} ({{ hint }}){% endif %}{% if not forloop.last %}; {% endif %}{% endfor %}
+        </p>
+      {% endif %}
+      {% if card.also %}
+        <p class="muted">
+          {% blocktranslate with word=card.question.0 others=card.also|join:", " %}„{{ word }}“ je i: {{ others }}{% endblocktranslate %}
+        </p>
+      {% endif %}
+      {% if card.term.note %}<p class="card-note">{{ card.term.note|linebreaksbr }}</p>{% endif %}
+    </div>
+  </article>
+
+  <button type="button" class="card-show" data-action="flip">
+    {% translate "Ukázat" %} <kbd class="hotkey">␣</kbd>
+  </button>
+
+  {% url 'study:answer' session.pk as answer_url %}
+  <form class="ratings" method="post" action="{{ answer_url }}"
+        hx-post="{{ answer_url }}" hx-target="#card" hx-swap="outerHTML" hidden>
+    {% csrf_token %}
+    <input type="hidden" name="state" value="{{ card.state.pk }}">
+    <input type="hidden" name="reviews_count" value="{{ card.state.reviews_count }}">
+    <input type="hidden" name="think_ms" value="">
+    <input type="hidden" name="decide_ms" value="">
+    {% for rating, next_interval in card.preview %}
+      <button type="submit" name="rating" value="{{ rating.key }}"
+              class="rating rating-{{ rating.key }}" data-hotkey="{{ rating.hotkey }}"
+              title="{{ rating.label }}"
+              aria-label="{% blocktranslate with label=rating.label when=next_interval|interval %}{{ label }}, opakovat za {{ when }}{% endblocktranslate %}">
+        <span class="rating-emoji" aria-hidden="true">{{ rating.emoji }}</span>
+        <span class="rating-interval">{{ next_interval|interval }}</span>
+        <kbd class="hotkey">{{ rating.hotkey }}</kbd>
+      </button>
+    {% endfor %}
+  </form>
+</div>

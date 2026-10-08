@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Nastavení" %} · Vokie{% endblock %}
+
+{% block content %}
+  <nav aria-label="breadcrumb">
+    <ul>
+      <li><a href="{% url 'dashboard' %}">{% translate "Přehled" %}</a></li>
+      <li>{% translate "Nastavení" %}</li>
+    </ul>
+  </nav>
+
+  <article class="form-box">
+    <header>
+      <h1>{% translate "Nastavení" %}</h1>
+      <p class="muted">{{ user.email }}</p>
+    </header>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form.native_language.as_field_group }}
+      <fieldset>
+        <legend>{{ form.default_direction.label }}</legend>
+        {% for radio in form.default_direction %}
+          <label>{{ radio.tag }} {{ radio.choice_label }}</label>
+        {% endfor %}
+        <small>{{ form.default_direction.help_text }}</small>
+      </fieldset>
+      <button type="submit">{% translate "Uložit" %}</button>
+    </form>
+  </article>
+{% endblock %}

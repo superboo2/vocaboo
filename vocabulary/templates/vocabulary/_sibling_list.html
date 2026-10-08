@@ -1,0 +1,30 @@
+{% load i18n %}
+{# List of decks with the same parent and arrows to change their order. #}
+{# HTMX replaces the whole list after a click; without JavaScript the forms still work. #}
+<ul id="sibling-list" class="sibling-list">
+  {% for item in decks %}
+    {% url 'vocabulary:deck_reorder' item.pk 'up' as up_url %}
+    {% url 'vocabulary:deck_reorder' item.pk 'down' as down_url %}
+    <li>
+      <a href="{% url 'vocabulary:deck_detail' item.pk %}">{{ item.name }}</a>
+      {% if decks|length > 1 %}
+        <span class="reorder">
+          <form method="post" action="{{ up_url }}"
+                hx-post="{{ up_url }}" hx-target="#sibling-list" hx-swap="outerHTML">
+            {% csrf_token %}
+            <button type="submit" class="outline secondary"
+                    aria-label="{% blocktranslate with name=item.name %}Posunout {{ name }} výš{% endblocktranslate %}"
+                    {% if forloop.first %}disabled{% endif %}>↑</button>
+          </form>
+          <form method="post" action="{{ down_url }}"
+                hx-post="{{ down_url }}" hx-target="#sibling-list" hx-swap="outerHTML">
+            {% csrf_token %}
+            <button type="submit" class="outline secondary"
+                    aria-label="{% blocktranslate with name=item.name %}Posunout {{ name }} níž{% endblocktranslate %}"
+                    {% if forloop.last %}disabled{% endif %}>↓</button>
+          </form>
+        </span>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ul>

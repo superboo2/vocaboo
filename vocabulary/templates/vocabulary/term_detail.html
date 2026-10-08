@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load i18n study_tags %}
+
+{% block title %}{{ term.main_foreign }} · Vokie{% endblock %}
+
+{% block content %}
+  {% include "vocabulary/_breadcrumbs.html" with current=term.main_foreign %}
+
+  <hgroup>
+    <h1>
+      {{ term.foreign_variants|join:" · " }}
+      {% if term.meaning_hint %}<small class="hint">({{ term.meaning_hint }})</small>{% endif %}
+    </h1>
+    <p>→ {{ term.native_variants|join:" · " }}</p>
+  </hgroup>
+
+  {% if term.note %}<p>{{ term.note|linebreaksbr }}</p>{% endif %}
+
+  <div class="actions">
+    <a href="{% url 'vocabulary:term_edit' deck.pk deck_term.pk %}" role="button" class="outline">{% translate "Upravit" %}</a>
+    <a href="{% url 'vocabulary:term_remove' deck.pk deck_term.pk %}" role="button" class="outline secondary">{% translate "Odebrat z tohoto slovníku" %}</a>
+  </div>
+
+  <section>
+    <h2>{% translate "Ve slovnících" %}</h2>
+    <ul class="term-list">
+      {% for item in in_decks %}
+        <li>
+          <a href="{% url 'vocabulary:deck_detail' item.deck.pk %}">{{ item.deck.name }}</a>
+          {% if item.context_sentence %}
+            <div class="term-context muted">„{{ item.context_sentence }}“{% if item.context_source %} <small>· {{ item.context_source }}</small>{% endif %}</div>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section>
+    <h2>{% translate "Opakování" %}</h2>
+    <div class="grid">
+      {% for row in history.directions %}
+        <article class="direction-box">
+          <header><strong>{{ row.label }}</strong></header>
+          {% with state=row.state %}
+            <p>
+              {% translate "Další opakování" %}: <strong>{{ state.due_at|due_text }}</strong>
+              {% if state.due_at %}<br><small class="muted">{{ state.due_at|date:"j. n. Y H:i" }}</small>{% endif %}
+            </p>
+            <p class="muted">
+              {% blocktranslate with total=row.total streak=state.correct_streak lapses=state.lapses %}V testu {{ total }}× · správně za sebou {{ streak }} · chyb {{ lapses }}{% endblocktranslate %}
+            </p>
+          {% endwith %}
+          {% if row.total %}
+            <p class="rating-counts">
+              {% for rating, count in row.counts %}
+                <span title="{{ rating.label }}"><span aria-hidden="true">{{ rating.emoji }}</span> {{ count }}×</span>
+              {% endfor %}
+            </p>
+          {% endif %}
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section>
+    <h2>{% translate "Historie odpovědí" %}</h2>
+    {% if history.logs %}
+      <div class="overflow-auto">
+        <table class="striped">
+          <thead>
+            <tr>
+              <th scope="col">{% translate "Kdy" %}</th>
+              <th scope="col">{% translate "Směr" %}</th>
+              <th scope="col">{% translate "Hodnocení" %}</th>
+              <th scope="col">{% translate "Interval" %}</th>
+              <th scope="col">{% translate "Přemýšlení" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for log in history.logs %}
+              <tr>
+                <td>{{ log.reviewed_at|date:"j. n. Y H:i" }}</td>
+                <td>{{ log.get_direction_display }}</td>
+                <td>{{ log.rating_label }}</td>
+                <td>{{ log.chosen_interval|interval }}</td>
+                <td>{{ log.think_ms|seconds }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="muted">{% translate "Slovíčko ještě nebylo v žádném testu." %}</p>
+    {% endif %}
+  </section>
+{% endblock %}

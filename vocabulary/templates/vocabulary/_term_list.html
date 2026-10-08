@@ -1,0 +1,43 @@
+{% load i18n %}
+{# Words in the deck. With oob=True HTMX swaps it "out of band" after adding a word. #}
+<div id="term-list"{% if oob %} hx-swap-oob="true"{% endif %}>
+  {% with count=deck_terms|length %}
+    <div class="list-head">
+      <h2>{% translate "Slovíčka" %} <small class="muted">({{ count }})</small></h2>
+      {% if count > 1 %}
+        <nav aria-label="{% translate 'Řazení' %}" class="sort-links">
+          {% for key, label in sorts.items %}
+            <a href="?sort={{ key }}"{% if key == sort %} aria-current="true"{% endif %}>{{ label }}</a>
+          {% endfor %}
+        </nav>
+      {% endif %}
+    </div>
+
+    {% if count %}
+      <ul class="term-list">
+        {% for item in deck_terms %}
+          {% with term=item.term %}
+            {% with foreign=term.foreign_variants native=term.native_variants %}
+              <li>
+                <div class="term-texts">
+                  <a href="{% url 'vocabulary:term_detail' deck.pk item.pk %}" class="term-main">{{ foreign.0 }}</a>
+                  {% if foreign|length > 1 %}<small class="muted">· {{ foreign|slice:"1:"|join:" · " }}</small>{% endif %}
+                  {% if term.meaning_hint %}<small class="hint">({{ term.meaning_hint }})</small>{% endif %}
+                  <span class="muted" aria-hidden="true">→</span>
+                  <span>{{ native|join:" · " }}</span>
+                </div>
+                {% if item.context_sentence %}
+                  <div class="term-context muted">
+                    „{{ item.context_sentence }}“{% if item.context_source %} <small>· {{ item.context_source }}</small>{% endif %}
+                  </div>
+                {% endif %}
+              </li>
+            {% endwith %}
+          {% endwith %}
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="muted">{% translate "Zatím tu nejsou žádná slovíčka. Přidej první formulářem výše." %}</p>
+    {% endif %}
+  {% endwith %}
+</div>

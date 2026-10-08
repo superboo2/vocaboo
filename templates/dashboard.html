@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% translate "Přehled" %} · Vokie{% endblock %}
+
+{% block content %}
+  <script src="{% static 'vendor/sortable/Sortable.min.js' %}" defer></script>
+  <script src="{% static 'js/tree.js' %}" defer></script>
+  <div class="page-head">
+    <h1>{% translate "Přehled" %}</h1>
+    <div class="actions">
+      {% if roots %}<a href="{% url 'study:new' %}" role="button">{% translate "Spustit test" %}</a>{% endif %}
+      <a href="{% url 'vocabulary:deck_create' %}" role="button" class="outline">+ {% translate "Nový slovník" %}</a>
+    </div>
+  </div>
+
+  {% if roots %}
+    <p class="totals">
+      {% blocktranslate with due=totals.due new=totals.new words=totals.words %}Teď k opakování: <strong>{{ due }}</strong> · nových: <strong>{{ new }}</strong> · slovíček celkem: {{ words }}{% endblocktranslate %}
+    </p>
+    {# Error from drag and drop (tree.js), outside the tree so it stays after the tree reloads #}
+    <p id="tree-message" class="field-error" role="alert" hidden></p>
+    {# Drag a deck to move it: with the mouse right away, on a phone after holding it a moment #}
+    <div id="deck-tree">
+      <ul class="deck-tree deck-tree-root" data-parent-id="">
+        {% for deck in roots %}
+          {% include "vocabulary/_deck_node.html" %}
+        {% endfor %}
+      </ul>
+    </div>
+    <p class="muted tree-help">{% translate "Slovník přesuneš přetažením, na telefonu ho nejdřív chvilku podrž." %}</p>
+  {% else %}
+    <p>{% translate "Zatím nemáš žádné slovníky. Začni tím, že si jeden vytvoříš." %}</p>
+  {% endif %}
+{% endblock %}

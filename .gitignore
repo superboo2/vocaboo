@@ -1,0 +1,15 @@
+# Local settings with secrets
+.env
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Django
+staticfiles/
+media/
+
+# Tools
+.pytest_cache/
+.ruff_cache/

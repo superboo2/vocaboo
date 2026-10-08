@@ -1,0 +1,640 @@
+/* Small changes on top of Pico.css */
+
+/* Logout form sits inside the nav like a link */
+.inline-form {
+  margin: 0;
+}
+
+.inline-form button {
+  margin: 0;
+  padding: 0.4rem 0.8rem;
+}
+
+/* Not enough space for the email on small phones */
+@media (max-width: 576px) {
+  .nav-user {
+    display: none;
+  }
+}
+
+/* Django messages */
+.messages .message {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  border-left: 0.25rem solid var(--pico-primary);
+}
+
+.messages .message-success {
+  border-left-color: var(--pico-ins-color);
+}
+
+.messages .message-error {
+  border-left-color: var(--pico-del-color);
+}
+
+.message-close {
+  margin: 0;
+  padding: 0 0.5rem;
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+/* Narrow centered box, e.g. login */
+.narrow {
+  max-width: 26rem;
+  margin: 2rem auto;
+}
+
+/* Helpers */
+.muted {
+  color: var(--pico-muted-color);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: var(--pico-spacing);
+}
+
+.actions [role="button"],
+.actions button {
+  margin: 0;
+  width: auto;
+}
+
+/* Pico has no red button, used for delete */
+button.danger {
+  background-color: var(--pico-del-color);
+  border-color: var(--pico-del-color);
+  color: #fff;
+}
+
+/* Page title with a button on the right */
+.page-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  margin-bottom: var(--pico-spacing);
+}
+
+.page-head h1 {
+  margin: 0;
+}
+
+/* Form pages */
+.form-box {
+  max-width: 40rem;
+}
+
+/* Language pair, e.g. (EN → CS) */
+.pair {
+  color: var(--pico-muted-color);
+  white-space: nowrap;
+}
+
+/* Deck tree (dashboard and test setup) */
+.deck-tree {
+  list-style: none;
+  margin: 0;
+  /* A line on the left shows what belongs under which folder */
+  margin-left: 0.7rem;
+  padding-left: 0.9rem;
+  border-left: 1px solid var(--pico-muted-border-color);
+}
+
+.deck-tree-root {
+  margin-left: 0;
+  padding-left: 0;
+  border-left: 0;
+}
+
+.deck-tree li {
+  list-style: none;
+  margin: 0;
+}
+
+.deck-tree details {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+/* One row: icon, name, language pair, counts on the right */
+.deck-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0 0.4rem;
+  min-height: 2.25rem;
+  padding: 0.2rem 0;
+  line-height: 1.4;
+}
+
+.deck-tree summary.deck-row {
+  cursor: pointer;
+  list-style: none;
+}
+
+/* No Pico arrow on the right and no browser marker, the folder icon is enough */
+.deck-tree summary.deck-row::after {
+  display: none;
+}
+
+.deck-tree summary.deck-row::-webkit-details-marker {
+  display: none;
+}
+
+/* Pico adds space under an open summary; rows of the tree should be even */
+.deck-tree details[open] > summary.deck-row {
+  margin-bottom: 0;
+}
+
+.deck-icon {
+  width: 1.4rem;
+  flex: none;
+  text-align: center;
+}
+
+.deck-icon-folder::before {
+  content: "📁";
+}
+
+.deck-tree details[open] > summary .deck-icon-folder::before {
+  content: "📂";
+}
+
+.deck-row .deck-counts {
+  margin-left: auto;
+}
+
+/* List of sibling decks with order arrows */
+.sibling-list {
+  padding-left: 0;
+}
+
+.sibling-list li {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.25rem 0;
+  border-bottom: 1px solid var(--pico-muted-border-color);
+}
+
+.reorder {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.reorder form {
+  margin: 0;
+}
+
+.reorder button {
+  margin: 0;
+  padding: 0.25rem 0.75rem;
+}
+
+/* Breadcrumbs that can wrap to more lines on phones.
+   Pico's own breadcrumb style fits only one line, so it is replaced here. */
+nav[aria-label="breadcrumb"] {
+  margin-bottom: var(--pico-spacing);
+}
+
+nav[aria-label="breadcrumb"] ul {
+  flex-wrap: wrap;
+  column-gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+nav[aria-label="breadcrumb"] ul li {
+  padding: 0.25rem 0;
+}
+
+nav[aria-label="breadcrumb"] ul li:not(:first-child) {
+  margin-inline-start: 0;
+}
+
+nav[aria-label="breadcrumb"] ul li a {
+  margin: 0;
+  padding: 0;
+}
+
+nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
+  position: static;
+  width: auto;
+  margin: 0 0 0 0.5rem;
+}
+
+/* Words in a deck */
+.term-form-box {
+  margin-bottom: var(--pico-spacing);
+}
+
+.term-form-box form {
+  margin: 0;
+}
+
+.term-added {
+  color: var(--pico-ins-color);
+  margin-bottom: 0.5rem;
+}
+
+.list-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.25rem 1rem;
+}
+
+.sort-links {
+  display: flex;
+  gap: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.sort-links a[aria-current] {
+  font-weight: bold;
+  text-decoration: none;
+  color: inherit;
+}
+
+.term-list {
+  padding-left: 0;
+}
+
+.term-list li {
+  list-style: none;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--pico-muted-border-color);
+}
+
+.term-main {
+  font-weight: bold;
+}
+
+.hint {
+  font-style: italic;
+}
+
+.term-context {
+  font-size: 0.875rem;
+  margin-top: 0.15rem;
+}
+
+/* Error text under a form field */
+.field-error {
+  color: var(--pico-del-color);
+}
+
+/* Duplicate hints under the word form */
+.term-check {
+  padding: 0.75rem 1rem;
+  margin-bottom: var(--pico-spacing);
+  border-left: 0.25rem solid var(--pico-primary);
+  background: var(--pico-card-sectioning-background-color);
+  border-radius: var(--pico-border-radius);
+}
+
+.term-check p {
+  margin-bottom: 0.5rem;
+}
+
+.term-check .check-block {
+  font-weight: bold;
+}
+
+.check-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.check-actions button {
+  margin: 0;
+  width: auto;
+  padding: 0.35rem 0.75rem;
+}
+
+/* Test screen */
+.study {
+  max-width: 34rem;
+  margin: 0 auto;
+}
+
+.legend {
+  padding: 0.75rem 1rem;
+  margin-bottom: var(--pico-spacing);
+  border-left: 0.25rem solid var(--pico-primary);
+  background: var(--pico-card-sectioning-background-color);
+  border-radius: var(--pico-border-radius);
+}
+
+.legend p {
+  margin-bottom: 0.5rem;
+}
+
+.legend button {
+  margin: 0;
+  width: auto;
+  padding: 0.35rem 0.75rem;
+}
+
+.card-progress {
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.flashcard {
+  min-height: 12rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: var(--pico-spacing);
+}
+
+.card-question {
+  margin-bottom: 0.5rem;
+}
+
+.card-main {
+  display: block;
+  font-size: 2rem;
+  font-weight: bold;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.card-others,
+.card-hint {
+  color: var(--pico-muted-color);
+}
+
+.card-sentence {
+  font-style: italic;
+}
+
+.card-sentence mark {
+  font-style: normal;
+  font-weight: bold;
+}
+
+.card-answer {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.card-meta,
+.card-note {
+  font-size: 0.875rem;
+}
+
+.card-show {
+  width: 100%;
+  min-height: 3.5rem;
+}
+
+/* Rating buttons: one row of four, big enough for a thumb */
+.ratings {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.rating {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+  min-height: 4.5rem;
+  margin: 0;
+  padding: 0.5rem 0.25rem;
+  /* Inside a button Pico's colour variables mean the blue button, so use the page text colour */
+  color: inherit;
+  border: 1px solid var(--pico-muted-border-color);
+}
+
+.rating-emoji {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.rating-interval {
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+/* Soft colours, see-through so they work on light and dark background.
+   The emoji and the time are always there too, colour is never the only sign. */
+.rating-ok {
+  background-color: color-mix(in srgb, #2e9e4f 28%, transparent);
+}
+
+.rating-think {
+  background-color: color-mix(in srgb, #8cc63f 28%, transparent);
+}
+
+.rating-partial {
+  background-color: color-mix(in srgb, #f0a030 28%, transparent);
+}
+
+.rating-dontknow {
+  background-color: color-mix(in srgb, #d9453d 28%, transparent);
+}
+
+.rating:hover {
+  filter: brightness(0.95);
+}
+
+/* Key hints only make sense with a keyboard */
+.hotkey {
+  font-size: 0.65rem;
+  padding: 0.05rem 0.3rem;
+}
+
+.rating .hotkey {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.3rem;
+}
+
+@media (hover: none) {
+  .hotkey {
+    display: none;
+  }
+}
+
+.study-footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.study-footer form {
+  margin: 0;
+}
+
+.study-footer button {
+  margin: 0;
+  width: auto;
+  padding: 0.35rem 0.9rem;
+}
+
+/* Test setup: deck tree with checkboxes */
+.deck-pick label {
+  margin: 0.25rem 0;
+}
+
+/* Summary */
+.summary-counts {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  padding: 0;
+}
+
+.summary-counts li {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem 0.25rem;
+  border-radius: var(--pico-border-radius);
+  text-align: center;
+}
+
+/* Dashboard numbers */
+.totals {
+  margin-bottom: var(--pico-spacing);
+}
+
+.deck-counts {
+  color: var(--pico-muted-color);
+  white-space: nowrap;
+}
+
+/* Word page */
+.direction-box {
+  margin-bottom: var(--pico-spacing);
+}
+
+.direction-box p {
+  margin-bottom: 0.5rem;
+}
+
+.rating-counts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Accessibility */
+
+/* Hidden until it gets keyboard focus */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 10;
+  padding: 0.5rem 1rem;
+  background: var(--pico-background-color);
+  border: 2px solid var(--pico-primary);
+  border-radius: var(--pico-border-radius);
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+main:focus {
+  outline: none;
+}
+
+/* Clear focus ring for keyboard users on our own buttons and links */
+.rating:focus-visible,
+.card-show:focus-visible,
+.sibling-list a:focus-visible,
+.deck-tree a:focus-visible,
+.term-list a:focus-visible {
+  outline: 3px solid var(--pico-primary);
+  outline-offset: 2px;
+}
+
+/* Drag and drop in the dashboard tree */
+
+/* A long press on a phone must start dragging, not select text or open a link menu */
+#deck-tree .deck-row {
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+}
+
+/* While dragging: where the deck would land */
+.drop-into > .deck-row,
+.drop-into > details > .deck-row {
+  background: color-mix(in srgb, var(--pico-primary) 18%, transparent);
+  outline: 2px solid var(--pico-primary);
+  border-radius: var(--pico-border-radius);
+}
+
+.drop-before > .deck-row,
+.drop-before > details > .deck-row {
+  box-shadow: inset 0 3px 0 var(--pico-primary);
+}
+
+.drop-after > .deck-row,
+.drop-after > details > .deck-row {
+  box-shadow: inset 0 -3px 0 var(--pico-primary);
+}
+
+/* The copy under the pointer must not hide the row under it from elementFromPoint */
+.sortable-fallback {
+  pointer-events: none;
+}
+
+/* The deck being dragged and its place */
+.sortable-ghost {
+  opacity: 0.4;
+}
+
+/* The dragged copy: only its own row, small and see-through */
+.sortable-fallback {
+  max-width: 18rem;
+  max-height: 2.4rem;
+  overflow: hidden;
+  opacity: 0.9;
+  padding: 0 0.5rem;
+  background: var(--pico-card-background-color);
+  box-shadow: var(--pico-card-box-shadow);
+  border-radius: var(--pico-border-radius);
+}
+
+.sortable-fallback summary::after,
+.sortable-fallback .deck-counts {
+  display: none;
+}
+
+.tree-help {
+  font-size: 0.875rem;
+  margin-top: 0.75rem;
+}

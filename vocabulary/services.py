@@ -1,0 +1,751 @@
+"""Business logic for vocabulary: deck tree rules and words.
+
+Views call these functions and never change decks directly. Errors are raised as
+ValidationError with a message that can be shown to the user.
+"""
+
+import re
+import unicodedata
+from dataclasses import dataclass, field
+from functools import reduce
+from operator import or_
+
+from django.core.exceptions import ValidationError
+from django.db import transaction
+from django.db.models import F, Max, Min, Q
+from django.db.models.functions import Lower
+from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
+
+from study.models import Direction, ReviewState
+
+from .models import Deck, DeckTerm, Term, TermVariant
+
+# Maximum number of levels in the deck tree (root = level 1)
+MAX_DEPTH = 5
+
+
+# Reading the tree
+
+
+def load_tree(owner):
+    """Load all decks of the user with one query and link them into a tree.
+
+    Every deck gets `tree_children` (list of decks) and `depth` (root = 1).
+    Returns the list of root decks in their order.
+    """
+    decks = list(
+        Deck.objects.filter(owner=owner).select_related("foreign_language", "native_language")
+    )
+    by_id = {deck.pk: deck for deck in decks}
+    roots = []
+    for deck in decks:
+        deck.tree_children = []
+    # Decks come sorted by position, so children are added in the right order
+    for deck in decks:
+        if deck.parent_id is None:
+            roots.append(deck)
+        else:
+            by_id[deck.parent_id].tree_children.append(deck)
+    _set_depth(roots, 1)
+    return roots
+
+
+def _set_depth(decks, depth):
+    for deck in decks:
+        deck.depth = depth
+        _set_depth(deck.tree_children, depth + 1)
+
+
+def iter_tree(roots, path=()):
+    """Go through the tree depth first. Yields (deck, path) where path ends with the deck."""
+    for deck in roots:
+        deck_path = (*path, deck)
+        yield deck, deck_path
+        yield from iter_tree(deck.tree_children, deck_path)
+
+
+def get_ancestors(deck):
+    """Return the path from the root to the deck, the deck included."""
+    path = [deck]
+    current = deck
+    while current.parent_id is not None:
+        current = current.parent
+        path.append(current)
+    path.reverse()
+    return path
+
+
+def get_depth(deck):
+    return len(get_ancestors(deck))
+
+
+def get_descendant_ids(deck, include_self=True):
+    """Return ids of all decks under the deck (one query per tree level)."""
+    ids = [deck.pk] if include_self else []
+    level = [deck.pk]
+    while level:
+        level = list(Deck.objects.filter(parent_id__in=level).values_list("pk", flat=True))
+        ids.extend(level)
+    return ids
+
+
+def get_subtree_height(deck):
+    """Number of levels from the deck down to its deepest child (deck alone = 1)."""
+    height = 1
+    level = [deck.pk]
+    while True:
+        level = list(Deck.objects.filter(parent_id__in=level).values_list("pk", flat=True))
+        if not level:
+            return height
+        height += 1
+
+
+def get_siblings(deck):
+    """Decks with the same parent (the deck included), in their order."""
+    return list(Deck.objects.filter(owner_id=deck.owner_id, parent_id=deck.parent_id))
+
+
+def can_add_child(deck):
+    return get_depth(deck) < MAX_DEPTH
+
+
+def get_move_targets(deck):
+    """Decks where this deck can be moved to, as a list of (deck, path).
+
+    Moving to the top level (no parent) is always possible and is not in the list.
+    """
+    excluded = set(get_descendant_ids(deck))
+    height = get_subtree_height(deck)
+    targets = []
+    for target, path in iter_tree(load_tree(deck.owner)):
+        if target.pk in excluded:
+            continue
+        if not _same_languages(target, deck):
+            continue
+        if target.depth + height > MAX_DEPTH:
+            continue
+        targets.append((target, path))
+    return targets
+
+
+# Changing the tree
+
+
+@transaction.atomic
+def create_deck(
+    owner,
+    name,
+    *,
+    parent=None,
+    foreign_language=None,
+    native_language=None,
+    description="",
+):
+    """Create a root deck (languages needed) or a child deck (languages come from parent)."""
+    if parent is not None:
+        if parent.owner_id != owner.pk:
+            raise ValidationError(_("Nadřazený slovník patří jinému uživateli."))
+        if not can_add_child(parent):
+            raise ValidationError(
+                _("Slovníky můžou mít nejvýš %(max)d úrovní."), params={"max": MAX_DEPTH}
+            )
+        foreign_language = parent.foreign_language
+        native_language = parent.native_language
+    elif foreign_language is None or native_language is None:
+        raise ValidationError(_("Vyber, jaký jazyk se chceš naučit a jakým jazykem mluvíš."))
+
+    deck = Deck(
+        owner=owner,
+        parent=parent,
+        name=name.strip(),
+        description=description.strip(),
+        foreign_language=foreign_language,
+        native_language=native_language,
+        position=_next_position(owner.pk, parent.pk if parent else None),
+    )
+    deck.full_clean()
+    deck.save()
+    return deck
+
+
+@transaction.atomic
+def update_deck(deck, *, name, description=""):
+    deck.name = name.strip()
+    deck.description = description.strip()
+    deck.full_clean()
+    deck.save()
+    return deck
+
+
+def _check_move(deck, new_parent):
+    """Raise ValidationError when the deck cannot go under new_parent (None = top level)."""
+    if new_parent is None:
+        return
+    if new_parent.owner_id != deck.owner_id:
+        raise ValidationError(_("Cílový slovník patří jinému uživateli."))
+    if new_parent.pk in get_descendant_ids(deck):
+        raise ValidationError(_("Slovník nejde přesunout do sebe ani do svého podslovníku."))
+    if not _same_languages(new_parent, deck):
+        raise ValidationError(
+            _("Slovník jde přesunout jen pod slovník se stejným jazykovým párem.")
+        )
+    if get_depth(new_parent) + get_subtree_height(deck) > MAX_DEPTH:
+        raise ValidationError(
+            _("Po přesunu by strom měl víc než %(max)d úrovní."), params={"max": MAX_DEPTH}
+        )
+
+
+@transaction.atomic
+def move_deck(deck, new_parent):
+    """Move the deck (with all its children) under another deck, or to the top level."""
+    new_parent_id = new_parent.pk if new_parent is not None else None
+    if new_parent_id == deck.parent_id:
+        return deck
+    _check_move(deck, new_parent)
+
+    deck.parent = new_parent
+    deck.position = _next_position(deck.owner_id, new_parent_id)
+    deck.full_clean()
+    deck.save()
+    return deck
+
+
+@transaction.atomic
+def place_deck(deck, new_parent, index):
+    """Put the deck under new_parent (None = top level) at the given place among its siblings.
+
+    Used by drag and drop in the tree: index 0 is the first place.
+    """
+    new_parent_id = new_parent.pk if new_parent is not None else None
+    if new_parent_id != deck.parent_id:
+        _check_move(deck, new_parent)
+        deck.parent = new_parent
+        # Checks the name: it must not exist in the new folder yet
+        deck.full_clean()
+
+    siblings = list(
+        Deck.objects.filter(owner_id=deck.owner_id, parent_id=new_parent_id).exclude(pk=deck.pk)
+    )
+    index = max(0, min(index, len(siblings)))
+    siblings.insert(index, deck)
+    for position, sibling in enumerate(siblings):
+        sibling.position = position
+    deck.save()
+    Deck.objects.bulk_update(siblings, ["position"])
+    return deck
+
+
+def move_deck_up(deck):
+    _shift_deck(deck, -1)
+
+
+def move_deck_down(deck):
+    _shift_deck(deck, 1)
+
+
+@transaction.atomic
+def _shift_deck(deck, step):
+    siblings = get_siblings(deck)
+    index = next(i for i, sibling in enumerate(siblings) if sibling.pk == deck.pk)
+    new_index = index + step
+    if not 0 <= new_index < len(siblings):
+        return
+    siblings[index], siblings[new_index] = siblings[new_index], siblings[index]
+    # Renumber all siblings, so positions stay unique and without gaps
+    for position, sibling in enumerate(siblings):
+        sibling.position = position
+    Deck.objects.bulk_update(siblings, ["position"])
+
+
+def count_terms_deleted_with_deck(deck):
+    """How many words would be deleted with the deck: words that are in no other deck."""
+    ids = get_descendant_ids(deck)
+    inside = Term.objects.filter(deck_terms__deck_id__in=ids).distinct()
+    elsewhere = DeckTerm.objects.filter(term__in=inside).exclude(deck_id__in=ids)
+    return inside.exclude(pk__in=elsewhere.values("term_id")).count()
+
+
+@transaction.atomic
+def delete_deck(deck):
+    """Delete the deck with all its children and the words that stay in no deck.
+
+    Returns (number of deleted decks, number of deleted words).
+    """
+    ids = get_descendant_ids(deck)
+    term_ids = list(
+        DeckTerm.objects.filter(deck_id__in=ids).values_list("term_id", flat=True).distinct()
+    )
+    deck.delete()
+    _total, details = Term.objects.filter(pk__in=term_ids, deck_terms__isnull=True).delete()
+    return len(ids), _count_deleted(details, Term)
+
+
+# Words
+
+MAX_VARIANT_LENGTH = 200
+
+
+def clean_text(text):
+    """Tidy user input: one Unicode form (NFC), no spaces at the ends, single spaces inside.
+
+    NFC matters because "č" can come as one character or as "c" + a separate hook,
+    which look the same but would not be equal.
+    """
+    text = unicodedata.normalize("NFC", text or "")
+    return re.sub(r"\s+", " ", text).strip()
+
+
+def parse_variants(text):
+    """Split "hello; hi" into ["hello", "hi"]. Empty and repeated variants are dropped."""
+    variants = []
+    seen = set()
+    for part in clean_text(text).split(";"):
+        part = part.strip()
+        key = part.lower()
+        if part and key not in seen:
+            seen.add(key)
+            variants.append(part)
+    return variants
+
+
+def add_term(
+    deck,
+    *,
+    foreign,
+    native,
+    context_sentence="",
+    context_source="",
+    meaning_hint="",
+    note="",
+    origin=Term.Origin.MANUAL,
+    existing_hints=None,
+):
+    """Create a new word in the deck. Returns the DeckTerm.
+
+    foreign and native are texts like "hello; hi". Creates the word, its variants,
+    the link to the deck and the review states for both directions in one transaction.
+
+    existing_hints ({term id: hint}) gives a meaning to words with the same text that do
+    not have one yet, e.g. when "palm (strom)" is added and "palm" already exists.
+    """
+    foreign_variants = _parse_side(foreign, "foreign")
+    native_variants = _parse_side(native, "native")
+    meaning_hint = clean_text(meaning_hint)
+    _check_no_duplicate(
+        deck.owner_id,
+        deck.foreign_language_id,
+        deck.native_language_id,
+        foreign_variants[0],
+        meaning_hint,
+    )
+    hint_updates = _check_homonyms(
+        deck.owner_id,
+        deck.foreign_language_id,
+        deck.native_language_id,
+        foreign_variants[0],
+        meaning_hint,
+        existing_hints=existing_hints or {},
+    )
+
+    with transaction.atomic():
+        for other, hint in hint_updates:
+            other.meaning_hint = hint
+            other.save(update_fields=["meaning_hint"])
+        term = Term(
+            owner_id=deck.owner_id,
+            foreign_language_id=deck.foreign_language_id,
+            native_language_id=deck.native_language_id,
+            main_foreign=foreign_variants[0],
+            meaning_hint=meaning_hint,
+            note=clean_text(note),
+            origin=origin,
+        )
+        term.save()
+        _save_variants(term, foreign_variants, native_variants)
+        deck_term = DeckTerm(
+            deck=deck,
+            term=term,
+            context_sentence=clean_text(context_sentence),
+            context_source=clean_text(context_source),
+        )
+        deck_term.full_clean(exclude=["deck", "term"])
+        deck_term.save()
+        ReviewState.objects.bulk_create(
+            ReviewState(term=term, direction=direction) for direction in Direction.values
+        )
+    return deck_term
+
+
+@transaction.atomic
+def update_term(term, *, foreign, native, meaning_hint="", note=""):
+    """Change the texts of a word. The variants are replaced by the new ones."""
+    foreign_variants = _parse_side(foreign, "foreign")
+    native_variants = _parse_side(native, "native")
+    meaning_hint = clean_text(meaning_hint)
+    _check_no_duplicate(
+        term.owner_id,
+        term.foreign_language_id,
+        term.native_language_id,
+        foreign_variants[0],
+        meaning_hint,
+        exclude_pk=term.pk,
+    )
+    _check_homonyms(
+        term.owner_id,
+        term.foreign_language_id,
+        term.native_language_id,
+        foreign_variants[0],
+        meaning_hint,
+        exclude_pk=term.pk,
+        require_existing=False,
+    )
+
+    term.main_foreign = foreign_variants[0]
+    term.meaning_hint = meaning_hint
+    term.note = clean_text(note)
+    term.save()
+    term.variants.all().delete()
+    _save_variants(term, foreign_variants, native_variants)
+    return term
+
+
+@transaction.atomic
+def update_deck_term(deck_term, *, context_sentence="", context_source=""):
+    """Change the sentence and the source of a word in one deck."""
+    deck_term.context_sentence = clean_text(context_sentence)
+    deck_term.context_source = clean_text(context_source)
+    deck_term.full_clean(exclude=["deck", "term"])
+    deck_term.save()
+    return deck_term
+
+
+def term_is_only_in(deck_term):
+    """True when the word is in no other deck, so removing it deletes the word."""
+    return not DeckTerm.objects.filter(term_id=deck_term.term_id).exclude(pk=deck_term.pk).exists()
+
+
+@transaction.atomic
+def remove_term_from_deck(deck_term):
+    """Remove the word from the deck. A word in no other deck is deleted.
+
+    Returns True when the word was deleted.
+    """
+    term = deck_term.term
+    deck_term.delete()
+    if not term.deck_terms.exists():
+        term.delete()
+        return True
+    return False
+
+
+# Duplicates
+
+
+@dataclass
+class TermMatch:
+    """An existing word that looks like the word being typed."""
+
+    term: Term
+    deck_names: list
+    # The DeckTerm when the word is already in the checked deck
+    in_deck: DeckTerm | None
+    # Typed variants the existing word does not have yet
+    new_foreign: list
+    new_native: list
+
+
+@dataclass
+class DuplicateCheck:
+    """What the user should know before saving a new word. See spec 5.1."""
+
+    # Typed meaning hint (cleaned)
+    hint: str = ""
+    # Same main text and same meaning: the new word cannot be saved
+    exact: TermMatch | None = None
+    # Same main text, other meaning (homonyms), e.g. palm (ruka) when typing palm
+    meanings: list = field(default_factory=list)
+    # Other words that share a foreign variant
+    foreign: list = field(default_factory=list)
+    # Words that share only a translation
+    native: list = field(default_factory=list)
+    # Same letters when accents are ignored, e.g. "cau" and "čau"
+    similar: list = field(default_factory=list)
+    # Words with the same text and no meaning hint; they need one for a new meaning
+    need_hint: list = field(default_factory=list)
+
+    @property
+    def blocks(self):
+        # A new meaning of an existing word cannot be saved without a meaning hint
+        return self.exact is not None or (bool(self.meanings) and not self.hint)
+
+    def __bool__(self):
+        return bool(self.exact or self.meanings or self.foreign or self.native or self.similar)
+
+
+def find_duplicates(deck, *, foreign="", native="", meaning_hint=""):
+    """Look for words of the user that look like the typed one.
+
+    Compares every typed variant with every variant of existing words: first with letter
+    case ignored, then also with accents ignored (PostgreSQL unaccent).
+    """
+    foreign_variants = parse_variants(foreign)
+    native_variants = parse_variants(native)
+    meaning_hint = clean_text(meaning_hint)
+    check = DuplicateCheck(hint=meaning_hint)
+    if not foreign_variants and not native_variants:
+        return check
+
+    conditions = [
+        Q(variants__side=side, variants__text__unaccent__iexact=text)
+        for side, texts in (
+            (TermVariant.Side.FOREIGN, foreign_variants),
+            (TermVariant.Side.NATIVE, native_variants),
+        )
+        for text in texts
+    ]
+    candidates = (
+        Term.objects.filter(
+            reduce(or_, conditions),
+            owner_id=deck.owner_id,
+            foreign_language_id=deck.foreign_language_id,
+            native_language_id=deck.native_language_id,
+        )
+        .distinct()
+        .prefetch_related("variants", "deck_terms__deck")
+        .order_by("main_foreign", "meaning_hint")
+    )
+
+    typed_foreign = {text.lower() for text in foreign_variants}
+    typed_native = {text.lower() for text in native_variants}
+    main = foreign_variants[0].lower() if foreign_variants else None
+
+    for term in candidates:
+        has_foreign = {text.lower() for text in term.foreign_variants}
+        has_native = {text.lower() for text in term.native_variants}
+        deck_terms = list(term.deck_terms.all())
+        match = TermMatch(
+            term=term,
+            deck_names=[item.deck.name for item in deck_terms],
+            in_deck=next((item for item in deck_terms if item.deck_id == deck.pk), None),
+            new_foreign=[v for v in foreign_variants if v.lower() not in has_foreign],
+            new_native=[v for v in native_variants if v.lower() not in has_native],
+        )
+        same_main = main is not None and term.main_foreign.lower() == main
+        if same_main and term.meaning_hint.lower() == meaning_hint.lower():
+            check.exact = match
+        elif same_main:
+            check.meanings.append(match)
+            if not term.meaning_hint:
+                check.need_hint.append(term)
+        elif typed_foreign & has_foreign:
+            check.foreign.append(match)
+        elif typed_native & has_native:
+            check.native.append(match)
+        else:
+            check.similar.append(match)
+    return check
+
+
+@transaction.atomic
+def link_term(deck, term, *, foreign="", native="", context_sentence="", context_source=""):
+    """Put an existing word into the deck and add the typed variants it does not have yet.
+
+    Used by "Přidat i sem" and "Přidat jako variantu". Returns (DeckTerm, added variants).
+    """
+    if (term.owner_id, term.foreign_language_id, term.native_language_id) != (
+        deck.owner_id,
+        deck.foreign_language_id,
+        deck.native_language_id,
+    ):
+        raise ValidationError(_("Slovíčko nepatří k tomuto slovníku."))
+
+    added = []
+    for side, text in ((TermVariant.Side.FOREIGN, foreign), (TermVariant.Side.NATIVE, native)):
+        variants = parse_variants(text)
+        if any(len(variant) > MAX_VARIANT_LENGTH for variant in variants):
+            raise ValidationError(
+                _("Varianta může mít nejvýš %(max)d znaků.") % {"max": MAX_VARIANT_LENGTH}
+            )
+        current = list(term.variants.filter(side=side))
+        known = {variant.text.lower() for variant in current}
+        position = max((variant.position for variant in current), default=-1) + 1
+        for variant in variants:
+            if variant.lower() in known:
+                continue
+            TermVariant.objects.create(term=term, side=side, text=variant, position=position)
+            known.add(variant.lower())
+            added.append(variant)
+            position += 1
+
+    deck_term = DeckTerm.objects.filter(deck=deck, term=term).first()
+    if deck_term is None:
+        deck_term = DeckTerm(
+            deck=deck,
+            term=term,
+            context_sentence=clean_text(context_sentence),
+            context_source=clean_text(context_source),
+        )
+        deck_term.full_clean(exclude=["deck", "term"])
+        deck_term.save()
+    return deck_term, added
+
+
+# Sort options for the word list in a deck
+TERM_SORTS = {
+    "added": gettext_lazy("podle přidání"),
+    "alpha": gettext_lazy("abecedně"),
+    "due": gettext_lazy("podle opakování"),
+}
+
+
+def list_deck_terms(deck, sort="added"):
+    """Words in one deck with their variants, ready to show."""
+    queryset = DeckTerm.objects.filter(deck=deck).select_related("term")
+    queryset = queryset.prefetch_related("term__variants")
+    if sort == "alpha":
+        queryset = queryset.order_by(Lower("term__main_foreign"), "pk")
+    elif sort == "due":
+        # The direction that comes back first decides; new words go last
+        queryset = queryset.annotate(next_due=Min("term__review_states__due_at")).order_by(
+            F("next_due").asc(nulls_last=True), "-added_at"
+        )
+    else:
+        queryset = queryset.order_by("-added_at", "-pk")
+    return queryset
+
+
+def _parse_side(text, field):
+    variants = parse_variants(text)
+    if not variants:
+        raise ValidationError({field: _("Zadej aspoň jednu variantu.")})
+    for variant in variants:
+        if len(variant) > MAX_VARIANT_LENGTH:
+            raise ValidationError(
+                {field: _("Varianta může mít nejvýš %(max)d znaků.") % {"max": MAX_VARIANT_LENGTH}}
+            )
+    return variants
+
+
+def _check_no_duplicate(
+    owner_id, foreign_language_id, native_language_id, main_foreign, meaning_hint, exclude_pk=None
+):
+    """Stop a second word with the same main text and meaning (ignoring letter case)."""
+    existing = Term.objects.filter(
+        owner_id=owner_id,
+        foreign_language_id=foreign_language_id,
+        native_language_id=native_language_id,
+        main_foreign__iexact=main_foreign,
+        meaning_hint__iexact=meaning_hint,
+    )
+    if exclude_pk is not None:
+        existing = existing.exclude(pk=exclude_pk)
+    term = existing.first()
+    if term is None:
+        return
+    deck_names = ", ".join(term.deck_terms.values_list("deck__name", flat=True))
+    raise ValidationError(
+        {
+            "foreign": _(
+                "Slovíčko „%(word)s“ už máš (%(decks)s). "
+                "Jestli jde o jiný význam, vyplň rozlišení významu."
+            )
+            % {"word": term.main_foreign, "decks": deck_names}
+        }
+    )
+
+
+def _check_homonyms(
+    owner_id,
+    foreign_language_id,
+    native_language_id,
+    main_foreign,
+    meaning_hint,
+    *,
+    existing_hints=None,
+    exclude_pk=None,
+    require_existing=True,
+):
+    """Words with the same text but another meaning must all have a meaning hint.
+
+    Returns a list of (word, new hint) for existing words that get their hint now.
+    """
+    others = Term.objects.filter(
+        owner_id=owner_id,
+        foreign_language_id=foreign_language_id,
+        native_language_id=native_language_id,
+        main_foreign__iexact=main_foreign,
+    ).prefetch_related("variants")
+    if exclude_pk is not None:
+        others = others.exclude(pk=exclude_pk)
+    others = list(others)
+    if not others:
+        return []
+
+    if not meaning_hint:
+        raise ValidationError(
+            {
+                "meaning_hint": _(
+                    "Slovíčko „%(word)s“ už máš v jiném významu, vyplň proto rozlišení významu."
+                )
+                % {"word": main_foreign}
+            }
+        )
+
+    updates = []
+    if not require_existing:
+        return updates
+    existing_hints = existing_hints or {}
+    for other in others:
+        if other.meaning_hint:
+            continue
+        hint = clean_text(existing_hints.get(other.pk, ""))
+        if not hint:
+            raise ValidationError(
+                {
+                    "meaning_hint": _(
+                        "Doplň rozlišení významu i u stávajícího slovíčka „%(word)s → %(native)s“."
+                    )
+                    % {"word": other.main_foreign, "native": " · ".join(other.native_variants)}
+                }
+            )
+        if hint.lower() == meaning_hint.lower():
+            raise ValidationError(
+                {"meaning_hint": _("Rozlišení nového a stávajícího slovíčka musí být různé.")}
+            )
+        updates.append((other, hint))
+    return updates
+
+
+def _save_variants(term, foreign_variants, native_variants):
+    TermVariant.objects.bulk_create(
+        [
+            TermVariant(term=term, side=side, text=text, position=position)
+            for side, variants in (
+                (TermVariant.Side.FOREIGN, foreign_variants),
+                (TermVariant.Side.NATIVE, native_variants),
+            )
+            for position, text in enumerate(variants)
+        ]
+    )
+
+
+# Helpers
+
+
+def _count_deleted(details, model):
+    return details.get(model._meta.label, 0)
+
+
+def _next_position(owner_id, parent_id):
+    last = Deck.objects.filter(owner_id=owner_id, parent_id=parent_id).aggregate(
+        last=Max("position")
+    )["last"]
+    return 0 if last is None else last + 1
+
+
+def _same_languages(a, b):
+    return (a.foreign_language_id, a.native_language_id) == (
+        b.foreign_language_id,
+        b.native_language_id,
+    )

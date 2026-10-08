@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{{ deck.name }} · Vokie{% endblock %}
+
+{% block content %}
+  {% include "vocabulary/_breadcrumbs.html" with current=deck.name %}
+
+  <hgroup>
+    <h1>{{ deck.name }}</h1>
+    <p>{{ deck.foreign_language.name }} → {{ deck.native_language.name }} <small class="pair">({{ deck.language_pair }})</small></p>
+  </hgroup>
+
+  {% if deck.description %}
+    <p>{{ deck.description|linebreaksbr }}</p>
+  {% endif %}
+
+  <div class="actions">
+    <a href="{% url 'study:new' %}?deck={{ deck.pk }}" role="button">{% translate "Testovat tento slovník" %}</a>
+    <a href="{% url 'vocabulary:deck_edit' deck.pk %}" role="button" class="outline">{% translate "Upravit" %}</a>
+    <a href="{% url 'vocabulary:deck_move' deck.pk %}" role="button" class="outline">{% translate "Přesunout" %}</a>
+    <a href="{% url 'vocabulary:deck_delete' deck.pk %}" role="button" class="outline secondary">{% translate "Smazat" %}</a>
+  </div>
+
+  <section>
+    <article class="term-form-box">
+      {% include "vocabulary/_term_form.html" %}
+    </article>
+    {% include "vocabulary/_term_list.html" %}
+  </section>
+
+  <section>
+    <h2>{% translate "Podslovníky" %}</h2>
+    {% if children %}
+      {% include "vocabulary/_sibling_list.html" with decks=children %}
+    {% else %}
+      <p class="muted">{% translate "Zatím žádné podslovníky." %}</p>
+    {% endif %}
+
+    {% if can_add_child %}
+      <a href="{% url 'vocabulary:deck_create_child' deck.pk %}" role="button" class="outline">+ {% translate "Přidat podslovník" %}</a>
+    {% else %}
+      <p class="muted">{% blocktranslate %}Tady už další podslovník nejde přidat, strom může mít nejvýš {{ max_depth }} úrovní.{% endblocktranslate %}</p>
+    {% endif %}
+  </section>
+{% endblock %}

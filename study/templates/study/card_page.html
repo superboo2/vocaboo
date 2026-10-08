@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load i18n static %}
+
+{% block title %}{% translate "Test" %} · Vokie{% endblock %}
+
+{% block content %}
+  <div class="study">
+    {# Legend of the buttons: shown at the first test, then only after clicking "?" #}
+    <aside id="legend" class="legend" hidden>
+      <p>
+        {% for rating in ratings %}<span>{{ rating.emoji }} {{ rating.label|lower }}</span>{% if not forloop.last %} · {% endif %}{% endfor %}
+      </p>
+      <p class="muted">{% translate "Mezerník otočí kartičku, klávesy 1–4 ji ohodnotí." %}</p>
+      <button type="button" class="outline secondary" data-action="close-legend">{% translate "Rozumím" %}</button>
+    </aside>
+
+    {% include "study/_card.html" %}
+
+    <div class="study-footer">
+      <button type="button" class="outline secondary" data-action="toggle-legend"
+              aria-label="{% translate 'Nápověda k tlačítkům' %}" title="{% translate 'Nápověda k tlačítkům' %}">?</button>
+      <form method="post" action="{% url 'study:finish' session.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="outline secondary">{% translate "Ukončit test" %}</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="{% static 'js/study.js' %}" defer></script>
+{% endblock %}

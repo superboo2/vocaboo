@@ -1,0 +1,111 @@
+{% load i18n %}
+{# Duplicate hints and the submit button. #}
+{# HTMX draws this part again while the user types in the first fields or the meaning field. #}
+{% url 'vocabulary:term_check' deck.pk as check_url %}
+<div id="term-check"
+     hx-post="{{ check_url }}"
+     hx-trigger="input delay:400ms from:#id_foreign, input delay:400ms from:#id_native, input delay:400ms from:#id_meaning_hint"
+     hx-include="#term-form"
+     hx-target="this"
+     hx-swap="outerHTML"
+     hx-sync="this:replace">
+
+  {% if check %}
+    <div class="term-check" role="status">
+
+      {% with match=check.exact %}
+        {% if match %}
+          {% if match.in_deck %}
+            <p class="check-block">
+              {% blocktranslate with word=match.term %}„{{ word }}“ už v tomto slovníku je.{% endblocktranslate %}
+              <a href="{% url 'vocabulary:term_edit' deck.pk match.in_deck.pk %}">{% translate "Upravit" %}</a>
+            </p>
+            <div class="check-actions">
+              {% if match.new_foreign or match.new_native %}
+                {% include "vocabulary/_term_link_button.html" with label=_("Přidat nové varianty") %}
+              {% endif %}
+              <button type="button" class="outline secondary" data-action="other-meaning">{% translate "Je to jiný význam" %}</button>
+            </div>
+          {% else %}
+            <p class="check-block">
+              {% blocktranslate with word=match.term native=match.term.native_variants|join:" · " decks=match.deck_names|join:", " %}„{{ word }} → {{ native }}“ už máš v: {{ decks }}.{% endblocktranslate %}
+            </p>
+            <div class="check-actions">
+              {% include "vocabulary/_term_link_button.html" with label=_("Přidat i sem") %}
+              <button type="button" class="outline secondary" data-action="other-meaning">{% translate "Je to jiný význam" %}</button>
+            </div>
+          {% endif %}
+        {% endif %}
+      {% endwith %}
+
+      {% if check.meanings %}
+        <p class="check-block">
+          {% blocktranslate with word=check.meanings.0.term.main_foreign %}„{{ word }}“ už máš v jiném významu. Je to stejný význam, nebo jiný?{% endblocktranslate %}
+        </p>
+        {% for match in check.meanings %}
+          <p>„{{ match.term }} → {{ match.term.native_variants|join:" · " }}“ ({{ match.deck_names|join:", " }})</p>
+          <div class="check-actions">
+            {% if match.in_deck %}
+              {% if match.new_foreign or match.new_native %}
+                {% include "vocabulary/_term_link_button.html" with label=_("Stejný význam: přidat varianty") %}
+              {% endif %}
+            {% else %}
+              {% include "vocabulary/_term_link_button.html" with label=_("Stejný význam: přidat sem") %}
+            {% endif %}
+          </div>
+        {% endfor %}
+        {% if not check.hint %}
+          <div class="check-actions">
+            <button type="button" class="outline secondary" data-action="other-meaning">{% translate "Je to jiný význam" %}</button>
+            <small class="muted">{% translate "Nový význam potřebuje rozlišení, např. strom." %}</small>
+          </div>
+        {% endif %}
+      {% endif %}
+
+      {% for match in check.foreign %}
+        <p>
+          {% blocktranslate with word=match.term native=match.term.native_variants|join:" · " decks=match.deck_names|join:", " %}Podobné slovíčko už máš: „{{ word }} → {{ native }}“ ({{ decks }}).{% endblocktranslate %}
+        </p>
+        <div class="check-actions">
+          {% if match.in_deck %}
+            {% if match.new_foreign or match.new_native %}
+              {% include "vocabulary/_term_link_button.html" with label=_("Přidat k němu nové varianty") %}
+            {% endif %}
+          {% else %}
+            {% include "vocabulary/_term_link_button.html" with label=_("Přidat ho sem") %}
+          {% endif %}
+        </div>
+      {% endfor %}
+
+      {% for term in check.need_hint %}
+        <label>
+          {% blocktranslate with word=term.main_foreign native=term.native_variants|join:" · " %}Rozlišení pro stávající „{{ word }} → {{ native }}“{% endblocktranslate %}
+          <input type="text" name="existing_hint_{{ term.pk }}" value="{{ term.posted_hint }}" maxlength="100"
+                 placeholder="{% translate 'např. ruka' %}" required>
+        </label>
+      {% endfor %}
+
+      {% for match in check.native %}
+        <p>
+          {% blocktranslate with native=match.term.native_variants|join:" · " word=match.term decks=match.deck_names|join:", " %}„{{ native }}“ už máš jako překlad slova „{{ word }}“ ({{ decks }}).{% endblocktranslate %}
+        </p>
+        <div class="check-actions">
+          {% if match.new_foreign %}
+            {% blocktranslate asvar label with new=match.new_foreign|join:"; " word=match.term %}Přidat „{{ new }}“ jako variantu k „{{ word }}“{% endblocktranslate %}
+            {% include "vocabulary/_term_link_button.html" with hide_new=True %}
+          {% endif %}
+          <small class="muted">{% translate "Nebo ulož samostatně, třeba s rozlišením významu (jiný odstín, např. neformálně)." %}</small>
+        </div>
+      {% endfor %}
+
+      {% if check.similar %}
+        <p class="muted">
+          {% translate "Podobné (bez diakritiky):" %}
+          {% for match in check.similar %}„{{ match.term }} → {{ match.term.native_variants|join:" · " }}“ ({{ match.deck_names|join:", " }}){% if not forloop.last %}, {% endif %}{% endfor %}
+        </p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <button type="submit"{% if check.blocks %} disabled{% endif %}>+ {% translate "Přidat slovíčko" %}</button>
+</div>

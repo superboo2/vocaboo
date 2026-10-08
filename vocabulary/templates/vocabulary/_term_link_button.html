@@ -1,0 +1,7 @@
+{# Button that puts an existing word (match.term) into this deck, with the typed variants #}
+{% url 'vocabulary:term_link' deck.pk match.term.pk as link_url %}
+<button type="button" class="outline"
+        hx-post="{{ link_url }}?sort={{ sort }}" hx-include="#term-form"
+        hx-target="#term-form" hx-swap="outerHTML">
+  {{ label }}{% if not hide_new %}{% if match.new_foreign or match.new_native %} <small>(+ {{ match.new_foreign|join:"; " }}{% if match.new_foreign and match.new_native %}; {% endif %}{{ match.new_native|join:"; " }})</small>{% endif %}{% endif %}
+</button>

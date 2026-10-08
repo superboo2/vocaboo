@@ -1,0 +1,9 @@
+{# One form field in the style of Pico.css: label, input, then error and help as small text #}
+{% if field.label %}{{ field.label_tag }}{% endif %}
+{{ field }}
+{% if field.errors %}
+  <small id="{{ field.auto_id }}_error" class="field-error">{{ field.errors|join:" " }}</small>
+{% endif %}
+{% if field.help_text %}
+  <small id="{{ field.auto_id }}_helptext">{{ field.help_text|safe }}</small>
+{% endif %}
