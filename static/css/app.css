@@ -10,10 +10,34 @@
   padding: 0.4rem 0.8rem;
 }
 
-/* Not enough space for the email on small phones */
+/* Not enough space for the email on small phones; the links may go to a second line */
 @media (max-width: 576px) {
   .nav-user {
     display: none;
+  }
+
+  header nav {
+    flex-wrap: wrap;
+  }
+
+  header nav ul:last-of-type {
+    flex-wrap: wrap;
+    margin-right: 0;
+  }
+
+  header nav li {
+    padding-left: 0.4rem;
+    padding-right: 0.4rem;
+  }
+
+  /* Admin is for the site owner and is not needed on a phone */
+  .nav-admin {
+    display: none;
+  }
+
+  .inline-form button {
+    padding: 0.25rem 0.6rem;
+    font-size: 0.9rem;
   }
 }
 
@@ -637,4 +661,84 @@ main:focus {
 .tree-help {
   font-size: 0.875rem;
   margin-top: 0.75rem;
+}
+
+/* Gap for the word in a sentence (native → foreign card) */
+.cloze {
+  display: inline-block;
+  min-width: 3em;
+  border-bottom: 2px solid var(--pico-primary);
+  color: transparent;
+  font-style: normal;
+}
+
+/* The word in sentences of word lists */
+.term-context mark {
+  padding: 0 0.15em;
+}
+
+/* Help: tabs (each tab is its own page) */
+.tabs {
+  margin-bottom: calc(var(--pico-spacing) * 1.5);
+  border-bottom: 1px solid var(--pico-muted-border-color);
+  /* On a phone the tabs scroll sideways instead of making the page wider */
+  overflow-x: auto;
+}
+
+.tabs ul {
+  display: flex;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+.tabs li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tabs a {
+  display: block;
+  padding: 0.5rem 0.9rem;
+  white-space: nowrap;
+  text-decoration: none;
+  border-bottom: 3px solid transparent;
+}
+
+.tabs a[aria-current="page"] {
+  color: var(--pico-color);
+  font-weight: bold;
+  border-bottom-color: var(--pico-primary);
+}
+
+.help section {
+  margin-bottom: calc(var(--pico-spacing) * 2);
+}
+
+.help-tree {
+  padding: 0.75rem 1rem;
+  line-height: 1.5;
+}
+
+/* Small sample cards in the help */
+.help-card {
+  text-align: center;
+  margin-bottom: var(--pico-spacing);
+}
+
+.help-card header {
+  font-size: 0.8rem;
+  color: var(--pico-muted-color);
+}
+
+.help-card-main {
+  font-size: 1.4rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+/* Help tables: short words can wrap, so most tables fit a phone without scrolling */
+.help td code {
+  white-space: normal;
 }

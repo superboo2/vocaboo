@@ -24,9 +24,10 @@
         </ul>
         <ul>
           <li class="nav-user">{{ user.email }}</li>
+          <li><a href="{% url 'help_index' %}">{% translate "Nápověda" %}</a></li>
           <li><a href="{% url 'settings' %}">{% translate "Nastavení" %}</a></li>
           {% if user.is_staff %}
-            <li><a href="{% url 'admin:index' %}">{% translate "Admin" %}</a></li>
+            <li class="nav-admin"><a href="{% url 'admin:index' %}">{% translate "Admin" %}</a></li>
           {% endif %}
           <li>
             <form method="post" action="{% url 'logout' %}" class="inline-form">

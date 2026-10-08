@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n vocabulary_tags %}
 {# Words in the deck. With oob=True HTMX swaps it "out of band" after adding a word. #}
 <div id="term-list"{% if oob %} hx-swap-oob="true"{% endif %}>
   {% with count=deck_terms|length %}
@@ -28,7 +28,7 @@
                 </div>
                 {% if item.context_sentence %}
                   <div class="term-context muted">
-                    „{{ item.context_sentence }}“{% if item.context_source %} <small>· {{ item.context_source }}</small>{% endif %}
+                    „{{ item.context_sentence|marked_sentence:foreign }}“{% if item.context_source %} <small>· {{ item.context_source }}</small>{% endif %}
                   </div>
                 {% endif %}
               </li>

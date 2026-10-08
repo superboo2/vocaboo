@@ -1,0 +1,121 @@
+{% extends "help/base_help.html" %}
+
+{% block help %}
+  <section>
+    <h2>Přidání slovíčka</h2>
+    <p>Slovíčka přidáváš v detailu slovníku. Povinná jsou jen první dvě pole:</p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Pole</th><th>Příklad</th><th>Poznámka</th></tr></thead>
+      <tbody>
+        <tr><td>cizí jazyk</td><td><code>hello; hi</code></td><td>víc variant odděl středníkem</td></tr>
+        <tr><td>tvůj jazyk</td><td><code>ahoj; čau</code></td><td>totéž</td></tr>
+        <tr><td>Použití ve větě</td><td><code>Hello, kids.</code></td><td>pod <em>Více</em>, kde se slovo objevilo</td></tr>
+        <tr><td>Zdroj</td><td><code>S01E01</code></td><td>pod <em>Více</em>, zůstane vyplněný i pro další slovíčko</td></tr>
+        <tr><td>Rozlišení významu</td><td><code>ruka</code></td><td>pod <em>Více</em>, jen u slov s víc významy</td></tr>
+        <tr><td>Poznámka</td><td></td><td>pod <em>Více</em></td></tr>
+      </tbody>
+    </table></div>
+    <p>
+      <strong>Enter</strong> formulář odešle. Pak se formulář vyčistí a kurzor skočí zpět do prvního pole,
+      takže můžeš hned psát další slovíčko.
+    </p>
+  </section>
+
+  <section>
+    <h2>Varianty (synonyma)</h2>
+    <p>
+      <code>hello; hi</code> ↔ <code>ahoj; čau</code> je jedno slovíčko se dvěma variantami na každé straně.
+      V testu je správně kterákoliv z nich.
+    </p>
+    <p>
+      Varianty znamenají, že <strong>každá vlevo odpovídá každé vpravo</strong>. Když to neplatí, udělej
+      raději dvě slovíčka s rozlišením významu. Třeba <code>hi</code> ≠ <code>dobrý den</code>, takže:
+      <code>hello → dobrý den; ahoj</code> a <code>hi → ahoj; čau</code> (neformálně).
+    </p>
+  </section>
+
+  <section>
+    <h2>Věta</h2>
+    <p>Větu napiš normálně, slovo v ní aplikace najde sama a zvýrazní ho:</p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Píšeš</th><th>Co se stane</th></tr></thead>
+      <tbody>
+        <tr><td><code>She can read from her palm.</code></td><td>slovo <code>palm</code> se najde samo, <strong>běžný případ</strong></td></tr>
+        <tr><td><code>She has small {palms}.</code></td><td>slovo v <strong>jiném tvaru</strong> označ složenými závorkami, jinak se nenajde</td></tr>
+        <tr><td><code>He {ran} away.</code></td><td>u slovíčka <code>run</code>: minulý čas v závorkách</td></tr>
+        <tr><td><code>She can read from her {}.</code></td><td>prázdné závorky = slovo z prvního pole (<code>palm</code>)</td></tr>
+      </tbody>
+    </table></div>
+    <p>Závorky se nikde nezobrazují. V testu se věta ukáže takhle:</p>
+    <div class="grid">
+      <article class="help-card">
+        <header>palm → ?</header>
+        <p class="help-card-main">palm</p>
+        <p class="card-sentence">„She can read from her <mark>palm</mark>.“</p>
+      </article>
+      <article class="help-card">
+        <header>dlaň → ?</header>
+        <p class="help-card-main">dlaň</p>
+        <p class="card-sentence">„She can read from her <span class="cloze">___</span>.“</p>
+      </article>
+    </div>
+    <p>
+      Ve směru z tvého jazyka by celá věta prozradila odpověď, proto je na přední straně s mezerou.
+      Celá věta je na zadní straně. Když slovo ve větě nejde najít, věta je jen vzadu.
+    </p>
+  </section>
+
+  <section>
+    <h2>Víc významů (palm, present)</h2>
+    <p>Každý význam je <strong>samostatné slovíčko</strong> s vlastním rozlišením a vlastní větou:</p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Cizí</th><th>Překlad</th><th>Rozlišení</th><th>Věta</th></tr></thead>
+      <tbody>
+        <tr><td>palm</td><td>dlaň</td><td>ruka</td><td><code>She read my palm.</code></td></tr>
+        <tr><td>palm</td><td>palma</td><td>strom</td><td><code>A tall palm on the beach.</code></td></tr>
+        <tr><td>present</td><td>dárek</td><td>dar</td><td><code>I bought her a present.</code></td></tr>
+        <tr><td>present</td><td>přítomnost</td><td>čas</td><td><code>Live in the present.</code></td></tr>
+        <tr><td>present</td><td>prezentovat</td><td>sloveso</td><td><code>He {presented} the project.</code></td></tr>
+      </tbody>
+    </table></div>
+    <p>
+      Rozlišení je u slov s víc významy povinné. Když zadáváš druhý význam, aplikace se zeptá
+      <em>„Je to stejný význam, nebo jiný?“</em> a vyžádá si rozlišení i pro ten první.
+      V testu pak <code>palm → ?</code> ukáže větu, nebo bez věty nápovědu <em>(ruka · 2 významy)</em>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Kontrola duplicit</h2>
+    <p>Během psaní aplikace hledá slovíčka, která už máš, a nabídne, co s nimi:</p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Píšeš</th><th>Už máš</th><th>Nabídne se</th></tr></thead>
+      <tbody>
+        <tr><td><code>hello</code> v Big Bang Theory</td><td><code>hello → ahoj</code> v HIMYM</td><td><strong>Přidat i sem</strong> (jedno slovíčko ve dvou slovnících) nebo <strong>Je to jiný význam</strong></td></tr>
+        <tr><td><code>hello; hi</code></td><td><code>hello → ahoj</code></td><td>totéž a <code>hi</code> se připojí jako nová varianta</td></tr>
+        <tr><td><code>hey → ahoj</code></td><td><code>hello → ahoj</code></td><td><strong>Přidat „hey“ jako variantu k „hello“</strong>, nebo uložit samostatně</td></tr>
+        <tr><td><code>palm → palma</code></td><td><code>palm (ruka) → dlaň</code></td><td>stejný význam (přidat varianty), nebo jiný význam (vyplnit rozlišení)</td></tr>
+        <tr><td><code>cau</code></td><td><code>čau</code></td><td>jen upozornění <em>Podobné (bez diakritiky)</em>; <code>byt</code> a <code>být</code> jsou různá slova</td></tr>
+      </tbody>
+    </table></div>
+    <p>Tlačítko <strong>Přidat slovíčko</strong> je zablokované, dokud by uložení vytvořilo duplicitu.</p>
+  </section>
+
+  <section>
+    <h2>Jedno slovíčko ve víc slovnících</h2>
+    <p>
+      Slovíčko patří tobě, slovníky na něj jen odkazují. Když je <code>hello</code> ve 20 dílech,
+      v testu z celé řady přijde <strong>jednou</strong> a hodnocení platí ve všech slovnících.
+      Každý slovník si ale drží svou větu a zdroj.
+    </p>
+  </section>
+
+  <section>
+    <h2>Úprava a odebrání</h2>
+    <ul>
+      <li>Klik na slovíčko v seznamu otevře jeho detail, odtud <strong>Upravit</strong> nebo <strong>Odebrat z tohoto slovníku</strong>.</li>
+      <li>Změna variant, rozlišení a poznámky platí ve všech slovnících, věta a zdroj jen v tom jednom.</li>
+      <li>Odebrání ze slovníku slovíčko smaže <strong>jen tam</strong>. Když to byl jeho poslední slovník, smaže se úplně i s historií opakování; aplikace na to předem upozorní.</li>
+    </ul>
+  </section>
+{% endblock %}

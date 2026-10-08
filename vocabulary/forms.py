@@ -90,6 +90,7 @@ class TermForm(forms.Form):
         label=_("Použití ve větě"),
         required=False,
         widget=forms.Textarea(attrs={"rows": 2}),
+        help_text=_("Slovo ve větě najdu sám. Jiný tvar označ závorkami: He {ran} away."),
     )
     context_source = forms.CharField(
         label=_("Zdroj"),

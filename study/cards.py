@@ -6,9 +6,10 @@ from operator import or_
 
 from django.db.models import Q
 
+from vocabulary import sentences
 from vocabulary.models import DeckTerm, Term, TermVariant
 
-from .formatting import czech_plural, highlight
+from .formatting import czech_plural
 from .models import Direction
 from .services import preview_intervals, session_deck_ids
 
@@ -24,6 +25,8 @@ class Card:
     # Sentence where the word was seen (with the word marked) and its source
     sentence: str = ""
     sentence_on_front: bool = False
+    # Native → foreign: the sentence with a gap instead of the word, shown on the front
+    cloze: str = ""
     source: str = ""
     # How many other decks of this test have the word too
     other_occurrences: int = 0
@@ -75,10 +78,15 @@ def _add_sentence(card, session, foreign):
         return
     # A different sentence each time the card comes back
     chosen = with_sentence[card.state.reviews_count % len(with_sentence)]
-    card.sentence = highlight(chosen.context_sentence, foreign)
+    card.sentence = sentences.highlight(chosen.context_sentence, foreign)
     card.source = chosen.context_source
-    # In the N2F direction the sentence would give the answer away
-    card.sentence_on_front = card.is_f2n
+    if card.is_f2n:
+        # The sentence shows which meaning is meant (palm: hand or tree)
+        card.sentence_on_front = True
+    elif sentences.has_word(chosen.context_sentence, foreign):
+        # The full sentence would give the answer away, so the front gets a gap.
+        # When the word was not found (other form, no braces), the sentence stays on the back.
+        card.cloze = sentences.cloze(chosen.context_sentence, foreign)
 
 
 def _add_other_meanings(card):

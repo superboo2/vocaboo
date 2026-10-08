@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n study_tags %}
+{% load i18n study_tags vocabulary_tags %}
 
 {% block title %}{{ term.main_foreign }} · Vokie{% endblock %}
 
@@ -28,7 +28,7 @@
         <li>
           <a href="{% url 'vocabulary:deck_detail' item.deck.pk %}">{{ item.deck.name }}</a>
           {% if item.context_sentence %}
-            <div class="term-context muted">„{{ item.context_sentence }}“{% if item.context_source %} <small>· {{ item.context_source }}</small>{% endif %}</div>
+            <div class="term-context muted">„{{ item.context_sentence|marked_sentence:term.foreign_variants }}“{% if item.context_source %} <small>· {{ item.context_source }}</small>{% endif %}</div>
           {% endif %}
         </li>
       {% endfor %}

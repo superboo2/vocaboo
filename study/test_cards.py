@@ -9,7 +9,7 @@ from vocabulary.models import DeckTerm
 
 from . import services
 from .cards import build_card
-from .formatting import format_interval, highlight
+from .formatting import format_interval
 from .models import Direction, ReviewState, StudyDirection
 
 # Formatting
@@ -32,26 +32,6 @@ from .models import Direction, ReviewState, StudyDirection
 )
 def test_format_interval(interval, text):
     assert format_interval(interval) == text
-
-
-def test_highlight_marks_whole_words_ignoring_case():
-    html = highlight("Palm trees. She read my palm.", ["palm"])
-
-    assert html == "<mark>Palm</mark> trees. She read my <mark>palm</mark>."
-
-
-def test_highlight_skips_parts_of_words():
-    assert highlight("palmtree", ["palm"]) == "palmtree"
-
-
-def test_highlight_escapes_html():
-    html = highlight("<b>hi</b> & hello", ["hello"])
-
-    assert html == "&lt;b&gt;hi&lt;/b&gt; &amp; <mark>hello</mark>"
-
-
-def test_highlight_prefers_longer_variant():
-    assert highlight("hello there", ["hell", "hello"]) == "<mark>hello</mark> there"
 
 
 # Cards
@@ -91,17 +71,43 @@ def test_f2n_card(user, decks):
     assert [rating.key for rating, _ in card.preview] == ["ok", "think", "partial", "dontknow"]
 
 
-def test_n2f_card_keeps_sentence_for_the_back(user, decks):
+def test_n2f_card_has_gap_on_front_and_sentence_on_back(user, decks):
+    sentence = "She can read from her palm."
     term = vocabulary.add_term(
-        decks["himym"], foreign="hello", native="ahoj", context_sentence="Hello, kids."
+        decks["himym"], foreign="palm", native="dlaň", context_sentence=sentence
     ).term
 
     card = card_for(user, decks["himym"], term, Direction.N2F)
 
-    assert card.question == ["ahoj"]
-    assert card.answer == ["hello"]
-    assert card.sentence
+    assert card.question == ["dlaň"]
+    assert card.answer == ["palm"]
     assert not card.sentence_on_front
+    assert "palm" not in card.cloze
+    assert "___" in card.cloze
+    assert card.sentence == "She can read from her <mark>palm</mark>."
+
+
+def test_n2f_card_with_marked_other_form(user, decks):
+    term = vocabulary.add_term(
+        decks["himym"], foreign="run", native="běžet", context_sentence="He {ran} away."
+    ).term
+
+    card = card_for(user, decks["himym"], term, Direction.N2F)
+
+    assert "ran" not in card.cloze
+    assert card.sentence == "He <mark>ran</mark> away."
+
+
+def test_n2f_card_without_found_word_keeps_sentence_only_on_back(user, decks):
+    # "palms" is another form and is not marked: a gap cannot be made, the answer must not show
+    term = vocabulary.add_term(
+        decks["himym"], foreign="palm", native="dlaň", context_sentence="She has small palms."
+    ).term
+
+    card = card_for(user, decks["himym"], term, Direction.N2F)
+
+    assert card.cloze == ""
+    assert card.sentence == "She has small palms."
 
 
 def test_other_occurrences_in_the_test(user, decks):

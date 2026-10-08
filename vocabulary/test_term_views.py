@@ -91,7 +91,7 @@ def test_deck_page_lists_words(logged_client, himym):
     assert "hello" in html
     assert "· hi" in html
     assert "ahoj · čau" in html
-    assert "Hello, kids." in html
+    assert "<mark>Hello</mark>, kids." in html
 
 
 def test_edit_term(logged_client, himym):

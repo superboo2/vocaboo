@@ -207,7 +207,7 @@ Words are added on the deck page. Only the first two fields are required:
 |---|---|---|
 | Foreign language | `hello; hi` | more variants (synonyms) separated by `;` |
 | Native language | `ahoj; čau` | the same |
-| Sentence | `Hello, kids.` | under *Více*, where you saw the word |
+| Sentence | `Hello, kids.` | under *Více*, where you saw the word; another form of the word in braces: `He {ran} away.` |
 | Source | `S01E01` | under *Více*, stays filled for the next word |
 | Meaning | `ruka` | under *Více*, only for words with more meanings |
 | Note | | under *Více* |
@@ -227,6 +227,16 @@ While you type, the app looks for words you already have and shows what to do:
 
 The *Přidat slovíčko* button is disabled while the word cannot be saved (the same word with the
 same meaning already exists, or a new meaning has no meaning hint yet).
+
+The word in the sentence is found automatically (whole words, any foreign variant, letter case
+ignored) and shown marked. For another form of the word put it in braces, e.g. `He {ran} away.`
+for the word `run`; `{}` alone means the main variant. In the native → foreign test the front of
+the card shows the sentence with a gap instead of the word:
+
+```
+dlaň
+„She can read from her ___.“      → back: palm  „She can read from her palm.“
+```
 
 Rules:
 
@@ -336,7 +346,15 @@ the browser and paused while the page is hidden (another app, locked phone).
 - Clicking a word in a deck opens its page: variants, the decks it is in (with sentences), the
   next repetition and counts of ratings for each direction, and the history of answers.
 
-### 14. Run the app
+### 14. Help
+
+The app has a help page for users (*Nápověda* in the top bar, `/help/`) with tabs *Slovníky*,
+*Slovíčka*, *Test* and *Přehled a statistiky*. Every tab is its own page
+(`templates/help/<tab>.html`); the list of tabs is `HELP_TOPICS` in `config/views.py`. The
+table of rating buttons is made from `study/ratings.py`, so it stays right when the buttons
+change. When a feature changes, update its help tab too.
+
+### 15. Run the app
 
 ```bash
 uv run python manage.py runserver
@@ -367,13 +385,15 @@ config/       Django project: settings, root URLs, WSGI/ASGI entry points
 accounts/     custom user model (login with email), admin, login/logout
 vocabulary/   languages, decks (dictionary tree), words and their variants
   services.py   all rules for decks and words, views only call these functions
+  sentences.py  the word in a sentence: found or {marked}, highlighted or replaced by a gap
 study/        tests: review states, sessions, history, the test screen
   cards.py      what one card shows (question, answer, sentence, hints)
-  formatting.py intervals in Czech ("8 dní") and the marked word in a sentence
+  formatting.py intervals in Czech ("8 dní")
   ratings.py    the rating buttons 😎 🤔 😕 😵 and their intervals - change them only here
   services.py   how a rating changes the next interval, which card comes next, saving answers
 templates/    project-wide templates (base.html = layout of all pages,
-              forms/field.html = how every form field looks)
+              forms/field.html = how every form field looks,
+              help/ = the help pages, one template per tab)
 static/       project-wide static files
   css/app.css   small custom styles on top of Pico.css
   js/app.js     helpers for all pages ("other meaning" button)

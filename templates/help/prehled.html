@@ -1,0 +1,43 @@
+{% extends "help/base_help.html" %}
+
+{% block help %}
+  <section>
+    <h2>Čísla na přehledu</h2>
+    <div class="overflow-auto"><table>
+      <tbody>
+        <tr><td><strong>Teď k opakování</strong></td><td>slovíčka, u kterých je teď na řadě aspoň jeden směr</td></tr>
+        <tr><td><strong>nových</strong></td><td>slovíčka, která ještě nebyla v žádném testu</td></tr>
+        <tr><td><strong>slovíček celkem</strong></td><td>všechna tvoje slovíčka; slovíčko ve víc slovnících se počítá jednou</td></tr>
+        <tr><td>číslo u slovníku</td><td>slovíčka v něm a v jeho podslovnících</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Detail slovíčka</h2>
+    <p>Klik na slovíčko v seznamu slovníku otevře jeho detail:</p>
+    <ul>
+      <li><strong>Ve slovnících</strong>: všechny slovníky, ve kterých slovíčko je, i s větou a zdrojem,</li>
+      <li><strong>Opakování</strong> zvlášť pro každý směr: kdy přijde znovu (<em>teď</em>, <em>za 3 dny</em>, <em>nové</em>), kolikrát bylo v testu, kolikrát správně za sebou, počet chyb a počty jednotlivých hodnocení,</li>
+      <li><strong>Historie odpovědí</strong>: kdy, jakým směrem, jaké hodnocení, jaký interval a doba přemýšlení.</li>
+    </ul>
+    <p>Podle historie poznáš, jestli se zlepšuješ: méně 😵, víc 😎 a kratší doba přemýšlení.</p>
+  </section>
+
+  <section>
+    <h2>Nastavení</h2>
+    <ul>
+      <li><strong>Mluvím</strong>: tvůj jazyk, předvyplní se u nového slovníku.</li>
+      <li><strong>Výchozí směr testu</strong>: předvyplní se při spuštění testu.</li>
+    </ul>
+    <p><a href="{% url 'settings' %}">Otevřít nastavení</a></p>
+  </section>
+
+  <section>
+    <h2>Více zařízení</h2>
+    <p>
+      Všechno je uložené na serveru. Když se přihlásíš na telefonu i na počítači, vidíš všude
+      stejné slovníky a stejný stav opakování.
+    </p>
+  </section>
+{% endblock %}

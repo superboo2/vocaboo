@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{# Frame of all help pages: title and tabs. Each tab is its own page (help/<topic>.html). #}
+
+{% block title %}{{ topic_name }} · {% translate "Nápověda" %} · Vokie{% endblock %}
+
+{% block content %}
+  <div class="help">
+    <h1>{% translate "Nápověda" %}</h1>
+
+    <nav class="tabs" aria-label="{% translate 'Části nápovědy' %}">
+      <ul>
+        {% for slug, name in topics %}
+          <li>
+            <a href="{% url 'help' slug %}"{% if slug == topic %} aria-current="page"{% endif %}>{{ name }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+
+    {% block help %}{% endblock %}
+  </div>
+{% endblock %}

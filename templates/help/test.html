@@ -1,0 +1,114 @@
+{% extends "help/base_help.html" %}
+{% load study_tags %}
+
+{% block help %}
+  <section>
+    <h2>Spuštění testu</h2>
+    <p>
+      Na <a href="{% url 'dashboard' %}">přehledu</a> <strong>Spustit test</strong>, nebo v detailu slovníku
+      <strong>Testovat tento slovník</strong>. Pak vyber:
+    </p>
+    <ul>
+      <li><strong>Slovníky</strong>: podslovníky se zahrnou samy, slovíčko ve víc slovnících přijde jednou.</li>
+      <li><strong>Směr</strong>: cizí → rodný, rodný → cizí, nebo zamíchat. Výchozí směr nastavíš v <a href="{% url 'settings' %}">Nastavení</a>.</li>
+      <li><strong>Které kartičky</strong>:
+        <ul>
+          <li><em>jen k opakování a nová</em>: běžné učení, kartičky, které jsou na řadě, a slovíčka, která ještě nebyla v testu,</li>
+          <li><em>všechna</em>: každá kartička jednou, bez ohledu na termín (např. před zkouškou).</li>
+        </ul>
+      </li>
+      <li><strong>Nejvýš karet</strong>: když chceš jen krátké opakování.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Kartička</h2>
+    <p>Uvidíš přední stranu, zkus si odpověď vybavit a kartičku otoč (<strong>Ukázat</strong> nebo <strong>mezerník</strong>).</p>
+    <div class="grid">
+      <article class="help-card">
+        <header>Přední strana</header>
+        <p class="help-card-main">dlaň</p>
+        <p class="card-sentence">„She can read from her <span class="cloze">___</span>.“</p>
+      </article>
+      <article class="help-card">
+        <header>Zadní strana</header>
+        <p class="help-card-main">palm <small class="hint">(ruka)</small></p>
+        <p class="card-sentence">„She can read from her <mark>palm</mark>.“</p>
+        <p class="muted">S01E01 · Další významy: palma (strom)</p>
+      </article>
+    </div>
+    <ul>
+      <li>Ve směru cizí → rodný je věta celá už vpředu, určí význam (palm: ruka, nebo strom?).</li>
+      <li>Ve směru rodný → cizí je věta vpředu s mezerou místo slova.</li>
+      <li><em>+N dalších výskytů</em>: slovíčko je i v dalších slovnících testu, věta se pokaždé střídá.</li>
+      <li><em>„ahoj“ je i: hello</em>: stejný překlad má i jiné slovíčko.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Hodnocení a intervaly</h2>
+    <p>Po otočení se ohodnoť podle toho, jak dobře slovíčko znáš:</p>
+    <div class="overflow-auto"><table>
+      <thead>
+        <tr><th>Tlačítko</th><th>Klávesa</th><th>Poprvé</th><th>Další opakování</th></tr>
+      </thead>
+      <tbody>
+        {% for rating in ratings %}
+          <tr>
+            <td><span aria-hidden="true">{{ rating.emoji }}</span> {{ rating.label }}</td>
+            <td><kbd>{{ rating.hotkey }}</kbd></td>
+            <td>{{ rating.min_interval|interval }}</td>
+            <td>
+              {% if rating.multiplier %}
+                předchozí interval × {{ rating.multiplier|floatformat:"-1" }}
+              {% else %}
+                vždy {{ rating.min_interval|interval }}
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table></div>
+    <ul>
+      <li>Interval roste s každou dobrou odpovědí, nejvýš na <strong>{{ max_interval|interval }}</strong>. Třeba stále 😎: 7 dní → 28 → 112 → 1 rok.</li>
+      <li>Po 😕 nebo 😵 začne růst znovu od začátku.</li>
+      <li>Intervaly od jednoho dne se zaokrouhlují na celé dny.</li>
+      <li>Pod každým emoji je vidět <strong>skutečný příští interval</strong> právě této kartičky.</li>
+      <li>Hodnocení platí ve všech slovnících, ve kterých slovíčko je.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Ovládání</h2>
+    <div class="overflow-auto"><table>
+      <tbody>
+        <tr><td><kbd>mezerník</kbd></td><td>otočí kartičku</td></tr>
+        <tr><td><kbd>1</kbd> – <kbd>4</kbd></td><td>ohodnotí kartičku (😎 🤔 😕 😵)</td></tr>
+        <tr><td><strong>?</strong> pod kartičkou</td><td>ukáže nebo skryje vysvětlení tlačítek</td></tr>
+        <tr><td><strong>Ukončit test</strong></td><td>skončí a ukáže souhrn</td></tr>
+      </tbody>
+    </table></div>
+    <p>Na telefonu stačí klepat, další kartička se načte bez znovunačtení stránky.</p>
+  </section>
+
+  <section>
+    <h2>Pořadí kartiček</h2>
+    <ul>
+      <li>Nejdřív kartičky, které jsou na řadě (od nejdéle čekajících), pak nová slovíčka v pořadí přidání.</li>
+      <li>Stejné slovíčko v druhém směru ani další význam stejného slova (palm / palm) nepřijde hned po sobě.</li>
+      <li>Kartička s 😵 se v tomtéž testu vrátí za 10 minut.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Souhrn</h2>
+    <p>
+      Na konci uvidíš počty jednotlivých hodnocení a slovíčka s 😕 nebo 😵.
+      <strong>Procvičit chybné znovu</strong> spustí nový test jen s nimi.
+    </p>
+    <p class="muted">
+      Aplikace si u každé odpovědi ukládá i dobu přemýšlení (do otočení kartičky) pro statistiky.
+      Když telefon zamkneš nebo přepneš jinam, čas se zastaví.
+    </p>
+  </section>
+{% endblock %}

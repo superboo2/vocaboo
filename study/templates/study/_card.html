@@ -17,6 +17,7 @@
       </p>
       {% if card.front_hint %}<p class="card-hint">({{ card.front_hint }})</p>{% endif %}
       {% if card.sentence_on_front %}<p class="card-sentence">„{{ card.sentence }}“</p>{% endif %}
+      {% if card.cloze %}<p class="card-sentence">„{{ card.cloze }}“</p>{% endif %}
     </div>
 
     <div class="card-back" hidden>

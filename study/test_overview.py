@@ -127,7 +127,7 @@ def test_word_page(client, user, tree):
     html = client.get(url).content.decode()
 
     assert "hello · hi" in html
-    assert "Big Bang Theory" in html and "Hello, Penny." in html
+    assert "Big Bang Theory" in html and "<mark>Hello</mark>, Penny." in html
     assert "Vím po zamyšlení" in html
     assert "2,4 s" in html
     assert "za 3 dny" in html

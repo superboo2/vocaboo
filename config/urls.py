@@ -11,6 +11,8 @@ urlpatterns = [
     path("", include("vocabulary.urls")),
     path("", include("study.urls")),
     path("settings/", accounts_views.settings_view, name="settings"),
+    path("help/", views.help_index, name="help_index"),
+    path("help/<slug:topic>/", views.help_page, name="help"),
     path("accounts/login/", auth_views.LoginView.as_view(), name="login"),
     path("accounts/logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("admin/", admin.site.urls),

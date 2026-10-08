@@ -299,7 +299,7 @@ Sezení si **nedrží frontu karet**, další karta se vždy vypočítá z datab
 Formulář ve slovníku:
 - **Cizí výraz**, varianty se oddělují středníkem (`hello; hi`)
 - **Překlad**, varianty se oddělují středníkem (`ahoj; čau`)
-- **Použití ve větě**, volitelné, uživatel ho v MVP píše sám (`She read my palm.`). Uloží se do `DeckTerm.context_sentence`.
+- **Použití ve větě**, volitelné, uživatel ho v MVP píše sám (`She read my palm.`). Uloží se do `DeckTerm.context_sentence`. Slovo ve větě aplikace najde sama (celé slovo, kterákoliv cizí varianta, bez ohledu na velikost písmen). **Jiný tvar** slova se označí složenými závorkami: `He {ran} away.` u slovíčka `run`; prázdné `{}` znamená hlavní variantu. Závorky se nikde nezobrazují, slovo je zvýrazněné (seznam, detail, kartička) nebo nahrazené mezerou (přední strana N→F).
 - Zdroj (díl), volitelný
 - Rozlišení významu, volitelné, ale povinné u homonym (viz níže)
 - Poznámka, volitelná
@@ -480,7 +480,7 @@ Opakované „Vím“: 7 dní → 28 → 112 → 1 rok. Opakované „Po zamyšl
 ### 6.4 Volný režim (MVP)
 Základní kartičkový test: uvidím slovíčko, zamyslím se, otočím kartičku a podle toho, jak dobře jsem ho věděl, zvolím, kdy se má znovu objevit.
 
-1. Zobrazí se výraz (podle směru) a kontextová věta, pokud existuje. Při směru `N→F` se věta ukáže až po otočení, protože by prozradila odpověď.
+1. Zobrazí se výraz (podle směru) a kontextová věta, pokud existuje. Při směru `N→F` by celá věta prozradila odpověď, proto se na přední straně ukáže **s mezerou místo slova** (cloze): *dlaň → „She can read from her ___.“*. Celá věta se zvýrazněným slovem je na zadní straně. Když slovo ve větě nejde najít (jiný tvar bez označení), věta je jen na zadní straně.
 2. Tlačítko „Ukázat“ zobrazí odpověď (všechny varianty), větu, zdroj a poznámku.
 3. Uživatel se ohodnotí jedním z tlačítek (6.3).
 
@@ -578,6 +578,7 @@ HIMYM              slovíček   😎 vím   🤔 zamyšlení   😕 napůl   �
 | **Slovník** | Drobečková navigace, seznam slovíček (vyhledávání, řazení: podle data přidání (výchozí) / abecedně / podle termínu opakování), formulář pro přidání, podslovníky (šipky ↑ ↓ pro pořadí), úprava, přesun a smazání slovníku, „Testovat tento slovník“ |
 | **Slovíčko** | Úprava variant, poznámky a kontextů v jednotlivých slovnících, stav opakování obou směrů, statistiky a historie (7.1) |
 | Statistiky | Celkový přehled a problémová slovíčka (7.3, 7.4, fáze 2) |
+| **Nápověda** | Záložky Slovníky, Slovíčka, Test, Přehled a statistiky; každá záložka je vlastní stránka (`/help/<záložka>/`). Tabulka tlačítek se generuje z `study/ratings.py`. Při změně funkce se aktualizuje i nápověda. |
 | **Nastavení testu** | viz 6.1 |
 | **Test** | Jedna karta, velká tlačítka, ovladatelné palcem |
 | **Souhrn testu** | viz 6.7 |
