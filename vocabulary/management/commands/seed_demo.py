@@ -15,30 +15,32 @@ from vocabulary.models import Deck, Language
 ENGLISH_ROOT = "Angličtina (ukázka)"
 SPANISH_ROOT = "Španělština (ukázka)"
 
-# (foreign, native, sentence, source, meaning hint)
-HIMYM_S01 = [
-    ("hello; hi", "ahoj; čau", "Kids, I'm going to tell you an incredible story.", "S01E01", ""),
-    ("legendary", "legendární", "It's going to be legen... wait for it... dary!", "S01E01", ""),
-    ("suit up", "obleč se do obleku", "Suit up!", "S01E01", ""),
-    ("awesome", "úžasný; skvělý", "Haaave you met Ted? It's awesome.", "S01E02", ""),
-    ("palm", "dlaň", "She read my palm.", "S01E03", "ruka"),
-    ("bet", "sázka; sázet se", "I bet you can't do it.", "S01E04", ""),
-]
+# (foreign, native, sentence)
+HIMYM_S01 = {
+    "E01": [
+        ("hello; hi", "ahoj; čau", "Kids, I'm going to tell you an incredible story."),
+        ("legendary", "legendární", "It's going to be legen... wait for it... dary!"),
+        ("suit up", "obleč se do obleku", "Suit up!"),
+    ],
+    "E02": [("awesome", "úžasný; skvělý", "Haaave you met Ted? It's awesome.")],
+    "E03": [("palm", "dlaň", "She read my palm.")],
+    "E04": [("bet", "sázka; sázet se", "I bet you can't do it.")],
+}
 BBT_S01 = [
-    ("hello; hi", "ahoj; čau", "Hello, Penny.", "S01E01", ""),
-    ("physics", "fyzika", "I'm a theoretical physicist.", "S01E01", ""),
-    ("roommate", "spolubydlící", "He's my roommate.", "S01E01", ""),
-    ("palm", "palma", "There's a palm tree on the beach.", "S01E05", "strom"),
+    ("hello; hi", "ahoj; čau", "Hello, Penny."),
+    ("physics", "fyzika", "I'm a theoretical physicist."),
+    ("roommate", "spolubydlící", "He's my roommate."),
+    ("palm", "palma", "There's a palm tree on the beach."),
 ]
 SHREK = [
-    ("ogre", "zlobr", "Ogres are like onions.", "", ""),
-    ("onion", "cibule", "Ogres are like onions.", "", ""),
-    ("swamp", "bažina", "What are you doing in my swamp?", "", ""),
+    ("ogre", "zlobr", "Ogres are like onions."),
+    ("onion", "cibule", "Ogres are like onions."),
+    ("swamp", "bažina", "What are you doing in my swamp?"),
 ]
 SPANISH = [
-    ("hola", "ahoj", "¡Hola, amigo!", "", ""),
-    ("gracias", "děkuji; díky", "Muchas gracias.", "", ""),
-    ("amigo; amiga", "přítel; kamarád", "Eres mi amigo.", "", ""),
+    ("hola", "ahoj", "¡Hola, amigo!"),
+    ("gracias", "děkuji; díky", "Muchas gracias."),
+    ("amigo; amiga", "přítel; kamarád", "Eres mi amigo."),
 ]
 
 
@@ -86,20 +88,24 @@ class Command(BaseCommand):
             native_language=languages["cs"],
         )
 
+        episodes = [
+            (services.create_deck(user, name, parent=himym_s01), words)
+            for name, words in HIMYM_S01.items()
+        ]
         count = 0
         for deck, words in [
-            (himym_s01, HIMYM_S01),
+            *episodes,
             (bbt, BBT_S01),
             (shrek, SHREK),
             (spanish, SPANISH),
         ]:
-            for foreign, native, sentence, source, hint in words:
-                count += self._add(deck, foreign, native, sentence, source, hint)
+            for foreign, native, sentence in words:
+                count += self._add(deck, foreign, native, sentence)
         return count
 
-    def _add(self, deck, foreign, native, sentence, source, hint):
+    def _add(self, deck, foreign, native, sentence):
         """Add the word, or put the existing one into this deck. Returns 1 for a new word."""
-        check = services.find_duplicates(deck, foreign=foreign, native=native, meaning_hint=hint)
+        check = services.find_duplicates(deck, foreign=foreign, native=native)
         if check.exact is not None:
             services.link_term(
                 deck,
@@ -107,18 +113,13 @@ class Command(BaseCommand):
                 foreign=foreign,
                 native=native,
                 context_sentence=sentence,
-                context_source=source,
             )
             return 0
-        # A new meaning of a word without a hint gives the old word a hint too
-        existing_hints = {term.pk: "jiný význam" for term in check.need_hint}
+        # The same foreign word with another translation is just another meaning
         services.add_term(
             deck,
             foreign=foreign,
             native=native,
             context_sentence=sentence,
-            context_source=source,
-            meaning_hint=hint,
-            existing_hints=existing_hints,
         )
         return 1

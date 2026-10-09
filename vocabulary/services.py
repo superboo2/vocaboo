@@ -315,49 +315,33 @@ def add_term(
     foreign,
     native,
     context_sentence="",
-    context_source="",
-    meaning_hint="",
     note="",
     origin=Term.Origin.MANUAL,
-    existing_hints=None,
 ):
     """Create a new word in the deck. Returns the DeckTerm.
 
     foreign and native are texts like "hello; hi". Creates the word, its variants,
     the link to the deck and the review states for both directions in one transaction.
-
-    existing_hints ({term id: hint}) gives a meaning to words with the same text that do
-    not have one yet, e.g. when "palm (strom)" is added and "palm" already exists.
+    The same foreign word with another translation is another meaning, so it is allowed:
+    palm → dlaň and palm → palma.
     """
     foreign_variants = _parse_side(foreign, "foreign")
     native_variants = _parse_side(native, "native")
-    meaning_hint = clean_text(meaning_hint)
     _check_no_duplicate(
         deck.owner_id,
         deck.foreign_language_id,
         deck.native_language_id,
         foreign_variants[0],
-        meaning_hint,
-    )
-    hint_updates = _check_homonyms(
-        deck.owner_id,
-        deck.foreign_language_id,
-        deck.native_language_id,
-        foreign_variants[0],
-        meaning_hint,
-        existing_hints=existing_hints or {},
+        native_variants[0],
     )
 
     with transaction.atomic():
-        for other, hint in hint_updates:
-            other.meaning_hint = hint
-            other.save(update_fields=["meaning_hint"])
         term = Term(
             owner_id=deck.owner_id,
             foreign_language_id=deck.foreign_language_id,
             native_language_id=deck.native_language_id,
             main_foreign=foreign_variants[0],
-            meaning_hint=meaning_hint,
+            main_native=native_variants[0],
             note=clean_text(note),
             origin=origin,
         )
@@ -367,7 +351,6 @@ def add_term(
             deck=deck,
             term=term,
             context_sentence=clean_text(context_sentence),
-            context_source=clean_text(context_source),
         )
         deck_term.full_clean(exclude=["deck", "term"])
         deck_term.save()
@@ -378,31 +361,21 @@ def add_term(
 
 
 @transaction.atomic
-def update_term(term, *, foreign, native, meaning_hint="", note=""):
+def update_term(term, *, foreign, native, note=""):
     """Change the texts of a word. The variants are replaced by the new ones."""
     foreign_variants = _parse_side(foreign, "foreign")
     native_variants = _parse_side(native, "native")
-    meaning_hint = clean_text(meaning_hint)
     _check_no_duplicate(
         term.owner_id,
         term.foreign_language_id,
         term.native_language_id,
         foreign_variants[0],
-        meaning_hint,
+        native_variants[0],
         exclude_pk=term.pk,
-    )
-    _check_homonyms(
-        term.owner_id,
-        term.foreign_language_id,
-        term.native_language_id,
-        foreign_variants[0],
-        meaning_hint,
-        exclude_pk=term.pk,
-        require_existing=False,
     )
 
     term.main_foreign = foreign_variants[0]
-    term.meaning_hint = meaning_hint
+    term.main_native = native_variants[0]
     term.note = clean_text(note)
     term.save()
     term.variants.all().delete()
@@ -411,10 +384,9 @@ def update_term(term, *, foreign, native, meaning_hint="", note=""):
 
 
 @transaction.atomic
-def update_deck_term(deck_term, *, context_sentence="", context_source=""):
-    """Change the sentence and the source of a word in one deck."""
+def update_deck_term(deck_term, *, context_sentence=""):
+    """Change the sentence of a word in one deck."""
     deck_term.context_sentence = clean_text(context_sentence)
-    deck_term.context_source = clean_text(context_source)
     deck_term.full_clean(exclude=["deck", "term"])
     deck_term.save()
     return deck_term
@@ -459,11 +431,10 @@ class TermMatch:
 class DuplicateCheck:
     """What the user should know before saving a new word. See spec 5.1."""
 
-    # Typed meaning hint (cleaned)
-    hint: str = ""
-    # Same main text and same meaning: the new word cannot be saved
+    # Same main foreign text and same main translation: the new word cannot be saved
     exact: TermMatch | None = None
-    # Same main text, other meaning (homonyms), e.g. palm (ruka) when typing palm
+    # Same main foreign text with another translation: other meanings of the word.
+    # Saving is allowed (another meaning), or the typed word can be added to one of them.
     meanings: list = field(default_factory=list)
     # Other words that share a foreign variant
     foreign: list = field(default_factory=list)
@@ -471,19 +442,16 @@ class DuplicateCheck:
     native: list = field(default_factory=list)
     # Same letters when accents are ignored, e.g. "cau" and "čau"
     similar: list = field(default_factory=list)
-    # Words with the same text and no meaning hint; they need one for a new meaning
-    need_hint: list = field(default_factory=list)
 
     @property
     def blocks(self):
-        # A new meaning of an existing word cannot be saved without a meaning hint
-        return self.exact is not None or (bool(self.meanings) and not self.hint)
+        return self.exact is not None
 
     def __bool__(self):
         return bool(self.exact or self.meanings or self.foreign or self.native or self.similar)
 
 
-def find_duplicates(deck, *, foreign="", native="", meaning_hint=""):
+def find_duplicates(deck, *, foreign="", native=""):
     """Look for words of the user that look like the typed one.
 
     Compares every typed variant with every variant of existing words: first with letter
@@ -491,8 +459,7 @@ def find_duplicates(deck, *, foreign="", native="", meaning_hint=""):
     """
     foreign_variants = parse_variants(foreign)
     native_variants = parse_variants(native)
-    meaning_hint = clean_text(meaning_hint)
-    check = DuplicateCheck(hint=meaning_hint)
+    check = DuplicateCheck()
     if not foreign_variants and not native_variants:
         return check
 
@@ -513,12 +480,13 @@ def find_duplicates(deck, *, foreign="", native="", meaning_hint=""):
         )
         .distinct()
         .prefetch_related("variants", "deck_terms__deck")
-        .order_by("main_foreign", "meaning_hint")
+        .order_by("main_foreign", "main_native")
     )
 
     typed_foreign = {text.lower() for text in foreign_variants}
     typed_native = {text.lower() for text in native_variants}
     main = foreign_variants[0].lower() if foreign_variants else None
+    main_native = native_variants[0].lower() if native_variants else None
 
     for term in candidates:
         has_foreign = {text.lower() for text in term.foreign_variants}
@@ -532,12 +500,10 @@ def find_duplicates(deck, *, foreign="", native="", meaning_hint=""):
             new_native=[v for v in native_variants if v.lower() not in has_native],
         )
         same_main = main is not None and term.main_foreign.lower() == main
-        if same_main and term.meaning_hint.lower() == meaning_hint.lower():
+        if same_main and main_native is not None and term.main_native.lower() == main_native:
             check.exact = match
         elif same_main:
             check.meanings.append(match)
-            if not term.meaning_hint:
-                check.need_hint.append(term)
         elif typed_foreign & has_foreign:
             check.foreign.append(match)
         elif typed_native & has_native:
@@ -548,7 +514,7 @@ def find_duplicates(deck, *, foreign="", native="", meaning_hint=""):
 
 
 @transaction.atomic
-def link_term(deck, term, *, foreign="", native="", context_sentence="", context_source=""):
+def link_term(deck, term, *, foreign="", native="", context_sentence=""):
     """Put an existing word into the deck and add the typed variants it does not have yet.
 
     Used by "Přidat i sem" and "Přidat jako variantu". Returns (DeckTerm, added variants).
@@ -584,11 +550,55 @@ def link_term(deck, term, *, foreign="", native="", context_sentence="", context
             deck=deck,
             term=term,
             context_sentence=clean_text(context_sentence),
-            context_source=clean_text(context_source),
         )
         deck_term.full_clean(exclude=["deck", "term"])
         deck_term.save()
     return deck_term, added
+
+
+def get_term_move_targets(deck):
+    """Decks where words of this deck can be moved or copied to, as a list of (deck, path)."""
+    return [
+        (target, path)
+        for target, path in iter_tree(load_tree(deck.owner))
+        if target.pk != deck.pk and _same_languages(target, deck)
+    ]
+
+
+@transaction.atomic
+def move_deck_terms(deck_terms, target, *, copy=False):
+    """Move words into another deck, or with copy=True put them there too.
+
+    The word itself, its variants and its review progress stay the same, only the deck
+    changes. When the word is already in the target deck, nothing is doubled: the target
+    keeps its own entry and only gets the sentence when it has none.
+    Returns (number of words done, number of words that were already in the target).
+    """
+    done = already = 0
+    for deck_term in deck_terms:
+        if deck_term.deck.owner_id != target.owner_id or not _same_languages(
+            deck_term.deck, target
+        ):
+            raise ValidationError(_("Slovíčka jde přesunout jen do slovníku se stejnými jazyky."))
+        if deck_term.deck_id == target.pk:
+            continue
+        existing = DeckTerm.objects.filter(deck=target, term_id=deck_term.term_id).first()
+        if existing is not None:
+            if not existing.context_sentence and deck_term.context_sentence:
+                existing.context_sentence = deck_term.context_sentence
+                existing.save(update_fields=["context_sentence"])
+            if not copy:
+                deck_term.delete()
+            already += 1
+        elif copy:
+            DeckTerm.objects.create(
+                deck=target, term_id=deck_term.term_id, context_sentence=deck_term.context_sentence
+            )
+        else:
+            deck_term.deck = target
+            deck_term.save(update_fields=["deck"])
+        done += 1
+    return done, already
 
 
 # Sort options for the word list in a deck
@@ -628,15 +638,15 @@ def _parse_side(text, field):
 
 
 def _check_no_duplicate(
-    owner_id, foreign_language_id, native_language_id, main_foreign, meaning_hint, exclude_pk=None
+    owner_id, foreign_language_id, native_language_id, main_foreign, main_native, exclude_pk=None
 ):
-    """Stop a second word with the same main text and meaning (ignoring letter case)."""
+    """Stop a second word with the same main text and the same translation (any letter case)."""
     existing = Term.objects.filter(
         owner_id=owner_id,
         foreign_language_id=foreign_language_id,
         native_language_id=native_language_id,
         main_foreign__iexact=main_foreign,
-        meaning_hint__iexact=meaning_hint,
+        main_native__iexact=main_native,
     )
     if exclude_pk is not None:
         existing = existing.exclude(pk=exclude_pk)
@@ -646,75 +656,10 @@ def _check_no_duplicate(
     deck_names = ", ".join(term.deck_terms.values_list("deck__name", flat=True))
     raise ValidationError(
         {
-            "foreign": _(
-                "Slovíčko „%(word)s“ už máš (%(decks)s). "
-                "Jestli jde o jiný význam, vyplň rozlišení významu."
-            )
-            % {"word": term.main_foreign, "decks": deck_names}
+            "foreign": _("Slovíčko „%(word)s → %(native)s“ už máš (%(decks)s).")
+            % {"word": term.main_foreign, "native": term.main_native, "decks": deck_names}
         }
     )
-
-
-def _check_homonyms(
-    owner_id,
-    foreign_language_id,
-    native_language_id,
-    main_foreign,
-    meaning_hint,
-    *,
-    existing_hints=None,
-    exclude_pk=None,
-    require_existing=True,
-):
-    """Words with the same text but another meaning must all have a meaning hint.
-
-    Returns a list of (word, new hint) for existing words that get their hint now.
-    """
-    others = Term.objects.filter(
-        owner_id=owner_id,
-        foreign_language_id=foreign_language_id,
-        native_language_id=native_language_id,
-        main_foreign__iexact=main_foreign,
-    ).prefetch_related("variants")
-    if exclude_pk is not None:
-        others = others.exclude(pk=exclude_pk)
-    others = list(others)
-    if not others:
-        return []
-
-    if not meaning_hint:
-        raise ValidationError(
-            {
-                "meaning_hint": _(
-                    "Slovíčko „%(word)s“ už máš v jiném významu, vyplň proto rozlišení významu."
-                )
-                % {"word": main_foreign}
-            }
-        )
-
-    updates = []
-    if not require_existing:
-        return updates
-    existing_hints = existing_hints or {}
-    for other in others:
-        if other.meaning_hint:
-            continue
-        hint = clean_text(existing_hints.get(other.pk, ""))
-        if not hint:
-            raise ValidationError(
-                {
-                    "meaning_hint": _(
-                        "Doplň rozlišení významu i u stávajícího slovíčka „%(word)s → %(native)s“."
-                    )
-                    % {"word": other.main_foreign, "native": " · ".join(other.native_variants)}
-                }
-            )
-        if hint.lower() == meaning_hint.lower():
-            raise ValidationError(
-                {"meaning_hint": _("Rozlišení nového a stávajícího slovíčka musí být různé.")}
-            )
-        updates.append((other, hint))
-    return updates
 
 
 def _save_variants(term, foreign_variants, native_variants):

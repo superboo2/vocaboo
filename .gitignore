@@ -13,3 +13,6 @@ media/
 # Tools
 .pytest_cache/
 .ruff_cache/
+
+# Downloaded dictionary data (see README: Translation suggestions)
+cs-extract.jsonl*

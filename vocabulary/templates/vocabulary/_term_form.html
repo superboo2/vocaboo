@@ -1,5 +1,7 @@
 {% load i18n %}
 {# Form for a new word on the deck page. HTMX sends it and puts the answer in its place. #}
+{# On a phone the two fields, the row of suggestions and the button fit on the screen together #}
+{# with the keyboard, and nothing above the button changes height while typing. #}
 {% url 'vocabulary:term_add' deck.pk as add_url %}
 <form id="term-form" method="post" action="{{ add_url }}"
       hx-post="{{ add_url }}?sort={{ sort }}" hx-target="this" hx-swap="outerHTML">
@@ -12,18 +14,20 @@
   {% endif %}
 
   {{ term_form.non_field_errors }}
-  <div class="grid">
-    <div>{{ term_form.foreign.as_field_group }}</div>
-    <div>{{ term_form.native.as_field_group }}</div>
+  <div class="grid term-fields">
+    {% include "vocabulary/_plain_field.html" with field=term_form.foreign %}
+    {% include "vocabulary/_plain_field.html" with field=term_form.native %}
   </div>
 
-  <details{% if term_form.more_has_values %} open{% endif %}>
-    <summary>{% translate "Více (věta, zdroj, rozlišení, poznámka)" %}</summary>
-    {{ term_form.context_sentence.as_field_group }}
-    {{ term_form.context_source.as_field_group }}
-    {{ term_form.meaning_hint.as_field_group }}
-    {{ term_form.note.as_field_group }}
-  </details>
+  {% if user.show_suggestions %}
+    {% include "vocabulary/_term_suggest.html" with result=None %}
+  {% endif %}
 
   {% include "vocabulary/_term_check.html" %}
+
+  <details{% if term_form.more_has_values %} open{% endif %}>
+    <summary>{% translate "Více (věta, poznámka)" %}</summary>
+    {{ term_form.context_sentence.as_field_group }}
+    {{ term_form.note.as_field_group }}
+  </details>
 </form>

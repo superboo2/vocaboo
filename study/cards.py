@@ -6,6 +6,7 @@ from operator import or_
 
 from django.db.models import Q
 
+from dictionary.providers import other_meanings
 from vocabulary import sentences
 from vocabulary.models import DeckTerm, Term, TermVariant
 
@@ -22,18 +23,20 @@ class Card:
     # Variants on the question side and on the answer side, main variant first
     question: list
     answer: list
-    # Sentence where the word was seen (with the word marked) and its source
+    # Sentence where the word was seen (with the word marked)
     sentence: str = ""
     sentence_on_front: bool = False
     # Native → foreign: the sentence with a gap instead of the word, shown on the front
     cloze: str = ""
-    source: str = ""
-    # How many other decks of this test have the word too
-    other_occurrences: int = 0
     # Short help on the front when the question alone is not clear
     front_hint: str = ""
-    # Other meanings of the same foreign word: list of (hint, native variants)
-    other_meanings: list = field(default_factory=list)
+    # The user's own words with the same foreign text: list of native variants per word
+    own_meanings: list = field(default_factory=list)
+    # Other meanings of the foreign word from dictionaries, only the first variant of each,
+    # and the names of the dictionaries. The browser shows as many as fit on one line and
+    # "+N" for the rest (study.js).
+    dictionary_meanings: list = field(default_factory=list)
+    dictionary_sources: list = field(default_factory=list)
     # Other words with the same question text (N2F), e.g. "ahoj" is also "hello"
     also: list = field(default_factory=list)
     # (rating, interval) for every button
@@ -59,9 +62,10 @@ def build_card(session, state):
     )
 
     _add_sentence(card, session, foreign)
-    if is_f2n:
-        _add_other_meanings(card)
-    else:
+    _add_other_meanings(card, session.user)
+    if not is_f2n:
+        # The hint "2 významy" is only for the foreign word on the front
+        card.front_hint = ""
         _add_same_translation(card, native)
     return card
 
@@ -70,8 +74,6 @@ def _add_sentence(card, session, foreign):
     deck_terms = DeckTerm.objects.filter(term=card.term).order_by("added_at", "pk")
     if not session.terms.exists():
         deck_terms = deck_terms.filter(deck_id__in=session_deck_ids(session))
-    deck_terms = list(deck_terms)
-    card.other_occurrences = max(0, len(deck_terms) - 1)
 
     with_sentence = [item for item in deck_terms if item.context_sentence]
     if not with_sentence:
@@ -79,7 +81,6 @@ def _add_sentence(card, session, foreign):
     # A different sentence each time the card comes back
     chosen = with_sentence[card.state.reviews_count % len(with_sentence)]
     card.sentence = sentences.highlight(chosen.context_sentence, foreign)
-    card.source = chosen.context_source
     if card.is_f2n:
         # The sentence shows which meaning is meant (palm: hand or tree)
         card.sentence_on_front = True
@@ -89,27 +90,26 @@ def _add_sentence(card, session, foreign):
         card.cloze = sentences.cloze(chosen.context_sentence, foreign)
 
 
-def _add_other_meanings(card):
-    term = card.term
-    others = list(
-        Term.objects.filter(
-            owner_id=term.owner_id,
-            foreign_language_id=term.foreign_language_id,
-            native_language_id=term.native_language_id,
-            main_foreign__iexact=term.main_foreign,
-        )
-        .exclude(pk=term.pk)
-        .prefetch_related("variants")
-        .order_by("meaning_hint")
-    )
-    if not others:
-        return
-    card.other_meanings = [(other.meaning_hint, other.native_variants) for other in others]
-    if not card.sentence_on_front:
-        # Without a sentence the question "palm" has more right answers
-        count = len(others) + 1
-        meanings = czech_plural(count, "význam", "významy", "významů")
-        card.front_hint = f"{term.meaning_hint} · {count} {meanings}"
+def _add_other_meanings(card, user):
+    meanings = other_meanings(card.term, include_dictionary=user.show_other_meanings)
+    own = [meaning for meaning in meanings if meaning["own"]]
+    card.own_meanings = [meaning["variants"] for meaning in own]
+
+    # Only the first variant of each meaning, so meanings can be split by dots:
+    # "moment · přídavek · druhý" instead of "moment; okamžik · přídavek; nášup · druhý".
+    # Meanings of all dictionaries go into one line, the same word only once.
+    for meaning in meanings:
+        if meaning["own"]:
+            continue
+        if meaning["variants"][0] not in card.dictionary_meanings:
+            card.dictionary_meanings.append(meaning["variants"][0])
+        if meaning["source"] and meaning["source"] not in card.dictionary_sources:
+            card.dictionary_sources.append(meaning["source"])
+
+    if own and not card.sentence_on_front:
+        # Without a sentence the question "palm" has more right answers among the user's words
+        count = len(own) + 1
+        card.front_hint = f"{count} {czech_plural(count, 'význam', 'významy', 'významů')}"
 
 
 def _add_same_translation(card, native):
@@ -130,5 +130,3 @@ def _add_same_translation(card, native):
         .order_by("main_foreign")
     )
     card.also = [other.main_foreign for other in others]
-    if card.also and term.meaning_hint:
-        card.front_hint = term.meaning_hint

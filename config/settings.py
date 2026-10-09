@@ -92,6 +92,7 @@ INSTALLED_APPS = [
     "accounts",
     "vocabulary",
     "study",
+    "dictionary",
 ]
 
 MIDDLEWARE = [
@@ -190,6 +191,10 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 # Target folder for collectstatic (used on the server)
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+
+# Translation suggestions when a word is typed, sources in this order (see dictionary/providers.py)
+SUGGESTION_PROVIDERS = env_list("VOKIE_SUGGESTION_PROVIDERS", "wiktionary")
 
 
 # Logging: errors go to the console, on the server systemd keeps them (journalctl -u vokie)

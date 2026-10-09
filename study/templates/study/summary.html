@@ -25,7 +25,6 @@
         {% for term in problems %}
           <li>
             <span class="term-main">{{ term.foreign_variants|join:" · " }}</span>
-            {% if term.meaning_hint %}<small class="hint">({{ term.meaning_hint }})</small>{% endif %}
             <span class="muted" aria-hidden="true">→</span>
             {{ term.native_variants|join:" · " }}
           </li>

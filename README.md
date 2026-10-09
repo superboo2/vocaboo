@@ -118,7 +118,8 @@ uv run python manage.py seed_demo martin@example.com
 The sample decks are called *Angličtina (ukázka)* and *Španělština (ukázka)*; delete them in the
 app when you do not need them any more.
 
-Your native language and the default test direction can be set on the *Nastavení* page.
+Your native language, the default test direction, the translation suggestions and the meanings
+from the dictionary on the test card (both on by default) can be set on the *Nastavení* page.
 
 To change a forgotten password (there is no password reset by email yet):
 
@@ -208,9 +209,9 @@ Words are added on the deck page. Only the first two fields are required:
 | Foreign language | `hello; hi` | more variants (synonyms) separated by `;` |
 | Native language | `ahoj; čau` | the same |
 | Sentence | `Hello, kids.` | under *Více*, where you saw the word; another form of the word in braces: `He {ran} away.` |
-| Source | `S01E01` | under *Více*, stays filled for the next word |
-| Meaning | `ruka` | under *Více*, only for words with more meanings |
 | Note | | under *Více* |
+
+There is no field for the episode: the deck is the episode (e.g. *Series 1 › Episode 1*).
 
 After saving, the form is empty again and the cursor is back in the first field, so you can
 type the next word right away (Enter sends the form).
@@ -219,14 +220,34 @@ While you type, the app looks for words you already have and shows what to do:
 
 | You type | You already have | The app offers |
 |---|---|---|
-| `hello` in Big Bang Theory | `hello → ahoj` in HIMYM | **Přidat i sem** (same word, now in both decks) or **Je to jiný význam** |
+| `hello` in Big Bang Theory | `hello → ahoj` in HIMYM | **Přidat i sem** (same word, now in both decks) |
 | `hello; hi` | `hello → ahoj` | the same, and `hi` is added to `hello` as a new variant |
 | `hey → ahoj` | `hello → ahoj` | **Přidat „hey“ jako variantu k „hello“**, or save it separately |
-| `palm → palma` | `palm (ruka) → dlaň` | *same meaning* (add variants) or *other meaning*: fill in the meaning, e.g. `strom` |
+| `palm → palma` | `palm → dlaň` | a note about the other translation: *same meaning* (add as a variant), or just save it as another meaning |
 | `cau` | `čau` | only a note "Podobné (bez diakritiky)"; `byt` and `být` are different words |
 
-The *Přidat slovíčko* button is disabled while the word cannot be saved (the same word with the
-same meaning already exists, or a new meaning has no meaning hint yet).
+The *Přidat slovíčko* button is disabled while the word cannot be saved: the same foreign word
+with the same translation already exists. The same foreign word with another translation is
+another meaning and is saved as its own word (`palm → dlaň`, `palm → palma`).
+
+Only the chosen meaning is saved. Other meanings of the word (the user's own words with the same
+foreign text and meanings from Wiktionary) are read when they are shown: on the back of the
+card and on the word page, where a dictionary meaning can be added with *+ Učit se i tento
+význam*. The back of the card, from the most important:
+
+```
+dlaň                                   ← the answer
+Učíš se i: palm → palma                ← your own word with the same foreign text
+„She can read from her palm.“          ← the sentence
+pracka · lehký · světlý +3             ← dictionaries, small; first variant of each meaning
+(další významy z Wiktionary)           ← the sources
+```
+
+The browser shows as many dictionary meanings as fit on one line and *+N* for the rest; a click
+on it shows them all (`fitMeanings` in `static/js/study.js`). Meanings of all dictionaries go
+into the same line, each word once, and the line under it names all sources. The word page
+shows all meanings with all variants. The
+meanings from the dictionary on the card can be turned off on the *Nastavení* page.
 
 The word in the sentence is found automatically (whole words, any foreign variant, letter case
 ignored) and shown marked. For another form of the word put it in braces, e.g. `He {ran} away.`
@@ -242,10 +263,15 @@ Rules:
 
 - A word belongs to you, not to a deck. Decks only point to it, so one word can be in more
   decks and is tested only once.
-- The same word (same first foreign variant and meaning, letter case ignored) cannot be added
-  twice. Words with more meanings get a *meaning*: `palm (ruka) → dlaň`, `palm (strom) → palma`.
+- The same word (same first foreign variant and same first translation, letter case ignored)
+  cannot be added twice. Another translation is another meaning: `palm → dlaň`, `palm → palma`.
 - Input is tidied: spaces at the ends are removed, more spaces become one, and Unicode is unified
   (NFC), so `čau` typed on any device is the same text.
+- **Moving words:** in the word list click *Vybrat*, tick the words (or *Vše*) and click
+  *Přesunout…*, then choose the deck. *Přesunout* moves them, *Přidat i tam* keeps them in both
+  decks. Only decks with the same languages are offered. The sentence and the review progress
+  stay; a word that is already in the target deck is not doubled. One word can be moved from
+  its page (*Přesunout*).
 - Removing a word from its last deck deletes it, including its review history. Deleting a deck
   deletes the words that are in no other deck.
 
@@ -261,12 +287,40 @@ item = services.add_term(
     foreign="hello; hi",
     native="ahoj; čau",
     context_sentence="Hello, kids.",
-    context_source="S01E01",
 )
 item.term.foreign_variants  # ['hello', 'hi']
 ```
 
-### 10. Repetition intervals
+### 10. Translation suggestions (Wiktionary)
+
+While you type a foreign word, the app suggests Czech translations with the part of speech, e.g.
+`present` → *současnost, dárek* (podstatné jméno), *představit* (sloveso). A click puts the
+suggestion into the translation field. The data come from the
+[Czech Wiktionary](https://cs.wiktionary.org) as extracted by [kaikki.org](https://kaikki.org)
+(licence CC BY-SA, so the source is shown under the suggestions). Every user can turn the
+suggestions off on the *Nastavení* page (*Přidávání slovíček › Navrhovat překlad*).
+
+Import the data once (about 40 MB download, ~10 s, ~35 MB in the database):
+
+```bash
+curl -fLO https://kaikki.org/dictionary/downloads/cs/cs-extract.jsonl.gz
+uv run python manage.py import_wiktionary cs-extract.jsonl.gz
+# Imported 113645 entries (en 17504, fr 16449, de 13658, ...).
+
+# Only some languages (smaller table):
+uv run python manage.py import_wiktionary cs-extract.jsonl.gz --languages en,es
+```
+
+Run it again from time to time with a new download; it replaces the old data. Without the
+import the app works the same, it just shows no suggestions. Only decks whose *Mluvím* language
+is Czech get suggestions (the Czech Wiktionary has meanings in Czech). It knows about 14 000
+English words (most common words are there), Spanish only about 2 600.
+
+The sources of suggestions are in `dictionary/providers.py` and their order is the environment
+variable `VOKIE_SUGGESTION_PROVIDERS` (default `wiktionary`), so another source can be added
+later without changing the rest of the app.
+
+### 11. Repetition intervals
 
 After a card is turned, you rate yourself. The interval grows with every good answer and is
 capped at one year. Intervals of a day or more are rounded to whole days.
@@ -281,7 +335,7 @@ capped at one year. Intervals of a day or more are rounded to whole days.
 Example, always 😎: 7 days → 28 → 112 → 365. After 😕 or 😵 the growth starts again from the
 first value. The buttons are defined in `study/ratings.py`.
 
-### 11. Tests (study sessions)
+### 12. Tests (study sessions)
 
 A test is a `StudySession`: chosen decks (child decks are included), direction and scope. The
 next card is always computed from the database, so the app works the same on more devices.
@@ -310,14 +364,14 @@ services.record_answer(session, card, "ok", think_ms=1800)
 services.session_summary(session)
 ```
 
-### 12. The test screen
+### 13. The test screen
 
 Start a test from the dashboard (*Spustit test*) or from a deck (*Testovat tento slovník*):
 choose decks, direction and which cards. Then:
 
 1. The card shows the question. In the foreign → native direction the sentence is shown too,
    with the word marked.
-2. **Ukázat** or **Space** turns the card. The answer, the sentence, the source, other meanings
+2. **Ukázat** or **Space** turns the card. The answer, your other words with the same text, the sentence and other meanings
    and other words with the same translation are on the back.
 3. Rate yourself with one of the buttons or keys **1–4**. Under each emoji is the real next
    interval of this card, e.g. `7 dní`. The next card comes without reloading the page.
@@ -327,7 +381,7 @@ choose decks, direction and which cards. Then:
 The time until the card is turned (`think_ms`) and until the rating (`decide_ms`) is measured in
 the browser and paused while the page is hidden (another app, locked phone).
 
-### 13. Dashboard and word page
+### 14. Dashboard and word page
 
 - The dashboard shows the decks as a tree of folders (📂 open, 📁 closed, 📄 deck without child
   decks). The whole tree is always open when the page loads; a click on a folder closes it
@@ -346,7 +400,7 @@ the browser and paused while the page is hidden (another app, locked phone).
 - Clicking a word in a deck opens its page: variants, the decks it is in (with sentences), the
   next repetition and counts of ratings for each direction, and the history of answers.
 
-### 14. Help
+### 15. Help
 
 The app has a help page for users (*Nápověda* in the top bar, `/help/`) with tabs *Slovníky*,
 *Slovíčka*, *Test* and *Přehled a statistiky*. Every tab is its own page
@@ -354,7 +408,7 @@ The app has a help page for users (*Nápověda* in the top bar, `/help/`) with t
 table of rating buttons is made from `study/ratings.py`, so it stays right when the buttons
 change. When a feature changes, update its help tab too.
 
-### 15. Run the app
+### 16. Run the app
 
 ```bash
 uv run python manage.py runserver
@@ -386,6 +440,7 @@ accounts/     custom user model (login with email), admin, login/logout
 vocabulary/   languages, decks (dictionary tree), words and their variants
   services.py   all rules for decks and words, views only call these functions
   sentences.py  the word in a sentence: found or {marked}, highlighted or replaced by a gap
+dictionary/   imported Wiktionary and the sources of translation suggestions (providers.py)
 study/        tests: review states, sessions, history, the test screen
   cards.py      what one card shows (question, answer, sentence, hints)
   formatting.py intervals in Czech ("8 dní")
@@ -405,6 +460,7 @@ tests/        all tests, one folder per app
   project/      whole project: database, layout, help pages
   accounts/     users, login, settings
   vocabulary/   languages, decks, words, duplicates, sentences, seed_demo
+  dictionary/   Wiktionary import and translation suggestions
   study/        intervals, sessions, cards, test screen, dashboard numbers
 docs/         specification and plan (Czech)
 ```
@@ -596,7 +652,42 @@ sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py createsuperuser
 sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py check --deploy
 ```
 
-#### 3. gunicorn as a systemd service
+#### 3. Translation suggestions (Czech Wiktionary)
+
+Optional: without it the app works, it only shows no translation suggestions. It needs about
+40 MB download, ~10 seconds, ~150 MB of memory while importing and ~35 MB in the database, so
+a Raspberry Pi is fine.
+
+```bash
+# Download the data next to the app (not into the app directory)
+sudo -u vokie -H curl -fLo /srv/vokie/cs-extract.jsonl.gz \
+    https://kaikki.org/dictionary/downloads/cs/cs-extract.jsonl.gz
+
+# Import (replaces older imported data)
+cd /srv/vokie/app
+sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py import_wiktionary \
+    /srv/vokie/cs-extract.jsonl.gz
+# Imported 113645 entries (en 17504, fr 16449, de 13658, ...).
+```
+
+To keep the table smaller, import only the languages you learn:
+
+```bash
+sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py import_wiktionary \
+    /srv/vokie/cs-extract.jsonl.gz --languages en,es
+```
+
+Check it in the shell:
+
+```bash
+sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py shell -c \
+    "from dictionary.providers import get_suggestions; print(get_suggestions('palm', 'en', 'cs'))"
+```
+
+The app does not need a restart after the import. Wiktionary grows all the time, so repeat the
+download and the import from time to time (e.g. every few months), see *Updating the app*.
+
+#### 4. gunicorn as a systemd service
 
 `/etc/systemd/system/vokie.service`:
 
@@ -631,7 +722,7 @@ journalctl -u vokie -f        # logs, also Django errors
 
 The app reads `.env` from its directory, so the settings do not have to be in the service file.
 
-#### 4. nginx
+#### 5. nginx
 
 `/etc/nginx/sites-available/vokie`:
 
@@ -672,7 +763,7 @@ sudo chmod 750 /srv/vokie /srv/vokie/app
 sudo systemctl restart nginx
 ```
 
-#### 5. HTTPS
+#### 6. HTTPS
 
 ```bash
 sudo apt install -y certbot python3-certbot-nginx
@@ -693,7 +784,7 @@ DJANGO_HSTS_SECONDS=31536000
 Turn on `DJANGO_HSTS_INCLUDE_SUBDOMAINS=1` only if **all** subdomains of your domain use HTTPS;
 preload is not needed.
 
-#### 6. Updating the app
+#### 7. Updating the app
 
 ```bash
 cd /srv/vokie/app
@@ -704,7 +795,16 @@ sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py collectstatic --noinp
 sudo systemctl restart vokie
 ```
 
-#### 7. Backups
+Newer dictionary data (not needed with every update):
+
+```bash
+sudo -u vokie -H curl -fLo /srv/vokie/cs-extract.jsonl.gz \
+    https://kaikki.org/dictionary/downloads/cs/cs-extract.jsonl.gz
+sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py import_wiktionary \
+    /srv/vokie/cs-extract.jsonl.gz
+```
+
+#### 8. Backups
 
 A daily dump of the database, the last 14 days are kept.
 

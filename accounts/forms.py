@@ -17,7 +17,21 @@ class SettingsForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ["native_language", "default_direction"]
-        labels = {"default_direction": _("Výchozí směr testu")}
-        help_texts = {"default_direction": _("Předvyplní se v nastavení nového testu.")}
+        fields = ["native_language", "default_direction", "show_suggestions", "show_other_meanings"]
+        labels = {
+            "default_direction": _("Výchozí směr testu"),
+            "show_suggestions": _("Navrhovat překlad"),
+            "show_other_meanings": _("Ukazovat další významy ze slovníku"),
+        }
+        help_texts = {
+            "default_direction": _("Předvyplní se v nastavení nového testu."),
+            "show_suggestions": _(
+                "Když píšeš cizí slovo, pod polem pro překlad se ukážou návrhy ze slovníku "
+                "(Wiktionary)."
+            ),
+            "show_other_meanings": _(
+                "Dole na zadní straně kartičky, kolik se vejde na řádek, zbytek po kliknutí "
+                "na +N. Tvoje vlastní významy (např. palm → dlaň i palma) se ukazují vždy."
+            ),
+        }
         widgets = {"default_direction": forms.RadioSelect}

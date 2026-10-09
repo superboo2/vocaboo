@@ -81,6 +81,22 @@ class DeckMoveForm(forms.Form):
         return self.targets.get(value) if value else None
 
 
+class TermMoveForm(forms.Form):
+    """Choose the deck for moving or copying words. Choices show full paths."""
+
+    target = forms.ChoiceField(label=_("Do slovníku"))
+
+    def __init__(self, *args, targets, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.targets = {str(deck.pk): deck for deck, _path in targets}
+        self.fields["target"].choices = [("", "—")] + [
+            (str(deck.pk), " › ".join(d.name for d in path)) for deck, path in targets
+        ]
+
+    def clean_target(self):
+        return self.targets[self.cleaned_data["target"]]
+
+
 class TermForm(forms.Form):
     """New word or editing a word. Labels show the languages of the deck."""
 
@@ -92,18 +108,6 @@ class TermForm(forms.Form):
         widget=forms.Textarea(attrs={"rows": 2}),
         help_text=_("Slovo ve větě najdu sám. Jiný tvar označ závorkami: He {ran} away."),
     )
-    context_source = forms.CharField(
-        label=_("Zdroj"),
-        required=False,
-        max_length=50,
-        help_text=_("Např. S01E01."),
-    )
-    meaning_hint = forms.CharField(
-        label=_("Rozlišení významu"),
-        required=False,
-        max_length=100,
-        help_text=_("Jen když má slovo víc významů, např. palm: ruka / strom."),
-    )
     note = forms.CharField(
         label=_("Poznámka"),
         required=False,
@@ -111,7 +115,7 @@ class TermForm(forms.Form):
     )
 
     # Fields shown under "Více" (more), the first two are always visible
-    more_fields = ("context_sentence", "context_source", "meaning_hint", "note")
+    more_fields = ("context_sentence", "note")
 
     def __init__(self, *args, deck, **kwargs):
         super().__init__(*args, **kwargs)
@@ -121,8 +125,13 @@ class TermForm(forms.Form):
         native.label = f"{deck.native_language.name} ({deck.native_language.code.upper()})"
         foreign.help_text = _("Víc variant odděl středníkem: hello; hi")
         native.help_text = _("Víc variant odděl středníkem: ahoj; čau")
-        foreign.widget.attrs.update({"autocomplete": "off", "autocapitalize": "none"})
-        native.widget.attrs.update({"autocomplete": "off", "autocapitalize": "none"})
+        # The grey sample in an empty field tells how to write variants (short form of help_text)
+        foreign.widget.attrs.update(
+            {"autocomplete": "off", "autocapitalize": "none", "placeholder": "hello; hi"}
+        )
+        native.widget.attrs.update(
+            {"autocomplete": "off", "autocapitalize": "none", "placeholder": "ahoj; čau"}
+        )
 
     def more_has_values(self):
         """Open the "Více" part when some of its fields are filled or have errors."""

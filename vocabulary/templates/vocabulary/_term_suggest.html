@@ -1,0 +1,26 @@
+{% load i18n %}
+{# Translation suggestions for the typed foreign word (dictionary/providers.py). #}
+{# One row is always kept free: it fills while typing and empties after a choice, so for most #}
+{# words the form does not jump. Many suggestions wrap to more rows. #}
+{% url 'vocabulary:term_suggest' deck.pk as suggest_url %}
+<div id="term-suggest" class="suggest-row"
+     hx-get="{{ suggest_url }}"
+     hx-trigger="input changed delay:400ms from:#id_foreign"
+     hx-include="#id_foreign"
+     hx-target="this"
+     hx-swap="outerHTML"
+     hx-sync="this:replace"
+     aria-live="polite">
+  {% if result %}
+    <span class="suggest-label">{% translate "Návrhy:" %}</span>
+    {% for item in result.suggestions %}
+      <button type="button" class="outline suggestion" data-action="use-suggestion"
+              data-translation="{{ item.translation }}"
+              title="{{ item.part_of_speech }}{% if item.note %} · {{ item.note }}{% endif %}{% if item.examples %} · {{ item.examples.0 }}{% endif %}">
+        {{ item.translation }}{% if item.short_pos %} <small>{{ item.short_pos }}</small>{% endif %}
+      </button>
+    {% endfor %}
+    <a class="suggest-source" href="{{ result.source_url }}" target="_blank" rel="noopener"
+       title="{% translate 'zdroj' %}: {{ result.source_name }}">Wiktionary</a>
+  {% endif %}
+</div>

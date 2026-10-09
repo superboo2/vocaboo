@@ -57,6 +57,10 @@ class User(AbstractUser):
         choices=StudyDirection.choices,
         default=StudyDirection.MIXED,
     )
+    # Translation suggestions from the dictionary while a new word is typed
+    show_suggestions = models.BooleanField(_("navrhovat překlad"), default=True)
+    # Meanings from the dictionary on the back of a test card (the user's own are always shown)
+    show_other_meanings = models.BooleanField(_("další významy na kartě"), default=True)
 
     USERNAME_FIELD = "email"
     # Fields asked by createsuperuser besides email and password

@@ -9,6 +9,8 @@ def test_seed_demo_adds_sample_data(user, capsys):
     call_command("seed_demo", "Martin@Example.com")
 
     assert Deck.objects.filter(owner=user, parent=None).count() == 2
+    # HIMYM words are in episode decks under S01
+    assert Deck.objects.filter(owner=user, parent__name="S01").count() == 4
     assert Term.objects.filter(owner=user, main_foreign="palm").count() == 2
     # "hello" is in HIMYM and in Big Bang Theory, but it is one word
     hello = Term.objects.get(owner=user, main_foreign="hello")

@@ -94,17 +94,17 @@ Poznámky z implementace: unikátnost názvu jedním omezením s `nulls_distinct
 - `Term`, `TermVariant`, `DeckTerm` včetně omezení (`Lower(main_foreign)`, `Lower(text)`)
 - `ReviewState` (zakládá se tady, protože vzniká spolu se slovíčkem: 2 řádky, pro každý směr)
 - učesání textu (NFC, mezery), rozdělení variant podle `;`
-- služby: přidat slovíčko do slovníku, upravit varianty, poznámku a rozlišení, upravit kontext ve slovníku, odebrat ze slovníku (smazání slovíčka bez slovníku po potvrzení)
+- služby: přidat slovíčko do slovníku, upravit varianty a poznámku, upravit kontext ve slovníku, odebrat ze slovníku (smazání slovíčka bez slovníku po potvrzení)
 - testy služeb
 
 **UI:**
-- formulář v detailu slovníku: cizí výraz, překlad, „Více“ (věta, zdroj, rozlišení, poznámka). Po uložení zůstane otevřený a kurzor skočí do prvního pole.
+- formulář v detailu slovníku: cizí výraz, překlad, „Více“ (věta, poznámka). Po uložení zůstane otevřený a kurzor skočí do prvního pole.
 - seznam slovíček ve slovníku, řazení (datum přidání / abecedně / termín opakování)
 - úprava a odebrání slovíčka
 
 **Hotovo, když:** jde rychle přidat několik slovíček za sebou, včetně variant a věty.
 
-Poznámky z implementace: `ReviewState` je v aplikaci `study` (vzniká se slovíčkem); zdroj (např. S01E01) zůstává vyplněný pro další slovíčko; výchozí řazení seznamu je od nejnovějšího; všechna pole formulářů mají šablonu `templates/forms/field.html` (nápověda a chyby pod polem, styl Pico); mazání slovníku maže i slovíčka, která nejsou v jiném slovníku.
+Poznámky z implementace: `ReviewState` je v aplikaci `study` (vzniká se slovíčkem); pole zdroj (díl) bylo později zrušené, díl určuje slovník; výchozí řazení seznamu je od nejnovějšího; všechna pole formulářů mají šablonu `templates/forms/field.html` (nápověda a chyby pod polem, styl Pico); mazání slovníku maže i slovíčka, která nejsou v jiném slovníku.
 
 ## Krok 7: Kontrola duplicit
 - služba, která pro rozepsané slovíčko vrátí:
@@ -112,13 +112,13 @@ Poznámky z implementace: `ReviewState` je v aplikaci `study` (vzniká se sloví
   2. shody jen na straně překladu,
   3. podobná slova bez diakritiky (`unaccent`)
 - HTMX endpoint volaný během psaní (s malým zpožděním)
-- akce: „Přidat i sem“, „Je to jiný význam“ (rozlišení povinné u obou), „Přidat jako variantu“, „Uložit samostatně“
+- akce: „Přidat i sem“, „Přidat jako variantu“, „Uložit samostatně“
 - zablokování, pokud slovíčko už v daném slovníku je
 - testy služby
 
 **Hotovo, když:** `hello` v druhé epizodě nabídne „přidat i sem“, `hi → ahoj` nabídne „přidat jako variantu k hello“ a `cau` upozorní na `čau`.
 
-Poznámky z implementace: slova se stejným textem a jiným významem (homonyma) mají v panelu vlastní sekci „stejný, nebo jiný význam?“ a uložení je zablokované, dokud chybí rozlišení; jinak by se nabízelo přidat „palma“ jako variantu k „palm (ruka)“. „Je to jiný význam“ se nabízí i pro slovíčko, které už v daném slovníku je.
+Poznámky z implementace: slova se stejným textem a jiným překladem (homonyma) mají v panelu vlastní sekci „už máš s jiným překladem“; jiný význam se prostě uloží (homonyma rozlišuje překlad, pole „rozlišení“ bylo zrušené). Blokuje se jen stejné cizí slovo se stejným překladem.
 
 ## Krok 8: Hodnocení a výpočet intervalu (`study`)
 - `study/ratings.py`: 4 tlačítka (klíč, emoji, název, výsledek, minimum, násobek, maximum, klávesa)
@@ -147,7 +147,7 @@ Poznámky z implementace: rozsah „všechna“ nevyžaduje frontu, kartička zo
 ## Krok 10: Obrazovka testu
 - pole `User.default_direction` (výchozí směr testu)
 - nastavení testu: výběr slovníků (strom se zaškrtávátky), směr, rozsah, max. počet; předvyplněné z `default_direction`
-- kartička: přední strana (hlavní varianta velkým písmem, ostatní menším; věta podle pravidel; nápověda u homonym a kolizí), „Ukázat“, zadní strana (všechny varianty, věta, zdroj, poznámka, další významy, „+N dalších výskytů“)
+- kartička: přední strana (hlavní varianta velkým písmem, ostatní menším; věta podle pravidel; nápověda u homonym a kolizí), „Ukázat“, zadní strana (všechny varianty, vlastní další významy, věta, poznámka, významy ze slovníku)
 - 4 tlačítka s emoji a skutečným příštím intervalem, barvy, `aria-label`, tooltip
 - legenda při prvním testu a ikona „?“
 - klávesnice: mezerník otočí kartičku, `1`–`4` ohodnotí

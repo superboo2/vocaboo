@@ -310,6 +310,53 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
   font-weight: bold;
 }
 
+/* Choosing words for moving: check boxes and a bar at the bottom, only after "Vybrat" */
+.select-box,
+.select-bar,
+#term-list.selecting .select-start {
+  display: none;
+}
+
+#term-list.selecting .select-box {
+  display: inline-block;
+  flex-shrink: 0;
+  margin: 0.2rem 0 0;
+}
+
+#term-list.selecting .term-list li {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+#term-list.selecting .select-bar {
+  position: sticky;
+  bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  padding: 0.75rem 0;
+  background: var(--pico-background-color);
+  border-top: 1px solid var(--pico-muted-border-color);
+}
+
+.select-bar label {
+  margin: 0;
+}
+
+.select-bar button,
+.select-start {
+  width: auto;
+  margin: 0;
+  padding: 0.35rem 0.9rem;
+  font-size: 0.875rem;
+}
+
+.move-words {
+  padding-left: 1.25rem;
+}
+
 .hint {
   font-style: italic;
 }
@@ -424,9 +471,59 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
   font-weight: bold;
 }
 
-.card-meta,
 .card-note {
   font-size: 0.875rem;
+}
+
+/* The user's own words with the same text: as important as the sentence */
+.card-own {
+  margin-bottom: 0.5rem;
+}
+
+/* Meanings from the dictionary: small, at the bottom of the back */
+.card-dictionary {
+  font-size: 0.875rem;
+}
+
+.card-dictionary p {
+  margin-bottom: 0;
+}
+
+/* One word (meaning) never breaks inside. The dot is added after the word and stays with it,
+   so a new line never starts with a dot; the last shown word has none (study.js). */
+.meaning {
+  white-space: nowrap;
+}
+
+.meaning::after {
+  content: "\00a0·";
+}
+
+.meaning:last-of-type::after,
+.meaning.last-shown::after {
+  content: none;
+}
+
+.meaning[hidden] {
+  display: none;
+}
+
+.card-dictionary small {
+  font-size: 0.75rem;
+}
+
+/* A button that looks like a link, e.g. "+3" */
+.link-button {
+  display: inline;
+  width: auto;
+  margin: 0;
+  padding: 0 0.25rem;
+  border: none;
+  background: none;
+  color: var(--pico-primary);
+  font-size: inherit;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .card-show {
@@ -741,4 +838,81 @@ main:focus {
 /* Help tables: short words can wrap, so most tables fit a phone without scrolling */
 .help td code {
   white-space: normal;
+}
+
+/* Word form: less space between the two fields, so everything fits on a phone */
+.term-fields {
+  margin-bottom: 0;
+}
+
+.term-fields input {
+  margin-bottom: 0.5rem;
+}
+
+/* Translation suggestions: one row is always kept free for them, so for most words the
+   button does not move; when there are many, they wrap to more rows */
+.suggest-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2.4rem;
+  margin-bottom: 0.5rem;
+}
+
+.suggest-label {
+  flex: none;
+  font-size: 0.8rem;
+  color: var(--pico-muted-color);
+}
+
+.suggestion {
+  flex: none;
+  margin: 0;
+  width: auto;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.9rem;
+}
+
+.suggestion small {
+  color: var(--pico-muted-color);
+  font-size: 0.7rem;
+}
+
+.suggest-source {
+  flex: none;
+  font-size: 0.7rem;
+  color: var(--pico-muted-color);
+}
+
+/* Duplicate hints are under the button, with a little space */
+#term-check .term-check {
+  margin-top: 0.75rem;
+}
+
+/* Other meanings on the word page */
+.other-meanings form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.25rem 0.5rem;
+}
+
+.other-meanings button {
+  margin: 0;
+  width: auto;
+  padding: 0.15rem 0.6rem;
+  font-size: 0.85rem;
+}
+
+/* Groups on the settings page */
+.settings-group {
+  margin-bottom: var(--pico-spacing);
+}
+
+.settings-group h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--pico-muted-border-color);
 }

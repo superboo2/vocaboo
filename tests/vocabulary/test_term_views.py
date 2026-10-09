@@ -32,16 +32,15 @@ def test_deck_page_shows_form_with_languages(logged_client, himym):
 def test_add_term_with_htmx(logged_client, himym):
     response = logged_client.post(
         add_url(himym),
-        {"foreign": "hello; hi", "native": "ahoj", "context_source": "S01E01"},
+        {"foreign": "hello; hi", "native": "ahoj"},
         headers={"HX-Request": "true"},
     )
     html = response.content.decode()
 
     assert response.status_code == 200
     assert Term.objects.get().main_foreign == "hello"
-    # Fresh form, source kept for the next word, cursor in the first field
+    # Fresh form, cursor in the first field
     assert 'id="term-form"' in html
-    assert 'value="S01E01"' in html
     assert "autofocus" in html
     # Updated list comes "out of band"
     assert 'hx-swap-oob="true"' in html
@@ -145,3 +144,21 @@ def test_delete_deck_page_counts_words(logged_client, himym):
 
     assert "1 slovíčko" in html
     assert DeckTerm.objects.count() == 1
+
+
+def test_word_form_layout_fits_a_phone(logged_client, himym):
+    html = logged_client.get(reverse("vocabulary:deck_detail", args=[himym.pk])).content.decode()
+
+    # Variants are explained by grey samples in the fields, not by help lines under them
+    assert 'placeholder="hello; hi"' in html
+    assert 'placeholder="ahoj; čau"' in html
+    assert "Víc variant odděl středníkem" not in html
+    # Fields, then the row of suggestions, then the button, then "Více"
+    order = [
+        html.index('id="id_foreign"'),
+        html.index('id="id_native"'),
+        html.index('id="term-suggest"'),
+        html.index("Přidat slovíčko"),
+        html.index("Více (věta"),
+    ]
+    assert order == sorted(order)

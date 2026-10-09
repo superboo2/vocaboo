@@ -86,6 +86,8 @@ Pole navíc oproti `AbstractUser`:
 |---|---|---|
 | `native_language` | FK Language | výchozí rodný jazyk |
 | `default_direction` | enum | `F2N` / `N2F` / `MIXED` |
+| `show_suggestions` | bool, výchozí `True` | návrhy překladu při přidávání slovíčka (5.2), vypíná se v Nastavení |
+| `show_other_meanings` | bool, výchozí `True` | další významy ze slovníku na zadní straně kartičky (6.4) |
 | `strict_ignore_case` | bool | default `True` (fáze 2) |
 | `strict_ignore_diacritics` | bool | default `False` (fáze 2) |
 | `strict_allow_typo` | bool | default `False`, tolerance 1 překlepu (fáze 2) |
@@ -143,7 +145,7 @@ Zobrazení:
 | `foreign_language` | FK Language | |
 | `native_language` | FK Language | |
 | `main_foreign` | char | kopie textu hlavní cizí varianty (viz 4.5), slouží jen pro unikátní omezení |
-| `meaning_hint` | char, blank | rozlišení homonym („ruka“ × „strom“ u `palm`) |
+| `main_native` | char | kopie textu hlavního překladu (viz 4.5), spolu s `main_foreign` slouží pro unikátní omezení |
 | `note` | text, blank | |
 | `origin` | enum | `manual` / `translated` / `voice` / `import` |
 | `created_at` | datetime | |
@@ -151,12 +153,12 @@ Zobrazení:
 
 Samotné texty slovíčka nejsou na `Term`, ale v `TermVariant` (4.5).
 
-Unikátnost: `(owner, foreign_language, native_language, Lower(main_foreign), meaning_hint)`, tedy unikátní omezení nad výrazem `Lower()`, které Django podporuje přímo. Pole `main_foreign` je záměrná drobná duplicita dat: díky němu databáze spolehlivě zablokuje duplicitní slovíčko, i kdyby v kódu byla chyba nebo se ukládalo souběžně ze dvou zařízení. Nastavuje ho servisní vrstva při každé změně hlavní cizí varianty.
+Unikátnost: `(owner, foreign_language, native_language, Lower(main_foreign), Lower(main_native))`, tedy unikátní omezení nad výrazy `Lower()`, které Django podporuje přímo. Pole `main_foreign` a `main_native` jsou záměrná drobná duplicita dat: díky němu databáze spolehlivě zablokuje duplicitní slovíčko, i kdyby v kódu byla chyba nebo se ukládalo souběžně ze dvou zařízení. Nastavuje je servisní vrstva při každé změně hlavních variant.
 
-**Homonyma** (`palm` = dlaň / palma, `present` = dárek / přítomnost / prezentovat) jsou **samostatná slovíčka** a `meaning_hint` je u nich **povinné u všech**:
+**Homonyma** (`palm` = dlaň / palma, `present` = dárek / přítomnost / prezentovat) jsou **samostatná slovíčka** a rozlišuje je **překlad** (žádné zvláštní pole na rozlišení):
 ```
-palm (ruka)   ↔ dlaň
-palm (strom)  ↔ palma
+palm  ↔ dlaň
+palm  ↔ palma
 ```
 Varianty `palm ↔ dlaň; palma` by byly špatně, protože `dlaň` ≠ `palma`. Varianty jsou jen pro synonyma.
 
@@ -183,7 +185,7 @@ Příklad: slovíčko `hello; hi` ↔ `Ahoj; čau`
 | 100 | N | Ahoj | 0 |
 | 100 | N | čau | 1 |
 
-**Varianty znamenají „každá vlevo odpovídá každé vpravo“.** Když to neplatí (`hello; hi` ↔ `ahoj; dobrý den`, kde `hi` ≠ `dobrý den`), je lepší vytvořit dvě slovíčka s rozlišením významu. Aplikace to nerozhodne za uživatele, ale upozorní na kolize (viz 5.1).
+**Varianty znamenají „každá vlevo odpovídá každé vpravo“.** Když to neplatí (`hello; hi` ↔ `ahoj; dobrý den`, kde `hi` ≠ `dobrý den`), je lepší vytvořit dvě slovíčka. Aplikace to nerozhodne za uživatele, ale upozorní na kolize (viz 5.1).
 
 #### Učesání textu a porovnávání
 Normalizované kopie textu se **neukládají**. Porovnává se až při dotazu, protože PostgreSQL (i při vývoji) umí `lower()` správně i pro češtinu a má rozšíření `unaccent`.
@@ -215,7 +217,6 @@ Poznámky:
 | `deck` | FK Deck | |
 | `term` | FK Term | |
 | `context_sentence` | text, blank | věta, ve které slovo zaznělo: „Hello, Penny.“ |
-| `context_source` | char, blank | „S01E01“ |
 | `added_at` | datetime | |
 
 Unikátnost: `(deck, term)`.
@@ -300,11 +301,9 @@ Formulář ve slovníku:
 - **Cizí výraz**, varianty se oddělují středníkem (`hello; hi`)
 - **Překlad**, varianty se oddělují středníkem (`ahoj; čau`)
 - **Použití ve větě**, volitelné, uživatel ho v MVP píše sám (`She read my palm.`). Uloží se do `DeckTerm.context_sentence`. Slovo ve větě aplikace najde sama (celé slovo, kterákoliv cizí varianta, bez ohledu na velikost písmen). **Jiný tvar** slova se označí složenými závorkami: `He {ran} away.` u slovíčka `run`; prázdné `{}` znamená hlavní variantu. Závorky se nikde nezobrazují, slovo je zvýrazněné (seznam, detail, kartička) nebo nahrazené mezerou (přední strana N→F).
-- Zdroj (díl), volitelný
-- Rozlišení významu, volitelné, ale povinné u homonym (viz níže)
 - Poznámka, volitelná
 
-Formulář musí být rychlý: povinné jsou jen první dvě pole, ostatní jsou schovaná pod „Více“. Po uložení zůstane formulář otevřený a kurzor skočí zpět do prvního pole, aby šlo hned psát další slovíčko. **Zdroj (např. S01E01) zůstane vyplněný**, protože další slovíčko bývá ze stejného dílu. Enter formulář odešle.
+Formulář musí být rychlý: povinné jsou jen první dvě pole, ostatní jsou schovaná pod „Více“. Po uložení zůstane formulář otevřený a kurzor skočí zpět do prvního pole, aby šlo hned psát další slovíčko. Enter formulář odešle. Pole „zdroj“ (díl) není: díl určuje slovník (*Series 1 › Episode 1*), cokoliv navíc patří do poznámky.
 
 Pole jsou označená kódem jazyka slovníku (`EN`, `CS`), aby se strany nepletly. Později se dá udělat zadávání variant jako „štítků“ (napíšeš, Enter, další).
 
@@ -314,22 +313,33 @@ Hledá se mezi slovíčky téhož uživatele a jazykového páru, a to podle **v
 1. **Shoda na cizí straně** (bez ohledu na velikost písmen, např. `hello` už existuje):
    *„Už máš v: HIMYM, Big Bang Theory (hello; hi → ahoj; čau)“*
    - **Přidat i sem:** vytvoří jen `DeckTerm` s kontextem z formuláře. Slovíčko, varianty i stav opakování zůstávají sdílené. Nové varianty z formuláře se nabídnou k připojení.
-   - **Je to jiný význam** (např. `palm` = palma, když už existuje `palm` = dlaň): vytvoří nové slovíčko. `meaning_hint` musí být vyplněné **u obou** slovíček, u existujícího se doplní ve stejném kroku.
    - Pokud už slovíčko v aktuálním slovníku je, uložení se zablokuje s hláškou.
 2. **Shoda jen na straně překladu** (např. píšu `hi → ahoj` a `ahoj` už je překladem `hello`):
    *„ahoj“ už máš jako překlad slova **hello** (HIMYM)*
    - **Přidat „hi“ jako variantu k hello** (doporučeno)
-   - **Uložit jako samostatné slovíčko:** hodí se při jiném odstínu významu (např. `hi` = neformální), doporučí se vyplnit `meaning_hint`.
-3. **Stejný text, jiný význam** (např. píšu `palm → palma` a existuje `palm (ruka) → dlaň`):
-   *„palm“ už máš v jiném významu. Je to stejný význam, nebo jiný?*
-   - **Stejný význam: přidat sem / přidat varianty**
-   - **Je to jiný význam:** otevře „Více“ a přesune kurzor do rozlišení. Dokud rozlišení chybí, tlačítko „Přidat“ je zablokované. Když stávající slovíčko rozlišení nemá, panel si ho vyžádá taky.
+   - **Uložit jako samostatné slovíčko:** hodí se při jiném odstínu významu (např. `hi` = neformální), případně s poznámkou.
+3. **Stejný text, jiný překlad** (např. píšu `palm → palma` a existuje `palm → dlaň`):
+   *„palm“ už máš s jiným překladem: „palm → dlaň“ (HIMYM)*
+   - **Stejný význam: přidat jako variantu / přidat sem**
+   - **Jiný význam:** stačí slovíčko uložit, vznikne další význam. Uložení se neblokuje.
+   - Blokuje se jen přesná shoda (stejné hlavní cizí slovo **i** stejný hlavní překlad).
 4. **Podobné bez diakritiky** (`unaccent`, např. píšu `cau` a existuje `čau`):
    *„Podobné: čau (HIMYM)“*. Je to jen upozornění, uložení se neblokuje. Slova lišící se diakritikou můžou být opravdu různá (`byt` × `být`).
 
 Velikost písmen se při kontrole ignoruje (`Ahoj` = `ahoj`), zobrazí se ale tak, jak je uživatel napsal.
 
-### 5.2 Výběr významu (budoucí fáze, zatím se neřeší)
+**Přesun slovíček do jiného slovníku** (třeba omylem do `S01` místo `E01`):
+- V seznamu slovíček „Vybrat“ ukáže zaškrtávátka a dole lištu: *Vše*, *Přesunout…*, *Zrušit*. Jedno slovíčko jde přesunout i z jeho detailu.
+- Na další stránce se vybere cílový slovník (celá cesta, jen stejný jazykový pár) a akce **Přesunout**, nebo **Přidat i tam** (slovíčko zůstane v obou).
+- Mění se jen `DeckTerm.deck`, věta, datum přidání i stav opakování zůstanou. Když slovíčko v cíli už je, nezdvojí se: v cíli se jen doplní chybějící věta a ze zdroje se odebere.
+
+### 5.2 Návrhy překladu (hotovo: české Wiktionary) a výběr významu (budoucí fáze)
+
+**Hotovo:** během psaní cizího slova se pod formulářem ukážou návrhy z **českého Wiktionary** (výtah kaikki.org, import příkazem `import_wiktionary`, tabulka `dictionary.DictionaryEntry`): české významy podle slovního druhu, např. *present* → současnost, dárek (podst. jm.), představit (sloveso). Klik vyplní pole překladu (čárky v popisu se změní na varianty `;`), uloží se jen vybraný význam. Když se návrhy nevejdou na jeden řádek, zalomí se na další. Zdroj se zobrazuje kvůli licenci CC BY-SA. Návrhy jde vypnout v Nastavení (`User.show_suggestions`, ve výchozím stavu zapnuté); pak se řádek s návrhy vůbec nezobrazí. Zdroje návrhů jsou za jednotným rozhraním (`dictionary/providers.py`), pořadí v `VOKIE_SUGGESTION_PROVIDERS`. Návrhy jen pro slovníky s „Mluvím“ = čeština. Pokrytí: ~14 000 anglických slov (84 % z 1 000 nejčastějších), španělština ~2 600.
+
+**Další možný krok:** anglické Wiktionary jako doplněk (víc variant a příkladové věty, 2,8 GB ke zpracování), pro jiné jazyky placený zdroj (Azure, DeepL, LLM) přes stejné rozhraní.
+
+Původní návrh výběru významu:
 Cíl: zadání slovíčka na pár písmen a jedno klepnutí.
 
 ```
@@ -343,7 +353,7 @@ Vyber význam:
  + zadat ručně
 ```
 
-- Klepnutím na význam se uloží překlad, `meaning_hint` i `example_sentence`.
+- Klepnutím na význam se uloží překlad i `example_sentence`.
 - Jde vybrat víc významů najednou. Ovládání jde i z klávesnice (Enter, číslo významu).
 - Varianta: uživatel vloží celou větu ze seriálu a klepne na slovo. Správný význam se předvybere a věta se uloží jako kontext.
 - Ruční zadání zůstává vždy jako záloha.
@@ -395,7 +405,7 @@ V režimu „zamíchat“ se karta vybírá napříč oběma směry. Stejné slo
 
 **Rozestup homonym:** dva významy stejného slova (`palm` ruka / strom) se neukážou hned po sobě, aby si nenapovídaly.
 
-**Kontext při testu z více slovníků:** když je slovíčko ve více vybraných slovnících (např. `hello` ve 20 epizodách), ukáže se jedna věta z vybraných slovníků (pokaždé jiná) a poznámka *„+19 dalších výskytů“*.
+**Kontext při testu z více slovníků:** když je slovíčko ve více vybraných slovnících (např. `hello` ve 20 epizodách), ukáže se jedna věta z vybraných slovníků (pokaždé jiná). Ze kterého slovníku věta je, ani v kolika slovnících slovíčko je, se na kartě neukazuje: pro učení to není důležité, je to v detailu slovíčka.
 
 ### 6.3 Hodnocení a intervaly
 
@@ -481,7 +491,7 @@ Opakované „Vím“: 7 dní → 28 → 112 → 1 rok. Opakované „Po zamyšl
 Základní kartičkový test: uvidím slovíčko, zamyslím se, otočím kartičku a podle toho, jak dobře jsem ho věděl, zvolím, kdy se má znovu objevit.
 
 1. Zobrazí se výraz (podle směru) a kontextová věta, pokud existuje. Při směru `N→F` by celá věta prozradila odpověď, proto se na přední straně ukáže **s mezerou místo slova** (cloze): *dlaň → „She can read from her ___.“*. Celá věta se zvýrazněným slovem je na zadní straně. Když slovo ve větě nejde najít (jiný tvar bez označení), věta je jen na zadní straně.
-2. Tlačítko „Ukázat“ zobrazí odpověď (všechny varianty), větu, zdroj a poznámku.
+2. Tlačítko „Ukázat“ zobrazí odpověď (všechny varianty), vlastní další významy, větu, poznámku a dole významy ze slovníku (viz 6.4 Homonyma).
 3. Uživatel se ohodnotí jedním z tlačítek (6.3).
 
 **Zobrazení variant** (slovíčko `hello; hi` ↔ `ahoj; čau`):
@@ -498,13 +508,20 @@ Varianty jsou rovnocenné: uživatel se hodnotí sám, takže když si řekne �
 
 **Homonyma ve směru F→N** (`palm` má dva významy, otázka by byla nejednoznačná):
 1. **Věta jako nápověda:** na přední straně se ukáže kontextová věta se zvýrazněným slovem: *„She read my **palm**.“* Ve směru F→N věta nic neprozradí, naopak určí význam.
-2. **Bez věty:** na přední straně se ukáže rozlišení a počet významů: **palm** *(strom · 2 významy)*.
-3. **Zadní strana učí i ostatní významy:** **palma** a pod tím menším *„další významy: dlaň (ruka)“*.
+2. **Bez věty:** na přední straně se ukáže počet významů: **palm** *(2 významy)*. Počítají se vlastní slovíčka se stejným cizím slovem.
+3. **Zadní strana učí i ostatní významy**, seřazeno od nejdůležitějšího:
+   ```
+   dlaň                                   ← odpověď
+   Učíš se i: palm → palma                ← vlastní slovíčka se stejným cizím slovem (zřídka)
+   „She can read from her palm.“          ← věta
+   pracka · lehký · světlý +3             ← slovníky, menší a šedé
+   (další významy z Wiktionary)           ← zdroje (i kvůli licenci)
+   ```
+   Ve směru F→N je u vlastních jen překlad (*Učíš se i: palma*). Ze slovníku se ukazuje z každého významu jen **první varianta**, aby šly významy oddělit tečkou (`moment · přídavek · druhý`, ne `moment; okamžik · přídavek; nášup`). Načte se při otočení karty, nic se neukládá. Stejný seznam je v detailu slovíčka a u významu ze slovníku je tlačítko **„+ Učit se i tento význam“**, které založí nové slovíčko ve stejném slovníku. Na kartě jsou vlastní významy vždy všechny, ze slovníku **tolik, kolik se vejde na jeden řádek**, a *„+N“*, které zbytek rozbalí na místě (dlouhý seznam by na mobilu odsunul odpověď). Měří to prohlížeč po otočení karty i po otočení telefonu; tečka mezi slovy zůstává u předchozího slova, takže řádek nikdy nezačíná tečkou. Víc zdrojů v budoucnu: významy všech zdrojů v jednom řádku (každé slovo jednou) a pod ním *„(další významy z Wiktionary, DeepL)“*; v detailu slovíčka všechny i se všemi variantami. Významy ze slovníku na kartě jde vypnout v Nastavení (`User.show_other_meanings`, výchozí zapnuto).
 
 Ve směru N→F homonyma nevadí: `dlaň → palm` a `palma → palm` jsou dvě jednoznačné otázky.
 
 **Kolize překladu:** když má víc slovíček stejnou variantu na straně otázky (např. dvě slovíčka s překladem `ahoj`):
-- na přední straně se ukáže `meaning_hint`, pokud je vyplněný: **ahoj** *(neformálně)*,
 - na zadní straně se ukáže upozornění: *„ahoj“ je i: hello*.
 
 ### 6.5 Striktní režim (fáze 2)
@@ -575,7 +592,7 @@ HIMYM              slovíček   😎 vím   🤔 zamyšlení   😕 napůl   �
 |---|---|
 | Přihlášení / Odhlášení | Django auth, e-mail + heslo (registrace v MVP není) |
 | **Přehled (dashboard)** | Počet karet k opakování dnes, strom slovníků s počty (celkem / k opakování), tlačítko „Spustit test“ |
-| **Slovník** | Drobečková navigace, seznam slovíček (vyhledávání, řazení: podle data přidání (výchozí) / abecedně / podle termínu opakování), formulář pro přidání, podslovníky (šipky ↑ ↓ pro pořadí), úprava, přesun a smazání slovníku, „Testovat tento slovník“ |
+| **Slovník** | Drobečková navigace, seznam slovíček (vyhledávání, řazení: podle data přidání (výchozí) / abecedně / podle termínu opakování), formulář pro přidání, výběr slovíček a jejich přesun / přidání do jiného slovníku, podslovníky (šipky ↑ ↓ pro pořadí), úprava, přesun a smazání slovníku, „Testovat tento slovník“ |
 | **Slovíčko** | Úprava variant, poznámky a kontextů v jednotlivých slovnících, stav opakování obou směrů, statistiky a historie (7.1) |
 | Statistiky | Celkový přehled a problémová slovíčka (7.3, 7.4, fáze 2) |
 | **Nápověda** | Záložky Slovníky, Slovíčka, Test, Přehled a statistiky; každá záložka je vlastní stránka (`/help/<záložka>/`). Tabulka tlačítek se generuje z `study/ratings.py`. Při změně funkce se aktualizuje i nápověda. |
@@ -598,8 +615,8 @@ Všechny obrazovky jsou mobile-first. Test musí být pohodlný na telefonu (tla
 - Vlastní User model od začátku
 - Slovníky ve stromu (max. 5 úrovní, CRUD, přesun, pořadí šipkami ↑ ↓, přetahování na přehledu), jazykový pár v závorce u názvu, drobečková navigace
 - Řazení slovíček ve slovníku (datum přidání / abecedně / termín opakování)
-- Ruční přidávání slovíček: varianty na obou stranách, volitelná věta (píše ji uživatel), rozlišení významu, kontrola duplicit na obou stranách
-- Homonyma v testu: věta jako nápověda, rozlišení a počet významů, další významy na zadní straně, rozestup
+- Ruční přidávání slovíček: varianty na obou stranách, volitelná věta (píše ji uživatel), kontrola duplicit na obou stranách, přesun vybraných slovíček do jiného slovníku
+- Homonyma v testu: věta jako nápověda, počet významů, další významy na zadní straně (vlastní i ze slovníku), rozestup
 - Test: **jen volný režim** (zobrazit, zamyslet se, otočit, ohodnotit); oba směry i zamíchat
 - Hodnocení 4 tlačítky s emoji (😎 🤔 😕 😵) a rostoucími intervaly (6.3), jako konstanta v kódu; legenda, klávesové zkratky
 - Měření doby odpovědi (`think_ms`, `decide_ms`)

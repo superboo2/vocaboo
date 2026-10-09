@@ -10,15 +10,33 @@
         <tr><td>cizí jazyk</td><td><code>hello; hi</code></td><td>víc variant odděl středníkem</td></tr>
         <tr><td>tvůj jazyk</td><td><code>ahoj; čau</code></td><td>totéž</td></tr>
         <tr><td>Použití ve větě</td><td><code>Hello, kids.</code></td><td>pod <em>Více</em>, kde se slovo objevilo</td></tr>
-        <tr><td>Zdroj</td><td><code>S01E01</code></td><td>pod <em>Více</em>, zůstane vyplněný i pro další slovíčko</td></tr>
-        <tr><td>Rozlišení významu</td><td><code>ruka</code></td><td>pod <em>Více</em>, jen u slov s víc významy</td></tr>
-        <tr><td>Poznámka</td><td></td><td>pod <em>Více</em></td></tr>
+        <tr><td>Poznámka</td><td></td><td>pod <em>Více</em>, cokoliv navíc</td></tr>
       </tbody>
     </table></div>
+    <p>
+      Díl nebo epizodu nikam nepiš, určuje ji slovník: slovíčka z prvního dílu přidávej do slovníku
+      <em>Series 1 › Episode 1</em>.
+    </p>
     <p>
       <strong>Enter</strong> formulář odešle. Pak se formulář vyčistí a kurzor skočí zpět do prvního pole,
       takže můžeš hned psát další slovíčko.
     </p>
+  </section>
+
+  <section>
+    <h2>Návrhy překladu</h2>
+    <p>
+      Když píšeš cizí slovo, pod polem pro překlad se ukážou <strong>návrhy překladu</strong>
+      se zkratkou slovního druhu, třeba <code>present</code> → <em>současnost</em> (podst. jm.),
+      <em>dárek</em> (podst. jm.), <em>představit</em> (slov.). Když se nevejdou na jeden řádek, pokračují na dalším.
+      Klik na návrh ho vloží do pole překladu a řádek se vyprázdní, pak jen Enter.
+    </p>
+    <ul>
+      <li>Návrhy jsou z českého Wiktionary, znají asi 14 000 anglických slov, hlavně ta běžná. U ostatních slov se nic neukáže a překlad napíšeš sám.</li>
+      <li>Návrh jde po vložení upravit, nic se neukládá samo.</li>
+      <li>Když návrhy nechceš, vypni je v <a href="{% url 'settings' %}">Nastavení</a> (<em>Přidávání slovíček › Navrhovat překlad</em>).</li>
+      <li>Ukládá se jen význam, který vybereš. Ostatní významy ze slovníku uvidíš na zadní straně kartičky a v detailu slovíčka.</li>
+    </ul>
   </section>
 
   <section>
@@ -29,7 +47,7 @@
     </p>
     <p>
       Varianty znamenají, že <strong>každá vlevo odpovídá každé vpravo</strong>. Když to neplatí, udělej
-      raději dvě slovíčka s rozlišením významu. Třeba <code>hi</code> ≠ <code>dobrý den</code>, takže:
+      raději dvě samostatná slovíčka. Třeba <code>hi</code> ≠ <code>dobrý den</code>, takže:
       <code>hello → dobrý den; ahoj</code> a <code>hi → ahoj; čau</code> (neformálně).
     </p>
   </section>
@@ -67,22 +85,25 @@
 
   <section>
     <h2>Víc významů (palm, present)</h2>
-    <p>Každý význam je <strong>samostatné slovíčko</strong> s vlastním rozlišením a vlastní větou:</p>
+    <p>
+      Každý význam je <strong>samostatné slovíčko</strong>. Aplikace je rozliší podle překladu, nic dalšího
+      vyplňovat nemusíš:
+    </p>
     <div class="overflow-auto"><table>
-      <thead><tr><th>Cizí</th><th>Překlad</th><th>Rozlišení</th><th>Věta</th></tr></thead>
+      <thead><tr><th>Cizí</th><th>Překlad</th><th>Věta</th></tr></thead>
       <tbody>
-        <tr><td>palm</td><td>dlaň</td><td>ruka</td><td><code>She read my palm.</code></td></tr>
-        <tr><td>palm</td><td>palma</td><td>strom</td><td><code>A tall palm on the beach.</code></td></tr>
-        <tr><td>present</td><td>dárek</td><td>dar</td><td><code>I bought her a present.</code></td></tr>
-        <tr><td>present</td><td>přítomnost</td><td>čas</td><td><code>Live in the present.</code></td></tr>
-        <tr><td>present</td><td>prezentovat</td><td>sloveso</td><td><code>He {presented} the project.</code></td></tr>
+        <tr><td>palm</td><td>dlaň</td><td><code>She read my palm.</code></td></tr>
+        <tr><td>palm</td><td>palma</td><td><code>A tall palm on the beach.</code></td></tr>
+        <tr><td>present</td><td>dárek</td><td><code>I bought her a present.</code></td></tr>
+        <tr><td>present</td><td>přítomnost</td><td><code>Live in the present.</code></td></tr>
+        <tr><td>present</td><td>prezentovat</td><td><code>He {presented} the project.</code></td></tr>
       </tbody>
     </table></div>
-    <p>
-      Rozlišení je u slov s víc významy povinné. Když zadáváš druhý význam, aplikace se zeptá
-      <em>„Je to stejný význam, nebo jiný?“</em> a vyžádá si rozlišení i pro ten první.
-      V testu pak <code>palm → ?</code> ukáže větu, nebo bez věty nápovědu <em>(ruka · 2 významy)</em>.
-    </p>
+    <ul>
+      <li>Stejné cizí slovo se <strong>stejným překladem</strong> je duplicita. Se <strong>jiným překladem</strong> je to další význam a uloží se.</li>
+      <li>V testu <code>palm → ?</code> pomůže věta. Bez věty se ukáže nápověda <em>(2 významy)</em>, takže víš, že máš na výběr.</li>
+      <li><strong>Další významy</strong> ze slovníku (Wiktionary) a tvoje další slovíčka se stejným slovem jsou na zadní straně kartičky a v detailu slovíčka. Tam je u významů ze slovníku tlačítko <strong>+ Učit se i tento význam</strong>.</li>
+    </ul>
   </section>
 
   <section>
@@ -91,10 +112,10 @@
     <div class="overflow-auto"><table>
       <thead><tr><th>Píšeš</th><th>Už máš</th><th>Nabídne se</th></tr></thead>
       <tbody>
-        <tr><td><code>hello</code> v Big Bang Theory</td><td><code>hello → ahoj</code> v HIMYM</td><td><strong>Přidat i sem</strong> (jedno slovíčko ve dvou slovnících) nebo <strong>Je to jiný význam</strong></td></tr>
+        <tr><td><code>hello</code> v Big Bang Theory</td><td><code>hello → ahoj</code> v HIMYM</td><td><strong>Přidat i sem</strong> (jedno slovíčko ve dvou slovnících)</td></tr>
         <tr><td><code>hello; hi</code></td><td><code>hello → ahoj</code></td><td>totéž a <code>hi</code> se připojí jako nová varianta</td></tr>
         <tr><td><code>hey → ahoj</code></td><td><code>hello → ahoj</code></td><td><strong>Přidat „hey“ jako variantu k „hello“</strong>, nebo uložit samostatně</td></tr>
-        <tr><td><code>palm → palma</code></td><td><code>palm (ruka) → dlaň</code></td><td>stejný význam (přidat varianty), nebo jiný význam (vyplnit rozlišení)</td></tr>
+        <tr><td><code>palm → palma</code></td><td><code>palm → dlaň</code></td><td>upozornění na jiný překlad: stejný význam (přidat jako variantu), nebo jiný význam (stačí uložit)</td></tr>
         <tr><td><code>cau</code></td><td><code>čau</code></td><td>jen upozornění <em>Podobné (bez diakritiky)</em>; <code>byt</code> a <code>být</code> jsou různá slova</td></tr>
       </tbody>
     </table></div>
@@ -106,7 +127,7 @@
     <p>
       Slovíčko patří tobě, slovníky na něj jen odkazují. Když je <code>hello</code> ve 20 dílech,
       v testu z celé řady přijde <strong>jednou</strong> a hodnocení platí ve všech slovnících.
-      Každý slovník si ale drží svou větu a zdroj.
+      Každý slovník si ale drží svou větu.
     </p>
   </section>
 
@@ -114,8 +135,25 @@
     <h2>Úprava a odebrání</h2>
     <ul>
       <li>Klik na slovíčko v seznamu otevře jeho detail, odtud <strong>Upravit</strong> nebo <strong>Odebrat z tohoto slovníku</strong>.</li>
-      <li>Změna variant, rozlišení a poznámky platí ve všech slovnících, věta a zdroj jen v tom jednom.</li>
+      <li>Změna variant a poznámky platí ve všech slovnících, věta jen v tom jednom.</li>
+      <li><strong>Přesunout</strong> v detailu slovíčka ho přesune do jiného slovníku.</li>
       <li>Odebrání ze slovníku slovíčko smaže <strong>jen tam</strong>. Když to byl jeho poslední slovník, smaže se úplně i s historií opakování; aplikace na to předem upozorní.</li>
     </ul>
+  </section>
+
+  <section>
+    <h2>Přesun víc slovíček</h2>
+    <p>
+      Slovíčka skončila ve špatném slovníku, třeba v <em>Series 1</em> místo v <em>Episode 1</em>?
+    </p>
+    <ol>
+      <li>V seznamu slovíček klikni na <strong>Vybrat</strong>, objeví se zaškrtávátka (<em>Vše</em> vybere všechna).</li>
+      <li>Dole klikni na <strong>Přesunout…</strong> a vyber cílový slovník. Nabízí se jen slovníky se stejnými jazyky.</li>
+      <li><strong>Přesunout</strong> slovíčka přesune, <strong>Přidat i tam</strong> je nechá v obou slovnících.</li>
+    </ol>
+    <p>
+      Věta i pokrok v učení zůstanou. Když už slovíčko v cílovém slovníku je, nezdvojí se,
+      jen se tam doplní věta, pokud chyběla.
+    </p>
   </section>
 {% endblock %}

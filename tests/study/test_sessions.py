@@ -182,8 +182,8 @@ def test_same_word_not_twice_in_a_row(user, tree):
 
 
 def test_two_meanings_not_in_a_row(user, tree):
-    add(tree["himym"], "palm", "dlaň", meaning_hint="ruka")
-    add(tree["himym"], "palm", "palma", meaning_hint="strom")
+    add(tree["himym"], "palm", "dlaň")
+    add(tree["himym"], "palm", "palma")
     add(tree["himym"], "hello", "ahoj")
 
     session = start(user, tree["himym"], direction=StudyDirection.F2N)

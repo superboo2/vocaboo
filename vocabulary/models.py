@@ -125,10 +125,11 @@ class Term(models.Model):
     native_language = models.ForeignKey(
         Language, verbose_name=_("mluvím"), on_delete=models.PROTECT, related_name="+"
     )
-    # Copy of the main foreign variant, only for the unique constraint
+    # Copies of the main variants, for the unique constraint and quick lookups.
+    # Words with the same spelling and another translation are other meanings:
+    # palm → dlaň and palm → palma are two words.
     main_foreign = models.CharField(_("hlavní cizí varianta"), max_length=200)
-    # Tells apart words with the same spelling, e.g. palm (hand) and palm (tree)
-    meaning_hint = models.CharField(_("rozlišení významu"), max_length=100, blank=True)
+    main_native = models.CharField(_("hlavní překlad"), max_length=200)
     note = models.TextField(_("poznámka"), blank=True)
     origin = models.CharField(
         _("původ"), max_length=20, choices=Origin.choices, default=Origin.MANUAL
@@ -144,16 +145,14 @@ class Term(models.Model):
                 F("foreign_language"),
                 F("native_language"),
                 Lower("main_foreign"),
-                Lower("meaning_hint"),
+                Lower("main_native"),
                 name="unique_term",
                 violation_error_message=_("Toto slovíčko už máš."),
             ),
         ]
 
     def __str__(self):
-        if self.meaning_hint:
-            return f"{self.main_foreign} ({self.meaning_hint})"
-        return self.main_foreign
+        return f"{self.main_foreign} → {self.main_native}"
 
     def _variants(self, side):
         # Uses prefetched variants when they are there (prefetch_related("variants"))
@@ -207,8 +206,6 @@ class DeckTerm(models.Model):
     )
     # Sentence where the word was seen, e.g. "Hello, Penny."
     context_sentence = models.TextField(_("věta"), blank=True)
-    # Where it comes from, e.g. "S01E01"
-    context_source = models.CharField(_("zdroj"), max_length=50, blank=True)
     added_at = models.DateTimeField(_("přidáno"), auto_now_add=True)
 
     class Meta:

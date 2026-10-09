@@ -9,7 +9,6 @@
   <hgroup>
     <h1>
       {{ term.foreign_variants|join:" · " }}
-      {% if term.meaning_hint %}<small class="hint">({{ term.meaning_hint }})</small>{% endif %}
     </h1>
     <p>→ {{ term.native_variants|join:" · " }}</p>
   </hgroup>
@@ -18,8 +17,33 @@
 
   <div class="actions">
     <a href="{% url 'vocabulary:term_edit' deck.pk deck_term.pk %}" role="button" class="outline">{% translate "Upravit" %}</a>
+    <a href="{% url 'vocabulary:terms_move' deck.pk %}?ids={{ deck_term.pk }}" role="button" class="outline">{% translate "Přesunout" %}</a>
     <a href="{% url 'vocabulary:term_remove' deck.pk deck_term.pk %}" role="button" class="outline secondary">{% translate "Odebrat z tohoto slovníku" %}</a>
   </div>
+
+  {% if other_meanings %}
+    <section>
+      <h2>{% translate "Další významy" %}</h2>
+      <ul class="term-list other-meanings">
+        {% for meaning in other_meanings %}
+          <li>
+            {% if meaning.own %}
+              <strong>{{ meaning.variants|join:" · " }}</strong> <small class="muted">{% translate "už se učíš" %}</small>
+            {% else %}
+              <form method="post" action="{% url 'vocabulary:term_add_meaning' deck.pk deck_term.pk %}" class="inline-form">
+                {% csrf_token %}
+                <input type="hidden" name="translation" value="{{ meaning.translation }}">
+                {{ meaning.variants|join:" · " }}
+                {% if meaning.part_of_speech %}<small class="muted">{{ meaning.part_of_speech }}</small>{% endif %}
+                <button type="submit" class="outline">+ {% translate "Učit se i tento význam" %}</button>
+              </form>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+      <p class="muted"><small>{% translate "Významy ze slovníku: zdroj Wiktionary (CC BY-SA)." %}</small></p>
+    </section>
+  {% endif %}
 
   <section>
     <h2>{% translate "Ve slovnících" %}</h2>
@@ -28,7 +52,7 @@
         <li>
           <a href="{% url 'vocabulary:deck_detail' item.deck.pk %}">{{ item.deck.name }}</a>
           {% if item.context_sentence %}
-            <div class="term-context muted">„{{ item.context_sentence|marked_sentence:term.foreign_variants }}“{% if item.context_source %} <small>· {{ item.context_source }}</small>{% endif %}</div>
+            <div class="term-context muted">„{{ item.context_sentence|marked_sentence:term.foreign_variants }}“</div>
           {% endif %}
         </li>
       {% endfor %}

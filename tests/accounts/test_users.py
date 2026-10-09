@@ -90,10 +90,14 @@ def test_settings_page_saves_preferences(client):
     )
 
     assert page.status_code == 200
+    # Suggestions are on for a new user, the check box is ticked
+    assert 'id="id_show_suggestions" checked' in page.content.decode()
     assert response.url == reverse("settings")
     user.refresh_from_db()
     assert user.native_language == czech
     assert user.default_direction == "N2F"
+    # The check box was not sent, so the suggestions are off now
+    assert user.show_suggestions is False
 
 
 @pytest.mark.django_db

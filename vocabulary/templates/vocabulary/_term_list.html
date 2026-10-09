@@ -1,5 +1,6 @@
 {% load i18n vocabulary_tags %}
 {# Words in the deck. With oob=True HTMX swaps it "out of band" after adding a word. #}
+{# "Vybrat" shows check boxes; the chosen words go to the page for moving (views.terms_move). #}
 <div id="term-list"{% if oob %} hx-swap-oob="true"{% endif %}>
   {% with count=deck_terms|length %}
     <div class="list-head">
@@ -11,31 +12,43 @@
           {% endfor %}
         </nav>
       {% endif %}
+      {% if count %}
+        <button type="button" class="outline select-start" data-action="toggle-select">{% translate "Vybrat" %}</button>
+      {% endif %}
     </div>
 
     {% if count %}
-      <ul class="term-list">
-        {% for item in deck_terms %}
-          {% with term=item.term %}
-            {% with foreign=term.foreign_variants native=term.native_variants %}
-              <li>
-                <div class="term-texts">
-                  <a href="{% url 'vocabulary:term_detail' deck.pk item.pk %}" class="term-main">{{ foreign.0 }}</a>
-                  {% if foreign|length > 1 %}<small class="muted">· {{ foreign|slice:"1:"|join:" · " }}</small>{% endif %}
-                  {% if term.meaning_hint %}<small class="hint">({{ term.meaning_hint }})</small>{% endif %}
-                  <span class="muted" aria-hidden="true">→</span>
-                  <span>{{ native|join:" · " }}</span>
-                </div>
-                {% if item.context_sentence %}
-                  <div class="term-context muted">
-                    „{{ item.context_sentence|marked_sentence:foreign }}“{% if item.context_source %} <small>· {{ item.context_source }}</small>{% endif %}
+      <form method="get" action="{% url 'vocabulary:terms_move' deck.pk %}" class="term-select">
+        <ul class="term-list">
+          {% for item in deck_terms %}
+            {% with term=item.term %}
+              {% with foreign=term.foreign_variants native=term.native_variants %}
+                <li>
+                  <input type="checkbox" name="ids" value="{{ item.pk }}" class="select-box" aria-label="{% blocktranslate with word=foreign.0 %}Vybrat „{{ word }}“{% endblocktranslate %}">
+                  <div class="term-body">
+                    <div class="term-texts">
+                      <a href="{% url 'vocabulary:term_detail' deck.pk item.pk %}" class="term-main">{{ foreign.0 }}</a>
+                      {% if foreign|length > 1 %}<small class="muted">· {{ foreign|slice:"1:"|join:" · " }}</small>{% endif %}
+                      <span class="muted" aria-hidden="true">→</span>
+                      <span>{{ native|join:" · " }}</span>
+                    </div>
+                    {% if item.context_sentence %}
+                      <div class="term-context muted">
+                        „{{ item.context_sentence|marked_sentence:foreign }}“
+                      </div>
+                    {% endif %}
                   </div>
-                {% endif %}
-              </li>
+                </li>
+              {% endwith %}
             {% endwith %}
-          {% endwith %}
-        {% endfor %}
-      </ul>
+          {% endfor %}
+        </ul>
+        <div class="select-bar">
+          <label><input type="checkbox" data-action="select-all"> {% translate "Vše" %}</label>
+          <button type="submit" disabled>{% translate "Přesunout…" %} <span data-select-count></span></button>
+          <button type="button" class="secondary outline" data-action="toggle-select">{% translate "Zrušit" %}</button>
+        </div>
+      </form>
     {% else %}
       <p class="muted">{% translate "Zatím tu nejsou žádná slovíčka. Přidej první formulářem výše." %}</p>
     {% endif %}

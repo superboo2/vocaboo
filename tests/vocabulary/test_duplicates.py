@@ -56,7 +56,7 @@ def test_same_word_in_other_deck(bbt, hello):
 
 
 def test_same_word_in_this_deck(himym, hello):
-    check = services.find_duplicates(himym, foreign="hello", native="")
+    check = services.find_duplicates(himym, foreign="hello", native="ahoj")
 
     assert check.exact.in_deck is not None
 
@@ -112,89 +112,50 @@ def test_other_users_words_are_ignored(other_user, en, cs, hello):
     assert not services.find_duplicates(deck, foreign="hello", native="ahoj")
 
 
-def test_other_meaning_needs_hint_on_existing_word(himym):
+def test_same_word_with_other_translation_is_another_meaning(himym):
     palm = services.add_term(himym, foreign="palm", native="dlaň").term
 
-    check = services.find_duplicates(himym, foreign="palm", native="palma", meaning_hint="strom")
+    check = services.find_duplicates(himym, foreign="palm", native="palma")
 
     assert check.exact is None
     assert [match.term for match in check.meanings] == [palm]
-    assert check.need_hint == [palm]
     assert not check.blocks
 
 
-def test_new_meaning_is_blocked_until_hint_is_typed(himym):
-    hand = services.add_term(himym, foreign="palm", native="dlaň", meaning_hint="ruka").term
+def test_same_word_before_the_translation_is_typed(himym):
+    palm = services.add_term(himym, foreign="palm", native="dlaň").term
 
-    without_hint = services.find_duplicates(himym, foreign="palm", native="palma")
-    with_hint = services.find_duplicates(
-        himym, foreign="palm", native="palma", meaning_hint="strom"
-    )
+    check = services.find_duplicates(himym, foreign="palm", native="")
 
-    # Not offered as a plain "similar word" that would get "palma" as a variant
-    assert without_hint.foreign == []
-    assert [match.term for match in without_hint.meanings] == [hand]
-    assert without_hint.blocks
-    assert not with_hint.blocks
-    assert with_hint.need_hint == []
+    assert [match.term for match in check.meanings] == [palm]
+    assert not check.blocks
 
 
 # Homonyms when saving
 
 
-def test_homonym_needs_own_hint(himym):
-    services.add_term(himym, foreign="palm", native="dlaň", meaning_hint="ruka")
+def test_other_meaning_is_saved_as_another_word(himym):
+    services.add_term(himym, foreign="palm", native="dlaň")
+    services.add_term(himym, foreign="palm", native="palma")
 
-    with pytest.raises(ValidationError) as error:
-        services.add_term(himym, foreign="palm", native="palma")
-
-    assert "meaning_hint" in error.value.message_dict
+    assert sorted(Term.objects.values_list("main_native", flat=True)) == ["dlaň", "palma"]
 
 
-def test_homonym_needs_hint_on_existing_word(himym):
+def test_same_word_and_translation_is_refused(himym):
     services.add_term(himym, foreign="palm", native="dlaň")
 
     with pytest.raises(ValidationError) as error:
-        services.add_term(himym, foreign="palm", native="palma", meaning_hint="strom")
+        services.add_term(himym, foreign="Palm", native="Dlaň")
 
-    assert "stávajícího" in error.value.message_dict["meaning_hint"][0]
-
-
-def test_homonym_saves_both_hints(himym):
-    hand = services.add_term(himym, foreign="palm", native="dlaň").term
-
-    services.add_term(
-        himym,
-        foreign="palm",
-        native="palma",
-        meaning_hint="strom",
-        existing_hints={hand.pk: " ruka "},
-    )
-
-    hand.refresh_from_db()
-    assert hand.meaning_hint == "ruka"
-    assert set(Term.objects.values_list("meaning_hint", flat=True)) == {"ruka", "strom"}
+    assert "palm → dlaň" in error.value.message_dict["foreign"][0]
 
 
-def test_homonym_hints_must_differ(himym):
-    hand = services.add_term(himym, foreign="palm", native="dlaň").term
+def test_update_cannot_make_a_copy_of_other_meaning(himym):
+    services.add_term(himym, foreign="palm", native="dlaň")
+    tree = services.add_term(himym, foreign="palm", native="palma").term
 
     with pytest.raises(ValidationError):
-        services.add_term(
-            himym,
-            foreign="palm",
-            native="palma",
-            meaning_hint="strom",
-            existing_hints={hand.pk: "Strom"},
-        )
-
-
-def test_update_cannot_remove_hint_of_homonym(himym):
-    services.add_term(himym, foreign="palm", native="dlaň", meaning_hint="ruka")
-    tree = services.add_term(himym, foreign="palm", native="palma", meaning_hint="strom").term
-
-    with pytest.raises(ValidationError):
-        services.update_term(tree, foreign="palm", native="palma", meaning_hint="")
+        services.update_term(tree, foreign="palm", native="dlaň")
 
 
 # link_term
@@ -202,7 +163,7 @@ def test_update_cannot_remove_hint_of_homonym(himym):
 
 def test_link_word_to_other_deck(bbt, hello):
     deck_term, added = services.link_term(
-        bbt, hello, foreign="hello", context_sentence="Hello, Penny.", context_source="S01E01"
+        bbt, hello, foreign="hello", context_sentence="Hello, Penny."
     )
 
     assert deck_term.deck == bbt
@@ -257,15 +218,13 @@ def test_check_panel_offers_add_here(logged_client, bbt, hello):
     assert "už máš v: HIMYM" in html
     assert "Přidat i sem" in html
     assert "(+ hi)" in html
-    assert "Je to jiný význam" in html
     assert "disabled" in html
 
 
 def test_check_panel_for_word_already_in_deck(logged_client, himym, hello):
-    html = check(logged_client, himym, foreign="hello", native="")
+    html = check(logged_client, himym, foreign="hello", native="ahoj")
 
     assert "už v tomto slovníku je" in html
-    assert "Je to jiný význam" in html
     assert "disabled" in html
 
 
@@ -283,12 +242,15 @@ def test_check_panel_shows_similar(logged_client, bbt, hello):
     assert "Podobné (bez diakritiky)" in html
 
 
-def test_check_panel_asks_hint_for_existing_word(logged_client, himym):
-    palm = services.add_term(himym, foreign="palm", native="dlaň").term
+def test_check_panel_shows_other_translation(logged_client, himym):
+    services.add_term(himym, foreign="palm", native="dlaň")
 
-    html = check(logged_client, himym, foreign="palm", native="palma", meaning_hint="strom")
+    html = check(logged_client, himym, foreign="palm", native="palma")
 
-    assert f'name="existing_hint_{palm.pk}"' in html
+    assert "už máš s jiným překladem" in html
+    assert "Stejný význam: přidat jako variantu" in html
+    assert "bude to další význam" in html
+    assert "disabled" not in html
 
 
 def test_check_panel_is_empty_for_new_word(logged_client, himym, hello):
@@ -320,23 +282,16 @@ def test_link_view_rejects_other_users_word(client, other_user, en, cs, hello):
     assert client.post(url, {}).status_code == 404
 
 
-def test_add_view_saves_hint_for_existing_word(logged_client, himym):
-    palm = services.add_term(himym, foreign="palm", native="dlaň").term
+def test_add_view_saves_other_meaning(logged_client, himym):
+    services.add_term(himym, foreign="palm", native="dlaň")
 
     logged_client.post(
         reverse("vocabulary:term_add", args=[himym.pk]),
-        {
-            "foreign": "palm",
-            "native": "palma",
-            "meaning_hint": "strom",
-            f"existing_hint_{palm.pk}": "ruka",
-        },
+        {"foreign": "palm", "native": "palma"},
         headers={"HX-Request": "true"},
     )
 
-    palm.refresh_from_db()
-    assert palm.meaning_hint == "ruka"
-    assert Term.objects.count() == 2
+    assert Term.objects.filter(main_foreign="palm").count() == 2
 
 
 def test_add_view_error_shows_duplicate_panel(logged_client, bbt, hello):
@@ -347,14 +302,3 @@ def test_add_view_error_shows_duplicate_panel(logged_client, bbt, hello):
     )
 
     assert "Přidat i sem" in response.content.decode()
-
-
-def test_check_panel_asks_same_or_other_meaning(logged_client, himym):
-    services.add_term(himym, foreign="palm", native="dlaň", meaning_hint="ruka")
-
-    html = check(logged_client, himym, foreign="palm", native="palma")
-
-    assert "Je to stejný význam, nebo jiný?" in html
-    assert "Stejný význam: přidat varianty" in html
-    assert "Je to jiný význam" in html
-    assert "disabled" in html

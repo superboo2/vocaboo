@@ -1,0 +1,6 @@
+{# A field without the help text under it (the placeholder shows it in short) #}
+<div>
+  {{ field.label_tag }}
+  {{ field }}
+  {% if field.errors %}<small class="field-error">{{ field.errors|join:" " }}</small>{% endif %}
+</div>

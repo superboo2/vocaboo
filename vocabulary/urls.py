@@ -14,9 +14,16 @@ urlpatterns = [
     path("decks/<int:pk>/place/", views.deck_place, name="deck_place"),
     path("decks/<int:pk>/words/add/", views.term_add, name="term_add"),
     path("decks/<int:pk>/words/check/", views.term_check, name="term_check"),
+    path("decks/<int:pk>/words/suggest/", views.term_suggest, name="term_suggest"),
     path("decks/<int:pk>/words/link/<int:term_pk>/", views.term_link, name="term_link"),
+    path("decks/<int:pk>/words/move/", views.terms_move, name="terms_move"),
     path("decks/<int:deck_pk>/words/<int:pk>/", views.term_detail, name="term_detail"),
     path("decks/<int:deck_pk>/words/<int:pk>/edit/", views.term_edit, name="term_edit"),
+    path(
+        "decks/<int:deck_pk>/words/<int:pk>/meaning/",
+        views.term_add_meaning,
+        name="term_add_meaning",
+    ),
     path("decks/<int:deck_pk>/words/<int:pk>/remove/", views.term_remove, name="term_remove"),
     path(
         "decks/<int:pk>/reorder/<str:direction>/",

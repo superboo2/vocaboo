@@ -32,8 +32,8 @@ class DeckTermInline(admin.TabularInline):
 class TermAdmin(admin.ModelAdmin):
     """For looking at data. Change words in the app, it keeps the rules (main variant etc.)."""
 
-    list_display = ("main_foreign", "meaning_hint", "owner", "foreign_language", "created_at")
+    list_display = ("main_foreign", "main_native", "owner", "foreign_language", "created_at")
     list_filter = ("foreign_language", "native_language", "origin")
-    search_fields = ("main_foreign", "variants__text")
+    search_fields = ("main_foreign", "main_native", "variants__text")
     raw_id_fields = ("owner",)
     inlines = [TermVariantInline, DeckTermInline]

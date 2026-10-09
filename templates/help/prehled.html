@@ -17,7 +17,7 @@
     <h2>Detail slovíčka</h2>
     <p>Klik na slovíčko v seznamu slovníku otevře jeho detail:</p>
     <ul>
-      <li><strong>Ve slovnících</strong>: všechny slovníky, ve kterých slovíčko je, i s větou a zdrojem,</li>
+      <li><strong>Ve slovnících</strong>: všechny slovníky, ve kterých slovíčko je, i s větou,</li>
       <li><strong>Opakování</strong> zvlášť pro každý směr: kdy přijde znovu (<em>teď</em>, <em>za 3 dny</em>, <em>nové</em>), kolikrát bylo v testu, kolikrát správně za sebou, počet chyb a počty jednotlivých hodnocení,</li>
       <li><strong>Historie odpovědí</strong>: kdy, jakým směrem, jaké hodnocení, jaký interval a doba přemýšlení.</li>
     </ul>
@@ -26,9 +26,12 @@
 
   <section>
     <h2>Nastavení</h2>
+    <p>Nastavení je rozdělené podle toho, kde se v aplikaci projeví:</p>
     <ul>
-      <li><strong>Mluvím</strong>: tvůj jazyk, předvyplní se u nového slovníku.</li>
-      <li><strong>Výchozí směr testu</strong>: předvyplní se při spuštění testu.</li>
+      <li><strong>Slovníky › Mluvím</strong>: tvůj jazyk, předvyplní se u nového slovníku.</li>
+      <li><strong>Přidávání slovíček › Navrhovat překlad</strong>: návrhy z Wiktionary pod polem pro překlad. Ve výchozím stavu zapnuto.</li>
+      <li><strong>Test › Výchozí směr testu</strong>: předvyplní se při spuštění testu.</li>
+      <li><strong>Test › Ukazovat další významy ze slovníku</strong>: další významy z Wiktionary dole na zadní straně kartičky (kolik se vejde na řádek, zbytek po kliknutí na +N). Tvoje vlastní významy se ukazují vždy. Ve výchozím stavu zapnuto.</li>
     </ul>
     <p><a href="{% url 'settings' %}">Otevřít nastavení</a></p>
   </section>

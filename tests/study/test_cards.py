@@ -4,6 +4,7 @@ from datetime import timedelta
 
 import pytest
 
+from dictionary.models import DictionaryEntry
 from study import services
 from study.cards import build_card
 from study.formatting import format_interval
@@ -109,13 +110,12 @@ def test_n2f_card_without_found_word_keeps_sentence_only_on_back(user, decks):
     assert card.sentence == "She has small palms."
 
 
-def test_other_occurrences_in_the_test(user, decks):
+def test_sentence_from_other_deck_of_the_test(user, decks):
     term = vocabulary.add_term(decks["himym"], foreign="hello", native="ahoj").term
     DeckTerm.objects.create(deck=decks["bbt"], term=term, context_sentence="Hello, Penny.")
 
     card = card_for(user, decks["english"], term, Direction.F2N)
 
-    assert card.other_occurrences == 1
     assert "Penny" in card.sentence
 
 
@@ -133,43 +133,112 @@ def test_sentence_changes_between_reviews(user, decks):
 
 
 def test_homonym_without_sentence_gets_hint(user, decks):
-    tree = vocabulary.add_term(
-        decks["himym"], foreign="palm", native="palma", meaning_hint="strom"
-    ).term
-    vocabulary.add_term(decks["himym"], foreign="palm", native="dlaň", meaning_hint="ruka")
+    tree = vocabulary.add_term(decks["himym"], foreign="palm", native="palma").term
+    vocabulary.add_term(decks["himym"], foreign="palm", native="dlaň")
 
     card = card_for(user, decks["himym"], tree, Direction.F2N)
 
-    assert card.front_hint == "strom · 2 významy"
-    assert card.other_meanings == [("ruka", ["dlaň"])]
+    assert card.front_hint == "2 významy"
+    assert card.own_meanings == [["dlaň"]]
 
 
 def test_homonym_with_sentence_needs_no_hint(user, decks):
     hand = vocabulary.add_term(
-        decks["himym"],
-        foreign="palm",
-        native="dlaň",
-        meaning_hint="ruka",
-        context_sentence="She read my palm.",
+        decks["himym"], foreign="palm", native="dlaň", context_sentence="She read my palm."
     ).term
-    vocabulary.add_term(decks["himym"], foreign="palm", native="palma", meaning_hint="strom")
+    vocabulary.add_term(decks["himym"], foreign="palm", native="palma")
 
     card = card_for(user, decks["himym"], hand, Direction.F2N)
 
     assert card.front_hint == ""
-    assert card.other_meanings == [("strom", ["palma"])]
+    assert card.own_meanings == [["palma"]]
+
+
+def test_other_meanings_come_also_from_the_dictionary(user, decks):
+    DictionaryEntry.objects.create(
+        source="cswiktionary",
+        foreign_code="en",
+        native_code="cs",
+        word="present",
+        part_of_speech="podstatné jméno",
+        senses=[{"text": "dárek", "examples": []}, {"text": "současnost", "examples": []}],
+    )
+    gift = vocabulary.add_term(decks["himym"], foreign="present", native="dárek").term
+
+    card = card_for(user, decks["himym"], gift, Direction.F2N)
+
+    # The word's own meaning is not repeated; the dictionary one is not "own"
+    assert card.own_meanings == []
+    assert card.dictionary_meanings == ["současnost"]
+    # Meanings from the dictionary do not make the front ambiguous
+    assert card.front_hint == ""
+
+
+@pytest.fixture
+def light_entry(db):
+    senses = ["světlo", "lehký", "světlý", "dietní", "zapálit", "osvětlit"]
+    return DictionaryEntry.objects.create(
+        source="cswiktionary",
+        foreign_code="en",
+        native_code="cs",
+        word="light",
+        part_of_speech="",
+        senses=[{"text": text, "examples": []} for text in senses],
+    )
+
+
+def test_card_has_all_dictionary_meanings_and_sources(user, decks, light_entry):
+    vocabulary.add_term(decks["himym"], foreign="light", native="lehký")
+    term = vocabulary.add_term(decks["himym"], foreign="light", native="světlo").term
+
+    card = card_for(user, decks["himym"], term, Direction.F2N)
+
+    # Own meaning apart; all other dictionary meanings (the browser decides how many fit)
+    assert card.own_meanings == [["lehký"]]
+    assert card.dictionary_meanings == ["světlý", "dietní", "zapálit", "osvětlit"]
+    assert card.dictionary_sources == ["Wiktionary"]
+
+
+def test_dictionary_meanings_turned_off_in_settings(user, decks, light_entry):
+    user.show_other_meanings = False
+    user.save()
+    vocabulary.add_term(decks["himym"], foreign="light", native="lehký")
+    term = vocabulary.add_term(decks["himym"], foreign="light", native="světlo").term
+
+    card = card_for(user, decks["himym"], term, Direction.F2N)
+
+    assert card.own_meanings == [["lehký"]]
+    assert card.dictionary_meanings == []
+
+
+def test_dictionary_meanings_show_only_first_variant(user, decks):
+    DictionaryEntry.objects.create(
+        source="cswiktionary",
+        foreign_code="en",
+        native_code="cs",
+        word="second",
+        part_of_speech="",
+        senses=[
+            {"text": "sekunda, vteřina", "examples": []},
+            {"text": "moment, okamžik", "examples": []},
+            {"text": "přídavek, nášup", "examples": []},
+        ],
+    )
+    term = vocabulary.add_term(decks["himym"], foreign="second", native="sekunda; vteřina").term
+
+    card = card_for(user, decks["himym"], term, Direction.F2N)
+
+    assert card.dictionary_meanings == ["moment", "přídavek"]
 
 
 def test_same_translation_is_shown_in_n2f(user, decks):
     vocabulary.add_term(decks["himym"], foreign="hello", native="ahoj")
-    hi = vocabulary.add_term(
-        decks["himym"], foreign="hi", native="Ahoj", meaning_hint="neformálně"
-    ).term
+    hi = vocabulary.add_term(decks["himym"], foreign="hi", native="Ahoj").term
 
     card = card_for(user, decks["himym"], hi, Direction.N2F)
 
     assert card.also == ["hello"]
-    assert card.front_hint == "neformálně"
+    assert card.front_hint == ""
 
 
 def test_retry_session_uses_only_its_words(user, decks):

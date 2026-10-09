@@ -55,7 +55,6 @@ def test_add_term_creates_everything(himym):
         foreign="hello; hi",
         native="Ahoj; čau",
         context_sentence="Hello, kids.",
-        context_source="S01E01",
     )
 
     term = deck_term.term
@@ -65,7 +64,6 @@ def test_add_term_creates_everything(himym):
     assert term.foreign_language == himym.foreign_language
     assert deck_term.deck == himym
     assert deck_term.context_sentence == "Hello, kids."
-    assert deck_term.context_source == "S01E01"
     directions = set(ReviewState.objects.filter(term=term).values_list("direction", flat=True))
     assert directions == {Direction.F2N, Direction.N2F}
     assert ReviewState.objects.filter(term=term, due_at__isnull=False).count() == 0
@@ -95,8 +93,8 @@ def test_same_word_is_not_created_twice(himym, bbt):
 
 
 def test_other_meaning_is_a_new_word(himym):
-    services.add_term(himym, foreign="palm", native="dlaň", meaning_hint="ruka")
-    services.add_term(himym, foreign="palm", native="palma", meaning_hint="strom")
+    services.add_term(himym, foreign="palm", native="dlaň")
+    services.add_term(himym, foreign="palm", native="palma")
 
     assert Term.objects.filter(main_foreign="palm").count() == 2
 
@@ -129,7 +127,7 @@ def test_update_term_cannot_copy_other_word(himym):
     term = services.add_term(himym, foreign="hi", native="čau").term
 
     with pytest.raises(ValidationError):
-        services.update_term(term, foreign="Hello", native="čau")
+        services.update_term(term, foreign="Hello", native="Ahoj")
 
 
 def test_update_term_can_keep_its_own_text(himym):
@@ -144,10 +142,10 @@ def test_update_term_can_keep_its_own_text(himym):
 def test_update_deck_term(himym):
     deck_term = services.add_term(himym, foreign="hello", native="ahoj")
 
-    services.update_deck_term(deck_term, context_sentence=" Hi! ", context_source="S01E02")
+    services.update_deck_term(deck_term, context_sentence=" Hi! ")
 
     deck_term.refresh_from_db()
-    assert (deck_term.context_sentence, deck_term.context_source) == ("Hi!", "S01E02")
+    assert deck_term.context_sentence == "Hi!"
 
 
 # Removing

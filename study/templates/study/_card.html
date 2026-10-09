@@ -20,35 +20,36 @@
       {% if card.cloze %}<p class="card-sentence">„{{ card.cloze }}“</p>{% endif %}
     </div>
 
+    {# Back, from the most important: answer, the user's own words, sentence, dictionary #}
     <div class="card-back" hidden>
       <hr>
       <p class="card-answer">
         {{ card.answer|join:" · " }}
-        {% if card.term.meaning_hint %}<small class="hint">({{ card.term.meaning_hint }})</small>{% endif %}
       </p>
-      {% if card.sentence and not card.sentence_on_front %}
-        <p class="card-sentence">„{{ card.sentence }}“</p>
-      {% endif %}
-      {% if card.source or card.other_occurrences %}
-        <p class="muted card-meta">
-          {% if card.source %}{{ card.source }}{% endif %}
-          {% if card.other_occurrences %}
-            {% if card.source %} · {% endif %}{% blocktranslate count counter=card.other_occurrences %}+{{ counter }} další výskyt{% plural %}+{{ counter }} dalších výskytů{% endblocktranslate %}
-          {% endif %}
-        </p>
-      {% endif %}
-      {% if card.other_meanings %}
-        <p class="muted">
-          {% translate "Další významy:" %}
-          {% for hint, natives in card.other_meanings %}{{ natives|join:" · " }}{% if hint %} ({{ hint }}){% endif %}{% if not forloop.last %}; {% endif %}{% endfor %}
+      {% if card.own_meanings %}
+        <p class="card-own">
+          {% translate "Učíš se i:" %}
+          {% for variants in card.own_meanings %}{% if not card.is_f2n %}{{ card.term.main_foreign }} → {% endif %}{{ variants|join:" · " }}{% if not forloop.last %}, {% endif %}{% endfor %}
         </p>
       {% endif %}
       {% if card.also %}
-        <p class="muted">
+        <p class="card-own">
           {% blocktranslate with word=card.question.0 others=card.also|join:", " %}„{{ word }}“ je i: {{ others }}{% endblocktranslate %}
         </p>
       {% endif %}
+      {% if card.sentence and not card.sentence_on_front %}
+        <p class="card-sentence">„{{ card.sentence }}“</p>
+      {% endif %}
       {% if card.term.note %}<p class="card-note">{{ card.term.note|linebreaksbr }}</p>{% endif %}
+      {% if card.dictionary_meanings %}
+        <div class="card-dictionary muted">
+          <p class="meaning-row">
+            {% for word in card.dictionary_meanings %}<span class="meaning">{{ word }}</span> {% endfor %}
+            <button type="button" class="link-button meaning-more" data-action="more-meanings" hidden></button>
+          </p>
+          <small>({% blocktranslate with sources=card.dictionary_sources|join:", " %}další významy z {{ sources }}{% endblocktranslate %})</small>
+        </div>
+      {% endif %}
     </div>
   </article>
 
