@@ -46,7 +46,7 @@ class SettingsForm(forms.ModelForm):
             ),
             "show_pronunciation": _(
                 "Výslovnost cizího slova z Wiktionary po otočení kartičky: 🔊 u okraje "
-                "(přehraje i klávesa P). Je jen u slovíček, kde ji Wiktionary má."
+                "(přehraje i klávesa P), u slov bez nahrávky a u vět hlas prohlížeče."
             ),
             "autoplay_pronunciation": _("Jen když je k slovíčku nahrávka."),
             "show_ipa": _(

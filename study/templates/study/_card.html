@@ -12,14 +12,16 @@
       <p class="card-question">
         {# 🔊 is at the right edge of the card, on the line of the foreign word. #}
         {# Foreign → native: it is the question, so 🔊 shows only after turning the card. #}
-        <span class="card-main{% if card.question.0|length > 10 %} card-main-long{% endif %}">{{ card.question.0 }}{% if card.pronunciation.audio_url and card.is_f2n %}<span class="card-speak flip-reveal">{% include "_speak.html" with pronunciation=card.pronunciation %}</span>{% endif %}</span>
+        <span class="card-main{% if card.question.0|length > 10 %} card-main-long{% endif %}">{{ card.question.0 }}{% if card.speech_lang and card.is_f2n %}<span class="card-speak flip-reveal">{% include "_speak.html" with audio=card.pronunciation.audio_url text=card.term.main_foreign lang=card.speech_lang kind="word" %}</span>{% endif %}</span>
         {% if card.pronunciation.ipa and card.is_f2n %}<span class="after-flip ipa" hidden>[{{ card.pronunciation.ipa }}]</span>{% endif %}
         {% if card.question|length > 1 %}
           <span class="card-others">({% translate "také" %}: {{ card.question|slice:"1:"|join:", " }})</span>
         {% endif %}
       </p>
       {% if card.front_hint %}<p class="card-hint">({{ card.front_hint }})</p>{% endif %}
-      {% if card.sentence_on_front %}<p class="card-sentence">„{{ card.sentence }}“</p>{% endif %}
+      {% if card.sentence_on_front %}
+        <p class="card-sentence">„{{ card.sentence }}“{% if card.speech_lang %} <span class="flip-reveal">{% include "_speak.html" with text=card.sentence_text lang=card.speech_lang kind="sentence" %}</span>{% endif %}</p>
+      {% endif %}
       {% if card.cloze %}<p class="card-sentence">„{{ card.cloze }}“</p>{% endif %}
     </div>
 
@@ -29,7 +31,7 @@
       <p class="card-answer">
         <span class="card-word-line">
           {{ card.answer|join:" · " }}
-          {% if card.pronunciation.audio_url and not card.is_f2n %}<span class="card-speak">{% include "_speak.html" with pronunciation=card.pronunciation %}</span>{% endif %}
+          {% if card.speech_lang and not card.is_f2n %}<span class="card-speak">{% include "_speak.html" with audio=card.pronunciation.audio_url text=card.term.main_foreign lang=card.speech_lang kind="word" %}</span>{% endif %}
         </span>
         {% if card.pronunciation.ipa and not card.is_f2n %}<span class="ipa">[{{ card.pronunciation.ipa }}]</span>{% endif %}
       </p>
@@ -45,7 +47,7 @@
         </p>
       {% endif %}
       {% if card.sentence and not card.sentence_on_front %}
-        <p class="card-sentence">„{{ card.sentence }}“</p>
+        <p class="card-sentence">„{{ card.sentence }}“{% if card.speech_lang %} {% include "_speak.html" with text=card.sentence_text lang=card.speech_lang kind="sentence" %}{% endif %}</p>
       {% endif %}
       {% if card.term.note %}<p class="card-note">{{ card.term.note|linebreaksbr }}</p>{% endif %}
       {% if card.dictionary_meanings or card.sources_note %}

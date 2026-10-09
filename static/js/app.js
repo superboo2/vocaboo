@@ -56,22 +56,99 @@ document.addEventListener("change", function (event) {
   updateSelection(list);
 });
 
-// Pronunciation: play the recording of a word (button 🔊, templates/_pronunciation.html)
+// Pronunciation (button 🔊, templates/_speak.html): a recording when there is one,
+// otherwise the voice of the browser reads the word or the sentence.
 let playing = null;
+const speech = window.speechSynthesis || null;
+let voices = [];
 
-function playAudio(button) {
+// Which variant of a language sounds best; most recordings in Wiktionary are American
+const PREFERRED_LANG = { en: "en-us", es: "es-es" };
+// Names of voices that usually sound natural (online voices of Google and Microsoft)
+const GOOD_VOICE = /google|natural|online|neural/i;
+
+function voiceLang(voice) {
+  return voice.lang.toLowerCase().replace("_", "-");
+}
+
+function voiceFor(lang) {
+  const matching = voices.filter(function (voice) {
+    return voiceLang(voice).split("-")[0] === lang;
+  });
+  if (!matching.length) {
+    return null;
+  }
+  const preferred = PREFERRED_LANG[lang];
+  return (
+    matching.find((voice) => voiceLang(voice) === preferred && GOOD_VOICE.test(voice.name)) ||
+    matching.find((voice) => GOOD_VOICE.test(voice.name)) ||
+    matching.find((voice) => voiceLang(voice) === preferred) ||
+    matching[0]
+  );
+}
+
+// Buttons for the voice of the browser come hidden; show those the browser can read
+function showSpeechButtons() {
+  document.querySelectorAll("[data-speak-text]").forEach(function (button) {
+    button.hidden = !voiceFor(button.dataset.lang);
+  });
+}
+
+function loadVoices() {
+  voices = speech ? speech.getVoices() : [];
+  showSpeechButtons();
+}
+
+if (speech) {
+  // Some browsers (Chrome) load the voices later
+  speech.addEventListener("voiceschanged", loadVoices);
+}
+document.addEventListener("DOMContentLoaded", loadVoices);
+// A new card or list came (after an outerHTML swap the old target is gone, so look everywhere)
+document.addEventListener("htmx:afterSwap", function () {
+  showSpeechButtons();
+});
+
+function stopPlaying() {
   if (playing) {
     playing.pause();
+    playing = null;
   }
-  playing = new Audio(button.dataset.audio);
+  if (speech) {
+    speech.cancel();
+  }
+  document.querySelectorAll(".speak.speaking").forEach(function (button) {
+    button.classList.remove("speaking");
+  });
+}
+
+function playAudio(button) {
+  stopPlaying();
   button.classList.add("speaking");
-  playing.addEventListener("ended", function () {
+  const done = function () {
     button.classList.remove("speaking");
-  });
-  playing.play().catch(function () {
-    // No internet or the browser did not allow it; nothing else to do
-    button.classList.remove("speaking");
-  });
+  };
+
+  if (button.dataset.audio) {
+    playing = new Audio(button.dataset.audio);
+    playing.addEventListener("ended", done);
+    playing.play().catch(done); // no internet, or the browser did not allow it
+    return;
+  }
+
+  const voice = speech && voiceFor(button.dataset.lang);
+  if (!voice) {
+    done();
+    return;
+  }
+  const utterance = new SpeechSynthesisUtterance(button.dataset.speakText);
+  utterance.voice = voice;
+  utterance.lang = voice.lang;
+  // A bit slower than normal, it is for learning
+  utterance.rate = 0.9;
+  utterance.addEventListener("end", done);
+  utterance.addEventListener("error", done);
+  speech.speak(utterance);
 }
 
 document.addEventListener("click", function (event) {

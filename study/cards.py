@@ -23,8 +23,9 @@ class Card:
     # Variants on the question side and on the answer side, main variant first
     question: list
     answer: list
-    # Sentence where the word was seen (with the word marked)
+    # Sentence where the word was seen (with the word marked), and as plain text for reading
     sentence: str = ""
+    sentence_text: str = ""
     sentence_on_front: bool = False
     # Native → foreign: the sentence with a gap instead of the word, shown on the front
     cloze: str = ""
@@ -39,6 +40,9 @@ class Card:
     dictionary_sources: list = field(default_factory=list)
     # Pronunciation of the foreign word (dictionary.providers.Pronunciation) or None
     pronunciation: object = None
+    # Language code for 🔊 ("en"); the browser reads the word and the sentence when there is
+    # no recording. Empty when the user turned the pronunciation off.
+    speech_lang: str = ""
     # Small line at the bottom, e.g. "(další významy a výslovnost z Wiktionary)"
     sources_note: str = ""
     # Other words with the same question text (N2F), e.g. "ahoj" is also "hello"
@@ -68,6 +72,7 @@ def build_card(session, state):
     _add_sentence(card, session, foreign)
     _add_other_meanings(card, session.user)
     if session.user.show_pronunciation:
+        card.speech_lang = term.foreign_language.code
         card.pronunciation = get_pronunciation(
             term.main_foreign, term.foreign_language.code, with_ipa=session.user.show_ipa
         )
@@ -90,6 +95,7 @@ def _add_sentence(card, session, foreign):
     # A different sentence each time the card comes back
     chosen = with_sentence[card.state.reviews_count % len(with_sentence)]
     card.sentence = sentences.highlight(chosen.context_sentence, foreign)
+    card.sentence_text = sentences.plain(chosen.context_sentence, foreign)
     if card.is_f2n:
         # The sentence shows which meaning is meant (palm: hand or tree)
         card.sentence_on_front = True

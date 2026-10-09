@@ -10,7 +10,7 @@
       <p>
         {% for rating in ratings %}<span>{{ rating.emoji }} {{ rating.label|lower }}</span>{% if not forloop.last %} · {% endif %}{% endfor %}
       </p>
-      <p class="muted">{% translate "Mezerník otočí kartičku, klávesy 1–4 ji ohodnotí, P přehraje výslovnost." %}</p>
+      <p class="muted">{% translate "Mezerník otočí kartičku, klávesy 1–4 ji ohodnotí, P přehraje výslovnost a V přečte větu." %}</p>
       <button type="button" class="outline secondary" data-action="close-legend">{% translate "Rozumím" %}</button>
     </aside>
 

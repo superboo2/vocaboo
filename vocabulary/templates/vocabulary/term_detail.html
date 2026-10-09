@@ -9,7 +9,7 @@
   <hgroup>
     <h1>
       {{ term.foreign_variants|join:" · " }}
-      {% include "_speak.html" %}
+      {% include "_speak.html" with audio=pronunciation.audio_url text=term.main_foreign lang=term.foreign_language.code kind="word" %}
       {% if pronunciation.ipa %}<span class="ipa">[{{ pronunciation.ipa }}]</span>{% endif %}
     </h1>
     <p>→ {{ term.native_variants|join:" · " }}</p>
@@ -53,7 +53,7 @@
         <li>
           <a href="{% url 'vocabulary:deck_detail' item.deck.pk %}">{{ item.deck.name }}</a>
           {% if item.context_sentence %}
-            <div class="term-context muted">„{{ item.context_sentence|marked_sentence:term.foreign_variants }}“</div>
+            <div class="term-context muted">„{{ item.context_sentence|marked_sentence:term.foreign_variants }}“ {% include "_speak.html" with text=item.context_sentence|plain_sentence:term.foreign_variants lang=term.foreign_language.code kind="sentence" %}</div>
           {% endif %}
         </li>
       {% endfor %}

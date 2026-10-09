@@ -9,3 +9,9 @@ register = template.Library()
 def marked_sentence(sentence, words):
     """{{ item.context_sentence|marked_sentence:term.foreign_variants }} -> HTML with <mark>."""
     return sentences.highlight(sentence, words)
+
+
+@register.filter
+def plain_sentence(sentence, words):
+    """{{ item.context_sentence|plain_sentence:term.foreign_variants }} -> text without braces."""
+    return sentences.plain(sentence, words)

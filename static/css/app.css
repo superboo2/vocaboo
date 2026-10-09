@@ -527,6 +527,17 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
   transition: opacity 0.15s;
 }
 
+.link-button.speak[hidden] {
+  display: none;
+}
+
+/* 🔊 at the end of a sentence: a bit smaller, not in italics */
+.card-sentence .link-button.speak,
+.term-context .link-button.speak {
+  font-size: 1rem;
+  font-style: normal;
+}
+
 .link-button.speak:hover,
 .link-button.speak:focus-visible,
 .link-button.speak.speaking {

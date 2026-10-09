@@ -1,7 +1,16 @@
 {% load i18n %}
-{# Button 🔊 next to a foreign word, plays the recording (app.js). Nothing without a recording. #}
-{% if pronunciation.audio_url %}
-  <button type="button" class="link-button speak" data-action="play-audio"
-          data-audio="{{ pronunciation.audio_url }}"
-          title="{% translate 'Přehrát výslovnost (P)' %}" aria-label="{% translate 'Přehrát výslovnost' %}">🔊</button>
+{# Button 🔊 for a foreign word or sentence (app.js plays it). #}
+{# With audio it plays the recording. Without it the browser reads text in the language lang; #}
+{# that button starts hidden and app.js shows it only when the browser has a voice for it. #}
+{# kind: "word" (key P) or "sentence" (key V). #}
+{% if audio %}
+  <button type="button" class="link-button speak" data-action="play-audio" data-speak="{{ kind }}"
+          data-audio="{{ audio }}"
+          title="{% if kind == 'sentence' %}{% translate 'Přečíst větu (V)' %}{% else %}{% translate 'Přehrát výslovnost (P)' %}{% endif %}"
+          aria-label="{% if kind == 'sentence' %}{% translate 'Přečíst větu' %}{% else %}{% translate 'Přehrát výslovnost' %}{% endif %}">🔊</button>
+{% elif text and lang %}
+  <button type="button" class="link-button speak" data-action="play-audio" data-speak="{{ kind }}"
+          data-speak-text="{{ text }}" data-lang="{{ lang }}" hidden
+          title="{% if kind == 'sentence' %}{% translate 'Přečíst větu (V), hlas prohlížeče' %}{% else %}{% translate 'Přehrát výslovnost (P), hlas prohlížeče' %}{% endif %}"
+          aria-label="{% if kind == 'sentence' %}{% translate 'Přečíst větu' %}{% else %}{% translate 'Přehrát výslovnost' %}{% endif %}">🔊</button>
 {% endif %}

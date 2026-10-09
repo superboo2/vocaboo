@@ -45,7 +45,7 @@
     card.querySelector(".ratings").hidden = false;
     fitMeanings();
     // The flip comes from a click or a key, so the browser allows the sound
-    const speak = card.querySelector("[data-action='play-audio']");
+    const speak = card.querySelector("[data-speak='word']:not([hidden])");
     if (speak && card.hasAttribute("data-autoplay")) {
       playAudio(speak);
     }
@@ -169,8 +169,11 @@
       flip();
       return;
     }
-    if (flipped && card && event.key.toLowerCase() === "p") {
-      const speak = card.querySelector("[data-action='play-audio']");
+    // P plays the word, V reads the sentence
+    const speakKinds = { p: "word", v: "sentence" };
+    const kind = speakKinds[event.key.toLowerCase()];
+    if (flipped && card && kind) {
+      const speak = card.querySelector("[data-speak='" + kind + "']:not([hidden])");
       if (speak) {
         event.preventDefault();
         playAudio(speak);

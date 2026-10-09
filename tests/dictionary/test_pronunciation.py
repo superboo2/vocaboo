@@ -142,3 +142,56 @@ def test_word_page_shows_pronunciation(client, user, deck, palm):
     assert "[pɑːm]" in html
     assert f'data-audio="{AUDIO}"' in html
     assert "Wikimedia Commons" in html
+
+
+# Voice of the browser when there is no recording
+
+
+def test_card_without_recording_can_be_read_by_the_browser(client, user, deck):
+    services.add_term(deck, foreign="suit up", native="obléct se", context_sentence="{Suit up}!")
+    session = study_services.start_session(user, [deck], direction="F2N")
+    client.force_login(user)
+
+    html = client.get(reverse("study:card", args=[session.pk])).content.decode()
+
+    # Word and sentence, both for the browser voice (hidden until it has a voice for "en")
+    assert 'data-speak="word"' in html
+    assert 'data-speak-text="suit up" data-lang="en" hidden' in html
+    assert 'data-speak="sentence"' in html
+    assert 'data-speak-text="Suit up!"' in html
+
+
+def test_card_text_for_reading(user, deck):
+    term = services.add_term(
+        deck, foreign="run", native="běžet", context_sentence="He {ran} away."
+    ).term
+
+    card = card_for(user, deck, term, Direction.N2F)
+
+    assert card.speech_lang == "en"
+    assert card.sentence_text == "He ran away."
+
+
+def test_no_voice_when_pronunciation_is_off(client, user, deck):
+    user.show_pronunciation = False
+    user.save()
+    services.add_term(deck, foreign="suit up", native="obléct se", context_sentence="Suit up!")
+    session = study_services.start_session(user, [deck])
+    client.force_login(user)
+
+    html = client.get(reverse("study:card", args=[session.pk])).content.decode()
+
+    assert "data-speak" not in html
+
+
+def test_word_page_can_read_sentences(client, user, deck):
+    deck_term = services.add_term(
+        deck, foreign="run", native="běžet", context_sentence="He {ran} away."
+    )
+    client.force_login(user)
+
+    url = reverse("vocabulary:term_detail", args=[deck.pk, deck_term.pk])
+    html = client.get(url).content.decode()
+
+    assert 'data-speak-text="run"' in html
+    assert 'data-speak-text="He ran away."' in html

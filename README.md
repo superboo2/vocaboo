@@ -325,11 +325,17 @@ recordings of real speakers (about 44 %, mostly American). On the back of a test
 word page the foreign word gets a grey 🔊 (on the card always at the right edge, on the line of
 the foreign word; on the word page next to the title); a click or the key **P** plays the mp3 directly
 from Wikimedia Commons (nothing is stored, the browser needs internet). Only the main foreign
-variant is looked up, so phrases like `suit up` usually have none. Users can turn it off or let it
+variant is looked up, so phrases like `suit up` usually have none. Without a recording the
+**voice of the browser** (Web Speech API) reads the word; it also reads the sentence of the card
+(🔊 at its end, key **V**). That button comes hidden and is shown only when the browser has a
+voice for the language (`voiceFor` in `static/js/app.js`, an American voice is preferred for
+English). Voices are good on Android, Windows, Mac and in Chrome on Linux, robotic or missing in
+Firefox on Linux. Users can turn it off or let it
 play right after the card is turned (*Nastavení › Test*). The written pronunciation in IPA,
 e.g. `[pɑːm]` small under the word, is off by default (*Ukazovat zápis výslovnosti (IPA)*); a
 word with only IPA and no recording then shows nothing. The sources are
-`VOKIE_PRONUNCIATION_PROVIDERS` (default `wiktionary`); text to speech can be added there later.
+`VOKIE_PRONUNCIATION_PROVIDERS` (default `wiktionary`); a server voice (e.g. Piper) can be added
+there later.
 
 ```python
 from dictionary.providers import get_pronunciation
