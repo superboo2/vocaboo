@@ -365,8 +365,12 @@ first value. The buttons are defined in `study/ratings.py`.
 A test is a `StudySession`: chosen decks (child decks are included), direction and scope. The
 next card is always computed from the database, so the app works the same on more devices.
 
-- **Scope "due"**: cards that are due (oldest first), then new cards in the order they were
-  added. A card rated 😵 comes back by itself after 10 minutes.
+- **Scope "due"**: first the cards that are due, then new cards. Inside both groups the order is
+  **random**, so the two directions of a word are usually far apart (when they came one card
+  apart, the second one was easy only thanks to short memory). Every test gets its own random
+  number (`StudySession.shuffle_seed`) and the order is the hash of it and the card, so the order
+  stays the same for the whole test, also after a reload or on another device. A card rated 😵
+  comes back by itself after 10 minutes, at a random place.
 - **Scope "all"**: every card once.
 - A word that is in more chosen decks comes only once, and a rating counts in all its decks.
 - The same word (other direction) or another meaning of it (palm / palm) does not come twice in

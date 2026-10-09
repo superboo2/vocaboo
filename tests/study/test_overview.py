@@ -101,15 +101,17 @@ def test_dashboard_shows_counts(client, user, tree):
 def test_term_history(user, tree):
     hello = add(tree["himym"], "hello")
     session = services.start_session(user, [tree["himym"]])
-    for rating in ["ok", "dontknow"]:
-        services.record_answer(session, services.next_card(session), rating)
+    # The order of the directions is random
+    first = services.next_card(session)
+    services.record_answer(session, first, "ok")
+    services.record_answer(session, services.next_card(session), "dontknow")
 
     history = services.term_history(hello)
 
     by_direction = {row["direction"]: row for row in history["directions"]}
     assert by_direction["F2N"]["total"] == 1
     assert by_direction["N2F"]["total"] == 1
-    assert dict((r.key, c) for r, c in by_direction["F2N"]["counts"])["ok"] == 1
+    assert dict((r.key, c) for r, c in by_direction[first.direction]["counts"])["ok"] == 1
     assert [log.rating for log in history["logs"]] == ["dontknow", "ok"]
 
 

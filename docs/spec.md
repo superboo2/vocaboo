@@ -399,12 +399,13 @@ Mikrofon (seriál nahlas) nebo nahraný audio soubor, přepis (Whisper), věty, 
 1. Posbírat slovíčka ze všech `DeckTerm` vybraných slovníků a jejich podslovníků, **distinct podle Term**. Tím se duplicity mezi slovníky odfiltrují automaticky.
 2. Vzít jejich `ReviewState` pro zvolené směry.
 3. Pořadí:
-   - Rozsah `due`: nejdřív karty s `due_at <= now`, od nejstarší. Pak nové (`due_at = null`) v pořadí přidání.
-   - Rozsah `all`: každá karta jednou za sezení, nejdřív ty s nejbližším `due_at`, pak nové. Karta zodpovězená v tomto sezení se vrátí, jen když je mezitím znovu na řadě (např. „vůbec nevím“ za 10 minut).
+   - Rozsah `due`: nejdřív karty s `due_at <= now`, pak nové (`due_at = null`). **Uvnitř obou skupin náhodně**: dřív šla nová slovíčka v pořadí přidání a oba směry stejného slova byly jen jednu kartu od sebe, takže druhý směr šel poznat z krátkodobé paměti. Náhoda je jen uvnitř skupin, aby při omezení „Nejvýš karet“ šla dřív slovíčka po termínu.
+   - Rozsah `all`: každá karta jednou za sezení, nejdřív ty, které už byly v testu, pak nové; uvnitř skupin náhodně.
+   - Náhodné pořadí je pro celý test stejné (i po obnovení stránky nebo na jiném zařízení): sezení má náhodné číslo `shuffle_seed` a karty se řadí podle `md5(seed-id karty)` přímo v databázi. Každý test má jiné číslo, tedy jiné pořadí. Kartička „vůbec nevím“ se po 10 minutách zařadí zpět na náhodné místo. Karta zodpovězená v tomto sezení se vrátí, jen když je mezitím znovu na řadě (např. „vůbec nevím“ za 10 minut).
 4. Karty odložené na později (`due_at > now`) se v rozsahu `due` nevrátí, dokud nebude jejich čas.
 5. Když nic nezbývá, test skončí a zobrazí se souhrn.
 
-V režimu „zamíchat“ se karta vybírá napříč oběma směry. Stejné slovíčko se nemá ukázat v obou směrech hned po sobě.
+V režimu „zamíchat“ se karta vybírá napříč oběma směry. Stejné slovíčko se nemá ukázat v obou směrech hned po sobě (jen pojistka, náhodné pořadí je většinou dá daleko od sebe; přísný rozestup není potřeba, občas blízko nevadí).
 
 **Rozestup homonym:** dva významy stejného slova (`palm` ruka / strom) se neukážou hned po sobě, aby si nenapovídaly.
 

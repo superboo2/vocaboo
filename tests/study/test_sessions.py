@@ -1,5 +1,6 @@
 """Choosing cards for a test and saving answers (spec 6.2, 6.7)."""
 
+import hashlib
 from datetime import timedelta
 
 import pytest
@@ -100,7 +101,10 @@ def test_due_cards_first_from_the_oldest_then_new_ones(user, tree):
 
     session = start(user, tree["himym"], direction=StudyDirection.F2N)
 
-    assert [word for word, _ in play(session)] == ["older", "old", "new"]
+    # Cards tested before go first (in random order), new cards after them
+    shown = [word for word, _ in play(session)]
+    assert sorted(shown[:2]) == ["old", "older"]
+    assert shown[2] == "new"
 
 
 def test_cards_not_due_yet_do_not_come(user, tree):
@@ -112,13 +116,43 @@ def test_cards_not_due_yet_do_not_come(user, tree):
     assert play(session) == []
 
 
-def test_new_cards_in_the_order_they_were_added(user, tree):
-    for word in ["one", "two", "three"]:
+def shuffled(session, states):
+    """The order the session must use: by the hash of its seed and the card (like Postgres)."""
+    key = lambda state: hashlib.md5(f"{session.shuffle_seed}-{state.pk}".encode()).hexdigest()  # noqa: E731
+    return [(state.term.main_foreign, state.direction) for state in sorted(states, key=key)]
+
+
+def test_new_cards_come_in_random_order_of_the_test(user, tree):
+    for word in ["one", "two", "three", "four", "five", "six"]:
+        add(tree["himym"], word, word)
+    states = list(ReviewState.objects.select_related("term"))
+
+    first = start(user, tree["himym"])
+    second = start(user, tree["himym"])
+    second.shuffle_seed = first.shuffle_seed + 1
+    second.save()
+
+    # Each test has its own order; it stays the same while the test goes on
+    assert services.next_card(first) == services.next_card(first)
+    expected = shuffled(first, states)
+    shown = play(first)
+    assert sorted(shown) == sorted(expected)
+    assert shuffled(second, states) != expected
+
+
+def test_both_directions_are_not_always_next_to_each_other(user, tree):
+    words = [f"word{index}" for index in range(10)]
+    for word in words:
         add(tree["himym"], word, word)
 
-    session = start(user, tree["himym"], direction=StudyDirection.F2N)
+    shown = play(start(user, tree["himym"]))
 
-    assert [word for word, _ in play(session)] == ["one", "two", "three"]
+    # Before the random order, the other direction always came right after one card
+    gaps = []
+    for word in words:
+        places = [index for index, (shown_word, _) in enumerate(shown) if shown_word == word]
+        gaps.append(places[1] - places[0])
+    assert max(gaps) > 2
 
 
 def test_answered_card_does_not_come_again_in_due_scope(user, tree):
@@ -187,9 +221,11 @@ def test_two_meanings_not_in_a_row(user, tree):
     add(tree["himym"], "hello", "ahoj")
 
     session = start(user, tree["himym"], direction=StudyDirection.F2N)
-    words = [word for word, _ in play(session)]
+    # Whatever the random order is: after one "palm" the other one waits while "hello" is left
+    palm = ReviewState.objects.filter(term__main_foreign="palm", direction="F2N").first()
+    services.record_answer(session, palm, "ok")
 
-    assert words == ["palm", "hello", "palm"]
+    assert services.next_card(session).term.main_foreign == "hello"
 
 
 def test_same_word_is_allowed_when_nothing_else_is_left(user, tree):
@@ -278,8 +314,11 @@ def test_session_summary(user, tree):
     for word in ["one", "two", "three"]:
         add(tree["himym"], word, word)
     session = start(user, tree["himym"], direction=StudyDirection.F2N)
+    shown = []
     for rating in ["ok", "dontknow", "partial"]:
-        services.record_answer(session, services.next_card(session), rating)
+        card = services.next_card(session)
+        shown.append(card.term.main_foreign)
+        services.record_answer(session, card, rating)
 
     summary = services.session_summary(session)
 
@@ -290,4 +329,5 @@ def test_session_summary(user, tree):
         "partial": 1,
         "dontknow": 1,
     }
-    assert [term.main_foreign for term in summary["problem_terms"]] == ["two", "three"]
+    # The words rated 😵 and 😕 (the order of the test is random)
+    assert sorted(term.main_foreign for term in summary["problem_terms"]) == sorted(shown[1:])

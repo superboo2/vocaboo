@@ -95,7 +95,9 @@ def test_card_page_shows_question_and_buttons(logged_client, user, himym, words)
 
     html = logged_client.get(reverse("study:card", args=[session.pk])).content.decode()
 
-    assert 'class="card-main">hello<' in html
+    # The order is random, so the first card can be either word
+    first = services.next_card(session).term.main_foreign
+    assert f'class="card-main">{first}<' in html
     assert "😎" in html and "😵" in html
     assert "7 dní" in html and "10 min" in html
     assert "Vím, opakovat za 7 dní" in html
@@ -123,16 +125,18 @@ def test_other_users_session_gives_404(client, other_user, user, himym, words):
 
 def test_answer_returns_next_card(logged_client, user, himym, words):
     session = new_session(user, himym)
+    first = services.next_card(session).term
+    other = words[1] if first == words[0] else words[0]
 
     response = answer(logged_client, session, "think")
     html = response.content.decode()
 
     assert response.status_code == 200
     assert 'id="card"' in html
-    assert 'class="card-main">bye<' in html
+    assert f'class="card-main">{other.main_foreign}<' in html
     assert "<html" not in html
     log = ReviewLog.objects.get()
-    assert (log.term, log.rating, log.think_ms, log.decide_ms) == (words[0], "think", 1500, 400)
+    assert (log.term, log.rating, log.think_ms, log.decide_ms) == (first, "think", 1500, 400)
 
 
 def test_last_answer_redirects_to_summary(logged_client, user, himym, words):
@@ -196,17 +200,19 @@ def test_finish_button(logged_client, user, himym, words):
 def test_summary_and_retry(logged_client, user, himym, words):
     session = new_session(user, himym)
     answer(logged_client, session, "ok")
+    # The order is random: the second card is the one rated 😵
+    wrong = services.next_card(session).term
     answer(logged_client, session, "dontknow")
 
     html = logged_client.get(reverse("study:summary", args=[session.pk])).content.decode()
     assert "Ohodnocené kartičky: 2" in html
     assert "Na zopakování" in html
-    assert "bye" in html
+    assert wrong.main_foreign in html
 
     response = logged_client.post(reverse("study:retry", args=[session.pk]))
     retry = StudySession.objects.exclude(pk=session.pk).get()
     assert response.url == reverse("study:card", args=[retry.pk])
-    assert list(retry.terms.all()) == [words[1]]
+    assert list(retry.terms.all()) == [wrong]
 
 
 def test_retry_without_mistakes_stays_on_summary(logged_client, user, himym, words):

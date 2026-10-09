@@ -1,3 +1,5 @@
+import secrets
+
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
@@ -61,6 +63,10 @@ class StudyScope(models.TextChoices):
     ALL = "all", _("všechna")
 
 
+def new_shuffle_seed():
+    return secrets.randbelow(2**31)
+
+
 class StudySession(models.Model):
     """One test. It keeps only the settings; the next card is always computed again."""
 
@@ -85,6 +91,9 @@ class StudySession(models.Model):
     finished_at = models.DateTimeField(_("konec"), null=True, blank=True)
     answered = models.PositiveIntegerField(_("odpovědí"), default=0)
     correct = models.PositiveIntegerField(_("správně"), default=0)
+    # Random number for the order of the cards: every test has its own order, and it stays
+    # the same for the whole test (the next card is computed again for every answer)
+    shuffle_seed = models.PositiveIntegerField(_("náhodné pořadí"), default=new_shuffle_seed)
 
     class Meta:
         verbose_name = _("sezení")

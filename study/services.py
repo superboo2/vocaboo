@@ -4,7 +4,8 @@ from datetime import timedelta
 
 from django.core.exceptions import ValidationError
 from django.db import transaction
-from django.db.models import F, Q
+from django.db.models import Case, CharField, F, Q, Value, When
+from django.db.models.functions import MD5, Cast, Concat
 from django.utils import timezone
 from django.utils.translation import gettext as _
 
@@ -147,8 +148,13 @@ def session_cards(session, now=None):
     else:
         # Every card once; an answered card comes again only when it is due
         cards = cards.exclude(last_reviewed_at__gte=session.started_at, due_at__gt=now)
-    # Due cards from the oldest, then new cards in the order they were added
-    return cards.order_by(F("due_at").asc(nulls_last=True), "term__created_at", "term_id", "pk")
+    # First the cards that were tested before (due ones), then new cards; inside each group
+    # a random order of this test. The hash of the seed and the card is random, but the same
+    # for every answer, so the order does not change during the test.
+    return cards.annotate(
+        is_new=Case(When(due_at__isnull=True, then=Value(1)), default=Value(0)),
+        shuffle=MD5(Concat(Value(f"{session.shuffle_seed}-"), Cast("pk", CharField()))),
+    ).order_by("is_new", "shuffle", "pk")
 
 
 def next_card(session, now=None):
