@@ -320,6 +320,25 @@ The sources of suggestions are in `dictionary/providers.py` and their order is t
 variable `VOKIE_SUGGESTION_PROVIDERS` (default `wiktionary`), so another source can be added
 later without changing the rest of the app.
 
+**Pronunciation.** The same import has the pronunciation: IPA (about 75 % of English words) and
+recordings of real speakers (about 44 %, mostly American). On the back of a test card and on the
+word page the foreign word gets a grey 🔊 (on the card always at the right edge, on the line of
+the foreign word; on the word page next to the title); a click or the key **P** plays the mp3 directly
+from Wikimedia Commons (nothing is stored, the browser needs internet). Only the main foreign
+variant is looked up, so phrases like `suit up` usually have none. Users can turn it off or let it
+play right after the card is turned (*Nastavení › Test*). The written pronunciation in IPA,
+e.g. `[pɑːm]` small under the word, is off by default (*Ukazovat zápis výslovnosti (IPA)*); a
+word with only IPA and no recording then shows nothing. The sources are
+`VOKIE_PRONUNCIATION_PROVIDERS` (default `wiktionary`); text to speech can be added there later.
+
+```python
+from dictionary.providers import get_pronunciation
+
+get_pronunciation("palm", "en")
+# Pronunciation(ipa='pɑːm', audio_url='https://upload.wikimedia.org/...En-us-palm.ogg.mp3',
+#               source_label='Wiktionary')
+```
+
 ### 11. Repetition intervals
 
 After a card is turned, you rate yourself. The interval grows with every good answer and is
@@ -371,8 +390,9 @@ choose decks, direction and which cards. Then:
 
 1. The card shows the question. In the foreign → native direction the sentence is shown too,
    with the word marked.
-2. **Ukázat** or **Space** turns the card. The answer, your other words with the same text, the sentence and other meanings
-   and other words with the same translation are on the back.
+2. **Ukázat** or **Space** turns the card. The pronunciation of the foreign word, the answer,
+   your other words with the same text, the sentence and other meanings are on the back.
+   **P** (or 🔊) plays the recording.
 3. Rate yourself with one of the buttons or keys **1–4**. Under each emoji is the real next
    interval of this card, e.g. `7 dní`. The next card comes without reloading the page.
 4. At the end the summary shows the counts and the words rated 😕 or 😵, with
@@ -572,6 +592,8 @@ directory).
 | `DJANGO_HSTS_SECONDS` | How long browsers must use only HTTPS (only with `DJANGO_DEBUG=0`) | (not used) | `3600` (default), later `31536000` |
 | `DJANGO_HSTS_INCLUDE_SUBDOMAINS` | HSTS also for all subdomains | (not used) | `0` (default) |
 | `DJANGO_LOG_LEVEL` | Log level of Django messages | `INFO` | `INFO` |
+| `VOKIE_SUGGESTION_PROVIDERS` | Comma separated sources of translation suggestions | `wiktionary` | `wiktionary` |
+| `VOKIE_PRONUNCIATION_PROVIDERS` | Comma separated sources of pronunciation | `wiktionary` | `wiktionary` |
 
 With `DJANGO_DEBUG=0` the app refuses to start when `DJANGO_SECRET_KEY` is missing or still
 `change-me`:

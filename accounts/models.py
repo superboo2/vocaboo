@@ -61,6 +61,12 @@ class User(AbstractUser):
     show_suggestions = models.BooleanField(_("navrhovat překlad"), default=True)
     # Meanings from the dictionary on the back of a test card (the user's own are always shown)
     show_other_meanings = models.BooleanField(_("další významy na kartě"), default=True)
+    # Pronunciation of the foreign word on the back of a test card
+    show_pronunciation = models.BooleanField(_("výslovnost na kartě"), default=True)
+    # Play the recording right after the card is turned
+    autoplay_pronunciation = models.BooleanField(_("přehrát výslovnost hned"), default=False)
+    # Written pronunciation in IPA, e.g. [pɑːm], on the card and on the word page
+    show_ipa = models.BooleanField(_("zápis výslovnosti (IPA)"), default=False)
 
     USERNAME_FIELD = "email"
     # Fields asked by createsuperuser besides email and password

@@ -1,8 +1,9 @@
-"""Translation suggestions shown while a word is typed.
+"""Translation suggestions shown while a word is typed, and pronunciation of words.
 
 Every source is a provider with the same small interface, so sources can be added or
-changed (e.g. a paid service later) without touching the rest of the app. The order of the
-sources is the setting SUGGESTION_PROVIDERS; the first source that knows the word wins.
+changed (e.g. a paid service or text to speech later) without touching the rest of the app.
+The order of the sources is the setting SUGGESTION_PROVIDERS (and PRONUNCIATION_PROVIDERS);
+the first source that knows the word wins.
 """
 
 import re
@@ -59,12 +60,26 @@ class SuggestionResult:
     source_label: str = ""
 
 
+@dataclass
+class Pronunciation:
+    # Pronunciation in IPA, e.g. "[pɑːm]"
+    ipa: str = ""
+    # Recording of a real speaker (mp3), played in the browser only after a click
+    audio_url: str = ""
+    # Short name of the source, e.g. "Wiktionary"
+    source_label: str = ""
+
+
 class Provider:
     name = ""
 
     def suggest(self, word, foreign_code, native_code):
         """Return a SuggestionResult, or None when the source does not know the word."""
-        raise NotImplementedError
+        return None
+
+    def pronounce(self, word, foreign_code):
+        """Return a Pronunciation, or None when the source does not know the word."""
+        return None
 
 
 class WiktionaryProvider(Provider):
@@ -107,6 +122,21 @@ class WiktionaryProvider(Provider):
             source_url=f"https://cs.wiktionary.org/wiki/{quote(entries[0].word)}",
         )
 
+    def pronounce(self, word, foreign_code):
+        entries = DictionaryEntry.objects.annotate(word_lower=Lower("word")).filter(
+            word_lower=word.lower(), foreign_code=foreign_code
+        )
+        # IPA and the recording can be in different entries (e.g. noun and verb)
+        ipa = entries.exclude(ipa="").order_by("pk").values_list("ipa", flat=True).first()
+        audio = (
+            entries.exclude(audio_url="").order_by("pk").values_list("audio_url", flat=True).first()
+        )
+        if not ipa and not audio:
+            return None
+        # Without the brackets of the source ([pɑːm] or /pɑːm/); the page adds its own
+        ipa = (ipa or "").strip().strip("[]/").strip()
+        return Pronunciation(ipa=ipa, audio_url=audio or "", source_label="Wiktionary")
+
 
 PROVIDERS = {provider.name: provider for provider in [WiktionaryProvider()]}
 
@@ -141,6 +171,27 @@ def get_suggestions(word, foreign_code, native_code):
             continue
         result = provider.suggest(variants[0], foreign_code, native_code)
         if result is not None:
+            return result
+    return None
+
+
+def get_pronunciation(word, foreign_code, with_ipa=True):
+    """Pronunciation of the first variant of the word, from the first source that knows it.
+
+    With with_ipa=False the IPA is left out (the user does not want to see it); then only
+    a recording counts and a word without one has no pronunciation.
+    """
+    variants = parse_variants(word)
+    if not variants:
+        return None
+    for name in settings.PRONUNCIATION_PROVIDERS:
+        provider = PROVIDERS.get(name)
+        if provider is None:
+            continue
+        result = provider.pronounce(variants[0], foreign_code)
+        if result is not None and not with_ipa:
+            result.ipa = ""
+        if result is not None and (result.ipa or result.audio_url):
             return result
     return None
 

@@ -195,6 +195,8 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 # Translation suggestions when a word is typed, sources in this order (see dictionary/providers.py)
 SUGGESTION_PROVIDERS = env_list("VOKIE_SUGGESTION_PROVIDERS", "wiktionary")
+# Pronunciation of words (IPA and recordings), sources in this order
+PRONUNCIATION_PROVIDERS = env_list("VOKIE_PRONUNCIATION_PROVIDERS", "wiktionary")
 
 
 # Logging: errors go to the console, on the server systemd keeps them (journalctl -u vokie)

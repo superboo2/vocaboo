@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
-from dictionary.providers import get_suggestions, other_meanings
+from dictionary.providers import get_pronunciation, get_suggestions, other_meanings
 from study import services as study_services
 from study.formatting import czech_plural
 
@@ -374,6 +374,9 @@ def term_detail(request, deck_pk, pk):
             "term": term,
             "in_decks": in_decks,
             "other_meanings": other_meanings(term),
+            "pronunciation": get_pronunciation(
+                term.main_foreign, term.foreign_language.code, with_ipa=request.user.show_ipa
+            ),
             "history": study_services.term_history(term),
             "ancestors": services.get_ancestors(deck_term.deck),
         },

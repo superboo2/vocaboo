@@ -475,6 +475,64 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
   font-size: 0.875rem;
 }
 
+/* Pronunciation: IPA small and grey under the foreign word */
+.ipa {
+  display: block;
+  font-size: 0.9rem;
+  font-weight: normal;
+  color: var(--pico-muted-color);
+}
+
+/* On a card 🔊 is always at the right edge, in the middle of the line of the word. The word
+   stays in the centre: both sides keep room for the icon, so a long word never goes under it. */
+.card-main,
+.card-word-line {
+  position: relative;
+  display: block;
+  padding: 0 1.75rem;
+}
+
+/* A long question would break in the middle on a phone */
+.card-main-long {
+  font-size: 1.6rem;
+}
+
+.card-speak {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  line-height: 1;
+}
+
+/* Invisible (and not clickable) until the card is turned */
+.flip-reveal {
+  visibility: hidden;
+}
+
+.flip-reveal.shown {
+  visibility: visible;
+}
+
+/* 🔊 is grey and light, so it does not pull the eye from the word; darker when used */
+.link-button.speak {
+  padding: 0.25rem;
+  font-size: 1.25rem;
+  font-weight: normal;
+  line-height: 1;
+  text-decoration: none;
+  vertical-align: middle;
+  filter: grayscale(1);
+  opacity: 0.45;
+  transition: opacity 0.15s;
+}
+
+.link-button.speak:hover,
+.link-button.speak:focus-visible,
+.link-button.speak.speaking {
+  opacity: 0.9;
+}
+
 /* The user's own words with the same text: as important as the sentence */
 .card-own {
   margin-bottom: 0.5rem;

@@ -55,3 +55,28 @@ document.addEventListener("change", function (event) {
   }
   updateSelection(list);
 });
+
+// Pronunciation: play the recording of a word (button 🔊, templates/_pronunciation.html)
+let playing = null;
+
+function playAudio(button) {
+  if (playing) {
+    playing.pause();
+  }
+  playing = new Audio(button.dataset.audio);
+  button.classList.add("speaking");
+  playing.addEventListener("ended", function () {
+    button.classList.remove("speaking");
+  });
+  playing.play().catch(function () {
+    // No internet or the browser did not allow it; nothing else to do
+    button.classList.remove("speaking");
+  });
+}
+
+document.addEventListener("click", function (event) {
+  const button = event.target.closest("[data-action='play-audio']");
+  if (button) {
+    playAudio(button);
+  }
+});

@@ -88,6 +88,9 @@ Pole navíc oproti `AbstractUser`:
 | `default_direction` | enum | `F2N` / `N2F` / `MIXED` |
 | `show_suggestions` | bool, výchozí `True` | návrhy překladu při přidávání slovíčka (5.2), vypíná se v Nastavení |
 | `show_other_meanings` | bool, výchozí `True` | další významy ze slovníku na zadní straně kartičky (6.4) |
+| `show_pronunciation` | bool, výchozí `True` | výslovnost na zadní straně kartičky (6.4) |
+| `autoplay_pronunciation` | bool, výchozí `False` | přehrát nahrávku hned po otočení kartičky |
+| `show_ipa` | bool, výchozí `False` | zápis výslovnosti (IPA) na kartičce a v detailu slovíčka |
 | `strict_ignore_case` | bool | default `True` (fáze 2) |
 | `strict_ignore_diacritics` | bool | default `False` (fáze 2) |
 | `strict_allow_typo` | bool | default `False`, tolerance 1 překlepu (fáze 2) |
@@ -494,6 +497,8 @@ Základní kartičkový test: uvidím slovíčko, zamyslím se, otočím kartič
 2. Tlačítko „Ukázat“ zobrazí odpověď (všechny varianty), vlastní další významy, větu, poznámku a dole významy ze slovníku (viz 6.4 Homonyma).
 3. Uživatel se ohodnotí jedním z tlačítek (6.3).
 
+**Výslovnost** (hotovo: jen Wiktionary): u cizího slova po otočení karty a v detailu slovíčka: šedé, lehce průhledné 🔊 (ve směru F→N na řádku otázky, ve směru N→F na řádku odpovědi, vždy u **pravého okraje kartičky** a svisle na středu řádku, aby ho palec našel vždy na stejném místě a slovo neposkakovalo; slovo zůstává uprostřed, po obou stranách je místo na ikonu, slova delší než 10 znaků mají menší písmo; v detailu slovíčka vedle nadpisu; při najetí, klepnutí a přehrávání ztmavne) a pod slovem menším šedým písmem IPA v hranatých závorkách (`[pɑːm]`), ale **jen když si ho uživatel zapne** (`User.show_ipa`, výchozí vypnuto: většina lidí IPA neumí číst). Závorky ze zdroje (`[…]` i `/…/`) se při čtení odstraní a šablona přidá jednotné `[…]`. Bez IPA se počítá jen nahrávka, slovo jen s IPA pak výslovnost nemá. IPA a nahrávka skutečného mluvčího jsou z importu českého Wiktionary (`DictionaryEntry.ipa`, `audio_url`; IPA asi 75 % anglických slov, nahrávka asi 44 %, hlavně americká). Mp3 se přehrává přímo z Wikimedia Commons až po kliknutí nebo klávese **P**, nic se neukládá. Hledá se hlavní cizí varianta, bez ohledu na velikost písmen; IPA a nahrávka můžou být z různých hesel (slovních druhů). Bez dat se řádek neukáže. Zdroj je dole v řádku *„(další významy a výslovnost z Wiktionary)“*. Nastavení: *Ukazovat výslovnost* (zapnuto), *Přehrát hned po otočení* (vypnuto; otočení je klik nebo klávesa, takže to prohlížeč dovolí). Zdroje jsou za rozhraním `get_pronunciation(word, foreign_code)` v `dictionary/providers.py` s pořadím ve `VOKIE_PRONUNCIATION_PROVIDERS`; **TTS** (prohlížeč, Piper na serveru nebo cloud) jde přidat později jako další zdroj, hlavně pro slova bez nahrávky, fráze a celé věty. Výběr US / UK nahrávky zatím ne (import ukládá první nahrávku).
+
 **Zobrazení variant** (slovíčko `hello; hi` ↔ `ahoj; čau`):
 
 | Směr | Přední strana | Zadní strana |
@@ -630,7 +635,7 @@ Všechny obrazovky jsou mobile-first. Test musí být pohodlný na telefonu (tla
 - Výběr z 6
 - Výběr významu přes LLM (viz 5.2): živé dotazy, sdílená cache, našeptávání; později předgenerovaný slovník častých slov
 - Akce „rozdělit slovíčko“ a „sloučit slovíčka“
-- Výslovnost přes `speechSynthesis` v prohlížeči
+- Výslovnost přes TTS (`speechSynthesis` v prohlížeči nebo Piper na serveru) pro slova bez nahrávky z Wiktionary, fráze a věty
 - Hromadné přidání
 - Vyhledávání (přes `unaccent`, takže `cau` najde `čau`)
 - Zadávání variant jako „štítků“

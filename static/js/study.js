@@ -35,9 +35,20 @@
     flipped = true;
     thinkMs = phaseTime();
     card.querySelector(".card-back").hidden = false;
+    card.querySelectorAll(".after-flip").forEach(function (element) {
+      element.hidden = false;
+    });
+    card.querySelectorAll(".flip-reveal").forEach(function (element) {
+      element.classList.add("shown");
+    });
     card.querySelector(".card-show").hidden = true;
     card.querySelector(".ratings").hidden = false;
     fitMeanings();
+    // The flip comes from a click or a key, so the browser allows the sound
+    const speak = card.querySelector("[data-action='play-audio']");
+    if (speak && card.hasAttribute("data-autoplay")) {
+      playAudio(speak);
+    }
     // Now measure the time until the rating
     phaseStart = now();
     paused = 0;
@@ -156,6 +167,14 @@
       // Space turns the card instead of scrolling or pressing a focused button
       event.preventDefault();
       flip();
+      return;
+    }
+    if (flipped && card && event.key.toLowerCase() === "p") {
+      const speak = card.querySelector("[data-action='play-audio']");
+      if (speak) {
+        event.preventDefault();
+        playAudio(speak);
+      }
       return;
     }
     if (flipped && !sending && card) {

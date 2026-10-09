@@ -9,6 +9,8 @@
   <hgroup>
     <h1>
       {{ term.foreign_variants|join:" · " }}
+      {% include "_speak.html" %}
+      {% if pronunciation.ipa %}<span class="ipa">[{{ pronunciation.ipa }}]</span>{% endif %}
     </h1>
     <p>→ {{ term.native_variants|join:" · " }}</p>
   </hgroup>
@@ -41,7 +43,6 @@
           </li>
         {% endfor %}
       </ul>
-      <p class="muted"><small>{% translate "Významy ze slovníku: zdroj Wiktionary (CC BY-SA)." %}</small></p>
     </section>
   {% endif %}
 
@@ -117,4 +118,8 @@
       <p class="muted">{% translate "Slovíčko ještě nebylo v žádném testu." %}</p>
     {% endif %}
   </section>
+
+  {% if other_meanings or pronunciation %}
+    <p class="muted"><small>{% translate "Významy a výslovnost ze slovníku: zdroj Wiktionary (CC BY-SA), nahrávky Wikimedia Commons." %}</small></p>
+  {% endif %}
 {% endblock %}

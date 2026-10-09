@@ -1,0 +1,7 @@
+{% load i18n %}
+{# Button 🔊 next to a foreign word, plays the recording (app.js). Nothing without a recording. #}
+{% if pronunciation.audio_url %}
+  <button type="button" class="link-button speak" data-action="play-audio"
+          data-audio="{{ pronunciation.audio_url }}"
+          title="{% translate 'Přehrát výslovnost (P)' %}" aria-label="{% translate 'Přehrát výslovnost' %}">🔊</button>
+{% endif %}

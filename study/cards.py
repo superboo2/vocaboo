@@ -6,7 +6,7 @@ from operator import or_
 
 from django.db.models import Q
 
-from dictionary.providers import other_meanings
+from dictionary.providers import get_pronunciation, other_meanings
 from vocabulary import sentences
 from vocabulary.models import DeckTerm, Term, TermVariant
 
@@ -37,6 +37,10 @@ class Card:
     # "+N" for the rest (study.js).
     dictionary_meanings: list = field(default_factory=list)
     dictionary_sources: list = field(default_factory=list)
+    # Pronunciation of the foreign word (dictionary.providers.Pronunciation) or None
+    pronunciation: object = None
+    # Small line at the bottom, e.g. "(další významy a výslovnost z Wiktionary)"
+    sources_note: str = ""
     # Other words with the same question text (N2F), e.g. "ahoj" is also "hello"
     also: list = field(default_factory=list)
     # (rating, interval) for every button
@@ -63,6 +67,11 @@ def build_card(session, state):
 
     _add_sentence(card, session, foreign)
     _add_other_meanings(card, session.user)
+    if session.user.show_pronunciation:
+        card.pronunciation = get_pronunciation(
+            term.main_foreign, term.foreign_language.code, with_ipa=session.user.show_ipa
+        )
+    card.sources_note = _sources_note(card)
     if not is_f2n:
         # The hint "2 významy" is only for the foreign word on the front
         card.front_hint = ""
@@ -110,6 +119,21 @@ def _add_other_meanings(card, user):
         # Without a sentence the question "palm" has more right answers among the user's words
         count = len(own) + 1
         card.front_hint = f"{count} {czech_plural(count, 'význam', 'významy', 'významů')}"
+
+
+def _sources_note(card):
+    """Name the dictionaries the card shows something from (their licence needs it)."""
+    parts = []
+    sources = list(card.dictionary_sources)
+    if card.dictionary_meanings:
+        parts.append("další významy")
+    if card.pronunciation:
+        parts.append("výslovnost")
+        if card.pronunciation.source_label not in sources:
+            sources.append(card.pronunciation.source_label)
+    if not parts or not sources:
+        return ""
+    return f"({' a '.join(parts)} z {', '.join(sources)})"
 
 
 def _add_same_translation(card, native):

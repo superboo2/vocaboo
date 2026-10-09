@@ -46,6 +46,18 @@
           <label>{{ form.show_other_meanings }} {{ form.show_other_meanings.label }}</label>
           <small>{{ form.show_other_meanings.help_text }}</small>
         </fieldset>
+        <fieldset>
+          <label>{{ form.show_pronunciation }} {{ form.show_pronunciation.label }}</label>
+          <small>{{ form.show_pronunciation.help_text }}</small>
+        </fieldset>
+        <fieldset>
+          <label>{{ form.autoplay_pronunciation }} {{ form.autoplay_pronunciation.label }}</label>
+          <small>{{ form.autoplay_pronunciation.help_text }}</small>
+        </fieldset>
+        <fieldset>
+          <label>{{ form.show_ipa }} {{ form.show_ipa.label }}</label>
+          <small>{{ form.show_ipa.help_text }}</small>
+        </fieldset>
       </section>
 
       <button type="submit">{% translate "Uložit" %}</button>
