@@ -19,6 +19,8 @@
       {% endfor %}
     </ul>
 
+    {% if task %}{% include "study/_sentence_task.html" %}{% endif %}
+
     {% if problems %}
       <h2>{% translate "Na zopakování" %}</h2>
       <ul class="term-list">

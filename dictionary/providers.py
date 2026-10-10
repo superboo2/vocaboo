@@ -19,6 +19,8 @@ from .models import DictionaryEntry
 
 # Most suggestions shown for one word
 LIMIT = 12
+# Longer examples are quotes of more sentences, not good for learning one word
+EXAMPLE_MAX_LENGTH = 120
 
 # Short names of parts of speech for the small suggestion buttons
 SHORT_POS = {
@@ -43,6 +45,7 @@ class Suggestion:
     part_of_speech: str = ""
     # Note from the source, e.g. "(o dopravě)", shown in small letters
     note: str = ""
+    # Example sentences: list of dicts {"text", "translation"}
     examples: list = field(default_factory=list)
 
     @property
@@ -81,6 +84,11 @@ class Provider:
         """Return a Pronunciation, or None when the source does not know the word."""
         return None
 
+    def example(self, word, foreign_code, native_code, translations):
+        """Return {"text", "translation", "source"} for the meaning with one of the
+        translations (a set of lower case texts), or None."""
+        return None
+
 
 class WiktionaryProvider(Provider):
     """Czech Wiktionary imported by the command import_wiktionary (only meanings in Czech)."""
@@ -110,7 +118,7 @@ class WiktionaryProvider(Provider):
                         translation=translation,
                         part_of_speech=entry.part_of_speech,
                         note=note,
-                        examples=sense.get("examples", []),
+                        examples=sense_examples(sense),
                     )
                 )
         if not suggestions:
@@ -121,6 +129,34 @@ class WiktionaryProvider(Provider):
             source_label="Wiktionary",
             source_url=f"https://cs.wiktionary.org/wiki/{quote(entries[0].word)}",
         )
+
+    def example(self, word, foreign_code, native_code, translations):
+        """An example sentence of the meaning that has one of the translations, or None.
+
+        Only the right meaning: for house → dům not "He likes house and trance." (music).
+        A sentence with a Czech translation is better than one without.
+        """
+        entries = (
+            DictionaryEntry.objects.annotate(word_lower=Lower("word"))
+            .filter(word_lower=word.lower(), foreign_code=foreign_code, native_code=native_code)
+            .order_by("pk")
+        )
+        found = []
+        for entry in entries:
+            for sense in entry.senses:
+                translation, _note = split_gloss(sense["text"])
+                variants = {text.lower() for text in translation.split("; ") if text}
+                if variants & translations:
+                    found.extend(
+                        example
+                        for example in sense_examples(sense)
+                        if len(example["text"]) <= EXAMPLE_MAX_LENGTH
+                    )
+        if not found:
+            return None
+        # With a Czech translation first, then the shorter one
+        found.sort(key=lambda example: (not example["translation"], len(example["text"])))
+        return {**found[0], "source": "Wiktionary"}
 
     def pronounce(self, word, foreign_code):
         entries = DictionaryEntry.objects.annotate(word_lower=Lower("word")).filter(
@@ -139,6 +175,23 @@ class WiktionaryProvider(Provider):
 
 
 PROVIDERS = {provider.name: provider for provider in [WiktionaryProvider()]}
+
+
+def sense_examples(sense):
+    """Example sentences of one meaning as dicts {"text", "translation"}.
+
+    Data imported before the translations were kept has only texts (strings).
+    """
+    examples = []
+    for example in sense.get("examples", []):
+        if isinstance(example, str):
+            example = {"text": example, "translation": ""}
+        if example.get("text"):
+            examples.append(
+                {"text": example["text"], "translation": example.get("translation", "")}
+            )
+    return examples
+
 
 # Text in parentheses, e.g. "(o prostředku dopravy) jezdit"
 PARENTHESES = re.compile(r"\(([^()]*)\)")
@@ -192,6 +245,24 @@ def get_pronunciation(word, foreign_code, with_ipa=True):
         if result is not None and not with_ipa:
             result.ipa = ""
         if result is not None and (result.ipa or result.audio_url):
+            return result
+    return None
+
+
+def get_example_sentence(term):
+    """An example sentence from a dictionary for the meaning of the user's word, or None.
+
+    Returns {"text", "translation", "source"}; offered when the user adds a sentence.
+    """
+    translations = {text.lower() for text in term.native_variants}
+    for name in settings.SUGGESTION_PROVIDERS:
+        provider = PROVIDERS.get(name)
+        if provider is None:
+            continue
+        result = provider.example(
+            term.main_foreign, term.foreign_language.code, term.native_language.code, translations
+        )
+        if result is not None:
             return result
     return None
 

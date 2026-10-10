@@ -157,3 +157,36 @@ document.addEventListener("click", function (event) {
     playAudio(button);
   }
 });
+
+// End of a test: put the example from the dictionary into the two sentence fields
+document.addEventListener("click", function (event) {
+  const button = event.target.closest("[data-action='use-example']");
+  if (!button) {
+    return;
+  }
+  const form = button.closest("form");
+  form.querySelector("[name='context_sentence']").value = button.dataset.text;
+  form.querySelector("[name='context_sentence_native']").value = button.dataset.translation;
+  form.querySelector("[name='context_sentence']").focus();
+});
+
+// "Teď ne": hide the sentence task (it can come again after another test)
+document.addEventListener("click", function (event) {
+  const button = event.target.closest("[data-action='hide-task']");
+  if (button) {
+    button.closest(".sentence-task").remove();
+  }
+});
+
+// "+N" in front of the coloured dots of answers: show the older ones (and the link to the history)
+document.addEventListener("click", function (event) {
+  const button = event.target.closest("[data-action='more-dots']");
+  if (!button) {
+    return;
+  }
+  const row = button.closest(".dots-row");
+  row.querySelectorAll(".dot[hidden], .dots-history[hidden]").forEach(function (element) {
+    element.hidden = false;
+  });
+  button.remove();
+});

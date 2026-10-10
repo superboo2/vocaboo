@@ -108,6 +108,12 @@ class TermForm(forms.Form):
         widget=forms.Textarea(attrs={"rows": 2}),
         help_text=_("Slovo ve větě najdu sám. Jiný tvar označ závorkami: He {ran} away."),
     )
+    context_sentence_native = forms.CharField(
+        label=_("Překlad věty"),
+        required=False,
+        widget=forms.Textarea(attrs={"rows": 2}),
+        help_text=_("Volitelné, k pochopení věty. Slovo můžeš označit: Utekl {pryč}."),
+    )
     note = forms.CharField(
         label=_("Poznámka"),
         required=False,
@@ -115,7 +121,7 @@ class TermForm(forms.Form):
     )
 
     # Fields shown under "Více" (more), the first two are always visible
-    more_fields = ("context_sentence", "note")
+    more_fields = ("context_sentence", "context_sentence_native", "note")
 
     def __init__(self, *args, deck, **kwargs):
         super().__init__(*args, **kwargs)

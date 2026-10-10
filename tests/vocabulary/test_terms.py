@@ -226,3 +226,20 @@ def test_list_deck_terms_query_count(himym, django_assert_num_queries):
         texts = [item.term.foreign_variants for item in items]
 
     assert len(texts) == 3
+
+
+def test_sentence_translation_is_saved_and_moved(himym, user):
+    other = services.create_deck(user, "Other", parent=himym)
+    deck_term = services.add_term(
+        himym,
+        foreign="hello",
+        native="ahoj",
+        context_sentence="Hi!",
+        context_sentence_native=" Ahoj! ",
+    )
+
+    assert deck_term.context_sentence_native == "Ahoj!"
+    services.update_deck_term(deck_term, context_sentence="Hello!", context_sentence_native="Čau!")
+    services.move_deck_terms([deck_term], other, copy=True)
+    copied = DeckTerm.objects.get(deck=other)
+    assert (copied.context_sentence, copied.context_sentence_native) == ("Hello!", "Čau!")

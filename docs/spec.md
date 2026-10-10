@@ -220,6 +220,7 @@ Poznámky:
 | `deck` | FK Deck | |
 | `term` | FK Term | |
 | `context_sentence` | text, blank | věta, ve které slovo zaznělo: „Hello, Penny.“ |
+| `context_sentence_native` | text, blank | překlad věty, volitelný: „Ahoj, Penny.“ (k pochopení; na kartě v obou směrech, viz 6.4) |
 | `added_at` | datetime | |
 
 Unikátnost: `(deck, term)`.
@@ -551,6 +552,14 @@ Ve směru N→F homonyma nevadí: `dlaň → palm` a `palma → palm` jsou dvě 
 ### 6.7 Souhrn sezení
 Počet karet, úspěšnost, seznam chybných slovíček a tlačítko „Procvičit chybné znovu“ (rozsah `all` nad chybnými).
 
+**„Tohle slovíčko ti nejde“** (hotovo): jedno slovíčko z testu, které **dlouhodobě** padá a ještě nemá větu, s formulářem na větu. Cíl: místo dalšího seznamu jedna konkrétní akce na pár vteřin, protože ve větě se slovíčko učí líp.
+- Výběr se počítá z `ReviewLog` (nic se neukládá navíc; `result` je kopie, takže to funguje i po změně tlačítek): posledních 8 odpovědí slovíčka (oba směry, `ROW_NUMBER() OVER (PARTITION BY term ORDER BY reviewed_at DESC)`), aspoň 3 odpovědi, podíl chyb aspoň 50 % (`wrong` = 1, `partial` = 0,5). Nejhorší první, při shodě to, co padlo víckrát. Slovíčka, která větu už mají (v některém slovníku testu), se přeskočí. `ReviewState.lapses` se nepoužívá: roste napořád a naučené slovo by z výběru nikdy nevypadlo. Konstanty `HARD_WORD_*` v `study/services.py`.
+- Nad formulářem barevné tečky posledních odpovědí pro každý směr (`EN → CS`, `CS → EN`, kódy jazyků se vejdou na mobil), od nejstarší: posledních 8 (`DOTS_SHOWN`), starší za „+N“ s titulkem „12 starších: 8× 😵 · 4× 😎“, klik rozbalí až 30 (`DOTS_MAX`) a při víc odpovědích odkaz „celá historie“ do detailu slovíčka. Místo pro „+N“ je v obou řádcích, aby tečky začínaly pod sebou.
+- Formulář: věta pod cizím slovem (s 🔊), překlad věty pod českým; na počítači vedle sebe, na mobilu pod sebou. Věta je povinná, překlad ne. Uloží se do `DeckTerm` slovníku, odkud test slovíčko vzal (při víc slovnících do nejdřív přidaného). HTMX, bez obnovení stránky; pak „✓ Uloženo“. „Teď ne“ formulář jen schová (po dalším testu se slovíčko může nabídnout znovu, jemné připomenutí).
+- Inspirace z Wiktionary: příklad jen z **významu**, jehož překlad sedí na překlad slovíčka (u `house → dům` ne „He likes house and trance.“), nejvýš 120 znaků (delší jsou citáty), s českým překladem přednostně. „Použít“ vyplní obě pole. Import `import_wiktionary` ukládá příklady jako `{"text", "translation"}` (překlad má asi 2/3 příkladů); po této změně je potřeba import jednou spustit znovu.
+
+**Překlad věty na kartě:** N→F vpředu nad větou s mezerou (víš, co do mezery patří), F→N na zadní straně; šedě, bez kurzívy. Slovo v překladu se zvýrazní, když ho aplikace najde (stejný tvar jako překlad) nebo je ve složených závorkách.
+
 ---
 
 ## 7. Statistiky
@@ -561,7 +570,7 @@ Všechny statistiky se počítají z `ReviewLog` a `ReviewState`. Datový model 
 Odpovídá na otázku „zlepšuju se?“. Zvlášť pro **každý směr**:
 - kolikrát bylo slovíčko v testu a kolikrát s jakým hodnocením,
 - **historie**: datum, směr, hodnocení, doba přemýšlení (`think_ms`),
-- (fáze 2) **barevná řada výsledků** v čase (😵 → 😕 → 🤔 → 😎),
+- **barevná řada výsledků** v čase (hotovo): tečky v barvách tlačítek, od nejstarší, nejvýš 30 na směr (zalamované po 10), starší jen jako „+N“; vedle prstenec s podílem správných odpovědí v procentech (jen CSS, `conic-gradient`). Koláč místo teček ne: ztratil by pořadí, a tedy odpověď na „zlepšuju se?“. Barva nikdy není jediná informace: každá tečka má titulek (datum, hodnocení) a řada popis pro čtečky obrazovky.
 - (fáze 2) **trend doby přemýšlení**, např. 6,1 s → 1,2 s. Ukáže zlepšení, i když hodnocení zůstává „OK“.
 
 Ukazuje se i, ve kterých slovnících slovíčko je.

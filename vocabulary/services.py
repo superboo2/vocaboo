@@ -315,6 +315,7 @@ def add_term(
     foreign,
     native,
     context_sentence="",
+    context_sentence_native="",
     note="",
     origin=Term.Origin.MANUAL,
 ):
@@ -351,6 +352,7 @@ def add_term(
             deck=deck,
             term=term,
             context_sentence=clean_text(context_sentence),
+            context_sentence_native=clean_text(context_sentence_native),
         )
         deck_term.full_clean(exclude=["deck", "term"])
         deck_term.save()
@@ -384,9 +386,10 @@ def update_term(term, *, foreign, native, note=""):
 
 
 @transaction.atomic
-def update_deck_term(deck_term, *, context_sentence=""):
-    """Change the sentence of a word in one deck."""
+def update_deck_term(deck_term, *, context_sentence="", context_sentence_native=""):
+    """Change the sentence of a word in one deck and its translation."""
     deck_term.context_sentence = clean_text(context_sentence)
+    deck_term.context_sentence_native = clean_text(context_sentence_native)
     deck_term.full_clean(exclude=["deck", "term"])
     deck_term.save()
     return deck_term
@@ -514,7 +517,9 @@ def find_duplicates(deck, *, foreign="", native=""):
 
 
 @transaction.atomic
-def link_term(deck, term, *, foreign="", native="", context_sentence=""):
+def link_term(
+    deck, term, *, foreign="", native="", context_sentence="", context_sentence_native=""
+):
     """Put an existing word into the deck and add the typed variants it does not have yet.
 
     Used by "Přidat i sem" and "Přidat jako variantu". Returns (DeckTerm, added variants).
@@ -550,6 +555,7 @@ def link_term(deck, term, *, foreign="", native="", context_sentence=""):
             deck=deck,
             term=term,
             context_sentence=clean_text(context_sentence),
+            context_sentence_native=clean_text(context_sentence_native),
         )
         deck_term.full_clean(exclude=["deck", "term"])
         deck_term.save()
@@ -586,13 +592,17 @@ def move_deck_terms(deck_terms, target, *, copy=False):
         if existing is not None:
             if not existing.context_sentence and deck_term.context_sentence:
                 existing.context_sentence = deck_term.context_sentence
-                existing.save(update_fields=["context_sentence"])
+                existing.context_sentence_native = deck_term.context_sentence_native
+                existing.save(update_fields=["context_sentence", "context_sentence_native"])
             if not copy:
                 deck_term.delete()
             already += 1
         elif copy:
             DeckTerm.objects.create(
-                deck=target, term_id=deck_term.term_id, context_sentence=deck_term.context_sentence
+                deck=target,
+                term_id=deck_term.term_id,
+                context_sentence=deck_term.context_sentence,
+                context_sentence_native=deck_term.context_sentence_native,
             )
         else:
             deck_term.deck = target

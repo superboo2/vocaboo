@@ -22,6 +22,7 @@
       {% if card.sentence_on_front %}
         <p class="card-sentence">„{{ card.sentence }}“{% if card.speech_lang %} <span class="flip-reveal">{% include "_speak.html" with text=card.sentence_text lang=card.speech_lang kind="sentence" %}</span>{% endif %}</p>
       {% endif %}
+      {% if card.sentence_native and not card.is_f2n %}<p class="card-sentence card-sentence-native">„{{ card.sentence_native }}“</p>{% endif %}
       {% if card.cloze %}<p class="card-sentence">„{{ card.cloze }}“</p>{% endif %}
     </div>
 
@@ -49,6 +50,7 @@
       {% if card.sentence and not card.sentence_on_front %}
         <p class="card-sentence">„{{ card.sentence }}“{% if card.speech_lang %} {% include "_speak.html" with text=card.sentence_text lang=card.speech_lang kind="sentence" %}{% endif %}</p>
       {% endif %}
+      {% if card.sentence_native and card.is_f2n %}<p class="card-sentence card-sentence-native">„{{ card.sentence_native }}“</p>{% endif %}
       {% if card.term.note %}<p class="card-note">{{ card.term.note|linebreaksbr }}</p>{% endif %}
       {% if card.dictionary_meanings or card.sources_note %}
         <div class="card-dictionary muted">

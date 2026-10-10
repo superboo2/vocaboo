@@ -53,7 +53,10 @@
         <li>
           <a href="{% url 'vocabulary:deck_detail' item.deck.pk %}">{{ item.deck.name }}</a>
           {% if item.context_sentence %}
-            <div class="term-context muted">„{{ item.context_sentence|marked_sentence:term.foreign_variants }}“ {% include "_speak.html" with text=item.context_sentence|plain_sentence:term.foreign_variants lang=term.foreign_language.code kind="sentence" %}</div>
+            <div class="term-context muted">
+              „{{ item.context_sentence|marked_sentence:term.foreign_variants }}“ {% include "_speak.html" with text=item.context_sentence|plain_sentence:term.foreign_variants lang=term.foreign_language.code kind="sentence" %}
+              {% if item.context_sentence_native %}<span class="sentence-native">„{{ item.context_sentence_native|marked_sentence:term.native_variants }}“</span>{% endif %}
+            </div>
           {% endif %}
         </li>
       {% endfor %}
@@ -76,6 +79,7 @@
             </p>
           {% endwith %}
           {% if row.total %}
+            {% include "study/_answer_dots.html" with row=row.dots ring=True %}
             <p class="rating-counts">
               {% for rating, count in row.counts %}
                 <span title="{{ rating.label }}"><span aria-hidden="true">{{ rating.emoji }}</span> {{ count }}×</span>

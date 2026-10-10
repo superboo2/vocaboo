@@ -1,5 +1,34 @@
 /* Small changes on top of Pico.css */
 
+/* Colours of the ratings, used by the buttons and by the dots of answers. The soft one
+   (see-through, so it works on light and dark background) is the background of a button. */
+:root {
+  --rating-ok: #2e9e4f;
+  --rating-think: #8cc63f;
+  --rating-partial: #f0a030;
+  --rating-dontknow: #d9453d;
+  --rating-ok-soft: color-mix(in srgb, var(--rating-ok) 28%, transparent);
+  --rating-think-soft: color-mix(in srgb, var(--rating-think) 28%, transparent);
+  --rating-partial-soft: color-mix(in srgb, var(--rating-partial) 28%, transparent);
+  --rating-dontknow-soft: color-mix(in srgb, var(--rating-dontknow) 28%, transparent);
+  /* Dots of answers: like the buttons on a light background */
+  --dot-ok: var(--rating-ok-soft);
+  --dot-think: var(--rating-think-soft);
+  --dot-partial: var(--rating-partial-soft);
+  --dot-dontknow: var(--rating-dontknow-soft);
+}
+
+/* On a dark background the soft colour of a small dot gets lost, so the dots are stronger
+   there (the buttons are big enough and stay soft) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --dot-ok: color-mix(in srgb, var(--rating-ok) 55%, transparent);
+    --dot-think: color-mix(in srgb, var(--rating-think) 55%, transparent);
+    --dot-partial: color-mix(in srgb, var(--rating-partial) 55%, transparent);
+    --dot-dontknow: color-mix(in srgb, var(--rating-dontknow) 55%, transparent);
+  }
+}
+
 /* Logout form sits inside the nav like a link */
 .inline-form {
   margin: 0;
@@ -366,6 +395,11 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
   margin-top: 0.15rem;
 }
 
+/* Translation of the sentence, on its own line under the sentence */
+.sentence-native {
+  display: block;
+}
+
 /* Error text under a form field */
 .field-error {
   color: var(--pico-del-color);
@@ -459,6 +493,12 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
 
 .card-sentence {
   font-style: italic;
+}
+
+/* The translation of the sentence is only a help: not in italics, grey */
+.card-sentence-native {
+  font-style: normal;
+  color: var(--pico-muted-color);
 }
 
 .card-sentence mark {
@@ -636,19 +676,19 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
 /* Soft colours, see-through so they work on light and dark background.
    The emoji and the time are always there too, colour is never the only sign. */
 .rating-ok {
-  background-color: color-mix(in srgb, #2e9e4f 28%, transparent);
+  background-color: var(--rating-ok-soft);
 }
 
 .rating-think {
-  background-color: color-mix(in srgb, #8cc63f 28%, transparent);
+  background-color: var(--rating-think-soft);
 }
 
 .rating-partial {
-  background-color: color-mix(in srgb, #f0a030 28%, transparent);
+  background-color: var(--rating-partial-soft);
 }
 
 .rating-dontknow {
-  background-color: color-mix(in srgb, #d9453d 28%, transparent);
+  background-color: var(--rating-dontknow-soft);
 }
 
 .rating:hover {
@@ -984,4 +1024,148 @@ main:focus {
   margin-bottom: 0.75rem;
   padding-bottom: 0.35rem;
   border-bottom: 1px solid var(--pico-muted-border-color);
+}
+
+/* End of a test: the word that does not stick and a form for a sentence */
+.sentence-task {
+  margin: var(--pico-spacing) 0;
+  padding: var(--pico-spacing);
+  border-left: 0.25rem solid var(--pico-primary);
+  background: var(--pico-card-sectioning-background-color);
+  border-radius: var(--pico-border-radius);
+}
+
+.sentence-task h2 {
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Same height with and without 🔊, so the two fields start at the same line */
+.sentence-task-word {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-height: 2rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.sentence-task textarea {
+  margin-bottom: 0.5rem;
+}
+
+.sentence-example {
+  margin: 0.5rem 0 0;
+  font-size: 0.9rem;
+}
+
+/* Coloured dots of the last answers: one row for each direction, 10 in a line (8 on a phone) */
+.answer-dots {
+  margin-bottom: 0.5rem;
+}
+
+.dots-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.35rem 0;
+}
+
+.dots-label {
+  flex-shrink: 0;
+  width: 4.5rem;
+  font-size: 0.85rem;
+  color: var(--pico-muted-color);
+  white-space: nowrap;
+}
+
+.dots {
+  display: grid;
+  grid-template-columns: repeat(10, 1rem);
+  gap: 0.3rem;
+}
+
+/* On a narrow phone 10 dots in a line do not fit next to the label; 8 do (as many as the
+   summary shows at first) */
+@media (max-width: 400px) {
+  .dots {
+    grid-template-columns: repeat(8, 1rem);
+  }
+}
+
+.dot {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  /* A thin neutral edge (grey from the text colour, so it fits light and dark mode); the soft
+     colours are easier to see with it */
+  border: 1px solid color-mix(in srgb, var(--pico-color) 25%, transparent);
+}
+
+.dot[hidden],
+.dots-history[hidden] {
+  display: none;
+}
+
+/* A dot has the same soft background as the rating button with the same emoji
+   (stronger in the dark mode, see :root) */
+.dot-ok {
+  background-color: var(--dot-ok);
+}
+
+.dot-think {
+  background-color: var(--dot-think);
+}
+
+.dot-partial {
+  background-color: var(--dot-partial);
+}
+
+.dot-dontknow {
+  background-color: var(--dot-dontknow);
+}
+
+.dots-more,
+.dots-history {
+  flex-shrink: 0;
+  font-size: 0.8rem;
+}
+
+.dots-more-slot {
+  flex-shrink: 0;
+  min-width: 1.75rem;
+  text-align: right;
+}
+
+.dots-more {
+  padding: 0;
+}
+
+/* Ring with the share of correct answers (word page), only CSS */
+.dots-ring {
+  position: relative;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: conic-gradient(
+    var(--rating-ok) calc(var(--percent) * 1%),
+    var(--pico-muted-border-color) 0
+  );
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+.dots-ring::before {
+  content: "";
+  position: absolute;
+  inset: 0.3rem;
+  border-radius: 50%;
+  background: var(--pico-card-background-color);
+}
+
+.dots-ring span {
+  position: relative;
 }

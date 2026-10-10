@@ -1,0 +1,57 @@
+{% load i18n %}
+{# End of a test: the word that does not stick and a form to add a sentence to it. #}
+{# The sentence goes under the foreign word, its translation under the native one. #}
+{# HTMX sends it and puts this part back with "Uloženo". #}
+{% with term=task.term %}
+  <section id="sentence-task" class="sentence-task">
+    <h2>✍️ {% translate "Tohle slovíčko ti nejde" %}</h2>
+    {% if saved %}
+      <p class="term-added" role="status">
+        ✓ {% blocktranslate with word=term.main_foreign %}Věta k „{{ word }}“ je uložená, ukáže se při příštím opakování.{% endblocktranslate %}
+      </p>
+    {% else %}
+      {% if task.dots %}
+        {% url 'vocabulary:term_detail' task.deck_term.deck_id task.deck_term.pk as history_url %}
+        <div class="answer-dots">
+          {% for row in task.dots %}
+            {% if row.total %}{% include "study/_answer_dots.html" with label=True expandable=True %}{% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+      <p class="muted">{% translate "Přidej k němu větu, ve větě se slovíčko učí líp." %}</p>
+      {% url 'study:add_sentence' session.pk task.deck_term.pk as save_url %}
+      <form method="post" action="{{ save_url }}" hx-post="{{ save_url }}"
+            hx-target="#sentence-task" hx-swap="outerHTML">
+        {% csrf_token %}
+        <div class="grid">
+          <label>
+            <span class="sentence-task-word">{{ term.foreign_variants|join:" · " }}
+              {% include "_speak.html" with audio=task.pronunciation.audio_url text=term.main_foreign lang=term.foreign_language.code kind="word" %}
+            </span>
+            <textarea name="context_sentence" rows="2" placeholder="{% translate 'Věta s tímto slovem' %}">{{ request.POST.context_sentence }}</textarea>
+          </label>
+          <label>
+            <span class="sentence-task-word">{{ term.native_variants|join:" · " }}</span>
+            <textarea name="context_sentence_native" rows="2" placeholder="{% translate 'Její překlad' %}">{{ request.POST.context_sentence_native }}</textarea>
+          </label>
+        </div>
+        {% if error %}<p class="field-error">{{ error }}</p>{% endif %}
+        <small class="muted">{% translate "Slovo ve větě najdu sám, jiný tvar označ závorkami: He {ran} away. Překlad je volitelný." %}</small>
+
+        {% if task.example %}
+          <p class="sentence-example">
+            💡 {% blocktranslate with source=task.example.source %}Příklad z {{ source }}:{% endblocktranslate %}
+            <em>{{ task.example.text }}</em>{% if task.example.translation %} → {{ task.example.translation }}{% endif %}
+            <button type="button" class="link-button" data-action="use-example"
+                    data-text="{{ task.example.text }}" data-translation="{{ task.example.translation }}">{% translate "Použít" %}</button>
+          </p>
+        {% endif %}
+
+        <div class="actions">
+          <button type="submit">{% translate "Uložit větu" %}</button>
+          <button type="button" class="secondary outline" data-action="hide-task">{% translate "Teď ne" %}</button>
+        </div>
+      </form>
+    {% endif %}
+  </section>
+{% endwith %}

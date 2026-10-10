@@ -35,6 +35,7 @@
                     {% if item.context_sentence %}
                       <div class="term-context muted">
                         „{{ item.context_sentence|marked_sentence:foreign }}“
+                        {% if item.context_sentence_native %}<span class="sentence-native">„{{ item.context_sentence_native|marked_sentence:native }}“</span>{% endif %}
                       </div>
                     {% endif %}
                   </div>

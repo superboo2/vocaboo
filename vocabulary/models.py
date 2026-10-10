@@ -206,6 +206,8 @@ class DeckTerm(models.Model):
     )
     # Sentence where the word was seen, e.g. "Hello, Penny."
     context_sentence = models.TextField(_("věta"), blank=True)
+    # Its translation, e.g. "Ahoj, Penny." (only to understand it; on the card in both directions)
+    context_sentence_native = models.TextField(_("překlad věty"), blank=True)
     added_at = models.DateTimeField(_("přidáno"), auto_now_add=True)
 
     class Meta:

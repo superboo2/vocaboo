@@ -38,8 +38,12 @@ def entry_from_line(data):
         glosses = [gloss.strip() for gloss in sense.get("glosses", []) if gloss.strip()]
         if not glosses:
             continue
+        # Example sentences with their Czech translation when the source has one
         examples = [
-            example["text"].strip()
+            {
+                "text": example["text"].strip(),
+                "translation": (example.get("translation") or "").strip(),
+            }
             for example in sense.get("examples", [])
             if (example.get("text") or "").strip()
         ]

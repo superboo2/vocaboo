@@ -316,6 +316,7 @@ def term_link(request, pk, term_pk):
             foreign=request.POST.get("foreign", ""),
             native=request.POST.get("native", ""),
             context_sentence=request.POST.get("context_sentence", ""),
+            context_sentence_native=request.POST.get("context_sentence_native", ""),
         )
     except ValidationError as error:
         form = TermForm(request.POST, deck=deck)
@@ -414,6 +415,7 @@ def term_edit(request, deck_pk, pk):
         "foreign": "; ".join(term.foreign_variants),
         "native": "; ".join(term.native_variants),
         "context_sentence": deck_term.context_sentence,
+        "context_sentence_native": deck_term.context_sentence_native,
         "note": term.note,
     }
     form = TermForm(request.POST or None, deck=deck, initial=initial)
@@ -429,6 +431,7 @@ def term_edit(request, deck_pk, pk):
             services.update_deck_term(
                 deck_term,
                 context_sentence=data["context_sentence"],
+                context_sentence_native=data["context_sentence_native"],
             )
         except ValidationError as error:
             add_service_errors(form, error)

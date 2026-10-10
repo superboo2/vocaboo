@@ -4,9 +4,10 @@ from datetime import timedelta
 
 from django.core.exceptions import ValidationError
 from django.db import transaction
-from django.db.models import Case, CharField, F, Q, Value, When
-from django.db.models.functions import MD5, Cast, Concat
+from django.db.models import Case, CharField, F, Q, Value, When, Window
+from django.db.models.functions import MD5, Cast, Concat, RowNumber
 from django.utils import timezone
+from django.utils.dateformat import format as date_format
 from django.utils.translation import gettext as _
 
 from vocabulary.models import DeckTerm
@@ -21,7 +22,7 @@ from .models import (
     StudyScope,
     StudySession,
 )
-from .ratings import RATINGS, get_rating
+from .ratings import RATINGS, RATINGS_BY_KEY, get_rating
 
 ONE_DAY = timedelta(days=1)
 
@@ -244,6 +245,124 @@ def session_summary(session):
     }
 
 
+# The word that does not stick (end of a test): how many last answers of a word are looked
+# at, how many it needs at least, and how big part of them must be wrong (😕 counts as half)
+HARD_WORD_WINDOW = 8
+HARD_WORD_MIN_ANSWERS = 3
+HARD_WORD_MIN_SHARE = 0.5
+
+
+def hard_word_without_sentence(session):
+    """The word of this test that fails most often for a long time and has no sentence yet.
+
+    Not the words rated badly only today: the last answers of every word are counted, so a
+    word that is known and was forgotten once does not come. Nothing is stored for it, all
+    comes from ReviewLog (its result is a copy, so it works also when the buttons change).
+    Returns None or a dict: deck_term (where the sentence is saved), bad (answers that were
+    not correct) and total (answers counted).
+    """
+    term_ids = set(session.logs.values_list("term_id", flat=True))
+    if not term_ids:
+        return None
+    recent = (
+        ReviewLog.objects.filter(user_id=session.user_id, term_id__in=term_ids)
+        .annotate(
+            row=Window(RowNumber(), partition_by=[F("term_id")], order_by=F("reviewed_at").desc())
+        )
+        .filter(row__lte=HARD_WORD_WINDOW)
+        .values_list("term_id", "result")
+    )
+    stats = {}
+    for term_id, result in recent:
+        total, wrong, bad = stats.get(term_id, (0, 0.0, 0))
+        weight = {Result.WRONG: 1.0, Result.PARTIAL: 0.5}.get(result, 0.0)
+        stats[term_id] = (total + 1, wrong + weight, bad + (result != Result.CORRECT))
+    hard = [
+        (wrong / total, bad, term_id, total)
+        for term_id, (total, wrong, bad) in stats.items()
+        if total >= HARD_WORD_MIN_ANSWERS and wrong / total >= HARD_WORD_MIN_SHARE
+    ]
+    # The worst first; with the same share the one that failed more times
+    hard.sort(key=lambda item: (-item[0], -item[1], item[2]))
+
+    deck_terms = DeckTerm.objects.select_related("deck", "term").order_by("added_at", "pk")
+    if not session.terms.exists():
+        deck_terms = deck_terms.filter(deck_id__in=session_deck_ids(session))
+    for _share, bad, term_id, total in hard:
+        places = list(deck_terms.filter(term_id=term_id))
+        if not places or any(place.context_sentence for place in places):
+            continue
+        return {"deck_term": places[0], "bad": bad, "total": total}
+    return None
+
+
+# Coloured dots of the last answers (one row for each direction): how many are shown at
+# first in the summary of a test, and how many at most (the rest is in the word history)
+DOTS_SHOWN = 8
+DOTS_MAX = 30
+# Colour of a dot by the rating; old ratings that are not buttons any more go by the result
+_DOT_BY_RESULT = {Result.CORRECT: "ok", Result.PARTIAL: "partial", Result.WRONG: "dontknow"}
+
+
+def answer_dots(term, shown=DOTS_SHOWN):
+    """The last answers of a word in each direction, as coloured dots from the oldest.
+
+    Returns one dict for each direction: direction, label, dots (at most DOTS_MAX, each with
+    key for the colour, title and hidden), more (answers not shown: the N of "+N"),
+    more_title (what they were, e.g. "12 starších: 8× 😵 · 4× 😎"), older (answers that
+    are not even among the DOTS_MAX), total and percent (share of correct answers).
+    """
+    logs = term.review_logs.order_by("-reviewed_at", "-pk").values_list(
+        "direction", "rating", "rating_label", "result", "reviewed_at"
+    )
+    by_direction = {direction: [] for direction in Direction.values}
+    for direction, *rest in logs:
+        by_direction.setdefault(direction, []).append(rest)
+
+    # Short labels with the languages, e.g. "EN → CS" (they fit in front of the dots on a phone)
+    foreign = term.foreign_language.code.upper()
+    native = term.native_language.code.upper()
+    labels = {Direction.F2N: f"{foreign} → {native}", Direction.N2F: f"{native} → {foreign}"}
+    rows = []
+    for direction, answers in by_direction.items():
+        newest = answers[:DOTS_MAX]
+        dots = []
+        for index, (rating, label, result, reviewed_at) in enumerate(reversed(newest)):
+            known = RATINGS_BY_KEY.get(rating)
+            dots.append(
+                {
+                    "key": rating if known else _DOT_BY_RESULT.get(result, "dontknow"),
+                    "title": f"{date_format(timezone.localtime(reviewed_at), 'j. n.')} · "
+                    f"{known.emoji + ' ' if known else ''}{label}",
+                    "hidden": index < len(newest) - shown,
+                }
+            )
+        not_shown = answers[shown:]
+        counts = {}
+        for rating, _label, result, _time in not_shown:
+            known = RATINGS_BY_KEY.get(rating)
+            emoji = known.emoji if known else _DOT_BY_RESULT.get(result, "")
+            counts[emoji] = counts.get(emoji, 0) + 1
+        correct = sum(1 for _rating, _label, result, _time in answers if result == Result.CORRECT)
+        rows.append(
+            {
+                "direction": direction,
+                "label": labels[direction],
+                "dots": dots,
+                "more": len(not_shown),
+                "more_title": _("%(count)d starších: %(counts)s")
+                % {
+                    "count": len(not_shown),
+                    "counts": " · ".join(f"{count}× {emoji}" for emoji, count in counts.items()),
+                },
+                "older": max(0, len(answers) - DOTS_MAX),
+                "total": len(answers),
+                "percent": round(100 * correct / len(answers)) if answers else 0,
+            }
+        )
+    return rows
+
+
 def _clean_ms(value):
     """Time from the browser: a whole number of milliseconds, or None when it makes no sense."""
     try:
@@ -304,6 +423,7 @@ def term_history(term, limit=100):
         counts.setdefault(direction, {}).setdefault(rating, 0)
         counts[direction][rating] += 1
 
+    dots = {row["direction"]: row for row in answer_dots(term, shown=DOTS_MAX)}
     directions = []
     for direction in Direction.values:
         state = states.get(direction)
@@ -315,6 +435,7 @@ def term_history(term, limit=100):
                 "state": state,
                 "total": sum(rating_counts.values()),
                 "counts": [(rating, rating_counts.get(rating.key, 0)) for rating in RATINGS],
+                "dots": dots[direction],
             }
         )
     return {"directions": directions, "logs": logs}

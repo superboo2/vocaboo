@@ -6,8 +6,9 @@ from django.urls import reverse
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
+from dictionary.providers import get_example_sentence, get_pronunciation
 from vocabulary import services as vocabulary_services
-from vocabulary.models import Term
+from vocabulary.models import DeckTerm, Term
 
 from . import services
 from .cards import build_card
@@ -129,7 +130,62 @@ def study_summary(request, pk):
             "session": session,
             "summary": summary,
             "problems": sorted(problems, key=lambda term: order[term.pk]),
+            "task": _sentence_task(request, session),
         },
+    )
+
+
+def _sentence_task(request, session):
+    """The word that does not stick and a form to add a sentence to it (or None)."""
+    hard = services.hard_word_without_sentence(session)
+    if hard is None:
+        return None
+    term = hard["deck_term"].term
+    pronunciation = None
+    if request.user.show_pronunciation:
+        pronunciation = get_pronunciation(
+            term.main_foreign, term.foreign_language.code, with_ipa=request.user.show_ipa
+        )
+    return {
+        **hard,
+        "term": term,
+        "dots": services.answer_dots(term),
+        "pronunciation": pronunciation,
+        "example": get_example_sentence(term),
+    }
+
+
+@require_POST
+def study_add_sentence(request, pk, deck_term_pk):
+    """Save the sentence (and its translation) from the end of a test; HTMX gets the part back."""
+    session = _get_session(request, pk)
+    deck_term = get_object_or_404(
+        DeckTerm.objects.select_related("term", "deck"), pk=deck_term_pk, deck__owner=request.user
+    )
+    sentence = request.POST.get("context_sentence", "")
+    task = {"deck_term": deck_term, "term": deck_term.term}
+    error = ""
+    if not sentence.strip():
+        error = _("Napiš aspoň větu v cizím jazyce.")
+    else:
+        try:
+            vocabulary_services.update_deck_term(
+                deck_term,
+                context_sentence=sentence,
+                context_sentence_native=request.POST.get("context_sentence_native", ""),
+            )
+        except ValidationError as exception:
+            error = " ".join(exception.messages)
+    if not _is_htmx(request):
+        if error:
+            messages.error(request, error)
+        else:
+            messages.success(request, _("Věta je uložená."))
+        return redirect("study:summary", pk=session.pk)
+    return render(
+        request,
+        "study/_sentence_task.html",
+        {"session": session, "task": task, "saved": not error, "error": error},
     )
 
 

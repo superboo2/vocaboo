@@ -29,7 +29,12 @@ LINES = [
         "senses": [
             {
                 "glosses": ["představit, představovat"],
-                "examples": [{"text": "Let me present my wife."}],
+                "examples": [
+                    {
+                        "text": "Let me present my wife.",
+                        "translation": "Dovolte, abych vám představil svou ženu.",
+                    }
+                ],
             }
         ],
     },
@@ -74,7 +79,15 @@ def test_import(imported):
     assert DictionaryEntry.objects.count() == 4
     verb = DictionaryEntry.objects.get(word="present", part_of_speech="sloveso")
     assert verb.senses == [
-        {"text": "představit, představovat", "examples": ["Let me present my wife."]}
+        {
+            "text": "představit, představovat",
+            "examples": [
+                {
+                    "text": "Let me present my wife.",
+                    "translation": "Dovolte, abych vám představil svou ženu.",
+                }
+            ],
+        }
     ]
     palm = DictionaryEntry.objects.get(word="palm")
     assert palm.audio_url == "https://example.org/palm.mp3"
@@ -131,7 +144,12 @@ def test_suggestions_for_word_with_more_meanings(imported):
         ("dárek", "podstatné jméno"),
         ("představit; představovat", "sloveso"),
     ]
-    assert result.suggestions[2].examples == ["Let me present my wife."]
+    assert result.suggestions[2].examples == [
+        {
+            "text": "Let me present my wife.",
+            "translation": "Dovolte, abych vám představil svou ženu.",
+        }
+    ]
     assert result.source_name.startswith("Wiktionary")
     assert result.source_url == "https://cs.wiktionary.org/wiki/present"
 

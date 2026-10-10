@@ -252,3 +252,19 @@ def test_retry_session_uses_only_its_words(user, decks):
         shown.append(state.term.main_foreign)
         services.record_answer(session, state, "ok")
     assert shown == ["one"]
+
+
+def test_translation_of_the_sentence(user, decks):
+    term = vocabulary.add_term(
+        decks["himym"],
+        foreign="palm",
+        native="dlaň",
+        context_sentence="She can read from her palm.",
+        context_sentence_native="Umí číst z {dlaně}.",
+    ).term
+
+    card = card_for(user, decks["himym"], term, Direction.N2F)
+
+    # Native → foreign: on the front it tells what goes into the gap; the word in braces marked
+    assert card.sentence_native == "Umí číst z <mark>dlaně</mark>."
+    assert "___" in card.cloze

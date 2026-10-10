@@ -11,4 +11,9 @@ urlpatterns = [
     path("study/<int:pk>/finish/", views.study_finish, name="finish"),
     path("study/<int:pk>/summary/", views.study_summary, name="summary"),
     path("study/<int:pk>/retry/", views.study_retry, name="retry"),
+    path(
+        "study/<int:pk>/sentence/<int:deck_term_pk>/",
+        views.study_add_sentence,
+        name="add_sentence",
+    ),
 ]

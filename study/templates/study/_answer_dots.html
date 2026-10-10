@@ -1,0 +1,32 @@
+{% load i18n %}
+{# One row of coloured dots: the last answers of a word in one direction, the oldest first #}
+{# (row from study.services.answer_dots). The colour is never the only sign: every dot has #}
+{# a title (date and rating) and the row reads them out for screen readers. #}
+{# expandable: "+N" opens the hidden older dots (app.js) and then the link history_url; #}
+{# label: show the direction in front of the dots; ring: share of correct answers. #}
+<div class="dots-row">
+  {% if label %}<span class="dots-label">{{ row.label }}</span>{% endif %}
+  {% if ring %}
+    <span class="dots-ring" style="--percent: {{ row.percent }}"
+          title="{% blocktranslate with percent=row.percent total=row.total %}Správně {{ percent }} % z {{ total }} odpovědí{% endblocktranslate %}"><span>{{ row.percent }} %</span></span>
+  {% endif %}
+  {# With labels (more rows under each other) the place for "+N" is in every row, so the dots #}
+  {# of all rows start at the same line #}
+  {% if label or row.more %}
+  <span class="dots-more-slot">
+    {% if row.more %}
+      {% if expandable %}
+        <button type="button" class="link-button dots-more" data-action="more-dots" title="{{ row.more_title }}">+{{ row.more }}</button>
+      {% else %}
+        <span class="dots-more muted" title="{{ row.more_title }}">+{{ row.more }}</span>
+      {% endif %}
+    {% endif %}
+  </span>
+  {% endif %}
+  <span class="dots" role="img" aria-label="{% for dot in row.dots %}{% if not dot.hidden %}{{ dot.title }}{% if not forloop.last %}, {% endif %}{% endif %}{% endfor %}">
+    {% for dot in row.dots %}<span class="dot dot-{{ dot.key }}" title="{{ dot.title }}"{% if dot.hidden %} hidden{% endif %}></span>{% endfor %}
+  </span>
+  {% if expandable and row.older and history_url %}
+    <a class="dots-history" href="{{ history_url }}" hidden>{% translate "celá historie" %}</a>
+  {% endif %}
+</div>

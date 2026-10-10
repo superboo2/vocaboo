@@ -26,6 +26,9 @@ class Card:
     # Sentence where the word was seen (with the word marked), and as plain text for reading
     sentence: str = ""
     sentence_text: str = ""
+    # Translation of the sentence (HTML, a word in braces marked). Native → foreign: on the
+    # front, it tells what goes into the gap; foreign → native: on the back.
+    sentence_native: str = ""
     sentence_on_front: bool = False
     # Native → foreign: the sentence with a gap instead of the word, shown on the front
     cloze: str = ""
@@ -69,7 +72,7 @@ def build_card(session, state):
         preview=preview_intervals(state),
     )
 
-    _add_sentence(card, session, foreign)
+    _add_sentence(card, session, foreign, native)
     _add_other_meanings(card, session.user)
     if session.user.show_pronunciation:
         card.speech_lang = term.foreign_language.code
@@ -84,7 +87,7 @@ def build_card(session, state):
     return card
 
 
-def _add_sentence(card, session, foreign):
+def _add_sentence(card, session, foreign, native):
     deck_terms = DeckTerm.objects.filter(term=card.term).order_by("added_at", "pk")
     if not session.terms.exists():
         deck_terms = deck_terms.filter(deck_id__in=session_deck_ids(session))
@@ -96,6 +99,8 @@ def _add_sentence(card, session, foreign):
     chosen = with_sentence[card.state.reviews_count % len(with_sentence)]
     card.sentence = sentences.highlight(chosen.context_sentence, foreign)
     card.sentence_text = sentences.plain(chosen.context_sentence, foreign)
+    if chosen.context_sentence_native:
+        card.sentence_native = sentences.highlight(chosen.context_sentence_native, native)
     if card.is_f2n:
         # The sentence shows which meaning is meant (palm: hand or tree)
         card.sentence_on_front = True

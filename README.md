@@ -209,6 +209,7 @@ Words are added on the deck page. Only the first two fields are required:
 | Foreign language | `hello; hi` | more variants (synonyms) separated by `;` |
 | Native language | `ahoj; čau` | the same |
 | Sentence | `Hello, kids.` | under *Více*, where you saw the word; another form of the word in braces: `He {ran} away.` |
+| Sentence translation | `Ahoj, děti.` | under *Více*, optional, to understand the sentence; a word can be marked in braces too |
 | Note | | under *Více* |
 
 There is no field for the episode: the deck is the episode (e.g. *Series 1 › Episode 1*).
@@ -407,6 +408,26 @@ choose decks, direction and which cards. Then:
    interval of this card, e.g. `7 dní`. The next card comes without reloading the page.
 4. At the end the summary shows the counts and the words rated 😕 or 😵, with
    *Procvičit chybné znovu* (a new test with only those words).
+5. **Tohle slovíčko ti nejde:** the summary also offers one word of the test that fails for a
+   long time and has no sentence yet, with two fields: the sentence under the foreign word and
+   its translation under the native one (side by side on a computer, one under the other on a
+   phone). "Fails for a long time" is counted from `ReviewLog` (nothing extra is stored): of the
+   last 8 answers at least 3, and at least half wrong (😕 counts as half), so a known word that
+   was forgotten once does not come. When Wiktionary has an example for this meaning
+   (`get_example_sentence` in `dictionary/providers.py`, max. 120 characters), it is offered
+   with *Použít*, which fills both fields. Above the form are coloured dots of the last answers
+   for each direction (`EN → CS`, `CS → EN`), oldest first, so it is clear in which direction the
+   word fails and whether it gets better: the last 8, older ones behind *+N* (its tooltip says
+   how they went), a click shows up to 30 and a link to the word page when there are more.
+
+```python
+services.hard_word_without_sentence(session)
+# {'deck_term': <DeckTerm: palm → dlaň @ HIMYM>, 'bad': 5, 'total': 7}
+```
+
+With a sentence translation the native → foreign card shows it on the front above the gap
+(`„Mně se ta písnička také nelíbí.“ / „I don't like this song ___.“`), the foreign → native card
+on the back.
 
 The time until the card is turned (`think_ms`) and until the rating (`decide_ms`) is measured in
 the browser and paused while the page is hidden (another app, locked phone).
@@ -428,7 +449,9 @@ the browser and paused while the page is hidden (another app, locked phone).
   to every deck, the number of its words including child decks. A word that is in more decks
   is counted once. A word is *due* when at least one of its directions is due.
 - Clicking a word in a deck opens its page: variants, the decks it is in (with sentences), the
-  next repetition and counts of ratings for each direction, and the history of answers.
+  next repetition and counts of ratings for each direction, a ring with the share of correct
+  answers, coloured dots of the last 30 answers (oldest first, the colours of the rating
+  buttons; `answer_dots` in `study/services.py`), and the history of answers.
 
 ### 15. Help
 
@@ -827,7 +850,9 @@ sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py collectstatic --noinp
 sudo systemctl restart vokie
 ```
 
-Newer dictionary data (not needed with every update):
+Newer dictionary data (not needed with every update). **Run it once after the update that
+added sentence translations**: older imports did not keep the Czech translations of the
+Wiktionary examples, so the summary could not offer them:
 
 ```bash
 sudo -u vokie -H curl -fLo /srv/vokie/cs-extract.jsonl.gz \
