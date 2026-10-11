@@ -39,6 +39,11 @@
   padding: 0.4rem 0.8rem;
 }
 
+/* On a computer the word "Statistiky", on a phone the icon (media query below) */
+.nav-icon {
+  display: none;
+}
+
 /* Not enough space for the email on small phones; the links may go to a second line */
 @media (max-width: 576px) {
   .nav-user {
@@ -62,6 +67,15 @@
   /* Admin is for the site owner and is not needed on a phone */
   .nav-admin {
     display: none;
+  }
+
+  /* Statistics: the icon instead of the word */
+  .nav-text {
+    display: none;
+  }
+
+  .nav-icon {
+    display: inline;
   }
 
   .inline-form button {
@@ -1214,3 +1228,272 @@ main:focus {
   margin: 1.25rem 0 0.5rem;
   color: var(--pico-muted-color);
 }
+
+/* Statistics page */
+.stat-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr));
+  gap: 0.75rem;
+  margin-bottom: calc(var(--pico-spacing) * 1.5);
+}
+
+.stat-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--pico-border-radius);
+}
+
+.stat-number {
+  font-size: 1.9rem;
+  font-weight: bold;
+  line-height: 1.1;
+}
+
+/* Soft colours of the rating buttons */
+.tone-ok {
+  background: var(--rating-ok-soft);
+}
+
+.tone-think {
+  background: var(--rating-think-soft);
+}
+
+.tone-partial {
+  background: var(--rating-partial-soft);
+}
+
+.tone-dontknow {
+  background: var(--rating-dontknow-soft);
+}
+
+.stat-section {
+  margin-bottom: calc(var(--pico-spacing) * 2);
+}
+
+.stat-section h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
+}
+
+/* Simple line chart: y labels on the left, the plot with grid lines, dots and dates */
+.line-chart {
+  display: flex;
+  gap: 0.5rem;
+  height: 11rem;
+  margin: 0.5rem 0 2rem;
+}
+
+.line-chart-y {
+  position: relative;
+  flex-shrink: 0;
+  width: 2.75rem;
+}
+
+.line-chart-y small,
+.line-chart-x small {
+  position: absolute;
+  font-size: 0.75rem;
+  color: var(--pico-muted-color);
+  white-space: nowrap;
+}
+
+.line-chart-y small {
+  right: 0;
+  transform: translateY(-50%);
+}
+
+.line-chart-plot {
+  position: relative;
+  flex: 1;
+}
+
+.line-chart-plot svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.line-chart-grid {
+  stroke: var(--pico-muted-border-color);
+  stroke-width: 1;
+}
+
+.line-chart-line {
+  stroke: var(--chart-color);
+  stroke-width: 3;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.line-chart-dot {
+  position: absolute;
+  width: 0.7rem;
+  height: 0.7rem;
+  border: 2px solid var(--chart-color);
+  border-radius: 50%;
+  background: var(--pico-background-color);
+  transform: translate(-50%, -50%);
+}
+
+.line-chart-x {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  height: 1.5rem;
+}
+
+.line-chart-x small {
+  top: 0.35rem;
+  transform: translateX(-50%);
+}
+
+/* The last date ends at the right edge, so it does not go over it */
+.line-chart-x small:last-child {
+  transform: translateX(-100%);
+}
+
+.chart-words {
+  --chart-color: var(--rating-ok);
+}
+
+/* "Co ti nejde": cards like the flashcard, a coloured stripe on the left */
+.hard-words {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
+  gap: 0.75rem;
+}
+
+/* The card turns in 3D: both faces lie on the same place, the back one is turned around */
+.hard-words .hard-word[role="button"] {
+  display: grid;
+  perspective: 60rem;
+  padding: 0;
+  border: 0;
+  border-radius: var(--pico-border-radius);
+  background: none;
+  box-shadow: none;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.hard-word:focus-visible {
+  outline: 2px solid var(--pico-primary-border);
+  outline-offset: 2px;
+}
+
+.hard-word-face {
+  grid-area: 1 / 1;
+  display: flex;
+  flex-direction: column;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-left: 0.35rem solid var(--stripe);
+  border-radius: var(--pico-border-radius);
+  background: var(--pico-card-background-color);
+  backface-visibility: hidden;
+  transition: transform 0.45s ease, visibility 0s 0.2s;
+}
+
+.hard-word:hover .hard-word-face {
+  border-color: var(--pico-primary-border);
+  border-left-color: var(--stripe);
+}
+
+.hard-word-back {
+  transform: rotateY(180deg);
+  visibility: hidden;
+}
+
+.hard-word.flipped .hard-word-front {
+  transform: rotateY(-180deg);
+  visibility: hidden;
+}
+
+.hard-word.flipped .hard-word-back {
+  transform: rotateY(0deg);
+  visibility: visible;
+}
+
+.hard-word-detail {
+  align-self: flex-end;
+  margin-top: 0.25rem;
+  font-size: 0.875rem;
+}
+
+/* Without animations the card only changes */
+@media (prefers-reduced-motion: reduce) {
+  .hard-word-face {
+    transition: none;
+  }
+}
+
+.hard-word.tone-ok {
+  --stripe: var(--rating-ok);
+}
+
+.hard-word.tone-think {
+  --stripe: var(--rating-think);
+}
+
+.hard-word.tone-partial {
+  --stripe: var(--rating-partial);
+}
+
+.hard-word.tone-dontknow {
+  --stripe: var(--rating-dontknow);
+}
+
+.hard-word-kind {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.hard-word-animal {
+  font-size: 1.75rem;
+  line-height: 1;
+}
+
+.hard-word-word {
+  font-size: 1.4rem;
+  line-height: 1.2;
+}
+
+/* "Co ti nejde" on the dashboard, under the decks */
+.dashboard-hard {
+  margin-top: calc(var(--pico-spacing) * 1.5);
+}
+
+.dashboard-hard h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+
+/* 7 dní · 30 dní · Vše above the words: plain text, the chosen one bold */
+.stat-section .period-switch {
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.875rem;
+}
+
+.stat-section .period-switch a {
+  color: var(--pico-muted-color);
+  text-decoration: none;
+}
+
+.stat-section .period-switch a[aria-current="page"] {
+  color: var(--pico-color);
+  font-weight: bold;
+}
+

@@ -585,7 +585,8 @@ HIMYM              slovíček   😎 vím   🤔 zamyšlení   😕 napůl   �
 - Nadřazené uzly (S01, HIMYM) se sečtou z podslovníků, každé slovíčko se ale počítá jen jednou.
 - Statistika slovníku říká, **jak znáš jeho slovíčka**, bez ohledu na to, z jakého testu odpověď přišla. Slovíčko je sdílené, takže `hello` zkoušené přes BBT se projeví i v HIMYM. Pokud by bylo potřeba rozlišit „výsledky testů spuštěných z tohoto slovníku“, jde to přes `StudySession.decks`.
 
-### 7.3 Celkový přehled (fáze 2)
+### 7.3 Celkový přehled (hotovo: stránka Statistiky)
+Stránka `/stats/` (odkaz v liště, na telefonu ikona 📊), počítá se při zobrazení z `Term` a `ReviewLog` (`study/stats.py`), nic se neukládá: dlaždice (slovíček celkem a tento týden, umíš / učíš se / nová, 🔥 dní v řadě a nejdelší série, odpovědí), čárový graf *Slovíčka v čase* (slovíček celkem po týdnech, 12 týdnů, osa Y s 5 kulatými hodnotami) a sekce *Co ti nejde* (přepínač 7 dní · 30 dní · Vše, výchozí 7 dní; slovíčko „nejde“, když mělo v období 😵 nebo 😕 a v některém směru nemá 2 správné po sobě; 6 otočných kartiček jako v testu: vpředu zvířátko s názvem kategorie a jedna strana slovíčka (střídavě cizí / rodná, u 🦀 ten těžký směr), po klepnutí vzadu druhá strana, drobně důvod a odkaz *Detail →*, odkaz na detail, slovíčko se neopakuje: 🦈 největší nepřítel (nejvíc „vůbec nevím“ z pokusů v období), 🦀 jen jedním směrem, 🐿️ zapomínáš (chyba po 2 správných za sebou), 🦒 nejdelší, 🐢 nejdéle přemýšlíš, 🐌 nejdéle se učíš). Na přehledu pod slovníky jsou všechny kartičky *Co ti nejde* za 7 dní (stejné jako ve statistikách); bez těžkých slovíček se sekce neukáže. Graf je čisté SVG bez knihovny (popisky a tečky jsou HTML, aby se na telefonu nedeformovaly); souřadnice se posílají jako text, protože česká lokalizace šablon by psala desetinnou čárku. Původní seznam:
 - počet zopakování za den a týden,
 - úspěšnost v čase (podíl hodnocení OK po týdnech),
 - série dní v řadě,

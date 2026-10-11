@@ -1,0 +1,22 @@
+{% load i18n %}
+{# Cards "Co ti nejde" (study/stats.py _facts). They turn like in a test: in front the animal #}
+{# with the kind and one side of the word, a click (app.js) shows the other side, why and the #}
+{# link to the word. On the statistics page and the dashboard. #}
+<div class="hard-words">
+  {% for fact in items %}
+    <div class="hard-word tone-{{ fact.tone }}" role="button" tabindex="0" aria-pressed="false"
+         data-action="flip-hard-word" title="{% translate 'Otočit' %}">
+      <div class="hard-word-face hard-word-front">
+        <span class="hard-word-kind"><span class="hard-word-animal" aria-hidden="true">{{ fact.emoji }}</span> {{ fact.title }}</span>
+        <strong class="hard-word-word">{{ fact.front }}</strong>
+        <small class="muted">{% translate "Otočit" %} ↻</small>
+      </div>
+      <div class="hard-word-face hard-word-back">
+        <span class="hard-word-kind"><span class="hard-word-animal" aria-hidden="true">{{ fact.emoji }}</span> {{ fact.title }}</span>
+        <strong class="hard-word-word">{{ fact.back }}</strong>
+        <small class="muted">{{ fact.text }}</small>
+        <a class="hard-word-detail" href="{% url 'vocabulary:term_detail' fact.term.deck_pk fact.term.deck_term_pk %}">{% translate "Detail" %} →</a>
+      </div>
+    </div>
+  {% endfor %}
+</div>

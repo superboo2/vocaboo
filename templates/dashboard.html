@@ -29,6 +29,12 @@
       </ul>
     </div>
     <p class="muted tree-help">{% translate "Slovník přesuneš přetažením, na telefonu ho nejdřív chvilku podrž." %}</p>
+    {% if hard_words %}
+      <section class="dashboard-hard">
+        <h2>{% translate "Co ti nejde" %}</h2>
+        {% include "study/_hard_words.html" with items=hard_words %}
+      </section>
+    {% endif %}
   {% else %}
     <p>{% translate "Zatím nemáš žádné slovníky. Začni tím, že si jeden vytvoříš." %}</p>
   {% endif %}

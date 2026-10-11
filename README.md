@@ -455,8 +455,25 @@ on the back.
 The time until the card is turned (`think_ms`) and until the rating (`decide_ms`) is measured in
 the browser and paused while the page is hidden (another app, locked phone).
 
-### 14. Dashboard and word page
+### 14. Dashboard, statistics and word page
 
+- **Statistiky** (`/stats/`, in the navigation; on a phone only the icon 📊): tiles with the number
+  of words, words known (foreign → native right at least twice in a row), the streak of days in a
+  row 🔥 and answers; a line chart of all words week by week (12 weeks, values on the y axis, e.g.
+  0 / 20 / 40 / 60 / 80; the exact number on hover over a dot), and **Co ti nejde**: the words
+  that are hard for you, each with its translation and a link to the word page, for the last 7
+  days, 30 days or all time (`?period=7|30|all`). A word is hard when it had 😵 or 😕 in the period
+  and is not known yet; each word is shown once, as a card that turns like in a test (click or
+  Enter; a short 3D turn, none with reduced motion): in front the animal with the name of the kind
+  and one side of the word (every second card the native side; 🦀 the hard direction), on the back
+  the other side, a small note why and the link *Detail →*: 🦈 *Největší nepřítel* (`suit up` –
+  obleč se do obleku, 3× vůbec nevím z 5 pokusů), 🦀 *Jen jedním směrem* (`EN → CS ano, CS → EN
+  ne`), 🐿️ *Zapomínáš* (wrong after 2 right answers in a row, `2× zapomenuto`), 🦒 the longest hard
+  word, 🐢 the longest thinking, 🐌 the oldest hard word (`přidáno před 45 dny`). Everything is
+  counted from `Term` and `ReviewLog` when the page opens (`study/stats.py`); the chart is plain
+  SVG without a chart library.
+- Under the decks the dashboard shows **Co ti nejde**: all cards of the last 7 days, the same as
+  on the statistics page. The section is not there when nothing was hard in 7 days.
 - The dashboard shows the decks as a tree of folders (📂 open, 📁 closed, 📄 deck without child
   decks). The whole tree is always open when the page loads; a click on a folder closes it
   until the next reload.

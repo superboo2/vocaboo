@@ -1,0 +1,19 @@
+{# A simple line chart (study/stats.py _line_chart): values on the y axis with grid lines, #}
+{# dates below, a dot for every week (its title shows the exact value). The SVG only draws #}
+{# the lines in a 0–100 box stretched to the width; the texts and dots are HTML, so they #}
+{# keep their size on a phone. #}
+<div class="line-chart {{ tone }}" role="img" aria-label="{{ label }}">
+  <div class="line-chart-y">
+    {% for tick in chart.ticks %}<small style="top: {{ tick.top }}%">{{ tick.label }}</small>{% endfor %}
+  </div>
+  <div class="line-chart-plot">
+    <svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+      {% for tick in chart.ticks %}<line class="line-chart-grid" x1="0" x2="100" y1="{{ tick.top }}" y2="{{ tick.top }}" vector-effect="non-scaling-stroke"/>{% endfor %}
+      {% for segment in chart.segments %}<polyline class="line-chart-line" points="{{ segment }}" fill="none" vector-effect="non-scaling-stroke"/>{% endfor %}
+    </svg>
+    {% for point in chart.points %}<span class="line-chart-dot" style="left: {{ point.left }}%; top: {{ point.top }}%" title="{{ point.title }}"></span>{% endfor %}
+    <div class="line-chart-x">
+      {% for item in chart.labels %}<small style="left: {{ item.left }}%">{{ item.label }}</small>{% endfor %}
+    </div>
+  </div>
+</div>

@@ -24,6 +24,8 @@
         </ul>
         <ul>
           <li class="nav-user">{{ user.email }}</li>
+          {# On a phone only the icon, so the navigation stays on one line #}
+          <li><a href="{% url 'study:stats' %}" aria-label="{% translate 'Statistiky' %}" title="{% translate 'Statistiky' %}"><span class="nav-icon" aria-hidden="true">📊</span><span class="nav-text">{% translate "Statistiky" %}</span></a></li>
           <li><a href="{% url 'help_index' %}">{% translate "Nápověda" %}</a></li>
           <li><a href="{% url 'settings' %}">{% translate "Nastavení" %}</a></li>
           {% if user.is_staff %}

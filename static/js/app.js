@@ -219,3 +219,24 @@ document.addEventListener("click", function (event) {
   });
   button.remove();
 });
+
+// Cards "Co ti nejde": a click or Enter / Space turns the card (not a click on the link)
+function flipHardWord(card) {
+  const flipped = card.classList.toggle("flipped");
+  card.setAttribute("aria-pressed", flipped ? "true" : "false");
+}
+
+document.addEventListener("click", function (event) {
+  const card = event.target.closest("[data-action='flip-hard-word']");
+  if (card && !event.target.closest("a")) {
+    flipHardWord(card);
+  }
+});
+
+document.addEventListener("keydown", function (event) {
+  const card = event.target.closest && event.target.closest("[data-action='flip-hard-word']");
+  if (card && event.target === card && (event.key === "Enter" || event.key === " ")) {
+    event.preventDefault();
+    flipHardWord(card);
+  }
+});

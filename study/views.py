@@ -10,7 +10,7 @@ from dictionary.providers import get_example_sentence, get_pronunciation
 from vocabulary import services as vocabulary_services
 from vocabulary.models import DeckTerm, Term
 
-from . import services
+from . import services, stats
 from .cards import build_card
 from .forms import StudySetupForm
 from .models import ReviewState, StudyScope, StudySession
@@ -199,3 +199,13 @@ def study_retry(request, pk):
         request.user, terms=terms, direction=session.direction, scope=StudyScope.ALL
     )
     return redirect("study:card", pk=retry.pk)
+
+
+def study_stats(request):
+    """Statistics of the user: words over time, success, activity and fun facts."""
+    period = request.GET.get("period", stats.DEFAULT_PERIOD)
+    return render(
+        request,
+        "study/stats.html",
+        {"stats": stats.user_statistics(request.user, period=period)},
+    )
