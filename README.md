@@ -208,11 +208,23 @@ Words are added on the deck page. Only the first two fields are required:
 |---|---|---|
 | Foreign language | `hello; hi` | more variants (synonyms) separated by `;` |
 | Native language | `ahoj; čau` | the same |
-| Sentence | `Hello, kids.` | under *Více*, where you saw the word; another form of the word in braces: `He {ran} away.` |
-| Sentence translation | `Ahoj, děti.` | under *Více*, optional, to understand the sentence; a word can be marked in braces too |
-| Note | | under *Více* |
+| Sentence | `Hello, kids.` | under the button (*+ věta, poznámka*), where you saw the word; another form of the word in braces: `He {ran} away.` |
+| Sentence translation | `Ahoj, děti.` | the same place, optional, to understand the sentence; a word can be marked in braces too |
+| Note | | the same place |
 
 There is no field for the episode: the deck is the episode (e.g. *Series 1 › Episode 1*).
+
+The line under the button shows what is in the sentence fields instead of a plain *Více*:
+*+ věta, poznámka* when they are empty, or the sentence and its translation (two lines at most)
+with *upravit*; a click opens the fields, *hotovo* closes them. Choosing a translation
+suggestion also fills in the sentence of that meaning from the dictionary (only when the
+sentence fields are empty), so a new word usually has a sentence without typing it:
+
+```
+EN  elevator          CS  výtah
+[ + Přidat slovíčko ]
+„Let's take the elevator.“ · Pojeďme výtahem.        upravit ›
+```
 
 After saving, the form is empty again and the cursor is back in the first field, so you can
 type the next word right away (Enter sends the form).

@@ -12,10 +12,45 @@ document.addEventListener("click", function (event) {
   // Let the duplicate check see the new value
   native.dispatchEvent(new Event("input", { bubbles: true }));
   native.focus();
+  // The sentence of the chosen meaning goes into the empty sentence fields ("upravit" opens them);
+  // a sentence the user wrote is never overwritten
+  const sentence = form.querySelector("[name='context_sentence']");
+  const sentenceNative = form.querySelector("[name='context_sentence_native']");
+  if (sentence && button.dataset.sentence && !sentence.value.trim() && !sentenceNative.value.trim()) {
+    sentence.value = button.dataset.sentence;
+    sentenceNative.value = button.dataset.sentenceNative || "";
+    updateMoreSummary(form);
+  }
   // The suggestions disappear after a choice; the row keeps its height
   const row = button.closest(".suggest-row");
   if (row) {
     row.replaceChildren();
+  }
+});
+
+// The line under the word form (instead of "Více"): what is in the sentence and note fields
+function updateMoreSummary(form) {
+  const summary = form.querySelector("[data-more-summary]");
+  if (!summary) {
+    return;
+  }
+  const plain = (text) => text.replace(/[{}]/g, "").trim();
+  const sentence = plain(form.querySelector("[name='context_sentence']").value);
+  const native = plain(form.querySelector("[name='context_sentence_native']").value);
+  const note = form.querySelector("[name='note']").value.trim();
+  let text = summary.dataset.empty;
+  if (sentence) {
+    text = "„" + sentence + "“" + (native ? " · " + native : "");
+  } else if (note) {
+    text = summary.dataset.note;
+  }
+  summary.querySelector(".more-preview").textContent = text;
+  summary.querySelector(".more-edit").hidden = !sentence && !note;
+}
+
+document.addEventListener("input", function (event) {
+  if (event.target.matches("[name='context_sentence'], [name='context_sentence_native'], [name='note']")) {
+    updateMoreSummary(event.target.closest("form"));
   }
 });
 

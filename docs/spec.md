@@ -307,7 +307,7 @@ Formulář ve slovníku:
 - **Použití ve větě**, volitelné, uživatel ho v MVP píše sám (`She read my palm.`). Uloží se do `DeckTerm.context_sentence`. Slovo ve větě aplikace najde sama (celé slovo, kterákoliv cizí varianta, bez ohledu na velikost písmen). **Jiný tvar** slova se označí složenými závorkami: `He {ran} away.` u slovíčka `run`; prázdné `{}` znamená hlavní variantu. Závorky se nikde nezobrazují, slovo je zvýrazněné (seznam, detail, kartička) nebo nahrazené mezerou (přední strana N→F).
 - Poznámka, volitelná
 
-Formulář musí být rychlý: povinné jsou jen první dvě pole, ostatní jsou schovaná pod „Více“. Po uložení zůstane formulář otevřený a kurzor skočí zpět do prvního pole, aby šlo hned psát další slovíčko. Enter formulář odešle. Pole „zdroj“ (díl) není: díl určuje slovník (*Series 1 › Episode 1*), cokoliv navíc patří do poznámky.
+Formulář musí být rychlý: povinné jsou jen první dvě pole, ostatní (věta, překlad věty, poznámka) jsou schovaná pod řádkem pod tlačítkem. Ten místo „Více“ ukazuje, co v polích je: *„+ věta, poznámka“*, nebo větu s překladem (nejvýš 2 řádky) a *„upravit“*; po rozbalení *„hotovo“*. Výběr návrhu překladu doplní i větu a její překlad z daného významu ve slovníku, jen když jsou pole věty prázdná (vlastní věta se nikdy nepřepíše); náhled je pod tlačítkem, takže tlačítko neposkočí. Po uložení zůstane formulář otevřený a kurzor skočí zpět do prvního pole, aby šlo hned psát další slovíčko. Enter formulář odešle. Pole „zdroj“ (díl) není: díl určuje slovník (*Series 1 › Episode 1*), cokoliv navíc patří do poznámky.
 
 Pole jsou označená kódem jazyka slovníku (`EN`, `CS`), aby se strany nepletly. Později se dá udělat zadávání variant jako „štítků“ (napíšeš, Enter, další).
 

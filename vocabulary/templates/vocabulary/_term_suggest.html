@@ -16,6 +16,7 @@
     {% for item in result.suggestions %}
       <button type="button" class="outline suggestion" data-action="use-suggestion"
               data-translation="{{ item.translation }}"
+              data-sentence="{{ item.examples.0.text }}" data-sentence-native="{{ item.examples.0.translation }}"
               title="{{ item.pos_label }}{% if item.note %} · {{ item.note }}{% endif %}">
         {{ item.translation }}{% if item.short_pos %} <small>{{ item.short_pos }}</small>{% endif %}
       </button>

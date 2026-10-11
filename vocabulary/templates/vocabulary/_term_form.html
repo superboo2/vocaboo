@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n vocabulary_tags %}
 {# Form for a new word on the deck page. HTMX sends it and puts the answer in its place. #}
 {# On a phone the two fields, the row of suggestions and the button fit on the screen together #}
 {# with the keyboard, and nothing above the button changes height while typing. #}
@@ -25,8 +25,16 @@
 
   {% include "vocabulary/_term_check.html" %}
 
-  <details{% if term_form.more_has_values %} open{% endif %}>
-    <summary>{% translate "Více (věta, poznámka)" %}</summary>
+  {# Instead of "Více" the summary shows what is in the fields: the sentence (shortened to one #}
+  {# line) and "upravit", or "+ věta, poznámka" when they are empty. app.js keeps it up to date. #}
+  <details class="term-more"{% if term_form.more_has_values and term_form.errors %} open{% endif %}>
+    {% with sentence=term_form.context_sentence.value native=term_form.context_sentence_native.value note=term_form.note.value %}
+      <summary data-more-summary data-empty="+ {% translate 'věta, poznámka' %}" data-note="{% translate 'poznámka' %} ✓" data-edit="{% translate 'upravit' %}">
+        <span class="more-preview">{% if sentence %}„{{ sentence|plain_sentence:"" }}“{% if native %} · {{ native|plain_sentence:"" }}{% endif %}{% elif note %}{% translate "poznámka" %} ✓{% else %}+ {% translate "věta, poznámka" %}{% endif %}</span>
+        <span class="more-edit"{% if not sentence and not note %} hidden{% endif %}>{% translate "upravit" %}</span>
+        <span class="more-done">{% translate "hotovo" %}</span>
+      </summary>
+    {% endwith %}
     {# The sentence under the foreign word, its translation under the native one #}
     <div class="grid">
       <div>{{ term_form.context_sentence.as_field_group }}</div>

@@ -98,7 +98,7 @@ Poznámky z implementace: unikátnost názvu jedním omezením s `nulls_distinct
 - testy služeb
 
 **UI:**
-- formulář v detailu slovníku: cizí výraz, překlad, „Více“ (věta, poznámka). Po uložení zůstane otevřený a kurzor skočí do prvního pole.
+- formulář v detailu slovníku: cizí výraz, překlad, řádek „+ věta, poznámka“ / náhled věty s „upravit“ (dřív „Více“). Po uložení zůstane otevřený a kurzor skočí do prvního pole.
 - seznam slovíček ve slovníku, řazení (datum přidání / abecedně / termín opakování)
 - úprava a odebrání slovíčka
 

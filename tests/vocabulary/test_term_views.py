@@ -153,12 +153,25 @@ def test_word_form_layout_fits_a_phone(logged_client, himym):
     assert 'placeholder="hello; hi"' in html
     assert 'placeholder="ahoj; čau"' in html
     assert "Víc variant odděl středníkem" not in html
-    # Fields, then the row of suggestions, then the button, then "Více"
+    # Fields, then the row of suggestions, then the button, then the line for the sentence
     order = [
         html.index('id="id_foreign"'),
         html.index('id="id_native"'),
         html.index('id="term-suggest"'),
         html.index("Přidat slovíčko"),
-        html.index("Více (věta"),
+        html.index("+ věta, poznámka"),
     ]
     assert order == sorted(order)
+
+
+def test_sentence_line_shows_what_is_in_the_fields(logged_client, himym):
+    # After a failed add (no translation) the form comes back with the typed sentence
+    response = logged_client.post(
+        add_url(himym),
+        {"foreign": "elevator", "native": "", "context_sentence": "Take the {elevator}."},
+        headers={"HX-Request": "true"},
+    )
+    html = response.content.decode()
+
+    assert "„Take the elevator.“" in html
+    assert "upravit" in html
