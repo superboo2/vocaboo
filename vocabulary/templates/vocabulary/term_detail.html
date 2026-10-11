@@ -9,7 +9,7 @@
   <hgroup>
     <h1>
       {{ term.foreign_variants|join:" · " }}
-      {% include "_speak.html" with audio=pronunciation.audio_url text=term.main_foreign lang=term.foreign_language.code kind="word" %}
+      {% include "_speak.html" with text=term.main_foreign lang=term.foreign_language.code kind="word" %}
       {% if pronunciation.ipa %}<span class="ipa">[{{ pronunciation.ipa }}]</span>{% endif %}
     </h1>
     <p>→ {{ term.native_variants|join:" · " }}</p>
@@ -123,7 +123,4 @@
     {% endif %}
   </section>
 
-  {% if other_meanings or pronunciation %}
-    <p class="muted"><small>{% translate "Významy a výslovnost ze slovníku: zdroj Wiktionary (CC BY-SA), nahrávky Wikimedia Commons." %}</small></p>
-  {% endif %}
 {% endblock %}

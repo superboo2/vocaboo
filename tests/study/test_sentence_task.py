@@ -6,10 +6,10 @@ import pytest
 from django.urls import reverse
 from django.utils import timezone
 
-from dictionary.models import DictionaryEntry
 from dictionary.providers import get_example_sentence
 from study import services
 from study.models import Direction, Result, ReviewLog
+from tests.conftest import lexicon_entry
 from vocabulary import services as vocabulary
 from vocabulary.models import DeckTerm
 
@@ -159,78 +159,46 @@ def test_other_users_word_gives_404(client, user, other_user, deck):
 # Example from the dictionary
 
 
-def test_example_of_the_right_meaning(user, deck):
-    DictionaryEntry.objects.create(
-        source="cswiktionary",
-        foreign_code="en",
-        native_code="cs",
-        word="house",
-        part_of_speech="podstatné jméno",
-        senses=[
-            {
-                "text": "dům",
-                "examples": [
-                    {"text": "The house was very old.", "translation": "Dům byl velmi starý."}
-                ],
-            },
-            {
-                "text": "house (hudba)",
-                "examples": [{"text": "He likes house and trance.", "translation": ""}],
-            },
-        ],
+def test_example_of_the_right_meaning(user, deck, lexicon):
+    lexicon(
+        lexicon_entry(
+            "house",
+            "noun",
+            [
+                ("dům", "The {house} was very old.", "{Dům} byl velmi starý."),
+                ("house", "He likes {house} music.", "Má rád {house}."),
+            ],
+        )
     )
     house = vocabulary.add_term(deck, foreign="house", native="dům").term
     music = vocabulary.add_term(deck, foreign="house", native="house").term
 
+    # The sentence keeps its braces: the user's sentences mark the word the same way
     assert get_example_sentence(house) == {
-        "text": "The house was very old.",
-        "translation": "Dům byl velmi starý.",
-        "source": "Wiktionary",
+        "text": "The {house} was very old.",
+        "translation": "{Dům} byl velmi starý.",
     }
-    assert get_example_sentence(music)["text"] == "He likes house and trance."
+    assert get_example_sentence(music)["text"] == "He likes {house} music."
 
 
-def test_old_imported_examples_without_translation_work(user, deck):
-    DictionaryEntry.objects.create(
-        source="cswiktionary",
-        foreign_code="en",
-        native_code="cs",
-        word="second",
-        part_of_speech="",
-        senses=[{"text": "druhý", "examples": ["He has English as a second language."]}],
-    )
-    second = vocabulary.add_term(deck, foreign="second", native="druhý").term
-
-    assert get_example_sentence(second)["translation"] == ""
-
-
-def test_no_example_for_other_meaning(user, deck):
-    DictionaryEntry.objects.create(
-        source="cswiktionary",
-        foreign_code="en",
-        native_code="cs",
-        word="palm",
-        part_of_speech="",
-        senses=[{"text": "palma", "examples": [{"text": "A tall palm.", "translation": ""}]}],
-    )
+def test_no_example_for_other_meaning(user, deck, lexicon):
+    lexicon(lexicon_entry("palm", "noun", [("palma", "A tall {palm}.", "Vysoká {palma}.")]))
     hand = vocabulary.add_term(deck, foreign="palm", native="dlaň").term
 
     assert get_example_sentence(hand) is None
 
 
-def test_long_quotes_are_not_offered(user, deck):
-    quote = "Lions, wolves, and vultures don't live together in herds. " * 3
-    DictionaryEntry.objects.create(
-        source="cswiktionary",
-        foreign_code="en",
-        native_code="cs",
-        word="flock",
-        part_of_speech="",
-        senses=[{"text": "hejno", "examples": [{"text": quote, "translation": "Lvi..."}]}],
-    )
-    flock = vocabulary.add_term(deck, foreign="flock", native="hejno").term
+def test_summary_shows_example_without_braces(client, user, deck, lexicon):
+    lexicon(lexicon_entry("palm", "noun", [("dlaň", "She read my {palm}.", "Četla mi z {dlaně}.")]))
+    deck_term = vocabulary.add_term(deck, foreign="palm", native="dlaň")
+    history(user, deck_term.term, ["dontknow", "dontknow"])
+    session = finished_test(user, deck)
+    client.force_login(user)
 
-    assert get_example_sentence(flock) is None
+    html = client.get(reverse("study:summary", args=[session.pk])).content.decode()
+
+    assert "<em>She read my palm.</em> → Četla mi z dlaně." in html
+    assert 'data-text="She read my {palm}."' in html
 
 
 # Coloured dots of the last answers

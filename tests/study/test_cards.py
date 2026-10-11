@@ -4,11 +4,11 @@ from datetime import timedelta
 
 import pytest
 
-from dictionary.models import DictionaryEntry
 from study import services
 from study.cards import build_card
 from study.formatting import format_interval
 from study.models import Direction, ReviewState, StudyDirection
+from tests.conftest import lexicon_entry
 from vocabulary import services as vocabulary
 from vocabulary.models import DeckTerm
 
@@ -154,14 +154,16 @@ def test_homonym_with_sentence_needs_no_hint(user, decks):
     assert card.own_meanings == [["palma"]]
 
 
-def test_other_meanings_come_also_from_the_dictionary(user, decks):
-    DictionaryEntry.objects.create(
-        source="cswiktionary",
-        foreign_code="en",
-        native_code="cs",
-        word="present",
-        part_of_speech="podstatné jméno",
-        senses=[{"text": "dárek", "examples": []}, {"text": "současnost", "examples": []}],
+def test_other_meanings_come_also_from_the_dictionary(user, decks, lexicon):
+    lexicon(
+        lexicon_entry(
+            "present",
+            "noun",
+            [
+                ("dárek", "A {present}.", "{Dárek}."),
+                ("současnost", "The {present}.", "{Současnost}."),
+            ],
+        )
     )
     gift = vocabulary.add_term(decks["himym"], foreign="present", native="dárek").term
 
@@ -175,19 +177,12 @@ def test_other_meanings_come_also_from_the_dictionary(user, decks):
 
 
 @pytest.fixture
-def light_entry(db):
+def light_entry(lexicon):
     senses = ["světlo", "lehký", "světlý", "dietní", "zapálit", "osvětlit"]
-    return DictionaryEntry.objects.create(
-        source="cswiktionary",
-        foreign_code="en",
-        native_code="cs",
-        word="light",
-        part_of_speech="",
-        senses=[{"text": text, "examples": []} for text in senses],
-    )
+    lexicon(lexicon_entry("light", "noun", [(text, "{Light}.", text) for text in senses]))
 
 
-def test_card_has_all_dictionary_meanings_and_sources(user, decks, light_entry):
+def test_card_has_all_dictionary_meanings(user, decks, light_entry):
     vocabulary.add_term(decks["himym"], foreign="light", native="lehký")
     term = vocabulary.add_term(decks["himym"], foreign="light", native="světlo").term
 
@@ -196,7 +191,6 @@ def test_card_has_all_dictionary_meanings_and_sources(user, decks, light_entry):
     # Own meaning apart; all other dictionary meanings (the browser decides how many fit)
     assert card.own_meanings == [["lehký"]]
     assert card.dictionary_meanings == ["světlý", "dietní", "zapálit", "osvětlit"]
-    assert card.dictionary_sources == ["Wiktionary"]
 
 
 def test_dictionary_meanings_turned_off_in_settings(user, decks, light_entry):
@@ -211,18 +205,17 @@ def test_dictionary_meanings_turned_off_in_settings(user, decks, light_entry):
     assert card.dictionary_meanings == []
 
 
-def test_dictionary_meanings_show_only_first_variant(user, decks):
-    DictionaryEntry.objects.create(
-        source="cswiktionary",
-        foreign_code="en",
-        native_code="cs",
-        word="second",
-        part_of_speech="",
-        senses=[
-            {"text": "sekunda, vteřina", "examples": []},
-            {"text": "moment, okamžik", "examples": []},
-            {"text": "přídavek, nášup", "examples": []},
-        ],
+def test_dictionary_meanings_show_only_first_variant(user, decks, lexicon):
+    lexicon(
+        lexicon_entry(
+            "second",
+            "noun",
+            [
+                ("sekunda; vteřina", "A {second}.", "Vteřina."),
+                ("moment; okamžik", "Wait a {second}.", "Moment."),
+                ("přídavek; nášup", "Can I have {seconds}?", "Přídavek?"),
+            ],
+        )
     )
     term = vocabulary.add_term(decks["himym"], foreign="second", native="sekunda; vteřina").term
 

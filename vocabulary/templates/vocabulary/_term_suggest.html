@@ -16,11 +16,9 @@
     {% for item in result.suggestions %}
       <button type="button" class="outline suggestion" data-action="use-suggestion"
               data-translation="{{ item.translation }}"
-              title="{{ item.part_of_speech }}{% if item.note %} · {{ item.note }}{% endif %}{% if item.examples %} · {{ item.examples.0.text }}{% endif %}">
+              title="{{ item.pos_label }}{% if item.note %} · {{ item.note }}{% endif %}">
         {{ item.translation }}{% if item.short_pos %} <small>{{ item.short_pos }}</small>{% endif %}
       </button>
     {% endfor %}
-    <a class="suggest-source" href="{{ result.source_url }}" target="_blank" rel="noopener"
-       title="{% translate 'zdroj' %}: {{ result.source_name }}">Wiktionary</a>
   {% endif %}
 </div>

@@ -232,7 +232,7 @@ with the same translation already exists. The same foreign word with another tra
 another meaning and is saved as its own word (`palm → dlaň`, `palm → palma`).
 
 Only the chosen meaning is saved. Other meanings of the word (the user's own words with the same
-foreign text and meanings from Wiktionary) are read when they are shown: on the back of the
+foreign text and meanings from the dictionary of the app) are read when they are shown: on the back of the
 card and on the word page, where a dictionary meaning can be added with *+ Učit se i tento
 význam*. The back of the card, from the most important:
 
@@ -240,13 +240,11 @@ význam*. The back of the card, from the most important:
 dlaň                                   ← the answer
 Učíš se i: palm → palma                ← your own word with the same foreign text
 „She can read from her palm.“          ← the sentence
-pracka · lehký · světlý +3             ← dictionaries, small; first variant of each meaning
-(další významy z Wiktionary)           ← the sources
+pracka · lehký · světlý +3             ← the dictionary, small; first variant of each meaning
 ```
 
 The browser shows as many dictionary meanings as fit on one line and *+N* for the rest; a click
-on it shows them all (`fitMeanings` in `static/js/study.js`). Meanings of all dictionaries go
-into the same line, each word once, and the line under it names all sources. The word page
+on it shows them all (`fitMeanings` in `static/js/study.js`), each word once. The word page
 shows all meanings with all variants. The
 meanings from the dictionary on the card can be turned off on the *Nastavení* page.
 
@@ -292,59 +290,67 @@ item = services.add_term(
 item.term.foreign_variants  # ['hello', 'hi']
 ```
 
-### 10. Translation suggestions (Wiktionary)
+### 10. The dictionary of the app (suggestions, other meanings, IPA, examples)
 
-While you type a foreign word, the app suggests Czech translations with the part of speech, e.g.
-`present` → *současnost, dárek* (podstatné jméno), *představit* (sloveso). A click puts the
-suggestion into the translation field. The data come from the
-[Czech Wiktionary](https://cs.wiktionary.org) as extracted by [kaikki.org](https://kaikki.org)
-(licence CC BY-SA, so the source is shown under the suggestions). Every user can turn the
-suggestions off on the *Nastavení* page (*Přidávání slovíček › Navrhovat překlad*).
+The app has its own English–Czech dictionary: about 10 000 headwords (a word with one part of
+speech) with Czech meanings, the most common first, an example sentence with its translation for
+every meaning, IPA, a frequency band (1 = the 1 000 most common words of spoken English, 2 = the
+next 1 000 …), a CEFR level and topic tags. The original is a JSON lines file,
+`dictionary/data/lexicon_en_cs.jsonl`, with the tags in `dictionary/data/lexicon_tags.json`. The
+folder is in `.gitignore`, so the data is not in the repository: copy it to the server yourself.
 
-Import the data once (about 40 MB download, ~10 s, ~35 MB in the database):
+One line of the file (formatted here):
+
+```json
+{"word": "palm", "pos": "noun", "band": 5, "level": "B1", "ipa": "pɑːm", "forms": [],
+ "senses": [
+  {"cs": "dlaň", "note": "", "sentence": "She read my {palm}.", "sentence_cs": "Četla mi z {dlaně}.", "tags": ["telo"]},
+  {"cs": "palma", "note": "strom", "sentence": "A {palm} on the beach.", "sentence_cs": "{Palma} na pláži.", "tags": ["rostlina"]}
+ ]}
+```
+
+Import it into the database (the tables `LexiconEntry`, `LexiconSense`, `LexiconForm`,
+`LexiconTag`); importing again replaces the old data, so after editing the file just run it again:
 
 ```bash
-curl -fLO https://kaikki.org/dictionary/downloads/cs/cs-extract.jsonl.gz
-uv run python manage.py import_wiktionary cs-extract.jsonl.gz
-# Imported 113645 entries (en 17504, fr 16449, de 13658, ...).
-
-# Only some languages (smaller table):
-uv run python manage.py import_wiktionary cs-extract.jsonl.gz --languages en,es
+uv run python manage.py import_lexicon dictionary/data/lexicon_en_cs.jsonl
+# Imported 10006 entries with 12537 senses (en → cs), 60 tags.
 ```
 
-Run it again from time to time with a new download; it replaces the old data. Without the
-import the app works the same, it just shows no suggestions. Only decks whose *Mluvím* language
-is Czech get suggestions (the Czech Wiktionary has meanings in Czech). It knows about 14 000
-English words (most common words are there), Spanish only about 2 600.
+What the app takes from it:
 
-The sources of suggestions are in `dictionary/providers.py` and their order is the environment
-variable `VOKIE_SUGGESTION_PROVIDERS` (default `wiktionary`), so another source can be added
-later without changing the rest of the app.
+- **Translation suggestions** while a foreign word is typed: `present` → *dárek* (podst. jm.),
+  *současnost* (podst. jm.), *představit* (slov.). A click puts the suggestion into the
+  translation field. Other spellings are found too (`mum` → the entry `mom`).
+- **Other meanings** on the back of the card and on the word page (see above).
+- **IPA** under the foreign word, when the user turns it on.
+- **Example sentence** in the summary of a test (*Tohle slovíčko ti nejde*, *Použít*): the
+  sentence of the meaning whose translation matches the user's word, with its translation.
 
-**Pronunciation.** The same import has the pronunciation: IPA (about 75 % of English words) and
-recordings of real speakers (about 44 %, mostly American). On the back of a test card and on the
-word page the foreign word gets a grey 🔊 (on the card always at the right edge, on the line of
-the foreign word; on the word page next to the title); a click or the key **P** plays the mp3 directly
-from Wikimedia Commons (nothing is stored, the browser needs internet). Only the main foreign
-variant is looked up, so phrases like `suit up` usually have none. Without a recording the
-**voice of the browser** (Web Speech API) reads the word; it also reads the sentence of the card
-(🔊 at its end, key **V**). That button comes hidden and is shown only when the browser has a
-voice for the language (`voiceFor` in `static/js/app.js`, an American voice is preferred for
-English). Voices are good on Android, Windows, Mac and in Chrome on Linux, robotic or missing in
-Firefox on Linux. Users can turn it off or let it
-play right after the card is turned (*Nastavení › Test*). The written pronunciation in IPA,
-e.g. `[pɑːm]` small under the word, is off by default (*Ukazovat zápis výslovnosti (IPA)*); a
-word with only IPA and no recording then shows nothing. The sources are
-`VOKIE_PRONUNCIATION_PROVIDERS` (default `wiktionary`); a server voice (e.g. Piper) can be added
-there later.
+Without the import the app works the same, it just shows none of these. Only English decks with
+*Mluvím* = Czech get them for now.
 
 ```python
-from dictionary.providers import get_pronunciation
+from dictionary.providers import get_suggestions, get_pronunciation
 
-get_pronunciation("palm", "en")
-# Pronunciation(ipa='pɑːm', audio_url='https://upload.wikimedia.org/...En-us-palm.ogg.mp3',
-#               source_label='Wiktionary')
+get_suggestions("palm", "en", "cs").suggestions[1].translation  # 'palma'
+get_pronunciation("palm", "en").ipa  # 'pɑːm'
 ```
+
+The sources are behind one interface in `dictionary/providers.py`, their order is the environment
+variable `VOKIE_SUGGESTION_PROVIDERS` (and `VOKIE_PRONUNCIATION_PROVIDERS`), default `lexicon`, so
+another source can be added later without changing the rest of the app.
+
+**Pronunciation.** On the back of a test card and on the word page the foreign word gets a grey
+🔊 (on the card always at the right edge, on the line of the foreign word; on the word page next
+to the title); a click or the key **P** lets the **voice of the browser** (Web Speech API) read
+the word. It also reads the sentence of the card (🔊 at its end, key **V**). The button comes
+hidden and is shown only when the browser has a voice for the language (`voiceFor` in
+`static/js/app.js`, an American voice is preferred for English). Voices are good on Android,
+Windows, Mac and in Chrome on Linux, robotic or missing in Firefox on Linux. Users can turn it
+off or let it play right after the card is turned (*Nastavení › Test*). The IPA from the
+dictionary, e.g. `[pɑːm]` small under the word, is off by default (*Ukazovat zápis výslovnosti
+(IPA)*). A server voice (e.g. Piper) can be added later as another pronunciation source.
 
 ### 11. Repetition intervals
 
@@ -403,7 +409,7 @@ choose decks, direction and which cards. Then:
    with the word marked.
 2. **Ukázat** or **Space** turns the card. The pronunciation of the foreign word, the answer,
    your other words with the same text, the sentence and other meanings are on the back.
-   **P** (or 🔊) plays the recording.
+   **P** (or 🔊) reads the word aloud.
 3. Rate yourself with one of the buttons or keys **1–4**. Under each emoji is the real next
    interval of this card, e.g. `7 dní`. The next card comes without reloading the page.
 4. At the end the summary shows the counts and the words rated 😕 or 😵, with
@@ -413,8 +419,8 @@ choose decks, direction and which cards. Then:
    its translation under the native one (side by side on a computer, one under the other on a
    phone). "Fails for a long time" is counted from `ReviewLog` (nothing extra is stored): of the
    last 8 answers at least 3, and at least half wrong (😕 counts as half), so a known word that
-   was forgotten once does not come. When Wiktionary has an example for this meaning
-   (`get_example_sentence` in `dictionary/providers.py`, max. 120 characters), it is offered
+   was forgotten once does not come. When the dictionary has a sentence for this meaning
+   (`get_example_sentence` in `dictionary/providers.py`), it is offered
    with *Použít*, which fills both fields. Above the form are coloured dots of the last answers
    for each direction (`EN → CS`, `CS → EN`), oldest first, so it is clear in which direction the
    word fails and whether it gets better: the last 8, older ones behind *+N* (its tooltip says
@@ -493,7 +499,7 @@ accounts/     custom user model (login with email), admin, login/logout
 vocabulary/   languages, decks (dictionary tree), words and their variants
   services.py   all rules for decks and words, views only call these functions
   sentences.py  the word in a sentence: found or {marked}, highlighted or replaced by a gap
-dictionary/   imported Wiktionary and the sources of translation suggestions (providers.py)
+dictionary/   the dictionary of the app (import_lexicon) and its sources (providers.py)
 study/        tests: review states, sessions, history, the test screen
   cards.py      what one card shows (question, answer, sentence, hints)
   formatting.py intervals in Czech ("8 dní")
@@ -513,7 +519,7 @@ tests/        all tests, one folder per app
   project/      whole project: database, layout, help pages
   accounts/     users, login, settings
   vocabulary/   languages, decks, words, duplicates, sentences, seed_demo
-  dictionary/   Wiktionary import and translation suggestions
+  dictionary/   the dictionary of the app: import, suggestions, other meanings, IPA
   study/        intervals, sessions, cards, test screen, dashboard numbers
 docs/         specification and plan (Czech)
 ```
@@ -625,8 +631,8 @@ directory).
 | `DJANGO_HSTS_SECONDS` | How long browsers must use only HTTPS (only with `DJANGO_DEBUG=0`) | (not used) | `3600` (default), later `31536000` |
 | `DJANGO_HSTS_INCLUDE_SUBDOMAINS` | HSTS also for all subdomains | (not used) | `0` (default) |
 | `DJANGO_LOG_LEVEL` | Log level of Django messages | `INFO` | `INFO` |
-| `VOKIE_SUGGESTION_PROVIDERS` | Comma separated sources of translation suggestions | `wiktionary` | `wiktionary` |
-| `VOKIE_PRONUNCIATION_PROVIDERS` | Comma separated sources of pronunciation | `wiktionary` | `wiktionary` |
+| `VOKIE_SUGGESTION_PROVIDERS` | Comma separated sources of translation suggestions | `lexicon` | `lexicon` |
+| `VOKIE_PRONUNCIATION_PROVIDERS` | Comma separated sources of pronunciation (IPA) | `lexicon` | `lexicon` |
 
 With `DJANGO_DEBUG=0` the app refuses to start when `DJANGO_SECRET_KEY` is missing or still
 `change-me`:
@@ -707,29 +713,25 @@ sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py createsuperuser
 sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py check --deploy
 ```
 
-#### 3. Translation suggestions (Czech Wiktionary)
+#### 3. The dictionary of the app
 
-Optional: without it the app works, it only shows no translation suggestions. It needs about
-40 MB download, ~10 seconds, ~150 MB of memory while importing and ~35 MB in the database, so
-a Raspberry Pi is fine.
+Optional: without it the app works, it only shows no translation suggestions, other meanings,
+IPA and example sentences. The data is not in the repository (`dictionary/data/` is in
+`.gitignore`), so copy the two files from your computer and import them; it takes a few seconds
+and about 8 MB in the database, a Raspberry Pi is fine.
 
 ```bash
-# Download the data next to the app (not into the app directory)
-sudo -u vokie -H curl -fLo /srv/vokie/cs-extract.jsonl.gz \
-    https://kaikki.org/dictionary/downloads/cs/cs-extract.jsonl.gz
+# On your computer
+scp dictionary/data/lexicon_en_cs.jsonl dictionary/data/lexicon_tags.json pi@raspberrypi:/tmp/
 
-# Import (replaces older imported data)
+# On the server
+sudo mkdir -p /srv/vokie/app/dictionary/data
+sudo mv /tmp/lexicon_en_cs.jsonl /tmp/lexicon_tags.json /srv/vokie/app/dictionary/data/
+sudo chown -R vokie:vokie /srv/vokie/app/dictionary/data
 cd /srv/vokie/app
-sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py import_wiktionary \
-    /srv/vokie/cs-extract.jsonl.gz
-# Imported 113645 entries (en 17504, fr 16449, de 13658, ...).
-```
-
-To keep the table smaller, import only the languages you learn:
-
-```bash
-sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py import_wiktionary \
-    /srv/vokie/cs-extract.jsonl.gz --languages en,es
+sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py import_lexicon \
+    dictionary/data/lexicon_en_cs.jsonl
+# Imported 10006 entries with 12537 senses (en → cs), 60 tags.
 ```
 
 Check it in the shell:
@@ -739,8 +741,8 @@ sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py shell -c \
     "from dictionary.providers import get_suggestions; print(get_suggestions('palm', 'en', 'cs'))"
 ```
 
-The app does not need a restart after the import. Wiktionary grows all the time, so repeat the
-download and the import from time to time (e.g. every few months), see *Updating the app*.
+The app does not need a restart after the import. After you change the file, copy it again and
+run the import again; it replaces the old data.
 
 #### 4. gunicorn as a systemd service
 
@@ -850,16 +852,10 @@ sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py collectstatic --noinp
 sudo systemctl restart vokie
 ```
 
-Newer dictionary data (not needed with every update). **Run it once after the update that
-added sentence translations**: older imports did not keep the Czech translations of the
-Wiktionary examples, so the summary could not offer them:
-
-```bash
-sudo -u vokie -H curl -fLo /srv/vokie/cs-extract.jsonl.gz \
-    https://kaikki.org/dictionary/downloads/cs/cs-extract.jsonl.gz
-sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py import_wiktionary \
-    /srv/vokie/cs-extract.jsonl.gz
-```
+Newer dictionary data (only when the file changed): copy `lexicon_en_cs.jsonl` and
+`lexicon_tags.json` to `dictionary/data/` again and run `import_lexicon` as in *The dictionary of
+the app*. **Once, after the update that replaced Wiktionary**, run it in any case: the migration
+deletes the old Wiktionary table.
 
 #### 8. Backups
 

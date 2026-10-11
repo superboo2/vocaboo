@@ -56,13 +56,12 @@ document.addEventListener("change", function (event) {
   updateSelection(list);
 });
 
-// Pronunciation (button 🔊, templates/_speak.html): a recording when there is one,
-// otherwise the voice of the browser reads the word or the sentence.
-let playing = null;
+// Pronunciation (button 🔊, templates/_speak.html): the voice of the browser reads the word
+// or the sentence.
 const speech = window.speechSynthesis || null;
 let voices = [];
 
-// Which variant of a language sounds best; most recordings in Wiktionary are American
+// Which variant of a language sounds best (American English is the most common in series)
 const PREFERRED_LANG = { en: "en-us", es: "es-es" };
 // Names of voices that usually sound natural (online voices of Google and Microsoft)
 const GOOD_VOICE = /google|natural|online|neural/i;
@@ -110,10 +109,6 @@ document.addEventListener("htmx:afterSwap", function () {
 });
 
 function stopPlaying() {
-  if (playing) {
-    playing.pause();
-    playing = null;
-  }
   if (speech) {
     speech.cancel();
   }
@@ -128,13 +123,6 @@ function playAudio(button) {
   const done = function () {
     button.classList.remove("speaking");
   };
-
-  if (button.dataset.audio) {
-    playing = new Audio(button.dataset.audio);
-    playing.addEventListener("ended", done);
-    playing.play().catch(done); // no internet, or the browser did not allow it
-    return;
-  }
 
   const voice = speech && voiceFor(button.dataset.lang);
   if (!voice) {

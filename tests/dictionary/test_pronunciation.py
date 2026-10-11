@@ -1,36 +1,35 @@
-"""Pronunciation of words from the dictionary: provider, card, word page, test page."""
+"""Pronunciation of words: IPA from the dictionary of the app, sound from the browser."""
 
 import pytest
 from django.urls import reverse
 
-from dictionary.models import DictionaryEntry
 from dictionary.providers import get_pronunciation
 from study import services as study_services
 from study.cards import build_card
 from study.models import Direction, ReviewState
+from tests.conftest import lexicon_entry
 from vocabulary import services
-
-AUDIO = "https://upload.wikimedia.org/En-us-palm.ogg.mp3"
-
-
-def entry(word, part_of_speech, ipa="", audio_url="", foreign_code="en"):
-    return DictionaryEntry.objects.create(
-        source="cswiktionary",
-        foreign_code=foreign_code,
-        native_code="cs",
-        word=word,
-        part_of_speech=part_of_speech,
-        senses=[{"text": "dlaň", "examples": []}],
-        ipa=ipa,
-        audio_url=audio_url,
-    )
 
 
 @pytest.fixture
-def palm(db):
-    # IPA in one entry, the recording in another one (it happens in Wiktionary)
-    entry("palm", "podstatné jméno", ipa="[pɑːm]")
-    entry("palm", "sloveso", audio_url=AUDIO)
+def palm(lexicon):
+    # The IPA of the more common entry wins
+    lexicon(
+        lexicon_entry(
+            "palm",
+            "verb",
+            [("podstrčit", "He {palmed} the card.", "Kartu {podstrčil}.")],
+            band=9,
+            ipa="pɑːmd",
+        ),
+        lexicon_entry(
+            "palm",
+            "noun",
+            [("dlaň", "She read my {palm}.", "Četla mi z {dlaně}.")],
+            band=5,
+            ipa="pɑːm",
+        ),
+    )
 
 
 @pytest.fixture
@@ -41,24 +40,17 @@ def deck(user, en, cs):
 # Provider
 
 
-def test_pronunciation_joins_ipa_and_recording(palm):
-    result = get_pronunciation("Palm", "en")
-
-    assert (result.ipa, result.audio_url, result.source_label) == ("pɑːm", AUDIO, "Wiktionary")
-
-
-def test_pronunciation_uses_first_variant(palm):
+def test_pronunciation_from_the_dictionary(palm):
+    assert get_pronunciation("Palm", "en").ipa == "pɑːm"
     assert get_pronunciation("palm; palm tree", "en").ipa == "pɑːm"
 
 
-def test_no_pronunciation_for_unknown_word_or_language(palm):
+def test_no_pronunciation(palm, settings):
     assert get_pronunciation("suit up", "en") is None
     assert get_pronunciation("palm", "es") is None
-
-
-def test_no_pronunciation_without_providers(palm, settings):
+    # The user does not want to see IPA
+    assert get_pronunciation("palm", "en", with_ipa=False) is None
     settings.PRONUNCIATION_PROVIDERS = []
-
     assert get_pronunciation("palm", "en") is None
 
 
@@ -71,14 +63,13 @@ def card_for(user, deck, term, direction):
     return build_card(session, state)
 
 
-def test_card_has_recording_but_no_ipa_by_default(user, deck, palm):
+def test_card_has_no_ipa_by_default(user, deck, palm):
     term = services.add_term(deck, foreign="palm", native="dlaň").term
 
     card = card_for(user, deck, term, Direction.N2F)
 
-    assert card.pronunciation.audio_url == AUDIO
-    assert card.pronunciation.ipa == ""
-    assert card.sources_note == "(výslovnost z Wiktionary)"
+    assert card.pronunciation is None
+    assert card.speech_lang == "en"
 
 
 def test_card_with_ipa_in_settings(user, deck, palm):
@@ -91,26 +82,16 @@ def test_card_with_ipa_in_settings(user, deck, palm):
     assert card.pronunciation.ipa == "pɑːm"
 
 
-def test_only_ipa_and_ipa_turned_off_gives_nothing(user, deck):
-    entry("knight", "podstatné jméno", ipa="[naɪt]")
-    term = services.add_term(deck, foreign="knight", native="rytíř").term
-
-    card = card_for(user, deck, term, Direction.F2N)
-
-    assert card.pronunciation is None
-    # Only the other meaning from the dictionary is named, not the pronunciation
-    assert card.sources_note == "(další významy z Wiktionary)"
-
-
 def test_card_without_pronunciation_in_settings(user, deck, palm):
     user.show_pronunciation = False
+    user.show_ipa = True
     user.save()
     term = services.add_term(deck, foreign="palm", native="dlaň").term
 
     card = card_for(user, deck, term, Direction.F2N)
 
     assert card.pronunciation is None
-    assert card.sources_note == ""
+    assert card.speech_lang == ""
 
 
 def test_test_page_has_play_button(client, user, deck, palm):
@@ -122,8 +103,8 @@ def test_test_page_has_play_button(client, user, deck, palm):
 
     html = client.get(reverse("study:card", args=[session.pk])).content.decode()
 
-    assert f'data-audio="{AUDIO}"' in html
-    assert "pɑːm" not in html
+    assert 'data-speak-text="palm" data-lang="en"' in html
+    assert "data-audio" not in html
     assert "data-autoplay" in html
 
 
@@ -140,14 +121,14 @@ def test_word_page_shows_pronunciation(client, user, deck, palm):
     html = client.get(url).content.decode()
 
     assert "[pɑːm]" in html
-    assert f'data-audio="{AUDIO}"' in html
-    assert "Wikimedia Commons" in html
+    assert 'data-speak-text="palm"' in html
+    assert "Wiktionary" not in html
 
 
-# Voice of the browser when there is no recording
+# Voice of the browser
 
 
-def test_card_without_recording_can_be_read_by_the_browser(client, user, deck):
+def test_card_can_be_read_by_the_browser(client, user, deck):
     services.add_term(deck, foreign="suit up", native="obléct se", context_sentence="{Suit up}!")
     session = study_services.start_session(user, [deck], direction="F2N")
     client.force_login(user)

@@ -14,5 +14,5 @@ media/
 .pytest_cache/
 .ruff_cache/
 
-# Downloaded dictionary data (see README: Translation suggestions)
-cs-extract.jsonl*
+# Dictionary data of the app (imported with import_lexicon, see README)
+dictionary/data/*

@@ -36,18 +36,14 @@ class Card:
     front_hint: str = ""
     # The user's own words with the same foreign text: list of native variants per word
     own_meanings: list = field(default_factory=list)
-    # Other meanings of the foreign word from dictionaries, only the first variant of each,
-    # and the names of the dictionaries. The browser shows as many as fit on one line and
-    # "+N" for the rest (study.js).
+    # Other meanings of the foreign word from the dictionary, only the first variant of each.
+    # The browser shows as many as fit on one line and "+N" for the rest (study.js).
     dictionary_meanings: list = field(default_factory=list)
-    dictionary_sources: list = field(default_factory=list)
-    # Pronunciation of the foreign word (dictionary.providers.Pronunciation) or None
+    # Pronunciation (IPA) of the foreign word (dictionary.providers.Pronunciation) or None
     pronunciation: object = None
-    # Language code for 🔊 ("en"); the browser reads the word and the sentence when there is
-    # no recording. Empty when the user turned the pronunciation off.
+    # Language code for 🔊 ("en"); the voice of the browser reads the word and the sentence.
+    # Empty when the user turned the pronunciation off.
     speech_lang: str = ""
-    # Small line at the bottom, e.g. "(další významy a výslovnost z Wiktionary)"
-    sources_note: str = ""
     # Other words with the same question text (N2F), e.g. "ahoj" is also "hello"
     also: list = field(default_factory=list)
     # (rating, interval) for every button
@@ -79,7 +75,6 @@ def build_card(session, state):
         card.pronunciation = get_pronunciation(
             term.main_foreign, term.foreign_language.code, with_ipa=session.user.show_ipa
         )
-    card.sources_note = _sources_note(card)
     if not is_f2n:
         # The hint "2 významy" is only for the foreign word on the front
         card.front_hint = ""
@@ -117,34 +112,17 @@ def _add_other_meanings(card, user):
 
     # Only the first variant of each meaning, so meanings can be split by dots:
     # "moment · přídavek · druhý" instead of "moment; okamžik · přídavek; nášup · druhý".
-    # Meanings of all dictionaries go into one line, the same word only once.
+    # The same word only once.
     for meaning in meanings:
         if meaning["own"]:
             continue
         if meaning["variants"][0] not in card.dictionary_meanings:
             card.dictionary_meanings.append(meaning["variants"][0])
-        if meaning["source"] and meaning["source"] not in card.dictionary_sources:
-            card.dictionary_sources.append(meaning["source"])
 
     if own and not card.sentence_on_front:
         # Without a sentence the question "palm" has more right answers among the user's words
         count = len(own) + 1
         card.front_hint = f"{count} {czech_plural(count, 'význam', 'významy', 'významů')}"
-
-
-def _sources_note(card):
-    """Name the dictionaries the card shows something from (their licence needs it)."""
-    parts = []
-    sources = list(card.dictionary_sources)
-    if card.dictionary_meanings:
-        parts.append("další významy")
-    if card.pronunciation:
-        parts.append("výslovnost")
-        if card.pronunciation.source_label not in sources:
-            sources.append(card.pronunciation.source_label)
-    if not parts or not sources:
-        return ""
-    return f"({' a '.join(parts)} z {', '.join(sources)})"
 
 
 def _add_same_translation(card, native):

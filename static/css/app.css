@@ -988,12 +988,6 @@ main:focus {
   font-size: 0.7rem;
 }
 
-.suggest-source {
-  flex: none;
-  font-size: 0.7rem;
-  color: var(--pico-muted-color);
-}
-
 /* Duplicate hints are under the button, with a little space */
 #term-check .term-check {
   margin-top: 0.75rem;

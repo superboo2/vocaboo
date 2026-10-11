@@ -37,18 +37,17 @@ class SettingsForm(forms.ModelForm):
         help_texts = {
             "default_direction": _("Předvyplní se v nastavení nového testu."),
             "show_suggestions": _(
-                "Když píšeš cizí slovo, pod polem pro překlad se ukážou návrhy ze slovníku "
-                "(Wiktionary)."
+                "Když píšeš cizí slovo, pod polem pro překlad se ukážou návrhy ze slovníku."
             ),
             "show_other_meanings": _(
                 "Dole na zadní straně kartičky, kolik se vejde na řádek, zbytek po kliknutí "
                 "na +N. Tvoje vlastní významy (např. palm → dlaň i palma) se ukazují vždy."
             ),
             "show_pronunciation": _(
-                "Výslovnost cizího slova z Wiktionary po otočení kartičky: 🔊 u okraje "
-                "(přehraje i klávesa P), u slov bez nahrávky a u vět hlas prohlížeče."
+                "Po otočení kartičky: 🔊 u okraje (přehraje i klávesa P), cizí slovo i větu "
+                "přečte hlas prohlížeče."
             ),
-            "autoplay_pronunciation": _("Jen když je k slovíčku nahrávka."),
+            "autoplay_pronunciation": _("Slovo přečte hlas prohlížeče."),
             "show_ipa": _(
                 "Pod cizím slovem na kartičce a v detailu slovíčka, např. [pɑːm]. "
                 "Hodí se, když IPA umíš číst."

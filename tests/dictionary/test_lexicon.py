@@ -1,136 +1,97 @@
-"""Translation suggestions from the imported Czech Wiktionary."""
-
-import gzip
-import json
+"""The dictionary of the app: import, translation suggestions, other meanings on the word page."""
 
 import pytest
 from django.core.management import call_command
+from django.core.management.base import CommandError
 from django.urls import reverse
 
-from dictionary.models import DictionaryEntry
-from dictionary.providers import get_suggestions, split_gloss
+from dictionary.models import LexiconEntry, LexiconSense, LexiconTag
+from dictionary.providers import get_suggestions
+from tests.conftest import lexicon_entry
 from vocabulary import services
 from vocabulary.models import Term
 
-LINES = [
-    {
-        "word": "present",
-        "lang_code": "en",
-        "pos": "noun",
-        "pos_title": "podstatné jméno",
-        "senses": [{"glosses": ["současnost"]}, {"glosses": ["dárek"]}],
-        "sounds": [{"ipa": "[ˈprɛzənt]"}],
-    },
-    {
-        "word": "present",
-        "lang_code": "en",
-        "pos": "verb",
-        "pos_title": "sloveso",
-        "senses": [
-            {
-                "glosses": ["představit, představovat"],
-                "examples": [
-                    {
-                        "text": "Let me present my wife.",
-                        "translation": "Dovolte, abych vám představil svou ženu.",
-                    }
-                ],
-            }
+PRESENT = [
+    lexicon_entry(
+        "present",
+        "noun",
+        [
+            ("dárek", "Thanks for the {present}!", "Díky za {dárek}!"),
+            ("současnost", "Live in the {present}.", "Žij v {současnosti}."),
         ],
-    },
-    {
-        "word": "palm",
-        "lang_code": "en",
-        "pos_title": "podstatné jméno",
-        "senses": [{"glosses": ["palma"]}, {"glosses": ["dlaň"]}],
-        "sounds": [{"audio": "En-us-palm.ogg", "mp3_url": "https://example.org/palm.mp3"}],
-    },
-    {
-        "word": "hola",
-        "lang_code": "es",
-        "pos_title": "citoslovce",
-        "senses": [{"glosses": ["ahoj"]}],
-    },
-    # Czech words, entries without meanings and broken codes are skipped
-    {"word": "pes", "lang_code": "cs", "senses": [{"glosses": ["savec"]}]},
-    {"word": "empty", "lang_code": "en", "senses": [{"glosses": []}]},
-    {"word": "odd", "lang_code": "", "senses": [{"glosses": ["x"]}]},
+        band=2,
+    ),
+    lexicon_entry(
+        "present",
+        "verb",
+        [
+            (
+                "představit; představovat",
+                "Let me {present} my wife.",
+                "Dovolte, abych vám {představil} manželku.",
+            )
+        ],
+        band=4,
+    ),
 ]
+PALM = lexicon_entry(
+    "palm",
+    "noun",
+    [
+        ("dlaň", "She read my {palm}.", "Četla mi z {dlaně}."),
+        ("palma", "A {palm} on the beach.", "{Palma} na pláži.", "strom", ["rostlina"]),
+    ],
+    band=5,
+    ipa="pɑːm",
+)
+MOM = lexicon_entry("mom", "noun", [("máma", "Call your {mom}.", "Zavolej {mámě}.")], forms=["mum"])
 
 
 @pytest.fixture
-def wiktionary_file(tmp_path):
-    path = tmp_path / "cs-extract.jsonl.gz"
-    with gzip.open(path, "wt", encoding="utf-8") as file:
-        for line in LINES:
-            file.write(json.dumps(line, ensure_ascii=False) + "\n")
-    return str(path)
-
-
-@pytest.fixture
-def imported(db, wiktionary_file):
-    call_command("import_wiktionary", wiktionary_file)
+def imported(lexicon):
+    return lexicon(*PRESENT, PALM, MOM)
 
 
 # Import
 
 
 def test_import(imported):
-    assert DictionaryEntry.objects.count() == 4
-    verb = DictionaryEntry.objects.get(word="present", part_of_speech="sloveso")
-    assert verb.senses == [
-        {
-            "text": "představit, představovat",
-            "examples": [
-                {
-                    "text": "Let me present my wife.",
-                    "translation": "Dovolte, abych vám představil svou ženu.",
-                }
-            ],
-        }
+    assert LexiconEntry.objects.count() == 4
+    palm = LexiconEntry.objects.get(word="palm")
+    assert (palm.band, palm.ipa, palm.part_of_speech) == (5, "pɑːm", "noun")
+    tree = palm.senses.get(position=1)
+    assert (tree.translation, tree.note, tree.sentence_native) == (
+        "palma",
+        "strom",
+        "{Palma} na pláži.",
+    )
+    assert list(tree.tags.values_list("slug", flat=True)) == ["rostlina"]
+    assert sorted(LexiconEntry.objects.get(word="mom").forms.values_list("text", flat=True)) == [
+        "mom",
+        "mum",
     ]
-    palm = DictionaryEntry.objects.get(word="palm")
-    assert palm.audio_url == "https://example.org/palm.mp3"
-    assert DictionaryEntry.objects.get(word="present", part_of_speech="podstatné jméno").ipa
 
 
-def test_import_again_replaces_data(imported, wiktionary_file):
-    call_command("import_wiktionary", wiktionary_file)
+def test_import_again_replaces_data(imported, lexicon):
+    lexicon(PALM)
 
-    assert DictionaryEntry.objects.count() == 4
-
-
-def test_import_only_some_languages(db, wiktionary_file, capsys):
-    call_command("import_wiktionary", wiktionary_file, languages="es")
-
-    assert list(DictionaryEntry.objects.values_list("word", flat=True)) == ["hola"]
-    assert "Imported 1 entries" in capsys.readouterr().out
+    assert LexiconEntry.objects.count() == 1
+    assert LexiconSense.objects.count() == 2
+    assert LexiconTag.objects.count() == 1
 
 
-def test_import_also_reads_plain_jsonl(db, tmp_path):
-    path = tmp_path / "data.jsonl"
-    path.write_text(json.dumps(LINES[3]) + "\n", encoding="utf-8")
+def test_import_refuses_unknown_tag(lexicon):
+    bad = lexicon_entry("tree", "noun", [("strom", "A {tree}.", "Strom.", "", ["neznamy"])])
 
-    call_command("import_wiktionary", str(path))
-
-    assert DictionaryEntry.objects.get().word == "hola"
-
-
-# Glosses
+    with pytest.raises(CommandError):
+        lexicon(bad)
+    # Nothing is half imported
+    assert LexiconEntry.objects.count() == 0
 
 
-@pytest.mark.parametrize(
-    ("gloss", "expected"),
-    [
-        ("dárek", ("dárek", "")),
-        ("dosavadní, současný, nynější", ("dosavadní; současný; nynější", "")),
-        ("(o dopravě) jezdit, obsluhovat", ("jezdit; obsluhovat", "o dopravě")),
-        ("run (na banku)", ("run", "na banku")),
-        ("doba kdy jeden tým několikrát po sobě skóruje", ("", "")),
-    ],
-)
-def test_split_gloss(gloss, expected):
-    assert split_gloss(gloss) == expected
+def test_import_needs_existing_file(db, tmp_path):
+    with pytest.raises(CommandError):
+        call_command("import_lexicon", str(tmp_path / "missing.jsonl"))
 
 
 # Suggestions
@@ -139,37 +100,32 @@ def test_split_gloss(gloss, expected):
 def test_suggestions_for_word_with_more_meanings(imported):
     result = get_suggestions("Present", "en", "cs")
 
+    # The more common entry first, inside it the more common meaning first
     assert [(s.translation, s.part_of_speech) for s in result.suggestions] == [
-        ("současnost", "podstatné jméno"),
-        ("dárek", "podstatné jméno"),
-        ("představit; představovat", "sloveso"),
+        ("dárek", "noun"),
+        ("současnost", "noun"),
+        ("představit; představovat", "verb"),
     ]
-    assert result.suggestions[2].examples == [
-        {
-            "text": "Let me present my wife.",
-            "translation": "Dovolte, abych vám představil svou ženu.",
-        }
+    assert result.suggestions[2].short_pos == "slov."
+    assert result.suggestions[0].examples == [
+        {"text": "Thanks for the {present}!", "translation": "Díky za {dárek}!"}
     ]
-    assert result.source_name.startswith("Wiktionary")
-    assert result.source_url == "https://cs.wiktionary.org/wiki/present"
 
 
-def test_suggestions_use_the_first_variant(imported):
-    result = get_suggestions("palm; palm tree", "en", "cs")
+def test_suggestions_by_other_spelling_and_first_variant(imported):
+    assert get_suggestions("mum", "en", "cs").suggestions[0].translation == "máma"
+    assert [s.translation for s in get_suggestions("palm; palm tree", "en", "cs").suggestions] == [
+        "dlaň",
+        "palma",
+    ]
 
-    assert [s.translation for s in result.suggestions] == ["palma", "dlaň"]
 
-
-def test_no_suggestions(imported):
+def test_no_suggestions(imported, settings):
     assert get_suggestions("unknownword", "en", "cs") is None
     assert get_suggestions("", "en", "cs") is None
-    # The data has only Czech meanings
+    # The dictionary is English–Czech only
     assert get_suggestions("palm", "en", "de") is None
-
-
-def test_no_suggestions_without_providers(imported, settings):
     settings.SUGGESTION_PROVIDERS = []
-
     assert get_suggestions("palm", "en", "cs") is None
 
 
@@ -189,8 +145,9 @@ def test_suggest_view(client, user, deck, imported):
 
     assert 'data-translation="palma"' in html
     assert 'data-translation="dlaň"' in html
-    assert "cs.wiktionary.org/wiki/palm" in html
     assert 'id="term-suggest"' in html
+    # No source is named
+    assert "suggest-source" not in html
 
 
 def test_suggest_view_for_unknown_word_is_empty(client, user, deck, imported):
@@ -249,6 +206,7 @@ def test_word_page_shows_other_meanings(client, user, deck, imported):
     assert "Učit se i tento význam" in html
     # The meaning of this word itself is not offered again
     assert 'value="dárek"' not in html
+    assert "Wiktionary" not in html
 
 
 def test_add_other_meaning_from_word_page(client, user, deck, imported):
