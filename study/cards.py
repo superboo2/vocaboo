@@ -41,8 +41,7 @@ class Card:
     dictionary_meanings: list = field(default_factory=list)
     # Pronunciation (IPA) of the foreign word (dictionary.providers.Pronunciation) or None
     pronunciation: object = None
-    # Language code for 🔊 ("en"); the voice of the browser reads the word and the sentence.
-    # Empty when the user turned the pronunciation off.
+    # Language code for 🔊 ("en"); the voice of the browser reads the word and the sentence
     speech_lang: str = ""
     # Other words with the same question text (N2F), e.g. "ahoj" is also "hello"
     also: list = field(default_factory=list)
@@ -70,11 +69,10 @@ def build_card(session, state):
 
     _add_sentence(card, session, foreign, native)
     _add_other_meanings(card, session.user)
-    if session.user.show_pronunciation:
-        card.speech_lang = term.foreign_language.code
-        card.pronunciation = get_pronunciation(
-            term.main_foreign, term.foreign_language.code, with_ipa=session.user.show_ipa
-        )
+    card.speech_lang = term.foreign_language.code
+    card.pronunciation = get_pronunciation(
+        term.main_foreign, term.foreign_language.code, with_ipa=session.user.show_ipa
+    )
     if not is_f2n:
         # The hint "2 významy" is only for the foreign word on the front
         card.front_hint = ""

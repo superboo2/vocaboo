@@ -357,10 +357,15 @@ another source can be added later without changing the rest of the app.
 🔊 (on the card always at the right edge, on the line of the foreign word; on the word page next
 to the title); a click or the key **P** lets the **voice of the browser** (Web Speech API) read
 the word. It also reads the sentence of the card (🔊 at its end, key **V**). The button comes
-hidden and is shown only when the browser has a voice for the language (`voiceFor` in
-`static/js/app.js`, an American voice is preferred for English). Voices are good on Android,
-Windows, Mac and in Chrome on Linux, robotic or missing in Firefox on Linux. Users can turn it
-off or let it play right after the card is turned (*Nastavení › Test*). The IPA from the
+hidden and is shown when the browser can speak at all; the voice is chosen when it plays
+(`voiceFor` in `static/js/app.js`, an American voice is preferred for English; without a known
+voice the language alone is passed and the browser chooses). The speaker cannot be turned off. Voices are good on Android,
+Windows, Mac and in Chrome on Linux, robotic or missing in Firefox on Linux. It plays by itself
+(*Nastavení › Test › Audio › Přehrát automaticky*, on by default): foreign → native as
+soon as the card comes (the foreign word is the question, so 🔊 is on the front), native →
+foreign after *Ukázat* (the foreign word is the answer); it reads the *word* or the whole
+*sentence* (the word when there is no sentence). Browsers do not let a page speak before the
+user clicked on it, so the very first card of a test is not read by itself. The IPA from the
 dictionary, e.g. `[pɑːm]` small under the word, is off by default (*Ukazovat zápis výslovnosti
 (IPA)*). A server voice (e.g. Piper) can be added later as another pronunciation source.
 

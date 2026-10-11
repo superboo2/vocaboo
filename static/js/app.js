@@ -121,10 +121,12 @@ function voiceFor(lang) {
   );
 }
 
-// Buttons for the voice of the browser come hidden; show those the browser can read
+// Buttons for the voice of the browser come hidden; show them when the browser can speak at
+// all. Some browsers report their voices late or with odd language codes, so a missing voice
+// for the language does not hide the button: the browser then chooses a voice by itself.
 function showSpeechButtons() {
   document.querySelectorAll("[data-speak-text]").forEach(function (button) {
-    button.hidden = !voiceFor(button.dataset.lang);
+    button.hidden = !speech;
   });
 }
 
@@ -159,14 +161,18 @@ function playAudio(button) {
     button.classList.remove("speaking");
   };
 
-  const voice = speech && voiceFor(button.dataset.lang);
-  if (!voice) {
+  if (!speech) {
     done();
     return;
   }
+  const lang = button.dataset.lang;
+  const voice = voiceFor(lang);
   const utterance = new SpeechSynthesisUtterance(button.dataset.speakText);
-  utterance.voice = voice;
-  utterance.lang = voice.lang;
+  if (voice) {
+    utterance.voice = voice;
+  }
+  // Without a known voice the language alone tells the browser how to read it
+  utterance.lang = voice ? voice.lang : PREFERRED_LANG[lang] || lang;
   // A bit slower than normal, it is for learning
   utterance.rate = 0.9;
   utterance.addEventListener("end", done);

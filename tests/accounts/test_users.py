@@ -86,7 +86,13 @@ def test_settings_page_saves_preferences(client):
 
     page = client.get(reverse("settings"))
     response = client.post(
-        reverse("settings"), {"native_language": czech.pk, "default_direction": "N2F"}
+        reverse("settings"),
+        {
+            "native_language": czech.pk,
+            "default_direction": "N2F",
+            "autoplay_pronunciation": "on",
+            "autoplay_content": "sentence",
+        },
     )
 
     assert page.status_code == 200
@@ -98,6 +104,7 @@ def test_settings_page_saves_preferences(client):
     assert user.default_direction == "N2F"
     # The check box was not sent, so the suggestions are off now
     assert user.show_suggestions is False
+    assert (user.autoplay_pronunciation, user.autoplay_content) == (True, "sentence")
 
 
 @pytest.mark.django_db

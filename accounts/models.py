@@ -61,10 +61,18 @@ class User(AbstractUser):
     show_suggestions = models.BooleanField(_("navrhovat překlad"), default=True)
     # Meanings from the dictionary on the back of a test card (the user's own are always shown)
     show_other_meanings = models.BooleanField(_("další významy na kartě"), default=True)
-    # Pronunciation of the foreign word on the back of a test card
-    show_pronunciation = models.BooleanField(_("výslovnost na kartě"), default=True)
-    # Play the recording right after the card is turned
-    autoplay_pronunciation = models.BooleanField(_("přehrát výslovnost hned"), default=False)
+
+    class AutoplayContent(models.TextChoices):
+        WORD = "word", _("slovo")
+        SENTENCE = "sentence", _("celé použití ve větě")
+
+    # Read the foreign word aloud by itself: foreign → native when the card comes,
+    # native → foreign after it is turned
+    autoplay_pronunciation = models.BooleanField(_("přehrát automaticky"), default=True)
+    # What is read: the word, or the sentence of the card (the word when there is none)
+    autoplay_content = models.CharField(
+        _("co přehrát"), max_length=10, choices=AutoplayContent, default=AutoplayContent.WORD
+    )
     # Written pronunciation in IPA, e.g. [pɑːm], on the card and on the word page
     show_ipa = models.BooleanField(_("zápis výslovnosti (IPA)"), default=False)
 

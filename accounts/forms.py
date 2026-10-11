@@ -22,16 +22,16 @@ class SettingsForm(forms.ModelForm):
             "default_direction",
             "show_suggestions",
             "show_other_meanings",
-            "show_pronunciation",
             "autoplay_pronunciation",
+            "autoplay_content",
             "show_ipa",
         ]
         labels = {
             "default_direction": _("Výchozí směr testu"),
             "show_suggestions": _("Navrhovat překlad"),
             "show_other_meanings": _("Ukazovat další významy ze slovníku"),
-            "show_pronunciation": _("Ukazovat výslovnost"),
-            "autoplay_pronunciation": _("Přehrát výslovnost hned po otočení kartičky"),
+            "autoplay_pronunciation": _("Přehrát automaticky"),
+            "autoplay_content": _("Co přehrát"),
             "show_ipa": _("Ukazovat zápis výslovnosti (IPA)"),
         }
         help_texts = {
@@ -43,14 +43,15 @@ class SettingsForm(forms.ModelForm):
                 "Dole na zadní straně kartičky, kolik se vejde na řádek, zbytek po kliknutí "
                 "na +N. Tvoje vlastní významy (např. palm → dlaň i palma) se ukazují vždy."
             ),
-            "show_pronunciation": _(
-                "Po otočení kartičky: 🔊 u okraje (přehraje i klávesa P), cizí slovo i větu "
-                "přečte hlas prohlížeče."
+            "autoplay_pronunciation": _(
+                "Ve směru cizí → rodný hned, jak se kartička ukáže, ve směru rodný → cizí po "
+                "kliknutí na Ukázat. Úplně první kartičku testu prohlížeč přečíst nedovolí, "
+                "dokud na stránce poprvé neklikneš."
             ),
-            "autoplay_pronunciation": _("Slovo přečte hlas prohlížeče."),
+            "autoplay_content": _("Když slovíčko větu nemá, přehraje se slovo."),
             "show_ipa": _(
                 "Pod cizím slovem na kartičce a v detailu slovíčka, např. [pɑːm]. "
                 "Hodí se, když IPA umíš číst."
             ),
         }
-        widgets = {"default_direction": forms.RadioSelect}
+        widgets = {"default_direction": forms.RadioSelect, "autoplay_content": forms.RadioSelect}

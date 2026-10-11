@@ -545,15 +545,6 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
   line-height: 1;
 }
 
-/* Invisible (and not clickable) until the card is turned */
-.flip-reveal {
-  visibility: hidden;
-}
-
-.flip-reveal.shown {
-  visibility: visible;
-}
-
 /* 🔊 is grey and light, so it does not pull the eye from the word; darker when used */
 .link-button.speak {
   padding: 0.25rem;
@@ -1207,4 +1198,19 @@ main:focus {
 
 .more-edit[hidden] {
   display: none;
+}
+
+/* Settings: what to play automatically, under the check box and only when it is ticked */
+.autoplay-content {
+  margin: 0.5rem 0 0 1.75rem;
+}
+
+.autoplay:has(input[name="autoplay_pronunciation"]:not(:checked)) .autoplay-content {
+  display: none;
+}
+
+.settings-subgroup {
+  font-size: 1rem;
+  margin: 1.25rem 0 0.5rem;
+  color: var(--pico-muted-color);
 }

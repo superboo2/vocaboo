@@ -44,9 +44,9 @@
       <li>Ve směru cizí → rodný je překlad věty na zadní straně.</li>
       <li>Když je slovíčko ve víc slovnících testu, věta se pokaždé střídá.</li>
       <li><em>„ahoj“ je i: hello</em>: stejný překlad má i jiné slovíčko.</li>
-      <li><em>„She can read from her palm.“ 🔊</em>: větu přečte hlas prohlížeče, klik na 🔊 nebo klávesa <kbd>V</kbd>. Ve směru rodný → cizí až po otočení.</li>
-      <li><em>Hlas prohlížeče</em> zní podle zařízení: na Androidu, ve Windows, na Macu a v Chromu na Linuxu dobře, ve Firefoxu na Linuxu roboticky nebo vůbec. Když prohlížeč pro jazyk žádný hlas nemá, 🔊 se neukáže.</li>
-      <li><em>palm 🔊</em>: výslovnost cizího slova. Šedé 🔊 je u pravého okraje kartičky, na řádku cizího slova. Klik na 🔊 nebo klávesa <kbd>P</kbd> slovo přečte <strong>hlasem prohlížeče</strong>. Kdo umí číst IPA, může si v <a href="{% url 'settings' %}">Nastavení</a> zapnout i zápis výslovnosti pod slovem ze slovníku, třeba <em>[pɑːm]</em>. Ukáže se až po otočení kartičky.</li>
+      <li><em>„She can read from her palm.“ 🔊</em>: větu přečte hlas prohlížeče, klik na 🔊 nebo klávesa <kbd>V</kbd>. Ve směru cizí → rodný hned, ve směru rodný → cizí až po otočení (jinak by prozradila odpověď).</li>
+      <li><em>Hlas prohlížeče</em> zní podle zařízení: na Androidu, ve Windows, na Macu a v Chromu na Linuxu dobře, ve Firefoxu na Linuxu roboticky nebo vůbec. Když prohlížeč mluvit neumí vůbec, 🔊 se neukáže.</li>
+      <li><em>palm 🔊</em>: výslovnost cizího slova. Šedé 🔊 je u pravého okraje kartičky, na řádku cizího slova. Klik na 🔊 nebo klávesa <kbd>P</kbd> slovo přečte <strong>hlasem prohlížeče</strong>; ve směru cizí → rodný je 🔊 vidět hned, ve směru rodný → cizí po otočení. V <a href="{% url 'settings' %}">Nastavení</a> si můžeš zapnout, aby se slovo nebo celá věta přečetly samy. Kdo umí číst IPA, může si v <a href="{% url 'settings' %}">Nastavení</a> zapnout i zápis výslovnosti pod slovem ze slovníku, třeba <em>[pɑːm]</em>. Ukáže se až po otočení kartičky.</li>
       <li><em>Učíš se i</em>: tvoje další slovíčko se stejným cizím slovem, ale jiným překladem (<code>palm → palma</code>).</li>
       <li><em>pracka · lehký · světlý +3</em>: úplně dole a menším písmem další významy cizího slova ze slovníku. Z každého významu jen první varianta. Ukáže se jich tolik, kolik se vejde na jeden řádek, a klik na <em>+3</em> ukáže zbytek. Všechny i se všemi variantami jsou v detailu slovíčka. Jde to vypnout v <a href="{% url 'settings' %}">Nastavení</a>.</li>
     </ul>
@@ -91,8 +91,8 @@
       <tbody>
         <tr><td><kbd>mezerník</kbd></td><td>otočí kartičku</td></tr>
         <tr><td><kbd>1</kbd> – <kbd>4</kbd></td><td>ohodnotí kartičku (😎 🤔 😕 😵)</td></tr>
-        <tr><td><kbd>P</kbd></td><td>přehraje výslovnost (po otočení)</td></tr>
-        <tr><td><kbd>V</kbd></td><td>přečte větu (po otočení)</td></tr>
+        <tr><td><kbd>P</kbd></td><td>přehraje výslovnost (ve směru rodný → cizí po otočení)</td></tr>
+        <tr><td><kbd>V</kbd></td><td>přečte větu (ve směru rodný → cizí po otočení)</td></tr>
         <tr><td><strong>?</strong> pod kartičkou</td><td>ukáže nebo skryje vysvětlení tlačítek</td></tr>
         <tr><td><strong>Ukončit test</strong></td><td>skončí a ukáže souhrn</td></tr>
       </tbody>

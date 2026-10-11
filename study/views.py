@@ -141,11 +141,9 @@ def _sentence_task(request, session):
     if hard is None:
         return None
     term = hard["deck_term"].term
-    pronunciation = None
-    if request.user.show_pronunciation:
-        pronunciation = get_pronunciation(
-            term.main_foreign, term.foreign_language.code, with_ipa=request.user.show_ipa
-        )
+    pronunciation = get_pronunciation(
+        term.main_foreign, term.foreign_language.code, with_ipa=request.user.show_ipa
+    )
     return {
         **hard,
         "term": term,

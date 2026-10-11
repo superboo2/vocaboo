@@ -82,18 +82,6 @@ def test_card_with_ipa_in_settings(user, deck, palm):
     assert card.pronunciation.ipa == "pɑːm"
 
 
-def test_card_without_pronunciation_in_settings(user, deck, palm):
-    user.show_pronunciation = False
-    user.show_ipa = True
-    user.save()
-    term = services.add_term(deck, foreign="palm", native="dlaň").term
-
-    card = card_for(user, deck, term, Direction.F2N)
-
-    assert card.pronunciation is None
-    assert card.speech_lang == ""
-
-
 def test_test_page_has_play_button(client, user, deck, palm):
     user.autoplay_pronunciation = True
     user.save()
@@ -105,7 +93,37 @@ def test_test_page_has_play_button(client, user, deck, palm):
 
     assert 'data-speak-text="palm" data-lang="en"' in html
     assert "data-audio" not in html
-    assert "data-autoplay" in html
+    assert 'data-autoplay="word"' in html
+
+
+def test_card_tells_direction_and_what_to_play(client, user, deck):
+    user.autoplay_pronunciation = True
+    user.autoplay_content = "sentence"
+    user.save()
+    services.add_term(deck, foreign="palm", native="dlaň", context_sentence="She read my {palm}.")
+    session = study_services.start_session(user, [deck], direction="F2N")
+    client.force_login(user)
+
+    html = client.get(reverse("study:card", args=[session.pk])).content.decode()
+
+    assert 'data-direction="F2N" data-autoplay="sentence"' in html
+    # Foreign → native: 🔊 of the word and of the sentence are on the front, not waiting
+    front = html[html.index('class="card-front"') : html.index('class="card-back"')]
+    assert 'data-speak="word"' in front
+    assert 'data-speak="sentence"' in front
+
+
+def test_autoplay_is_on_by_default_and_can_be_off(client, user, deck):
+    assert user.autoplay_pronunciation is True
+    user.autoplay_pronunciation = False
+    user.save()
+    services.add_term(deck, foreign="palm", native="dlaň")
+    session = study_services.start_session(user, [deck])
+    client.force_login(user)
+
+    html = client.get(reverse("study:card", args=[session.pk])).content.decode()
+
+    assert "data-autoplay" not in html
 
 
 # Word page
@@ -153,16 +171,15 @@ def test_card_text_for_reading(user, deck):
     assert card.sentence_text == "He ran away."
 
 
-def test_no_voice_when_pronunciation_is_off(client, user, deck):
-    user.show_pronunciation = False
-    user.save()
+def test_speaker_is_always_there(client, user, deck):
     services.add_term(deck, foreign="suit up", native="obléct se", context_sentence="Suit up!")
     session = study_services.start_session(user, [deck])
     client.force_login(user)
 
     html = client.get(reverse("study:card", args=[session.pk])).content.decode()
 
-    assert "data-speak" not in html
+    assert 'data-speak="word"' in html
+    assert 'data-speak="sentence"' in html
 
 
 def test_word_page_can_read_sentences(client, user, deck):

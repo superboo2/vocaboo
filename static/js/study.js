@@ -26,6 +26,29 @@
     thinkMs = null;
     phaseStart = now();
     paused = 0;
+    // Foreign → native: the foreign word is the question, so it is read at once. The browser
+    // allows it only after the user clicked on the page (so not for the very first card).
+    if (card && card.dataset.direction === "F2N") {
+      autoplay();
+    }
+  }
+
+  // Read the word or the sentence by itself, as chosen in the settings
+  function autoplay() {
+    const what = card.dataset.autoplay;
+    if (!what) {
+      return;
+    }
+    const visible = "[data-speak='" + what + "']:not([hidden])";
+    const speak = card.querySelector(visible) || card.querySelector("[data-speak='word']:not([hidden])");
+    if (speak) {
+      playAudio(speak);
+    }
+  }
+
+  // Foreign → native shows 🔊 from the start; native → foreign only after turning the card
+  function canSpeak() {
+    return card && (flipped || card.dataset.direction === "F2N");
   }
 
   function flip() {
@@ -38,16 +61,13 @@
     card.querySelectorAll(".after-flip").forEach(function (element) {
       element.hidden = false;
     });
-    card.querySelectorAll(".flip-reveal").forEach(function (element) {
-      element.classList.add("shown");
-    });
     card.querySelector(".card-show").hidden = true;
     card.querySelector(".ratings").hidden = false;
     fitMeanings();
-    // The flip comes from a click or a key, so the browser allows the sound
-    const speak = card.querySelector("[data-speak='word']:not([hidden])");
-    if (speak && card.hasAttribute("data-autoplay")) {
-      playAudio(speak);
+    // Native → foreign: the foreign word is the answer, read it now. The flip comes from a
+    // click or a key, so the browser allows the sound.
+    if (card.dataset.direction !== "F2N") {
+      autoplay();
     }
     // Now measure the time until the rating
     phaseStart = now();
@@ -172,7 +192,7 @@
     // P plays the word, V reads the sentence
     const speakKinds = { p: "word", v: "sentence" };
     const kind = speakKinds[event.key.toLowerCase()];
-    if (flipped && card && kind) {
+    if (canSpeak() && kind) {
       const speak = card.querySelector("[data-speak='" + kind + "']:not([hidden])");
       if (speak) {
         event.preventDefault();

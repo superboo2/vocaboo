@@ -47,16 +47,22 @@
           <small>{{ form.show_other_meanings.help_text }}</small>
         </fieldset>
         <fieldset>
-          <label>{{ form.show_pronunciation }} {{ form.show_pronunciation.label }}</label>
-          <small>{{ form.show_pronunciation.help_text }}</small>
-        </fieldset>
-        <fieldset>
-          <label>{{ form.autoplay_pronunciation }} {{ form.autoplay_pronunciation.label }}</label>
-          <small>{{ form.autoplay_pronunciation.help_text }}</small>
-        </fieldset>
-        <fieldset>
           <label>{{ form.show_ipa }} {{ form.show_ipa.label }}</label>
           <small>{{ form.show_ipa.help_text }}</small>
+        </fieldset>
+
+        {# A smaller group inside the test settings: everything about sound #}
+        <h3 class="settings-subgroup">🔊 {% translate "Audio" %}</h3>
+        {# The choice word / sentence is shown only when autoplay is ticked (CSS :has) #}
+        <fieldset class="autoplay">
+          <label>{{ form.autoplay_pronunciation }} {{ form.autoplay_pronunciation.label }}</label>
+          <small>{{ form.autoplay_pronunciation.help_text }}</small>
+          <div class="autoplay-content">
+            {% for radio in form.autoplay_content %}
+              <label>{{ radio.tag }} {{ radio.choice_label }}</label>
+            {% endfor %}
+            <small>{{ form.autoplay_content.help_text }}</small>
+          </div>
         </fieldset>
       </section>
 
