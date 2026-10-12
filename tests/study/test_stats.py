@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.utils import timezone
 
 from study import stats
-from study.models import Direction, Result, ReviewLog, ReviewState
+from study.models import Direction, Result, ReviewLog, ReviewState, StudySession
 from vocabulary import services as vocabulary
 from vocabulary.models import DeckTerm, Term
 
@@ -232,3 +232,125 @@ def test_word_in_no_deck_is_not_shown(user, deck):
     cat.delete()
 
     assert stats.user_statistics(user, now=NOW)["facts"]["items"] == []
+
+
+def test_recent_tests(user, deck):
+    from study import services as study
+
+    cat = vocabulary.add_term(deck, foreign="cat", native="kočka").term
+    dog = vocabulary.add_term(deck, foreign="dog", native="pes").term
+    # Both directions: 2 words are 4 cards
+    done = study.start_session(user, [deck])
+    for term in (cat, dog):
+        for direction in Direction.values:
+            state = ReviewState.objects.get(term=term, direction=direction)
+            rating = "dontknow" if term == dog and direction == Direction.N2F else "ok"
+            study.record_answer(done, state, rating)
+    study.finish_session(done)
+    # One direction with a limit, stopped after one card
+    stopped = study.start_session(user, [deck], direction="F2N", scope="all", max_cards=30)
+    study.record_answer(stopped, ReviewState.objects.get(term=cat, direction="F2N"), "think")
+    # Started and closed without an answer: not in the table
+    study.start_session(user, [deck])
+
+    tests = stats.recent_tests(user)
+
+    newest, older = tests["rows"]
+    assert (newest["cards"], newest["direction"], newest["scope"], newest["limit"]) == (
+        1,
+        "EN → CS",
+        "všechna",
+        "max 30",
+    )
+    assert not newest["finished"]
+    # Both directions: every word twice
+    assert (older["cards"], older["direction"]) == (4, "EN ↔ CS")
+    assert [item["count"] for item in older["ratings"]] == [3, 0, 0, 1]
+    assert older["percent"] == 75
+    assert older["finished"]
+    assert older["paths"] == [{"short": "Angličtina", "full": "Angličtina"}]
+    assert tests["summary"] == "Za 14 dní 2 testy · průměrně 2 slovíčka"
+
+
+def test_recent_tests_after_deleting_words(user, deck):
+    from study import services as study
+
+    cat = vocabulary.add_term(deck, foreign="cat", native="kočka")
+    dog = vocabulary.add_term(deck, foreign="dog", native="pes")
+    only_cat = study.start_session(user, [deck], direction="F2N")
+    study.record_answer(only_cat, ReviewState.objects.get(term=cat.term, direction="F2N"), "ok")
+    both = study.start_session(user, [deck], direction="F2N")
+    study.record_answer(both, ReviewState.objects.get(term=cat.term, direction="F2N"), "ok")
+    study.record_answer(both, ReviewState.objects.get(term=dog.term, direction="F2N"), "dontknow")
+    # Deleting a word deletes its answers, the counters of the tests stay
+    vocabulary.remove_term_from_deck(cat)
+
+    tests = stats.recent_tests(user)
+
+    # The test with only cat has no answer left, the other one has one card of dog
+    (row,) = tests["rows"]
+    assert row["session"] == both
+    assert (row["cards"], row["percent"]) == (1, 0)
+    assert tests["summary"] == "Za 14 dní 1 test · průměrně 1 slovíčko"
+
+
+def test_deck_path_in_recent_tests(user, deck):
+    from study import services as study
+
+    season = vocabulary.create_deck(user, "S01", parent=deck)
+    episode = vocabulary.create_deck(user, "E02", parent=season)
+    cat = vocabulary.add_term(episode, foreign="cat", native="kočka")
+    session = study.start_session(user, [episode], direction="N2F")
+    study.record_answer(session, ReviewState.objects.get(term=cat.term, direction="N2F"), "ok")
+
+    (row,) = stats.recent_tests(user)["rows"]
+
+    assert row["paths"] == [{"short": "Angličtina › S01 › E02", "full": "Angličtina › S01 › E02"}]
+    assert row["direction"] == "CS → EN"
+
+
+def test_long_deck_path_shows_the_last_three():
+    names = {
+        1: ("CzechEnglish", None),
+        2: ("series", 1),
+        3: ("Two and Half Men", 2),
+        4: ("S01", 3),
+        5: ("E02", 4),
+    }
+
+    path = stats._deck_path(5, names)
+
+    assert path["short"] == "… › Two and Half Men › S01 › E02"
+    assert path["full"] == "CzechEnglish › series › Two and Half Men › S01 › E02"
+
+
+def test_today_tests_on_the_dashboard(client, user, deck):
+    from study import services as study
+
+    cat = vocabulary.add_term(deck, foreign="cat", native="kočka").term
+    dog = vocabulary.add_term(deck, foreign="dog", native="pes").term
+    yesterday = study.start_session(user, [deck], direction="F2N")
+    study.record_answer(yesterday, ReviewState.objects.get(term=dog, direction="F2N"), "ok")
+    StudySession.objects.filter(pk=yesterday.pk).update(
+        started_at=timezone.now() - timedelta(days=1)
+    )
+    today = study.start_session(user, [deck])
+    study.record_answer(today, ReviewState.objects.get(term=cat, direction="F2N"), "ok")
+    study.record_answer(today, ReviewState.objects.get(term=cat, direction="N2F"), "dontknow")
+    client.force_login(user)
+
+    html = client.get(reverse("dashboard")).content.decode()
+
+    assert "Dnešní testy" in html
+    assert "Dnes 1 test · 2 slovíčka · úspěšnost 50 %" in html
+    assert html.count('role="row" href=') == 1
+    assert reverse("study:summary", args=[today.pk]) in html
+    assert reverse("study:summary", args=[yesterday.pk]) not in html
+
+
+def test_dashboard_without_tests_today(client, user, deck):
+    client.force_login(user)
+
+    html = client.get(reverse("dashboard")).content.decode()
+
+    assert "Dnes ještě žádný test." in html

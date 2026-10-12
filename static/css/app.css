@@ -1360,6 +1360,172 @@ main:focus {
   --chart-color: var(--rating-ok);
 }
 
+/* "Poslední testy": a table made of grid rows, so a whole row can be a link */
+.test-row {
+  display: grid;
+  grid-template-columns:
+    4.6rem minmax(4.5rem, 2fr) 4.2rem minmax(4.5rem, 1fr) 3.8rem 9.2rem 3.4rem;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 0.45rem 0.5rem;
+  border-bottom: 1px solid var(--pico-muted-border-color);
+  font-size: 0.9rem;
+}
+
+.tests-table a.test-row {
+  color: inherit;
+  text-decoration: none;
+}
+
+.tests-table a.test-row:hover {
+  background: var(--pico-muted-border-color);
+}
+
+.tests-table a.test-row.unfinished {
+  color: var(--pico-muted-color);
+}
+
+.test-stopped {
+  color: var(--pico-muted-color);
+  font-variant-emoji: text;
+}
+
+.test-head {
+  color: var(--pico-muted-color);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+.test-count {
+  text-align: right;
+}
+
+.test-direction {
+  white-space: nowrap;
+}
+
+/* The time under the date (on a phone next to it); paths and the limit on their own lines */
+.test-when small,
+.test-decks small,
+.test-scope small {
+  display: block;
+}
+
+.test-scope {
+  font-size: 0.8rem;
+  line-height: 1.3;
+}
+
+.test-when {
+  white-space: nowrap;
+}
+
+.test-decks {
+  overflow-wrap: anywhere;
+  line-height: 1.3;
+}
+
+.test-success {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-left: 1.6rem;
+}
+
+.test-success-head {
+  padding-left: 1.6rem;
+}
+
+/* Success: a short bar of a fixed length, filled by the percent */
+.test-bar {
+  flex-shrink: 0;
+  width: 4rem;
+  height: 0.5rem;
+  border-radius: 0.25rem;
+  overflow: hidden;
+  background: var(--pico-muted-border-color);
+}
+
+.test-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: 0.25rem;
+  background: var(--pico-primary-background);
+}
+
+
+
+
+
+.test-words-label {
+  display: none;
+}
+
+/* On a phone: date and time spent, the path, direction with the scope and the words, then
+   the bar with the percent */
+@media (max-width: 768px) {
+  .test-head {
+    display: none;
+  }
+
+  .test-row {
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas:
+      "when when time"
+      "decks decks decks"
+      "direction scope words"
+      "success success success";
+    gap: 0.15rem 0.5rem;
+    padding: 0.6rem 0.25rem;
+  }
+
+  .test-when {
+    grid-area: when;
+  }
+
+  .test-when small {
+    display: inline;
+  }
+
+  .test-time {
+    grid-area: time;
+  }
+
+  .test-decks {
+    grid-area: decks;
+  }
+
+  .test-direction {
+    grid-area: direction;
+  }
+
+  .test-scope {
+    grid-area: scope;
+  }
+
+  .test-scope small {
+    display: inline;
+    margin-left: 0.3rem;
+  }
+
+  .test-words {
+    grid-area: words;
+  }
+
+  .test-words-label {
+    display: inline;
+  }
+
+  .test-success {
+    grid-area: success;
+    padding-left: 0;
+  }
+
+  .test-bar {
+    flex: 1;
+  }
+}
+
 /* "Co ti nejde": cards like the flashcard, a coloured stripe on the left */
 .hard-words {
   display: grid;
@@ -1471,6 +1637,16 @@ main:focus {
 /* "Co ti nejde" on the dashboard, under the decks */
 .dashboard-hard {
   margin-top: calc(var(--pico-spacing) * 1.5);
+}
+
+/* "Dnešní testy" on the dashboard, above the decks */
+.dashboard-today {
+  margin-bottom: calc(var(--pico-spacing) * 1.5);
+}
+
+.dashboard-today h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.25rem;
 }
 
 .dashboard-hard h2 {

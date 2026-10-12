@@ -1,4 +1,4 @@
-"""Statistics page: totals, words over time and fun facts about the words that are hard.
+"""Statistics page: totals, words over time, the last tests and the words that are hard.
 
 Everything is counted from the words (Term.created_at), the answers (ReviewLog) and the review
 states, nothing extra is stored. The user has hundreds or thousands of rows at most, so the
@@ -8,19 +8,35 @@ numbers are counted in Python from simple queries.
 from collections import Counter
 from datetime import timedelta
 
-from django.db.models import OuterRef, Subquery
+from django.db.models import Count, Max, OuterRef, Q, Subquery
 from django.utils import timezone
 
-from vocabulary.models import DeckTerm, Term
+from vocabulary.models import Deck, DeckTerm, Term
 
 from .formatting import czech_plural
-from .models import Direction, Result, ReviewLog, ReviewState
+from .models import (
+    Direction,
+    Result,
+    ReviewLog,
+    ReviewState,
+    StudyDirection,
+    StudyScope,
+    StudySession,
+)
+from .ratings import RATINGS
 
 # A word counts as known when foreign → native was right this many times in a row
 # (its interval is then a week or more)
 KNOWN_STREAK = 2
 # Weeks in the chart
 CHART_WEEKS = 12
+
+# The table "Poslední testy": how many tests, and the days of the line above it
+RECENT_TESTS = 10
+TESTS_DAYS = 14
+WEEKDAY_SHORT = ["po", "út", "st", "čt", "pá", "so", "ne"]
+# How many decks of the path the table shows (the whole path is in the title)
+PATH_LEVELS = 3
 
 # Periods of the fun facts: key in the URL (?period=30) → (days or None for all, name)
 PERIODS = {"7": (7, "7 dní"), "30": (30, "30 dní"), "all": (None, "Vše")}
@@ -51,12 +67,152 @@ def user_statistics(user, now=None, period=DEFAULT_PERIOD):
         "totals": _totals(terms, logs, known, tested, today),
         "words_chart": _words_chart(terms, today),
         "streak": _streak(logs, today),
+        "tests": recent_tests(user, now),
         "facts": _facts(user, logs, now, period),
         "period": period,
         "periods": [(key, name) for key, (_days, name) in PERIODS.items()],
         "has_terms": bool(terms),
         "has_logs": bool(logs),
     }
+
+
+def recent_tests(user, now=None):
+    """The last tests with at least one answer, one row each, and how often tests are done.
+
+    Cards are answers: with both directions one word is two cards, and each one is rated.
+    """
+    now = now or timezone.now()
+    tests = _tests(user)
+    rows = _test_rows(user, tests[:RECENT_TESTS])
+    recent = list(
+        tests.filter(started_at__gte=now - timedelta(days=TESTS_DAYS)).values_list(
+            "cards", flat=True
+        )
+    )
+    summary = ""
+    if recent:
+        average = round(sum(recent) / len(recent))
+        summary = (
+            f"Za {TESTS_DAYS} dní {len(recent)} "
+            f"{czech_plural(len(recent), 'test', 'testy', 'testů')} · průměrně {average} "
+            f"{czech_plural(average, 'slovíčko', 'slovíčka', 'slovíček')}"
+        )
+    return {"rows": rows, "summary": summary}
+
+
+def today_tests(user, now=None):
+    """The tests started today (for the dashboard), with a line about the whole day."""
+    now = now or timezone.now()
+    midnight = timezone.localtime(now).replace(hour=0, minute=0, second=0, microsecond=0)
+    tests = _tests(user).filter(started_at__gte=midnight)
+    rows = _test_rows(user, tests)
+    summary = ""
+    if rows:
+        cards = sum(row["cards"] for row in rows)
+        correct = sum(row["session"].correct_cards for row in rows)
+        summary = (
+            f"Dnes {len(rows)} {czech_plural(len(rows), 'test', 'testy', 'testů')} · "
+            f"{cards} {czech_plural(cards, 'slovíčko', 'slovíčka', 'slovíček')} · "
+            f"úspěšnost {round(100 * correct / cards)} %"
+        )
+    return {"rows": rows, "summary": summary}
+
+
+def _tests(user):
+    """Tests with at least one answer, the newest first. Counted from the answers, not from
+    the counters of the test: answers of deleted words are deleted too, the counters stay."""
+    return (
+        StudySession.objects.filter(user=user)
+        .annotate(
+            cards=Count("logs", distinct=True),
+            correct_cards=Count("logs", filter=Q(logs__result=Result.CORRECT), distinct=True),
+        )
+        .filter(cards__gt=0)
+        .order_by("-started_at", "-pk")
+    )
+
+
+def _test_rows(user, tests):
+    sessions = list(
+        tests.prefetch_related("decks__foreign_language", "decks__native_language").annotate(
+            words=Count("logs__term", distinct=True),
+            last_answer=Max("logs__reviewed_at"),
+            retry=Count("terms", distinct=True),
+        )
+    )
+    counts = Counter()
+    for session_id, rating, count in (
+        ReviewLog.objects.filter(session__in=sessions)
+        .values_list("session_id", "rating")
+        .annotate(count=Count("pk"))
+    ):
+        counts[session_id, rating] = count
+    # Names and parents of all decks of the user, for the whole path of a deck
+    names = {
+        pk: (name, parent_id)
+        for pk, name, parent_id in Deck.objects.filter(owner=user).values_list(
+            "pk", "name", "parent_id"
+        )
+    }
+    return [_test_row(session, counts, names) for session in sessions]
+
+
+def _test_row(session, counts, names):
+    started = timezone.localtime(session.started_at)
+    decks = list(session.decks.all())
+    foreign, native = "cizí", "rodný"
+    if decks:
+        foreign = decks[0].foreign_language.code.upper()
+        native = decks[0].native_language.code.upper()
+    direction = {
+        StudyDirection.F2N: f"{foreign} → {native}",
+        StudyDirection.N2F: f"{native} → {foreign}",
+    }.get(session.direction, f"{foreign} ↔ {native}")
+    scope = "všechna" if session.scope == StudyScope.ALL else "opak. + nová"
+    if session.retry:
+        scope = "chybné znovu"
+    finished = session.finished_at is not None or (
+        session.max_cards is not None and session.cards >= session.max_cards
+    )
+    minutes = round((session.last_answer - session.started_at).total_seconds() / 60)
+    ratings = [{"rating": rating, "count": counts[session.pk, rating.key]} for rating in RATINGS]
+    percent = round(100 * session.correct_cards / session.cards)
+    return {
+        "session": session,
+        "when": f"{WEEKDAY_SHORT[started.weekday()]} {started.day}. {started.month}.",
+        "time": f"{started:%H:%M}",
+        "paths": [_deck_path(deck.pk, names) for deck in decks],
+        "direction": direction,
+        "scope": scope,
+        "limit": f"max {session.max_cards}" if session.max_cards else "",
+        "cards": session.cards,
+        "ratings": ratings,
+        "percent": percent,
+        "finished": finished,
+        "time_spent": _minutes(minutes),
+    }
+
+
+def _deck_path(deck_id, names):
+    """The path of the deck from the root, e.g. "CzechEnglish › series › S01 › E02": in short
+    only the last PATH_LEVELS decks ("… › series › S01 › E02"), the whole path for the title."""
+    path = []
+    while deck_id is not None:
+        name, deck_id = names[deck_id]
+        path.append(name)
+    path.reverse()
+    short = path[-PATH_LEVELS:]
+    if len(path) > PATH_LEVELS:
+        short = ["…", *short]
+    return {"short": " › ".join(short), "full": " › ".join(path)}
+
+
+def _minutes(minutes):
+    if minutes < 1:
+        return "< 1 min"
+    if minutes < 60:
+        return f"{minutes} min"
+    return f"{minutes // 60} h {minutes % 60} min"
 
 
 def hard_words(user, now=None):

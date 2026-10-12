@@ -18,6 +18,15 @@
     <p class="totals">
       {% blocktranslate with due=totals.due new=totals.new words=totals.words %}Teď k opakování: <strong>{{ due }}</strong> · nových: <strong>{{ new }}</strong> · slovíček celkem: {{ words }}{% endblocktranslate %}
     </p>
+    <section class="dashboard-today">
+      <h2>{% translate "Dnešní testy" %}</h2>
+      {% if today.rows %}
+        <p class="muted"><small>{{ today.summary }}</small></p>
+        {% include "study/_tests_table.html" with tests=today %}
+      {% else %}
+        <p class="muted">{% translate "Dnes ještě žádný test." %}</p>
+      {% endif %}
+    </section>
     {# Error from drag and drop (tree.js), outside the tree so it stays after the tree reloads #}
     <p id="tree-message" class="field-error" role="alert" hidden></p>
     {# Drag a deck to move it: with the mouse right away, on a phone after holding it a moment #}

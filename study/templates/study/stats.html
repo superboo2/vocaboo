@@ -42,6 +42,14 @@
       {% include "study/_chart.html" with chart=stats.words_chart tone="chart-words" label=label %}
     </section>
 
+    {% if stats.tests.rows %}
+      <section class="stat-section">
+        <h2>{% translate "Poslední testy" %}</h2>
+        <p class="muted"><small>{{ stats.tests.summary }}</small></p>
+        {% include "study/_tests_table.html" with tests=stats.tests %}
+      </section>
+    {% endif %}
+
     <section class="stat-section">
       <h2>{% translate "Co ti nejde" %}</h2>
       {# Period of the facts; the tiles and the chart above are always for all the time #}

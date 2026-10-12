@@ -1,0 +1,34 @@
+{% load i18n %}
+{# The last tests (study/stats.py recent_tests): one row each, a click opens the summary of #}
+{# the test. With ↔ every word comes twice, once each way. The bar shows only the percent #}
+{# (one colour), the numbers of 😎 🤔 😕 😵 are in its title and in the summary. #}
+{# On a phone the row is a small block. ⏹ is the plain text symbol (not the coloured emoji), #}
+{# so it is grey like the rest of an unfinished row. #}
+<div class="tests-table" role="table" aria-label="{% translate 'Poslední testy' %}">
+  <div class="test-row test-head" role="row">
+    <span role="columnheader">{% translate "Kdy" %}</span>
+    <span role="columnheader">{% translate "Slovník" %}</span>
+    <span role="columnheader">{% translate "Směr" %}</span>
+    <span role="columnheader">{% translate "Rozsah" %}</span>
+    <span role="columnheader" class="test-count" title="{% translate 'Při ↔ je každé slovíčko v testu dvakrát, jednou každým směrem.' %}">{% translate "Slovíčka" %}</span>
+    <span role="columnheader" class="test-success-head">{% translate "Úspěšnost" %}</span>
+    <span role="columnheader" class="test-count">{% translate "Čas" %}</span>
+  </div>
+  {% for row in tests.rows %}
+    <a class="test-row{% if not row.finished %} unfinished{% endif %}" role="row" href="{% url 'study:summary' row.session.pk %}">
+      <span class="test-when" role="cell">
+        {{ row.when }}
+        <small class="muted">{{ row.time }}</small>
+      </span>
+      <span class="test-decks" role="cell">{% for path in row.paths %}<small title="{{ path.full }}">{{ path.short }}</small>{% empty %}<small>—</small>{% endfor %}</span>
+      <span class="test-direction" role="cell">{{ row.direction }}</span>
+      <span class="test-scope" role="cell">{{ row.scope }}{% if row.limit %}<small class="muted">{{ row.limit }}</small>{% endif %}</span>
+      <span class="test-count test-words" role="cell">{{ row.cards }}<small class="muted test-words-label"> {% translate "slovíček" %}</small></span>
+      <span class="test-success" role="cell" title="{% for item in row.ratings %}{{ item.rating.emoji }} {{ item.count }}{% if not forloop.last %} · {% endif %}{% endfor %}">
+        <span class="test-bar" aria-hidden="true"><span style="width: {{ row.percent }}%"></span></span>
+        <strong>{{ row.percent }} %</strong>
+      </span>
+      <span class="test-count test-time" role="cell">{% if row.finished %}{{ row.time_spent }}{% else %}<span class="test-stopped" title="{% translate 'Test ukončen předčasně' %}">⏹︎</span>{% endif %}</span>
+    </a>
+  {% endfor %}
+</div>
