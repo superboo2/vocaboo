@@ -1634,7 +1634,44 @@ main:focus {
   line-height: 1.2;
 }
 
-/* "Co ti nejde" on the dashboard, under the decks */
+/* Smaller cards on the dashboard: 3 in a row (2 on a phone); with fewer cards the row is
+   not filled, so the cards keep their size */
+.hard-words.hard-words-compact {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.hard-words-compact .hard-word-face {
+  padding: 0.7rem 0.75rem;
+}
+
+.hard-words-compact .hard-word-kind {
+  align-items: flex-start;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  line-height: 1.25;
+}
+
+.hard-words-compact .hard-word-animal {
+  font-size: 1.3rem;
+}
+
+.hard-words-compact .hard-word-word {
+  font-size: 1.1rem;
+  overflow-wrap: anywhere;
+}
+
+.hard-words-compact .hard-word-detail {
+  font-size: 0.8rem;
+}
+
+@media (max-width: 576px) {
+  .hard-words.hard-words-compact {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* "Co ti dnes nejde" on the dashboard, under the decks */
 .dashboard-hard {
   margin-top: calc(var(--pico-spacing) * 1.5);
 }

@@ -41,6 +41,27 @@ PATH_LEVELS = 3
 # Periods of the fun facts: key in the URL (?period=30) → (days or None for all, name)
 PERIODS = {"7": (7, "7 dní"), "30": (30, "30 dní"), "all": (None, "Vše")}
 DEFAULT_PERIOD = "7"
+# "Horská dráha" needs this many changes between right and wrong, "Moc rychle" a "vůbec
+# nevím" faster than this (ms)
+SWITCHES = 3
+RUSH_MS = 3000
+# The dashboard: only today, and these kinds of cards in this order
+TODAY = "today"
+TODAY_FACTS = ["Nejdéle přemýšlíš u", "Jen jedním směrem", "Pořád dokola"]
+# The statistics page (all kinds but the dashboard's "Pořád dokola", in this order)
+STATS_FACTS = [
+    "Největší nepřítel",
+    "Pleteš si",
+    "Jen jedním směrem",
+    "Zapomínáš",
+    "Horská dráha",
+    "Moc rychle",
+    "Nejdelší, co ti nejde",
+    "Nejdéle přemýšlíš u",
+    "Nejdéle se učíš",
+]
+# "Pořád dokola" shows a word only after this many attempts in the whole history
+REPEAT_ATTEMPTS = 3
 
 
 def _week_start(day):
@@ -216,8 +237,9 @@ def _minutes(minutes):
 
 
 def hard_words(user, now=None):
-    """The cards "Co ti nejde" of the last 7 days (for the dashboard)."""
-    return _facts(user, _logs(user), now or timezone.now(), DEFAULT_PERIOD)["items"]
+    """The cards "Co ti dnes nejde" for the dashboard: only today's answers, 4 kinds."""
+    now = now or timezone.now()
+    return _facts(user, _logs(user), now, TODAY, kinds=TODAY_FACTS)["items"]
 
 
 def _logs(user):
@@ -337,28 +359,45 @@ def _streak(logs, today):
     }
 
 
-def _facts(user, logs, now, period):
+def _facts(user, logs, now, period, kinds=None):
     """The "nej" words that are hard: each one shows a word with its translation.
 
     A word is hard when in the period it had an answer "vůbec nevím" or "napůl" and it is
     still not known (some direction has fewer than KNOWN_STREAK right answers in a row).
     One word is shown only once, the next fact takes the next word in its order.
     """
-    days = PERIODS[period][0]
-    since = now - timedelta(days=days) if days else None
+    if period == TODAY:
+        since = timezone.localtime(now).replace(hour=0, minute=0, second=0, microsecond=0)
+    else:
+        days = PERIODS[period][0]
+        since = now - timedelta(days=days) if days else None
     window = [log for log in logs if since is None or log[0] >= since]
     wrong = Counter()
     attempts = Counter()
     think = {}
     bad_directions = {}
+    # The fastest "vůbec nevím" of a word, and how many times it went between right and wrong
+    fast_wrong = {}
+    switches = Counter()
+    last_right = {}
     for _reviewed, result, _rating, think_ms, _decide, term_id, direction in window:
         attempts[term_id] += 1
+        right = result == Result.CORRECT
         if result == Result.WRONG:
             wrong[term_id] += 1
-        if result != Result.CORRECT:
+            if think_ms:
+                fast_wrong[term_id] = min(think_ms, fast_wrong.get(term_id, think_ms))
+        if not right:
             bad_directions.setdefault(term_id, set()).add(direction)
         if think_ms:
             think.setdefault(term_id, []).append(think_ms)
+        key = (term_id, direction)
+        if key in last_right and last_right[key] != right:
+            switches[term_id] += 1
+        last_right[key] = right
+
+    # Attempts of a word in the whole history (for "Pořád dokola")
+    all_attempts = Counter(log[5] for log in logs)
 
     # Forgotten = a wrong answer after KNOWN_STREAK right ones in a row (the whole history
     # is needed for the streak, only the wrong answers in the period count)
@@ -409,6 +448,17 @@ def _facts(user, logs, now, period):
             and any(other != direction and streak > 0 for other, streak in directions.items())
         ]
 
+    # Two hard words with the same translation (borrow / lend – půjčit): the partner of each
+    same_translation = {}
+    for term in terms.values():
+        key = (term.foreign_language_id, term.native_language_id, term.main_native.lower())
+        same_translation.setdefault(key, []).append(term)
+    partner = {}
+    for group in same_translation.values():
+        if len(group) > 1:
+            for term in group:
+                partner[term.pk] = next(other for other in group if other.pk != term.pk)
+
     def enemy_text(term):
         count = attempts[term.pk]
         tries = czech_plural(count, "pokusu", "pokusů", "pokusů")
@@ -428,6 +478,16 @@ def _facts(user, logs, now, period):
             enemy_text,
         ),
         (
+            "🦎",
+            "Pleteš si",
+            "partial",
+            sorted(
+                (term for term in hard if term.pk in partner),
+                key=lambda term: -(wrong[term.pk] + wrong[partner[term.pk].pk]),
+            ),
+            lambda term: "stejný překlad, pořád se pletou",
+        ),
+        (
             "🦀",
             "Jen jedním směrem",
             "think",
@@ -443,6 +503,36 @@ def _facts(user, logs, now, period):
                 key=lambda term: -forgotten[term.pk],
             ),
             lambda term: f"{forgotten[term.pk]}× zapomenuto",
+        ),
+        (
+            "🐒",
+            "Horská dráha",
+            "think",
+            sorted(
+                (term for term in hard if switches[term.pk] >= SWITCHES),
+                key=lambda term: -switches[term.pk],
+            ),
+            lambda term: f"{switches[term.pk]}× změna vím ↔ nevím",
+        ),
+        (
+            "🐇",
+            "Moc rychle",
+            "dontknow",
+            sorted(
+                (term for term in hard if fast_wrong.get(term.pk, RUSH_MS) < RUSH_MS),
+                key=lambda term: fast_wrong[term.pk],
+            ),
+            lambda term: f"za {fast_wrong[term.pk] / 1000:.1f} s a vůbec nevím".replace(".", ","),
+        ),
+        (
+            "🐘",
+            "Pořád dokola",
+            "dontknow",
+            sorted(
+                (term for term in hard if all_attempts[term.pk] >= REPEAT_ATTEMPTS),
+                key=lambda term: -all_attempts[term.pk],
+            ),
+            lambda term: f"zase nevím · už {all_attempts[term.pk]}. pokus",
         ),
         (
             "🦒",
@@ -469,20 +559,36 @@ def _facts(user, logs, now, period):
             lambda term: _added_ago(term, now),
         ),
     ]
+    by_title = {candidate[1]: candidate for candidate in candidates}
+    candidates = [by_title[title] for title in kinds or STATS_FACTS]
     items = []
     used = set()
     for emoji, title, tone, ordered, text in candidates:
         term = next((term for term in ordered if term.pk not in used), None)
+        if title == "Pleteš si":
+            # Both words of the pair must be free
+            term = next(
+                (
+                    term
+                    for term in ordered
+                    if term.pk not in used and partner[term.pk].pk not in used
+                ),
+                None,
+            )
         if term is None:
             continue
         used.add(term.pk)
+        foreign = term.main_foreign
+        if title == "Pleteš si":
+            used.add(partner[term.pk].pk)
+            foreign = f"{term.main_foreign} · {partner[term.pk].main_foreign}"
         # The card turns like in a test: every second one shows the native side first;
         # "Jen jedním směrem" shows the direction that is hard
         if title == "Jen jedním směrem":
             native_first = one_direction(term)[0] == Direction.N2F
         else:
             native_first = len(items) % 2 == 1
-        front, back = term.main_foreign, term.main_native
+        front, back = foreign, term.main_native
         if native_first:
             front, back = back, front
         items.append(
@@ -491,7 +597,7 @@ def _facts(user, logs, now, period):
                 "title": title,
                 "tone": tone,
                 "term": term,
-                "word": term.main_foreign,
+                "word": foreign,
                 "translation": term.main_native,
                 "front": front,
                 "back": back,

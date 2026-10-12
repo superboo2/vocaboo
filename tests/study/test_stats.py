@@ -191,10 +191,11 @@ def test_dashboard_shows_all_hard_words(client, user, deck):
 
     html = client.get(reverse("dashboard")).content.decode()
 
-    assert "Co ti nejde" in html
-    # One card for every hard word (each word only once), no link to more
-    assert html.count('class="hard-word ') == 3
-    assert "Další →" not in html
+    assert "Co ti dnes nejde" in html
+    # Only 🐢 has a word: no word is right one way, and no word has 3 attempts for 🐘
+    assert html.count('class="hard-word ') == 1
+    assert "Nejdéle přemýšlíš u" in html
+    assert "Nejdelší, co ti nejde" not in html
 
 
 def test_dashboard_hides_hard_words_without_answers(client, user, deck):
@@ -203,7 +204,7 @@ def test_dashboard_hides_hard_words_without_answers(client, user, deck):
 
     html = client.get(reverse("dashboard")).content.decode()
 
-    assert "Co ti nejde" not in html
+    assert "Co ti dnes nejde" not in html
 
 
 def test_detail_link_uses_the_word_in_its_deck(client, user, deck):
@@ -354,3 +355,73 @@ def test_dashboard_without_tests_today(client, user, deck):
     html = client.get(reverse("dashboard")).content.decode()
 
     assert "Dnes ještě žádný test." in html
+
+
+def test_dashboard_hard_words_are_only_from_today(client, user, deck):
+    cat = vocabulary.add_term(deck, foreign="cat", native="kočka").term
+    ReviewLog.objects.create(
+        user=user,
+        term=cat,
+        direction=Direction.F2N,
+        rating="dontknow",
+        rating_label="x",
+        result=Result.WRONG,
+        chosen_interval=timedelta(days=1),
+        think_ms=1000,
+        reviewed_at=timezone.now() - timedelta(days=1, hours=1),
+    )
+    client.force_login(user)
+
+    html = client.get(reverse("dashboard")).content.decode()
+
+    assert "Co ti dnes nejde" not in html
+
+
+def test_mixed_up_rollercoaster_and_rushed_words(user, deck):
+    borrow = vocabulary.add_term(deck, foreign="borrow", native="půjčit").term
+    lend = vocabulary.add_term(deck, foreign="lend", native="půjčit si").term
+    Term.objects.filter(pk=lend.pk).update(main_native="půjčit")
+    swing = vocabulary.add_term(deck, foreign="swing", native="houpat").term
+    rush = vocabulary.add_term(deck, foreign="rush", native="spěch").term
+    for term in (borrow, lend):
+        answer(user, term, 3, Result.WRONG, "dontknow", think_ms=5000)
+    # swing: wrong, right, wrong, right, wrong = 4 changes
+    for days_ago, result in zip((6, 5, 4, 3, 2), "wcwcw", strict=True):
+        if result == "w":
+            answer(user, swing, days_ago, Result.WRONG, "dontknow", think_ms=5000)
+        else:
+            answer(user, swing, days_ago, think_ms=5000)
+    answer(user, rush, 1, Result.WRONG, "dontknow", think_ms=1200)
+    # The biggest enemy takes another word, so swing is free for the rollercoaster
+    enemy = vocabulary.add_term(deck, foreign="enemy", native="nepřítel").term
+    for days_ago in (1, 2, 3, 4):
+        answer(user, enemy, days_ago, Result.WRONG, "dontknow", think_ms=5000)
+
+    by_title = {
+        fact["title"]: fact for fact in stats.user_statistics(user, now=NOW)["facts"]["items"]
+    }
+
+    # The pair takes both words, so each of them is on no other card
+    assert by_title["Pleteš si"]["word"] in ("borrow · lend", "lend · borrow")
+    assert by_title["Pleteš si"]["translation"] == "půjčit"
+    assert by_title["Horská dráha"]["word"] == "swing"
+    assert by_title["Horská dráha"]["text"] == "4× změna vím ↔ nevím"
+    assert by_title["Moc rychle"]["text"] == "za 1,2 s a vůbec nevím"
+    words = [fact["word"] for fact in by_title.values()]
+    assert sum("borrow" in word for word in words) == 1
+
+
+def test_dashboard_word_again_and_again(user, deck):
+    cat = vocabulary.add_term(deck, foreign="cat", native="kočka").term
+    dog = vocabulary.add_term(deck, foreign="dog", native="pes").term
+    # cat: 3 old attempts and a wrong answer today; dog: wrong only today
+    for days_ago in (9, 8, 7):
+        answer(user, cat, days_ago)
+    answer(user, cat, 0, Result.WRONG, "dontknow", think_ms=1000)
+    answer(user, dog, 0, Result.WRONG, "dontknow", think_ms=8000)
+
+    cards = stats.hard_words(user, now=NOW)
+
+    # 🐢 takes dog (longer thinking), 🐘 takes cat
+    assert [(card["emoji"], card["word"]) for card in cards] == [("🐢", "dog"), ("🐘", "cat")]
+    assert cards[1]["text"] == "zase nevím · už 4. pokus"

@@ -474,15 +474,19 @@ the browser and paused while the page is hidden (another app, locked phone).
   (every second card the native side; 🦀 the hard direction), on the back the other side, a small
   note why and the link *Detail →*: 🦈 *Největší nepřítel* (`suit up` – obleč se do obleku, 3×
   vůbec nevím z 5 pokusů), 🦀 *Jen jedním směrem* (`EN → CS ano, CS → EN ne`), 🐿️ *Zapomínáš*
-  (wrong after 2 right answers in a row, `2× zapomenuto`), 🦒 the longest hard word, 🐢 the longest
-  thinking, 🐌 the oldest hard word (`přidáno před 45 dny`). Everything is counted from `Term` and
-  `ReviewLog` when the page opens (`study/stats.py`); the chart is plain SVG without a chart
-  library.
+  (wrong after 2 right answers in a row, `2× zapomenuto`), 🐒 *Horská dráha* (most changes between
+  right and wrong, at least 3), 🐇 *Moc rychle* (the fastest 😵, under 3 s), 🦎 *Pleteš si* (two hard
+  words with the same translation, `borrow · lend` – půjčit), 🦒 the longest hard word, 🐢 the
+  longest thinking, 🐌 the oldest hard word (`přidáno před 45 dny`). Everything is counted from
+  `Term` and `ReviewLog` when the page opens (`study/stats.py`); the chart is plain SVG without a
+  chart library.
 - Above the decks the dashboard shows **Dnešní testy**: the tests started today in the same table
   as on the statistics page, with a line about the day, e.g. `Dnes 3 testy · 54 slovíček ·
   úspěšnost 78 %`, or `Dnes ještě žádný test.`
-- Under the decks the dashboard shows **Co ti nejde**: all cards of the last 7 days, the same as
-  on the statistics page. The section is not there when nothing was hard in 7 days.
+- Under the decks the dashboard shows **Co ti dnes nejde**: up to 3 smaller flip cards in one row,
+  only from today's answers: 🐢 the longest thinking, 🦀 only one direction and 🐘 *Pořád dokola*
+  (a word hard today with the most attempts in the whole history, at least 3, e.g. `zase nevím ·
+  už 12. pokus`). The section is not there when nothing was hard today.
 - The dashboard shows the decks as a tree of folders (📂 open, 📁 closed, 📄 deck without child
   decks). The whole tree is always open when the page loads; a click on a folder closes it
   until the next reload.
