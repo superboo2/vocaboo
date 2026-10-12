@@ -64,7 +64,7 @@ def test_dashboard_shows_tree(logged_client, english):
     html = logged_client.get(reverse("dashboard")).content.decode()
 
     assert "Angličtina" in html
-    assert "(EN → CS)" in html
+    assert '<small class="pair">EN → CS</small>' in html
     assert "Seriály" in html
 
 

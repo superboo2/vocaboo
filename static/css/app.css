@@ -240,10 +240,6 @@ button.danger {
   content: "📂";
 }
 
-.deck-row .deck-counts {
-  margin-left: auto;
-}
-
 /* List of sibling decks with order arrows */
 .sibling-list {
   padding-left: 0;
@@ -758,14 +754,20 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
   text-align: center;
 }
 
-/* Dashboard numbers */
-.totals {
-  margin-bottom: var(--pico-spacing);
-}
-
-.deck-counts {
+.deck-counts,
+.deck-due {
   color: var(--pico-muted-color);
   white-space: nowrap;
+}
+
+/* Words to review: at the right edge, darker when the row is under the mouse (only the
+   colour, so the text does not move) */
+.deck-due {
+  margin-left: auto;
+}
+
+.deck-row:hover > .deck-due {
+  color: var(--pico-color);
 }
 
 /* Word page */

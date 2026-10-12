@@ -1,6 +1,6 @@
 {% load i18n %}<a href="{% url 'vocabulary:deck_detail' deck.pk %}" class="deck-name">{{ deck.name }}</a>
-{% if deck.depth == 1 %}<small class="pair">({{ deck.language_pair }})</small>{% endif %}
-{# Counts are there only on the dashboard (study.services.annotate_deck_counts) #}
-{% if deck.word_count is not None %}
-  <small class="deck-counts">{{ deck.word_count }}{% if deck.due_count %} · <strong>{% blocktranslate with count=deck.due_count %}{{ count }} k opakování{% endblocktranslate %}</strong>{% endif %}</small>
-{% endif %}
+{# Counts are there only on the dashboard (study.services.annotate_deck_counts): the words #}
+{# right after the name, the words to review grey at the right edge (stronger on hover) #}
+{% if deck.word_count is not None %}<small class="deck-counts">({{ deck.word_count }})</small>{% endif %}
+{% if deck.depth == 1 %}<small class="pair">{{ deck.language_pair }}</small>{% endif %}
+{% if deck.due_count %}<small class="deck-due">{% blocktranslate with count=deck.due_count %}{{ count }} k opakování{% endblocktranslate %}</small>{% endif %}

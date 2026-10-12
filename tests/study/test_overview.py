@@ -90,9 +90,11 @@ def test_dashboard_shows_counts(client, user, tree):
 
     html = client.get(reverse("dashboard")).content.decode()
 
-    assert "Teď k opakování: <strong>1</strong>" in html
-    assert "nových: <strong>1</strong>" in html
-    assert "1 k opakování" in html
+    # The words to review are on the button, the count of words after the deck name
+    assert "Spustit test · 1 k opakování" in html
+    assert "Teď k opakování" not in html
+    assert '<small class="deck-counts">(2)</small>' in html
+    assert '<small class="deck-due">1 k opakování</small>' in html
 
 
 # Word history

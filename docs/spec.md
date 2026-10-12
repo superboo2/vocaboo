@@ -134,7 +134,7 @@ Angličtina (EN → CS)
 Zobrazení:
 - U kořenového slovníku se za názvem ukazuje jazykový pár velkými písmeny, např. **Angličtina (EN → CS)**. Podslovníky pár dědí, takže se u nich ve stromu neopakuje. V detailu slovníku a v nastavení testu se zobrazuje vždy.
 - **Strom složek** (📂 / 📁 slovník s podslovníky, 📄 slovník bez nich) s čarami vlevo. Po načtení stránky je vždy celý rozbalený; kliknutím jde složka sbalit do dalšího načtení, stav se nikam neukládá.
-- Počty ve stromu se počítají včetně podslovníků, např. `Seriály (124 · 8 k opakování)`.
+- Počty ve stromu se počítají včetně podslovníků a slovíček celkem hned za názvem, např. `Seriály (124)`, k opakování šedě u pravého okraje (`8 k opakování`, po najetí na řádek tmavší barvou); počet k opakování celkem je na tlačítku `Spustit test · 12 k opakování` (samostatný řádek s čísly na přehledu není).
 - V detailu slovníku je **drobečková navigace**: `Angličtina › Seriály › HIMYM`.
 - **Přetahování ve stromu na přehledu** (SortableJS jen pro samotné tažení): během tažení se řádky nehýbou, jen se ukazuje cíl. **Střed řádku** = vložit dovnitř (řádek se zvýrazní, funguje i u slovníku bez podslovníků), **horní / dolní okraj** = zařadit před / za (ukáže se čára). Řádky dřív při tažení uhýbaly a do složky se nedalo trefit. Myší hned, na dotykovém displeji po podržení zhruba 0,3 s, aby šlo normálně scrollovat. Uloží se hned po puštění; server zkontroluje pravidla a při chybě se strom vrátí a ukáže se hláška.
 - Záloha pro ovládání klávesnicí: šipky ↑ ↓ u podslovníků v detailu slovníku a akce „Přesunout“.
@@ -606,7 +606,7 @@ Stránka `/stats/` (odkaz v liště, na telefonu ikona 📊), počítá se při 
 | Obrazovka | Obsah |
 |---|---|
 | Přihlášení / Odhlášení | Django auth, e-mail + heslo (registrace v MVP není) |
-| **Přehled (dashboard)** | Počet karet k opakování dnes, strom slovníků s počty (celkem / k opakování), tlačítko „Spustit test“ |
+| **Přehled (dashboard)** | Tlačítko „Spustit test · N k opakování“, dnešní testy, strom slovníků s počty za názvem (celkem / k opakování), co ti dnes nejde |
 | **Slovník** | Drobečková navigace, seznam slovíček (vyhledávání, řazení: podle data přidání (výchozí) / abecedně / podle termínu opakování), formulář pro přidání, výběr slovíček a jejich přesun / přidání do jiného slovníku, podslovníky (šipky ↑ ↓ pro pořadí), úprava, přesun a smazání slovníku, „Testovat tento slovník“ |
 | **Slovíčko** | Úprava variant, poznámky a kontextů v jednotlivých slovnících, stav opakování obou směrů, statistiky a historie (7.1) |
 | Statistiky | Celkový přehled a problémová slovíčka (7.3, 7.4, fáze 2) |
