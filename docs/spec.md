@@ -608,6 +608,7 @@ Stránka `/stats/` (odkaz v liště, na telefonu ikona 📊), počítá se při 
 |---|---|
 | Přihlášení / Odhlášení | Django auth, e-mail + heslo (registrace v MVP není) |
 | **Přehled (dashboard)** | Tlačítko „Spustit test · N k opakování“, dnešní testy, strom slovníků s počty za názvem (celkem / k opakování), co ti dnes nejde |
+| **Hledat** (`/search/`) | pole nahoře na přehledu, klávesa `/` (stránka `/search/` jen pro Enter bez JavaScriptu): hledá ve všech slovíčkách uživatele (varianty, věta a její překlad, poznámka) bez háčků a velikosti písmen, od 2 znaků, při psaní; nejdřív shoda ve slově/překladu, pak ve větě/poznámce; zvýrazněná shoda, slovníky (poslední 3 úrovně cesty), detail a ✎; max 50 (`vocabulary.services.search_terms`) |
 | **Slovník** | Drobečková navigace, seznam slovíček (vyhledávání, řazení: podle data přidání (výchozí) / abecedně / podle termínu opakování), formulář pro přidání, výběr slovíček a jejich přesun / přidání do jiného slovníku, podslovníky (šipky ↑ ↓ pro pořadí), úprava, přesun a smazání slovníku, „Testovat tento slovník“ |
 | **Slovíčko** | Úprava variant, poznámky a kontextů v jednotlivých slovnících, stav opakování obou směrů, statistiky a historie (7.1) |
 | Statistiky | Celkový přehled a problémová slovíčka (7.3, 7.4, fáze 2) |

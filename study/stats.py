@@ -11,7 +11,8 @@ from datetime import timedelta
 from django.db.models import Count, Max, OuterRef, Q, Subquery
 from django.utils import timezone
 
-from vocabulary.models import Deck, DeckTerm, Term
+from vocabulary.models import DeckTerm, Term
+from vocabulary.services import deck_names, deck_path
 
 from .formatting import czech_plural
 from .models import (
@@ -35,8 +36,6 @@ CHART_WEEKS = 12
 RECENT_TESTS = 10
 TESTS_DAYS = 14
 WEEKDAY_SHORT = ["po", "út", "st", "čt", "pá", "so", "ne"]
-# How many decks of the path the table shows (the whole path is in the title)
-PATH_LEVELS = 3
 
 # Periods of the fun facts: key in the URL (?period=30) → (days or None for all, name)
 PERIODS = {"7": (7, "7 dní"), "30": (30, "30 dní"), "all": (None, "Vše")}
@@ -168,13 +167,7 @@ def _test_rows(user, tests):
         .annotate(count=Count("pk"))
     ):
         counts[session_id, rating] = count
-    # Names and parents of all decks of the user, for the whole path of a deck
-    names = {
-        pk: (name, parent_id)
-        for pk, name, parent_id in Deck.objects.filter(owner=user).values_list(
-            "pk", "name", "parent_id"
-        )
-    }
+    names = deck_names(user)
     return [_test_row(session, counts, names) for session in sessions]
 
 
@@ -202,7 +195,7 @@ def _test_row(session, counts, names):
         "session": session,
         "when": f"{WEEKDAY_SHORT[started.weekday()]} {started.day}. {started.month}.",
         "time": f"{started:%H:%M}",
-        "paths": [_deck_path(deck.pk, names) for deck in decks],
+        "paths": [deck_path(deck.pk, names) for deck in decks],
         "direction": direction,
         "scope": scope,
         "limit": f"max {session.max_cards}" if session.max_cards else "",
@@ -212,20 +205,6 @@ def _test_row(session, counts, names):
         "finished": finished,
         "time_spent": _minutes(minutes),
     }
-
-
-def _deck_path(deck_id, names):
-    """The path of the deck from the root, e.g. "CzechEnglish › series › S01 › E02": in short
-    only the last PATH_LEVELS decks ("… › series › S01 › E02"), the whole path for the title."""
-    path = []
-    while deck_id is not None:
-        name, deck_id = names[deck_id]
-        path.append(name)
-    path.reverse()
-    short = path[-PATH_LEVELS:]
-    if len(path) > PATH_LEVELS:
-        short = ["…", *short]
-    return {"short": " › ".join(short), "full": " › ".join(path)}
 
 
 def _minutes(minutes):

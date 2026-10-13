@@ -1,0 +1,29 @@
+{% load i18n %}
+{# Results of the search (vocabulary.services.search_terms): one row for one word, the #}
+{# match marked, the decks as short paths (the whole one in the title). #}
+{% if not too_short %}
+  {% if hits %}
+    <ul class="search-hits">
+      {% for hit in hits %}
+        <li class="search-hit">
+          <div class="search-word">
+            <a href="{% url 'vocabulary:term_detail' hit.deck_term.deck_id hit.deck_term.pk %}"><strong>{% for text, match in hit.foreign %}{% if match %}<mark>{{ text }}</mark>{% else %}{{ text }}{% endif %}{% endfor %}</strong></a>
+            <span class="muted" aria-hidden="true">→</span>
+            <span>{% for text, match in hit.native %}{% if match %}<mark>{{ text }}</mark>{% else %}{{ text }}{% endif %}{% endfor %}</span>
+          </div>
+          {% if hit.found_in %}
+            <div class="search-found muted">„{% for text, match in hit.found_in %}{% if match %}<mark>{{ text }}</mark>{% else %}{{ text }}{% endif %}{% endfor %}“</div>
+          {% endif %}
+          <div class="search-meta">
+            <small class="muted">{% for path in hit.paths %}<span title="{{ path.full }}">{{ path.short }}</span>{% if not forloop.last %} · {% endif %}{% endfor %}</small>
+            <a class="search-edit" href="{% url 'vocabulary:term_edit' hit.deck_term.deck_id hit.deck_term.pk %}"
+               title="{% translate 'Upravit slovíčko' %}" aria-label="{% translate 'Upravit slovíčko' %}">✎</a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+    {% if hits|length >= limit %}<p class="muted"><small>{% blocktranslate %}Ukazuje se prvních {{ limit }} výsledků, zkus hledat přesněji.{% endblocktranslate %}</small></p>{% endif %}
+  {% else %}
+    <p class="muted">{% blocktranslate %}Pro „{{ query }}“ se nic nenašlo.{% endblocktranslate %}</p>
+  {% endif %}
+{% endif %}

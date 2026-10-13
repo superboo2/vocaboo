@@ -704,3 +704,118 @@ def _same_languages(a, b):
         b.foreign_language_id,
         b.native_language_id,
     )
+
+
+# Search in the user's words (the page "Hledat" and the field on the dashboard)
+SEARCH_MIN_LENGTH = 2
+SEARCH_LIMIT = 50
+# How many decks of a path are shown (the whole path is in the title)
+PATH_LEVELS = 3
+
+
+def _fold(text):
+    """Lower case without accents, one letter for one letter: "Četka" → "cetka".
+
+    The text keeps its length, so a place found in the folded text is the same place in
+    the original one (for marking the match)."""
+    return "".join(unicodedata.normalize("NFD", char)[0] for char in text.lower())
+
+
+def deck_names(owner):
+    """Names and parents of all decks of the user, for deck_path."""
+    return {
+        pk: (name, parent_id)
+        for pk, name, parent_id in Deck.objects.filter(owner=owner).values_list(
+            "pk", "name", "parent_id"
+        )
+    }
+
+
+def deck_path(deck_id, names):
+    """The path of the deck from the root, e.g. "CzechEnglish › series › S01 › E02": in short
+    only the last PATH_LEVELS decks ("… › series › S01 › E02"), the whole path for the title."""
+    path = []
+    while deck_id is not None:
+        name, deck_id = names[deck_id]
+        path.append(name)
+    path.reverse()
+    short = path[-PATH_LEVELS:]
+    if len(path) > PATH_LEVELS:
+        short = ["…", *short]
+    return {"short": " › ".join(short), "full": " › ".join(path)}
+
+
+@dataclass
+class SearchHit:
+    term: Term
+    # The word in its first deck (for the links) and all its decks (paths)
+    deck_term: DeckTerm
+    paths: list
+    # Texts with the match marked (lists of (text, is_match) parts)
+    foreign: list
+    native: list
+    # The sentence or note where the query was found, when it was not in the word
+    found_in: list = field(default_factory=list)
+
+
+def search_terms(owner, query, limit=SEARCH_LIMIT):
+    """Words of the user with the query in a variant, a sentence or the note.
+
+    Without accents and case ("cetka" finds "Četka"). The words with the query in the word or
+    the translation come first, then the ones with it in a sentence or the note; each group
+    is sorted by the word. The user has at most a few thousand words, so they are searched
+    in Python.
+    """
+    needle = _fold(query.strip())
+    if len(needle) < SEARCH_MIN_LENGTH:
+        return []
+    names = deck_names(owner)
+    terms = (
+        Term.objects.filter(owner=owner, deck_terms__isnull=False)
+        .distinct()
+        .prefetch_related("variants", "deck_terms")
+        .order_by(Lower("main_foreign"), "pk")
+    )
+    in_word = []
+    in_other = []
+    for term in terms:
+        foreign = "; ".join(term.foreign_variants)
+        native = "; ".join(term.native_variants)
+        deck_terms = sorted(term.deck_terms.all(), key=lambda item: (item.added_at, item.pk))
+        hit = SearchHit(
+            term=term,
+            deck_term=deck_terms[0],
+            paths=[deck_path(item.deck_id, names) for item in deck_terms],
+            foreign=_mark(foreign, needle),
+            native=_mark(native, needle),
+        )
+        if needle in _fold(foreign) or needle in _fold(native):
+            in_word.append(hit)
+            continue
+        others = [
+            text
+            for item in deck_terms
+            for text in (item.context_sentence, item.context_sentence_native)
+            if text
+        ] + [term.note]
+        found = next((text for text in others if text and needle in _fold(text)), None)
+        if found:
+            # The braces that mark the word in a sentence are not shown
+            hit.found_in = _mark(found.replace("{", "").replace("}", ""), needle)
+            in_other.append(hit)
+    return (in_word + in_other)[:limit]
+
+
+def _mark(text, needle):
+    """The text cut into parts, the matches of the needle marked: [("trin", True), ...]."""
+    folded = _fold(text)
+    parts = []
+    start = 0
+    while needle and (found := folded.find(needle, start)) != -1:
+        if found > start:
+            parts.append((text[start:found], False))
+        parts.append((text[found : found + len(needle)], True))
+        start = found + len(needle)
+    if start < len(text):
+        parts.append((text[start:], False))
+    return parts

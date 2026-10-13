@@ -5,6 +5,7 @@ from . import views
 app_name = "vocabulary"
 
 urlpatterns = [
+    path("search/", views.search, name="search"),
     path("decks/new/", views.deck_create, name="deck_create"),
     path("decks/<int:pk>/", views.deck_detail, name="deck_detail"),
     path("decks/<int:pk>/new/", views.deck_create_child, name="deck_create_child"),

@@ -265,3 +265,20 @@ document.addEventListener("keydown", function (event) {
     flipHardWord(card);
   }
 });
+
+// "/" jumps into the search field (on the dashboard and the search page); not while typing
+// in a field
+document.addEventListener("keydown", function (event) {
+  if (event.key !== "/" || event.ctrlKey || event.metaKey || event.altKey) {
+    return;
+  }
+  if (event.target.closest("input, textarea, select, [contenteditable]")) {
+    return;
+  }
+  const field = document.querySelector("[data-search-input]");
+  if (field) {
+    event.preventDefault();
+    field.focus();
+    field.select();
+  }
+});

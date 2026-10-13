@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Hledat" %} · Vokie{% endblock %}
+
+{% block content %}
+  <h1>🔍 {% translate "Hledat" %}</h1>
+  <p class="muted">{% translate "Hledá se ve všech tvých slovnících: slovo, překlad, věta i poznámka, bez ohledu na háčky a velká písmena." %}</p>
+  {% include "vocabulary/_search_field.html" with autofocus=True results=True %}
+{% endblock %}

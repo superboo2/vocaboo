@@ -466,6 +466,18 @@ the browser and paused while the page is hidden (another app, locked phone).
 
 ### 14. Dashboard, statistics and word page
 
+- **Hledat** (a field at the top of the dashboard, the key **/** jumps into it; Enter without
+  JavaScript opens `/search/?q=cetka`): all the user's words, in every variant, the sentence and its
+  translation and the note, without accents and case (`cetka` finds `Četka`), from 2 letters,
+  live while typing (HTMX). Words matching in the word or translation come first, then the ones
+  with the text in a sentence or note; the match is marked, each word shows its decks (last 3
+  levels of the path), a link to the word page and ✎ to edit; at most 50 results.
+
+```python
+services.search_terms(user, "impose")
+# [SearchHit(term=impose → obtěžovat, ...), SearchHit(term=trinket → cetka, found_in=[...])]
+```
+
 - **Statistiky** (`/stats/`, in the navigation; on a phone only the icon 📊): tiles with the number
   of words, words known (foreign → native right at least twice in a row), the streak of days in a
   row 🔥 and answers; a line chart of all words week by week (12 weeks, values on the y axis, e.g.

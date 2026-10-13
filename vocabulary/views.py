@@ -281,6 +281,20 @@ def _fresh_term_form(deck):
     return form
 
 
+def search(request):
+    """Search in the user's words; HTMX sends only the results while typing."""
+    query = request.GET.get("q", "")
+    context = {
+        "query": query,
+        "hits": services.search_terms(request.user, query),
+        "too_short": len(query.strip()) < services.SEARCH_MIN_LENGTH,
+        "limit": services.SEARCH_LIMIT,
+    }
+    if request.headers.get("HX-Request") == "true":
+        return render(request, "vocabulary/_search_results.html", context)
+    return render(request, "vocabulary/search.html", context)
+
+
 def _suggestions(request, deck, foreign):
     if not request.user.show_suggestions:
         return None

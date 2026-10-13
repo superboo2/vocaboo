@@ -16,6 +16,8 @@
   </div>
 
   {% if roots %}
+    {% include "vocabulary/_search_field.html" with query="" %}
+
     <section class="dashboard-today">
       <h2>{% translate "Dnešní testy" %}</h2>
       {% if today.rows %}

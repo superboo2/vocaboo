@@ -319,7 +319,7 @@ def test_long_deck_path_shows_the_last_three():
         5: ("E02", 4),
     }
 
-    path = stats._deck_path(5, names)
+    path = vocabulary.deck_path(5, names)
 
     assert path["short"] == "… › Two and Half Men › S01 › E02"
     assert path["full"] == "CzechEnglish › series › Two and Half Men › S01 › E02"

@@ -1770,3 +1770,54 @@ main:focus {
   font-weight: bold;
 }
 
+
+/* Search: the field and one row for each word found */
+.search-form {
+  margin-bottom: 0.5rem;
+}
+
+.search-form input {
+  margin-bottom: 0;
+}
+
+/* Pico makes a search field round (its own --pico-border-radius on it); Pico's normal value
+   again, so the corners are like the other fields. The form has no role="search" on purpose:
+   Pico would round it too. */
+.search-form input[type="search"] {
+  --pico-border-radius: 0.25rem;
+}
+
+#search-results:not(:empty) {
+  margin-bottom: calc(var(--pico-spacing) * 1.5);
+}
+
+.search-hits {
+  margin: 0.5rem 0 0;
+  padding: 0;
+}
+
+.search-hit {
+  list-style: none;
+  padding: 0.5rem 0.25rem;
+  border-bottom: 1px solid var(--pico-muted-border-color);
+}
+
+.search-found {
+  font-size: 0.9rem;
+}
+
+.search-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+}
+
+.search-hit .search-edit {
+  color: var(--pico-muted-color);
+  text-decoration: none;
+}
+
+.search-hit mark {
+  padding: 0 0.1rem;
+}
