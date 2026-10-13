@@ -454,7 +454,7 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
 
 .legend {
   padding: 0.75rem 1rem;
-  margin-bottom: var(--pico-spacing);
+  margin-top: var(--pico-spacing);
   border-left: 0.25rem solid var(--pico-primary);
   background: var(--pico-card-sectioning-background-color);
   border-radius: var(--pico-border-radius);
@@ -462,6 +462,58 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
 
 .legend p {
   margin-bottom: 0.5rem;
+}
+
+/* One row per button: the button as it looks, name with the key, what it does */
+.legend-list {
+  display: grid;
+  grid-template-columns: 3rem minmax(9rem, auto) 1fr;
+  gap: 0.4rem 0.75rem;
+  align-items: center;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  font-size: 0.9rem;
+}
+
+.legend-list li {
+  display: contents;
+  list-style: none;
+}
+
+.legend-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--pico-border-radius);
+  font-size: 1.1rem;
+}
+
+.legend-plain {
+  color: var(--pico-muted-color);
+  font-size: 0.75rem;
+}
+
+.legend-plain:not(.legend-wide) {
+  font-size: 0.95rem;
+}
+
+.legend-name .hotkey {
+  margin-left: 0.2rem;
+}
+
+/* On a phone: what it does under the name */
+@media (max-width: 576px) {
+  .legend-list {
+    grid-template-columns: 3rem 1fr;
+  }
+
+  .legend-what {
+    grid-column: 2;
+    margin-top: -0.35rem;
+    font-size: 0.8rem;
+  }
 }
 
 .legend button {
@@ -723,6 +775,12 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
 
 .study-footer form {
   margin: 0;
+}
+
+/* ? and ✏️ together on the left, "Ukončit test" on the right */
+.study-tools {
+  display: flex;
+  gap: 0.5rem;
 }
 
 .study-footer button {

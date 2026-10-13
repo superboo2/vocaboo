@@ -189,6 +189,12 @@
       flip();
       return;
     }
+    // E opens the edit of the word
+    if (event.key.toLowerCase() === "e") {
+      event.preventDefault();
+      editTerm();
+      return;
+    }
     // P plays the word, V reads the sentence
     const speakKinds = { p: "word", v: "sentence" };
     const kind = speakKinds[event.key.toLowerCase()];
@@ -206,6 +212,20 @@
         event.preventDefault();
         button.click();
       }
+    }
+  });
+
+  // ✏️: edit the word of the shown card; saving (or not) comes back to the same card
+  function editTerm() {
+    const shown = document.getElementById("card");
+    if (shown && shown.dataset.editUrl) {
+      window.location.href = shown.dataset.editUrl;
+    }
+  }
+
+  document.addEventListener("click", function (event) {
+    if (event.target.closest("[data-action='edit-term']")) {
+      editTerm();
     }
   });
 

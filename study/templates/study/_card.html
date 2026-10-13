@@ -2,7 +2,7 @@
 {# One flash card. After a rating HTMX puts the next card in place of this one. #}
 {# Both sides are in the page; turning the card is done in the browser (study.js). #}
 {# data-autoplay: what study.js reads by itself ("word" or "sentence"), data-direction: when #}
-<div id="card" class="card-box" data-card data-direction="{{ card.direction }}"{% if user.autoplay_pronunciation %} data-autoplay="{{ user.autoplay_content }}"{% endif %}>
+<div id="card" class="card-box" data-card data-direction="{{ card.direction }}"{% if user.autoplay_pronunciation %} data-autoplay="{{ user.autoplay_content }}"{% endif %}{% if card.deck_term %} data-edit-url="{% url 'vocabulary:term_edit' card.deck_term.deck_id card.deck_term.pk %}?test={{ session.pk }}"{% endif %}>
   <p class="card-progress muted">
     {% blocktranslate with done=session.answered left=remaining %}Hotovo {{ done }} · zbývá {{ left }}{% endblocktranslate %}
     · <small>{{ card.state.get_direction_display }}</small>

@@ -333,7 +333,10 @@ What the app takes from it:
 
 - **Translation suggestions** while a foreign word is typed: `present` → *dárek* (podst. jm.),
   *současnost* (podst. jm.), *představit* (slov.). A click puts the suggestion into the
-  translation field. Other spellings are found too (`mum` → the entry `mom`).
+  translation field. Other spellings are found too (`mum` → the entry `mom`). The edit form
+  shows them too, right away for the word in the form. When the foreign word changes after a
+  choice, the sentence filled in from the suggestion is taken away again (it belonged to the
+  old word, e.g. `impose` → `trinket`); a sentence the user wrote or changed stays.
 - **Other meanings** on the back of the card and on the word page (see above).
 - **IPA** under the foreign word, when the user turns it on.
 - **Example sentence** in the summary of a test (*Tohle slovíčko ti nejde*, *Použít*): the
@@ -451,6 +454,12 @@ services.hard_word_without_sentence(session)
 With a sentence translation the native → foreign card shows it on the front above the gap
 (`„Mně se ta písnička také nelíbí.“ / „I don't like this song ___.“`), the foreign → native card
 on the back.
+
+**✎** under the card (or the key **E**) opens the edit of the word, e.g. to fix a typo:
+`/decks/4/words/19/edit/?test=52`. With a running test the form has *Uložit a zpět do testu* and
+*Neukládat a zpět do testu* (no *Odebrat z tohoto slovníku*); both go back to the test, and the
+same card comes again because it was not rated yet. Without `?test`, or with a finished test,
+the form works as before.
 
 The time until the card is turned (`think_ms`) and until the rating (`decide_ms`) is measured in
 the browser and paused while the page is hidden (another app, locked phone).

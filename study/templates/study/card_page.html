@@ -1,29 +1,63 @@
 {% extends "base.html" %}
-{% load i18n static %}
+{% load i18n static study_tags %}
 
 {% block title %}{% translate "Test" %} · Vokie{% endblock %}
 
 {% block content %}
   <div class="study">
-    {# Legend of the buttons: shown at the first test, then only after clicking "?" #}
-    <aside id="legend" class="legend" hidden>
-      <p>
-        {% for rating in ratings %}<span>{{ rating.emoji }} {{ rating.label|lower }}</span>{% if not forloop.last %} · {% endif %}{% endfor %}
-      </p>
-      <p class="muted">{% translate "Mezerník otočí kartičku, klávesy 1–4 ji ohodnotí, P přehraje výslovnost a V přečte větu." %}</p>
-      <button type="button" class="outline secondary" data-action="close-legend">{% translate "Rozumím" %}</button>
-    </aside>
-
     {% include "study/_card.html" %}
 
     <div class="study-footer">
-      <button type="button" class="outline secondary" data-action="toggle-legend"
-              aria-label="{% translate 'Nápověda k tlačítkům' %}" title="{% translate 'Nápověda k tlačítkům' %}">?</button>
+      <div class="study-tools">
+        <button type="button" class="outline secondary" data-action="toggle-legend"
+                aria-label="{% translate 'Nápověda k tlačítkům' %}" title="{% translate 'Nápověda k tlačítkům' %}">?</button>
+        {# Edit the word of the card (a typo, a wrong translation), then back to the same card; #}
+        {# ✎ is a plain text symbol, grey like "?" (an emoji would draw too much attention) #}
+        <button type="button" class="outline secondary" data-action="edit-term"
+                aria-label="{% translate 'Upravit slovíčko' %}" title="{% translate 'Upravit slovíčko (E)' %}">✎</button>
+      </div>
       <form method="post" action="{% url 'study:finish' session.pk %}">
         {% csrf_token %}
         <button type="submit" class="outline secondary">{% translate "Ukončit test" %}</button>
       </form>
     </div>
+
+    {# Legend of the buttons: shown at the first test, then only after clicking "?". Under #}
+    {# the buttons, so the card does not move down when it opens. Each row: the button as it #}
+    {# looks, its name with the key (only with a keyboard) and what it does. The intervals #}
+    {# come from study/ratings.py, like on the help page. #}
+    <aside id="legend" class="legend" hidden>
+      <ul class="legend-list">
+        {% for rating in ratings %}
+          <li>
+            <span class="legend-button rating-{{ rating.key }}" aria-hidden="true">{{ rating.emoji }}</span>
+            <span class="legend-name">{{ rating.label }} <kbd class="hotkey">{{ rating.hotkey }}</kbd></span>
+            <span class="legend-what muted">{% if rating.multiplier %}{% blocktranslate with first=rating.min_interval|interval %}poprvé za {{ first }}, pak víckrát delší{% endblocktranslate %}{% else %}{% blocktranslate with first=rating.min_interval|interval %}vždy znovu za {{ first }}{% endblocktranslate %}{% endif %}</span>
+          </li>
+        {% endfor %}
+        <li>
+          <span class="legend-button legend-plain legend-wide" aria-hidden="true">{% translate "Ukázat" %}</span>
+          <span class="legend-name">{% translate "Ukázat" %} <kbd class="hotkey">␣</kbd></span>
+          <span class="legend-what muted">{% translate "otočí kartičku" %}</span>
+        </li>
+        <li>
+          <span class="legend-button legend-plain" aria-hidden="true">🔊</span>
+          <span class="legend-name">{% translate "Přehrát" %} <kbd class="hotkey">P</kbd> <kbd class="hotkey">V</kbd></span>
+          <span class="legend-what muted">{% translate "přečte slovo (P) nebo větu (V)" %}</span>
+        </li>
+        <li>
+          <span class="legend-button legend-plain" aria-hidden="true">✎</span>
+          <span class="legend-name">{% translate "Upravit" %} <kbd class="hotkey">E</kbd></span>
+          <span class="legend-what muted">{% translate "upraví slovíčko a vrátí se ke kartičce" %}</span>
+        </li>
+        <li>
+          <span class="legend-button legend-plain legend-wide" aria-hidden="true">{% translate "Ukončit" %}</span>
+          <span class="legend-name">{% translate "Ukončit test" %}</span>
+          <span class="legend-what muted">{% translate "skončí a ukáže souhrn" %}</span>
+        </li>
+      </ul>
+      <button type="button" class="outline secondary" data-action="close-legend">{% translate "Rozumím" %}</button>
+    </aside>
   </div>
 
   <script src="{% static 'js/study.js' %}" defer></script>

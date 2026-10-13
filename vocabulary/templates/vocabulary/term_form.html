@@ -8,6 +8,7 @@
 
   <article class="form-box">
     <header>
+      {% if test %}<p class="muted"><small>{% translate "Úprava slovíčka během testu" %}</small></p>{% endif %}
       <h1>{% translate "Upravit slovíčko" %}</h1>
       {% if other_decks %}
         <p class="muted">
@@ -23,19 +24,31 @@
       {{ form.non_field_errors }}
       {{ form.foreign.as_field_group }}
       {{ form.native.as_field_group }}
+      {# The same suggestions as when adding a word, already for the word in the form #}
+      {% if user.show_suggestions %}
+        {% include "vocabulary/_term_suggest.html" with result=suggestions %}
+      {% endif %}
       <div class="grid">
         <div>{{ form.context_sentence.as_field_group }}</div>
         <div>{{ form.context_sentence_native.as_field_group }}</div>
       </div>
       {{ form.note.as_field_group }}
       <div class="actions">
-        <button type="submit">{% translate "Uložit" %}</button>
-        <a href="{% url 'vocabulary:deck_detail' deck.pk %}" role="button" class="secondary outline">{% translate "Zrušit" %}</a>
+        {% if test %}
+          <button type="submit">{% translate "Uložit a zpět do testu" %}</button>
+          <a href="{% url 'study:card' test.pk %}" role="button" class="secondary outline">{% translate "Neukládat a zpět do testu" %}</a>
+        {% else %}
+          <button type="submit">{% translate "Uložit" %}</button>
+          <a href="{% url 'vocabulary:deck_detail' deck.pk %}" role="button" class="secondary outline">{% translate "Zrušit" %}</a>
+        {% endif %}
       </div>
     </form>
 
-    <footer>
-      <a href="{% url 'vocabulary:term_remove' deck.pk deck_term.pk %}">{% translate "Odebrat z tohoto slovníku" %}</a>
-    </footer>
+    {# Not during a test: the card would be gone from under it #}
+    {% if not test %}
+      <footer>
+        <a href="{% url 'vocabulary:term_remove' deck.pk deck_term.pk %}">{% translate "Odebrat z tohoto slovníku" %}</a>
+      </footer>
+    {% endif %}
   </article>
 {% endblock %}

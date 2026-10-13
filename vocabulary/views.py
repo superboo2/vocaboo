@@ -9,6 +9,7 @@ from django.views.decorators.http import require_POST
 from dictionary.providers import get_pronunciation, get_suggestions, other_meanings
 from study import services as study_services
 from study.formatting import czech_plural
+from study.models import StudySession
 
 from . import services
 from .forms import (
@@ -280,16 +281,18 @@ def _fresh_term_form(deck):
     return form
 
 
+def _suggestions(request, deck, foreign):
+    if not request.user.show_suggestions:
+        return None
+    # The form field can hold more variants ("hello; hi"), the first one is the word
+    word = foreign.split(";")[0]
+    return get_suggestions(word, deck.foreign_language.code, deck.native_language.code)
+
+
 def term_suggest(request, pk):
     """Translation suggestions while the foreign word is typed (HTMX, see _term_suggest.html)."""
     deck = _get_deck(request, pk)
-    result = None
-    if request.user.show_suggestions:
-        result = get_suggestions(
-            request.GET.get("foreign", ""),
-            deck.foreign_language.code,
-            deck.native_language.code,
-        )
+    result = _suggestions(request, deck, request.GET.get("foreign", ""))
     return render(request, "vocabulary/_term_suggest.html", {"deck": deck, "result": result})
 
 
@@ -407,8 +410,17 @@ def term_add_meaning(request, deck_pk, pk):
     return redirect("vocabulary:term_detail", deck_pk=deck_pk, pk=pk)
 
 
+def _running_test(request):
+    """The test the edit was opened from (?test=pk, button ✏️ on the card), or None."""
+    pk = request.GET.get("test", "")
+    if not pk.isdigit():
+        return None
+    return StudySession.objects.filter(pk=pk, user=request.user, finished_at__isnull=True).first()
+
+
 def term_edit(request, deck_pk, pk):
     deck_term = _get_deck_term(request, deck_pk, pk)
+    test = _running_test(request)
     deck = deck_term.deck
     term = deck_term.term
     initial = {
@@ -437,6 +449,9 @@ def term_edit(request, deck_pk, pk):
             add_service_errors(form, error)
         else:
             messages.success(request, _("Změny jsou uložené."))
+            if test:
+                # Back to the test: the same card comes again, now fixed
+                return redirect("study:card", pk=test.pk)
             return redirect("vocabulary:deck_detail", pk=deck.pk)
     other_decks = term.deck_terms.exclude(pk=deck_term.pk).select_related("deck")
     return render(
@@ -448,6 +463,8 @@ def term_edit(request, deck_pk, pk):
             "deck_term": deck_term,
             "other_decks": [item.deck for item in other_decks],
             "ancestors": services.get_ancestors(deck),
+            "test": test,
+            "suggestions": _suggestions(request, deck, form["foreign"].value() or ""),
         },
     )
 

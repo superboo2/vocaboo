@@ -231,3 +231,52 @@ def test_start_buttons_on_dashboard_and_deck(logged_client, himym):
 
     assert reverse("study:new") in dashboard
     assert f"{reverse('study:new')}?deck={himym.pk}" in deck
+
+
+# Edit the word during a test (✏️)
+
+
+def test_card_links_to_edit_of_its_word(logged_client, user, himym, words):
+    session = new_session(user, himym)
+    state = services.next_card(session)
+    deck_term = state.term.deck_terms.get()
+
+    html = logged_client.get(reverse("study:card", args=[session.pk])).content.decode()
+
+    url = reverse("vocabulary:term_edit", args=[himym.pk, deck_term.pk])
+    assert f'data-edit-url="{url}?test={session.pk}"' in html
+    assert 'data-action="edit-term"' in html
+
+
+def test_edit_from_test_goes_back_to_the_same_card(logged_client, user, himym, words):
+    session = new_session(user, himym)
+    state = services.next_card(session)
+    deck_term = state.term.deck_terms.get()
+    url = reverse("vocabulary:term_edit", args=[himym.pk, deck_term.pk]) + f"?test={session.pk}"
+
+    page = logged_client.get(url).content.decode()
+    assert "Uložit a zpět do testu" in page
+    assert "Neukládat a zpět do testu" in page
+    assert "Odebrat z tohoto slovníku" not in page
+
+    response = logged_client.post(url, {"foreign": "helo", "native": "ahoj"})
+
+    assert response.url == reverse("study:card", args=[session.pk])
+    state.term.refresh_from_db()
+    assert state.term.main_foreign == "helo"
+    # The card was not rated, so it comes again, now fixed
+    assert services.next_card(session).pk == state.pk
+    assert ReviewLog.objects.filter(session=session).count() == 0
+
+
+def test_edit_without_test_or_with_finished_test_goes_to_the_deck(
+    logged_client, user, himym, words
+):
+    session = new_session(user, himym)
+    services.finish_session(session)
+    deck_term = words[0].deck_terms.get()
+    url = reverse("vocabulary:term_edit", args=[himym.pk, deck_term.pk])
+
+    for address in (url, f"{url}?test={session.pk}", f"{url}?test=x"):
+        response = logged_client.post(address, {"foreign": "hello", "native": "ahoj"})
+        assert response.url == reverse("vocabulary:deck_detail", args=[himym.pk])

@@ -19,6 +19,9 @@ document.addEventListener("click", function (event) {
   if (sentence && button.dataset.sentence && !sentence.value.trim() && !sentenceNative.value.trim()) {
     sentence.value = button.dataset.sentence;
     sentenceNative.value = button.dataset.sentenceNative || "";
+    // Remember what was filled in, so a change of the foreign word can take it away again
+    sentence.dataset.autofilled = sentence.value;
+    sentenceNative.dataset.autofilled = sentenceNative.value;
     updateMoreSummary(form);
   }
   // The suggestions disappear after a choice; the row keeps its height
@@ -51,6 +54,28 @@ function updateMoreSummary(form) {
 document.addEventListener("input", function (event) {
   if (event.target.matches("[name='context_sentence'], [name='context_sentence_native'], [name='note']")) {
     updateMoreSummary(event.target.closest("form"));
+  }
+});
+
+// Another foreign word: the sentence filled in from a suggestion belongs to the old word
+// (impose → trinket), so it goes away. A sentence the user wrote or changed stays.
+document.addEventListener("input", function (event) {
+  if (!event.target.matches("[name='foreign']")) {
+    return;
+  }
+  const form = event.target.closest("form");
+  let removed = false;
+  form.querySelectorAll("[name='context_sentence'], [name='context_sentence_native']").forEach(function (field) {
+    if (field.dataset.autofilled !== undefined) {
+      if (field.value === field.dataset.autofilled) {
+        field.value = "";
+        removed = true;
+      }
+      delete field.dataset.autofilled;
+    }
+  });
+  if (removed) {
+    updateMoreSummary(form);
   }
 });
 

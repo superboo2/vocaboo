@@ -47,6 +47,8 @@ class Card:
     also: list = field(default_factory=list)
     # (rating, interval) for every button
     preview: list = field(default_factory=list)
+    # The word in a deck of the test (DeckTerm), for the button ✏️ (edit during the test)
+    deck_term: object = None
 
     @property
     def is_f2n(self):
@@ -85,6 +87,8 @@ def _add_sentence(card, session, foreign, native):
     if not session.terms.exists():
         deck_terms = deck_terms.filter(deck_id__in=session_deck_ids(session))
 
+    deck_terms = list(deck_terms)
+    card.deck_term = deck_terms[0] if deck_terms else card.term.deck_terms.first()
     with_sentence = [item for item in deck_terms if item.context_sentence]
     if not with_sentence:
         return

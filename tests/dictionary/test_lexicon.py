@@ -240,3 +240,31 @@ def test_add_other_meaning_needs_post_and_own_word(client, other_user, deck, imp
 
     assert client.get(url).status_code == 405
     assert client.post(url, {"translation": "současnost"}).status_code == 404
+
+
+def test_edit_page_shows_suggestions_for_the_word(client, user, deck, imported):
+    from vocabulary import services as vocabulary
+
+    deck_term = vocabulary.add_term(deck, foreign="palm; palms", native="dlaň")
+    client.force_login(user)
+
+    url = reverse("vocabulary:term_edit", args=[deck.pk, deck_term.pk])
+    html = client.get(url).content.decode()
+
+    # Right away for the first variant, and they change while the word is typed
+    assert 'id="term-suggest"' in html
+    assert 'data-translation="palma"' in html
+
+
+def test_edit_page_without_suggestions_when_turned_off(client, user, deck, imported):
+    from vocabulary import services as vocabulary
+
+    deck_term = vocabulary.add_term(deck, foreign="palm", native="dlaň")
+    user.show_suggestions = False
+    user.save()
+    client.force_login(user)
+
+    url = reverse("vocabulary:term_edit", args=[deck.pk, deck_term.pk])
+    html = client.get(url).content.decode()
+
+    assert 'id="term-suggest"' not in html

@@ -86,7 +86,7 @@ Pole navíc oproti `AbstractUser`:
 |---|---|---|
 | `native_language` | FK Language | výchozí rodný jazyk |
 | `default_direction` | enum | `F2N` / `N2F` / `MIXED` |
-| `show_suggestions` | bool, výchozí `True` | návrhy překladu při přidávání slovíčka (5.2), vypíná se v Nastavení |
+| `show_suggestions` | bool, výchozí `True` | návrhy překladu při přidávání i úpravě slovíčka (5.2), vypíná se v Nastavení |
 | `show_other_meanings` | bool, výchozí `True` | další významy ze slovníku na zadní straně kartičky (6.4) |
 | `autoplay_pronunciation` | bool, výchozí `True` | přečíst cizí slovo samo (F→N hned, N→F po otočení) |
 | `autoplay_content` | `word` / `sentence`, výchozí `word` | co se přečte: slovo, nebo celá věta (bez věty slovo) |
@@ -339,7 +339,7 @@ Velikost písmen se při kontrole ignoruje (`Ahoj` = `ahoj`), zobrazí se ale ta
 
 ### 5.2 Vlastní slovník aplikace: návrhy překladu, další významy, IPA, příklady (hotovo)
 
-**Hotovo:** aplikace má **vlastní anglicko-český slovník** (asi 10 000 hesel; obsah vytvořila AI, nic se nepřebírá z Wiktionary ani jiných slovníků, takže se zdroj neuvádí). Originál je soubor JSONL `dictionary/data/lexicon_en_cs.jsonl` + `lexicon_tags.json` (není v gitu, na server se kopíruje ručně), do databáze ho nahraje příkaz `import_lexicon` (další import data nahradí). Tabulky: `LexiconEntry` (slovo + slovní druh, jazykový pár, pásmo častosti 1–15 v mluvené řeči, úroveň CEFR, IPA), `LexiconForm` (texty, podle kterých se heslo hledá: heslo a jiné zápisy, malými písmeny, s indexem), `LexiconSense` (pořadí, překlad s variantami `;`, poznámka, věta a její překlad se `{…}`, tagy) a `LexiconTag` (pevný seznam, dvě úrovně). Použití: **návrhy** při psaní cizího slova (významy seřazené podle pásma a pořadí, se zkratkou slovního druhu a poznámkou v titulku), **další významy** na kartičce a v detailu slovíčka, **IPA** (když si ji uživatel zapne) a **příklad věty** na konci testu (věta významu, jehož překlad sedí na překlad slovíčka). Zvuk dělá jen hlas prohlížeče. Zatím jen angličtina → čeština. Wiktionary (výtah kaikki.org, tabulka `DictionaryEntry`, příkaz `import_wiktionary`, nahrávky z Wikimedia Commons) bylo odstraněno.
+**Hotovo:** aplikace má **vlastní anglicko-český slovník** (asi 10 000 hesel; obsah vytvořila AI, nic se nepřebírá z Wiktionary ani jiných slovníků, takže se zdroj neuvádí). Originál je soubor JSONL `dictionary/data/lexicon_en_cs.jsonl` + `lexicon_tags.json` (není v gitu, na server se kopíruje ručně), do databáze ho nahraje příkaz `import_lexicon` (další import data nahradí). Tabulky: `LexiconEntry` (slovo + slovní druh, jazykový pár, pásmo častosti 1–15 v mluvené řeči, úroveň CEFR, IPA), `LexiconForm` (texty, podle kterých se heslo hledá: heslo a jiné zápisy, malými písmeny, s indexem), `LexiconSense` (pořadí, překlad s variantami `;`, poznámka, věta a její překlad se `{…}`, tagy) a `LexiconTag` (pevný seznam, dvě úrovně). Použití: **návrhy** při psaní cizího slova, při přidání i úpravě (významy seřazené podle pásma a pořadí, se zkratkou slovního druhu a poznámkou v titulku; věta doplněná z návrhu se po změně cizího slova zase smaže, pokud ji uživatel neupravil), **další významy** na kartičce a v detailu slovíčka, **IPA** (když si ji uživatel zapne) a **příklad věty** na konci testu (věta významu, jehož překlad sedí na překlad slovíčka). Zvuk dělá jen hlas prohlížeče. Zatím jen angličtina → čeština. Wiktionary (výtah kaikki.org, tabulka `DictionaryEntry`, příkaz `import_wiktionary`, nahrávky z Wikimedia Commons) bylo odstraněno.
 
 **Další možný krok:** tematické slovníky podle tagů (např. *Zvířata, 30 nejčastějších*), *další nejčastější slova, která ještě nemáš* podle pásem, další jazyky přes stejné rozhraní (`dictionary/providers.py`).
 
@@ -479,6 +479,7 @@ Opakované „Vím“: 7 dní → 28 → 112 → 1 rok. Opakované „Po zamyšl
 #### Ovládání z klávesnice (počítač)
 - **mezerník** otočí kartičku,
 - **`1`–`4`** vyberou hodnocení. Malá nápověda s číslem je na tlačítku, jen na počítači.
+- **`E`** (nebo ✎ vedle **?** pod kartičkou) otevře úpravu slovíčka (`term_edit` s `?test=<id>`); tlačítka *Uložit a zpět do testu* / *Neukládat a zpět do testu* vrací do testu na stejnou kartičku (ještě nebyla ohodnocená). Během testu se ve formuláři neukazuje *Odebrat z tohoto slovníku*.
 
 #### Návrh pro snadné budoucí úpravy
 - V MVP jsou tlačítka **konstanta v kódu** (`study/ratings.py`): klíč, emoji, název, výsledek, minimum, násobek (nebo žádný = pevný interval), maximum a klávesa. V MVP se pro ně nedělá tabulka ani obrazovka nastavení.
