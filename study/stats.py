@@ -8,7 +8,7 @@ numbers are counted in Python from simple queries.
 from collections import Counter
 from datetime import timedelta
 
-from django.db.models import Count, Max, OuterRef, Q, Subquery
+from django.db.models import Count, Max, Min, OuterRef, Q, Subquery
 from django.utils import timezone
 
 from vocabulary.models import DeckTerm, Term
@@ -36,6 +36,9 @@ CHART_WEEKS = 12
 RECENT_TESTS = 10
 TESTS_DAYS = 14
 WEEKDAY_SHORT = ["po", "út", "st", "čt", "pá", "so", "ne"]
+
+# Days in the bar chart of the dashboard (today is the last one)
+WEEK_DAYS = 7
 
 # Periods of the fun facts: key in the URL (?period=30) → (days or None for all, name)
 PERIODS = {"7": (7, "7 dní"), "30": (30, "30 dní"), "all": (None, "Vše")}
@@ -78,9 +81,7 @@ def user_statistics(user, now=None, period=DEFAULT_PERIOD):
     today = _local_day(now)
     terms = list(Term.objects.filter(owner=user).values_list("created_at", "main_foreign", "pk"))
     logs = _logs(user)
-    known = ReviewState.objects.filter(
-        term__owner=user, direction=Direction.F2N, correct_streak__gte=KNOWN_STREAK
-    ).count()
+    known = known_words(user)
     tested = {row[5] for row in logs}
 
     return {
@@ -94,6 +95,13 @@ def user_statistics(user, now=None, period=DEFAULT_PERIOD):
         "has_terms": bool(terms),
         "has_logs": bool(logs),
     }
+
+
+def known_words(user):
+    """Words the user knows: foreign → native right KNOWN_STREAK times in a row ("umíš")."""
+    return ReviewState.objects.filter(
+        term__owner=user, direction=Direction.F2N, correct_streak__gte=KNOWN_STREAK
+    ).count()
 
 
 def recent_tests(user, now=None):
@@ -120,22 +128,135 @@ def recent_tests(user, now=None):
     return {"rows": rows, "summary": summary}
 
 
-def today_tests(user, now=None):
-    """The tests started today (for the dashboard), with a line about the whole day."""
+def today_overview(user, now=None):
+    """Today on the dashboard, only good news of the tests, each with its last WEEK_DAYS days
+    for a small bar chart (today is the last day), and the words added today:
+
+    - added: words added (still in a deck), only today,
+    - first right: words right (😎 or 🤔, any direction) for the first time ever,
+    - learned: words for the first time right KNOWN_STREAK times in a row foreign → native
+      (the same "umíš" as on the statistics page),
+    - tested: different words in the tests (both directions count once),
+    - minutes: the length of the tests (to the last answer), by the day the test began.
+    """
     now = now or timezone.now()
+    today = _local_day(now)
+    days = [today - timedelta(days=back) for back in range(WEEK_DAYS - 1, -1, -1)]
     midnight = timezone.localtime(now).replace(hour=0, minute=0, second=0, microsecond=0)
-    tests = _tests(user).filter(started_at__gte=midnight)
-    rows = _test_rows(user, tests)
-    summary = ""
-    if rows:
-        cards = sum(row["cards"] for row in rows)
-        correct = sum(row["session"].correct_cards for row in rows)
-        summary = (
-            f"Dnes {len(rows)} {czech_plural(len(rows), 'test', 'testy', 'testů')} · "
-            f"{cards} {czech_plural(cards, 'slovíčko', 'slovíčka', 'slovíček')} · "
-            f"úspěšnost {round(100 * correct / cards)} %"
+    since = midnight - timedelta(days=WEEK_DAYS - 1)
+
+    added = Counter(
+        _local_day(created)
+        for created in Term.objects.filter(
+            owner=user, created_at__gte=since, deck_terms__isnull=False
         )
-    return {"rows": rows, "summary": summary}
+        .distinct()
+        .values_list("created_at", flat=True)
+    )
+    first_right = Counter(
+        _local_day(first)
+        for first in ReviewLog.objects.filter(user=user, result=Result.CORRECT)
+        .values("term_id")
+        .annotate(first=Min("reviewed_at"))
+        .filter(first__gte=since)
+        .values_list("first", flat=True)
+    )
+    learned = Counter()
+    in_a_row = Counter()
+    known = set()
+    for term_id, result, reviewed_at in (
+        ReviewLog.objects.filter(user=user, direction=Direction.F2N)
+        .order_by("reviewed_at", "pk")
+        .values_list("term_id", "result", "reviewed_at")
+    ):
+        in_a_row[term_id] = in_a_row[term_id] + 1 if result == Result.CORRECT else 0
+        if in_a_row[term_id] == KNOWN_STREAK and term_id not in known:
+            known.add(term_id)
+            if reviewed_at >= since:
+                learned[_local_day(reviewed_at)] += 1
+    tested = Counter(
+        day
+        for day, _term_id in {
+            (_local_day(reviewed_at), term_id)
+            for reviewed_at, term_id in ReviewLog.objects.filter(
+                user=user, reviewed_at__gte=since
+            ).values_list("reviewed_at", "term_id")
+        }
+    )
+    spent = Counter()
+    for started, last in (
+        _tests(user)
+        .filter(started_at__gte=since)
+        .annotate(last_answer=Max("logs__reviewed_at"))
+        .values_list("started_at", "last_answer")
+    ):
+        spent[_local_day(started)] += (last - started).total_seconds() / 60
+    minutes = Counter({day: round(value) for day, value in spent.items()})
+
+    def word(count):
+        return czech_plural(count, "slovíčko", "slovíčka", "slovíček")
+
+    def metric(key, icon, values, label, help_text, unit=""):
+        top = max(values[day] for day in days) or 1
+        return {
+            "key": key,
+            "icon": icon,
+            "value": f"{values[today]}{unit}",
+            "label": label,
+            # The tooltip of the number: what exactly is counted
+            "help": help_text,
+            "bars": [
+                {
+                    "value": f"{values[day]}{unit}",
+                    "height": f"{100 * values[day] / top:.0f}",
+                    "label": "dnes" if day == today else WEEKDAY_SHORT[day.weekday()],
+                    "title": f"{day.day}. {day.month}.",
+                    "today": day == today,
+                }
+                for day in days
+            ],
+        }
+
+    # Words added today are not one of the numbers (they are about the decks, the numbers are
+    # about the tests); the dashboard shows them next to all the words
+    return {
+        "added_today": added[today],
+        "metrics": [
+            metric(
+                "tested",
+                "📚",
+                tested,
+                f"{word(tested[today])} v testech",
+                "Různá slovíčka, která byla dnes v testech. Slovíčko v obou směrech "
+                "se počítá jednou.",
+            ),
+            metric(
+                "first",
+                "🎯",
+                first_right,
+                "poprvé správně",
+                "Slovíčka, u kterých byla dnes poprvé v historii odpověď 😎 nebo 🤔, "
+                "v kterémkoli směru. Každé slovíčko se počítá jednou.",
+            ),
+            metric(
+                "learned",
+                "🎓",
+                learned,
+                f"{word(learned[today])} naučeno",
+                "Slovíčka, která dnes poprvé splnila „umíš“: ve směru cizí → rodný "
+                "dvakrát po sobě správně. Druhá správná odpověď přijde až po intervalu, "
+                "u nových slovíček tedy nejdřív za pár dní.",
+            ),
+            metric(
+                "minutes",
+                "⏱️",
+                minutes,
+                "čas v testech",
+                "Jak dlouho dnes trvaly testy (od začátku testu do poslední odpovědi).",
+                " min",
+            ),
+        ],
+    }
 
 
 def _tests(user):

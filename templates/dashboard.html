@@ -7,7 +7,17 @@
   <script src="{% static 'vendor/sortable/Sortable.min.js' %}" defer></script>
   <script src="{% static 'js/tree.js' %}" defer></script>
   <div class="page-head">
-    <h1>{% translate "Přehled" %}</h1>
+    <div class="page-title">
+      <h1>{% translate "Přehled" %}</h1>
+      {# All words (a word in more decks once) and the ones known; a click opens the statistics #}
+      {% if roots %}
+        <a class="page-totals" href="{% url 'study:stats' %}">
+          <span title="{% translate 'Všechna tvoje slovíčka; slovíčko ve víc slovnících se počítá jednou. V závorce kolik jich dnes přibylo.' %}">{{ words_text }}{% if today.added_today %} (+{{ today.added_today }} {% translate "dnes" %}){% endif %}</span>
+          ·
+          <span title="{% translate 'Slovíčka, která umíš: ve směru cizí → rodný dvakrát po sobě správně.' %}">{% blocktranslate %}{{ known }} umíš{% endblocktranslate %}</span>
+        </a>
+      {% endif %}
+    </div>
     <div class="actions">
       {# The number of words to review is on the button, where the choice to test is made #}
       {% if roots %}<a href="{% url 'study:new' %}" role="button">{% translate "Spustit test" %}{% if totals.due %} · {% blocktranslate with count=totals.due %}{{ count }} k opakování{% endblocktranslate %}{% endif %}</a>{% endif %}
@@ -18,15 +28,7 @@
   {% if roots %}
     {% include "vocabulary/_search_field.html" with query="" %}
 
-    <section class="dashboard-today">
-      <h2>{% translate "Dnešní testy" %}</h2>
-      {% if today.rows %}
-        <p class="muted"><small>{{ today.summary }}</small></p>
-        {% include "study/_tests_table.html" with tests=today %}
-      {% else %}
-        <p class="muted">{% translate "Dnes ještě žádný test." %}</p>
-      {% endif %}
-    </section>
+    {% include "study/_today.html" %}
     {# Error from drag and drop (tree.js), outside the tree so it stays after the tree reloads #}
     <p id="tree-message" class="field-error" role="alert" hidden></p>
     {# Drag a deck to move it: with the mouse right away, on a phone after holding it a moment #}

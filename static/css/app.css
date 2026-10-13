@@ -158,6 +158,24 @@ button.danger {
   margin: 0;
 }
 
+/* The heading with small grey numbers next to it (under it on a phone) */
+.page-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 0.75rem;
+}
+
+.page-head a.page-totals {
+  color: var(--pico-muted-color);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.page-head a.page-totals:hover {
+  color: var(--pico-color);
+}
+
 /* Form pages */
 .form-box {
   max-width: 40rem;
@@ -1741,15 +1759,126 @@ main:focus {
   margin-top: calc(var(--pico-spacing) * 1.5);
 }
 
-/* "Dnešní testy" on the dashboard, above the decks */
-.dashboard-today {
+/* Today on the dashboard: a line with the tests and time, then the ring of today's ratings
+   and the bar chart of the last 7 days next to each other (one under the other on a phone) */
+.today {
   margin-bottom: calc(var(--pico-spacing) * 1.5);
 }
 
-.dashboard-today h2 {
-  font-size: 1.2rem;
-  margin-bottom: 0.25rem;
+
+/* Four numbers of today in a row (two in a row on a phone); they are buttons, the chosen
+   one has a blue line under it */
+.today-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
 }
+
+.today-stats .today-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0.4rem 0.5rem 0.5rem;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: var(--page-text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.today-stats .today-stat:hover {
+  border-bottom-color: var(--pico-muted-border-color);
+}
+
+.today-stats .today-stat[aria-selected="true"] {
+  border-bottom-color: var(--pico-primary-background);
+}
+
+.today-stat-value {
+  font-size: 1.35rem;
+  line-height: 1.2;
+}
+
+.today-stat-value span {
+  font-size: 1.1rem;
+}
+
+.today-title {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Bar chart of the chosen number: the value above each bar, the day under it */
+/* More room under the numbers, so the chart does not stick to them */
+.week-chart {
+  display: flex;
+  gap: 0.5rem;
+  height: 9rem;
+  margin-top: 1rem;
+}
+
+.week-chart[hidden] {
+  display: none;
+}
+
+.week-day {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+}
+
+.week-value,
+.week-label {
+  font-size: 0.75rem;
+  color: var(--pico-muted-color);
+  white-space: nowrap;
+}
+
+/* The space of the bar (with room on top for the value), so 100 % is the highest day; the
+   value sits right on top of its bar */
+.week-track {
+  position: relative;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+}
+
+.week-track .week-value {
+  margin-bottom: 0.15rem;
+}
+
+/* The other days light blue, today the full blue */
+.week-bar {
+  width: 100%;
+  min-height: 2px;
+  border-radius: 3px 3px 0 0;
+  background: color-mix(in srgb, var(--pico-primary-background) 35%, transparent);
+}
+
+.week-bar.is-today {
+  background: var(--pico-primary-background);
+}
+
+.week-label.is-today {
+  color: var(--pico-primary);
+  font-weight: bold;
+}
+
+@media (max-width: 576px) {
+  .today-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 
 .dashboard-hard h2 {
   font-size: 1.2rem;
@@ -1778,7 +1907,7 @@ main:focus {
 
 /* Search: the field and one row for each word found */
 .search-form {
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--pico-spacing);
 }
 
 .search-form input {

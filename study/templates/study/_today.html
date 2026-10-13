@@ -1,0 +1,28 @@
+{% load i18n %}
+{# Today on the dashboard (study/stats.py today_overview): four numbers of today's tests, #}
+{# only good news. They are also buttons: the chosen one shows its last 7 days in the bar chart under #}
+{# them (app.js), with the number above each bar and today in blue. #}
+<section class="today" aria-label="{% translate 'Dnes' %}">
+  <h2 class="today-title">{% translate "Dnes" %}</h2>
+  <div class="today-stats" role="tablist">
+    {% for item in today.metrics %}
+      <button type="button" class="today-stat" role="tab" data-today-metric="{{ item.key }}" title="{{ item.help }}"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
+        <span class="today-stat-value"><span aria-hidden="true">{{ item.icon }}</span> <strong>{{ item.value }}</strong></span>
+        <small class="muted">{{ item.label }}</small>
+      </button>
+    {% endfor %}
+  </div>
+  {% for item in today.metrics %}
+    <div class="week-chart" role="tabpanel" data-today-chart="{{ item.key }}"{% if not forloop.first %} hidden{% endif %}
+         aria-label="{{ item.label }} {% translate 'za posledních 7 dní' %}">
+      {% for bar in item.bars %}
+        <span class="week-day" title="{{ bar.title }}: {{ bar.value }}">
+          {# The value sits right on top of its bar #}
+          <span class="week-track"><small class="week-value">{{ bar.value }}</small><span class="week-bar{% if bar.today %} is-today{% endif %}" style="height: {{ bar.height }}%"></span></span>
+          <small class="week-label{% if bar.today %} is-today{% endif %}">{{ bar.label }}</small>
+        </span>
+      {% endfor %}
+    </div>
+  {% endfor %}
+</section>

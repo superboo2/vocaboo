@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 
 from study import services as study_services
 from study import stats
+from study.formatting import czech_plural
 from study.ratings import MAX_INTERVAL, RATINGS
 from vocabulary import services as vocabulary_services
 
@@ -22,11 +23,19 @@ def dashboard(request):
     totals = study_services.annotate_deck_counts(roots, request.user)
     # Cards "Co ti nejde" of the last 7 days, the same as on the statistics page
     hard_words = stats.hard_words(request.user) if roots else []
-    today = stats.today_tests(request.user) if roots else None
+    today = stats.today_overview(request.user) if roots else None
     return render(
         request,
         "dashboard.html",
-        {"roots": roots, "totals": totals, "hard_words": hard_words, "today": today},
+        {
+            "roots": roots,
+            "totals": totals,
+            "known": stats.known_words(request.user) if roots else 0,
+            "words_text": f"{totals['words']} "
+            + czech_plural(totals["words"], "slovíčko", "slovíčka", "slovíček"),
+            "hard_words": hard_words,
+            "today": today,
+        },
     )
 
 

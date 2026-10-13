@@ -282,3 +282,18 @@ document.addEventListener("keydown", function (event) {
     field.select();
   }
 });
+
+// Today on the dashboard: a click on a number shows its last 7 days in the chart under them
+document.addEventListener("click", function (event) {
+  const button = event.target.closest("[data-today-metric]");
+  if (!button) {
+    return;
+  }
+  const section = button.closest(".today");
+  section.querySelectorAll("[data-today-metric]").forEach(function (item) {
+    item.setAttribute("aria-selected", item === button ? "true" : "false");
+  });
+  section.querySelectorAll("[data-today-chart]").forEach(function (chart) {
+    chart.hidden = chart.dataset.todayChart !== button.dataset.todayMetric;
+  });
+});

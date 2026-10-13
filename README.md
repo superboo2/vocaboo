@@ -501,13 +501,18 @@ services.search_terms(user, "impose")
   longest thinking, 🐌 the oldest hard word (`přidáno před 45 dny`). Everything is counted from
   `Term` and `ReviewLog` when the page opens (`study/stats.py`); the chart is plain SVG without a
   chart library.
-- Above the decks the dashboard shows **Dnešní testy**: the tests started today in the same table
-  as on the statistics page, with a line about the day, e.g. `Dnes 3 testy · 54 slovíček ·
-  úspěšnost 78 %`, or `Dnes ještě žádný test.`
+- Above the decks the dashboard shows **Dnes** (`stats.today_overview`), only good news of the tests:
+  🎯 words right for the first time ever today (😎 or 🤔, any direction), 🎓 words learned today (for the first time right twice in a row foreign → native,
+  the same "umíš" as on the statistics page), 📚 different words in today's tests and ⏱️ the
+  time in tests. Each number is a tab: a click shows its last 7 days in a bar chart under
+  them (the value above each bar, the other days light blue, today blue), without reloading the
+  page.
 - Under the decks the dashboard shows **Co ti dnes nejde**: up to 3 smaller flip cards in one row,
   only from today's answers: 🐢 the longest thinking, 🦀 only one direction and 🐘 *Pořád dokola*
   (a word hard today with the most attempts in the whole history, at least 3, e.g. `zase nevím ·
   už 12. pokus`). The section is not there when nothing was hard today.
+- Next to the heading of the dashboard: `350 slovíček (+20 dnes) · 120 umíš` (all words, a word
+  in more decks once, the words added today, and the known ones; a click opens the statistics).
 - The button `Spustit test · 12 k opakování` says how many words are due now (only `Spustit test`
   when none is). Each deck in the tree has its words in brackets right after the name, e.g.
   `HIMYM (26)`, so it is easy to see in a big tree; when some words are due, their number

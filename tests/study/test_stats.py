@@ -325,36 +325,97 @@ def test_long_deck_path_shows_the_last_three():
     assert path["full"] == "CzechEnglish › series › Two and Half Men › S01 › E02"
 
 
-def test_today_tests_on_the_dashboard(client, user, deck):
+def test_today_good_news_and_week(client, user, deck):
     from study import services as study
 
     cat = vocabulary.add_term(deck, foreign="cat", native="kočka").term
     dog = vocabulary.add_term(deck, foreign="dog", native="pes").term
+    Term.objects.filter(pk=dog.pk).update(created_at=timezone.now() - timedelta(days=3))
+    # dog: right yesterday, right again today = learned today
     yesterday = study.start_session(user, [deck], direction="F2N")
     study.record_answer(yesterday, ReviewState.objects.get(term=dog, direction="F2N"), "ok")
+    ReviewLog.objects.filter(session=yesterday).update(
+        reviewed_at=timezone.now() - timedelta(days=1)
+    )
     StudySession.objects.filter(pk=yesterday.pk).update(
         started_at=timezone.now() - timedelta(days=1)
     )
     today = study.start_session(user, [deck])
-    study.record_answer(today, ReviewState.objects.get(term=cat, direction="F2N"), "ok")
-    study.record_answer(today, ReviewState.objects.get(term=cat, direction="N2F"), "dontknow")
+    for term in (dog, cat):
+        for direction in Direction.values:
+            state = ReviewState.objects.get(term=term, direction=direction)
+            study.record_answer(today, state, "ok")
+
+    overview = stats.today_overview(user)
+
+    metrics = {item["key"]: item for item in overview["metrics"]}
+    values = {key: (item["value"], item["label"]) for key, item in metrics.items()}
+    # Only cat was added today
+    assert overview["added_today"] == 1
+    assert "added" not in values
+    assert values["learned"] == ("1", "slovíčko naučeno")
+    # cat was right for the first time today, dog was right yesterday already
+    assert values["first"] == ("1", "poprvé správně")
+    # 2 words in the test, each in both directions, counted once
+    assert values["tested"] == ("2", "slovíčka v testech")
+    # 7 days for each, today last; yesterday dog was right for the first time
+    bars = metrics["first"]["bars"]
+    assert len(bars) == stats.WEEK_DAYS
+    assert [(bar["value"], bar["today"]) for bar in bars[-2:]] == [("1", False), ("1", True)]
+    assert bars[-1]["label"] == "dnes"
+
     client.force_login(user)
-
     html = client.get(reverse("dashboard")).content.decode()
-
-    assert "Dnešní testy" in html
-    assert "Dnes 1 test · 2 slovíčka · úspěšnost 50 %" in html
-    assert html.count('role="row" href=') == 1
-    assert reverse("study:summary", args=[today.pk]) in html
-    assert reverse("study:summary", args=[yesterday.pk]) not in html
+    assert "poprvé správně" in html
+    assert 'data-today-chart="minutes"' in html
 
 
-def test_dashboard_without_tests_today(client, user, deck):
-    client.force_login(user)
+def test_today_without_tests(user, deck):
+    overview = stats.today_overview(user)
 
-    html = client.get(reverse("dashboard")).content.decode()
+    assert [item["value"] for item in overview["metrics"]] == ["0", "0", "0", "0 min"]
+    assert overview["added_today"] == 0
 
-    assert "Dnes ještě žádný test." in html
+
+def test_word_known_before_is_not_learned_again(user, deck):
+    cat = vocabulary.add_term(deck, foreign="cat", native="kočka").term
+    for days_ago in (3, 2):
+        ReviewLog.objects.create(
+            user=user,
+            term=cat,
+            direction=Direction.F2N,
+            rating="ok",
+            rating_label="x",
+            result=Result.CORRECT,
+            chosen_interval=timedelta(days=1),
+            reviewed_at=timezone.now() - timedelta(days=days_ago),
+        )
+    # Forgotten, then right twice again today
+    ReviewLog.objects.create(
+        user=user,
+        term=cat,
+        direction=Direction.F2N,
+        rating="dontknow",
+        rating_label="x",
+        result=Result.WRONG,
+        chosen_interval=timedelta(days=1),
+        reviewed_at=timezone.now() - timedelta(days=1),
+    )
+    for minutes in (20, 10):
+        ReviewLog.objects.create(
+            user=user,
+            term=cat,
+            direction=Direction.F2N,
+            rating="ok",
+            rating_label="x",
+            result=Result.CORRECT,
+            chosen_interval=timedelta(days=1),
+            reviewed_at=timezone.now() - timedelta(minutes=minutes),
+        )
+
+    values = {item["key"]: item["value"] for item in stats.today_overview(user)["metrics"]}
+
+    assert values["learned"] == "0"
 
 
 def test_dashboard_hard_words_are_only_from_today(client, user, deck):
