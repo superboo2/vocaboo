@@ -466,8 +466,8 @@ the browser and paused while the page is hidden (another app, locked phone).
 
 ### 14. Dashboard, statistics and word page
 
-- **Hledat** (a field at the top of the dashboard, the key **/** jumps into it; Enter without
-  JavaScript opens `/search/?q=cetka`): all the user's words, in every variant, the sentence and its
+- **Hledat** (a field without a frame, only the grey text `Hledat slovíčko…`, on the right
+  of the heading *Slovníky* next to the numbers, **/** jumps into it; the results under the heading; Enter without JavaScript opens `/search/?q=cetka`): all the user's words, in every variant, the sentence and its
   translation and the note, without accents and case (`cetka` finds `Četka`), from 2 letters,
   live while typing (HTMX). Words matching in the word or translation come first, then the ones
   with the text in a sentence or note; the match is marked, each word shows its decks (last 3
@@ -511,7 +511,8 @@ services.search_terms(user, "impose")
   only from today's answers: 🐢 the longest thinking, 🦀 only one direction and 🐘 *Pořád dokola*
   (a word hard today with the most attempts in the whole history, at least 3, e.g. `zase nevím ·
   už 12. pokus`). The section is not there when nothing was hard today.
-- Next to the heading of the dashboard: `350 slovíček (+20 dnes) · 120 umíš` (all words, a word
+- On the right of the heading *Slovníky* (the dashboard has no visible heading of its own):
+  `350 slovíček (+20 dnes) · 120 umíš` (all words, a word
   in more decks once, the words added today, and the known ones; a click opens the statistics).
 - The button `Spustit test · 12 k opakování` says how many words are due now (only `Spustit test`
   when none is). Each deck in the tree has its words in brackets right after the name, e.g.

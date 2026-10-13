@@ -6,18 +6,9 @@
 {% block content %}
   <script src="{% static 'vendor/sortable/Sortable.min.js' %}" defer></script>
   <script src="{% static 'js/tree.js' %}" defer></script>
+  {# The start page needs no visible heading (the bar says Vokie); screen readers get one #}
+  <h1 class="visually-hidden">{% translate "Přehled" %}</h1>
   <div class="page-head">
-    <div class="page-title">
-      <h1>{% translate "Přehled" %}</h1>
-      {# All words (a word in more decks once) and the ones known; a click opens the statistics #}
-      {% if roots %}
-        <a class="page-totals" href="{% url 'study:stats' %}">
-          <span title="{% translate 'Všechna tvoje slovíčka; slovíčko ve víc slovnících se počítá jednou. V závorce kolik jich dnes přibylo.' %}">{{ words_text }}{% if today.added_today %} (+{{ today.added_today }} {% translate "dnes" %}){% endif %}</span>
-          ·
-          <span title="{% translate 'Slovíčka, která umíš: ve směru cizí → rodný dvakrát po sobě správně.' %}">{% blocktranslate %}{{ known }} umíš{% endblocktranslate %}</span>
-        </a>
-      {% endif %}
-    </div>
     <div class="actions">
       {# The number of words to review is on the button, where the choice to test is made #}
       {% if roots %}<a href="{% url 'study:new' %}" role="button">{% translate "Spustit test" %}{% if totals.due %} · {% blocktranslate with count=totals.due %}{{ count }} k opakování{% endblocktranslate %}{% endif %}</a>{% endif %}
@@ -26,9 +17,21 @@
   </div>
 
   {% if roots %}
-    {% include "vocabulary/_search_field.html" with query="" %}
 
     {% include "study/_today.html" %}
+    {# Search is small next to the heading: it is not used often #}
+    <div class="section-head">
+      <h2 class="section-title">{% translate "Slovníky" %}</h2>
+      {% include "vocabulary/_search_field.html" with query="" compact=True %}
+      {# All words (a word in more decks once), added today and the known ones; a click opens #}
+      {# the statistics #}
+      <a class="page-totals" href="{% url 'study:stats' %}">
+        <span title="{% translate 'Všechna tvoje slovíčka; slovíčko ve víc slovnících se počítá jednou. V závorce kolik jich dnes přibylo.' %}">{{ words_text }}{% if today.added_today %} (+{{ today.added_today }} {% translate "dnes" %}){% endif %}</span>
+        ·
+        <span title="{% translate 'Slovíčka, která umíš: ve směru cizí → rodný dvakrát po sobě správně.' %}">{% blocktranslate %}{{ known }} umíš{% endblocktranslate %}</span>
+      </a>
+    </div>
+    <div id="search-results" aria-live="polite"></div>
     {# Error from drag and drop (tree.js), outside the tree so it stays after the tree reloads #}
     <p id="tree-message" class="field-error" role="alert" hidden></p>
     {# Drag a deck to move it: with the mouse right away, on a phone after holding it a moment #}

@@ -1,13 +1,16 @@
 {% load i18n %}
 {# The search field: on the search page and on the dashboard. While typing HTMX puts the #}
 {# results into #search-results; without JavaScript Enter opens the search page. #}
-{# The key "/" jumps into it (app.js). #}
+{# The key "/" jumps into it (app.js). compact: the small field next to "Slovníky" on the #}
+{# dashboard; the page puts #search-results where it wants. #}
+{# compact: no frame, only the grey text "Hledat slovíčko…" next to "Slovníky"; a thin line #}
+{# under it while typing. #}
 {% url 'vocabulary:search' as search_url %}
-<form class="search-form" method="get" action="{{ search_url }}">
+<form class="search-form{% if compact %} search-compact{% endif %}" method="get" action="{{ search_url }}">
   <input type="search" name="q" value="{{ query }}" data-search-input autocomplete="off"
-         placeholder="{% translate 'Hledat slovíčko, překlad, větu…' %}"
+         placeholder="{% if compact %}{% translate 'Hledat slovíčko…' %}{% else %}{% translate 'Hledat slovíčko, překlad, větu…' %}{% endif %}"
          aria-label="{% translate 'Hledat ve slovíčkách' %}"
          hx-get="{{ search_url }}" hx-trigger="input changed delay:300ms, search"
          hx-target="#search-results" hx-swap="innerHTML"{% if autofocus %} autofocus{% endif %}>
 </form>
-<div id="search-results" aria-live="polite">{% if results %}{% include "vocabulary/_search_results.html" %}{% endif %}</div>
+{% if not compact %}<div id="search-results" aria-live="polite">{% if results %}{% include "vocabulary/_search_results.html" %}{% endif %}</div>{% endif %}

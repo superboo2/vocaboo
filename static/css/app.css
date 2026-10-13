@@ -158,21 +158,14 @@ button.danger {
   margin: 0;
 }
 
-/* The heading with small grey numbers next to it (under it on a phone) */
-.page-title {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 0 0.75rem;
-}
-
-.page-head a.page-totals {
+.section-head a.page-totals {
   color: var(--pico-muted-color);
+  font-size: 0.9rem;
   text-decoration: none;
   white-space: nowrap;
 }
 
-.page-head a.page-totals:hover {
+.section-head a.page-totals:hover {
   color: var(--pico-color);
 }
 
@@ -1808,7 +1801,8 @@ main:focus {
   font-size: 1.1rem;
 }
 
-.today-title {
+.today-title,
+.section-title {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
 }
@@ -1912,6 +1906,64 @@ main:focus {
 
 .search-form input {
   margin-bottom: 0;
+}
+
+/* A heading with something right after it (the search next to "Slovníky") and the numbers
+   at the right edge (under them on a phone) */
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.section-head .section-title {
+  margin: 0;
+}
+
+/* The same height with the magnifier and with the field, so nothing moves */
+.section-head {
+  min-height: 1.9rem;
+}
+
+/* The small search field: narrow and low, on the right next to the numbers */
+.search-form.search-compact {
+  margin: 0 0 0 auto;
+}
+
+/* No frame: only the grey text with the magnifier of Pico; a thin line under it while
+   typing */
+.section-head .search-compact input[type="search"] {
+  width: 13rem;
+  height: 1.9rem;
+  padding-top: 0;
+  padding-bottom: 0;
+  border: 0;
+  border-bottom: 1px solid transparent;
+  border-radius: 0;
+  background-color: transparent;
+  box-shadow: none;
+  font-size: 0.85rem;
+}
+
+.section-head .search-compact input[type="search"]:focus {
+  border-bottom-color: var(--pico-primary-border);
+  box-shadow: none;
+}
+
+@media (max-width: 576px) {
+  .search-compact input[type="search"] {
+    width: 12rem;
+  }
+
+  /* The numbers always on their own line on a phone, so the row does not jump when the
+     field opens */
+  .section-head a.page-totals {
+    flex-basis: 100%;
+    text-align: right;
+  }
 }
 
 /* Pico makes a search field round (its own --pico-border-radius on it); Pico's normal value
