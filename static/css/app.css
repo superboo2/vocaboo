@@ -812,20 +812,25 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
   text-align: center;
 }
 
-.deck-counts,
-.deck-due {
+.deck-counts {
   color: var(--pico-muted-color);
   white-space: nowrap;
 }
 
-/* Words to review: at the right edge, darker when the row is under the mouse (only the
-   colour, so the text does not move) */
+/* Words to review inside the brackets: "(26 ↻ 9)", a bit smaller */
 .deck-due {
-  margin-left: auto;
+  font-size: 0.85em;
+  cursor: default;
 }
 
-.deck-row:hover > .deck-due {
-  color: var(--pico-color);
+/* Text only for screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
 }
 
 /* Word page */

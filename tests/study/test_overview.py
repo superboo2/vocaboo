@@ -93,8 +93,8 @@ def test_dashboard_shows_counts(client, user, tree):
     # The words to review are on the button, the count of words after the deck name
     assert "Spustit test · 1 k opakování" in html
     assert "Teď k opakování" not in html
-    assert '<small class="deck-counts">(2)</small>' in html
-    assert '<small class="deck-due">1 k opakování</small>' in html
+    assert '<small class="deck-counts">(2 <span class="deck-due" title="1 k opakování">' in html
+    assert '<span aria-hidden="true">↻</span> 1<span' in html
 
 
 # Word history

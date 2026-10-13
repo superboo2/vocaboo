@@ -510,8 +510,8 @@ services.search_terms(user, "impose")
   už 12. pokus`). The section is not there when nothing was hard today.
 - The button `Spustit test · 12 k opakování` says how many words are due now (only `Spustit test`
   when none is). Each deck in the tree has its words in brackets right after the name, e.g.
-  `HIMYM (26)`, so it is easy to see in a big tree; the words to review are grey at the right edge
-  (`3 k opakování`, darker when the mouse is over the row).
+  `HIMYM (26)`, so it is easy to see in a big tree; when some words are due, their number
+  is in the brackets too: `HIMYM (26 ↻ 9)`, the `↻ 9` a bit smaller (title `9 k opakování`).
 - The dashboard shows the decks as a tree of folders (📂 open, 📁 closed, 📄 deck without child
   decks). The whole tree is always open when the page loads; a click on a folder closes it
   until the next reload.
