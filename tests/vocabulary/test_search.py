@@ -93,3 +93,31 @@ def test_dashboard_has_the_search_field(client, user, series):
 
     assert "data-search-input" in html
     assert reverse("vocabulary:search") in html
+
+
+def test_edit_goes_back_where_it_was_opened(client, user, series):
+    deck_term = services.add_term(series, foreign="trinket", native="cetka")
+    client.force_login(user)
+    edit = reverse("vocabulary:term_edit", args=[series.pk, deck_term.pk])
+    detail = reverse("vocabulary:term_detail", args=[series.pk, deck_term.pk])
+
+    # From the word page: the link carries the way back, saving and cancelling go there
+    page = client.get(detail).content.decode()
+    assert f"{edit}?next={detail}" in page
+    response = client.post(f"{edit}?next={detail}", {"foreign": "trinket", "native": "cetka"})
+    assert response.url == detail
+    assert f'href="{detail}"' in client.get(f"{edit}?next={detail}").content.decode()
+
+    # From the search on the dashboard
+    live = client.get(
+        reverse("vocabulary:search"),
+        {"q": "cetka"},
+        headers={"HX-Request": "true", "HX-Current-URL": "http://testserver/"},
+    ).content.decode()
+    assert f'{edit}?next=/"' in live
+
+    # Another site is never a way back
+    response = client.post(
+        f"{edit}?next=https://evil.example/", {"foreign": "trinket", "native": "cetka"}
+    )
+    assert response.url == reverse("vocabulary:deck_detail", args=[series.pk])

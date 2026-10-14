@@ -39,7 +39,7 @@
           <a href="{% url 'study:card' test.pk %}" role="button" class="secondary outline">{% translate "Neukládat a zpět do testu" %}</a>
         {% else %}
           <button type="submit">{% translate "Uložit" %}</button>
-          <a href="{% url 'vocabulary:deck_detail' deck.pk %}" role="button" class="secondary outline">{% translate "Zrušit" %}</a>
+          <a href="{{ back }}" role="button" class="secondary outline">{% translate "Zrušit" %}</a>
         {% endif %}
       </div>
     </form>

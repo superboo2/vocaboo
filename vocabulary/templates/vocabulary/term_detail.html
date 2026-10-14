@@ -18,7 +18,7 @@
   {% if term.note %}<p>{{ term.note|linebreaksbr }}</p>{% endif %}
 
   <div class="actions">
-    <a href="{% url 'vocabulary:term_edit' deck.pk deck_term.pk %}" role="button" class="outline">{% translate "Upravit" %}</a>
+    <a href="{% url 'vocabulary:term_edit' deck.pk deck_term.pk %}?next={{ request.get_full_path|urlencode }}" role="button" class="outline">{% translate "Upravit" %}</a>
     <a href="{% url 'vocabulary:terms_move' deck.pk %}?ids={{ deck_term.pk }}" role="button" class="outline">{% translate "Přesunout" %}</a>
     <a href="{% url 'vocabulary:term_remove' deck.pk deck_term.pk %}" role="button" class="outline secondary">{% translate "Odebrat z tohoto slovníku" %}</a>
   </div>

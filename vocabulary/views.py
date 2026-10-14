@@ -1,8 +1,12 @@
+from urllib.parse import urlsplit
+
 from django.contrib import messages
 from django.core.exceptions import ValidationError
 from django.db.models.functions import Lower
 from django.http import Http404, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse
+from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
@@ -283,14 +287,22 @@ def _fresh_term_form(deck):
 
 def search(request):
     """Search in the user's words; HTMX sends only the results while typing."""
+    is_htmx = request.headers.get("HX-Request") == "true"
     query = request.GET.get("q", "")
+    # The edit (✎) comes back to the page with the search: the dashboard (HTMX tells its
+    # address) or the search page
+    back = request.get_full_path()
+    if is_htmx:
+        page = urlsplit(request.headers.get("HX-Current-URL", ""))
+        back = page.path + (f"?{page.query}" if page.query else "") or "/"
     context = {
         "query": query,
+        "back": back,
         "hits": services.search_terms(request.user, query),
         "too_short": len(query.strip()) < services.SEARCH_MIN_LENGTH,
         "limit": services.SEARCH_LIMIT,
     }
-    if request.headers.get("HX-Request") == "true":
+    if is_htmx:
         return render(request, "vocabulary/_search_results.html", context)
     return render(request, "vocabulary/search.html", context)
 
@@ -432,9 +444,21 @@ def _running_test(request):
     return StudySession.objects.filter(pk=pk, user=request.user, finished_at__isnull=True).first()
 
 
+def _back_url(request):
+    """Where the edit was opened from (?next=/path, e.g. the word page or the search), so
+    saving or cancelling goes back there; only addresses of this site."""
+    back = request.GET.get("next", "")
+    if back.startswith("/") and url_has_allowed_host_and_scheme(
+        back, allowed_hosts={request.get_host()}, require_https=request.is_secure()
+    ):
+        return back
+    return ""
+
+
 def term_edit(request, deck_pk, pk):
     deck_term = _get_deck_term(request, deck_pk, pk)
     test = _running_test(request)
+    back = _back_url(request)
     deck = deck_term.deck
     term = deck_term.term
     initial = {
@@ -466,7 +490,7 @@ def term_edit(request, deck_pk, pk):
             if test:
                 # Back to the test: the same card comes again, now fixed
                 return redirect("study:card", pk=test.pk)
-            return redirect("vocabulary:deck_detail", pk=deck.pk)
+            return redirect(back or reverse("vocabulary:deck_detail", args=[deck.pk]))
     other_decks = term.deck_terms.exclude(pk=deck_term.pk).select_related("deck")
     return render(
         request,
@@ -478,6 +502,7 @@ def term_edit(request, deck_pk, pk):
             "other_decks": [item.deck for item in other_decks],
             "ancestors": services.get_ancestors(deck),
             "test": test,
+            "back": back or reverse("vocabulary:deck_detail", args=[deck.pk]),
             "suggestions": _suggestions(request, deck, form["foreign"].value() or ""),
         },
     )

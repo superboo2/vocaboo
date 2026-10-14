@@ -16,7 +16,7 @@
           {% endif %}
           <div class="search-meta">
             <small class="muted">{% for path in hit.paths %}<span title="{{ path.full }}">{{ path.short }}</span>{% if not forloop.last %} · {% endif %}{% endfor %}</small>
-            <a class="search-edit" href="{% url 'vocabulary:term_edit' hit.deck_term.deck_id hit.deck_term.pk %}"
+            <a class="search-edit" href="{% url 'vocabulary:term_edit' hit.deck_term.deck_id hit.deck_term.pk %}?next={{ back|urlencode }}"
                title="{% translate 'Upravit slovíčko' %}" aria-label="{% translate 'Upravit slovíčko' %}">✎</a>
           </div>
         </li>
