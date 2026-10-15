@@ -66,6 +66,8 @@ def _card_context(session, state):
         "session": session,
         "card": build_card(session, state),
         "remaining": max(remaining, 1),
+        # For the bar at the top of the card: answered of answered + remaining
+        "progress": round(100 * session.answered / (session.answered + max(remaining, 1))),
         "ratings": RATINGS,
     }
 
@@ -203,9 +205,4 @@ def study_retry(request, pk):
 
 def study_stats(request):
     """Statistics of the user: words over time, success, activity and fun facts."""
-    period = request.GET.get("period", stats.DEFAULT_PERIOD)
-    return render(
-        request,
-        "study/stats.html",
-        {"stats": stats.user_statistics(request.user, period=period)},
-    )
+    return render(request, "study/stats.html", {"stats": stats.user_statistics(request.user)})

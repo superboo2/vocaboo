@@ -29,8 +29,6 @@ from .ratings import RATINGS
 # A word counts as known when foreign → native was right this many times in a row
 # (its interval is then a week or more)
 KNOWN_STREAK = 2
-# Weeks in the chart
-CHART_WEEKS = 12
 
 # The table "Poslední testy": how many tests, and the days of the line above it
 RECENT_TESTS = 10
@@ -42,7 +40,9 @@ WEEK_DAYS = 7
 
 # Periods of the fun facts: key in the URL (?period=30) → (days or None for all, name)
 PERIODS = {"7": (7, "7 dní"), "30": (30, "30 dní"), "all": (None, "Vše")}
-DEFAULT_PERIOD = "7"
+# The statistics page shows the fun facts of the last 30 days (enough words for the cards and
+# still about now); the periods stay for the code and the tests
+DEFAULT_PERIOD = "30"
 # "Horská dráha" needs this many changes between right and wrong, "Moc rychle" a "vůbec
 # nevím" faster than this (ms)
 SWITCHES = 3
@@ -50,16 +50,15 @@ RUSH_MS = 3000
 # The dashboard: only today, and these kinds of cards in this order
 TODAY = "today"
 TODAY_FACTS = ["Nejdéle přemýšlíš u", "Jen jedním směrem", "Pořád dokola"]
-# The statistics page (all kinds but the dashboard's "Pořád dokola", in this order)
+# The statistics page: first the three of the dashboard, then the others
 STATS_FACTS = [
+    *TODAY_FACTS,
     "Největší nepřítel",
     "Pleteš si",
-    "Jen jedním směrem",
     "Zapomínáš",
     "Horská dráha",
     "Moc rychle",
     "Nejdelší, co ti nejde",
-    "Nejdéle přemýšlíš u",
     "Nejdéle se učíš",
 ]
 # "Pořád dokola" shows a word only after this many attempts in the whole history
@@ -130,9 +129,8 @@ def recent_tests(user, now=None):
 
 def today_overview(user, now=None):
     """Today on the dashboard, only good news of the tests, each with its last WEEK_DAYS days
-    for a small bar chart (today is the last day), and the words added today:
+    for a small bar chart (today is the last day):
 
-    - added: words added (still in a deck), only today,
     - first right: words right (😎 or 🤔, any direction) for the first time ever,
     - learned: words for the first time right KNOWN_STREAK times in a row foreign → native
       (the same "umíš" as on the statistics page),
@@ -145,14 +143,6 @@ def today_overview(user, now=None):
     midnight = timezone.localtime(now).replace(hour=0, minute=0, second=0, microsecond=0)
     since = midnight - timedelta(days=WEEK_DAYS - 1)
 
-    added = Counter(
-        _local_day(created)
-        for created in Term.objects.filter(
-            owner=user, created_at__gte=since, deck_terms__isnull=False
-        )
-        .distinct()
-        .values_list("created_at", flat=True)
-    )
     first_right = Counter(
         _local_day(first)
         for first in ReviewLog.objects.filter(user=user, result=Result.CORRECT)
@@ -217,10 +207,7 @@ def today_overview(user, now=None):
             ],
         }
 
-    # Words added today are not one of the numbers (they are about the decks, the numbers are
-    # about the tests); the dashboard shows them next to all the words
     return {
-        "added_today": added[today],
         "metrics": [
             metric(
                 "tested",
@@ -367,21 +354,62 @@ def _totals(terms, logs, known, tested, today):
     }
 
 
-def _weeks(today, count):
-    first = _week_start(today) - timedelta(weeks=count - 1)
-    return [first + timedelta(weeks=index) for index in range(count)]
-
-
 def _words_chart(terms, today):
-    """All words week by week (the line goes up as words are added)."""
-    weeks = _weeks(today, CHART_WEEKS)
-    added = Counter(_week_start(_local_day(created)) for created, _word, _pk in terms)
-    running = sum(count for week, count in added.items() if week < weeks[0])
-    totals = []
-    for week in weeks:
-        running += added.get(week, 0)
-        totals.append(running)
-    return _line_chart(weeks, totals)
+    """All words over time, from the day of the first word: by days at the start, then by
+    weeks, months and quarters, so the chart always has a few points and no empty start."""
+    days = sorted(_local_day(created) for created, _word, _pk in terms)
+    first = min(days[0], today) if days else today
+    span = (today - first).days
+    if span < CHART_DAYS:
+        unit, starts = "day", [first + timedelta(days=n) for n in range(span + 1)]
+    elif span < CHART_WEEKS_DAYS:
+        unit, starts = "week", _steps(_week_start(first), today, lambda d: d + timedelta(weeks=1))
+    elif span < CHART_MONTHS_DAYS:
+        unit, starts = "month", _steps(first.replace(day=1), today, lambda d: _add_months(d, 1))
+    else:
+        quarter = first.replace(month=(first.month - 1) // 3 * 3 + 1, day=1)
+        unit, starts = "quarter", _steps(quarter, today, lambda d: _add_months(d, 3))
+    nexts = [*starts[1:], today + timedelta(days=1)]
+    totals = [sum(1 for day in days if day < end) for end in nexts]
+    chart = _line_chart([_bucket_label(start, unit) for start in starts], totals)
+    since = f"{first.day}. {first.month}. {first.year}"
+    chart["subtitle"] = f"Slovíček celkem {UNIT_NAMES[unit]} od {since}"
+    return chart
+
+
+# The words chart: by days up to 2 weeks after the first word, by weeks up to 4 months, by
+# months up to 2 years, then by quarters
+CHART_DAYS = 14
+CHART_WEEKS_DAYS = 122
+CHART_MONTHS_DAYS = 730
+UNIT_NAMES = {
+    "day": "po dnech",
+    "week": "po týdnech",
+    "month": "po měsících",
+    "quarter": "po čtvrtletích",
+}
+MONTHS_SHORT = ["led", "úno", "bře", "dub", "kvě", "čvn", "čvc", "srp", "zář", "říj", "lis", "pro"]
+
+
+def _steps(start, today, step):
+    """Starts of the days, weeks … from start up to today."""
+    starts = [start]
+    while step(starts[-1]) <= today:
+        starts.append(step(starts[-1]))
+    return starts
+
+
+def _add_months(day, months):
+    month = day.month - 1 + months
+    return day.replace(year=day.year + month // 12, month=month % 12 + 1, day=1)
+
+
+def _bucket_label(start, unit):
+    if unit in ("day", "week"):
+        return f"{start.day}. {start.month}."
+    if unit == "month":
+        return f"{MONTHS_SHORT[start.month - 1]} {start.year}"
+    return f"Q{(start.month - 1) // 3 + 1} {start.year}"
 
 
 def _nice_top(value):
@@ -395,48 +423,47 @@ def _nice_top(value):
     return int(10 * step)
 
 
-def _line_chart(weeks, values):
-    """A simple line chart: points of the weeks and the y axis with 5 round values.
+def _line_chart(labels, values, most_labels=5):
+    """A simple line chart: a point for each label and the y axis with 5 round values.
 
     Positions are percents of the drawing area (0 = left / top): the SVG draws the line in a
     0–100 box stretched to the page, the dots and labels are HTML placed by the same percents.
-    A week without a value (None) breaks the line.
+    A value None breaks the line. One point sits in the middle.
     """
     top = _nice_top(max((value for value in values if value is not None), default=0))
-    last = len(weeks) - 1
+    last = len(labels) - 1
+
+    def left_of(index):
+        return 50 if last == 0 else 100 * index / last
+
     points = []
     segments = []
     segment = []
-    for index, (week, value) in enumerate(zip(weeks, values, strict=True)):
+    for index, (label, value) in enumerate(zip(labels, values, strict=True)):
         if value is None:
             if segment:
                 segments.append(segment)
             segment = []
             continue
-        left = 100 * index / last
+        left = left_of(index)
         y = 100 - 100 * value / top
-        points.append(
-            {
-                "left": f"{left:.2f}",
-                "top": f"{y:.2f}",
-                "title": f"{week.day}. {week.month}.: {value}",
-            }
-        )
+        points.append({"left": f"{left:.2f}", "top": f"{y:.2f}", "title": f"{label}: {value}"})
         segment.append(f"{left:.2f},{y:.2f}")
     if segment:
         segments.append(segment)
     ticks = [{"label": str(top * part // 4), "top": f"{100 - 25 * part:.0f}"} for part in range(5)]
-    # A date under every third week, the last week always
-    labels = [
-        {"label": f"{week.day}. {week.month}.", "left": f"{100 * index / last:.2f}"}
-        for index, week in enumerate(weeks)
-        if (last - index) % 3 == 0
+    # At most a few labels under the axis, evenly from the last one back, so they do not touch
+    every = max(1, -(-len(labels) // most_labels))
+    shown = [
+        {"label": label, "left": f"{left_of(index):.2f}"}
+        for index, label in enumerate(labels)
+        if (last - index) % every == 0
     ]
     return {
         "points": points,
         "segments": [" ".join(segment) for segment in segments],
         "ticks": ticks,
-        "labels": labels,
+        "labels": shown,
     }
 
 

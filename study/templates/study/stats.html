@@ -37,9 +37,8 @@
   {% else %}
     <section class="stat-section">
       <h2>{% translate "Slovíčka v čase" %}</h2>
-      <p class="muted"><small>{% translate "Slovíček celkem po týdnech (posledních 12 týdnů)" %}</small></p>
-      {% translate "Slovíček celkem po týdnech" as label %}
-      {% include "study/_chart.html" with chart=stats.words_chart tone="chart-words" label=label %}
+      <p class="muted"><small>{{ stats.words_chart.subtitle }}</small></p>
+      {% include "study/_chart.html" with chart=stats.words_chart tone="chart-words" label=stats.words_chart.subtitle %}
     </section>
 
     {% if stats.tests.rows %}
@@ -52,18 +51,14 @@
 
     <section class="stat-section">
       <h2>{% translate "Co ti nejde" %}</h2>
-      {# Period of the facts; the tiles and the chart above are always for all the time #}
-      <nav class="period-switch" aria-label="{% translate 'Období' %}">
-        {% for key, name in stats.periods %}
-          <a href="?period={{ key }}" {% if key == stats.period %}aria-current="page"{% endif %}>{{ name }}</a>
-        {% endfor %}
-      </nav>
+      {# Always the last 30 days (enough words for the cards, and still about now) #}
+      <p class="muted"><small>{% translate "Za posledních 30 dní" %}</small></p>
       {% if stats.facts.items %}
         {% include "study/_hard_words.html" with items=stats.facts.items %}
       {% elif stats.facts.answered %}
-        <p>{% translate "V tomto období ti jde všechno 🎉" %}</p>
+        <p>{% translate "Za posledních 30 dní ti jde všechno 🎉" %}</p>
       {% else %}
-        <p class="muted">{% translate "V tomto období žádný test. Zkus delší období." %}</p>
+        <p class="muted">{% translate "Za posledních 30 dní žádný test." %}</p>
       {% endif %}
     </section>
   {% endif %}

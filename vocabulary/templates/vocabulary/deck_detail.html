@@ -6,41 +6,45 @@
 {% block content %}
   {% include "vocabulary/_breadcrumbs.html" with current=deck.name %}
 
-  <hgroup>
+  {# The name with a small menu ⋯ for the rarely used things (rename, move, delete) #}
+  <div class="title-row">
     <h1>{{ deck.name }}</h1>
-    <p>{{ deck.foreign_language.name }} → {{ deck.native_language.name }} <small class="pair">({{ deck.language_pair }})</small></p>
-  </hgroup>
-
-  {% if deck.description %}
-    <p>{{ deck.description|linebreaksbr }}</p>
-  {% endif %}
-
-  <div class="actions">
-    <a href="{% url 'study:new' %}?deck={{ deck.pk }}" role="button">{% translate "Testovat tento slovník" %}</a>
-    <a href="{% url 'vocabulary:deck_edit' deck.pk %}" role="button" class="outline">{% translate "Upravit" %}</a>
-    <a href="{% url 'vocabulary:deck_move' deck.pk %}" role="button" class="outline">{% translate "Přesunout" %}</a>
-    <a href="{% url 'vocabulary:deck_delete' deck.pk %}" role="button" class="outline secondary">{% translate "Smazat" %}</a>
+    <details class="dropdown more-menu">
+      <summary role="button" class="more-button" aria-label="{% translate 'Upravit slovník' %}" title="{% translate 'Upravit slovník' %}">⋯</summary>
+      <ul>
+        <li><a href="{% url 'vocabulary:deck_edit' deck.pk %}">{% translate "Přejmenovat a popis" %}</a></li>
+        <li><a href="{% url 'vocabulary:deck_move' deck.pk %}">{% translate "Přesunout" %}</a></li>
+        <li><a href="{% url 'vocabulary:deck_delete' deck.pk %}">{% translate "Smazat" %}</a></li>
+      </ul>
+    </details>
   </div>
+  <p class="muted page-sub">{{ deck.foreign_language.name }} → {{ deck.native_language.name }} ({{ deck.language_pair }})</p>
+  {% if deck.description %}<p>{{ deck.description|linebreaksbr }}</p>{% endif %}
 
-  <section>
-    <article class="term-form-box">
-      {% include "vocabulary/_term_form.html" %}
-    </article>
+  {# A test of this deck only (the button in the bar tests everything) #}
+  <a href="{% url 'study:new' %}?deck={{ deck.pk }}" role="button" class="test-button">▶︎ {% translate "Testovat tento slovník" %}</a>
+
+  <section class="card-section">
+    <h2 class="section-title">{% translate "Nové slovíčko" %}</h2>
+    {% include "vocabulary/_term_form.html" %}
+  </section>
+
+  <section class="card-section">
     {% include "vocabulary/_term_list.html" %}
   </section>
 
-  <section>
-    <h2>{% translate "Podslovníky" %}</h2>
+  <section class="card-section">
+    <div class="section-head">
+      <h2 class="section-title">{% translate "Podslovníky" %}</h2>
+      {% if can_add_child %}<a href="{% url 'vocabulary:deck_create_child' deck.pk %}" class="section-add">+ {% translate "Nový" %}</a>{% endif %}
+    </div>
     {% if children %}
       {% include "vocabulary/_sibling_list.html" with decks=children %}
     {% else %}
       <p class="muted">{% translate "Zatím žádné podslovníky." %}</p>
     {% endif %}
-
-    {% if can_add_child %}
-      <a href="{% url 'vocabulary:deck_create_child' deck.pk %}" role="button" class="outline">+ {% translate "Přidat podslovník" %}</a>
-    {% else %}
-      <p class="muted">{% blocktranslate %}Tady už další podslovník nejde přidat, strom může mít nejvýš {{ max_depth }} úrovní.{% endblocktranslate %}</p>
+    {% if not can_add_child %}
+      <p class="muted"><small>{% blocktranslate %}Tady už další podslovník nejde přidat, strom může mít nejvýš {{ max_depth }} úrovní.{% endblocktranslate %}</small></p>
     {% endif %}
   </section>
 {% endblock %}

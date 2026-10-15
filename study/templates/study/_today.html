@@ -2,8 +2,8 @@
 {# Today on the dashboard (study/stats.py today_overview): four numbers of today's tests, #}
 {# only good news. They are also buttons: the chosen one shows its last 7 days in the bar chart under #}
 {# them (app.js), with the number above each bar and today in blue. #}
-<section class="today" aria-label="{% translate 'Dnes' %}">
-  <h2 class="today-title">{% translate "Dnes" %}</h2>
+<section class="today card-section" aria-label="{% translate 'Dnes' %}">
+  <h2 class="section-title">{% translate "Dnes" %}</h2>
   <div class="today-stats" role="tablist">
     {% for item in today.metrics %}
       <button type="button" class="today-stat" role="tab" data-today-metric="{{ item.key }}" title="{{ item.help }}"

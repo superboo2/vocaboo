@@ -4,7 +4,7 @@
 <div id="term-list"{% if oob %} hx-swap-oob="true"{% endif %}>
   {% with count=deck_terms|length %}
     <div class="list-head">
-      <h2>{% translate "Slovíčka" %} <small class="muted">({{ count }})</small></h2>
+      <h2 class="section-title">{% translate "Slovíčka" %} <small class="muted">({{ count }})</small></h2>
       {% if count > 1 %}
         <nav aria-label="{% translate 'Řazení' %}" class="sort-links">
           {% for key, label in sorts.items %}

@@ -297,3 +297,49 @@ document.addEventListener("click", function (event) {
     chart.hidden = chart.dataset.todayChart !== button.dataset.todayMetric;
   });
 });
+
+// The account menu in the bar closes after a click somewhere else
+document.addEventListener("click", function (event) {
+  document.querySelectorAll("details.dropdown[open]").forEach(function (menu) {
+    if (!menu.contains(event.target)) {
+      menu.removeAttribute("open");
+    }
+  });
+});
+
+// Light / dark look from the account menu; "auto" follows the system. Kept in this browser
+// only (localStorage), the page sets it before drawing (base.html).
+function showThemeChoice() {
+  let theme = "auto";
+  try {
+    theme = localStorage.getItem("vokie.theme") || "auto";
+  } catch (error) {}
+  document.querySelectorAll("[data-theme-choice]").forEach(function (button) {
+    button.setAttribute("aria-pressed", button.dataset.themeChoice === theme ? "true" : "false");
+  });
+}
+
+document.addEventListener("click", function (event) {
+  const button = event.target.closest("[data-theme-choice]");
+  if (!button) {
+    return;
+  }
+  const theme = button.dataset.themeChoice;
+  if (theme === "auto") {
+    delete document.documentElement.dataset.theme;
+  } else {
+    document.documentElement.dataset.theme = theme;
+  }
+  try {
+    if (theme === "auto") {
+      localStorage.removeItem("vokie.theme");
+    } else {
+      localStorage.setItem("vokie.theme", theme);
+    }
+  } catch (error) {
+    // Storage can be blocked, the look then lasts only for this page
+  }
+  showThemeChoice();
+});
+
+document.addEventListener("DOMContentLoaded", showThemeChoice);

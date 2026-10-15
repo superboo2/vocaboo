@@ -8,29 +8,25 @@
   <script src="{% static 'js/tree.js' %}" defer></script>
   {# The start page needs no visible heading (the bar says Vokie); screen readers get one #}
   <h1 class="visually-hidden">{% translate "Přehled" %}</h1>
-  <div class="page-head">
-    <div class="actions">
-      {# The number of words to review is on the button, where the choice to test is made #}
-      {% if roots %}<a href="{% url 'study:new' %}" role="button">{% translate "Spustit test" %}{% if totals.due %} · {% blocktranslate with count=totals.due %}{{ count }} k opakování{% endblocktranslate %}{% endif %}</a>{% endif %}
-      <a href="{% url 'vocabulary:deck_create' %}" role="button" class="outline">+ {% translate "Nový slovník" %}</a>
-    </div>
-  </div>
 
   {% if roots %}
 
-    {% include "study/_today.html" %}
-    {# Search is small next to the heading: it is not used often #}
+    {# Order: what does not stick today (to have it in sight), the decks, then today's numbers #}
+    {% if hard_words %}
+      <section class="card-section">
+        <h2 class="section-title">{% translate "Co ti dnes nejde" %}</h2>
+        {% include "study/_hard_words.html" with items=hard_words compact=True %}
+      </section>
+    {% endif %}
+    {# The decks: a new deck next to the heading, the search over the tree (moving by dragging #}
+    {# is explained in the help) #}
+    <section class="card-section">
     <div class="section-head">
       <h2 class="section-title">{% translate "Slovníky" %}</h2>
-      {% include "vocabulary/_search_field.html" with query="" compact=True %}
-      {# All words (a word in more decks once), added today and the known ones; a click opens #}
-      {# the statistics #}
-      <a class="page-totals" href="{% url 'study:stats' %}">
-        <span title="{% translate 'Všechna tvoje slovíčka; slovíčko ve víc slovnících se počítá jednou. V závorce kolik jich dnes přibylo.' %}">{{ words_text }}{% if today.added_today %} (+{{ today.added_today }} {% translate "dnes" %}){% endif %}</span>
-        ·
-        <span title="{% translate 'Slovíčka, která umíš: ve směru cizí → rodný dvakrát po sobě správně.' %}">{% blocktranslate %}{{ known }} umíš{% endblocktranslate %}</span>
-      </a>
+      <a href="{% url 'vocabulary:deck_create' %}" class="section-add">+ {% translate "Nový" %}</a>
     </div>
+    {# The search as a light strip over the tree, like a filter of the list #}
+    {% include "vocabulary/_search_field.html" with query="" compact=True %}
     <div id="search-results" aria-live="polite"></div>
     {# Error from drag and drop (tree.js), outside the tree so it stays after the tree reloads #}
     <p id="tree-message" class="field-error" role="alert" hidden></p>
@@ -42,14 +38,12 @@
         {% endfor %}
       </ul>
     </div>
-    <p class="muted tree-help">{% translate "Slovník přesuneš přetažením, na telefonu ho nejdřív chvilku podrž." %}</p>
-    {% if hard_words %}
-      <section class="dashboard-hard">
-        <h2>{% translate "Co ti dnes nejde" %}</h2>
-        {% include "study/_hard_words.html" with items=hard_words compact=True %}
-      </section>
-    {% endif %}
+    </section>
+    {% include "study/_today.html" %}
   {% else %}
-    <p>{% translate "Zatím nemáš žádné slovníky. Začni tím, že si jeden vytvoříš." %}</p>
+    <section class="card-section">
+      <p>{% translate "Zatím nemáš žádné slovníky. Začni tím, že si jeden vytvoříš." %}</p>
+      <a href="{% url 'vocabulary:deck_create' %}" role="button">+ {% translate "Nový slovník" %}</a>
+    </section>
   {% endif %}
 {% endblock %}

@@ -16,6 +16,18 @@
   --dot-think: var(--rating-think-soft);
   --dot-partial: var(--rating-partial-soft);
   --dot-dontknow: var(--rating-dontknow-soft);
+  /* The colour of the app: indigo, with a light and a dark shade. Green, orange and red
+     belong to the ratings, so there is no other strong colour. */
+  --primary: #5b4bc4;
+  --primary-light: color-mix(in srgb, var(--primary) 35%, transparent);
+  --primary-dark: #44379c;
+  /* One scale of round corners: cards, controls inside them (buttons, fields) and small
+     things (bars, labels). Only the account circle and ⋯ are round. */
+  --radius-card: 0.75rem;
+  --radius-control: 0.5rem;
+  --radius-small: 0.25rem;
+  /* Pico draws buttons and fields with this one */
+  --pico-border-radius: var(--radius-control);
 }
 
 /* On a dark background the soft colour of a small dot gets lost, so the dots are stronger
@@ -26,61 +38,159 @@
     --dot-think: color-mix(in srgb, var(--rating-think) 55%, transparent);
     --dot-partial: color-mix(in srgb, var(--rating-partial) 55%, transparent);
     --dot-dontknow: color-mix(in srgb, var(--rating-dontknow) 55%, transparent);
+    --primary: #a59af2;
+    --primary-dark: #7c6ee6;
   }
 }
 
-/* Logout form sits inside the nav like a link */
+/* The same when the dark look is chosen in the account menu (Pico reads data-theme too) */
+:root[data-theme="dark"] {
+  --dot-ok: color-mix(in srgb, var(--rating-ok) 55%, transparent);
+  --dot-think: color-mix(in srgb, var(--rating-think) 55%, transparent);
+  --dot-partial: color-mix(in srgb, var(--rating-partial) 55%, transparent);
+  --dot-dontknow: color-mix(in srgb, var(--rating-dontknow) 55%, transparent);
+  --primary: #a59af2;
+  --primary-dark: #7c6ee6;
+}
+
+/* Pico's colour variables in indigo, so links, buttons, check boxes and focus rings match.
+   The same selectors as Pico, so these win (this file comes after Pico). */
+[data-theme="light"],
+:root:not([data-theme="dark"]) {
+  --pico-primary: var(--primary);
+  --pico-primary-background: var(--primary);
+  --pico-primary-border: var(--primary);
+  --pico-primary-underline: color-mix(in srgb, var(--primary) 50%, transparent);
+  --pico-primary-hover: var(--primary-dark);
+  --pico-primary-hover-background: var(--primary-dark);
+  --pico-primary-hover-border: var(--primary-dark);
+  --pico-primary-hover-underline: var(--primary-dark);
+  --pico-primary-focus: color-mix(in srgb, var(--primary) 40%, transparent);
+  --pico-primary-inverse: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --pico-primary: var(--primary);
+    --pico-primary-background: var(--primary-dark);
+    --pico-primary-border: var(--primary-dark);
+    --pico-primary-underline: color-mix(in srgb, var(--primary) 50%, transparent);
+    --pico-primary-hover: #c4bcf7;
+    --pico-primary-hover-background: #6a5bd8;
+    --pico-primary-hover-border: #6a5bd8;
+    --pico-primary-hover-underline: #c4bcf7;
+    --pico-primary-focus: color-mix(in srgb, var(--primary) 45%, transparent);
+    --pico-primary-inverse: #fff;
+  }
+}
+
+[data-theme="dark"] {
+  --pico-primary: var(--primary);
+  --pico-primary-background: var(--primary-dark);
+  --pico-primary-border: var(--primary-dark);
+  --pico-primary-underline: color-mix(in srgb, var(--primary) 50%, transparent);
+  --pico-primary-hover: #c4bcf7;
+  --pico-primary-hover-background: #6a5bd8;
+  --pico-primary-hover-border: #6a5bd8;
+  --pico-primary-hover-underline: #c4bcf7;
+  --pico-primary-focus: color-mix(in srgb, var(--primary) 45%, transparent);
+  --pico-primary-inverse: #fff;
+}
+
+/* One column on every screen: on a computer the same layout as on a phone, only wider */
+header.container,
+main.container {
+  max-width: 46rem;
+}
+
+/* The account menu in the bar: a circle with the first letter (role="button", so Pico draws
+   it as a button, not as a form field) */
+nav .account-menu > summary.account-button {
+  background: var(--primary-dark);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.1rem;
+  height: 2.1rem;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  font-size: 0.95rem;
+  font-weight: bold;
+  line-height: 1;
+}
+
+/* No arrow of Pico next to the circle */
+nav .account-menu > summary.account-button::after {
+  display: none;
+}
+
+.account-menu .account-email {
+  padding: 0.4rem var(--pico-form-element-spacing-horizontal);
+}
+
+/* Light / dark / as the system: three small buttons in the account menu */
+.account-menu .theme-switch {
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.35rem var(--pico-form-element-spacing-horizontal);
+}
+
+nav .account-menu .theme-switch button {
+  flex: 1;
+  margin: 0;
+  padding: 0.25rem 0.4rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--radius-control);
+  background: none;
+  color: var(--page-text);
+  font-size: 0.8rem;
+  white-space: nowrap;
+}
+
+nav .account-menu .theme-switch button[aria-pressed="true"] {
+  border-color: var(--primary);
+  background: color-mix(in srgb, var(--primary) 15%, transparent);
+}
+
+/* Logout looks like the other items of the menu */
 .inline-form {
   margin: 0;
 }
 
-.inline-form button {
+/* Logout looks like the other items of the menu (no underline, same padding) */
+nav .account-menu li .inline-form button {
+  display: block;
+  width: 100%;
   margin: 0;
-  padding: 0.4rem 0.8rem;
+  padding: var(--pico-form-element-spacing-vertical) var(--pico-form-element-spacing-horizontal);
+  color: var(--pico-dropdown-color, var(--pico-color));
+  text-align: left;
+  text-decoration: none;
 }
 
-/* On a computer the word "Statistiky", on a phone the icon (media query below) */
+nav .account-menu li:has(.inline-form) {
+  padding: 0;
+}
+
+/* On a computer the word "Statistiky", on a phone the icon */
 .nav-icon {
   display: none;
 }
 
-/* Not enough space for the email on small phones; the links may go to a second line */
 @media (max-width: 576px) {
-  .nav-user {
-    display: none;
-  }
-
-  header nav {
-    flex-wrap: wrap;
-  }
-
-  header nav ul:last-of-type {
-    flex-wrap: wrap;
-    margin-right: 0;
-  }
-
   header nav li {
     padding-left: 0.4rem;
     padding-right: 0.4rem;
   }
 
-  /* Admin is for the site owner and is not needed on a phone */
-  .nav-admin {
-    display: none;
-  }
-
-  /* Statistics: the icon instead of the word */
   .nav-text {
     display: none;
   }
 
   .nav-icon {
     display: inline;
-  }
-
-  .inline-form button {
-    padding: 0.25rem 0.6rem;
-    font-size: 0.9rem;
   }
 }
 
@@ -156,17 +266,6 @@ button.danger {
 
 .page-head h1 {
   margin: 0;
-}
-
-.section-head a.page-totals {
-  color: var(--pico-muted-color);
-  font-size: 0.9rem;
-  text-decoration: none;
-  white-space: nowrap;
-}
-
-.section-head a.page-totals:hover {
-  color: var(--pico-color);
 }
 
 /* Form pages */
@@ -533,9 +632,33 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
   padding: 0.35rem 0.75rem;
 }
 
+/* How far the test is: a thin bar with the numbers under it */
 .card-progress {
-  font-size: 0.875rem;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.6rem;
+  font-size: 0.8rem;
+}
+
+.progress-bar {
+  display: block;
+  height: 0.35rem;
+  margin-bottom: 0.3rem;
+  border-radius: var(--radius-small);
+  background: var(--pico-muted-border-color);
+  overflow: hidden;
+}
+
+.progress-bar > span {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-small);
+  background: var(--pico-primary-background);
+}
+
+/* The card of the test looks like the cards of the dashboard */
+article.flashcard {
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--radius-card);
+  box-shadow: none;
 }
 
 .flashcard {
@@ -702,6 +825,8 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
 .card-show {
   width: 100%;
   min-height: 3.5rem;
+  border-radius: var(--radius-control);
+  font-weight: bold;
 }
 
 /* Rating buttons: one row of four, big enough for a thumb */
@@ -722,6 +847,7 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
   min-height: 4.5rem;
   margin: 0;
   padding: 0.5rem 0.25rem;
+  border-radius: var(--radius-control);
   /* Inside a button Pico's colour variables mean the blue button, so use the page text colour */
   color: inherit;
   border: 1px solid var(--pico-muted-border-color);
@@ -845,8 +971,22 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
 }
 
 /* Word page */
-.direction-box {
-  margin-bottom: var(--pico-spacing);
+/* Inside a card the two directions are only framed boxes, not cards with a shadow */
+article.direction-box {
+  margin-bottom: 0;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--radius-control);
+  background: none;
+  box-shadow: none;
+}
+
+article.direction-box > header {
+  margin: -0.75rem -1rem 0.6rem;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--radius-control) var(--radius-control) 0 0;
+  background: none;
 }
 
 .direction-box p {
@@ -945,11 +1085,6 @@ main:focus {
   display: none;
 }
 
-.tree-help {
-  font-size: 0.875rem;
-  margin-top: 0.75rem;
-}
-
 /* Gap for the word in a sentence (native → foreign card) */
 .cloze {
   display: inline-block;
@@ -996,11 +1131,31 @@ main:focus {
 .tabs a[aria-current="page"] {
   color: var(--pico-color);
   font-weight: bold;
-  border-bottom-color: var(--pico-primary);
+  border-bottom-color: var(--primary);
 }
 
+/* The sections of the help are cards like on the other pages */
 .help section {
-  margin-bottom: calc(var(--pico-spacing) * 2);
+  margin-bottom: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--radius-card);
+  background: var(--pico-card-background-color);
+}
+
+.help section > :last-child {
+  margin-bottom: 0;
+}
+
+.help section h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.6rem;
+}
+
+@media (max-width: 576px) {
+  .help section {
+    padding: 0.85rem 0.9rem;
+  }
 }
 
 .help-tree {
@@ -1090,15 +1245,14 @@ main:focus {
 }
 
 /* Groups on the settings page */
-.settings-group {
-  margin-bottom: var(--pico-spacing);
-}
-
+/* Each group is a card (card-section); the heading like on the other pages */
 .settings-group h2 {
   font-size: 1.1rem;
   margin-bottom: 0.75rem;
-  padding-bottom: 0.35rem;
-  border-bottom: 1px solid var(--pico-muted-border-color);
+}
+
+.settings-group fieldset:last-child {
+  margin-bottom: 0;
 }
 
 /* End of a test: the word that does not stick and a form for a sentence */
@@ -1344,13 +1498,33 @@ main:focus {
   background: var(--rating-dontknow-soft);
 }
 
+/* The sections of the statistics page are cards like on the dashboard */
 .stat-section {
-  margin-bottom: calc(var(--pico-spacing) * 2);
+  margin-bottom: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--radius-card);
+  background: var(--pico-card-background-color);
+}
+
+.stat-section > :last-child {
+  margin-bottom: 0;
+}
+
+/* The dates under a line chart hang below it, so the chart keeps its space at the end */
+.stat-section > .line-chart:last-child {
+  margin-bottom: 1.6rem;
 }
 
 .stat-section h2 {
-  font-size: 1.2rem;
-  margin-bottom: 0.25rem;
+  font-size: 1.1rem;
+  margin-bottom: 0.4rem;
+}
+
+@media (max-width: 576px) {
+  .stat-section {
+    padding: 0.85rem 0.9rem;
+  }
 }
 
 /* Simple line chart: y labels on the left, the plot with grid lines, dots and dates */
@@ -1432,8 +1606,9 @@ main:focus {
   transform: translateX(-100%);
 }
 
+/* The line of the words chart in the second colour (green is for the ratings) */
 .chart-words {
-  --chart-color: var(--rating-ok);
+  --chart-color: var(--primary);
 }
 
 /* "Poslední testy": a table made of grid rows, so a whole row can be a link */
@@ -1517,7 +1692,7 @@ main:focus {
   flex-shrink: 0;
   width: 4rem;
   height: 0.5rem;
-  border-radius: 0.25rem;
+  border-radius: var(--radius-small);
   overflow: hidden;
   background: var(--pico-muted-border-color);
 }
@@ -1525,7 +1700,7 @@ main:focus {
 .test-bar > span {
   display: block;
   height: 100%;
-  border-radius: 0.25rem;
+  border-radius: var(--radius-small);
   background: var(--pico-primary-background);
 }
 
@@ -1634,17 +1809,16 @@ main:focus {
   display: flex;
   flex-direction: column;
   padding: 0.9rem 1rem;
-  border: 1px solid var(--pico-muted-border-color);
-  border-left: 0.35rem solid var(--stripe);
-  border-radius: var(--pico-border-radius);
-  background: var(--pico-card-background-color);
+  /* No frame: a light fill in the colour of the kind (red for the enemy, green for …) */
+  border: 0;
+  border-radius: var(--radius-card);
+  background: color-mix(in srgb, var(--stripe) 14%, var(--pico-card-background-color));
   backface-visibility: hidden;
   transition: transform 0.45s ease, visibility 0s 0.2s;
 }
 
 .hard-word:hover .hard-word-face {
-  border-color: var(--pico-primary-border);
-  border-left-color: var(--stripe);
+  background: color-mix(in srgb, var(--stripe) 22%, var(--pico-card-background-color));
 }
 
 .hard-word-back {
@@ -1662,10 +1836,38 @@ main:focus {
   visibility: visible;
 }
 
-.hard-word-detail {
+/* The small ↻ in the top right corner: the card turns (darker under the mouse) */
+.hard-word-face {
+  position: relative;
+}
+
+.hard-word-turn {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.7rem;
+  color: var(--pico-muted-color);
+  font-size: 0.95rem;
+  line-height: 1;
+  opacity: 0.7;
+}
+
+.hard-word:hover .hard-word-turn {
+  color: var(--page-text);
+  opacity: 1;
+}
+
+/* "Detail" on the back: a quiet word, not an underlined link (darker under the mouse) */
+.hard-words a.hard-word-detail {
   align-self: flex-end;
   margin-top: 0.25rem;
-  font-size: 0.875rem;
+  color: var(--pico-muted-color);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.hard-words a.hard-word-detail:hover {
+  color: var(--page-text);
 }
 
 /* Without animations the card only changes */
@@ -1747,16 +1949,9 @@ main:focus {
   }
 }
 
-/* "Co ti dnes nejde" on the dashboard, under the decks */
-.dashboard-hard {
-  margin-top: calc(var(--pico-spacing) * 1.5);
-}
 
 /* Today on the dashboard: a line with the tests and time, then the ring of today's ratings
    and the bar chart of the last 7 days next to each other (one under the other on a phone) */
-.today {
-  margin-bottom: calc(var(--pico-spacing) * 1.5);
-}
 
 
 /* Four numbers of today in a row (two in a row on a phone); they are buttons, the chosen
@@ -1789,7 +1984,7 @@ main:focus {
 }
 
 .today-stats .today-stat[aria-selected="true"] {
-  border-bottom-color: var(--pico-primary-background);
+  border-bottom-color: var(--primary);
 }
 
 .today-stat-value {
@@ -1801,10 +1996,204 @@ main:focus {
   font-size: 1.1rem;
 }
 
-.today-title,
+/* Sections as cards: a light background, round corners and the same space everywhere */
+.card-section {
+  margin-bottom: 1rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: var(--radius-card);
+  background: var(--pico-card-background-color);
+}
+
+.card-section > :last-child {
+  margin-bottom: 0;
+}
+
 .section-title {
+  font-size: 1.1rem;
+  margin-bottom: 0.6rem;
+}
+
+/* The one main action of a page (start a test), on the whole width */
+/* The test buttons: indigo with a soft gradient. start-test is the big
+   one (the setup of a test), test-button a small one (the bar, a deck) */
+a.start-test,
+button.start-test,
+a.test-button,
+button.test-button,
+button.save-button {
+  border: 0;
+  background: linear-gradient(135deg, #7464dc, var(--primary-dark));
+  color: #fff;
+  font-weight: bold;
+  text-align: center;
+}
+
+a.start-test:hover,
+button.start-test:hover,
+a.test-button:hover,
+button.test-button:hover,
+button.save-button:hover {
+  background: linear-gradient(135deg, #6a5bd8, #3a2f88);
+  color: #fff;
+}
+
+a.start-test,
+button.start-test {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: var(--radius-control);
+  box-shadow: 0 0.35rem 1rem color-mix(in srgb, var(--primary) 25%, transparent);
+  font-size: 1.05rem;
+}
+
+a.test-button {
+  display: inline-block;
+  margin-bottom: 1rem;
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-control);
+  font-size: 0.95rem;
+}
+
+/* "▶ Spustit test" in the bar: a round pill with a blue frame ("Test" on a phone) */
+nav a.nav-test {
+  display: inline-block;
+  padding: 0.3rem 1rem;
+  border-radius: var(--radius-control);
+  box-shadow: inset 0 0 0 2px var(--pico-primary);
+  color: var(--pico-primary);
+  font-size: 0.95rem;
+  font-weight: bold;
+  line-height: 1.3;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+nav a.nav-test:hover {
+  background: color-mix(in srgb, var(--pico-primary) 10%, transparent);
+}
+
+/* A fieldset as a card: the legend is the heading of the card */
+fieldset.card-section {
+  margin-bottom: 1rem;
+}
+
+fieldset.card-section > legend.section-title {
+  float: left;
+  width: 100%;
+  padding: 0;
+  font-weight: bold;
+}
+
+fieldset.card-section > legend.section-title + * {
+  clear: both;
+}
+
+/* A page heading with a small menu ⋯ next to it, and a grey line under it */
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.title-row h1 {
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Pico moves a dropdown up and down by the spacing of a navigation; here it is not one */
+.title-row details.dropdown {
+  margin: 0;
+}
+
+.page-sub {
+  margin: 0.2rem 0 1rem;
+}
+
+/* "✎ Upravit" next to the heading of a word */
+.title-row a.edit-link {
+  margin-left: 0.5rem;
+  color: var(--pico-muted-color);
+  font-size: 0.9rem;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.title-row a.edit-link:hover {
+  color: var(--page-text);
+}
+
+.title-row {
+  flex-wrap: wrap;
+}
+
+/* The translation under the word, bigger than other grey lines */
+.term-translation {
   font-size: 1.2rem;
-  margin-bottom: 0.5rem;
+}
+
+/* A test button can also be a form button; the save button of the settings looks the same */
+button.save-button {
+  width: auto;
+  padding: 0.5rem 1.6rem;
+  border-radius: var(--radius-control);
+}
+
+button.test-button {
+  display: inline-block;
+  width: auto;
+  margin-bottom: 0;
+  padding: 0.45rem 1rem;
+  border-radius: var(--radius-control);
+  font-size: 0.95rem;
+}
+
+.more-menu summary.more-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: 50%;
+  background: none;
+  color: var(--pico-muted-color);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.more-menu summary.more-button::after {
+  display: none;
+}
+
+.more-menu summary.more-button:hover,
+.more-menu summary.more-button:focus,
+.more-menu[open] summary.more-button {
+  background: none;
+  /* Pico sets its colour variable to white on a focused button, so the page colour */
+  color: var(--page-text);
+}
+
+/* The menu opens to the right of the button, so it stays on a phone screen */
+.more-menu > ul {
+  min-width: 12rem;
+}
+
+/* "+ Nový" next to the heading "Slovníky" */
+.section-head a.section-add {
+  color: var(--primary);
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+@media (max-width: 576px) {
+  .card-section {
+    padding: 0.85rem 0.9rem;
+  }
 }
 
 /* Bar chart of the chosen number: the value above each bar, the day under it */
@@ -1850,20 +2239,20 @@ main:focus {
   margin-bottom: 0.15rem;
 }
 
-/* The other days light blue, today the full blue */
+/* The other days in the light second colour, today in the full one */
 .week-bar {
   width: 100%;
   min-height: 2px;
-  border-radius: 3px 3px 0 0;
-  background: color-mix(in srgb, var(--pico-primary-background) 35%, transparent);
+  border-radius: var(--radius-small) var(--radius-small) 0 0;
+  background: var(--primary-light);
 }
 
 .week-bar.is-today {
-  background: var(--pico-primary-background);
+  background: var(--primary);
 }
 
 .week-label.is-today {
-  color: var(--pico-primary);
+  color: var(--primary);
   font-weight: bold;
 }
 
@@ -1874,29 +2263,6 @@ main:focus {
 }
 
 
-.dashboard-hard h2 {
-  font-size: 1.2rem;
-  margin-bottom: 0.75rem;
-}
-
-/* 7 dní · 30 dní · Vše above the words: plain text, the chosen one bold */
-.stat-section .period-switch {
-  display: flex;
-  justify-content: flex-start;
-  gap: 1rem;
-  margin-bottom: 0.75rem;
-  font-size: 0.875rem;
-}
-
-.stat-section .period-switch a {
-  color: var(--pico-muted-color);
-  text-decoration: none;
-}
-
-.stat-section .period-switch a[aria-current="page"] {
-  color: var(--pico-color);
-  font-weight: bold;
-}
 
 
 /* Search: the field and one row for each word found */
@@ -1928,49 +2294,37 @@ main:focus {
   min-height: 1.9rem;
 }
 
-/* The small search field: narrow and low, on the right next to the numbers */
+/* The search on the dashboard: a light strip over the tree, like a filter of the list */
 .search-form.search-compact {
-  margin: 0 0 0 auto;
+  margin: 0 0 0.75rem;
 }
 
-/* No frame: only the grey text with the magnifier of Pico; a thin line under it while
-   typing */
-.section-head .search-compact input[type="search"] {
-  width: 13rem;
-  height: 1.9rem;
+.search-compact input[type="search"] {
+  width: 100%;
+  height: 2.2rem;
+  margin: 0;
   padding-top: 0;
   padding-bottom: 0;
-  border: 0;
-  border-bottom: 1px solid transparent;
-  border-radius: 0;
-  background-color: transparent;
+  padding-inline-start: 2rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-control);
+  background-color: color-mix(in srgb, var(--pico-muted-border-color) 45%, transparent);
+  background-position: center left 0.6rem;
   box-shadow: none;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
 }
 
-.section-head .search-compact input[type="search"]:focus {
-  border-bottom-color: var(--pico-primary-border);
+.search-compact input[type="search"]:focus {
+  border-color: var(--pico-primary-border);
+  background-color: var(--pico-background-color);
   box-shadow: none;
 }
 
-@media (max-width: 576px) {
-  .search-compact input[type="search"] {
-    width: 12rem;
-  }
-
-  /* The numbers always on their own line on a phone, so the row does not jump when the
-     field opens */
-  .section-head a.page-totals {
-    flex-basis: 100%;
-    text-align: right;
-  }
-}
-
-/* Pico makes a search field round (its own --pico-border-radius on it); Pico's normal value
-   again, so the corners are like the other fields. The form has no role="search" on purpose:
+/* Pico makes a search field round (its own --pico-border-radius on it); the radius of the
+   controls again, so the corners are like the other fields. The form has no role="search" on purpose:
    Pico would round it too. */
 .search-form input[type="search"] {
-  --pico-border-radius: 0.25rem;
+  --pico-border-radius: var(--radius-control);
 }
 
 #search-results:not(:empty) {
@@ -2007,3 +2361,10 @@ main:focus {
 .search-hit mark {
   padding: 0 0.1rem;
 }
+
+/* Tables in a card: dates and directions on one line, the table scrolls sideways on a phone */
+.card-section table td,
+.card-section table th {
+  white-space: nowrap;
+}
+

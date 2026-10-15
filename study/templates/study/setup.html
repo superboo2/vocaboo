@@ -17,12 +17,13 @@
     <p>{% translate "Nejdřív si vytvoř slovník a přidej do něj slovíčka." %}</p>
     <a href="{% url 'vocabulary:deck_create' %}" role="button">+ {% translate "Nový slovník" %}</a>
   {% else %}
-    <form method="post" class="form-box">
+    <form method="post">
       {% csrf_token %}
       {{ form.non_field_errors }}
 
-      <fieldset>
-        <legend>{% translate "Slovníky" %}</legend>
+      {# The same cards as on the dashboard: what to test, which way, how many #}
+      <fieldset class="card-section">
+        <legend class="section-title">{% translate "Slovníky" %}</legend>
         <small class="muted">{% translate "Podslovníky se zahrnou automaticky. Slovíčko, které je ve více slovnících, přijde jen jednou." %}</small>
         {% if form.decks.errors %}<small class="field-error">{{ form.decks.errors|join:" " }}</small>{% endif %}
         <ul class="deck-tree deck-tree-root deck-pick">
@@ -32,23 +33,22 @@
         </ul>
       </fieldset>
 
-      <fieldset>
-        <legend>{{ form.direction.label }}</legend>
+      <fieldset class="card-section">
+        <legend class="section-title">{{ form.direction.label }}</legend>
         {% for radio in form.direction %}
           <label>{{ radio.tag }} {{ radio.choice_label }}</label>
         {% endfor %}
       </fieldset>
 
-      <fieldset>
-        <legend>{{ form.scope.label }}</legend>
+      <fieldset class="card-section">
+        <legend class="section-title">{{ form.scope.label }}</legend>
         {% for radio in form.scope %}
           <label>{{ radio.tag }} {{ radio.choice_label }}</label>
         {% endfor %}
+        {{ form.max_cards.as_field_group }}
       </fieldset>
 
-      {{ form.max_cards.as_field_group }}
-
-      <button type="submit">{% translate "Spustit test" %}</button>
+      <button type="submit" class="start-test">▶︎ {% translate "Spustit test" %}</button>
     </form>
   {% endif %}
 {% endblock %}

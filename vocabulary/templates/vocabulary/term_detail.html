@@ -6,26 +6,28 @@
 {% block content %}
   {% include "vocabulary/_breadcrumbs.html" with current=term.main_foreign %}
 
-  <hgroup>
+  {# The word with 🔊 and ✎ Upravit; the rare things (move, remove) in the menu ⋯ #}
+  <div class="title-row">
     <h1>
       {{ term.foreign_variants|join:" · " }}
       {% include "_speak.html" with text=term.main_foreign lang=term.foreign_language.code kind="word" %}
       {% if pronunciation.ipa %}<span class="ipa">[{{ pronunciation.ipa }}]</span>{% endif %}
     </h1>
-    <p>→ {{ term.native_variants|join:" · " }}</p>
-  </hgroup>
-
-  {% if term.note %}<p>{{ term.note|linebreaksbr }}</p>{% endif %}
-
-  <div class="actions">
-    <a href="{% url 'vocabulary:term_edit' deck.pk deck_term.pk %}?next={{ request.get_full_path|urlencode }}" role="button" class="outline">{% translate "Upravit" %}</a>
-    <a href="{% url 'vocabulary:terms_move' deck.pk %}?ids={{ deck_term.pk }}" role="button" class="outline">{% translate "Přesunout" %}</a>
-    <a href="{% url 'vocabulary:term_remove' deck.pk deck_term.pk %}" role="button" class="outline secondary">{% translate "Odebrat z tohoto slovníku" %}</a>
+    <a href="{% url 'vocabulary:term_edit' deck.pk deck_term.pk %}?next={{ request.get_full_path|urlencode }}" class="edit-link">✎ {% translate "Upravit" %}</a>
+    <details class="dropdown more-menu">
+      <summary role="button" class="more-button" aria-label="{% translate 'Další akce' %}" title="{% translate 'Další akce' %}">⋯</summary>
+      <ul>
+        <li><a href="{% url 'vocabulary:terms_move' deck.pk %}?ids={{ deck_term.pk }}">{% translate "Přesunout" %}</a></li>
+        <li><a href="{% url 'vocabulary:term_remove' deck.pk deck_term.pk %}">{% translate "Odebrat z tohoto slovníku" %}</a></li>
+      </ul>
+    </details>
   </div>
+  <p class="page-sub term-translation">→ {{ term.native_variants|join:" · " }}</p>
+  {% if term.note %}<p class="muted">{{ term.note|linebreaksbr }}</p>{% endif %}
 
   {% if other_meanings %}
-    <section>
-      <h2>{% translate "Další významy" %}</h2>
+    <section class="card-section">
+      <h2 class="section-title">{% translate "Další významy" %}</h2>
       <ul class="term-list other-meanings">
         {% for meaning in other_meanings %}
           <li>
@@ -46,8 +48,8 @@
     </section>
   {% endif %}
 
-  <section>
-    <h2>{% translate "Ve slovnících" %}</h2>
+  <section class="card-section">
+    <h2 class="section-title">{% translate "Ve slovnících" %}</h2>
     <ul class="term-list">
       {% for item in in_decks %}
         <li>
@@ -63,8 +65,8 @@
     </ul>
   </section>
 
-  <section>
-    <h2>{% translate "Opakování" %}</h2>
+  <section class="card-section">
+    <h2 class="section-title">{% translate "Opakování" %}</h2>
     <div class="grid">
       {% for row in history.directions %}
         <article class="direction-box">
@@ -91,8 +93,8 @@
     </div>
   </section>
 
-  <section>
-    <h2>{% translate "Historie odpovědí" %}</h2>
+  <section class="card-section">
+    <h2 class="section-title">{% translate "Historie odpovědí" %}</h2>
     {% if history.logs %}
       <div class="overflow-auto">
         <table class="striped">

@@ -2,33 +2,36 @@
 
 {% block help %}
   <section>
+    <h2>Vzhled</h2>
+    <p>Aplikace vypadá stejně na počítači i na telefonu: jeden sloupec, sekce jako karty. Nahoře je lišta <em>Vokie · ▶︎ Test · Statistiky · Nápověda</em> (na telefonu místo Statistik ikona 📊) a kolečko s prvním písmenem tvého e-mailu – klik na něj otevře menu s e-mailem, přepínačem vzhledu <em>☀️ Den · 🌙 Noc · Auto</em> (Auto se řídí nastavením systému; volba platí jen v tomto prohlížeči), <em>Nastavením</em> a <em>Odhlásit</em>. Tlačítko <strong>▶︎ Test</strong> v liště spustí test odkudkoli. Na přehledu jsou karty <em>Co ti dnes nejde</em>, <em>Slovníky</em> (s odkazem <em>+ Nový</em> na nový slovník) a <em>Dnes</em>.</p>
+  </section>
+
+  <section>
     <h2>Čísla na přehledu</h2>
     <div class="overflow-auto"><table>
       <tbody>
-        <tr><td>vpravo u nadpisu <em>Slovníky</em>, např. <em>350 slovíček (+20 dnes) · 120 umíš</em></td><td>všechna tvoje slovíčka (slovíčko ve víc slovnících jednou), v závorce kolik jich dnes přibylo, a kolik z nich umíš (ve směru cizí → rodný dvakrát po sobě správně); klik otevře Statistiky</td></tr>
-        <tr><td><strong>Spustit test · 12 k opakování</strong></td><td>kolik slovíček je teď na řadě (aspoň jeden směr); když není nic, je na tlačítku jen „Spustit test“</td></tr>
-        <tr><td>číslo v závorce u slovníku, např. <em>HIMYM (26)</em></td><td>slovíčka v něm a v jeho podslovnících</td></tr>
+                <tr><td>číslo v závorce u slovníku, např. <em>HIMYM (26)</em></td><td>slovíčka v něm a v jeho podslovnících</td></tr>
         <tr><td>↻ a menší číslo v závorce, např. <em>HIMYM (26 <span class="deck-due">↻ 9</span>)</em></td><td>kolik slovíček slovníku (i podslovníků) je teď na řadě; kde nic nečeká, je v závorce jen počet slovíček (po najetí myší „9 k opakování“)</td></tr>
       </tbody>
     </table></div>
-    <p>Nad slovníky je <strong>Dnes</strong>: jen to, co se ti dnes povedlo v testech. Každé číslo je zároveň přepínač: klik na něj ukáže pod čísly sloupcový graf za posledních 7 dní (číslo nad každým sloupcem, ostatní dny světle modře, dnešek sytě modře).</p>
+    <p>Pod slovníky je <strong>Dnes</strong>: jen to, co se ti dnes povedlo v testech. Každé číslo je zároveň přepínač: klik na něj ukáže pod čísly sloupcový graf za posledních 7 dní (číslo nad každým sloupcem, ostatní dny světlým indigem, dnešek sytým).</p>
     <ul>
       <li>🎯 <strong>poprvé správně</strong>: slovíčka, na která byla dnes poprvé v historii odpověď 😎 nebo 🤔, v kterémkoli směru (každé jednou).</li>
       <li>🎓 <strong>naučeno</strong>: slovíčka, která dnes poprvé splnila „umíš“, tedy ve směru cizí → rodný dvakrát po sobě správně (stejně jako ve Statistikách). Druhá správná odpověď přijde až po intervalu (u 😎 za 7 dní), proto tu nové slovíčko přibude nejdřív za pár dní.</li>
       <li>📚 <strong>v testech</strong>: kolik různých slovíček dnes bylo v testech; slovíčko v obou směrech se počítá jednou.</li>
       <li>⏱️ <strong>čas v testech</strong>: jak dlouho dnes testy trvaly (do poslední odpovědi).</li>
     </ul>
-    <p>Pod slovníky je sekce <strong>Co ti dnes nejde</strong>: až 3 menší otočné kartičky v jednom řádku, počítané jen z dnešních odpovědí: 🐢 Nejdéle přemýšlíš u, 🦀 Jen jedním směrem a 🐘 Pořád dokola – slovíčko, které ti dnes nešlo a v historii má nejvíc pokusů (aspoň 3), např. „zase nevím · už 12. pokus“. Takové slovíčko potřebuje jiný přístup, třeba větu nebo oslí můstek. Když dnes žádný test nebyl nebo ti dnes šlo všechno, sekce se neukáže. Ve Statistikách je celý přehled (až 9 kartiček) s výběrem období.</p>
+    <p>Úplně nahoře (nad slovníky) je sekce <strong>Co ti dnes nejde</strong>, aby slovíčka byla pořád na očích: až 3 menší otočné kartičky v jednom řádku, počítané jen z dnešních odpovědí: 🐢 Nejdéle přemýšlíš u, 🦀 Jen jedním směrem a 🐘 Pořád dokola – slovíčko, které ti dnes nešlo a v historii má nejvíc pokusů (aspoň 3), např. „zase nevím · už 12. pokus“. Takové slovíčko potřebuje jiný přístup, třeba větu nebo oslí můstek. Když dnes žádný test nebyl nebo ti dnes šlo všechno, sekce se neukáže. Ve Statistikách jsou nejdřív tytéž tři kartičky a po nich další (až 10 kartiček), za posledních 30 dní.</p>
   </section>
 
   <section>
     <h2>Statistiky</h2>
-    <p>Odkaz <strong>Statistiky</strong> v horní liště (na telefonu ikona 📊) otevře přehled tvého učení:</p>
+    <p>Odkaz <strong>Statistiky</strong> v horní liště otevře přehled tvého učení:</p>
     <ul>
       <li><strong>Dlaždice nahoře</strong>: slovíček celkem (a kolik přibylo tento týden), kolik umíš (ve směru cizí → rodný aspoň dvakrát po sobě správně), 🔥 kolik dní v řadě se učíš a nejdelší série, počet odpovědí.</li>
-      <li><strong>Slovíčka v čase</strong>: kolik slovíček máš celkem, po týdnech za posledních 12 týdnů. Čísla vlevo ukazují počet; přesnou hodnotu týdne uvidíš po najetí na tečku.</li>
+      <li><strong>Slovíčka v čase</strong>: kolik slovíček máš celkem, od dne prvního slovíčka. Krok se řídí tím, jak dlouho se učíš: první 2 týdny po dnech, do 4 měsíců po týdnech, do 2 let po měsících, pak po čtvrtletích. Čísla vlevo ukazují počet; přesnou hodnotu uvidíš po najetí na tečku.</li>
       <li><strong>Poslední testy</strong>: 10 posledních testů, každý na jednom řádku: kdy byl (datum a čas), cesta ke slovníku, poslední 3 úrovně (např. <em>… › Seriály › HIMYM › S01</em>; celou cestu uvidíš po najetí myší), směr (např. <em>EN → CS</em>, <em>CS → EN</em> nebo <em>EN ↔ CS</em> pro oba směry), rozsah a limit, počet slovíček, úspěšnost (podíl 😎 a 🤔 jako procento a krátký ukazatel; počty 😎 🤔 😕 😵 uvidíš po najetí na ukazatel nebo v souhrnu testu) a délka testu (u nedokončeného testu ⏹). Při ↔ je každé slovíčko v testu dvakrát, jednou každým směrem, a každé se hodnotí zvlášť. Nad tabulkou je, kolik testů jsi udělal za 14 dní. Klik na řádek otevře souhrn testu. Testy bez jediné odpovědi se nezobrazují.</li>
-      <li><strong>Co ti nejde</strong>: slovíčka, která ti nejdou, jako kartičky z testu, ať se učíš i při koukání na statistiky. Vpředu je zvířátko s kategorií a jedna strana slovíčka (polovina kartiček cizí slovo, polovina překlad; u 🦀 vždy ten směr, který ti nejde). Klepnutím (nebo Enter) kartičku otočíš: uvidíš druhou stranu, proč tam slovíčko je, a odkaz <em>Detail →</em>. Přepínač <em>7 dní · 30 dní · Vše</em> určuje, ze kterých odpovědí se počítá (výchozí je posledních 7 dní, takže se to mění).</li>
+      <li><strong>Co ti nejde</strong>: slovíčka, která ti nejdou, jako kartičky z testu, ať se učíš i při koukání na statistiky. Vpředu je zvířátko s kategorií a jedna strana slovíčka (polovina kartiček cizí slovo, polovina překlad; u 🦀 vždy ten směr, který ti nejde). Klepnutím (nebo Enter) kartičku otočíš: uvidíš druhou stranu, proč tam slovíčko je, a odkaz <em>Detail</em>. Počítá se z odpovědí za posledních 30 dní, takže se karty průběžně mění.</li>
     </ul>
     <p>Slovíčko ti „nejde“, když mělo v období odpověď 😵 <em>Vůbec nevím</em> nebo 😕 <em>Vzpomínám si napůl</em> a ještě ho neumíš (v některém směru nemá dvě správné odpovědi po sobě). Každé slovíčko se ukáže jen jednou:</p>
     <ul>

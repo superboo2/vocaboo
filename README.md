@@ -466,8 +466,30 @@ the browser and paused while the page is hidden (another app, locked phone).
 
 ### 14. Dashboard, statistics and word page
 
-- **Hledat** (a field without a frame, only the grey text `Hledat slovíčko…`, on the right
-  of the heading *Slovníky* next to the numbers, **/** jumps into it; the results under the heading; Enter without JavaScript opens `/search/?q=cetka`): all the user's words, in every variant, the sentence and its
+- **Colours:** one colour, indigo: `--primary` (`#5b4bc4`, `#a59af2` in the dark) with
+  `--primary-light` (bars of other days, soft fills) and `--primary-dark` (the account circle,
+  hover); Pico's `--pico-primary*` variables point to it, so links, buttons, check boxes and focus
+  rings are indigo too. The ratings keep their own green, light green, orange and red, so no other
+  strong colour is used.
+- **Round corners:** one scale – cards `--radius-card` (0.75rem), buttons and fields
+  `--radius-control` (0.5rem, also Pico's `--pico-border-radius`), small things `--radius-small`
+  (0.25rem); only the account circle and `⋯` are round.
+- **Look:** one column on every screen (at most 46rem wide, the same on a computer and a phone),
+  the sections of the dashboard as cards. The bar has `Vokie`, a round pill with a blue frame `▶ Spustit test` (`▶ Test` on a
+  phone; the main action, on every page), `Statistiky` (📊 on a phone), `Nápověda` and a
+  circle with the first letter of the e-mail, which opens the account menu (e-mail, the look `☀️ Den · 🌙 Noc · Auto` – `data-theme` on
+  `<html>`, kept in `localStorage` of the browser and set before the page is drawn –, Nastavení,
+  Admin for staff, Odhlásit; a Pico `details.dropdown`, closed by a click elsewhere). The dashboard starts with the card *Dnes*; `+ Nový` (new deck) is next to
+  the heading *Slovníky*. The deck page and the test pages look the same: the deck page has its
+  name with a small menu `⋯` (rename, move, delete), a smaller light-blue button `▶ Testovat tento slovník`
+  and the cards *Nové slovíčko*, *Slovíčka* and *Podslovníky* (with `+ Nový`); the setup of a
+  test has the cards *Slovníky*, *Směr* and *Které kartičky* and the big button `▶ Spustit test`;
+  the test has a thin progress bar above the card. The summary of a test, the statistics and
+  the word page use the same cards; the word page has `✎ Upravit` next to the word and a menu `⋯`
+  (move, remove from this deck). The dashboard order is *Co ti dnes nejde* (only when there is
+  something), *Slovníky*, *Dnes*.
+
+- **Hledat** (a light strip `Hledat slovíčko…` over the deck tree in the card *Slovníky*, **/** jumps into it; the results under the heading; Enter without JavaScript opens `/search/?q=cetka`): all the user's words, in every variant, the sentence and its
   translation and the note, without accents and case (`cetka` finds `Četka`), from 2 letters,
   live while typing (HTMX). Words matching in the word or translation come first, then the ones
   with the text in a sentence or note; the match is marked, each word shows its decks (last 3
@@ -480,20 +502,21 @@ services.search_terms(user, "impose")
 
 - **Statistiky** (`/stats/`, in the navigation; on a phone only the icon 📊): tiles with the number
   of words, words known (foreign → native right at least twice in a row), the streak of days in a
-  row 🔥 and answers; a line chart of all words week by week (12 weeks, values on the y axis, e.g.
-  0 / 20 / 40 / 60 / 80; the exact number on hover over a dot), **Poslední testy** (the last 10
+  row 🔥 and answers; a line chart of all words from the day of the first word (by days for 2
+  weeks, by weeks up to 4 months, by months up to 2 years, then by quarters; values on the y axis,
+  e.g. 0 / 20 / 40 / 60 / 80; the exact number on hover over a dot), **Poslední testy** (the last 10
   tests with an answer, one row each: the date and time, the last 3 decks of the path, e.g. `… ›
   Seriály › HIMYM › S01` (the whole path in the title), the direction (`EN → CS`, `CS → EN`, `EN ↔
   CS`), the scope with the limit, the words, success as percent with a short bar of one colour
   (the counts of 😎 🤔 😕 😵 in its title), and the time of the test (⏹ when not finished); with ↔
   every word comes twice; above it e.g. `Za 14 dní 9 testů · průměrně 24 slovíček`; a click opens
   the summary of the test), and **Co ti nejde**: the words that are hard for you, each with its
-  translation and a link to the word page, for the last 7 days, 30 days or all time
-  (`?period=7|30|all`). A word is hard when it had 😵 or 😕 in the period and is not known yet; each
+  translation and a link to the word page, for the last 30 days (no choice of the period: enough
+  words for the cards, and still about now). A word is hard when it had 😵 or 😕 in the period and is not known yet; each
   word is shown once, as a card that turns like in a test (click or Enter; a short 3D turn, none
   with reduced motion): in front the animal with the name of the kind and one side of the word
   (every second card the native side; 🦀 the hard direction), on the back the other side, a small
-  note why and the link *Detail →*: 🦈 *Největší nepřítel* (`suit up` – obleč se do obleku, 3×
+  note why and the link *Detail*: 🦈 *Největší nepřítel* (`suit up` – obleč se do obleku, 3×
   vůbec nevím z 5 pokusů), 🦀 *Jen jedním směrem* (`EN → CS ano, CS → EN ne`), 🐿️ *Zapomínáš*
   (wrong after 2 right answers in a row, `2× zapomenuto`), 🐒 *Horská dráha* (most changes between
   right and wrong, at least 3), 🐇 *Moc rychle* (the fastest 😵, under 3 s), 🦎 *Pleteš si* (two hard
@@ -511,11 +534,9 @@ services.search_terms(user, "impose")
   only from today's answers: 🐢 the longest thinking, 🦀 only one direction and 🐘 *Pořád dokola*
   (a word hard today with the most attempts in the whole history, at least 3, e.g. `zase nevím ·
   už 12. pokus`). The section is not there when nothing was hard today.
-- On the right of the heading *Slovníky* (the dashboard has no visible heading of its own):
-  `350 slovíček (+20 dnes) · 120 umíš` (all words, a word
-  in more decks once, the words added today, and the known ones; a click opens the statistics).
-- The button `Spustit test · 12 k opakování` says how many words are due now (only `Spustit test`
-  when none is). Each deck in the tree has its words in brackets right after the name, e.g.
+- The card *Slovníky* has only `+ Nový`, the search and the tree (the totals are on the
+  statistics page, moving by dragging is explained in the help).
+- Each deck in the tree has its words in brackets right after the name, e.g.
   `HIMYM (26)`, so it is easy to see in a big tree; when some words are due, their number
   is in the brackets too: `HIMYM (26 ↻ 9)`, the `↻ 9` a bit smaller (title `9 k opakování`).
 - The dashboard shows the decks as a tree of folders (📂 open, 📁 closed, 📄 deck without child

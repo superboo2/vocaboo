@@ -7,40 +7,47 @@
   <h1>{% translate "Souhrn testu" %}</h1>
 
   {% if summary.answered %}
-    <p>{% blocktranslate with counter=summary.answered %}Ohodnocené kartičky: {{ counter }}{% endblocktranslate %}</p>
+    <p class="muted page-sub">{% blocktranslate with counter=summary.answered %}Ohodnocené kartičky: {{ counter }}{% endblocktranslate %}</p>
 
-    <ul class="summary-counts">
-      {% for rating, count in summary.counts %}
-        <li class="rating-{{ rating.key }}">
-          <span class="rating-emoji" aria-hidden="true">{{ rating.emoji }}</span>
-          <strong>{{ count }}</strong>
-          <small>{{ rating.label }}</small>
-        </li>
-      {% endfor %}
-    </ul>
-
-    {% if task %}{% include "study/_sentence_task.html" %}{% endif %}
-
-    {% if problems %}
-      <h2>{% translate "Na zopakování" %}</h2>
-      <ul class="term-list">
-        {% for term in problems %}
-          <li>
-            <span class="term-main">{{ term.foreign_variants|join:" · " }}</span>
-            <span class="muted" aria-hidden="true">→</span>
-            {{ term.native_variants|join:" · " }}
+    <section class="card-section">
+      <h2 class="section-title">{% translate "Jak to šlo" %}</h2>
+      <ul class="summary-counts">
+        {% for rating, count in summary.counts %}
+          <li class="rating-{{ rating.key }}">
+            <span class="rating-emoji" aria-hidden="true">{{ rating.emoji }}</span>
+            <strong>{{ count }}</strong>
+            <small>{{ rating.label }}</small>
           </li>
         {% endfor %}
       </ul>
-      <form method="post" action="{% url 'study:retry' session.pk %}">
-        {% csrf_token %}
-        <button type="submit">{% translate "Procvičit chybné znovu" %}</button>
-      </form>
-    {% else %}
-      <p>🎉 {% translate "Všechno správně!" %}</p>
-    {% endif %}
+    </section>
+
+    {% if task %}{% include "study/_sentence_task.html" %}{% endif %}
+
+    <section class="card-section">
+      {% if problems %}
+        <h2 class="section-title">{% translate "Na zopakování" %}</h2>
+        <ul class="term-list">
+          {% for term in problems %}
+            <li>
+              <span class="term-main">{{ term.foreign_variants|join:" · " }}</span>
+              <span class="muted" aria-hidden="true">→</span>
+              {{ term.native_variants|join:" · " }}
+            </li>
+          {% endfor %}
+        </ul>
+        <form method="post" action="{% url 'study:retry' session.pk %}">
+          {% csrf_token %}
+          <button type="submit" class="test-button">▶︎ {% translate "Procvičit chybné znovu" %}</button>
+        </form>
+      {% else %}
+        <p>🎉 {% translate "Všechno správně!" %}</p>
+      {% endif %}
+    </section>
   {% else %}
-    <p>{% translate "Teď tu nejsou žádné kartičky k opakování." %}</p>
+    <section class="card-section">
+      <p>{% translate "Teď tu nejsou žádné kartičky k opakování." %}</p>
+    </section>
   {% endif %}
 
   <div class="actions">

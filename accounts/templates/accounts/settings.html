@@ -11,21 +11,18 @@
     </ul>
   </nav>
 
-  <article class="form-box">
-    <header>
-      <h1>{% translate "Nastavení" %}</h1>
-      <p class="muted">{{ user.email }}</p>
-    </header>
+  <h1>{% translate "Nastavení" %}</h1>
+  <p class="muted page-sub">{{ user.email }}</p>
 
     <form method="post">
       {% csrf_token %}
       {# Settings in groups by the part of the app they change #}
-      <section class="settings-group">
+      <section class="settings-group card-section">
         <h2>{% translate "Slovníky" %}</h2>
         {{ form.native_language.as_field_group }}
       </section>
 
-      <section class="settings-group">
+      <section class="settings-group card-section">
         <h2>{% translate "Přidávání slovíček" %}</h2>
         <fieldset>
           <label>{{ form.show_suggestions }} {{ form.show_suggestions.label }}</label>
@@ -33,7 +30,7 @@
         </fieldset>
       </section>
 
-      <section class="settings-group">
+      <section class="settings-group card-section">
         <h2>{% translate "Test" %}</h2>
         <fieldset>
           <legend>{{ form.default_direction.label }}</legend>
@@ -66,7 +63,6 @@
         </fieldset>
       </section>
 
-      <button type="submit">{% translate "Uložit" %}</button>
+      <button type="submit" class="save-button">{% translate "Uložit" %}</button>
     </form>
-  </article>
 {% endblock %}

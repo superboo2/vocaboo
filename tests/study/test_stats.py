@@ -36,6 +36,13 @@ def answer(
     )
 
 
+def facts_of(user, now=NOW, period="7"):
+    """The fun facts without the three of the dashboard (they come first on the statistics
+    page and would take the words these tests are about)."""
+    others = stats.STATS_FACTS[len(stats.TODAY_FACTS) :]
+    return stats._facts(user, stats._logs(user), now, period, kinds=others)
+
+
 def test_statistics_of_a_new_user(user):
     result = stats.user_statistics(user, now=NOW)
 
@@ -63,12 +70,19 @@ def test_totals_streak_and_charts(user, deck):
     assert (result["streak"]["current"], result["streak"]["longest"]) == (3, 3)
     # The words chart ends with all words; the y axis goes up to a round number
     chart = result["words_chart"]
-    assert len(chart["points"]) == stats.CHART_WEEKS
-    assert chart["points"][-1]["title"] == "12. 10.: 2"
+    # From the first word 30 days ago: by weeks, Monday 14. 9. … Monday 12. 10.
+    assert [point["title"] for point in chart["points"]] == [
+        "14. 9.: 1",
+        "21. 9.: 1",
+        "28. 9.: 1",
+        "5. 10.: 1",
+        "12. 10.: 2",
+    ]
+    assert chart["subtitle"] == "Slovíček celkem po týdnech od 14. 9. 2026"
     assert [tick["label"] for tick in chart["ticks"]] == ["0", "1", "2", "3", "4"]
     # Two words of 4 are in the middle; SVG needs a dot, not the Czech comma
     assert chart["points"][-1]["top"] == "50.00"
-    facts = {fact["title"]: fact for fact in result["facts"]["items"]}
+    facts = {fact["title"]: fact for fact in facts_of(user)["items"]}
     assert facts["Největší nepřítel"]["word"] == "hello"
     assert facts["Největší nepřítel"]["translation"] == "ahoj"
 
@@ -84,7 +98,8 @@ def test_facts_show_each_hard_word_once(user, deck):
     # ox: native → foreign is hard, foreign → native was right last time
     ReviewState.objects.filter(term=short, direction=Direction.F2N).update(correct_streak=1)
 
-    facts = stats.user_statistics(user, now=NOW)["facts"]
+    kinds = ["Největší nepřítel", "Jen jedním směrem", "Nejdelší, co ti nejde"]
+    facts = stats._facts(user, stats._logs(user), NOW, "7", kinds=kinds)
 
     by_title = {fact["title"]: fact for fact in facts["items"]}
     assert by_title["Největší nepřítel"]["word"] == "window seat"
@@ -104,12 +119,12 @@ def test_facts_show_each_hard_word_once(user, deck):
     words = [fact["word"] for fact in facts["items"]]
     assert sorted(words) == ["ox", "window seat"]
     # In the last 7 days only; the answers are 10 days old in the period of 30 days
-    assert stats.user_statistics(user, now=NOW + timedelta(days=9))["facts"] == {
+    assert stats.user_statistics(user, now=NOW + timedelta(days=9), period="7")["facts"] == {
         "items": [],
         "answered": False,
     }
-    later = stats.user_statistics(user, now=NOW + timedelta(days=9), period="30")
-    assert len(later["facts"]["items"]) == 2
+    later = facts_of(user, now=NOW + timedelta(days=9), period="30")
+    assert len(later["items"]) == 2
 
 
 def test_forgotten_and_oldest_hard_word(user, deck):
@@ -126,7 +141,7 @@ def test_forgotten_and_oldest_hard_word(user, deck):
     answer(user, cat, 3, Result.WRONG, "dontknow")
     answer(user, dog, 3, Result.PARTIAL, "partial", think_ms=None)
 
-    facts = stats.user_statistics(user, now=NOW)["facts"]
+    facts = facts_of(user)
 
     by_title = {fact["title"]: fact for fact in facts["items"]}
     assert by_title["Největší nepřítel"]["word"] == "enemy"
@@ -166,7 +181,8 @@ def test_stats_page(client, user, deck):
     assert "Slovíčka v čase" in html
     assert "<polyline" in html
     assert "Co ti nejde" in html
-    assert 'aria-current="page">7 dní' in html
+    assert "Za posledních 30 dní" in html
+    assert "?period=" not in html
 
 
 def test_stats_page_shows_only_own_data(client, user, other_user, deck):
@@ -187,6 +203,8 @@ def test_dashboard_shows_all_hard_words(client, user, deck):
     for word in ("cat", "dog", "ox"):
         term = vocabulary.add_term(deck, foreign=word, native=word + " cs").term
         answer(user, term, 0, Result.WRONG, "dontknow")
+    # The dashboard counts only today: the answers are from now, not from the fixed NOW
+    ReviewLog.objects.filter(user=user).update(reviewed_at=timezone.now())
     client.force_login(user)
 
     html = client.get(reverse("dashboard")).content.decode()
@@ -350,8 +368,6 @@ def test_today_good_news_and_week(client, user, deck):
 
     metrics = {item["key"]: item for item in overview["metrics"]}
     values = {key: (item["value"], item["label"]) for key, item in metrics.items()}
-    # Only cat was added today
-    assert overview["added_today"] == 1
     assert "added" not in values
     assert values["learned"] == ("1", "slovíčko naučeno")
     # cat was right for the first time today, dog was right yesterday already
@@ -374,7 +390,6 @@ def test_today_without_tests(user, deck):
     overview = stats.today_overview(user)
 
     assert [item["value"] for item in overview["metrics"]] == ["0", "0", "0", "0 min"]
-    assert overview["added_today"] == 0
 
 
 def test_word_known_before_is_not_learned_again(user, deck):
@@ -458,9 +473,7 @@ def test_mixed_up_rollercoaster_and_rushed_words(user, deck):
     for days_ago in (1, 2, 3, 4):
         answer(user, enemy, days_ago, Result.WRONG, "dontknow", think_ms=5000)
 
-    by_title = {
-        fact["title"]: fact for fact in stats.user_statistics(user, now=NOW)["facts"]["items"]
-    }
+    by_title = {fact["title"]: fact for fact in facts_of(user)["items"]}
 
     # The pair takes both words, so each of them is on no other card
     assert by_title["Pleteš si"]["word"] in ("borrow · lend", "lend · borrow")
@@ -486,3 +499,28 @@ def test_dashboard_word_again_and_again(user, deck):
     # 🐢 takes dog (longer thinking), 🐘 takes cat
     assert [(card["emoji"], card["word"]) for card in cards] == [("🐢", "dog"), ("🐘", "cat")]
     assert cards[1]["text"] == "zase nevím · už 4. pokus"
+
+
+def test_statistics_start_with_the_three_of_the_dashboard():
+    assert stats.STATS_FACTS[:3] == stats.TODAY_FACTS
+    assert len(set(stats.STATS_FACTS)) == len(stats.STATS_FACTS)
+
+
+def test_words_chart_by_days_months_and_quarters(user, deck):
+    cat = vocabulary.add_term(deck, foreign="cat", native="kočka").term
+
+    def chart(days_ago):
+        Term.objects.filter(pk=cat.pk).update(created_at=NOW - timedelta(days=days_ago))
+        return stats.user_statistics(user, now=NOW)["words_chart"]
+
+    # 3 days after the first word: a point for each day, no empty start
+    by_days = chart(2)
+    titles = [point["title"] for point in by_days["points"]]
+    assert titles == ["12. 10.: 1", "13. 10.: 1", "14. 10.: 1"]
+    assert by_days["subtitle"].startswith("Slovíček celkem po dnech")
+    # Half a year: by months; three years: by quarters
+    assert chart(180)["points"][0]["title"] == "dub 2026: 1"
+    assert chart(3 * 365)["points"][0]["title"].startswith("Q4 2023")
+    # The first word today: one point in the middle
+    single = chart(0)
+    assert [point["left"] for point in single["points"]] == ["50.00"]
