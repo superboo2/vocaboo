@@ -1,6 +1,6 @@
 // Test screen: turn the card, measure the time, keyboard and the legend of the buttons.
 (function () {
-  const LEGEND_KEY = "vokie.legendSeen";
+  const LEGEND_KEY = "vocaboo.legendSeen";
 
   let card = null;
   let flipped = false;

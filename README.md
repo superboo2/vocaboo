@@ -1,4 +1,4 @@
-# Vokie
+# Vocaboo
 
 Web app for learning vocabulary. You build your own dictionaries (for example one per TV series
 episode), add words to them and practise them as flash cards with spaced repetition.
@@ -353,7 +353,7 @@ get_pronunciation("palm", "en").ipa  # 'pɑːm'
 ```
 
 The sources are behind one interface in `dictionary/providers.py`, their order is the environment
-variable `VOKIE_SUGGESTION_PROVIDERS` (and `VOKIE_PRONUNCIATION_PROVIDERS`), default `lexicon`, so
+variable `VOCABOO_SUGGESTION_PROVIDERS` (and `VOCABOO_PRONUNCIATION_PROVIDERS`), default `lexicon`, so
 another source can be added later without changing the rest of the app.
 
 **Pronunciation.** On the back of a test card and on the word page the foreign word gets a grey
@@ -475,7 +475,7 @@ the browser and paused while the page is hidden (another app, locked phone).
   `--radius-control` (0.5rem, also Pico's `--pico-border-radius`), small things `--radius-small`
   (0.25rem); only the account circle and `⋯` are round.
 - **Look:** one column on every screen (at most 46rem wide, the same on a computer and a phone),
-  the sections of the dashboard as cards. The bar has `Vokie`, a round pill with a blue frame `▶ Spustit test` (`▶ Test` on a
+  the sections of the dashboard as cards. The bar has `Vocaboo`, a round pill with a blue frame `▶ Spustit test` (`▶ Test` on a
   phone; the main action, on every page), `Statistiky` (📊 on a phone), `Nápověda` and a
   circle with the first letter of the e-mail, which opens the account menu (e-mail, the look `☀️ Den · 🌙 Noc · Auto` – `data-theme` on
   `<html>`, kept in `localStorage` of the browser and set before the page is drawn –, Nastavení,
@@ -724,14 +724,14 @@ directory).
 | `DB_PORT` | Database port | `5432` | `5432` |
 | `DJANGO_SECRET_KEY` | Secret key for signing sessions etc. **Must be secret and unique.** | `change-me` | generated key (see below) |
 | `DJANGO_DEBUG` | Debug mode, `1` = on, `0` = off. **Must be `0` in production.** | `1` | `0` |
-| `DJANGO_ALLOWED_HOSTS` | Comma separated domain names the app answers to | `localhost,127.0.0.1` | `vokie.example.com` |
-| `DJANGO_CSRF_TRUSTED_ORIGINS` | Comma separated full addresses the app is opened at; forms do not work over HTTPS without it | (not needed) | `https://vokie.example.com` |
+| `DJANGO_ALLOWED_HOSTS` | Comma separated domain names the app answers to | `localhost,127.0.0.1` | `vocaboo.me` |
+| `DJANGO_CSRF_TRUSTED_ORIGINS` | Comma separated full addresses the app is opened at; forms do not work over HTTPS without it | (not needed) | `https://vocaboo.me` |
 | `DJANGO_SECURE_SSL_REDIRECT` | Redirect HTTP to HTTPS in Django (only with `DJANGO_DEBUG=0`) | (not used) | `1` (default) |
 | `DJANGO_HSTS_SECONDS` | How long browsers must use only HTTPS (only with `DJANGO_DEBUG=0`) | (not used) | `3600` (default), later `31536000` |
 | `DJANGO_HSTS_INCLUDE_SUBDOMAINS` | HSTS also for all subdomains | (not used) | `0` (default) |
 | `DJANGO_LOG_LEVEL` | Log level of Django messages | `INFO` | `INFO` |
-| `VOKIE_SUGGESTION_PROVIDERS` | Comma separated sources of translation suggestions | `lexicon` | `lexicon` |
-| `VOKIE_PRONUNCIATION_PROVIDERS` | Comma separated sources of pronunciation (IPA) | `lexicon` | `lexicon` |
+| `VOCABOO_SUGGESTION_PROVIDERS` | Comma separated sources of translation suggestions | `lexicon` | `lexicon` |
+| `VOCABOO_PRONUNCIATION_PROVIDERS` | Comma separated sources of pronunciation (IPA) | `lexicon` | `lexicon` |
 
 With `DJANGO_DEBUG=0` the app refuses to start when `DJANGO_SECRET_KEY` is missing or still
 `change-me`:
@@ -757,8 +757,8 @@ DB_PORT=5432
 
 DJANGO_SECRET_KEY=...generated...
 DJANGO_DEBUG=0
-DJANGO_ALLOWED_HOSTS=vokie.example.com
-DJANGO_CSRF_TRUSTED_ORIGINS=https://vokie.example.com
+DJANGO_ALLOWED_HOSTS=vocaboo.me
+DJANGO_CSRF_TRUSTED_ORIGINS=https://vocaboo.me
 ```
 
 Make sure the file can be read only by the user that runs the app:
@@ -769,11 +769,11 @@ chmod 600 .env
 
 ### Server
 
-The examples use Debian/Ubuntu, the domain `vokie.example.com` and the directory `/srv/vokie`.
+The examples use Debian/Ubuntu, the domain `vocaboo.me` and the directory `/srv/vocaboo`.
 Replace them with your own values.
 
 ```
-browser ──HTTPS──> nginx ──> /static/ files from /srv/vokie/staticfiles
+browser ──HTTPS──> nginx ──> /static/ files from /srv/vocaboo/staticfiles
                       └────> gunicorn (unix socket) ──> Django ──> PostgreSQL
 ```
 
@@ -781,35 +781,35 @@ browser ──HTTPS──> nginx ──> /static/ files from /srv/vokie/staticfi
 
 ```bash
 # A user without login that runs the app
-sudo adduser --system --group --home /srv/vokie vokie
+sudo adduser --system --group --home /srv/vocaboo vocaboo
 
 # uv for that user (or install it system-wide)
-sudo -u vokie -H bash -c "curl -LsSf https://astral.sh/uv/install.sh | sh"
+sudo -u vocaboo -H bash -c "curl -LsSf https://astral.sh/uv/install.sh | sh"
 
 # The code
-sudo -u vokie -H git clone https://example.com/your/vokie.git /srv/vokie/app
-cd /srv/vokie/app
+sudo -u vocaboo -H git clone https://example.com/your/vocaboo.git /srv/vocaboo/app
+cd /srv/vocaboo/app
 ```
 
 #### 2. Settings, dependencies, database tables
 
 ```bash
 # Settings: copy the example and fill in the production values (see "Environment variables")
-sudo -u vokie cp .env.example .env
-sudo -u vokie nano .env
+sudo -u vocaboo cp .env.example .env
+sudo -u vocaboo nano .env
 sudo chmod 600 .env
 
 # Dependencies without the development tools
-sudo -u vokie -H ~vokie/.local/bin/uv sync --no-dev
+sudo -u vocaboo -H ~vocaboo/.local/bin/uv sync --no-dev
 
 # Tables, static files, first user
-sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py migrate
-sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py collectstatic --noinput
-sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py createsuperuser
+sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py migrate
+sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py collectstatic --noinput
+sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py createsuperuser
 
 # Must end without errors. The two warnings about HSTS subdomains and preload are expected,
 # see "HTTPS" below.
-sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py check --deploy
+sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py check --deploy
 ```
 
 #### 3. The dictionary of the app
@@ -824,11 +824,11 @@ and about 8 MB in the database, a Raspberry Pi is fine.
 scp dictionary/data/lexicon_en_cs.jsonl dictionary/data/lexicon_tags.json pi@raspberrypi:/tmp/
 
 # On the server
-sudo mkdir -p /srv/vokie/app/dictionary/data
-sudo mv /tmp/lexicon_en_cs.jsonl /tmp/lexicon_tags.json /srv/vokie/app/dictionary/data/
-sudo chown -R vokie:vokie /srv/vokie/app/dictionary/data
-cd /srv/vokie/app
-sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py import_lexicon \
+sudo mkdir -p /srv/vocaboo/app/dictionary/data
+sudo mv /tmp/lexicon_en_cs.jsonl /tmp/lexicon_tags.json /srv/vocaboo/app/dictionary/data/
+sudo chown -R vocaboo:vocaboo /srv/vocaboo/app/dictionary/data
+cd /srv/vocaboo/app
+sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py import_lexicon \
     dictionary/data/lexicon_en_cs.jsonl
 # Imported 10006 entries with 12537 senses (en → cs), 60 tags.
 ```
@@ -836,7 +836,7 @@ sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py import_lexicon \
 Check it in the shell:
 
 ```bash
-sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py shell -c \
+sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py shell -c \
     "from dictionary.providers import get_suggestions; print(get_suggestions('palm', 'en', 'cs'))"
 ```
 
@@ -845,21 +845,21 @@ run the import again; it replaces the old data.
 
 #### 4. gunicorn as a systemd service
 
-`/etc/systemd/system/vokie.service`:
+`/etc/systemd/system/vocaboo.service`:
 
 ```ini
 [Unit]
-Description=Vokie (gunicorn)
+Description=Vocaboo (gunicorn)
 After=network.target postgresql.service
 
 [Service]
-User=vokie
-Group=vokie
-WorkingDirectory=/srv/vokie/app
-# Creates /run/vokie for the socket, owned by the vokie user
-RuntimeDirectory=vokie
-ExecStart=/srv/vokie/app/.venv/bin/gunicorn config.wsgi \
-    --bind unix:/run/vokie/gunicorn.sock \
+User=vocaboo
+Group=vocaboo
+WorkingDirectory=/srv/vocaboo/app
+# Creates /run/vocaboo for the socket, owned by the vocaboo user
+RuntimeDirectory=vocaboo
+ExecStart=/srv/vocaboo/app/.venv/bin/gunicorn config.wsgi \
+    --bind unix:/run/vocaboo/gunicorn.sock \
     --workers 3 \
     --timeout 30 \
     --access-logfile -
@@ -871,31 +871,31 @@ WantedBy=multi-user.target
 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl enable --now vokie
-sudo systemctl status vokie
-journalctl -u vokie -f        # logs, also Django errors
+sudo systemctl enable --now vocaboo
+sudo systemctl status vocaboo
+journalctl -u vocaboo -f        # logs, also Django errors
 ```
 
 The app reads `.env` from its directory, so the settings do not have to be in the service file.
 
 #### 5. nginx
 
-`/etc/nginx/sites-available/vokie`:
+`/etc/nginx/sites-available/vocaboo`:
 
 ```nginx
 server {
     listen 80;
-    server_name vokie.example.com;
+    server_name vocaboo.me;
 
     # Static files straight from disk, Django does not serve them in production
     location /static/ {
-        alias /srv/vokie/app/staticfiles/;
+        alias /srv/vocaboo/app/staticfiles/;
         expires 7d;
         access_log off;
     }
 
     location / {
-        proxy_pass http://unix:/run/vokie/gunicorn.sock;
+        proxy_pass http://unix:/run/vocaboo/gunicorn.sock;
         proxy_set_header Host $host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         # Django knows from this that the browser uses HTTPS
@@ -906,16 +906,16 @@ server {
 ```
 
 ```bash
-sudo ln -s /etc/nginx/sites-available/vokie /etc/nginx/sites-enabled/vokie
+sudo ln -s /etc/nginx/sites-available/vocaboo /etc/nginx/sites-enabled/vocaboo
 sudo nginx -t && sudo systemctl reload nginx
 ```
 
 nginx must be able to read the static files and to connect to the socket:
 
 ```bash
-# Let nginx (user www-data) into the vokie group
-sudo usermod -aG vokie www-data
-sudo chmod 750 /srv/vokie /srv/vokie/app
+# Let nginx (user www-data) into the vocaboo group
+sudo usermod -aG vocaboo www-data
+sudo chmod 750 /srv/vocaboo /srv/vocaboo/app
 sudo systemctl restart nginx
 ```
 
@@ -923,7 +923,7 @@ sudo systemctl restart nginx
 
 ```bash
 sudo apt install -y certbot python3-certbot-nginx
-sudo certbot --nginx -d vokie.example.com
+sudo certbot --nginx -d vocaboo.me
 ```
 
 certbot adds the HTTPS part to the nginx file and renews the certificate by itself
@@ -943,12 +943,12 @@ preload is not needed.
 #### 7. Updating the app
 
 ```bash
-cd /srv/vokie/app
-sudo -u vokie git pull
-sudo -u vokie -H ~vokie/.local/bin/uv sync --no-dev
-sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py migrate
-sudo -u vokie -H ~vokie/.local/bin/uv run python manage.py collectstatic --noinput
-sudo systemctl restart vokie
+cd /srv/vocaboo/app
+sudo -u vocaboo git pull
+sudo -u vocaboo -H ~vocaboo/.local/bin/uv sync --no-dev
+sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py migrate
+sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py collectstatic --noinput
+sudo systemctl restart vocaboo
 ```
 
 Newer dictionary data (only when the file changed): copy `lexicon_en_cs.jsonl` and
@@ -960,23 +960,23 @@ deletes the old Wiktionary table.
 
 A daily dump of the database, the last 14 days are kept.
 
-`/etc/cron.daily/vokie-backup` (make it executable: `sudo chmod +x /etc/cron.daily/vokie-backup`):
+`/etc/cron.daily/vocaboo-backup` (make it executable: `sudo chmod +x /etc/cron.daily/vocaboo-backup`):
 
 ```bash
 #!/bin/sh
 set -e
-mkdir -p /var/backups/vokie
-sudo -u postgres pg_dump --format=custom vokie > /var/backups/vokie/vokie-$(date +%F).dump
-find /var/backups/vokie -name "vokie-*.dump" -mtime +14 -delete
+mkdir -p /var/backups/vocaboo
+sudo -u postgres pg_dump --format=custom vokie > /var/backups/vocaboo/vocaboo-$(date +%F).dump
+find /var/backups/vocaboo -name "vocaboo-*.dump" -mtime +14 -delete
 ```
 
 Restore a backup (this replaces the current data):
 
 ```bash
-sudo systemctl stop vokie
+sudo systemctl stop vocaboo
 sudo -u postgres pg_restore --clean --if-exists --no-owner --role=vokie \
-    --dbname=vokie /var/backups/vokie/vokie-2026-10-08.dump
-sudo systemctl start vokie
+    --dbname=vokie /var/backups/vocaboo/vocaboo-2026-10-08.dump
+sudo systemctl start vocaboo
 ```
 
 Copy the backups to another machine from time to time; a backup on the same disk does not help

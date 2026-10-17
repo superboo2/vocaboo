@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% load i18n static %}
 
-{% block title %}{% translate "Přehled" %} · Vokie{% endblock %}
+{% block title %}{% translate "Přehled" %} · Vocaboo{% endblock %}
 
 {% block content %}
   <script src="{% static 'vendor/sortable/Sortable.min.js' %}" defer></script>
   <script src="{% static 'js/tree.js' %}" defer></script>
-  {# The start page needs no visible heading (the bar says Vokie); screen readers get one #}
+  {# The start page needs no visible heading (the bar says Vocaboo); screen readers get one #}
   <h1 class="visually-hidden">{% translate "Přehled" %}</h1>
 
   {% if roots %}

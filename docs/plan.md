@@ -1,4 +1,4 @@
-# Vokie – plán implementace MVP
+# Vocaboo – plán implementace MVP
 
 **Stav: MVP hotové (kroky 0–12).** Další práce podle fází 2–4 ve `spec.md`.
 

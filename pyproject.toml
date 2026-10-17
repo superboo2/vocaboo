@@ -1,5 +1,5 @@
 [project]
-name = "vokie"
+name = "vocaboo"
 version = "0.1.0"
 description = "Web app for learning vocabulary with spaced repetition"
 readme = "README.md"

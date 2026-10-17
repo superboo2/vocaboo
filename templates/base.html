@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <title>{% block title %}Vokie{% endblock %}</title>
+  <title>{% block title %}Vocaboo{% endblock %}</title>
   {# The look chosen in the account menu (light / dark), before the page is drawn, so it #}
   {# does not flash; without a choice the system decides #}
   <script>
     try {
-      const theme = localStorage.getItem("vokie.theme");
+      const theme = localStorage.getItem("vocaboo.theme");
       if (theme === "light" || theme === "dark") {
         document.documentElement.dataset.theme = theme;
       }
@@ -30,7 +30,7 @@
     <header class="container">
       <nav>
         <ul>
-          <li><a href="{% url 'dashboard' %}" class="brand"><strong>Vokie</strong></a></li>
+          <li><a href="{% url 'dashboard' %}" class="brand"><strong>Vocaboo</strong></a></li>
         </ul>
         <ul>
           {# The main action of the app, on every page #}

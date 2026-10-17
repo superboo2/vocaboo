@@ -312,7 +312,7 @@ document.addEventListener("click", function (event) {
 function showThemeChoice() {
   let theme = "auto";
   try {
-    theme = localStorage.getItem("vokie.theme") || "auto";
+    theme = localStorage.getItem("vocaboo.theme") || "auto";
   } catch (error) {}
   document.querySelectorAll("[data-theme-choice]").forEach(function (button) {
     button.setAttribute("aria-pressed", button.dataset.themeChoice === theme ? "true" : "false");
@@ -332,9 +332,9 @@ document.addEventListener("click", function (event) {
   }
   try {
     if (theme === "auto") {
-      localStorage.removeItem("vokie.theme");
+      localStorage.removeItem("vocaboo.theme");
     } else {
-      localStorage.setItem("vokie.theme", theme);
+      localStorage.setItem("vocaboo.theme", theme);
     }
   } catch (error) {
     // Storage can be blocked, the look then lasts only for this page

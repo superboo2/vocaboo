@@ -1,5 +1,5 @@
 """
-Django settings for the Vokie project.
+Django settings for the Vocaboo project.
 
 Values that differ between machines (database, secret key, debug) come from
 environment variables. For local work they can be put into the .env file in the
@@ -61,7 +61,7 @@ if not SECRET_KEY or SECRET_KEY == "change-me":
 
 ALLOWED_HOSTS = env_list("DJANGO_ALLOWED_HOSTS", "localhost,127.0.0.1")
 
-# Full addresses the app is opened at, e.g. https://vokie.example.com (needed for forms over HTTPS)
+# Full addresses the app is opened at, e.g. https://vocaboo.me (needed for forms over HTTPS)
 CSRF_TRUSTED_ORIGINS = env_list("DJANGO_CSRF_TRUSTED_ORIGINS")
 
 if not DEBUG:
@@ -194,12 +194,12 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
 # Translation suggestions when a word is typed, sources in this order (see dictionary/providers.py)
-SUGGESTION_PROVIDERS = env_list("VOKIE_SUGGESTION_PROVIDERS", "lexicon")
+SUGGESTION_PROVIDERS = env_list("VOCABOO_SUGGESTION_PROVIDERS", "lexicon")
 # Pronunciation of words (IPA; the sound is made by the browser), sources in this order
-PRONUNCIATION_PROVIDERS = env_list("VOKIE_PRONUNCIATION_PROVIDERS", "lexicon")
+PRONUNCIATION_PROVIDERS = env_list("VOCABOO_PRONUNCIATION_PROVIDERS", "lexicon")
 
 
-# Logging: errors go to the console, on the server systemd keeps them (journalctl -u vokie)
+# Logging: errors go to the console, on the server systemd keeps them (journalctl -u vocaboo)
 
 LOGGING = {
     "version": 1,
