@@ -1,11 +1,11 @@
-{% load i18n %}
+{% load i18n arrows %}
 {# One row of coloured dots: the last answers of a word in one direction, the oldest first #}
 {# (row from study.services.answer_dots). The colour is never the only sign: every dot has #}
 {# a title (date and rating) and the row reads them out for screen readers. #}
 {# expandable: "+N" opens the hidden older dots (app.js) and then the link history_url; #}
 {# label: show the direction in front of the dots; ring: share of correct answers. #}
 <div class="dots-row">
-  {% if label %}<span class="dots-label">{{ row.label }}</span>{% endif %}
+  {% if label %}<span class="dots-label">{{ row.label|arrows }}</span>{% endif %}
   {% if ring %}
     <span class="dots-ring" style="--percent: {{ row.percent }}"
           title="{% blocktranslate with percent=row.percent total=row.total %}{{ percent }}% correct of {{ total }} answers{% endblocktranslate %}"><span>{{ row.percent }} %</span></span>

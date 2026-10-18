@@ -1,4 +1,4 @@
-{% load i18n vocabulary_tags %}
+{% load i18n vocabulary_tags arrows %}
 {# Words in the deck. With oob=True HTMX swaps it "out of band" after adding a word. #}
 {# "Vybrat" shows check boxes; the chosen words go to the page for moving (views.terms_move). #}
 <div id="term-list"{% if oob %} hx-swap-oob="true"{% endif %}>
@@ -29,7 +29,7 @@
                     <div class="term-texts">
                       <a href="{% url 'vocabulary:term_detail' deck.pk item.pk %}" class="term-main">{{ foreign.0 }}</a>
                       {% if foreign|length > 1 %}<small class="muted">· {{ foreign|slice:"1:"|join:" · " }}</small>{% endif %}
-                      <span class="muted" aria-hidden="true">→</span>
+                      <span class="muted">{% arrow %}</span>
                       <span>{{ native|join:" · " }}</span>
                     </div>
                     {% if item.context_sentence %}

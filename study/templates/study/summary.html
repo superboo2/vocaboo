@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n arrows %}
 
 {% block title %}{% translate "Test summary" %} · Vocaboo{% endblock %}
 
@@ -31,7 +31,7 @@
           {% for term in problems %}
             <li>
               <span class="term-main">{{ term.foreign_variants|join:" · " }}</span>
-              <span class="muted" aria-hidden="true">→</span>
+              <span class="muted">{% arrow %}</span>
               {{ term.native_variants|join:" · " }}
             </li>
           {% endfor %}

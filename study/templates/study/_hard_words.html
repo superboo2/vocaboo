@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n arrows %}
 {# Cards "What you struggle with" (study/stats.py _facts). They turn like in a test: in front the animal #}
 {# with the kind and one side of the word, a small ↻ in the corner says it turns; a click #}
 {# (app.js) shows the other side, why and the #}
@@ -16,7 +16,7 @@
         <span class="hard-word-turn" aria-hidden="true">↻</span>
         <span class="hard-word-kind"><span class="hard-word-animal" aria-hidden="true">{{ fact.emoji }}</span> {{ fact.title }}</span>
         <strong class="hard-word-word">{{ fact.back }}</strong>
-        <small class="muted">{{ fact.text }}</small>
+        <small class="muted">{{ fact.text|arrows }}</small>
         <a class="hard-word-detail" href="{% url 'vocabulary:term_detail' fact.term.deck_pk fact.term.deck_term_pk %}">{% translate "Details" %}</a>
       </div>
     </div>

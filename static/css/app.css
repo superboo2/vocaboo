@@ -395,6 +395,22 @@ nav .brand strong {
   font-weight: 600;
 }
 
+/* The arrow of a language pair or a translation (EN → CS, palm → dlaň), an SVG icon from
+   the arrows template tags: as high as capital letters and centred on them */
+svg.arrow {
+  display: inline-block;
+  width: 1em;
+  height: 0.72em;
+  margin: 0 0.22em;
+  vertical-align: 0;
+  overflow: visible;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.9;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 /* Narrow centered box, e.g. login */
 .narrow {
   max-width: 26rem;

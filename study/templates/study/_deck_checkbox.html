@@ -1,8 +1,9 @@
+{% load arrows %}
 {# One deck with a checkbox in the test setup, calls itself for the children #}
 <li>
   <label>
     <input type="checkbox" name="decks" value="{{ deck.pk }}"{% if deck.pk in selected %} checked{% endif %}>
-    {{ deck.name }}{% if deck.depth == 1 %} <span class="pair">({{ deck.language_pair }})</span>{% endif %}
+    {{ deck.name }}{% if deck.depth == 1 %} <span class="pair">({{ deck.language_pair|arrows }})</span>{% endif %}
   </label>
   {% if deck.tree_children %}
     <ul class="deck-tree">

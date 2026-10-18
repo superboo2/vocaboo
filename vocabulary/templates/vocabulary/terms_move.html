@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n arrows %}
 
 {# Move or copy chosen words into another deck (views.terms_move) #}
 
@@ -12,12 +12,12 @@
   <article class="form-box">
     <header>
       <h1>{{ title }}</h1>
-      <p>{% blocktranslate with name=deck.name pair=deck.language_pair %}From the deck “{{ name }}” ({{ pair }}){% endblocktranslate %}</p>
+      <p>{% blocktranslate with name=deck.name pair=deck.language_pair|arrows %}From the deck “{{ name }}” ({{ pair }}){% endblocktranslate %}</p>
     </header>
 
     <ul class="move-words">
       {% for item in deck_terms %}
-        <li><strong>{{ item.term.main_foreign }}</strong> <span class="muted">→ {{ item.term.native_variants|join:" · " }}</span></li>
+        <li><strong>{{ item.term.main_foreign }}</strong> <span class="muted">{% arrow %}{{ item.term.native_variants|join:" · " }}</span></li>
       {% endfor %}
     </ul>
 

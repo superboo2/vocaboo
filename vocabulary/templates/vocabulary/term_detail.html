@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n study_tags vocabulary_tags %}
+{% load i18n study_tags vocabulary_tags arrows %}
 
 {% block title %}{{ term.main_foreign }} · Vocaboo{% endblock %}
 
@@ -22,7 +22,7 @@
       </ul>
     </details>
   </div>
-  <p class="page-sub term-translation">→ {{ term.native_variants|join:" · " }}</p>
+  <p class="page-sub term-translation">{% arrow %}{{ term.native_variants|join:" · " }}</p>
   {% if term.note %}<p class="muted">{{ term.note|linebreaksbr }}</p>{% endif %}
 
   {% if other_meanings %}

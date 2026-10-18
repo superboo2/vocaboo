@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n arrows %}
 
 {# Shared form page: new deck, new child deck, edit, move #}
 
@@ -12,9 +12,9 @@
     <header>
       <h1>{{ title }}</h1>
       {% if parent %}
-        <p>{% blocktranslate with name=parent.name pair=parent.language_pair %}Under the deck “{{ name }}”, the languages {{ pair }} are taken over.{% endblocktranslate %}</p>
+        <p>{% blocktranslate with name=parent.name pair=parent.language_pair|arrows %}Under the deck “{{ name }}”, the languages {{ pair }} are taken over.{% endblocktranslate %}</p>
       {% elif deck %}
-        <p>{{ deck.name }} ({{ deck.language_pair }})</p>
+        <p>{{ deck.name }} ({{ deck.language_pair|arrows }})</p>
       {% endif %}
     </header>
 

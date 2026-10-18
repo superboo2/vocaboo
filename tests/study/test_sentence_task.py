@@ -197,7 +197,8 @@ def test_summary_shows_example_without_braces(client, user, deck, lexicon):
 
     html = client.get(reverse("study:summary", args=[session.pk])).content.decode()
 
-    assert "<em>She read my palm.</em> → Četla mi z dlaně." in html
+    assert '<em>She read my palm.</em><svg class="arrow"' in html
+    assert "</svg>Četla mi z dlaně." in html
     assert 'data-text="She read my {palm}."' in html
 
 

@@ -1,4 +1,4 @@
-{% load i18n study_tags %}
+{% load i18n study_tags arrows %}
 {# One flash card. After a rating HTMX puts the next card in place of this one. #}
 {# Both sides are in the page; turning the card is done in the browser (study.js). #}
 {# data-autoplay: what study.js reads by itself ("word" or "sentence"), data-direction: when #}
@@ -42,7 +42,7 @@
       {% if card.own_meanings %}
         <p class="card-own">
           {% translate "You are also learning:" %}
-          {% for variants in card.own_meanings %}{% if not card.is_f2n %}{{ card.term.main_foreign }} → {% endif %}{{ variants|join:" · " }}{% if not forloop.last %}, {% endif %}{% endfor %}
+          {% for variants in card.own_meanings %}{% if not card.is_f2n %}{{ card.term.main_foreign }}{% arrow %}{% endif %}{{ variants|join:" · " }}{% if not forloop.last %}, {% endif %}{% endfor %}
         </p>
       {% endif %}
       {% if card.also %}

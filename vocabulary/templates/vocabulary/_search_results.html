@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n arrows %}
 {# Results of the search (vocabulary.services.search_terms): one row for one word, the #}
 {# match marked, the decks as short paths (the whole one in the title). #}
 {% if not too_short %}
@@ -8,7 +8,7 @@
         <li class="search-hit">
           <div class="search-word">
             <a href="{% url 'vocabulary:term_detail' hit.deck_term.deck_id hit.deck_term.pk %}"><strong>{% for text, match in hit.foreign %}{% if match %}<mark>{{ text }}</mark>{% else %}{{ text }}{% endif %}{% endfor %}</strong></a>
-            <span class="muted" aria-hidden="true">→</span>
+            <span class="muted">{% arrow %}</span>
             <span>{% for text, match in hit.native %}{% if match %}<mark>{{ text }}</mark>{% else %}{{ text }}{% endif %}{% endfor %}</span>
           </div>
           {% if hit.found_in %}

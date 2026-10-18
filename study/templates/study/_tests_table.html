@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n arrows %}
 {# The last tests (study/stats.py recent_tests): one row each, a click opens the summary of #}
 {# the test. With ↔ every word comes twice, once each way. The bar shows only the percent #}
 {# (one colour), the numbers of 😎 🤔 😕 😵 are in its title and in the summary. #}
@@ -21,7 +21,7 @@
         <small class="muted">{{ row.time }}</small>
       </span>
       <span class="test-decks" role="cell">{% for path in row.paths %}<small title="{{ path.full }}">{{ path.short }}</small>{% empty %}<small>—</small>{% endfor %}</span>
-      <span class="test-direction" role="cell">{{ row.direction }}</span>
+      <span class="test-direction" role="cell">{{ row.direction|arrows }}</span>
       <span class="test-scope" role="cell">{{ row.scope }}{% if row.limit %}<small class="muted">{{ row.limit }}</small>{% endif %}</span>
       <span class="test-count test-words" role="cell">{{ row.cards }}<small class="muted test-words-label"> {% translate "words" context "after a number" %}</small></span>
       <span class="test-success" role="cell" title="{% for item in row.ratings %}{{ item.rating.emoji }} {{ item.count }}{% if not forloop.last %} · {% endif %}{% endfor %}">

@@ -1,4 +1,4 @@
-{% load i18n vocabulary_tags %}
+{% load i18n vocabulary_tags arrows %}
 {# End of a test: the word that does not stick and a form to add a sentence to it. #}
 {# The sentence goes under the foreign word, its translation under the native one. #}
 {# HTMX sends it and puts this part back with "Uloženo". #}
@@ -42,7 +42,7 @@
           <p class="sentence-example">
             {# The example keeps its braces in the fields (they mark the word), not in the text #}
             💡 {% translate "Example:" %}
-            <em>{{ task.example.text|plain_sentence:"" }}</em>{% if task.example.translation %} → {{ task.example.translation|plain_sentence:"" }}{% endif %}
+            <em>{{ task.example.text|plain_sentence:"" }}</em>{% if task.example.translation %}{% arrow %}{{ task.example.translation|plain_sentence:"" }}{% endif %}
             <button type="button" class="link-button" data-action="use-example"
                     data-text="{{ task.example.text }}" data-translation="{{ task.example.translation }}">{% translate "Use" %}</button>
           </p>
