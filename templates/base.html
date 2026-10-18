@@ -15,8 +15,10 @@
       }
     } catch (error) {}
   </script>
-  {# No icon yet; empty icon stops the browser asking for /favicon.ico #}
-  <link rel="icon" href="data:,">
+  <link rel="icon" href="{% static 'favicon.svg' %}" type="image/svg+xml">
+  {# Only for the home screen of a phone (phones do not take SVG there) #}
+  <link rel="apple-touch-icon" href="{% static 'apple-touch-icon.png' %}">
+  <link rel="manifest" href="{% static 'manifest.webmanifest' %}">
   <link rel="stylesheet" href="{% static 'vendor/pico/pico.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/app.css' %}">
   <script src="{% static 'vendor/htmx/htmx.min.js' %}" defer></script>
@@ -30,14 +32,15 @@
     <header class="container">
       <nav>
         <ul>
-          <li><a href="{% url 'dashboard' %}" class="brand"><strong>Vocaboo</strong></a></li>
+          <li><a href="{% url 'dashboard' %}" class="brand">{% include "_logo.html" %}<strong>Vocaboo</strong></a></li>
         </ul>
         <ul>
           {# The main action of the app, on every page #}
           <li><a href="{% url 'study:new' %}" class="nav-test">▶︎ <span class="nav-text">{% translate "Spustit test" %}</span><span class="nav-icon">{% translate "Test" %}</span></a></li>
           {# On a phone only the icon, so the bar stays on one line #}
           <li><a href="{% url 'study:stats' %}" aria-label="{% translate 'Statistiky' %}" title="{% translate 'Statistiky' %}"><span class="nav-icon" aria-hidden="true">📊</span><span class="nav-text">{% translate "Statistiky" %}</span></a></li>
-          <li><a href="{% url 'help_index' %}">{% translate "Nápověda" %}</a></li>
+          {# On a narrow phone only ?, so the bar stays on one line #}
+          <li><a href="{% url 'help_index' %}" aria-label="{% translate 'Nápověda' %}" title="{% translate 'Nápověda' %}"><span class="help-icon" aria-hidden="true">?</span><span class="help-text">{% translate "Nápověda" %}</span></a></li>
           {# The account: a circle with the first letter, the rest in its menu #}
           <li>
             <details class="dropdown account-menu">

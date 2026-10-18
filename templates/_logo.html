@@ -1,0 +1,14 @@
+{# The ghost of Vocaboo peeking out from behind a word card. The colours come from app.css; #}
+{# the size and colours here are only a fallback when the CSS is old or missing. #}
+<svg class="logo{% if class %} {{ class }}{% endif %}" viewBox="0 0 64 64" width="32" height="32" aria-hidden="true" focusable="false">
+  <g transform="rotate(-8 32 40)">
+    <path class="logo-ghost" fill="#5b4bc4" d="M14 36 C14 20 22 10 32 10 C42 10 50 20 50 36 Z"/>
+    <ellipse class="logo-eye" fill="#fff" cx="25.5" cy="27" rx="3.2" ry="4.2"/>
+    <ellipse class="logo-eye" fill="#fff" cx="38.5" cy="27" rx="3.2" ry="4.2"/>
+    <rect class="logo-card" fill="#d9d4f5" stroke="#5b4bc4" x="6" y="34" width="52" height="24" rx="4.5" stroke-width="3"/>
+    <rect class="logo-line" fill="#5b4bc4" opacity="0.6" x="14" y="42" width="24" height="3" rx="1.5"/>
+    <rect class="logo-line" fill="#5b4bc4" opacity="0.6" x="14" y="48.5" width="16" height="3" rx="1.5"/>
+    <circle class="logo-ghost" fill="#5b4bc4" cx="20" cy="34.5" r="4.2"/>
+    <circle class="logo-ghost" fill="#5b4bc4" cx="44" cy="34.5" r="4.2"/>
+  </g>
+</svg>

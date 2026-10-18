@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="3.5 6.5 59 59">
+  <!-- The same ghost as in the bar; lighter indigo when the system is dark -->
+  <style>
+    .ghost { fill: #5b4bc4; }
+    .eye { fill: #ffffff; }
+    .card { fill: #d9d4f5; stroke: #5b4bc4; }
+    .line { fill: #5b4bc4; opacity: 0.6; }
+    @media (prefers-color-scheme: dark) {
+      .ghost { fill: #a59af2; }
+      .eye { fill: #13171f; }
+      .card { fill: #3a3566; stroke: #a59af2; }
+      .line { fill: #a59af2; }
+    }
+  </style>
+  <g transform="rotate(-8 32 40)">
+    <path class="ghost" d="M14 36 C14 20 22 10 32 10 C42 10 50 20 50 36 Z"/>
+    <ellipse class="eye" cx="25.5" cy="27" rx="3.2" ry="4.2"/>
+    <ellipse class="eye" cx="38.5" cy="27" rx="3.2" ry="4.2"/>
+    <rect class="card" x="6" y="34" width="52" height="24" rx="4.5" stroke-width="3"/>
+    <rect class="line" x="14" y="42" width="24" height="3" rx="1.5"/>
+    <rect class="line" x="14" y="48.5" width="16" height="3" rx="1.5"/>
+    <circle class="ghost" cx="20" cy="34.5" r="4.2"/>
+    <circle class="ghost" cx="44" cy="34.5" r="4.2"/>
+  </g>
+</svg>

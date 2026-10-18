@@ -21,6 +21,9 @@
   --primary: #5b4bc4;
   --primary-light: color-mix(in srgb, var(--primary) 35%, transparent);
   --primary-dark: #44379c;
+  /* The logo: eyes in the colour of the page, a solid light card */
+  --logo-eye: #fff;
+  --logo-card: color-mix(in srgb, var(--primary) 22%, #fff);
   /* One scale of round corners: cards, controls inside them (buttons, fields) and small
      things (bars, labels). Only the account circle and ⋯ are round. */
   --radius-card: 0.75rem;
@@ -40,6 +43,8 @@
     --dot-dontknow: color-mix(in srgb, var(--rating-dontknow) 55%, transparent);
     --primary: #a59af2;
     --primary-dark: #7c6ee6;
+    --logo-eye: #13171f;
+    --logo-card: color-mix(in srgb, var(--primary) 30%, #13171f);
   }
 }
 
@@ -51,6 +56,8 @@
   --dot-dontknow: color-mix(in srgb, var(--rating-dontknow) 55%, transparent);
   --primary: #a59af2;
   --primary-dark: #7c6ee6;
+  --logo-eye: #13171f;
+  --logo-card: color-mix(in srgb, var(--primary) 30%, #13171f);
 }
 
 /* Pico's colour variables in indigo, so links, buttons, check boxes and focus rings match.
@@ -174,6 +181,67 @@ nav .account-menu li:has(.inline-form) {
   padding: 0;
 }
 
+/* The logo: the ghost with a card, the name and on a computer the slogan */
+.logo-ghost {
+  fill: var(--primary);
+}
+
+.logo-eye {
+  fill: var(--logo-eye);
+}
+
+.logo-card {
+  fill: var(--logo-card);
+  stroke: var(--primary);
+}
+
+.logo-line {
+  fill: var(--primary);
+  opacity: 0.6;
+}
+
+nav .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  text-decoration: none;
+}
+
+nav .brand .logo {
+  width: 2.4rem;
+  height: 2.4rem;
+  flex: none;
+}
+
+nav .brand strong {
+  font-size: 1.25rem;
+}
+
+/* The slogan only on the login page, the bar has just the ghost and the name */
+.brand-slogan {
+  color: var(--pico-muted-color);
+  font-size: 0.8rem;
+}
+
+/* The login page: a big ghost above the name */
+.login-brand {
+  text-align: center;
+}
+
+.login-brand .logo-big {
+  width: 5.5rem;
+  height: 5.5rem;
+}
+
+.login-brand h1 {
+  margin: 0.25rem 0 0;
+}
+
+.login-brand .brand-slogan {
+  margin: 0 0 1rem;
+  font-size: 0.95rem;
+}
+
 /* On a computer the word "Statistiky", on a phone the icon */
 .nav-icon {
   display: none;
@@ -189,8 +257,45 @@ nav .account-menu li:has(.inline-form) {
     display: none;
   }
 
+  /* A smaller ghost and tighter gaps, so the bar fits on one line */
+  nav .brand {
+    gap: 0.3rem;
+  }
+
+  nav .brand .logo {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  nav .brand strong {
+    font-size: 1.05rem;
+  }
+
   .nav-icon {
     display: inline;
+  }
+}
+
+/* Nápověda as a word, on a narrow phone only a ? in a circle */
+.help-icon {
+  display: none;
+}
+
+@media (max-width: 400px) {
+  .help-text {
+    display: none;
+  }
+
+  .help-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.6rem;
+    height: 1.6rem;
+    border: 1.5px solid currentColor;
+    border-radius: 50%;
+    font-weight: 700;
+    font-size: 0.9rem;
   }
 }
 

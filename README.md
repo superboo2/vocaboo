@@ -802,7 +802,9 @@ sudo chmod 600 .env
 # Dependencies without the development tools
 sudo -u vocaboo -H ~vocaboo/.local/bin/uv sync --no-dev
 
-# Tables, static files, first user
+# Tables, static files, first user. With DJANGO_DEBUG=0 collectstatic gives every file a mark
+# of its content in the name (css/app.css -> css/app.ec90807cc878.css, ManifestStaticFilesStorage),
+# so after a new version browsers download the new file instead of an old copy.
 sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py migrate
 sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py collectstatic --noinput
 sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py createsuperuser

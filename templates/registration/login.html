@@ -5,8 +5,10 @@
 
 {% block content %}
   <article class="narrow">
-    <header>
+    <header class="login-brand">
+      {% include "_logo.html" with class="logo-big" %}
       <h1>Vocaboo</h1>
+      <p class="brand-slogan">catch them all</p>
       <p>{% translate "Přihlas se svým e-mailem." %}</p>
     </header>
 

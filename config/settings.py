@@ -191,6 +191,13 @@ STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 # Target folder for collectstatic (used on the server)
 STATIC_ROOT = BASE_DIR / "staticfiles"
+if not DEBUG:
+    # On the server every file gets a mark of its content in the name (app.3f2a9c.css), so
+    # after a new version the browser downloads it instead of using an old copy
+    STORAGES = {
+        "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
+        "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"},
+    }
 
 
 # Translation suggestions when a word is typed, sources in this order (see dictionary/providers.py)

@@ -15,6 +15,15 @@ def fast_password_hasher(settings):
     settings.PASSWORD_HASHERS = ["django.contrib.auth.hashers.MD5PasswordHasher"]
 
 
+@pytest.fixture(autouse=True)
+def plain_static_files(settings):
+    # Tests do not run collectstatic, so static files keep their plain names
+    settings.STORAGES = {
+        **settings.STORAGES,
+        "staticfiles": {"BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage"},
+    }
+
+
 @pytest.fixture
 def user(db):
     return get_user_model().objects.create_user(
