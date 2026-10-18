@@ -170,17 +170,18 @@ def test_reorder_needs_post(logged_client, english):
     assert response.status_code == 405
 
 
-def test_dashboard_tree_is_open_folders(logged_client, english):
+def test_dashboard_tree_opens_only_first_level(logged_client, english):
     series = services.create_deck(english.owner, "Two and half men", parent=english)
     season = services.create_deck(english.owner, "Series 1", parent=series)
     services.create_deck(english.owner, "Episode 1", parent=season)
 
     html = logged_client.get(reverse("dashboard")).content.decode()
 
-    # All levels are in the page and folders are open by default
+    # All levels are in the page; only the first level is open, deeper folders are closed
     for name in ["Two and half men", "Series 1", "Episode 1"]:
         assert name in html
-    assert html.count("<details open>") == 3
+    assert html.count("<details open>") == 1
+    assert html.count("<details>") == 2
     assert "deck-icon-folder" in html
     assert "📄" in html
 

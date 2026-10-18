@@ -1,10 +1,11 @@
 {# One deck in the dashboard tree, calls itself for the children. #}
 {# Decks with children are folders (📂 open / 📁 closed), the others are 📄. #}
-{# Folders are always open when the page loads; a click closes one until the next load. #}
+{# The first level is open, deeper folders are closed; tree.js then opens and closes them #}
+{# as the user left them in this browser. #}
 {# Drag and drop (tree.js): dropping on the middle of a row puts the deck into that deck. #}
 <li class="deck-node" data-deck-id="{{ deck.pk }}" data-place-url="{% url 'vocabulary:deck_place' deck.pk %}">
   {% if deck.tree_children %}
-    <details open>
+    <details{% if deck.depth == 1 %} open{% endif %}>
       <summary class="deck-row">
         <span class="deck-icon deck-icon-folder" aria-hidden="true"></span>
         {% include "vocabulary/_deck_label.html" %}

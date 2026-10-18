@@ -6,13 +6,65 @@
 //   middle of a row          -> into that deck (row is highlighted)
 //   top / bottom of a row    -> before / after that deck (a line is shown)
 // The server checks every move; after it the tree is loaded again, so icons and counts fit.
+//
+// The browser remembers which folders are open or closed (localStorage), so the tree looks
+// the same after a test or a new page. Folders without a choice keep what the server sent:
+// the first level open, deeper folders closed.
 (function () {
   // Part of the row height at the top and at the bottom that means "before" / "after"
   const EDGE = 0.3;
   const MARKS = ["drop-into", "drop-before", "drop-after"];
+  // Open folders by deck id: {"12": true, "15": false}
+  const FOLDERS_KEY = "vocaboo.openFolders";
+  // How long a deck must be held over a closed folder before the folder opens
+  const OPEN_DELAY = 700;
 
   let dragged = null; // <li> being dragged
   let target = null; // {item: <li>, zone: "into" | "before" | "after"}
+  let openTimer = null;
+
+  function loadFolders() {
+    try {
+      return JSON.parse(localStorage.getItem(FOLDERS_KEY)) || {};
+    } catch (error) {
+      return {};
+    }
+  }
+
+  function saveFolders(folders) {
+    try {
+      localStorage.setItem(FOLDERS_KEY, JSON.stringify(folders));
+    } catch (error) {}
+  }
+
+  function folders() {
+    return document.querySelectorAll("#deck-tree li.deck-node > details");
+  }
+
+  // Open and close the folders as the user left them; forget decks that are gone
+  function restoreFolders() {
+    const saved = loadFolders();
+    const kept = {};
+    folders().forEach(function (folder) {
+      const id = folder.parentElement.dataset.deckId;
+      if (id in saved) {
+        folder.open = saved[id];
+        kept[id] = saved[id];
+      }
+    });
+    saveFolders(kept);
+  }
+
+  // Remember every open and close (also the ones while dragging)
+  function onToggle(event) {
+    const folder = event.target;
+    if (!folder.matches || !folder.matches("#deck-tree li.deck-node > details")) {
+      return;
+    }
+    const saved = loadFolders();
+    saved[folder.parentElement.dataset.deckId] = folder.open;
+    saveFolders(saved);
+  }
 
   function csrfToken() {
     const match = document.cookie.match(/(?:^|; )csrftoken=([^;]+)/);
@@ -32,9 +84,17 @@
     if (target) {
       target.item.classList.remove(...MARKS);
     }
+    clearTimeout(openTimer);
     target = next;
     if (target) {
       target.item.classList.add("drop-" + target.zone);
+      // Held over a closed folder: open it, so the deck can go between its children
+      const closed = target.item.querySelector(":scope > details:not([open])");
+      if (target.zone === "into" && closed) {
+        openTimer = setTimeout(function () {
+          closed.open = true;
+        }, OPEN_DELAY);
+      }
     }
   }
 
@@ -139,6 +199,7 @@
   }
 
   function setUp() {
+    restoreFolders();
     if (typeof Sortable === "undefined") {
       return;
     }
@@ -171,5 +232,8 @@
     });
   }
 
-  document.addEventListener("DOMContentLoaded", setUp);
+  // The toggle event does not bubble, so it is caught on the way down
+  document.addEventListener("toggle", onToggle, true);
+  // The script is deferred, so the tree is already in the page
+  setUp();
 })();
