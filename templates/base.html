@@ -36,7 +36,7 @@
         </ul>
         <ul>
           {# The main action of the app, on every page #}
-          <li><a href="{% url 'study:new' %}" class="nav-test">▶︎ <span class="nav-text">{% translate "Spustit test" %}</span><span class="nav-icon">{% translate "Test" %}</span></a></li>
+          <li><a href="{% url 'study:new' %}" class="practice-button">▶︎ {% translate "Procvičit" %}</a></li>
           {# On a phone these two are in the account menu, so the bar stays short #}
           <li class="nav-wide"><a href="{% url 'study:stats' %}">{% translate "Statistiky" %}</a></li>
           <li class="nav-wide"><a href="{% url 'help_index' %}">{% translate "Nápověda" %}</a></li>

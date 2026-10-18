@@ -242,9 +242,7 @@ nav .brand strong {
   font-size: 0.95rem;
 }
 
-/* On a computer the words, on a phone the short ones; Statistiky and Nápověda move to the
-   account menu on a phone */
-.nav-icon,
+/* Statistiky and Nápověda move to the account menu on a phone */
 .menu-narrow {
   display: none;
 }
@@ -260,7 +258,6 @@ nav .brand strong {
     padding-right: 0.4rem;
   }
 
-  .nav-text,
   .nav-wide {
     display: none;
   }
@@ -281,10 +278,6 @@ nav .brand strong {
 
   nav .brand strong {
     font-size: 1.05rem;
-  }
-
-  .nav-icon {
-    display: inline;
   }
 }
 
@@ -2110,10 +2103,9 @@ main:focus {
 
 /* The one main action of a page (start a test), on the whole width */
 /* The test buttons: indigo with a soft gradient. start-test is the big
-   one (the setup of a test), test-button a small one (the bar, a deck) */
+   one (the setup of a test), test-button a small one (again the wrong words of a test) */
 a.start-test,
 button.start-test,
-a.test-button,
 button.test-button,
 button.save-button {
   border: 0;
@@ -2125,7 +2117,6 @@ button.save-button {
 
 a.start-test:hover,
 button.start-test:hover,
-a.test-button:hover,
 button.test-button:hover,
 button.save-button:hover {
   background: linear-gradient(135deg, #6a5bd8, #3a2f88);
@@ -2143,16 +2134,13 @@ button.start-test {
   font-size: 1.05rem;
 }
 
-a.test-button {
-  display: inline-block;
+.practice-row {
   margin-bottom: 1rem;
-  padding: 0.45rem 1rem;
-  border-radius: var(--radius-control);
-  font-size: 0.95rem;
 }
 
-/* "▶ Spustit test" in the bar: a round pill with a blue frame ("Test" on a phone) */
-nav a.nav-test {
+/* "▶ Procvičit" in the bar and "▶ Procvičit slovník" on a deck: both open the setup of a test,
+   so they look the same, an indigo frame. The filled buttons really start a test. */
+a.practice-button {
   display: inline-block;
   padding: 0.3rem 1rem;
   border-radius: var(--radius-control);
@@ -2165,7 +2153,7 @@ nav a.nav-test {
   white-space: nowrap;
 }
 
-nav a.nav-test:hover {
+a.practice-button:hover {
   background: color-mix(in srgb, var(--pico-primary) 10%, transparent);
 }
 

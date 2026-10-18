@@ -21,8 +21,8 @@
   <p class="muted page-sub">{{ deck.foreign_language.name }} → {{ deck.native_language.name }} ({{ deck.language_pair }})</p>
   {% if deck.description %}<p>{{ deck.description|linebreaksbr }}</p>{% endif %}
 
-  {# A test of this deck only (the button in the bar tests everything) #}
-  <a href="{% url 'study:new' %}?deck={{ deck.pk }}" role="button" class="test-button">▶︎ {% translate "Testovat tento slovník" %}</a>
+  {# A test of this deck only (the button in the bar tests everything); looks like the one in the bar #}
+  <p class="practice-row"><a href="{% url 'study:new' %}?deck={{ deck.pk }}" class="practice-button">▶︎ {% translate "Procvičit slovník" %}</a></p>
 
   <section class="card-section">
     <h2 class="section-title">{% translate "Nové slovíčko" %}</h2>

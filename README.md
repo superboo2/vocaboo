@@ -422,7 +422,7 @@ services.session_summary(session)
 
 ### 13. The test screen
 
-Start a test from the dashboard (*Spustit test*) or from a deck (*Testovat tento slovník*):
+Start a test from the bar (*Procvičit*, "practise") or from a deck (*Procvičit slovník*):
 choose decks, direction and which cards. Then:
 
 1. The card shows the question. In the foreign → native direction the sentence is shown too,
@@ -475,13 +475,13 @@ the browser and paused while the page is hidden (another app, locked phone).
   `--radius-control` (0.5rem, also Pico's `--pico-border-radius`), small things `--radius-small`
   (0.25rem); only the account circle and `⋯` are round.
 - **Look:** one column on every screen (at most 46rem wide, the same on a computer and a phone),
-  the sections of the dashboard as cards. The bar has `Vocaboo`, a round pill with a blue frame `▶ Spustit test` (`▶ Test` on a
-  phone; the main action, on every page), `Statistiky` (📊 on a phone), `Nápověda` and a
+  the sections of the dashboard as cards. The bar has `Vocaboo`, a pill with an indigo frame `▶ Procvičit` (the same
+  on a phone; the main action, on every page), `Statistiky`, `Nápověda` (both in the account menu on a phone) and a
   circle with the first letter of the e-mail, which opens the account menu (e-mail, the look `☀️ Den · 🌙 Noc · Auto` – `data-theme` on
   `<html>`, kept in `localStorage` of the browser and set before the page is drawn –, Nastavení,
   Admin for staff, Odhlásit; a Pico `details.dropdown`, closed by a click elsewhere). The dashboard starts with the card *Dnes*; `+ Nový` (new deck) is next to
   the heading *Slovníky*. The deck page and the test pages look the same: the deck page has its
-  name with a small menu `⋯` (rename, move, delete), a smaller light-blue button `▶ Testovat tento slovník`
+  name with a small menu `⋯` (rename, move, delete), the button `▶ Procvičit slovník` (the same indigo frame as `▶ Procvičit` in the bar)
   and the cards *Nové slovíčko*, *Slovíčka* and *Podslovníky* (with `+ Nový`); the setup of a
   test has the cards *Slovníky*, *Směr* and *Které kartičky* and the big button `▶ Spustit test`;
   the test has a thin progress bar above the card. The summary of a test, the statistics and
