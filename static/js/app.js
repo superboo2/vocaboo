@@ -353,8 +353,7 @@ const EYE_CLOSED =
 function showPasswordState(button, shown) {
   button.innerHTML = shown ? EYE_CLOSED : EYE_OPEN;
   button.setAttribute("aria-pressed", shown ? "true" : "false");
-  // UI texts are Czech only for now
-  button.setAttribute("aria-label", shown ? "Skrýt heslo" : "Zobrazit heslo");
+  button.setAttribute("aria-label", shown ? gettext("Hide password") : gettext("Show password"));
   button.title = button.getAttribute("aria-label");
 }
 

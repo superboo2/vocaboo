@@ -18,7 +18,7 @@
       </ul>
     </details>
   </div>
-  <p class="muted page-sub">{{ deck.foreign_language.name }} → {{ deck.native_language.name }} ({{ deck.language_pair }})</p>
+  <p class="muted page-sub">{{ deck.foreign_language.label }} → {{ deck.native_language.label }} ({{ deck.language_pair }})</p>
   {% if deck.description %}<p>{{ deck.description|linebreaksbr }}</p>{% endif %}
 
   {# A test of this deck only (the button in the bar tests everything); looks like the one in the bar #}

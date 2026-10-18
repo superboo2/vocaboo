@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-18 16:38+0200\n"
+"POT-Creation-Date: 2026-10-18 17:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,7 +142,6 @@ msgstr "navrhovat překlad"
 msgid "other meanings on the card"
 msgstr "další významy na kartě"
 
-#| msgid "word"
 msgctxt "autoplay"
 msgid "word"
 msgstr "slovo"
@@ -306,7 +305,6 @@ msgstr "jazyk slova"
 msgid "meanings language"
 msgstr "jazyk významů"
 
-#| msgid "word"
 msgctxt "dictionary entry"
 msgid "word"
 msgstr "slovo"
@@ -980,7 +978,6 @@ msgstr "Úspěšnost"
 msgid "Time"
 msgstr "Čas"
 
-#| msgid "words"
 msgctxt "after a number"
 msgid "words"
 msgstr "slovíček"
@@ -1273,6 +1270,49 @@ msgstr "Víc variant odděl středníkem: ahoj; čau"
 
 msgid "hi; hey"
 msgstr "ahoj; čau"
+
+msgid "Czech"
+msgstr "Čeština"
+
+msgid "German"
+msgstr "Němčina"
+
+msgid "English"
+msgstr "Angličtina"
+
+#| msgid "Finish"
+msgid "Spanish"
+msgstr "Španělština"
+
+msgid "French"
+msgstr "Francouzština"
+
+msgid "Italian"
+msgstr "Italština"
+
+msgid "Japanese"
+msgstr "Japonština"
+
+msgid "Dutch"
+msgstr "Nizozemština"
+
+msgid "Polish"
+msgstr "Polština"
+
+msgid "Portuguese"
+msgstr "Portugalština"
+
+msgid "Russian"
+msgstr "Ruština"
+
+msgid "Slovak"
+msgstr "Slovenština"
+
+msgid "Ukrainian"
+msgstr "Ukrajinština"
+
+msgid "Chinese"
+msgstr "Čínština"
 
 msgid "Enter a two-letter ISO 639-1 code in lowercase, for example, cs or en."
 msgstr "Zadej dvoupísmenný kód ISO 639-1 malými písmeny, např. cs nebo en."

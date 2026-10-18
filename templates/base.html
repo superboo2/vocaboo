@@ -23,6 +23,8 @@
   <link rel="stylesheet" href="{% static 'vendor/pico/pico.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/app.css' %}">
   <script src="{% static 'vendor/htmx/htmx.min.js' %}" defer></script>
+  {# Translations for the scripts (gettext); before them, they all are deferred #}
+  <script src="{% url 'javascript-catalog' %}" defer></script>
   <script src="{% static 'js/app.js' %}" defer></script>
 </head>
 {# Send the CSRF token with every HTMX request, so POST requests work #}

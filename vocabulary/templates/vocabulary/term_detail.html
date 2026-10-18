@@ -74,7 +74,7 @@
           {% with state=row.state %}
             <p>
               {% translate "Next review" %}: <strong>{{ state.due_at|due_text }}</strong>
-              {% if state.due_at %}<br><small class="muted">{{ state.due_at|date:"j. n. Y H:i" }}</small>{% endif %}
+              {% if state.due_at %}<br><small class="muted">{{ state.due_at|date:"SHORT_DATETIME_FORMAT" }}</small>{% endif %}
             </p>
             <p class="muted">
               {% blocktranslate with total=row.total streak=state.correct_streak lapses=state.lapses %}Tested {{ total }}× · correct in a row {{ streak }} · mistakes {{ lapses }}{% endblocktranslate %}
@@ -110,7 +110,7 @@
           <tbody>
             {% for log in history.logs %}
               <tr>
-                <td>{{ log.reviewed_at|date:"j. n. Y H:i" }}</td>
+                <td>{{ log.reviewed_at|date:"SHORT_DATETIME_FORMAT" }}</td>
                 <td>{{ log.get_direction_display }}</td>
                 <td>{{ log.shown_label }}</td>
                 <td>{{ log.chosen_interval|interval }}</td>

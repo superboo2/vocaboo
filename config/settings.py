@@ -187,6 +187,9 @@ LANGUAGES = [
 # Translations of the app (makemessages / compilemessages)
 LOCALE_PATHS = [BASE_DIR / "locale"]
 
+# Date formats of the app for each language (config/formats/<code>/formats.py)
+FORMAT_MODULE_PATH = ["config.formats"]
+
 TIME_ZONE = "Europe/Prague"
 
 USE_I18N = True

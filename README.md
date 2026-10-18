@@ -609,18 +609,36 @@ After changing texts, update and compile the catalog, then fill the new Czech te
 the `.mo` file is old):
 
 ```bash
-uv run python manage.py makemessages -l cs --no-location \
-    --ignore '.venv/*' --ignore 'templates/help/*' --ignore 'tests/*' \
-    --ignore 'staticfiles/*' --ignore '*/migrations/*'
-# ... translate the empty msgstr "" in locale/cs/LC_MESSAGES/django.po ...
+# django = Python and templates, djangojs = the JavaScript files
+for domain in django djangojs; do
+  uv run python manage.py makemessages -d $domain -l cs --no-location \
+      --ignore '.venv/*' --ignore 'templates/help/*' --ignore 'tests/*' \
+      --ignore 'staticfiles/*' --ignore '*/migrations/*' --ignore 'static/vendor/*'
+done
+# ... translate the empty msgstr "" in locale/cs/LC_MESSAGES/django.po and djangojs.po ...
 uv run python manage.py compilemessages -l cs --ignore '.venv/*'
+```
+
+In JavaScript use `gettext("…")` (and `ngettext`, `interpolate`); the texts come from
+`/jsi18n/` (Django's `JavaScriptCatalog`), which `base.html` loads before the other scripts:
+
+```javascript
+button.setAttribute("aria-label", gettext("Show password"));
+```
+
+Names of languages (`Language.label`, e.g. *English* / *Angličtina*) are in `LANGUAGE_NAMES`
+in `vocabulary/models.py`; a code that is not there shows the name from the database. Date
+formats for each language are in `config/formats/<code>/formats.py`
+(`SHORT_DATETIME_FORMAT`, `MONTH_DAY_FORMAT`); templates use them by name:
+
+```django
+{{ log.reviewed_at|date:"SHORT_DATETIME_FORMAT" }}   {# 8. 10. 2026 14:05 / 10/8/2026 2:05 PM #}
 ```
 
 A new language, e.g. German: add `("de", "Deutsch")` to `LANGUAGES`, run `makemessages -l de`,
 translate `locale/de/LC_MESSAGES/django.po` and compile it. Nothing else in the code changes.
 
-Not translated yet: the help pages (`templates/help/`, Czech only), a few texts in JavaScript
-and the names of languages in the database.
+Not translated yet: the help pages (`templates/help/`, Czech only).
 
 ### 17. Run the app
 

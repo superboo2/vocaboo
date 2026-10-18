@@ -8,6 +8,7 @@ from django.db.models import Case, CharField, F, Q, Value, When, Window
 from django.db.models.functions import MD5, Cast, Concat, RowNumber
 from django.utils import timezone
 from django.utils.dateformat import format as date_format
+from django.utils.formats import get_format
 from django.utils.translation import gettext as _
 
 from vocabulary.models import DeckTerm
@@ -323,6 +324,8 @@ def answer_dots(term, shown=DOTS_SHOWN):
     foreign = term.foreign_language.code.upper()
     native = term.native_language.code.upper()
     labels = {Direction.F2N: f"{foreign} → {native}", Direction.N2F: f"{native} → {foreign}"}
+    # Day and month in the language of the page, e.g. "8. 10." or "10/8"
+    day_format = get_format("MONTH_DAY_FORMAT")
     rows = []
     for direction, answers in by_direction.items():
         newest = answers[:DOTS_MAX]
@@ -332,7 +335,7 @@ def answer_dots(term, shown=DOTS_SHOWN):
             dots.append(
                 {
                     "key": rating if known else _DOT_BY_RESULT.get(result, "dontknow"),
-                    "title": f"{date_format(timezone.localtime(reviewed_at), 'j. n.')} · "
+                    "title": f"{date_format(timezone.localtime(reviewed_at), day_format)} · "
                     f"{known.emoji + ' ' if known else ''}{known.label if known else label}",
                     "hidden": index < len(newest) - shown,
                 }

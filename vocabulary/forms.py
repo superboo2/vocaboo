@@ -22,7 +22,7 @@ def add_service_errors(form, error):
 
 class LanguageChoiceField(forms.ModelChoiceField):
     def label_from_instance(self, obj):
-        return f"{obj.name} ({obj.code})"
+        return f"{obj.label} ({obj.code})"
 
 
 class DeckCreateForm(forms.Form):
@@ -132,8 +132,8 @@ class TermForm(forms.Form):
         super().__init__(*args, **kwargs)
         foreign = self.fields["foreign"]
         native = self.fields["native"]
-        foreign.label = f"{deck.foreign_language.name} ({deck.foreign_language.code.upper()})"
-        native.label = f"{deck.native_language.name} ({deck.native_language.code.upper()})"
+        foreign.label = f"{deck.foreign_language.label} ({deck.foreign_language.code.upper()})"
+        native.label = f"{deck.native_language.label} ({deck.native_language.code.upper()})"
         foreign.help_text = _("Separate more variants with a semicolon: hello; hi")
         native.help_text = _("Separate more variants with a semicolon: hi; hey")
         # The grey sample in an empty field tells how to write variants (short form of help_text)

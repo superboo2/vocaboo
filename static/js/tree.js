@@ -146,7 +146,6 @@
     const data = new FormData();
     data.append("parent", parentId);
     data.append("index", index);
-    // UI texts are Czech only for now
     try {
       const response = await fetch(item.dataset.placeUrl, {
         method: "POST",
@@ -160,9 +159,9 @@
       const answer = await response.json().catch(function () {
         return {};
       });
-      return answer.error || "Přesun se nepodařil.";
+      return answer.error || gettext("The deck could not be moved.");
     } catch (problem) {
-      return "Přesun se nepodařil, zkontroluj připojení.";
+      return gettext("The deck could not be moved, check your connection.");
     }
   }
 

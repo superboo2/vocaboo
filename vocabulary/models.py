@@ -5,6 +5,25 @@ from django.db.models import F, Q
 from django.db.models.functions import Lower
 from django.utils.translation import gettext_lazy as _
 
+# Names of languages in the language of the page, by ISO 639-1 code; a language that is not
+# here shows the name saved in the database
+LANGUAGE_NAMES = {
+    "cs": _("Czech"),
+    "de": _("German"),
+    "en": _("English"),
+    "es": _("Spanish"),
+    "fr": _("French"),
+    "it": _("Italian"),
+    "ja": _("Japanese"),
+    "nl": _("Dutch"),
+    "pl": _("Polish"),
+    "pt": _("Portuguese"),
+    "ru": _("Russian"),
+    "sk": _("Slovak"),
+    "uk": _("Ukrainian"),
+    "zh": _("Chinese"),
+}
+
 
 class Language(models.Model):
     # ISO 639-1 code, two lowercase letters, e.g. "cs", "en"
@@ -28,7 +47,12 @@ class Language(models.Model):
         ordering = ["name"]
 
     def __str__(self):
-        return self.name
+        return str(self.label)
+
+    @property
+    def label(self):
+        """The name in the language of the page, e.g. "English" or "Angličtina"."""
+        return LANGUAGE_NAMES.get(self.code, self.name)
 
 
 class Deck(models.Model):
