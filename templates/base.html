@@ -28,7 +28,7 @@
 {# Send the CSRF token with every HTMX request, so POST requests work #}
 <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
   {# For keyboard and screen reader users: jump over the navigation #}
-  <a href="#main" class="skip-link">{% translate "Přeskočit na obsah" %}</a>
+  <a href="#main" class="skip-link">{% translate "Skip to content" %}</a>
   {% if user.is_authenticated %}
     <header class="container">
       <nav>
@@ -37,30 +37,30 @@
         </ul>
         <ul>
           {# The main action of the app, on every page #}
-          <li><a href="{% url 'study:new' %}" class="practice-button">▶︎ {% translate "Procvičit" %}</a></li>
+          <li><a href="{% url 'study:new' %}" class="practice-button">▶︎ {% translate "Practice" %}</a></li>
           {# On a phone these two are in the account menu, so the bar stays short #}
-          <li class="nav-wide"><a href="{% url 'study:stats' %}">{% translate "Statistiky" %}</a></li>
-          <li class="nav-wide"><a href="{% url 'help_index' %}">{% translate "Nápověda" %}</a></li>
+          <li class="nav-wide"><a href="{% url 'study:stats' %}">{% translate "Statistics" %}</a></li>
+          <li class="nav-wide"><a href="{% url 'help_index' %}">{% translate "Help" %}</a></li>
           {# The account: a circle with the first letter, the rest in its menu #}
           <li>
             <details class="dropdown account-menu">
-              <summary role="button" class="account-button" aria-label="{% translate 'Účet' %}" title="{{ user.email }}">{{ user.email|first|upper }}</summary>
+              <summary role="button" class="account-button" aria-label="{% translate 'Account' %}" title="{{ user.email }}">{{ user.email|first|upper }}</summary>
               <ul dir="rtl">
                 <li class="account-email" dir="ltr"><small class="muted">{{ user.email }}</small></li>
                 {# Only on a phone, on a computer they are in the bar #}
-                <li dir="ltr" class="menu-narrow"><a href="{% url 'study:stats' %}">📊 {% translate "Statistiky" %}</a></li>
-                <li dir="ltr" class="menu-narrow menu-group-end"><a href="{% url 'help_index' %}">❓ {% translate "Nápověda" %}</a></li>
-                <li dir="ltr" class="theme-switch" role="group" aria-label="{% translate 'Vzhled' %}">
-                  <button type="button" data-theme-choice="light" aria-pressed="false">☀️ {% translate "Den" %}</button>
-                  <button type="button" data-theme-choice="dark" aria-pressed="false">🌙 {% translate "Noc" %}</button>
-                  <button type="button" data-theme-choice="auto" aria-pressed="false">{% translate "Auto" %}</button>
+                <li dir="ltr" class="menu-narrow"><a href="{% url 'study:stats' %}">📊 {% translate "Statistics" %}</a></li>
+                <li dir="ltr" class="menu-narrow menu-group-end"><a href="{% url 'help_index' %}">❓ {% translate "Help" %}</a></li>
+                <li dir="ltr" class="theme-switch" role="group" aria-label="{% translate 'Theme' %}">
+                  <button type="button" data-theme-choice="light" aria-pressed="false">☀️ {% translate "Light" context "theme" %}</button>
+                  <button type="button" data-theme-choice="dark" aria-pressed="false">🌙 {% translate "Dark" context "theme" %}</button>
+                  <button type="button" data-theme-choice="auto" aria-pressed="false">{% translate "Auto" context "theme" %}</button>
                 </li>
-                <li dir="ltr"><a href="{% url 'settings' %}">{% translate "Nastavení" %}</a></li>
+                <li dir="ltr"><a href="{% url 'settings' %}">{% translate "Settings" %}</a></li>
                 {% if user.is_staff %}<li dir="ltr"><a href="{% url 'admin:index' %}">{% translate "Admin" %}</a></li>{% endif %}
                 <li dir="ltr">
                   <form method="post" action="{% url 'logout' %}" class="inline-form">
                     {% csrf_token %}
-                    <button type="submit" class="link-button">{% translate "Odhlásit" %}</button>
+                    <button type="submit" class="link-button">{% translate "Log out" %}</button>
                   </form>
                 </li>
               </ul>
@@ -77,7 +77,7 @@
         {% for message in messages %}
           <article class="message message-{{ message.tags }}" role="status">
             <span>{{ message }}</span>
-            <button type="button" class="message-close" aria-label="{% translate 'Zavřít' %}"
+            <button type="button" class="message-close" aria-label="{% translate 'Close' %}"
                     onclick="this.parentElement.remove()">&times;</button>
           </article>
         {% endfor %}

@@ -9,6 +9,7 @@ word wins. Today there is one source: the dictionary of the app (dictionary.mode
 from dataclasses import dataclass, field
 
 from django.conf import settings
+from django.utils.translation import pgettext_lazy
 
 from vocabulary.services import parse_variants
 
@@ -19,18 +20,18 @@ LIMIT = 12
 
 # Short names of parts of speech for the small suggestion buttons
 SHORT_POS = {
-    "noun": "podst. jm.",
-    "verb": "slov.",
-    "adjective": "příd. jm.",
-    "adverb": "přísl.",
-    "pronoun": "zájm.",
-    "determiner": "determ.",
-    "preposition": "předl.",
-    "conjunction": "spoj.",
-    "interjection": "cit.",
-    "numeral": "čísl.",
-    "phrasal_verb": "fráz. slov.",
-    "phrase": "fráze",
+    "noun": pgettext_lazy("part of speech", "n."),
+    "verb": pgettext_lazy("part of speech", "v."),
+    "adjective": pgettext_lazy("part of speech", "adj."),
+    "adverb": pgettext_lazy("part of speech", "adv."),
+    "pronoun": pgettext_lazy("part of speech", "pron."),
+    "determiner": pgettext_lazy("part of speech", "det."),
+    "preposition": pgettext_lazy("part of speech", "prep."),
+    "conjunction": pgettext_lazy("part of speech", "conj."),
+    "interjection": pgettext_lazy("part of speech", "interj."),
+    "numeral": pgettext_lazy("part of speech", "num."),
+    "phrasal_verb": pgettext_lazy("part of speech", "phr. v."),
+    "phrase": pgettext_lazy("part of speech", "phrase"),
 }
 
 
@@ -47,7 +48,8 @@ class Suggestion:
 
     @property
     def short_pos(self):
-        return SHORT_POS.get(self.part_of_speech, self.part_of_speech)
+        # str(): the text in the active language (it may end up in JSON)
+        return str(SHORT_POS.get(self.part_of_speech, self.part_of_speech))
 
     @property
     def pos_label(self):

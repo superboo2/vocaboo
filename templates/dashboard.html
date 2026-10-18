@@ -1,20 +1,20 @@
 {% extends "base.html" %}
 {% load i18n static %}
 
-{% block title %}{% translate "Přehled" %} · Vocaboo{% endblock %}
+{% block title %}{% translate "Overview" %} · Vocaboo{% endblock %}
 
 {% block content %}
   <script src="{% static 'vendor/sortable/Sortable.min.js' %}" defer></script>
   <script src="{% static 'js/tree.js' %}" defer></script>
   {# The start page needs no visible heading (the bar says Vocaboo); screen readers get one #}
-  <h1 class="visually-hidden">{% translate "Přehled" %}</h1>
+  <h1 class="visually-hidden">{% translate "Overview" %}</h1>
 
   {% if roots %}
 
     {# Order: what does not stick today (to have it in sight), the decks, then today's numbers #}
     {% if hard_words %}
       <section class="card-section">
-        <h2 class="section-title">{% translate "Co ti dnes nejde" %}</h2>
+        <h2 class="section-title">{% translate "What you struggle with today" %}</h2>
         {% include "study/_hard_words.html" with items=hard_words compact=True %}
       </section>
     {% endif %}
@@ -22,8 +22,8 @@
     {# is explained in the help) #}
     <section class="card-section">
     <div class="section-head">
-      <h2 class="section-title">{% translate "Slovníky" %}</h2>
-      <a href="{% url 'vocabulary:deck_create' %}" class="section-add">+ {% translate "Nový" %}</a>
+      <h2 class="section-title">{% translate "Decks" %}</h2>
+      <a href="{% url 'vocabulary:deck_create' %}" class="section-add">+ {% translate "New" context "deck" %}</a>
     </div>
     {# The search as a light strip over the tree, like a filter of the list #}
     {% include "vocabulary/_search_field.html" with query="" compact=True %}
@@ -42,8 +42,8 @@
     {% include "study/_today.html" %}
   {% else %}
     <section class="card-section">
-      <p>{% translate "Zatím nemáš žádné slovníky. Začni tím, že si jeden vytvoříš." %}</p>
-      <a href="{% url 'vocabulary:deck_create' %}" role="button">+ {% translate "Nový slovník" %}</a>
+      <p>{% translate "You have no decks yet. Start by creating one." %}</p>
+      <a href="{% url 'vocabulary:deck_create' %}" role="button">+ {% translate "New deck" %}</a>
     </section>
   {% endif %}
 {% endblock %}

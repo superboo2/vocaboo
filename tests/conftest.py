@@ -16,6 +16,12 @@ def fast_password_hasher(settings):
 
 
 @pytest.fixture(autouse=True)
+def czech_by_default(settings):
+    # The tests check the Czech texts; without a browser language the app would be English
+    settings.LANGUAGE_CODE = "cs"
+
+
+@pytest.fixture(autouse=True)
 def plain_static_files(settings):
     # Tests do not run collectstatic, so static files keep their plain names
     settings.STORAGES = {

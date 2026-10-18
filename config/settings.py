@@ -173,7 +173,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # UI is Czech for now, texts are marked for translation so other languages can come later.
 
-LANGUAGE_CODE = "cs"
+# The source texts are English, so English is used when the browser asks for a language
+# the app does not have
+LANGUAGE_CODE = "en"
 
 # Languages of the app (menus, buttons, help); a new one needs a locale/<code>/ folder.
 # The names stay in their own language, so everybody finds theirs.

@@ -10,11 +10,11 @@
   <div class="title-row">
     <h1>{{ deck.name }}</h1>
     <details class="dropdown more-menu">
-      <summary role="button" class="more-button" aria-label="{% translate 'Upravit slovník' %}" title="{% translate 'Upravit slovník' %}">⋯</summary>
+      <summary role="button" class="more-button" aria-label="{% translate 'Edit deck' %}" title="{% translate 'Edit deck' %}">⋯</summary>
       <ul>
-        <li><a href="{% url 'vocabulary:deck_edit' deck.pk %}">{% translate "Přejmenovat a popis" %}</a></li>
-        <li><a href="{% url 'vocabulary:deck_move' deck.pk %}">{% translate "Přesunout" %}</a></li>
-        <li><a href="{% url 'vocabulary:deck_delete' deck.pk %}">{% translate "Smazat" %}</a></li>
+        <li><a href="{% url 'vocabulary:deck_edit' deck.pk %}">{% translate "Rename and description" %}</a></li>
+        <li><a href="{% url 'vocabulary:deck_move' deck.pk %}">{% translate "Move" %}</a></li>
+        <li><a href="{% url 'vocabulary:deck_delete' deck.pk %}">{% translate "Delete" %}</a></li>
       </ul>
     </details>
   </div>
@@ -22,10 +22,10 @@
   {% if deck.description %}<p>{{ deck.description|linebreaksbr }}</p>{% endif %}
 
   {# A test of this deck only (the button in the bar tests everything); looks like the one in the bar #}
-  <p class="practice-row"><a href="{% url 'study:new' %}?deck={{ deck.pk }}" class="practice-button">▶︎ {% translate "Procvičit slovník" %}</a></p>
+  <p class="practice-row"><a href="{% url 'study:new' %}?deck={{ deck.pk }}" class="practice-button">▶︎ {% translate "Practice deck" %}</a></p>
 
   <section class="card-section">
-    <h2 class="section-title">{% translate "Nové slovíčko" %}</h2>
+    <h2 class="section-title">{% translate "New word" %}</h2>
     {% include "vocabulary/_term_form.html" %}
   </section>
 
@@ -35,16 +35,16 @@
 
   <section class="card-section">
     <div class="section-head">
-      <h2 class="section-title">{% translate "Podslovníky" %}</h2>
-      {% if can_add_child %}<a href="{% url 'vocabulary:deck_create_child' deck.pk %}" class="section-add">+ {% translate "Nový" %}</a>{% endif %}
+      <h2 class="section-title">{% translate "Sub-decks" %}</h2>
+      {% if can_add_child %}<a href="{% url 'vocabulary:deck_create_child' deck.pk %}" class="section-add">+ {% translate "New" %}</a>{% endif %}
     </div>
     {% if children %}
       {% include "vocabulary/_sibling_list.html" with decks=children %}
     {% else %}
-      <p class="muted">{% translate "Zatím žádné podslovníky." %}</p>
+      <p class="muted">{% translate "No sub-decks yet." %}</p>
     {% endif %}
     {% if not can_add_child %}
-      <p class="muted"><small>{% blocktranslate %}Tady už další podslovník nejde přidat, strom může mít nejvýš {{ max_depth }} úrovní.{% endblocktranslate %}</small></p>
+      <p class="muted"><small>{% blocktranslate %}No more sub-decks can be added here, the tree can have at most {{ max_depth }} levels.{% endblocktranslate %}</small></p>
     {% endif %}
   </section>
 {% endblock %}

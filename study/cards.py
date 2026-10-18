@@ -5,12 +5,12 @@ from functools import reduce
 from operator import or_
 
 from django.db.models import Q
+from django.utils.translation import ngettext
 
 from dictionary.providers import get_pronunciation, other_meanings
 from vocabulary import sentences
 from vocabulary.models import DeckTerm, Term, TermVariant
 
-from .formatting import czech_plural
 from .models import Direction
 from .services import preview_intervals, session_deck_ids
 
@@ -124,7 +124,9 @@ def _add_other_meanings(card, user):
     if own and not card.sentence_on_front:
         # Without a sentence the question "palm" has more right answers among the user's words
         count = len(own) + 1
-        card.front_hint = f"{count} {czech_plural(count, 'význam', 'významy', 'významů')}"
+        card.front_hint = ngettext("%(count)s meaning", "%(count)s meanings", count) % {
+            "count": count
+        }
 
 
 def _add_same_translation(card, native):

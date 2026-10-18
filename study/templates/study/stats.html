@@ -1,64 +1,64 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}{% translate "Statistiky" %} · Vocaboo{% endblock %}
+{% block title %}{% translate "Statistics" %} · Vocaboo{% endblock %}
 
 {% block content %}
-  <h1>📊 {% translate "Statistiky" %}</h1>
+  <h1>📊 {% translate "Statistics" %}</h1>
 
   {% with totals=stats.totals streak=stats.streak %}
     {# Big colourful numbers at the top #}
     <div class="stat-tiles">
       <div class="stat-tile tone-think">
         <span class="stat-number">{{ totals.words }}</span>
-        <span>{% translate "slovíček" %}</span>
-        {% if totals.added_this_week %}<small>+{{ totals.added_this_week }} {% translate "tento týden" %}</small>{% endif %}
+        <span>{% translate "words" context "after a number" %}</span>
+        {% if totals.added_this_week %}<small>+{{ totals.added_this_week }} {% translate "this week" %}</small>{% endif %}
       </div>
       <div class="stat-tile tone-ok">
         <span class="stat-number">{{ totals.known }}</span>
-        <span>{% translate "umíš" %}</span>
-        <small>{% blocktranslate with learning=totals.learning new=totals.new %}učíš se {{ learning }} · nových {{ new }}{% endblocktranslate %}</small>
+        <span>{% translate "known" %}</span>
+        <small>{% blocktranslate with learning=totals.learning new=totals.new %}learning {{ learning }} · new {{ new }}{% endblocktranslate %}</small>
       </div>
       <div class="stat-tile tone-partial">
         <span class="stat-number">🔥 {{ streak.current }}</span>
-        <span>{% translate "dní v řadě" %}</span>
-        <small>{% blocktranslate with longest=streak.longest_text %}nejdelší série {{ longest }}{% endblocktranslate %}</small>
+        <span>{% translate "days in a row" %}</span>
+        <small>{% blocktranslate with longest=streak.longest_text %}longest streak {{ longest }}{% endblocktranslate %}</small>
       </div>
       <div class="stat-tile tone-dontknow">
         <span class="stat-number">{{ totals.answers }}</span>
-        <span>{% translate "odpovědí" %}</span>
-        {% if totals.answers_this_week %}<small>{{ totals.answers_this_week }} {% translate "tento týden" %}</small>{% endif %}
+        <span>{% translate "answers" %}</span>
+        {% if totals.answers_this_week %}<small>{{ totals.answers_this_week }} {% translate "this week" %}</small>{% endif %}
       </div>
     </div>
   {% endwith %}
 
   {% if not stats.has_terms %}
-    <p>{% translate "Zatím tu nic není. Přidej si první slovíčka a pusť se do testu." %}</p>
+    <p>{% translate "Nothing here yet. Add your first words and start a test." %}</p>
   {% else %}
     <section class="stat-section">
-      <h2>{% translate "Slovíčka v čase" %}</h2>
+      <h2>{% translate "Words over time" %}</h2>
       <p class="muted"><small>{{ stats.words_chart.subtitle }}</small></p>
       {% include "study/_chart.html" with chart=stats.words_chart tone="chart-words" label=stats.words_chart.subtitle %}
     </section>
 
     {% if stats.tests.rows %}
       <section class="stat-section">
-        <h2>{% translate "Poslední testy" %}</h2>
+        <h2>{% translate "Recent tests" %}</h2>
         <p class="muted"><small>{{ stats.tests.summary }}</small></p>
         {% include "study/_tests_table.html" with tests=stats.tests %}
       </section>
     {% endif %}
 
     <section class="stat-section">
-      <h2>{% translate "Co ti nejde" %}</h2>
+      <h2>{% translate "What you struggle with" %}</h2>
       {# Always the last 30 days (enough words for the cards, and still about now) #}
-      <p class="muted"><small>{% translate "Za posledních 30 dní" %}</small></p>
+      <p class="muted"><small>{% translate "In the last 30 days" %}</small></p>
       {% if stats.facts.items %}
         {% include "study/_hard_words.html" with items=stats.facts.items %}
       {% elif stats.facts.answered %}
-        <p>{% translate "Za posledních 30 dní ti jde všechno 🎉" %}</p>
+        <p>{% translate "Everything goes well for you in the last 30 days 🎉" %}</p>
       {% else %}
-        <p class="muted">{% translate "Za posledních 30 dní žádný test." %}</p>
+        <p class="muted">{% translate "No tests in the last 30 days." %}</p>
       {% endif %}
     </section>
   {% endif %}

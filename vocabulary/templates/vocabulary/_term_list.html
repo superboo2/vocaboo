@@ -4,16 +4,16 @@
 <div id="term-list"{% if oob %} hx-swap-oob="true"{% endif %}>
   {% with count=deck_terms|length %}
     <div class="list-head">
-      <h2 class="section-title">{% translate "Slovíčka" %} <small class="muted">({{ count }})</small></h2>
+      <h2 class="section-title">{% translate "Words" %} <small class="muted">({{ count }})</small></h2>
       {% if count > 1 %}
-        <nav aria-label="{% translate 'Řazení' %}" class="sort-links">
+        <nav aria-label="{% translate 'Sort' %}" class="sort-links">
           {% for key, label in sorts.items %}
             <a href="?sort={{ key }}"{% if key == sort %} aria-current="true"{% endif %}>{{ label }}</a>
           {% endfor %}
         </nav>
       {% endif %}
       {% if count %}
-        <button type="button" class="outline select-start" data-action="toggle-select">{% translate "Vybrat" %}</button>
+        <button type="button" class="outline select-start" data-action="toggle-select">{% translate "Select" %}</button>
       {% endif %}
     </div>
 
@@ -24,7 +24,7 @@
             {% with term=item.term %}
               {% with foreign=term.foreign_variants native=term.native_variants %}
                 <li>
-                  <input type="checkbox" name="ids" value="{{ item.pk }}" class="select-box" aria-label="{% blocktranslate with word=foreign.0 %}Vybrat „{{ word }}“{% endblocktranslate %}">
+                  <input type="checkbox" name="ids" value="{{ item.pk }}" class="select-box" aria-label="{% blocktranslate with word=foreign.0 %}Select “{{ word }}”{% endblocktranslate %}">
                   <div class="term-body">
                     <div class="term-texts">
                       <a href="{% url 'vocabulary:term_detail' deck.pk item.pk %}" class="term-main">{{ foreign.0 }}</a>
@@ -45,13 +45,13 @@
           {% endfor %}
         </ul>
         <div class="select-bar">
-          <label><input type="checkbox" data-action="select-all"> {% translate "Vše" %}</label>
-          <button type="submit" disabled>{% translate "Přesunout…" %} <span data-select-count></span></button>
-          <button type="button" class="secondary outline" data-action="toggle-select">{% translate "Zrušit" %}</button>
+          <label><input type="checkbox" data-action="select-all"> {% translate "All" %}</label>
+          <button type="submit" disabled>{% translate "Move…" %} <span data-select-count></span></button>
+          <button type="button" class="secondary outline" data-action="toggle-select">{% translate "Cancel" %}</button>
         </div>
       </form>
     {% else %}
-      <p class="muted">{% translate "Zatím tu nejsou žádná slovíčka. Přidej první formulářem výše." %}</p>
+      <p class="muted">{% translate "No words here yet. Add the first one with the form above." %}</p>
     {% endif %}
   {% endwith %}
 </div>

@@ -6,37 +6,42 @@ of them only in English and the Czech ones say "Vaše".
 
 from django.contrib.auth import password_validation
 from django.utils.translation import gettext as _
+from django.utils.translation import ngettext
 
 
 class MinimumLengthValidator(password_validation.MinimumLengthValidator):
     def get_error_message(self):
-        return _("Heslo je moc krátké, potřebuje aspoň %(count)d znaků.") % {
-            "count": self.min_length
-        }
+        return ngettext(
+            "The password is too short, it needs at least %(count)d character.",
+            "The password is too short, it needs at least %(count)d characters.",
+            self.min_length,
+        ) % {"count": self.min_length}
 
     def get_help_text(self):
-        return _("Aspoň %(count)d znaků.") % {"count": self.min_length}
+        return ngettext(
+            "At least %(count)d character.", "At least %(count)d characters.", self.min_length
+        ) % {"count": self.min_length}
 
 
 class UserAttributeSimilarityValidator(password_validation.UserAttributeSimilarityValidator):
     def get_error_message(self):
-        return _("Heslo je moc podobné tvému e-mailu.")
+        return _("The password is too similar to your email.")
 
     def get_help_text(self):
-        return _("Nesmí být podobné tvému e-mailu.")
+        return _("It must not be similar to your email.")
 
 
 class CommonPasswordValidator(password_validation.CommonPasswordValidator):
     def get_error_message(self):
-        return _("Heslo je moc běžné, vymysli jiné.")
+        return _("The password is too common, think of another one.")
 
     def get_help_text(self):
-        return _("Nesmí být moc běžné.")
+        return _("It must not be too common.")
 
 
 class NumericPasswordValidator(password_validation.NumericPasswordValidator):
     def get_error_message(self):
-        return _("Heslo nemůže být jen z čísel.")
+        return _("The password can't be only numbers.")
 
     def get_help_text(self):
-        return _("Nesmí být jen z čísel.")
+        return _("It must not be only numbers.")

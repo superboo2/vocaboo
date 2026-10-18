@@ -10,11 +10,13 @@ from datetime import timedelta
 
 from django.db.models import Count, Max, Min, OuterRef, Q, Subquery
 from django.utils import timezone
+from django.utils.formats import number_format
+from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy, ngettext, pgettext, pgettext_lazy
 
 from vocabulary.models import DeckTerm, Term
 from vocabulary.services import deck_names, deck_path
 
-from .formatting import czech_plural
 from .models import (
     Direction,
     Result,
@@ -30,38 +32,63 @@ from .ratings import RATINGS
 # (its interval is then a week or more)
 KNOWN_STREAK = 2
 
-# The table "Poslední testy": how many tests, and the days of the line above it
+# The table of recent tests: how many tests, and the days of the line above it
 RECENT_TESTS = 10
 TESTS_DAYS = 14
-WEEKDAY_SHORT = ["po", "út", "st", "čt", "pá", "so", "ne"]
+WEEKDAY_SHORT = [
+    pgettext_lazy("weekday short", "Mon"),
+    pgettext_lazy("weekday short", "Tue"),
+    pgettext_lazy("weekday short", "Wed"),
+    pgettext_lazy("weekday short", "Thu"),
+    pgettext_lazy("weekday short", "Fri"),
+    pgettext_lazy("weekday short", "Sat"),
+    pgettext_lazy("weekday short", "Sun"),
+]
 
 # Days in the bar chart of the dashboard (today is the last one)
 WEEK_DAYS = 7
 
 # Periods of the fun facts: key in the URL (?period=30) → (days or None for all, name)
-PERIODS = {"7": (7, "7 dní"), "30": (30, "30 dní"), "all": (None, "Vše")}
+PERIODS = {
+    "7": (7, gettext_lazy("7 days")),
+    "30": (30, gettext_lazy("30 days")),
+    "all": (None, gettext_lazy("All")),
+}
 # The statistics page shows the fun facts of the last 30 days (enough words for the cards and
 # still about now); the periods stay for the code and the tests
 DEFAULT_PERIOD = "30"
-# "Horská dráha" needs this many changes between right and wrong, "Moc rychle" a "vůbec
-# nevím" faster than this (ms)
+# "roller_coaster" needs this many changes between right and wrong, "rush" a "don't know at
+# all" faster than this (ms)
 SWITCHES = 3
 RUSH_MS = 3000
 # The dashboard: only today, and these kinds of cards in this order
 TODAY = "today"
-TODAY_FACTS = ["Nejdéle přemýšlíš u", "Jen jedním směrem", "Pořád dokola"]
+TODAY_FACTS = ["slow", "one_way", "again"]
 # The statistics page: first the three of the dashboard, then the others
 STATS_FACTS = [
     *TODAY_FACTS,
-    "Největší nepřítel",
-    "Pleteš si",
-    "Zapomínáš",
-    "Horská dráha",
-    "Moc rychle",
-    "Nejdelší, co ti nejde",
-    "Nejdéle se učíš",
+    "enemy",
+    "mix_up",
+    "forget",
+    "roller_coaster",
+    "rush",
+    "longest",
+    "oldest",
 ]
-# "Pořád dokola" shows a word only after this many attempts in the whole history
+# The title of each kind of card (the kinds above are only keys)
+FACT_TITLES = {
+    "slow": gettext_lazy("You think longest about"),
+    "one_way": gettext_lazy("Only one way"),
+    "again": gettext_lazy("Over and over"),
+    "enemy": gettext_lazy("Worst enemy"),
+    "mix_up": gettext_lazy("You mix up"),
+    "forget": gettext_lazy("You forget"),
+    "roller_coaster": gettext_lazy("Roller coaster"),
+    "rush": gettext_lazy("Too fast"),
+    "longest": gettext_lazy("Longest you struggle with"),
+    "oldest": gettext_lazy("Learning it longest"),
+}
+# "again" shows a word only after this many attempts in the whole history
 REPEAT_ATTEMPTS = 3
 
 
@@ -119,11 +146,13 @@ def recent_tests(user, now=None):
     summary = ""
     if recent:
         average = round(sum(recent) / len(recent))
-        summary = (
-            f"Za {TESTS_DAYS} dní {len(recent)} "
-            f"{czech_plural(len(recent), 'test', 'testy', 'testů')} · průměrně {average} "
-            f"{czech_plural(average, 'slovíčko', 'slovíčka', 'slovíček')}"
-        )
+        tests_text = ngettext(
+            "%(count)s test in %(days)s days", "%(count)s tests in %(days)s days", len(recent)
+        ) % {"count": len(recent), "days": TESTS_DAYS}
+        average_text = ngettext(
+            "on average %(count)s word", "on average %(count)s words", average
+        ) % {"count": average}
+        summary = f"{tests_text} · {average_text}"
     return {"rows": rows, "summary": summary}
 
 
@@ -183,24 +212,25 @@ def today_overview(user, now=None):
         spent[_local_day(started)] += (last - started).total_seconds() / 60
     minutes = Counter({day: round(value) for day, value in spent.items()})
 
-    def word(count):
-        return czech_plural(count, "slovíčko", "slovíčka", "slovíček")
-
-    def metric(key, icon, values, label, help_text, unit=""):
+    def metric(key, icon, values, label, help_text, unit="%(value)s"):
         top = max(values[day] for day in days) or 1
         return {
             "key": key,
             "icon": icon,
-            "value": f"{values[today]}{unit}",
+            "value": unit % {"value": values[today]},
             "label": label,
             # The tooltip of the number: what exactly is counted
             "help": help_text,
             "bars": [
                 {
-                    "value": f"{values[day]}{unit}",
+                    "value": unit % {"value": values[day]},
                     "height": f"{100 * values[day] / top:.0f}",
-                    "label": "dnes" if day == today else WEEKDAY_SHORT[day.weekday()],
-                    "title": f"{day.day}. {day.month}.",
+                    "label": (
+                        pgettext("weekday short", "today")
+                        if day == today
+                        else str(WEEKDAY_SHORT[day.weekday()])
+                    ),
+                    "title": _short_date(day),
                     "today": day == today,
                 }
                 for day in days
@@ -213,34 +243,40 @@ def today_overview(user, now=None):
                 "tested",
                 "📚",
                 tested,
-                f"{word(tested[today])} v testech",
-                "Různá slovíčka, která byla dnes v testech. Slovíčko v obou směrech "
-                "se počítá jednou.",
+                ngettext("word in tests", "words in tests", tested[today]),
+                _(
+                    "Different words that were in today's tests. A word in both directions "
+                    "counts once."
+                ),
             ),
             metric(
                 "first",
                 "🎯",
                 first_right,
-                "poprvé správně",
-                "Slovíčka, u kterých byla dnes poprvé v historii odpověď 😎 nebo 🤔, "
-                "v kterémkoli směru. Každé slovíčko se počítá jednou.",
+                _("right for the first time"),
+                _(
+                    "Words answered 😎 or 🤔 today for the first time ever, in any direction. "
+                    "Each word counts once."
+                ),
             ),
             metric(
                 "learned",
                 "🎓",
                 learned,
-                f"{word(learned[today])} naučeno",
-                "Slovíčka, která dnes poprvé splnila „umíš“: ve směru cizí → rodný "
-                "dvakrát po sobě správně. Druhá správná odpověď přijde až po intervalu, "
-                "u nových slovíček tedy nejdřív za pár dní.",
+                ngettext("word learned", "words learned", learned[today]),
+                _(
+                    "Words that today became “known” for the first time: right twice in a row "
+                    "foreign → native. The second right answer comes only after an interval, "
+                    "so for new words in a few days at the earliest."
+                ),
             ),
             metric(
                 "minutes",
                 "⏱️",
                 minutes,
-                "čas v testech",
-                "Jak dlouho dnes trvaly testy (od začátku testu do poslední odpovědi).",
-                " min",
+                _("time in tests"),
+                _("How long today's tests took (from the start of a test to its last answer)."),
+                _("%(value)s min"),
             ),
         ],
     }
@@ -282,7 +318,7 @@ def _test_rows(user, tests):
 def _test_row(session, counts, names):
     started = timezone.localtime(session.started_at)
     decks = list(session.decks.all())
-    foreign, native = "cizí", "rodný"
+    foreign, native = pgettext("language", "foreign"), pgettext("language", "native")
     if decks:
         foreign = decks[0].foreign_language.code.upper()
         native = decks[0].native_language.code.upper()
@@ -290,9 +326,12 @@ def _test_row(session, counts, names):
         StudyDirection.F2N: f"{foreign} → {native}",
         StudyDirection.N2F: f"{native} → {foreign}",
     }.get(session.direction, f"{foreign} ↔ {native}")
-    scope = "všechna" if session.scope == StudyScope.ALL else "opak. + nová"
+    if session.scope == StudyScope.ALL:
+        scope = pgettext("test scope", "all")
+    else:
+        scope = pgettext("test scope", "due + new")
     if session.retry:
-        scope = "chybné znovu"
+        scope = pgettext("test scope", "wrong again")
     finished = session.finished_at is not None or (
         session.max_cards is not None and session.cards >= session.max_cards
     )
@@ -301,12 +340,12 @@ def _test_row(session, counts, names):
     percent = round(100 * session.correct_cards / session.cards)
     return {
         "session": session,
-        "when": f"{WEEKDAY_SHORT[started.weekday()]} {started.day}. {started.month}.",
+        "when": f"{WEEKDAY_SHORT[started.weekday()]} {_short_date(started)}",
         "time": f"{started:%H:%M}",
         "paths": [deck_path(deck.pk, names) for deck in decks],
         "direction": direction,
         "scope": scope,
-        "limit": f"max {session.max_cards}" if session.max_cards else "",
+        "limit": _("max %(count)s") % {"count": session.max_cards} if session.max_cards else "",
         "cards": session.cards,
         "ratings": ratings,
         "percent": percent,
@@ -317,10 +356,15 @@ def _test_row(session, counts, names):
 
 def _minutes(minutes):
     if minutes < 1:
-        return "< 1 min"
+        return _("< 1 min")
     if minutes < 60:
-        return f"{minutes} min"
-    return f"{minutes // 60} h {minutes % 60} min"
+        return _("%(count)s min") % {"count": minutes}
+    return _("%(hours)s h %(minutes)s min") % {"hours": minutes // 60, "minutes": minutes % 60}
+
+
+def _short_date(day):
+    """Day and month, e.g. "18. 10." in Czech."""
+    return _("%(month)s/%(day)s") % {"day": day.day, "month": day.month}
 
 
 def hard_words(user, now=None):
@@ -372,8 +416,15 @@ def _words_chart(terms, today):
     nexts = [*starts[1:], today + timedelta(days=1)]
     totals = [sum(1 for day in days if day < end) for end in nexts]
     chart = _line_chart([_bucket_label(start, unit) for start in starts], totals)
-    since = f"{first.day}. {first.month}. {first.year}"
-    chart["subtitle"] = f"Slovíček celkem {UNIT_NAMES[unit]} od {since}"
+    since = _("%(month)s/%(day)s/%(year)s") % {
+        "day": first.day,
+        "month": first.month,
+        "year": first.year,
+    }
+    chart["subtitle"] = _("Total words %(unit)s since %(date)s") % {
+        "unit": UNIT_NAMES[unit],
+        "date": since,
+    }
     return chart
 
 
@@ -383,12 +434,25 @@ CHART_DAYS = 14
 CHART_WEEKS_DAYS = 122
 CHART_MONTHS_DAYS = 730
 UNIT_NAMES = {
-    "day": "po dnech",
-    "week": "po týdnech",
-    "month": "po měsících",
-    "quarter": "po čtvrtletích",
+    "day": gettext_lazy("by day"),
+    "week": gettext_lazy("by week"),
+    "month": gettext_lazy("by month"),
+    "quarter": gettext_lazy("by quarter"),
 }
-MONTHS_SHORT = ["led", "úno", "bře", "dub", "kvě", "čvn", "čvc", "srp", "zář", "říj", "lis", "pro"]
+MONTHS_SHORT = [
+    pgettext_lazy("month short", "Jan"),
+    pgettext_lazy("month short", "Feb"),
+    pgettext_lazy("month short", "Mar"),
+    pgettext_lazy("month short", "Apr"),
+    pgettext_lazy("month short", "May"),
+    pgettext_lazy("month short", "Jun"),
+    pgettext_lazy("month short", "Jul"),
+    pgettext_lazy("month short", "Aug"),
+    pgettext_lazy("month short", "Sep"),
+    pgettext_lazy("month short", "Oct"),
+    pgettext_lazy("month short", "Nov"),
+    pgettext_lazy("month short", "Dec"),
+]
 
 
 def _steps(start, today, step):
@@ -406,10 +470,10 @@ def _add_months(day, months):
 
 def _bucket_label(start, unit):
     if unit in ("day", "week"):
-        return f"{start.day}. {start.month}."
+        return _short_date(start)
     if unit == "month":
         return f"{MONTHS_SHORT[start.month - 1]} {start.year}"
-    return f"Q{(start.month - 1) // 3 + 1} {start.year}"
+    return _("Q%(quarter)s %(year)s") % {"quarter": (start.month - 1) // 3 + 1, "year": start.year}
 
 
 def _nice_top(value):
@@ -481,8 +545,8 @@ def _streak(logs, today):
     return {
         "current": current,
         "longest": longest,
-        "current_text": f"{current} {czech_plural(current, 'den', 'dny', 'dní')}",
-        "longest_text": f"{longest} {czech_plural(longest, 'den', 'dny', 'dní')}",
+        "current_text": _days(current),
+        "longest_text": _days(longest),
     }
 
 
@@ -523,7 +587,7 @@ def _facts(user, logs, now, period, kinds=None):
             switches[term_id] += 1
         last_right[key] = right
 
-    # Attempts of a word in the whole history (for "Pořád dokola")
+    # Attempts of a word in the whole history (for "again")
     all_attempts = Counter(log[5] for log in logs)
 
     # Forgotten = a wrong answer after KNOWN_STREAK right ones in a row (the whole history
@@ -588,15 +652,18 @@ def _facts(user, logs, now, period, kinds=None):
 
     def enemy_text(term):
         count = attempts[term.pk]
-        tries = czech_plural(count, "pokusu", "pokusů", "pokusů")
-        return f"{wrong[term.pk]}× vůbec nevím z {count} {tries}"
+        return ngettext(
+            "%(wrong)s× don't know at all out of %(count)s try",
+            "%(wrong)s× don't know at all out of %(count)s tries",
+            count,
+        ) % {"wrong": wrong[term.pk], "count": count}
 
     hard = list(terms.values())
-    # (animal, what it is, colour of the stripe, words in order, why)
+    # (kind, animal, colour of the stripe, words in order, why)
     candidates = [
         (
+            "enemy",
             "🦈",
-            "Největší nepřítel",
             "dontknow",
             sorted(
                 (term for term in hard if wrong[term.pk]),
@@ -605,94 +672,102 @@ def _facts(user, logs, now, period, kinds=None):
             enemy_text,
         ),
         (
+            "mix_up",
             "🦎",
-            "Pleteš si",
             "partial",
             sorted(
                 (term for term in hard if term.pk in partner),
                 key=lambda term: -(wrong[term.pk] + wrong[partner[term.pk].pk]),
             ),
-            lambda term: "stejný překlad, pořád se pletou",
+            lambda term: _("same translation, keep getting mixed up"),
         ),
         (
+            "one_way",
             "🦀",
-            "Jen jedním směrem",
             "think",
             [term for term in hard if one_direction(term)],
             lambda term: _directions_text(term, one_direction(term)[0]),
         ),
         (
+            "forget",
             "🐿️",
-            "Zapomínáš",
             "dontknow",
             sorted(
                 (term for term in hard if forgotten[term.pk]),
                 key=lambda term: -forgotten[term.pk],
             ),
-            lambda term: f"{forgotten[term.pk]}× zapomenuto",
+            lambda term: _("%(count)s× forgotten") % {"count": forgotten[term.pk]},
         ),
         (
+            "roller_coaster",
             "🐒",
-            "Horská dráha",
             "think",
             sorted(
                 (term for term in hard if switches[term.pk] >= SWITCHES),
                 key=lambda term: -switches[term.pk],
             ),
-            lambda term: f"{switches[term.pk]}× změna vím ↔ nevím",
+            lambda term: _("%(count)s× switch know ↔ don't know") % {"count": switches[term.pk]},
         ),
         (
+            "rush",
             "🐇",
-            "Moc rychle",
             "dontknow",
             sorted(
                 (term for term in hard if fast_wrong.get(term.pk, RUSH_MS) < RUSH_MS),
                 key=lambda term: fast_wrong[term.pk],
             ),
-            lambda term: f"za {fast_wrong[term.pk] / 1000:.1f} s a vůbec nevím".replace(".", ","),
+            lambda term: (
+                _("%(seconds)s s and don't know at all")
+                % {"seconds": _decimal(fast_wrong[term.pk] / 1000)}
+            ),
         ),
         (
+            "again",
             "🐘",
-            "Pořád dokola",
             "dontknow",
             sorted(
                 (term for term in hard if all_attempts[term.pk] >= REPEAT_ATTEMPTS),
                 key=lambda term: -all_attempts[term.pk],
             ),
-            lambda term: f"zase nevím · už {all_attempts[term.pk]}. pokus",
+            lambda term: (
+                _("don't know again · try no. %(count)s") % {"count": all_attempts[term.pk]}
+            ),
         ),
         (
+            "longest",
             "🦒",
-            "Nejdelší, co ti nejde",
             "partial",
             sorted(hard, key=lambda term: -len(term.main_foreign)),
             lambda term: _characters(len(term.main_foreign)),
         ),
         (
+            "slow",
             "🐢",
-            "Nejdéle přemýšlíš u",
             "ok",
             sorted(
                 (term for term in hard if term.pk in think),
                 key=lambda term: -_average(think[term.pk]),
             ),
-            lambda term: f"průměrně {_average(think[term.pk]) / 1000:.1f} s".replace(".", ","),
+            lambda term: (
+                _("%(seconds)s s on average")
+                % {"seconds": _decimal(_average(think[term.pk]) / 1000)}
+            ),
         ),
         (
+            "oldest",
             "🐌",
-            "Nejdéle se učíš",
             "think",
             sorted(hard, key=lambda term: term.created_at),
             lambda term: _added_ago(term, now),
         ),
     ]
-    by_title = {candidate[1]: candidate for candidate in candidates}
-    candidates = [by_title[title] for title in kinds or STATS_FACTS]
+    by_kind = {candidate[0]: candidate for candidate in candidates}
+    candidates = [by_kind[kind] for kind in kinds or STATS_FACTS]
     items = []
     used = set()
-    for emoji, title, tone, ordered, text in candidates:
+    for kind, emoji, tone, ordered, text in candidates:
         term = next((term for term in ordered if term.pk not in used), None)
-        if title == "Pleteš si":
+        if kind == "mix_up":
             # Both words of the pair must be free
             term = next(
                 (
@@ -706,12 +781,12 @@ def _facts(user, logs, now, period, kinds=None):
             continue
         used.add(term.pk)
         foreign = term.main_foreign
-        if title == "Pleteš si":
+        if kind == "mix_up":
             used.add(partner[term.pk].pk)
             foreign = f"{term.main_foreign} · {partner[term.pk].main_foreign}"
         # The card turns like in a test: every second one shows the native side first;
-        # "Jen jedním směrem" shows the direction that is hard
-        if title == "Jen jedním směrem":
+        # "one_way" shows the direction that is hard
+        if kind == "one_way":
             native_first = one_direction(term)[0] == Direction.N2F
         else:
             native_first = len(items) % 2 == 1
@@ -720,8 +795,9 @@ def _facts(user, logs, now, period, kinds=None):
             front, back = back, front
         items.append(
             {
+                "kind": kind,
                 "emoji": emoji,
-                "title": title,
+                "title": str(FACT_TITLES[kind]),
                 "tone": tone,
                 "term": term,
                 "word": foreign,
@@ -735,19 +811,21 @@ def _facts(user, logs, now, period, kinds=None):
 
 
 def _directions_text(term, bad_direction):
-    """E.g. "EN → CS ano, CS → EN ne" when native → foreign is the hard one."""
+    """E.g. "EN → CS yes, CS → EN no" when native → foreign is the hard one."""
     foreign, native = term.foreign_language.code.upper(), term.native_language.code.upper()
     to_native, to_foreign = f"{foreign} → {native}", f"{native} → {foreign}"
     if bad_direction == Direction.N2F:
-        return f"{to_native} ano, {to_foreign} ne"
-    return f"{to_foreign} ano, {to_native} ne"
+        good, bad = to_native, to_foreign
+    else:
+        good, bad = to_foreign, to_native
+    return _("%(good)s yes, %(bad)s no") % {"good": good, "bad": bad}
 
 
 def _added_ago(term, now):
     days = (_local_day(now) - _local_day(term.created_at)).days
     if days < 1:
-        return "přidáno dnes"
-    return f"přidáno před {days} {czech_plural(days, 'dnem', 'dny', 'dny')}"
+        return _("added today")
+    return ngettext("added %(count)s day ago", "added %(count)s days ago", days) % {"count": days}
 
 
 def _average(values):
@@ -755,4 +833,13 @@ def _average(values):
 
 
 def _characters(count):
-    return f"{count} {czech_plural(count, 'znak', 'znaky', 'znaků')}"
+    return ngettext("%(count)s character", "%(count)s characters", count) % {"count": count}
+
+
+def _days(count):
+    return ngettext("%(count)s day", "%(count)s days", count) % {"count": count}
+
+
+def _decimal(value):
+    """One decimal place with the decimal mark of the language (2,5 in Czech)."""
+    return number_format(value, decimal_pos=1)

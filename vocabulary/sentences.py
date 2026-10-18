@@ -9,9 +9,10 @@ import re
 
 from django.utils.html import escape
 from django.utils.safestring import mark_safe
+from django.utils.translation import gettext as _
 
 BRACES = re.compile(r"\{([^{}]*)\}")
-GAP_HTML = '<span class="cloze" aria-label="vynechané slovo">___</span>'
+GAP_HTML = '<span class="cloze" aria-label="{label}">___</span>'
 
 
 def split_sentence(sentence, words):
@@ -69,7 +70,8 @@ def highlight(sentence, words):
 
 def cloze(sentence, words):
     """HTML of the sentence with a gap instead of the word (for the native → foreign card)."""
+    gap = GAP_HTML.format(label=escape(_("missing word")))
     html = "".join(
-        GAP_HTML if is_word else escape(text) for text, is_word in split_sentence(sentence, words)
+        gap if is_word else escape(text) for text, is_word in split_sentence(sentence, words)
     )
     return mark_safe(html)

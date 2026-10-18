@@ -1,20 +1,20 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}{% translate "Upravit slovíčko" %} · Vocaboo{% endblock %}
+{% block title %}{% translate "Edit word" %} · Vocaboo{% endblock %}
 
 {% block content %}
   {% include "vocabulary/_breadcrumbs.html" with current=deck_term.term.main_foreign %}
 
   <article class="form-box">
     <header>
-      {% if test %}<p class="muted"><small>{% translate "Úprava slovíčka během testu" %}</small></p>{% endif %}
-      <h1>{% translate "Upravit slovíčko" %}</h1>
+      {% if test %}<p class="muted"><small>{% translate "Editing a word during a test" %}</small></p>{% endif %}
+      <h1>{% translate "Edit word" %}</h1>
       {% if other_decks %}
         <p class="muted">
-          {% translate "Slovíčko je i ve slovnících:" %}
+          {% translate "The word is also in the decks:" %}
           {% for other in other_decks %}<a href="{% url 'vocabulary:deck_detail' other.pk %}">{{ other.name }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}.
-          {% translate "Změna variant a poznámky platí všude, věta jen tady." %}
+          {% translate "Changes to variants and the note apply everywhere, the sentence only here." %}
         </p>
       {% endif %}
     </header>
@@ -35,11 +35,11 @@
       {{ form.note.as_field_group }}
       <div class="actions">
         {% if test %}
-          <button type="submit">{% translate "Uložit a zpět do testu" %}</button>
-          <a href="{% url 'study:card' test.pk %}" role="button" class="secondary outline">{% translate "Neukládat a zpět do testu" %}</a>
+          <button type="submit">{% translate "Save and back to the test" %}</button>
+          <a href="{% url 'study:card' test.pk %}" role="button" class="secondary outline">{% translate "Back to the test without saving" %}</a>
         {% else %}
-          <button type="submit">{% translate "Uložit" %}</button>
-          <a href="{{ back }}" role="button" class="secondary outline">{% translate "Zrušit" %}</a>
+          <button type="submit">{% translate "Save" %}</button>
+          <a href="{{ back }}" role="button" class="secondary outline">{% translate "Cancel" %}</a>
         {% endif %}
       </div>
     </form>
@@ -47,7 +47,7 @@
     {# Not during a test: the card would be gone from under it #}
     {% if not test %}
       <footer>
-        <a href="{% url 'vocabulary:term_remove' deck.pk deck_term.pk %}">{% translate "Odebrat z tohoto slovníku" %}</a>
+        <a href="{% url 'vocabulary:term_remove' deck.pk deck_term.pk %}">{% translate "Remove from this deck" %}</a>
       </footer>
     {% endif %}
   </article>

@@ -6,7 +6,7 @@
   {# How far the test is: a thin bar, the numbers small under it #}
   <div class="card-progress">
     <span class="progress-bar" aria-hidden="true"><span style="width: {{ progress }}%"></span></span>
-    <small class="muted">{% blocktranslate with done=session.answered left=remaining %}Hotovo {{ done }} · zbývá {{ left }}{% endblocktranslate %} · {{ card.state.get_direction_display }}</small>
+    <small class="muted">{% blocktranslate with done=session.answered left=remaining %}Done {{ done }} · {{ left }} left{% endblocktranslate %} · {{ card.state.get_direction_display }}</small>
   </div>
 
   <article class="flashcard">
@@ -18,7 +18,7 @@
         <span class="card-main{% if card.question.0|length > 10 %} card-main-long{% endif %}">{{ card.question.0 }}{% if card.speech_lang and card.is_f2n %}<span class="card-speak">{% include "_speak.html" with text=card.term.main_foreign lang=card.speech_lang kind="word" %}</span>{% endif %}</span>
         {% if card.pronunciation.ipa and card.is_f2n %}<span class="after-flip ipa" hidden>[{{ card.pronunciation.ipa }}]</span>{% endif %}
         {% if card.question|length > 1 %}
-          <span class="card-others">({% translate "také" %}: {{ card.question|slice:"1:"|join:", " }})</span>
+          <span class="card-others">({% translate "also" %}: {{ card.question|slice:"1:"|join:", " }})</span>
         {% endif %}
       </p>
       {% if card.front_hint %}<p class="card-hint">({{ card.front_hint }})</p>{% endif %}
@@ -41,13 +41,13 @@
       </p>
       {% if card.own_meanings %}
         <p class="card-own">
-          {% translate "Učíš se i:" %}
+          {% translate "You are also learning:" %}
           {% for variants in card.own_meanings %}{% if not card.is_f2n %}{{ card.term.main_foreign }} → {% endif %}{{ variants|join:" · " }}{% if not forloop.last %}, {% endif %}{% endfor %}
         </p>
       {% endif %}
       {% if card.also %}
         <p class="card-own">
-          {% blocktranslate with word=card.question.0 others=card.also|join:", " %}„{{ word }}“ je i: {{ others }}{% endblocktranslate %}
+          {% blocktranslate with word=card.question.0 others=card.also|join:", " %}“{{ word }}” is also: {{ others }}{% endblocktranslate %}
         </p>
       {% endif %}
       {% if card.sentence and not card.sentence_on_front %}
@@ -67,7 +67,7 @@
   </article>
 
   <button type="button" class="card-show" data-action="flip">
-    {% translate "Ukázat" %} <kbd class="hotkey">␣</kbd>
+    {% translate "Show" %} <kbd class="hotkey">␣</kbd>
   </button>
 
   {% url 'study:answer' session.pk as answer_url %}
@@ -82,7 +82,7 @@
       <button type="submit" name="rating" value="{{ rating.key }}"
               class="rating rating-{{ rating.key }}" data-hotkey="{{ rating.hotkey }}"
               title="{{ rating.label }}"
-              aria-label="{% blocktranslate with label=rating.label when=next_interval|interval %}{{ label }}, opakovat za {{ when }}{% endblocktranslate %}">
+              aria-label="{% blocktranslate with label=rating.label when=next_interval|interval %}{{ label }}, again in {{ when }}{% endblocktranslate %}">
         <span class="rating-emoji" aria-hidden="true">{{ rating.emoji }}</span>
         <span class="rating-interval">{{ next_interval|interval }}</span>
         <kbd class="hotkey">{{ rating.hotkey }}</kbd>

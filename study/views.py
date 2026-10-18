@@ -97,7 +97,7 @@ def study_answer(request, pk):
                 decide_ms=request.POST.get("decide_ms"),
             )
         except (ValidationError, ValueError):
-            return HttpResponseBadRequest(_("Neplatná odpověď."))
+            return HttpResponseBadRequest(_("Invalid answer."))
 
     next_state = services.next_card(session)
     if next_state is None:
@@ -166,7 +166,7 @@ def study_add_sentence(request, pk, deck_term_pk):
     task = {"deck_term": deck_term, "term": deck_term.term}
     error = ""
     if not sentence.strip():
-        error = _("Napiš aspoň větu v cizím jazyce.")
+        error = _("Write at least the sentence in the foreign language.")
     else:
         try:
             vocabulary_services.update_deck_term(
@@ -180,7 +180,7 @@ def study_add_sentence(request, pk, deck_term_pk):
         if error:
             messages.error(request, error)
         else:
-            messages.success(request, _("Věta je uložená."))
+            messages.success(request, _("Sentence saved."))
         return redirect("study:summary", pk=session.pk)
     return render(
         request,
@@ -195,7 +195,7 @@ def study_retry(request, pk):
     session = _get_session(request, pk)
     terms = services.session_summary(session)["problem_terms"]
     if not terms:
-        messages.info(request, _("V tomto testu nejsou žádná chybná slovíčka."))
+        messages.info(request, _("There are no wrong words in this test."))
         return redirect("study:summary", pk=session.pk)
     retry = services.start_session(
         request.user, terms=terms, direction=session.direction, scope=StudyScope.ALL

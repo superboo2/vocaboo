@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}{% translate "Přihlášení" %} · Vocaboo{% endblock %}
+{% block title %}{% translate "Log in" context "page title" %} · Vocaboo{% endblock %}
 
 {% block content %}
   <article class="narrow">
@@ -9,7 +9,7 @@
       {% include "_logo.html" with class="logo-big" %}
       <h1>Vocaboo</h1>
       <p class="brand-slogan">catch them all</p>
-      <p>{% translate "Přihlas se svým e-mailem." %}</p>
+      <p>{% translate "Log in with your email." %}</p>
     </header>
 
     <form method="post">
@@ -20,7 +20,7 @@
       {% for error in form.non_field_errors %}
         <p class="form-error" role="alert">{{ error }}</p>
       {% endfor %}
-      <button type="submit">{% translate "Přihlásit se" %}</button>
+      <button type="submit">{% translate "Log in" %}</button>
     </form>
   </article>
 

@@ -32,11 +32,11 @@ class UserAdmin(DjangoUserAdmin):
     fieldsets = (
         (None, {"fields": ("email", "password")}),
         (
-            _("Osobní údaje"),
+            _("Personal info"),
             {"fields": ("first_name", "last_name", "native_language", "default_direction")},
         ),
         (
-            _("Oprávnění"),
+            _("Permissions"),
             {
                 "fields": (
                     "is_active",
@@ -47,7 +47,7 @@ class UserAdmin(DjangoUserAdmin):
                 ),
             },
         ),
-        (_("Důležitá data"), {"fields": ("last_login", "date_joined")}),
+        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
     add_fieldsets = (
         (

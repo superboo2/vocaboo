@@ -5,6 +5,6 @@
 {% if text and lang %}
   <button type="button" class="link-button speak" data-action="play-audio" data-speak="{{ kind }}"
           data-speak-text="{{ text }}" data-lang="{{ lang }}" hidden
-          title="{% if kind == 'sentence' %}{% translate 'Přečíst větu (V)' %}{% else %}{% translate 'Přehrát výslovnost (P)' %}{% endif %}"
-          aria-label="{% if kind == 'sentence' %}{% translate 'Přečíst větu' %}{% else %}{% translate 'Přehrát výslovnost' %}{% endif %}">🔊</button>
+          title="{% if kind == 'sentence' %}{% translate 'Read the sentence (V)' %}{% else %}{% translate 'Play the pronunciation (P)' %}{% endif %}"
+          aria-label="{% if kind == 'sentence' %}{% translate 'Read the sentence' %}{% else %}{% translate 'Play the pronunciation' %}{% endif %}">🔊</button>
 {% endif %}

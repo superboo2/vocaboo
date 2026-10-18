@@ -3,16 +3,16 @@
 
 {# Move or copy chosen words into another deck (views.terms_move) #}
 
-{% block title %}{% translate "Přesunout slovíčka" %} · Vocaboo{% endblock %}
+{% block title %}{% translate "Move words" %} · Vocaboo{% endblock %}
 
 {% block content %}
-  {% translate "Přesunout slovíčka" as title %}
+  {% translate "Move words" as title %}
   {% include "vocabulary/_breadcrumbs.html" with current=title %}
 
   <article class="form-box">
     <header>
       <h1>{{ title }}</h1>
-      <p>{% blocktranslate with name=deck.name pair=deck.language_pair %}Ze slovníku „{{ name }}“ ({{ pair }}){% endblocktranslate %}</p>
+      <p>{% blocktranslate with name=deck.name pair=deck.language_pair %}From the deck “{{ name }}” ({{ pair }}){% endblocktranslate %}</p>
     </header>
 
     <ul class="move-words">
@@ -26,18 +26,18 @@
         {% csrf_token %}
         {% for item in deck_terms %}<input type="hidden" name="ids" value="{{ item.pk }}">{% endfor %}
         {{ form }}
-        <p class="muted"><small>{% translate "Věta i pokrok v učení zůstanou. „Přidat i tam“ nechá slovíčko i v tomto slovníku." %}</small></p>
+        <p class="muted"><small>{% translate "The sentence and the learning progress stay. “Add there too” keeps the word in this deck as well." %}</small></p>
         <div class="actions">
-          <button type="submit" name="action" value="move">{% translate "Přesunout" %}</button>
-          <button type="submit" name="action" value="copy" class="outline">{% translate "Přidat i tam" %}</button>
-          <a href="{% url 'vocabulary:deck_detail' deck.pk %}" role="button" class="secondary outline">{% translate "Zrušit" %}</a>
+          <button type="submit" name="action" value="move">{% translate "Move" %}</button>
+          <button type="submit" name="action" value="copy" class="outline">{% translate "Add there too" %}</button>
+          <a href="{% url 'vocabulary:deck_detail' deck.pk %}" role="button" class="secondary outline">{% translate "Cancel" %}</a>
         </div>
       </form>
     {% else %}
-      <p>{% translate "Nemáš žádný jiný slovník se stejnými jazyky. Nejdřív nějaký vytvoř, třeba podslovník." %}</p>
+      <p>{% translate "You have no other deck with the same languages. Create one first, for example, a sub-deck." %}</p>
       <div class="actions">
-        <a href="{% url 'vocabulary:deck_create_child' deck.pk %}" role="button" class="outline">+ {% translate "Přidat podslovník" %}</a>
-        <a href="{% url 'vocabulary:deck_detail' deck.pk %}" role="button" class="secondary outline">{% translate "Zpět" %}</a>
+        <a href="{% url 'vocabulary:deck_create_child' deck.pk %}" role="button" class="outline">+ {% translate "Add sub-deck" %}</a>
+        <a href="{% url 'vocabulary:deck_detail' deck.pk %}" role="button" class="secondary outline">{% translate "Back" %}</a>
       </div>
     {% endif %}
   </article>

@@ -98,7 +98,7 @@ def test_facts_show_each_hard_word_once(user, deck):
     # ox: native → foreign is hard, foreign → native was right last time
     ReviewState.objects.filter(term=short, direction=Direction.F2N).update(correct_streak=1)
 
-    kinds = ["Největší nepřítel", "Jen jedním směrem", "Nejdelší, co ti nejde"]
+    kinds = ["enemy", "one_way", "longest"]
     facts = stats._facts(user, stats._logs(user), NOW, "7", kinds=kinds)
 
     by_title = {fact["title"]: fact for fact in facts["items"]}

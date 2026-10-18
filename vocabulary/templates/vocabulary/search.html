@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}{% translate "Hledat" %} · Vocaboo{% endblock %}
+{% block title %}{% translate "Search" %} · Vocaboo{% endblock %}
 
 {% block content %}
-  <h1>🔍 {% translate "Hledat" %}</h1>
-  <p class="muted">{% translate "Hledá se ve všech tvých slovnících: slovo, překlad, věta i poznámka, bez ohledu na háčky a velká písmena." %}</p>
+  <h1>🔍 {% translate "Search" %}</h1>
+  <p class="muted">{% translate "Searches all your decks: word, translation, sentence and note, ignoring accents and letter case." %}</p>
   {% include "vocabulary/_search_field.html" with autofocus=True results=True %}
 {% endblock %}

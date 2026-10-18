@@ -13,14 +13,14 @@
                 hx-post="{{ up_url }}" hx-target="#sibling-list" hx-swap="outerHTML">
             {% csrf_token %}
             <button type="submit" class="outline secondary"
-                    aria-label="{% blocktranslate with name=item.name %}Posunout {{ name }} výš{% endblocktranslate %}"
+                    aria-label="{% blocktranslate with name=item.name %}Move {{ name }} up{% endblocktranslate %}"
                     {% if forloop.first %}disabled{% endif %}>↑</button>
           </form>
           <form method="post" action="{{ down_url }}"
                 hx-post="{{ down_url }}" hx-target="#sibling-list" hx-swap="outerHTML">
             {% csrf_token %}
             <button type="submit" class="outline secondary"
-                    aria-label="{% blocktranslate with name=item.name %}Posunout {{ name }} níž{% endblocktranslate %}"
+                    aria-label="{% blocktranslate with name=item.name %}Move {{ name }} down{% endblocktranslate %}"
                     {% if forloop.last %}disabled{% endif %}>↓</button>
           </form>
         </span>

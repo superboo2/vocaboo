@@ -4,6 +4,7 @@ from django.contrib.auth.models import UserManager as DjangoUserManager
 from django.db import models
 from django.db.models.functions import Lower
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import pgettext_lazy
 
 from study.models import StudyDirection
 
@@ -41,11 +42,11 @@ class UserManager(DjangoUserManager):
 
 class User(AbstractUser):
     username = None
-    email = models.EmailField(_("e-mail"), unique=True)
+    email = models.EmailField(_("email"), unique=True)
     # Used as default native language for new decks
     native_language = models.ForeignKey(
         "vocabulary.Language",
-        verbose_name=_("mluvím"),
+        verbose_name=_("native language"),
         null=True,
         blank=True,
         on_delete=models.SET_NULL,
@@ -53,33 +54,33 @@ class User(AbstractUser):
     )
     # Direction chosen in a new test unless the user picks another one
     default_direction = models.CharField(
-        _("výchozí směr testu"),
+        _("default test direction"),
         max_length=5,
         choices=StudyDirection.choices,
         default=StudyDirection.MIXED,
     )
     # Translation suggestions from the dictionary while a new word is typed
-    show_suggestions = models.BooleanField(_("navrhovat překlad"), default=True)
+    show_suggestions = models.BooleanField(_("suggest translations"), default=True)
     # Meanings from the dictionary on the back of a test card (the user's own are always shown)
-    show_other_meanings = models.BooleanField(_("další významy na kartě"), default=True)
+    show_other_meanings = models.BooleanField(_("other meanings on the card"), default=True)
 
     class AutoplayContent(models.TextChoices):
-        WORD = "word", _("slovo")
-        SENTENCE = "sentence", _("celé použití ve větě")
+        WORD = "word", pgettext_lazy("autoplay", "word")
+        SENTENCE = "sentence", _("the whole sentence")
 
     # Read the foreign word aloud by itself: foreign → native when the card comes,
     # native → foreign after it is turned
-    autoplay_pronunciation = models.BooleanField(_("přehrát automaticky"), default=True)
+    autoplay_pronunciation = models.BooleanField(_("play automatically"), default=True)
     # What is read: the word, or the sentence of the card (the word when there is none)
     autoplay_content = models.CharField(
-        _("co přehrát"), max_length=10, choices=AutoplayContent, default=AutoplayContent.WORD
+        _("what to play"), max_length=10, choices=AutoplayContent, default=AutoplayContent.WORD
     )
     # Written pronunciation in IPA, e.g. [pɑːm], on the card and on the word page
-    show_ipa = models.BooleanField(_("zápis výslovnosti (IPA)"), default=False)
+    show_ipa = models.BooleanField(_("written pronunciation (IPA)"), default=False)
 
     # Language of the app (menus, buttons, help); empty = as the browser asks
     ui_language = models.CharField(
-        _("jazyk aplikace"), max_length=10, choices=settings.LANGUAGES, blank=True
+        _("app language"), max_length=10, choices=settings.LANGUAGES, blank=True
     )
 
     USERNAME_FIELD = "email"
@@ -89,8 +90,8 @@ class User(AbstractUser):
     objects = UserManager()
 
     class Meta:
-        verbose_name = _("uživatel")
-        verbose_name_plural = _("uživatelé")
+        verbose_name = _("user")
+        verbose_name_plural = _("users")
         constraints = [
             models.UniqueConstraint(Lower("email"), name="unique_user_email_ci"),
         ]

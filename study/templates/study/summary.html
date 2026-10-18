@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}{% translate "Souhrn testu" %} · Vocaboo{% endblock %}
+{% block title %}{% translate "Test summary" %} · Vocaboo{% endblock %}
 
 {% block content %}
-  <h1>{% translate "Souhrn testu" %}</h1>
+  <h1>{% translate "Test summary" %}</h1>
 
   {% if summary.answered %}
-    <p class="muted page-sub">{% blocktranslate with counter=summary.answered %}Ohodnocené kartičky: {{ counter }}{% endblocktranslate %}</p>
+    <p class="muted page-sub">{% blocktranslate with counter=summary.answered %}Cards rated: {{ counter }}{% endblocktranslate %}</p>
 
     <section class="card-section">
-      <h2 class="section-title">{% translate "Jak to šlo" %}</h2>
+      <h2 class="section-title">{% translate "How it went" %}</h2>
       <ul class="summary-counts">
         {% for rating, count in summary.counts %}
           <li class="rating-{{ rating.key }}">
@@ -26,7 +26,7 @@
 
     <section class="card-section">
       {% if problems %}
-        <h2 class="section-title">{% translate "Na zopakování" %}</h2>
+        <h2 class="section-title">{% translate "To review" %}</h2>
         <ul class="term-list">
           {% for term in problems %}
             <li>
@@ -38,20 +38,20 @@
         </ul>
         <form method="post" action="{% url 'study:retry' session.pk %}">
           {% csrf_token %}
-          <button type="submit" class="test-button">▶︎ {% translate "Procvičit chybné znovu" %}</button>
+          <button type="submit" class="test-button">▶︎ {% translate "Practice the wrong ones again" %}</button>
         </form>
       {% else %}
-        <p>🎉 {% translate "Všechno správně!" %}</p>
+        <p>🎉 {% translate "All correct!" %}</p>
       {% endif %}
     </section>
   {% else %}
     <section class="card-section">
-      <p>{% translate "Teď tu nejsou žádné kartičky k opakování." %}</p>
+      <p>{% translate "There are no cards to review right now." %}</p>
     </section>
   {% endif %}
 
   <div class="actions">
-    <a href="{% url 'study:new' %}" role="button" class="outline">{% translate "Nový test" %}</a>
-    <a href="{% url 'dashboard' %}" role="button" class="secondary outline">{% translate "Zpět na přehled" %}</a>
+    <a href="{% url 'study:new' %}" role="button" class="outline">{% translate "New test" %}</a>
+    <a href="{% url 'dashboard' %}" role="button" class="secondary outline">{% translate "Back to dashboard" %}</a>
   </div>
 {% endblock %}

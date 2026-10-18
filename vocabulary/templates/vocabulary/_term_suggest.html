@@ -12,7 +12,7 @@
      hx-sync="this:replace"
      aria-live="polite">
   {% if result %}
-    <span class="suggest-label">{% translate "Návrhy:" %}</span>
+    <span class="suggest-label">{% translate "Suggestions:" %}</span>
     {% for item in result.suggestions %}
       <button type="button" class="outline suggestion" data-action="use-suggestion"
               data-translation="{{ item.translation }}"

@@ -9,22 +9,22 @@ from django.utils.translation import gettext_lazy as _
 class Language(models.Model):
     # ISO 639-1 code, two lowercase letters, e.g. "cs", "en"
     code = models.CharField(
-        _("kód"),
+        _("code"),
         max_length=2,
         unique=True,
         validators=[
             RegexValidator(
                 r"^[a-z]{2}$",
-                _("Zadej dvoupísmenný kód ISO 639-1 malými písmeny, např. cs nebo en."),
+                _("Enter a two-letter ISO 639-1 code in lowercase, for example, cs or en."),
             )
         ],
-        help_text=_("ISO 639-1, např. cs, en, es. Pozor: čeština je cs, ne cz."),
+        help_text=_("ISO 639-1, for example, cs, en, es. Note: Czech is cs, not cz."),
     )
-    name = models.CharField(_("název"), max_length=50)
+    name = models.CharField(_("name"), max_length=50)
 
     class Meta:
-        verbose_name = _("jazyk")
-        verbose_name_plural = _("jazyky")
+        verbose_name = _("language")
+        verbose_name_plural = _("languages")
         ordering = ["name"]
 
     def __str__(self):
@@ -36,41 +36,41 @@ class Deck(models.Model):
 
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        verbose_name=_("vlastník"),
+        verbose_name=_("owner"),
         on_delete=models.CASCADE,
         related_name="decks",
     )
     # Null means a root deck
     parent = models.ForeignKey(
         "self",
-        verbose_name=_("nadřazený slovník"),
+        verbose_name=_("parent deck"),
         null=True,
         blank=True,
         on_delete=models.CASCADE,
         related_name="children",
     )
-    name = models.CharField(_("název"), max_length=100)
-    description = models.TextField(_("popis"), blank=True)
+    name = models.CharField(_("name"), max_length=100)
+    description = models.TextField(_("description"), blank=True)
     # Stored on every deck (copied from the parent) to keep queries simple
     foreign_language = models.ForeignKey(
         Language,
-        verbose_name=_("chci se naučit"),
+        verbose_name=_("language to learn"),
         on_delete=models.PROTECT,
         related_name="+",
     )
     native_language = models.ForeignKey(
         Language,
-        verbose_name=_("mluvím"),
+        verbose_name=_("language I speak"),
         on_delete=models.PROTECT,
         related_name="+",
     )
     # Order among siblings, lower number goes first
-    position = models.PositiveIntegerField(_("pořadí"), default=0)
-    created_at = models.DateTimeField(_("vytvořeno"), auto_now_add=True)
+    position = models.PositiveIntegerField(_("position"), default=0)
+    created_at = models.DateTimeField(_("created"), auto_now_add=True)
 
     class Meta:
-        verbose_name = _("slovník")
-        verbose_name_plural = _("slovníky")
+        verbose_name = _("deck")
+        verbose_name_plural = _("decks")
         ordering = ["position", "name", "pk"]
         constraints = [
             # Same name only once under one parent, ignoring letter case.
@@ -81,13 +81,13 @@ class Deck(models.Model):
                 F("parent"),
                 nulls_distinct=False,
                 name="unique_deck_name_per_parent",
-                violation_error_message=_("Slovník s tímto názvem už tu existuje."),
+                violation_error_message=_("A deck with this name already exists here."),
             ),
             models.CheckConstraint(
                 condition=~Q(foreign_language=F("native_language")),
                 name="deck_languages_differ",
                 violation_error_message=_(
-                    "Jazyk, který se chceš naučit, a jazyk, kterým mluvíš, musí být různé."
+                    "The language you want to learn and the language you speak must be different."
                 ),
             ),
         ]
@@ -108,37 +108,37 @@ class Term(models.Model):
     """
 
     class Origin(models.TextChoices):
-        MANUAL = "manual", _("ručně")
-        TRANSLATED = "translated", _("překladač")
-        VOICE = "voice", _("hlas")
+        MANUAL = "manual", _("manual")
+        TRANSLATED = "translated", _("translator")
+        VOICE = "voice", _("voice")
         IMPORT = "import", _("import")
 
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
-        verbose_name=_("vlastník"),
+        verbose_name=_("owner"),
         on_delete=models.CASCADE,
         related_name="terms",
     )
     foreign_language = models.ForeignKey(
-        Language, verbose_name=_("chci se naučit"), on_delete=models.PROTECT, related_name="+"
+        Language, verbose_name=_("language to learn"), on_delete=models.PROTECT, related_name="+"
     )
     native_language = models.ForeignKey(
-        Language, verbose_name=_("mluvím"), on_delete=models.PROTECT, related_name="+"
+        Language, verbose_name=_("language I speak"), on_delete=models.PROTECT, related_name="+"
     )
     # Copies of the main variants, for the unique constraint and quick lookups.
     # Words with the same spelling and another translation are other meanings:
     # palm → dlaň and palm → palma are two words.
-    main_foreign = models.CharField(_("hlavní cizí varianta"), max_length=200)
-    main_native = models.CharField(_("hlavní překlad"), max_length=200)
-    note = models.TextField(_("poznámka"), blank=True)
+    main_foreign = models.CharField(_("main foreign variant"), max_length=200)
+    main_native = models.CharField(_("main translation"), max_length=200)
+    note = models.TextField(_("note"), blank=True)
     origin = models.CharField(
-        _("původ"), max_length=20, choices=Origin.choices, default=Origin.MANUAL
+        _("origin"), max_length=20, choices=Origin.choices, default=Origin.MANUAL
     )
-    created_at = models.DateTimeField(_("vytvořeno"), auto_now_add=True)
+    created_at = models.DateTimeField(_("created"), auto_now_add=True)
 
     class Meta:
-        verbose_name = _("slovíčko")
-        verbose_name_plural = _("slovíčka")
+        verbose_name = _("word")
+        verbose_name_plural = _("words")
         constraints = [
             models.UniqueConstraint(
                 F("owner"),
@@ -147,7 +147,7 @@ class Term(models.Model):
                 Lower("main_foreign"),
                 Lower("main_native"),
                 name="unique_term",
-                violation_error_message=_("Toto slovíčko už máš."),
+                violation_error_message=_("You already have this word."),
             ),
         ]
 
@@ -171,19 +171,19 @@ class TermVariant(models.Model):
     """One text of a word. Position 0 is the main variant of its side."""
 
     class Side(models.TextChoices):
-        FOREIGN = "F", _("cizí")
-        NATIVE = "N", _("rodná")
+        FOREIGN = "F", _("foreign")
+        NATIVE = "N", _("native")
 
     term = models.ForeignKey(
-        Term, verbose_name=_("slovíčko"), on_delete=models.CASCADE, related_name="variants"
+        Term, verbose_name=_("word"), on_delete=models.CASCADE, related_name="variants"
     )
-    side = models.CharField(_("strana"), max_length=1, choices=Side.choices)
+    side = models.CharField(_("side"), max_length=1, choices=Side.choices)
     text = models.CharField(_("text"), max_length=200)
-    position = models.PositiveSmallIntegerField(_("pořadí"), default=0)
+    position = models.PositiveSmallIntegerField(_("position"), default=0)
 
     class Meta:
-        verbose_name = _("varianta")
-        verbose_name_plural = _("varianty")
+        verbose_name = _("variant")
+        verbose_name_plural = _("variants")
         ordering = ["side", "position"]
         constraints = [
             models.UniqueConstraint(
@@ -199,20 +199,20 @@ class DeckTerm(models.Model):
     """A word placed in a deck, with the sentence where it was seen."""
 
     deck = models.ForeignKey(
-        Deck, verbose_name=_("slovník"), on_delete=models.CASCADE, related_name="deck_terms"
+        Deck, verbose_name=_("deck"), on_delete=models.CASCADE, related_name="deck_terms"
     )
     term = models.ForeignKey(
-        Term, verbose_name=_("slovíčko"), on_delete=models.CASCADE, related_name="deck_terms"
+        Term, verbose_name=_("word"), on_delete=models.CASCADE, related_name="deck_terms"
     )
     # Sentence where the word was seen, e.g. "Hello, Penny."
-    context_sentence = models.TextField(_("věta"), blank=True)
+    context_sentence = models.TextField(_("sentence"), blank=True)
     # Its translation, e.g. "Ahoj, Penny." (only to understand it; on the card in both directions)
-    context_sentence_native = models.TextField(_("překlad věty"), blank=True)
-    added_at = models.DateTimeField(_("přidáno"), auto_now_add=True)
+    context_sentence_native = models.TextField(_("sentence translation"), blank=True)
+    added_at = models.DateTimeField(_("added"), auto_now_add=True)
 
     class Meta:
-        verbose_name = _("slovíčko ve slovníku")
-        verbose_name_plural = _("slovíčka ve slovnících")
+        verbose_name = _("word in deck")
+        verbose_name_plural = _("words in decks")
         constraints = [
             models.UniqueConstraint(fields=["deck", "term"], name="unique_deck_term"),
         ]

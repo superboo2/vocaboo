@@ -8,7 +8,7 @@
   {% if label %}<span class="dots-label">{{ row.label }}</span>{% endif %}
   {% if ring %}
     <span class="dots-ring" style="--percent: {{ row.percent }}"
-          title="{% blocktranslate with percent=row.percent total=row.total %}Správně {{ percent }} % z {{ total }} odpovědí{% endblocktranslate %}"><span>{{ row.percent }} %</span></span>
+          title="{% blocktranslate with percent=row.percent total=row.total %}{{ percent }}% correct of {{ total }} answers{% endblocktranslate %}"><span>{{ row.percent }} %</span></span>
   {% endif %}
   {# With labels (more rows under each other) the place for "+N" is in every row, so the dots #}
   {# of all rows start at the same line #}
@@ -27,6 +27,6 @@
     {% for dot in row.dots %}<span class="dot dot-{{ dot.key }}" title="{{ dot.title }}"{% if dot.hidden %} hidden{% endif %}></span>{% endfor %}
   </span>
   {% if expandable and row.older and history_url %}
-    <a class="dots-history" href="{{ history_url }}" hidden>{% translate "celá historie" %}</a>
+    <a class="dots-history" href="{{ history_url }}" hidden>{% translate "full history" %}</a>
   {% endif %}
 </div>

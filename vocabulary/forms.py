@@ -28,19 +28,19 @@ class LanguageChoiceField(forms.ModelChoiceField):
 class DeckCreateForm(forms.Form):
     """New root deck."""
 
-    name = forms.CharField(label=_("Název"), max_length=100)
+    name = forms.CharField(label=_("Name"), max_length=100)
     foreign_language = LanguageChoiceField(
         queryset=Language.objects.all(),
-        label=_("Chci se naučit"),
-        help_text=_("Např. angličtina."),
+        label=_("I want to learn"),
+        help_text=_("For example, English."),
     )
     native_language = LanguageChoiceField(
         queryset=Language.objects.all(),
-        label=_("Mluvím"),
-        help_text=_("Jazyk, do kterého si slovíčka překládáš, např. čeština."),
+        label=_("I speak"),
+        help_text=_("The language you translate the words into, for example, Czech."),
     )
     description = forms.CharField(
-        label=_("Popis"), required=False, widget=forms.Textarea(attrs={"rows": 3})
+        label=_("Description"), required=False, widget=forms.Textarea(attrs={"rows": 3})
     )
 
     def clean(self):
@@ -49,7 +49,7 @@ class DeckCreateForm(forms.Form):
         native = cleaned.get("native_language")
         if foreign and native and foreign == native:
             raise ValidationError(
-                _("Jazyk, který se chceš naučit, a jazyk, kterým mluvíš, musí být různé.")
+                _("The language you want to learn and the language you speak must be different.")
             )
         return cleaned
 
@@ -57,21 +57,21 @@ class DeckCreateForm(forms.Form):
 class DeckForm(forms.Form):
     """Name and description: used for a new child deck and for editing."""
 
-    name = forms.CharField(label=_("Název"), max_length=100)
+    name = forms.CharField(label=_("Name"), max_length=100)
     description = forms.CharField(
-        label=_("Popis"), required=False, widget=forms.Textarea(attrs={"rows": 3})
+        label=_("Description"), required=False, widget=forms.Textarea(attrs={"rows": 3})
     )
 
 
 class DeckMoveForm(forms.Form):
     """Choose a new parent. Choices keep the order of the tree and show full paths."""
 
-    target = forms.ChoiceField(label=_("Přesunout pod"), required=False)
+    target = forms.ChoiceField(label=_("Move under"), required=False)
 
     def __init__(self, *args, targets, **kwargs):
         super().__init__(*args, **kwargs)
         self.targets = {str(deck.pk): deck for deck, _path in targets}
-        self.fields["target"].choices = [("", _("— nejvyšší úroveň —"))] + [
+        self.fields["target"].choices = [("", _("— top level —"))] + [
             (str(deck.pk), " › ".join(d.name for d in path)) for deck, path in targets
         ]
 
@@ -84,7 +84,7 @@ class DeckMoveForm(forms.Form):
 class TermMoveForm(forms.Form):
     """Choose the deck for moving or copying words. Choices show full paths."""
 
-    target = forms.ChoiceField(label=_("Do slovníku"))
+    target = forms.ChoiceField(label=_("To deck"))
 
     def __init__(self, *args, targets, **kwargs):
         super().__init__(*args, **kwargs)
@@ -103,19 +103,24 @@ class TermForm(forms.Form):
     foreign = forms.CharField(max_length=1000)
     native = forms.CharField(max_length=1000)
     context_sentence = forms.CharField(
-        label=_("Použití ve větě"),
+        label=_("Use in a sentence"),
         required=False,
         widget=forms.Textarea(attrs={"rows": 2}),
-        help_text=_("Slovo ve větě najdu sám. Jiný tvar označ závorkami: He {ran} away."),
+        help_text=_(
+            "The word is found in the sentence automatically. "
+            "Mark a different form with braces: He {ran} away."
+        ),
     )
     context_sentence_native = forms.CharField(
-        label=_("Překlad věty"),
+        label=_("Sentence translation"),
         required=False,
         widget=forms.Textarea(attrs={"rows": 2}),
-        help_text=_("Volitelné, k pochopení věty. Slovo můžeš označit: Utekl {pryč}."),
+        help_text=_(
+            "Optional, to help understand the sentence. You can mark the word: He ran {away}."
+        ),
     )
     note = forms.CharField(
-        label=_("Poznámka"),
+        label=_("Note"),
         required=False,
         widget=forms.Textarea(attrs={"rows": 2}),
     )
@@ -129,14 +134,14 @@ class TermForm(forms.Form):
         native = self.fields["native"]
         foreign.label = f"{deck.foreign_language.name} ({deck.foreign_language.code.upper()})"
         native.label = f"{deck.native_language.name} ({deck.native_language.code.upper()})"
-        foreign.help_text = _("Víc variant odděl středníkem: hello; hi")
-        native.help_text = _("Víc variant odděl středníkem: ahoj; čau")
+        foreign.help_text = _("Separate more variants with a semicolon: hello; hi")
+        native.help_text = _("Separate more variants with a semicolon: hi; hey")
         # The grey sample in an empty field tells how to write variants (short form of help_text)
         foreign.widget.attrs.update(
             {"autocomplete": "off", "autocapitalize": "none", "placeholder": "hello; hi"}
         )
         native.widget.attrs.update(
-            {"autocomplete": "off", "autocapitalize": "none", "placeholder": "ahoj; čau"}
+            {"autocomplete": "off", "autocapitalize": "none", "placeholder": _("hi; hey")}
         )
 
     def more_has_values(self):

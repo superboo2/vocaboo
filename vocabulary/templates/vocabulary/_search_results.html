@@ -17,13 +17,13 @@
           <div class="search-meta">
             <small class="muted">{% for path in hit.paths %}<span title="{{ path.full }}">{{ path.short }}</span>{% if not forloop.last %} · {% endif %}{% endfor %}</small>
             <a class="search-edit" href="{% url 'vocabulary:term_edit' hit.deck_term.deck_id hit.deck_term.pk %}?next={{ back|urlencode }}"
-               title="{% translate 'Upravit slovíčko' %}" aria-label="{% translate 'Upravit slovíčko' %}">✎</a>
+               title="{% translate 'Edit word' %}" aria-label="{% translate 'Edit word' %}">✎</a>
           </div>
         </li>
       {% endfor %}
     </ul>
-    {% if hits|length >= limit %}<p class="muted"><small>{% blocktranslate %}Ukazuje se prvních {{ limit }} výsledků, zkus hledat přesněji.{% endblocktranslate %}</small></p>{% endif %}
+    {% if hits|length >= limit %}<p class="muted"><small>{% blocktranslate %}Showing the first {{ limit }} results, try a more exact search.{% endblocktranslate %}</small></p>{% endif %}
   {% else %}
-    <p class="muted">{% blocktranslate %}Pro „{{ query }}“ se nic nenašlo.{% endblocktranslate %}</p>
+    <p class="muted">{% blocktranslate %}Nothing found for “{{ query }}”.{% endblocktranslate %}</p>
   {% endif %}
 {% endif %}

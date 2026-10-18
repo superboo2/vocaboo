@@ -1,36 +1,36 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}{% translate "Odebrat slovíčko" %} · Vocaboo{% endblock %}
+{% block title %}{% translate "Remove word" %} · Vocaboo{% endblock %}
 
 {% block content %}
   {% include "vocabulary/_breadcrumbs.html" with current=deck_term.term.main_foreign %}
 
   <article class="form-box">
     <header>
-      <h1>{% translate "Odebrat slovíčko" %}</h1>
+      <h1>{% translate "Remove word" %}</h1>
     </header>
 
-    <p>{% blocktranslate with word=deck_term.term.main_foreign name=deck.name %}Odebrat „{{ word }}“ ze slovníku „{{ name }}“?{% endblocktranslate %}</p>
+    <p>{% blocktranslate with word=deck_term.term.main_foreign name=deck.name %}Remove “{{ word }}” from the deck “{{ name }}”?{% endblocktranslate %}</p>
 
     {% if other_decks %}
       <p>
-        {% translate "Slovíčko zůstane ve slovnících:" %}
+        {% translate "The word stays in the decks:" %}
         {% for other in other_decks %}{{ other.name }}{% if not forloop.last %}, {% endif %}{% endfor %}.
-        {% translate "Historie opakování se zachová." %}
+        {% translate "The review history is kept." %}
       </p>
     {% else %}
-      <p><strong>{% translate "Slovíčko není v žádném jiném slovníku, takže se smaže úplně i s historií opakování." %}</strong></p>
-      <p class="muted">{% translate "Tuto akci nejde vrátit." %}</p>
+      <p><strong>{% translate "The word is in no other deck, so it will be deleted completely, together with its review history." %}</strong></p>
+      <p class="muted">{% translate "This cannot be undone." %}</p>
     {% endif %}
 
     <form method="post">
       {% csrf_token %}
       <div class="actions">
         <button type="submit" class="{% if other_decks %}secondary{% else %}danger{% endif %}">
-          {% if other_decks %}{% translate "Odebrat" %}{% else %}{% translate "Smazat" %}{% endif %}
+          {% if other_decks %}{% translate "Remove" %}{% else %}{% translate "Delete" %}{% endif %}
         </button>
-        <a href="{% url 'vocabulary:term_edit' deck.pk deck_term.pk %}" role="button" class="secondary outline">{% translate "Zrušit" %}</a>
+        <a href="{% url 'vocabulary:term_edit' deck.pk deck_term.pk %}" role="button" class="secondary outline">{% translate "Cancel" %}</a>
       </div>
     </form>
   </article>

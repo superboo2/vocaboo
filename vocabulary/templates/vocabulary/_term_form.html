@@ -9,7 +9,7 @@
 
   {% if added %}
     <p class="term-added" role="status">
-      ✓ {% blocktranslate with word=added.term.main_foreign deck_name=deck.name %}Přidáno do „{{ deck_name }}“: {{ word }}{% endblocktranslate %}{% if added_variants %} (+ {{ added_variants|join:"; " }}){% endif %}
+      ✓ {% blocktranslate with word=added.term.main_foreign deck_name=deck.name %}Added to “{{ deck_name }}”: {{ word }}{% endblocktranslate %}{% if added_variants %} (+ {{ added_variants|join:"; " }}){% endif %}
     </p>
   {% endif %}
 
@@ -29,10 +29,10 @@
   {# line) and "upravit", or "+ věta, poznámka" when they are empty. app.js keeps it up to date. #}
   <details class="term-more"{% if term_form.more_has_values and term_form.errors %} open{% endif %}>
     {% with sentence=term_form.context_sentence.value native=term_form.context_sentence_native.value note=term_form.note.value %}
-      <summary data-more-summary data-empty="+ {% translate 'věta, poznámka' %}" data-note="{% translate 'poznámka' %} ✓" data-edit="{% translate 'upravit' %}">
-        <span class="more-preview">{% if sentence %}„{{ sentence|plain_sentence:"" }}“{% if native %} · {{ native|plain_sentence:"" }}{% endif %}{% elif note %}{% translate "poznámka" %} ✓{% else %}+ {% translate "věta, poznámka" %}{% endif %}</span>
-        <span class="more-edit"{% if not sentence and not note %} hidden{% endif %}>{% translate "upravit" %}</span>
-        <span class="more-done">{% translate "hotovo" %}</span>
+      <summary data-more-summary data-empty="+ {% translate 'sentence, note' %}" data-note="{% translate 'note' %} ✓" data-edit="{% translate 'edit' %}">
+        <span class="more-preview">{% if sentence %}„{{ sentence|plain_sentence:"" }}“{% if native %} · {{ native|plain_sentence:"" }}{% endif %}{% elif note %}{% translate "note" %} ✓{% else %}+ {% translate "sentence, note" %}{% endif %}</span>
+        <span class="more-edit"{% if not sentence and not note %} hidden{% endif %}>{% translate "edit" %}</span>
+        <span class="more-done">{% translate "done" %}</span>
       </summary>
     {% endwith %}
     {# The sentence under the foreign word, its translation under the native one #}

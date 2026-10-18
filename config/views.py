@@ -9,10 +9,10 @@ from vocabulary import services as vocabulary_services
 
 # Help pages: (address, tab name). The first one opens for /help/.
 HELP_TOPICS = [
-    ("slovniky", _("Slovníky")),
-    ("slovicka", _("Slovíčka")),
+    ("slovniky", _("Decks")),
+    ("slovicka", _("Words")),
     ("test", _("Test")),
-    ("prehled", _("Přehled a statistiky")),
+    ("prehled", _("Overview and statistics")),
 ]
 
 

@@ -2,5 +2,5 @@
 {# Counts are there only on the dashboard (study.services.annotate_deck_counts), in brackets #}
 {# right after the name: the words, and when some are due ↻ with their number, a bit smaller: #}
 {# "(26 ↻ 8)" #}
-{% if deck.word_count is not None %}<small class="deck-counts">({{ deck.word_count }}{% if deck.due_count %} <span class="deck-due" title="{% blocktranslate with count=deck.due_count %}{{ count }} k opakování{% endblocktranslate %}"><span aria-hidden="true">↻</span> {{ deck.due_count }}<span class="visually-hidden"> {% translate "k opakování" %}</span></span>{% endif %})</small>{% endif %}
+{% if deck.word_count is not None %}<small class="deck-counts">({{ deck.word_count }}{% if deck.due_count %} <span class="deck-due" title="{% blocktranslate with count=deck.due_count %}{{ count }} to review{% endblocktranslate %}"><span aria-hidden="true">↻</span> {{ deck.due_count }}<span class="visually-hidden"> {% translate "to review" %}</span></span>{% endif %})</small>{% endif %}
 {% if deck.depth == 1 %}<small class="pair">{{ deck.language_pair }}</small>{% endif %}

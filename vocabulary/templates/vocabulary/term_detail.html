@@ -13,12 +13,12 @@
       {% include "_speak.html" with text=term.main_foreign lang=term.foreign_language.code kind="word" %}
       {% if pronunciation.ipa %}<span class="ipa">[{{ pronunciation.ipa }}]</span>{% endif %}
     </h1>
-    <a href="{% url 'vocabulary:term_edit' deck.pk deck_term.pk %}?next={{ request.get_full_path|urlencode }}" class="edit-link">✎ {% translate "Upravit" %}</a>
+    <a href="{% url 'vocabulary:term_edit' deck.pk deck_term.pk %}?next={{ request.get_full_path|urlencode }}" class="edit-link">✎ {% translate "Edit" %}</a>
     <details class="dropdown more-menu">
-      <summary role="button" class="more-button" aria-label="{% translate 'Další akce' %}" title="{% translate 'Další akce' %}">⋯</summary>
+      <summary role="button" class="more-button" aria-label="{% translate 'More actions' %}" title="{% translate 'More actions' %}">⋯</summary>
       <ul>
-        <li><a href="{% url 'vocabulary:terms_move' deck.pk %}?ids={{ deck_term.pk }}">{% translate "Přesunout" %}</a></li>
-        <li><a href="{% url 'vocabulary:term_remove' deck.pk deck_term.pk %}">{% translate "Odebrat z tohoto slovníku" %}</a></li>
+        <li><a href="{% url 'vocabulary:terms_move' deck.pk %}?ids={{ deck_term.pk }}">{% translate "Move" %}</a></li>
+        <li><a href="{% url 'vocabulary:term_remove' deck.pk deck_term.pk %}">{% translate "Remove from this deck" %}</a></li>
       </ul>
     </details>
   </div>
@@ -27,19 +27,19 @@
 
   {% if other_meanings %}
     <section class="card-section">
-      <h2 class="section-title">{% translate "Další významy" %}</h2>
+      <h2 class="section-title">{% translate "Other meanings" %}</h2>
       <ul class="term-list other-meanings">
         {% for meaning in other_meanings %}
           <li>
             {% if meaning.own %}
-              <strong>{{ meaning.variants|join:" · " }}</strong> <small class="muted">{% translate "už se učíš" %}</small>
+              <strong>{{ meaning.variants|join:" · " }}</strong> <small class="muted">{% translate "already learning" %}</small>
             {% else %}
               <form method="post" action="{% url 'vocabulary:term_add_meaning' deck.pk deck_term.pk %}" class="inline-form">
                 {% csrf_token %}
                 <input type="hidden" name="translation" value="{{ meaning.translation }}">
                 {{ meaning.variants|join:" · " }}
                 {% if meaning.part_of_speech %}<small class="muted">{{ meaning.part_of_speech }}</small>{% endif %}
-                <button type="submit" class="outline">+ {% translate "Učit se i tento význam" %}</button>
+                <button type="submit" class="outline">+ {% translate "Learn this meaning too" %}</button>
               </form>
             {% endif %}
           </li>
@@ -49,7 +49,7 @@
   {% endif %}
 
   <section class="card-section">
-    <h2 class="section-title">{% translate "Ve slovnících" %}</h2>
+    <h2 class="section-title">{% translate "In decks" %}</h2>
     <ul class="term-list">
       {% for item in in_decks %}
         <li>
@@ -66,18 +66,18 @@
   </section>
 
   <section class="card-section">
-    <h2 class="section-title">{% translate "Opakování" %}</h2>
+    <h2 class="section-title">{% translate "Reviews" %}</h2>
     <div class="grid">
       {% for row in history.directions %}
         <article class="direction-box">
           <header><strong>{{ row.label }}</strong></header>
           {% with state=row.state %}
             <p>
-              {% translate "Další opakování" %}: <strong>{{ state.due_at|due_text }}</strong>
+              {% translate "Next review" %}: <strong>{{ state.due_at|due_text }}</strong>
               {% if state.due_at %}<br><small class="muted">{{ state.due_at|date:"j. n. Y H:i" }}</small>{% endif %}
             </p>
             <p class="muted">
-              {% blocktranslate with total=row.total streak=state.correct_streak lapses=state.lapses %}V testu {{ total }}× · správně za sebou {{ streak }} · chyb {{ lapses }}{% endblocktranslate %}
+              {% blocktranslate with total=row.total streak=state.correct_streak lapses=state.lapses %}Tested {{ total }}× · correct in a row {{ streak }} · mistakes {{ lapses }}{% endblocktranslate %}
             </p>
           {% endwith %}
           {% if row.total %}
@@ -94,17 +94,17 @@
   </section>
 
   <section class="card-section">
-    <h2 class="section-title">{% translate "Historie odpovědí" %}</h2>
+    <h2 class="section-title">{% translate "Answer history" %}</h2>
     {% if history.logs %}
       <div class="overflow-auto">
         <table class="striped">
           <thead>
             <tr>
-              <th scope="col">{% translate "Kdy" %}</th>
-              <th scope="col">{% translate "Směr" %}</th>
-              <th scope="col">{% translate "Hodnocení" %}</th>
+              <th scope="col">{% translate "When" %}</th>
+              <th scope="col">{% translate "Direction" %}</th>
+              <th scope="col">{% translate "Rating" %}</th>
               <th scope="col">{% translate "Interval" %}</th>
-              <th scope="col">{% translate "Přemýšlení" %}</th>
+              <th scope="col">{% translate "Thinking time" %}</th>
             </tr>
           </thead>
           <tbody>
@@ -112,7 +112,7 @@
               <tr>
                 <td>{{ log.reviewed_at|date:"j. n. Y H:i" }}</td>
                 <td>{{ log.get_direction_display }}</td>
-                <td>{{ log.rating_label }}</td>
+                <td>{{ log.shown_label }}</td>
                 <td>{{ log.chosen_interval|interval }}</td>
                 <td>{{ log.think_ms|seconds }}</td>
               </tr>
@@ -121,7 +121,7 @@
         </table>
       </div>
     {% else %}
-      <p class="muted">{% translate "Slovíčko ještě nebylo v žádném testu." %}</p>
+      <p class="muted">{% translate "The word has not been in any test yet." %}</p>
     {% endif %}
   </section>
 

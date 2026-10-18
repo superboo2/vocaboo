@@ -1,34 +1,34 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}{% translate "Nastavení" %} · Vocaboo{% endblock %}
+{% block title %}{% translate "Settings" %} · Vocaboo{% endblock %}
 
 {% block content %}
   <nav aria-label="breadcrumb">
     <ul>
-      <li><a href="{% url 'dashboard' %}">{% translate "Přehled" %}</a></li>
-      <li>{% translate "Nastavení" %}</li>
+      <li><a href="{% url 'dashboard' %}">{% translate "Overview" %}</a></li>
+      <li>{% translate "Settings" %}</li>
     </ul>
   </nav>
 
-  <h1>{% translate "Nastavení" %}</h1>
+  <h1>{% translate "Settings" %}</h1>
   <p class="muted page-sub">{{ user.email }}</p>
 
     <form method="post">
       {% csrf_token %}
       {# Settings in groups by the part of the app they change #}
       <section class="settings-group card-section">
-        <h2>{% translate "Aplikace" %}</h2>
+        <h2>{% translate "App" %}</h2>
         {{ form.ui_language.as_field_group }}
       </section>
 
       <section class="settings-group card-section">
-        <h2>{% translate "Slovníky" %}</h2>
+        <h2>{% translate "Decks" %}</h2>
         {{ form.native_language.as_field_group }}
       </section>
 
       <section class="settings-group card-section">
-        <h2>{% translate "Přidávání slovíček" %}</h2>
+        <h2>{% translate "Adding words" %}</h2>
         <fieldset>
           <label>{{ form.show_suggestions }} {{ form.show_suggestions.label }}</label>
           <small>{{ form.show_suggestions.help_text }}</small>
@@ -68,12 +68,12 @@
         </fieldset>
       </section>
 
-      <button type="submit" class="save-button">{% translate "Uložit" %}</button>
+      <button type="submit" class="save-button">{% translate "Save" %}</button>
     </form>
 
     {# Outside the form above: the password has its own page #}
     <section class="settings-group card-section settings-account">
-      <h2>{% translate "Účet" %}</h2>
-      <p><a href="{% url 'password_change' %}">{% translate "Změnit heslo" %}</a></p>
+      <h2>{% translate "Account" %}</h2>
+      <p><a href="{% url 'password_change' %}">{% translate "Change password" %}</a></p>
     </section>
 {% endblock %}

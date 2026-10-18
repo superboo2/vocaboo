@@ -33,7 +33,7 @@ RATINGS = [
     Rating(
         key="ok",
         emoji="😎",
-        label=_("Vím"),
+        label=_("I know"),
         result=Result.CORRECT,
         min_interval=timedelta(days=7),
         multiplier=4,
@@ -42,7 +42,7 @@ RATINGS = [
     Rating(
         key="think",
         emoji="🤔",
-        label=_("Vím po zamyšlení"),
+        label=_("I know after thinking"),
         result=Result.CORRECT,
         min_interval=timedelta(days=3),
         multiplier=2.5,
@@ -51,7 +51,7 @@ RATINGS = [
     Rating(
         key="partial",
         emoji="😕",
-        label=_("Vzpomínám si napůl"),
+        label=_("I half remember"),
         result=Result.PARTIAL,
         min_interval=timedelta(days=1),
         multiplier=None,
@@ -60,7 +60,7 @@ RATINGS = [
     Rating(
         key="dontknow",
         emoji="😵",
-        label=_("Vůbec nevím"),
+        label=_("No idea"),
         result=Result.WRONG,
         min_interval=timedelta(minutes=10),
         multiplier=None,

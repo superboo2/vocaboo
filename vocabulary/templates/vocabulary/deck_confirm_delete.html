@@ -1,34 +1,34 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}{% translate "Smazat slovník" %} · Vocaboo{% endblock %}
+{% block title %}{% translate "Delete deck" %} · Vocaboo{% endblock %}
 
 {% block content %}
-  {% include "vocabulary/_breadcrumbs.html" with current=_("Smazat") %}
+  {% include "vocabulary/_breadcrumbs.html" with current=_("Delete") %}
 
   <article class="form-box">
     <header>
-      <h1>{% translate "Smazat slovník" %}</h1>
+      <h1>{% translate "Delete deck" %}</h1>
     </header>
 
-    <p>{% blocktranslate with name=deck.name %}Opravdu smazat slovník „{{ name }}“?{% endblocktranslate %}</p>
+    <p>{% blocktranslate with name=deck.name %}Really delete the deck “{{ name }}”?{% endblocktranslate %}</p>
     {% if child_count %}
       <p><strong>
-        {% blocktranslate count counter=child_count %}Smaže se i {{ counter }} podslovník.{% plural %}Smaže se i {{ counter }} podslovníků.{% endblocktranslate %}
+        {% blocktranslate count counter=child_count %}This also deletes {{ counter }} sub-deck.{% plural %}This also deletes {{ counter }} sub-decks.{% endblocktranslate %}
       </strong></p>
     {% endif %}
     {% if term_count %}
       <p><strong>
-        {% blocktranslate count counter=term_count %}Smaže se i {{ counter }} slovíčko, které není v žádném jiném slovníku.{% plural %}Smaže se i {{ counter }} slovíček, která nejsou v žádném jiném slovníku.{% endblocktranslate %}
+        {% blocktranslate count counter=term_count %}This also deletes {{ counter }} word that is in no other deck.{% plural %}This also deletes {{ counter }} words that are in no other deck.{% endblocktranslate %}
       </strong></p>
     {% endif %}
-    <p class="muted">{% translate "Tuto akci nejde vrátit." %}</p>
+    <p class="muted">{% translate "This cannot be undone." %}</p>
 
     <form method="post">
       {% csrf_token %}
       <div class="actions">
-        <button type="submit" class="danger">{% translate "Smazat" %}</button>
-        <a href="{% url 'vocabulary:deck_detail' deck.pk %}" role="button" class="secondary outline">{% translate "Zrušit" %}</a>
+        <button type="submit" class="danger">{% translate "Delete" %}</button>
+        <a href="{% url 'vocabulary:deck_detail' deck.pk %}" role="button" class="secondary outline">{% translate "Cancel" %}</a>
       </div>
     </form>
   </article>

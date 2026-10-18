@@ -8,11 +8,11 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.utils.translation import gettext as _
+from django.utils.translation import ngettext
 from django.views.decorators.http import require_POST
 
 from dictionary.providers import get_pronunciation, get_suggestions, other_meanings
 from study import services as study_services
-from study.formatting import czech_plural
 from study.models import StudySession
 
 from . import services
@@ -49,12 +49,12 @@ def deck_create(request):
         except ValidationError as error:
             add_service_errors(form, error)
         else:
-            messages.success(request, _("Slovník „%(name)s“ je vytvořený.") % {"name": deck.name})
+            messages.success(request, _("Deck “%(name)s” created.") % {"name": deck.name})
             return redirect("vocabulary:deck_detail", pk=deck.pk)
     return render(
         request,
         "vocabulary/deck_form.html",
-        {"form": form, "title": _("Nový slovník"), "submit_label": _("Vytvořit")},
+        {"form": form, "title": _("New deck"), "submit_label": _("Create")},
     )
 
 
@@ -89,7 +89,7 @@ def deck_create_child(request, pk):
     if not services.can_add_child(parent):
         messages.error(
             request,
-            _("Slovníky můžou mít nejvýš %(max)d úrovní.") % {"max": services.MAX_DEPTH},
+            _("Decks can have at most %(max)d levels.") % {"max": services.MAX_DEPTH},
         )
         return redirect("vocabulary:deck_detail", pk=parent.pk)
 
@@ -100,15 +100,15 @@ def deck_create_child(request, pk):
         except ValidationError as error:
             add_service_errors(form, error)
         else:
-            messages.success(request, _("Slovník „%(name)s“ je vytvořený.") % {"name": deck.name})
+            messages.success(request, _("Deck “%(name)s” created.") % {"name": deck.name})
             return redirect("vocabulary:deck_detail", pk=deck.pk)
     return render(
         request,
         "vocabulary/deck_form.html",
         {
             "form": form,
-            "title": _("Nový podslovník"),
-            "submit_label": _("Vytvořit"),
+            "title": _("New sub-deck"),
+            "submit_label": _("Create"),
             "parent": parent,
             "ancestors": services.get_ancestors(parent),
         },
@@ -127,15 +127,15 @@ def deck_edit(request, pk):
         except ValidationError as error:
             add_service_errors(form, error)
         else:
-            messages.success(request, _("Změny jsou uložené."))
+            messages.success(request, _("Changes saved."))
             return redirect("vocabulary:deck_detail", pk=deck.pk)
     return render(
         request,
         "vocabulary/deck_form.html",
         {
             "form": form,
-            "title": _("Upravit slovník"),
-            "submit_label": _("Uložit"),
+            "title": _("Edit deck"),
+            "submit_label": _("Save"),
             "deck": deck,
             "ancestors": services.get_ancestors(deck),
         },
@@ -155,20 +155,20 @@ def deck_move(request, pk):
         except ValidationError as error:
             add_service_errors(form, error)
         else:
-            messages.success(request, _("Slovník je přesunutý."))
+            messages.success(request, _("Deck moved."))
             return redirect("vocabulary:deck_detail", pk=deck.pk)
     return render(
         request,
         "vocabulary/deck_form.html",
         {
             "form": form,
-            "title": _("Přesunout slovník"),
-            "submit_label": _("Přesunout"),
+            "title": _("Move deck"),
+            "submit_label": _("Move"),
             "deck": deck,
             "ancestors": services.get_ancestors(deck),
             "help_text": _(
-                "Nabízí se jen slovníky se stejným jazykovým párem, kam se strom vejde "
-                "(nejvýš %(max)d úrovní)."
+                "Only decks with the same language pair where the tree fits are offered "
+                "(at most %(max)d levels)."
             )
             % {"max": services.MAX_DEPTH},
         },
@@ -180,7 +180,7 @@ def deck_delete(request, pk):
     parent_id = deck.parent_id
     if request.method == "POST":
         deck_count, term_count = services.delete_deck(deck)
-        text = _("Slovník „%(name)s“ je smazaný (slovníků: %(decks)d, slovíček: %(terms)d).")
+        text = _("Deck “%(name)s” deleted (decks: %(decks)d, words: %(terms)d).")
         messages.success(
             request, text % {"name": deck.name, "decks": deck_count, "terms": term_count}
         )
@@ -212,7 +212,7 @@ def deck_place(request, pk):
     try:
         index = int(request.POST.get("index", ""))
     except ValueError:
-        error = _("Chybí místo, kam slovník patří.")
+        error = _("The place for the deck is missing.")
         return JsonResponse({"ok": False, "error": error}, status=400)
     try:
         services.place_deck(deck, parent, index)
@@ -354,7 +354,7 @@ def term_link(request, pk, term_pk):
         return _term_form_response(request, deck, form, check=_find_duplicates(request, deck))
 
     if not _is_htmx(request):
-        messages.success(request, _("Slovíčko je přidané."))
+        messages.success(request, _("Word added."))
         return redirect("vocabulary:deck_detail", pk=deck.pk)
     form = _fresh_term_form(deck)
     return _term_form_response(request, deck, form, added=added, added_variants=added_variants)
@@ -378,9 +378,9 @@ def term_add(request, pk):
 
     if not _is_htmx(request):
         if added is not None:
-            messages.success(request, _("Slovíčko je přidané."))
+            messages.success(request, _("Word added."))
         else:
-            messages.error(request, _("Slovíčko se nepodařilo přidat, zkontroluj formulář."))
+            messages.error(request, _("The word could not be added, check the form."))
         return redirect("vocabulary:deck_detail", pk=deck.pk)
 
     if added is not None:
@@ -430,7 +430,7 @@ def term_add_meaning(request, deck_pk, pk):
     else:
         messages.success(
             request,
-            _("Přidáno: %(word)s → %(native)s")
+            _("Added: %(word)s → %(native)s")
             % {"word": added.term.main_foreign, "native": added.term.main_native},
         )
     return redirect("vocabulary:term_detail", deck_pk=deck_pk, pk=pk)
@@ -486,7 +486,7 @@ def term_edit(request, deck_pk, pk):
         except ValidationError as error:
             add_service_errors(form, error)
         else:
-            messages.success(request, _("Změny jsou uložené."))
+            messages.success(request, _("Changes saved."))
             if test:
                 # Back to the test: the same card comes again, now fixed
                 return redirect("study:card", pk=test.pk)
@@ -523,7 +523,7 @@ def terms_move(request, pk):
         .order_by(Lower("term__main_foreign"))
     )
     if not deck_terms:
-        messages.error(request, _("Vyber aspoň jedno slovíčko."))
+        messages.error(request, _("Choose at least one word."))
         return redirect("vocabulary:deck_detail", pk=deck.pk)
 
     targets = services.get_term_move_targets(deck)
@@ -536,14 +536,14 @@ def terms_move(request, pk):
         except ValidationError as error:
             add_service_errors(form, error)
         else:
-            words = f"{done} {czech_plural(done, 'slovíčko', 'slovíčka', 'slovíček')}"
+            words = ngettext("%(count)s word", "%(count)s words", done) % {"count": done}
             if copy:
-                text = _("Přidáno i do „%(deck)s“: %(words)s.")
+                text = _("Also added to “%(deck)s”: %(words)s.")
             else:
-                text = _("Přesunuto do „%(deck)s“: %(words)s.")
+                text = _("Moved to “%(deck)s”: %(words)s.")
             text = text % {"deck": target.name, "words": words}
             if already:
-                text += " " + _("Už tam bylo: %(count)d.") % {"count": already}
+                text += " " + _("Already there: %(count)d.") % {"count": already}
             messages.success(request, text)
             return redirect("vocabulary:deck_detail", pk=deck.pk)
     return render(
@@ -566,9 +566,9 @@ def term_remove(request, deck_pk, pk):
         word = deck_term.term.main_foreign
         deleted = services.remove_term_from_deck(deck_term)
         if deleted:
-            text = _("Slovíčko „%(word)s“ je smazané.")
+            text = _("Word “%(word)s” deleted.")
         else:
-            text = _("Slovíčko „%(word)s“ je odebrané z tohoto slovníku.")
+            text = _("Word “%(word)s” removed from this deck.")
         messages.success(request, text % {"word": word})
         return redirect("vocabulary:deck_detail", pk=deck.pk)
     other_decks = deck_term.term.deck_terms.exclude(pk=deck_term.pk).select_related("deck")

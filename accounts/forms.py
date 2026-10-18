@@ -14,9 +14,9 @@ from .models import User
 class SettingsForm(forms.ModelForm):
     native_language = LanguageChoiceField(
         queryset=Language.objects.all(),
-        label=_("Mluvím"),
+        label=_("I speak"),
         required=False,
-        help_text=_("Jazyk, do kterého si slovíčka překládáš. Předvyplní se u nového slovníku."),
+        help_text=_("The language you translate your words into. It is filled in for a new deck."),
     )
 
     class Meta:
@@ -32,33 +32,35 @@ class SettingsForm(forms.ModelForm):
             "show_ipa",
         ]
         labels = {
-            "ui_language": _("Jazyk aplikace"),
-            "default_direction": _("Výchozí směr testu"),
-            "show_suggestions": _("Navrhovat překlad"),
-            "show_other_meanings": _("Ukazovat další významy ze slovníku"),
-            "autoplay_pronunciation": _("Přehrát automaticky"),
-            "autoplay_content": _("Co přehrát"),
-            "show_ipa": _("Ukazovat zápis výslovnosti (IPA)"),
+            "ui_language": _("App language"),
+            "default_direction": _("Default test direction"),
+            "show_suggestions": _("Suggest translations"),
+            "show_other_meanings": _("Show other meanings from the dictionary"),
+            "autoplay_pronunciation": _("Play automatically"),
+            "autoplay_content": _("What to play"),
+            "show_ipa": _("Show written pronunciation (IPA)"),
         }
         help_texts = {
-            "ui_language": _("Menu, tlačítka a nápověda. Slovíčka se tím nemění."),
-            "default_direction": _("Předvyplní se v nastavení nového testu."),
+            "ui_language": _("Menus, buttons and help. Your words stay the same."),
+            "default_direction": _("It is filled in when you set up a new test."),
             "show_suggestions": _(
-                "Když píšeš cizí slovo, pod polem pro překlad se ukážou návrhy ze slovníku."
+                "While you type a foreign word, suggestions from the dictionary show up under "
+                "the translation field."
             ),
             "show_other_meanings": _(
-                "Dole na zadní straně kartičky, kolik se vejde na řádek, zbytek po kliknutí "
-                "na +N. Tvoje vlastní významy (např. palm → dlaň i palma) se ukazují vždy."
+                "At the bottom of the back of the card, as many as fit on one line, the rest "
+                "after clicking +N. Your own meanings (e.g. palm → dlaň and palma) are always "
+                "shown."
             ),
             "autoplay_pronunciation": _(
-                "Ve směru cizí → rodný hned, jak se kartička ukáže, ve směru rodný → cizí po "
-                "kliknutí na Ukázat. Úplně první kartičku testu prohlížeč přečíst nedovolí, "
-                "dokud na stránce poprvé neklikneš."
+                "In the direction foreign → native as soon as the card shows up, in the "
+                "direction native → foreign after clicking Show. The browser won't read the "
+                "very first card of a test until you click on the page for the first time."
             ),
-            "autoplay_content": _("Když slovíčko větu nemá, přehraje se slovo."),
+            "autoplay_content": _("If the word has no sentence, the word is played."),
             "show_ipa": _(
-                "Pod cizím slovem na kartičce a v detailu slovíčka, např. [pɑːm]. "
-                "Hodí se, když IPA umíš číst."
+                "Under the foreign word on the card and on the word page, e.g. [pɑːm]. "
+                "Useful if you can read IPA."
             ),
         }
         widgets = {"default_direction": forms.RadioSelect, "autoplay_content": forms.RadioSelect}
@@ -66,7 +68,7 @@ class SettingsForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # The empty choice means "as the browser asks"
-        self.fields["ui_language"].choices = [("", _("Podle prohlížeče"))] + list(
+        self.fields["ui_language"].choices = [("", _("Same as the browser"))] + list(
             settings.LANGUAGES
         )
 
@@ -76,19 +78,19 @@ class PasswordChangeForm(DjangoPasswordChangeForm):
 
     error_messages = {
         **DjangoPasswordChangeForm.error_messages,
-        "password_incorrect": _("Současné heslo není správně, zkus to znovu."),
-        "password_mismatch": _("Nová hesla se neshodují."),
+        "password_incorrect": _("Your current password is wrong, try again."),
+        "password_mismatch": _("The new passwords don't match."),
     }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["old_password"].label = _("Současné heslo")
-        self.fields["new_password1"].label = _("Nové heslo")
+        self.fields["old_password"].label = _("Current password")
+        self.fields["new_password1"].label = _("New password")
         self.fields["new_password1"].help_text = _(
-            "Aspoň 8 znaků, ne jen čísla, ne moc běžné a ne podobné tvému e-mailu."
+            "At least 8 characters, not only numbers, not too common and not similar to your email."
         )
-        self.fields["new_password2"].label = _("Nové heslo znovu")
-        self.fields["new_password2"].help_text = _("Pro kontrolu ještě jednou.")
+        self.fields["new_password2"].label = _("New password again")
+        self.fields["new_password2"].help_text = _("Once more, to check.")
 
 
 class LoginForm(AuthenticationForm):
@@ -97,8 +99,8 @@ class LoginForm(AuthenticationForm):
 
     error_messages = {
         **AuthenticationForm.error_messages,
-        "invalid_login": _("E-mail nebo heslo není správně. Zkus to znovu."),
-        "inactive": _("Tento účet je vypnutý."),
+        "invalid_login": _("The email or password is wrong. Try again."),
+        "inactive": _("This account is turned off."),
     }
 
     def clean(self):

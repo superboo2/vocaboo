@@ -8,8 +8,8 @@
 {% url 'vocabulary:search' as search_url %}
 <form class="search-form{% if compact %} search-compact{% endif %}" method="get" action="{{ search_url }}">
   <input type="search" name="q" value="{{ query }}" data-search-input autocomplete="off"
-         placeholder="{% if compact %}{% translate 'Hledat slovíčko…' %}{% else %}{% translate 'Hledat slovíčko, překlad, větu…' %}{% endif %}"
-         aria-label="{% translate 'Hledat ve slovíčkách' %}"
+         placeholder="{% if compact %}{% translate 'Search words…' %}{% else %}{% translate 'Search a word, translation, sentence…' %}{% endif %}"
+         aria-label="{% translate 'Search in words' %}"
          hx-get="{{ search_url }}" hx-trigger="input changed delay:300ms, search"
          hx-target="#search-results" hx-swap="innerHTML"{% if autofocus %} autofocus{% endif %}>
 </form>

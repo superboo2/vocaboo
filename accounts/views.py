@@ -15,7 +15,7 @@ def settings_view(request):
         user = form.save()
         # The message and the next page already in the new language
         translation.activate(user.ui_language or get_language_from_request(request))
-        messages.success(request, _("Nastavení je uložené."))
+        messages.success(request, _("Settings saved."))
         response = redirect("settings")
         # The login page (logged out) then speaks the same language
         if user.ui_language:
@@ -31,6 +31,6 @@ def password_change(request):
         user = form.save()
         # A new password logs out other sessions; this one stays logged in
         update_session_auth_hash(request, user)
-        messages.success(request, _("Heslo je změněné."))
+        messages.success(request, _("Password changed."))
         return redirect("settings")
     return render(request, "accounts/password_change.html", {"form": form})

@@ -145,15 +145,17 @@ def create_deck(
     """Create a root deck (languages needed) or a child deck (languages come from parent)."""
     if parent is not None:
         if parent.owner_id != owner.pk:
-            raise ValidationError(_("Nadřazený slovník patří jinému uživateli."))
+            raise ValidationError(_("The parent deck belongs to another user."))
         if not can_add_child(parent):
             raise ValidationError(
-                _("Slovníky můžou mít nejvýš %(max)d úrovní."), params={"max": MAX_DEPTH}
+                _("Decks can have at most %(max)d levels."), params={"max": MAX_DEPTH}
             )
         foreign_language = parent.foreign_language
         native_language = parent.native_language
     elif foreign_language is None or native_language is None:
-        raise ValidationError(_("Vyber, jaký jazyk se chceš naučit a jakým jazykem mluvíš."))
+        raise ValidationError(
+            _("Choose the language you want to learn and the language you speak.")
+        )
 
     deck = Deck(
         owner=owner,
@@ -183,16 +185,17 @@ def _check_move(deck, new_parent):
     if new_parent is None:
         return
     if new_parent.owner_id != deck.owner_id:
-        raise ValidationError(_("Cílový slovník patří jinému uživateli."))
+        raise ValidationError(_("The target deck belongs to another user."))
     if new_parent.pk in get_descendant_ids(deck):
-        raise ValidationError(_("Slovník nejde přesunout do sebe ani do svého podslovníku."))
+        raise ValidationError(_("A deck cannot be moved into itself or into its own sub-deck."))
     if not _same_languages(new_parent, deck):
         raise ValidationError(
-            _("Slovník jde přesunout jen pod slovník se stejným jazykovým párem.")
+            _("A deck can only be moved under a deck with the same language pair.")
         )
     if get_depth(new_parent) + get_subtree_height(deck) > MAX_DEPTH:
         raise ValidationError(
-            _("Po přesunu by strom měl víc než %(max)d úrovní."), params={"max": MAX_DEPTH}
+            _("After the move, the tree would have more than %(max)d levels."),
+            params={"max": MAX_DEPTH},
         )
 
 
@@ -529,14 +532,14 @@ def link_term(
         deck.foreign_language_id,
         deck.native_language_id,
     ):
-        raise ValidationError(_("Slovíčko nepatří k tomuto slovníku."))
+        raise ValidationError(_("The word does not belong to this deck."))
 
     added = []
     for side, text in ((TermVariant.Side.FOREIGN, foreign), (TermVariant.Side.NATIVE, native)):
         variants = parse_variants(text)
         if any(len(variant) > MAX_VARIANT_LENGTH for variant in variants):
             raise ValidationError(
-                _("Varianta může mít nejvýš %(max)d znaků.") % {"max": MAX_VARIANT_LENGTH}
+                _("A variant can have at most %(max)d characters.") % {"max": MAX_VARIANT_LENGTH}
             )
         current = list(term.variants.filter(side=side))
         known = {variant.text.lower() for variant in current}
@@ -585,7 +588,7 @@ def move_deck_terms(deck_terms, target, *, copy=False):
         if deck_term.deck.owner_id != target.owner_id or not _same_languages(
             deck_term.deck, target
         ):
-            raise ValidationError(_("Slovíčka jde přesunout jen do slovníku se stejnými jazyky."))
+            raise ValidationError(_("Words can only be moved to a deck with the same languages."))
         if deck_term.deck_id == target.pk:
             continue
         existing = DeckTerm.objects.filter(deck=target, term_id=deck_term.term_id).first()
@@ -613,9 +616,9 @@ def move_deck_terms(deck_terms, target, *, copy=False):
 
 # Sort options for the word list in a deck
 TERM_SORTS = {
-    "added": gettext_lazy("podle přidání"),
-    "alpha": gettext_lazy("abecedně"),
-    "due": gettext_lazy("podle opakování"),
+    "added": gettext_lazy("by date added"),
+    "alpha": gettext_lazy("alphabetically"),
+    "due": gettext_lazy("by next review"),
 }
 
 
@@ -638,11 +641,14 @@ def list_deck_terms(deck, sort="added"):
 def _parse_side(text, field):
     variants = parse_variants(text)
     if not variants:
-        raise ValidationError({field: _("Zadej aspoň jednu variantu.")})
+        raise ValidationError({field: _("Enter at least one variant.")})
     for variant in variants:
         if len(variant) > MAX_VARIANT_LENGTH:
             raise ValidationError(
-                {field: _("Varianta může mít nejvýš %(max)d znaků.") % {"max": MAX_VARIANT_LENGTH}}
+                {
+                    field: _("A variant can have at most %(max)d characters.")
+                    % {"max": MAX_VARIANT_LENGTH}
+                }
             )
     return variants
 
@@ -666,7 +672,7 @@ def _check_no_duplicate(
     deck_names = ", ".join(term.deck_terms.values_list("deck__name", flat=True))
     raise ValidationError(
         {
-            "foreign": _("Slovíčko „%(word)s → %(native)s“ už máš (%(decks)s).")
+            "foreign": _("You already have the word “%(word)s → %(native)s” (%(decks)s).")
             % {"word": term.main_foreign, "native": term.main_native, "decks": deck_names}
         }
     )

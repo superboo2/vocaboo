@@ -11,24 +11,24 @@ class StudySetupForm(forms.Form):
 
     decks = forms.ModelMultipleChoiceField(
         queryset=Deck.objects.none(),
-        label=_("Slovníky"),
-        error_messages={"required": _("Vyber aspoň jeden slovník.")},
+        label=_("Decks"),
+        error_messages={"required": _("Choose at least one deck.")},
     )
     direction = forms.ChoiceField(
-        label=_("Směr"), choices=StudyDirection.choices, widget=forms.RadioSelect
+        label=_("Direction"), choices=StudyDirection.choices, widget=forms.RadioSelect
     )
     scope = forms.ChoiceField(
-        label=_("Které kartičky"),
+        label=_("Which cards"),
         choices=StudyScope.choices,
         widget=forms.RadioSelect,
         initial=StudyScope.DUE,
     )
     max_cards = forms.IntegerField(
-        label=_("Nejvýš karet"),
+        label=_("Max cards"),
         required=False,
         min_value=1,
         max_value=1000,
-        help_text=_("Prázdné = bez limitu."),
+        help_text=_("Empty = no limit."),
     )
 
     def __init__(self, *args, user, **kwargs):

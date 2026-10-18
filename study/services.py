@@ -103,13 +103,13 @@ def start_session(
     decks = list(decks)
     terms = list(terms)
     if not decks and not terms:
-        raise ValidationError(_("Vyber aspoň jeden slovník."))
+        raise ValidationError(_("Choose at least one deck."))
     if any(deck.owner_id != user.pk for deck in decks):
-        raise ValidationError(_("Slovník patří jinému uživateli."))
+        raise ValidationError(_("The deck belongs to another user."))
     if any(term.owner_id != user.pk for term in terms):
-        raise ValidationError(_("Slovíčko patří jinému uživateli."))
+        raise ValidationError(_("The word belongs to another user."))
     if max_cards is not None and max_cards < 1:
-        raise ValidationError(_("Počet karet musí být aspoň 1."))
+        raise ValidationError(_("The number of cards must be at least 1."))
     with transaction.atomic():
         session = StudySession.objects.create(
             user=user, direction=direction, scope=scope, max_cards=max_cards
@@ -203,7 +203,7 @@ def record_answer(session, state, rating_key, *, think_ms=None, decide_ms=None, 
             state.direction not in session.directions
             or not session_term_ids(session).filter(term_id=state.term_id).exists()
         ):
-            raise ValidationError(_("Tato kartička do testu nepatří."))
+            raise ValidationError(_("This card is not part of this test."))
 
         interval = apply_rating(state, rating.key, now=now)
         state.save()
@@ -333,7 +333,7 @@ def answer_dots(term, shown=DOTS_SHOWN):
                 {
                     "key": rating if known else _DOT_BY_RESULT.get(result, "dontknow"),
                     "title": f"{date_format(timezone.localtime(reviewed_at), 'j. n.')} · "
-                    f"{known.emoji + ' ' if known else ''}{label}",
+                    f"{known.emoji + ' ' if known else ''}{known.label if known else label}",
                     "hidden": index < len(newest) - shown,
                 }
             )
@@ -350,7 +350,7 @@ def answer_dots(term, shown=DOTS_SHOWN):
                 "label": labels[direction],
                 "dots": dots,
                 "more": len(not_shown),
-                "more_title": _("%(count)d starších: %(counts)s")
+                "more_title": _("%(count)d older: %(counts)s")
                 % {
                     "count": len(not_shown),
                     "counts": " · ".join(f"{count}× {emoji}" for emoji, count in counts.items()),

@@ -22,6 +22,7 @@ episode), add words to them and practise them as flash cards with spaced repetit
 - PostgreSQL 15+ running locally (no Docker)
 - `uv`
 - Python 3.13 (uv installs it if missing)
+- GNU gettext, only to change translations (`sudo apt install gettext`)
 
 Check versions:
 
@@ -566,7 +567,62 @@ The app has a help page for users (*Nápověda* in the top bar, `/help/`) with t
 table of rating buttons is made from `study/ratings.py`, so it stays right when the buttons
 change. When a feature changes, update its help tab too.
 
-### 16. Run the app
+### 16. Languages of the app (translations)
+
+The app speaks Czech and English (`LANGUAGES` in `config/settings.py`). The source texts in
+the code are **English**; Czech is a translation in `locale/cs/LC_MESSAGES/django.po`. The
+compiled file `django.mo` is in git too, so the app and the tests work without gettext.
+
+Which language a page has:
+
+| Who | Language |
+|---|---|
+| logged in, *Nastavení › Aplikace › Jazyk aplikace* is set | that language (`User.ui_language`) |
+| logged in, the setting is *Podle prohlížeče* | the browser language (`Accept-Language`) |
+| not logged in | the switch *Čeština · English* under the login form (a cookie), else the browser |
+| a browser language the app does not have | English (`LANGUAGE_CODE`) |
+
+Mark every text for the user in the code, in English:
+
+```python
+from django.utils.translation import gettext as _, ngettext, pgettext
+
+messages.success(request, _("Settings saved."))
+# Plurals: Czech has 3 forms (1 slovíčko, 2 slovíčka, 5 slovíček), ngettext knows them
+text = ngettext("%(count)s word", "%(count)s words", count) % {"count": count}
+# The same English word with a different meaning gets a context
+label = pgettext("rating", "Partly")
+```
+
+```django
+{% load i18n %}
+<h2>{% translate "Decks" %}</h2>
+{% blocktranslate trimmed count counter=words %}
+  {{ counter }} word
+{% plural %}
+  {{ counter }} words
+{% endblocktranslate %}
+```
+
+After changing texts, update and compile the catalog, then fill the new Czech texts in
+`django.po` (the test `tests/test_translations.py` fails while a text has no translation or
+the `.mo` file is old):
+
+```bash
+uv run python manage.py makemessages -l cs --no-location \
+    --ignore '.venv/*' --ignore 'templates/help/*' --ignore 'tests/*' \
+    --ignore 'staticfiles/*' --ignore '*/migrations/*'
+# ... translate the empty msgstr "" in locale/cs/LC_MESSAGES/django.po ...
+uv run python manage.py compilemessages -l cs --ignore '.venv/*'
+```
+
+A new language, e.g. German: add `("de", "Deutsch")` to `LANGUAGES`, run `makemessages -l de`,
+translate `locale/de/LC_MESSAGES/django.po` and compile it. Nothing else in the code changes.
+
+Not translated yet: the help pages (`templates/help/`, Czech only), a few texts in JavaScript
+and the names of languages in the database.
+
+### 17. Run the app
 
 ```bash
 uv run python manage.py runserver
