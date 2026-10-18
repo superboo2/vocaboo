@@ -242,9 +242,16 @@ nav .brand strong {
   font-size: 0.95rem;
 }
 
-/* On a computer the word "Statistiky", on a phone the icon */
-.nav-icon {
+/* On a computer the words, on a phone the short ones; Statistiky and Nápověda move to the
+   account menu on a phone */
+.nav-icon,
+.menu-narrow {
   display: none;
+}
+
+/* A line under the phone-only links, between them and the look switch */
+.account-menu .menu-group-end {
+  border-bottom: 1px solid var(--pico-muted-border-color);
 }
 
 @media (max-width: 576px) {
@@ -253,8 +260,13 @@ nav .brand strong {
     padding-right: 0.4rem;
   }
 
-  .nav-text {
+  .nav-text,
+  .nav-wide {
     display: none;
+  }
+
+  .menu-narrow {
+    display: list-item;
   }
 
   /* A smaller ghost and tighter gaps, so the bar fits on one line */
@@ -273,29 +285,6 @@ nav .brand strong {
 
   .nav-icon {
     display: inline;
-  }
-}
-
-/* Nápověda as a word, on a narrow phone only a ? in a circle */
-.help-icon {
-  display: none;
-}
-
-@media (max-width: 400px) {
-  .help-text {
-    display: none;
-  }
-
-  .help-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.6rem;
-    height: 1.6rem;
-    border: 1.5px solid currentColor;
-    border-radius: 50%;
-    font-weight: 700;
-    font-size: 0.9rem;
   }
 }
 
