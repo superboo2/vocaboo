@@ -23,4 +23,17 @@
       <button type="submit">{% translate "Přihlásit se" %}</button>
     </form>
   </article>
+
+  {# Language of the app for who is not logged in; after login the account decides #}
+  {% get_current_language as current %}
+  {% get_available_languages as languages %}
+  <form action="{% url 'set_language' %}" method="post" class="language-switch">
+    {% csrf_token %}
+    <input type="hidden" name="next" value="{{ request.get_full_path }}">
+    {% for code, name in languages %}
+      {% if not forloop.first %}<span aria-hidden="true">·</span>{% endif %}
+      <button type="submit" name="language" value="{{ code }}" lang="{{ code }}"
+              {% if code == current %}aria-current="true"{% endif %}>{{ name }}</button>
+    {% endfor %}
+  </form>
 {% endblock %}

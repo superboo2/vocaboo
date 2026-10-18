@@ -202,3 +202,58 @@ def test_password_rules_have_czech_texts():
         "Heslo je moc běžné, vymysli jiné.",
         "Heslo nemůže být jen z čísel.",
     ]
+
+
+@pytest.mark.django_db
+def test_language_of_the_account_wins_over_the_browser(client):
+    user = User.objects.create_user(email="martin@example.com", password="secret-pass-123")
+    user.ui_language = "en"
+    user.save()
+    client.force_login(user)
+
+    html = client.get(reverse("settings"), HTTP_ACCEPT_LANGUAGE="cs").content.decode()
+
+    assert '<html lang="en">' in html
+
+
+@pytest.mark.django_db
+def test_empty_language_follows_the_browser(client):
+    user = User.objects.create_user(email="martin@example.com", password="secret-pass-123")
+    client.force_login(user)
+
+    html = client.get(reverse("settings"), HTTP_ACCEPT_LANGUAGE="en").content.decode()
+
+    assert user.ui_language == ""
+    assert '<html lang="en">' in html
+
+
+@pytest.mark.django_db
+def test_language_switch_works_without_login(client):
+    response = client.post(reverse("set_language"), {"language": "en", "next": "/accounts/login/"})
+
+    assert response.status_code == 302
+    assert response.cookies["django_language"].value == "en"
+    assert '<html lang="en">' in client.get(reverse("login")).content.decode()
+    assert 'class="language-switch"' in client.get(reverse("login")).content.decode()
+
+
+@pytest.mark.django_db
+def test_settings_save_the_language_and_the_cookie(client):
+    from vocabulary.models import Language
+
+    user = User.objects.create_user(email="martin@example.com", password="secret-pass-123")
+    client.force_login(user)
+
+    response = client.post(
+        reverse("settings"),
+        {
+            "ui_language": "en",
+            "native_language": Language.objects.get(code="cs").pk,
+            "default_direction": "N2F",
+            "autoplay_content": "word",
+        },
+    )
+
+    user.refresh_from_db()
+    assert user.ui_language == "en"
+    assert response.cookies["django_language"].value == "en"

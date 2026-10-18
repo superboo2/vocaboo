@@ -1,4 +1,5 @@
 from django import forms
+from django.conf import settings
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import PasswordChangeForm as DjangoPasswordChangeForm
 from django.core.exceptions import ValidationError
@@ -21,6 +22,7 @@ class SettingsForm(forms.ModelForm):
     class Meta:
         model = User
         fields = [
+            "ui_language",
             "native_language",
             "default_direction",
             "show_suggestions",
@@ -30,6 +32,7 @@ class SettingsForm(forms.ModelForm):
             "show_ipa",
         ]
         labels = {
+            "ui_language": _("Jazyk aplikace"),
             "default_direction": _("Výchozí směr testu"),
             "show_suggestions": _("Navrhovat překlad"),
             "show_other_meanings": _("Ukazovat další významy ze slovníku"),
@@ -38,6 +41,7 @@ class SettingsForm(forms.ModelForm):
             "show_ipa": _("Ukazovat zápis výslovnosti (IPA)"),
         }
         help_texts = {
+            "ui_language": _("Menu, tlačítka a nápověda. Slovíčka se tím nemění."),
             "default_direction": _("Předvyplní se v nastavení nového testu."),
             "show_suggestions": _(
                 "Když píšeš cizí slovo, pod polem pro překlad se ukážou návrhy ze slovníku."
@@ -58,6 +62,13 @@ class SettingsForm(forms.ModelForm):
             ),
         }
         widgets = {"default_direction": forms.RadioSelect, "autoplay_content": forms.RadioSelect}
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # The empty choice means "as the browser asks"
+        self.fields["ui_language"].choices = [("", _("Podle prohlížeče"))] + list(
+            settings.LANGUAGES
+        )
 
 
 class PasswordChangeForm(DjangoPasswordChangeForm):

@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import UserManager as DjangoUserManager
 from django.db import models
@@ -75,6 +76,11 @@ class User(AbstractUser):
     )
     # Written pronunciation in IPA, e.g. [pɑːm], on the card and on the word page
     show_ipa = models.BooleanField(_("zápis výslovnosti (IPA)"), default=False)
+
+    # Language of the app (menus, buttons, help); empty = as the browser asks
+    ui_language = models.CharField(
+        _("jazyk aplikace"), max_length=10, choices=settings.LANGUAGES, blank=True
+    )
 
     USERNAME_FIELD = "email"
     # Fields asked by createsuperuser besides email and password

@@ -18,6 +18,11 @@
       {% csrf_token %}
       {# Settings in groups by the part of the app they change #}
       <section class="settings-group card-section">
+        <h2>{% translate "Aplikace" %}</h2>
+        {{ form.ui_language.as_field_group }}
+      </section>
+
+      <section class="settings-group card-section">
         <h2>{% translate "Slovníky" %}</h2>
         {{ form.native_language.as_field_group }}
       </section>

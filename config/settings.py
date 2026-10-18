@@ -98,11 +98,15 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    # Language of the app: the cookie of the language switch, else the browser (Accept-Language)
+    "django.middleware.locale.LocaleMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     # Every page needs a logged in user, except views marked with login_not_required
     "django.contrib.auth.middleware.LoginRequiredMiddleware",
+    # A logged in user gets the language saved in the account (Settings)
+    "accounts.middleware.UserLanguageMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
@@ -170,6 +174,16 @@ AUTH_PASSWORD_VALIDATORS = [
 # UI is Czech for now, texts are marked for translation so other languages can come later.
 
 LANGUAGE_CODE = "cs"
+
+# Languages of the app (menus, buttons, help); a new one needs a locale/<code>/ folder.
+# The names stay in their own language, so everybody finds theirs.
+LANGUAGES = [
+    ("cs", "Čeština"),
+    ("en", "English"),
+]
+
+# Translations of the app (makemessages / compilemessages)
+LOCALE_PATHS = [BASE_DIR / "locale"]
 
 TIME_ZONE = "Europe/Prague"
 

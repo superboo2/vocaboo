@@ -370,6 +370,31 @@ nav .brand strong {
   stroke-linejoin: round;
 }
 
+/* Čeština · English under the login box */
+.language-switch {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  color: var(--pico-muted-color);
+  font-size: 0.85rem;
+}
+
+.language-switch button {
+  width: auto;
+  margin: 0;
+  padding: 0.2rem 0.3rem;
+  border: 0;
+  background: none;
+  color: var(--pico-primary);
+  font-size: inherit;
+}
+
+.language-switch button[aria-current="true"] {
+  color: var(--pico-muted-color);
+  font-weight: 600;
+}
+
 /* Narrow centered box, e.g. login */
 .narrow {
   max-width: 26rem;
