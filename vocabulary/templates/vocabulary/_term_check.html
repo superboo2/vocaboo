@@ -10,7 +10,11 @@
      hx-target="this"
      hx-swap="outerHTML"
      hx-sync="this:replace">
-  <button type="submit"{% if check.blocks %} disabled{% endif %}>+ {% translate "Add word" %}</button>
+  {# While the form is being sent (HTMX gives it the class htmx-request) the button says so #}
+  <button type="submit" class="add-button"{% if check.blocks %} disabled{% endif %}>
+    <span class="add-idle">+ {% translate "Add word" %}</span>
+    <span class="add-busy" aria-hidden="true">{% translate "Adding…" %}</span>
+  </button>
 
   {% if check %}
     <div class="term-check" role="status">

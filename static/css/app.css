@@ -608,9 +608,51 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
   margin: 0;
 }
 
+/* After adding a word the line "✓ Přidáno do …" lights up in light indigo for 2 seconds and
+   goes out again. The form is new after every word, so it lights up every time. */
 .term-added {
-  color: var(--pico-ins-color);
-  margin-bottom: 0.5rem;
+  display: inline-block;
+  margin-bottom: 0.6rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-control);
+  color: var(--pico-color);
+  animation: added-glow 2.5s ease-out;
+}
+
+@keyframes added-glow {
+  0%,
+  80% {
+    background-color: var(--primary-light);
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
+
+/* The button while the word is being sent: pressed and "Adding…" */
+.add-button .add-busy {
+  display: none;
+}
+
+#term-form.htmx-request .add-button {
+  transform: scale(0.97);
+  opacity: 0.75;
+  cursor: progress;
+}
+
+#term-form.htmx-request .add-button .add-idle {
+  display: none;
+}
+
+#term-form.htmx-request .add-button .add-busy {
+  display: inline;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .term-added {
+    animation: none;
+  }
 }
 
 .list-head {

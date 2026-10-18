@@ -3,13 +3,14 @@
 {# On a phone the two fields, the row of suggestions and the button fit on the screen together #}
 {# with the keyboard, and nothing above the button changes height while typing. #}
 {% url 'vocabulary:term_add' deck.pk as add_url %}
+{# After adding, the form is new (HTMX swaps it), so the "added" line lights up every time #}
 <form id="term-form" method="post" action="{{ add_url }}"
       hx-post="{{ add_url }}?sort={{ sort }}" hx-target="this" hx-swap="outerHTML">
   {% csrf_token %}
 
   {% if added %}
     <p class="term-added" role="status">
-      ✓ {% blocktranslate with word=added.term.main_foreign deck_name=deck.name %}Added to “{{ deck_name }}”: {{ word }}{% endblocktranslate %}{% if added_variants %} (+ {{ added_variants|join:"; " }}){% endif %}
+      <span aria-hidden="true">✓</span> {% blocktranslate with word=added.term.main_foreign deck_name=deck.name %}Added to “{{ deck_name }}”: {{ word }}{% endblocktranslate %}{% if added_variants %} (+ {{ added_variants|join:"; " }}){% endif %}
     </p>
   {% endif %}
 
