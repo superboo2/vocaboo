@@ -1,0 +1,174 @@
+{% extends "help/base_help.html" %}
+
+{% block help %}
+  <section>
+    <h2>Adding a word</h2>
+    <p>You add words on the deck detail page. Only the first two fields are required:</p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Field</th><th>Example</th><th>Note</th></tr></thead>
+      <tbody>
+        <tr><td>foreign language</td><td><code>hello; hi</code></td><td>separate more variants with a semicolon</td></tr>
+        <tr><td>your language</td><td><code>ahoj; čau</code></td><td>same here</td></tr>
+        <tr><td>Use in a sentence</td><td><code>Hello, kids.</code></td><td>under the <em>+ sentence, note</em> button, where the word appeared (under the foreign word)</td></tr>
+        <tr><td>Sentence translation</td><td><code>Ahoj, děti.</code></td><td>same place, optional, helps you understand the sentence (under the translation). You can mark the word with braces: <code>Utekl {pryč}.</code></td></tr>
+        <tr><td>Note</td><td></td><td>same place, anything extra</td></tr>
+      </tbody>
+    </table></div>
+    <p>
+      Don't write the season or episode anywhere, the deck sets it: add words from the first episode to the deck
+      <em>Series 1 › Episode 1</em>.
+    </p>
+    <p>
+      <strong>Enter</strong> submits the form. Then the form clears and the cursor jumps back to the first field,
+      so you can type the next word right away.
+    </p>
+  </section>
+
+  <section>
+    <h2>Search</h2>
+    <p>On the overview, in the <em>Decks</em> tab, there is a light <strong>Search words…</strong> bar above the tree: click it (on a computer you can also press <kbd>/</kbd>) and type, the results show up right below it.</p>
+    <ul>
+      <li>It searches all your decks: the foreign word and the translation (all variants), the sentence and its translation, and the note.</li>
+      <li>Accents and capital letters don't matter: “cetka” also finds “Četka”. Results show up as you type, from 2 letters.</li>
+      <li>First come the words where the word or translation matches, then the ones where the text is in the sentence or note (the sentence is shown under the word). The match is highlighted.</li>
+      <li>Each word shows which decks it is in (the last 3 levels of the path, the full path when you hover over it). Click a word to open its detail, ✎ to edit it right away.</li>
+      <li>At most 50 results are shown.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Translation suggestions</h2>
+    <p>
+      When you type a foreign word, <strong>translation suggestions</strong> show up under the translation field
+      with a part-of-speech abbreviation, for example <code>present</code> → <em>současnost</em> (n.),
+      <em>dárek</em> (n.), <em>představit</em> (v.). If they don't fit on one line, they continue on the next one.
+      Click a suggestion to put it in the translation field and the line clears, then just press Enter. When the dictionary has a sentence for this meaning, it also fills in the <strong>use in a sentence</strong> with its translation (only if you haven't written one) and you'll see it under the <em>Add word</em> button, for example <em>“Let's take the elevator.” · Pojeďme výtahem.</em> Click <em>edit</em> to open it so you can change or delete it, <em>done</em> closes it again. Without a sentence and note, you'll see <em>+ sentence, note</em> there.
+    </p>
+    <ul>
+      <li>The suggestions come from the app's own English–Czech dictionary (about 10,000 of the most common words and phrases, sorted by frequency). For other words nothing shows up and you write the translation yourself. There is no dictionary for Spanish yet.</li>
+      <li>You can edit a suggestion after it's inserted, nothing is saved on its own.</li>
+      <li>If you change the foreign word after picking a suggestion, the sentence filled in from the suggestion disappears, because it belonged to the previous word. A sentence you wrote or edited yourself is not deleted.</li>
+      <li>Suggestions also show up when you <strong>edit a word</strong> (even during a test via ✎), right away for the word in the form. Clicking a suggestion replaces the translation and fills the sentence only into empty fields.</li>
+      <li>If you don't want suggestions, turn them off in <a href="{% url 'settings' %}">Settings</a> (<em>Adding words › Suggest translations</em>).</li>
+      <li>Only the meaning you pick is saved. You'll see the other meanings from the dictionary on the back of the card and in the word detail.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Variants (synonyms)</h2>
+    <p>
+      <code>hello; hi</code> ↔ <code>ahoj; čau</code> is one word with two variants on each side.
+      In a test, any of them is correct.
+    </p>
+    <p>
+      Variants mean that <strong>each one on the left matches each one on the right</strong>. If that's not true,
+      better make two separate words. For example <code>hi</code> ≠ <code>dobrý den</code>, so:
+      <code>hello → dobrý den; ahoj</code> and <code>hi → ahoj; čau</code> (informal).
+    </p>
+  </section>
+
+  <section>
+    <h2>Sentence</h2>
+    <p>Write the sentence normally, the app finds the word in it by itself and highlights it:</p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>You type</th><th>What happens</th></tr></thead>
+      <tbody>
+        <tr><td><code>She can read from her palm.</code></td><td>the word <code>palm</code> is found automatically, <strong>the usual case</strong></td></tr>
+        <tr><td><code>She has small {palms}.</code></td><td>mark a word in a <strong>different form</strong> with curly braces, otherwise it isn't found</td></tr>
+        <tr><td><code>He {ran} away.</code></td><td>for the word <code>run</code>: past tense in braces</td></tr>
+        <tr><td><code>She can read from her {}.</code></td><td>empty braces = the word from the first field (<code>palm</code>)</td></tr>
+      </tbody>
+    </table></div>
+    <p>The braces are never shown. In a test, the sentence looks like this:</p>
+    <div class="grid">
+      <article class="help-card">
+        <header>palm → ?</header>
+        <p class="help-card-main">palm</p>
+        <p class="card-sentence">“She can read from her <mark>palm</mark>.”</p>
+      </article>
+      <article class="help-card">
+        <header>dlaň → ?</header>
+        <p class="help-card-main">dlaň</p>
+        <p class="card-sentence">“She can read from her <span class="cloze">___</span>.”</p>
+      </article>
+    </div>
+    <p>
+      In the direction from your language, the whole sentence would give away the answer, so the front shows it with a gap.
+      The full sentence is on the back. If the word can't be found in the sentence, the sentence is only on the back.
+    </p>
+  </section>
+
+  <section>
+    <h2>More meanings (palm, present)</h2>
+    <p>
+      Each meaning is a <strong>separate word</strong>. The app tells them apart by the translation, you don't need
+      to fill in anything else:
+    </p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Foreign</th><th>Translation</th><th>Sentence</th></tr></thead>
+      <tbody>
+        <tr><td>palm</td><td>dlaň</td><td><code>She read my palm.</code></td></tr>
+        <tr><td>palm</td><td>palma</td><td><code>A tall palm on the beach.</code></td></tr>
+        <tr><td>present</td><td>dárek</td><td><code>I bought her a present.</code></td></tr>
+        <tr><td>present</td><td>přítomnost</td><td><code>Live in the present.</code></td></tr>
+        <tr><td>present</td><td>prezentovat</td><td><code>He {presented} the project.</code></td></tr>
+      </tbody>
+    </table></div>
+    <ul>
+      <li>The same foreign word with the <strong>same translation</strong> is a duplicate. With a <strong>different translation</strong> it's another meaning and it gets saved.</li>
+      <li>In the test <code>palm → ?</code> the sentence helps. Without a sentence you'll see the hint <em>(2 meanings)</em>, so you know there's a choice.</li>
+      <li><strong>Other meanings</strong> from the dictionary and your other words with the same word are on the back of the card and in the word detail. There, meanings from the dictionary have a <strong>+ Learn this meaning too</strong> button.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Duplicate check</h2>
+    <p>While you type, the app looks for words you already have and offers what to do with them:</p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>You type</th><th>You already have</th><th>It offers</th></tr></thead>
+      <tbody>
+        <tr><td><code>hello</code> in Big Bang Theory</td><td><code>hello → ahoj</code> in HIMYM</td><td><strong>Add here too</strong> (one word in two decks)</td></tr>
+        <tr><td><code>hello; hi</code></td><td><code>hello → ahoj</code></td><td>the same, and <code>hi</code> is added as a new variant</td></tr>
+        <tr><td><code>hey → ahoj</code></td><td><code>hello → ahoj</code></td><td><strong>Add “hey” as a variant of “hello”</strong>, or save it separately</td></tr>
+        <tr><td><code>palm → palma</code></td><td><code>palm → dlaň</code></td><td>a notice about a different translation: same meaning (add as a variant), or a different meaning (just save)</td></tr>
+        <tr><td><code>cau</code></td><td><code>čau</code></td><td>just a notice <em>Similar (without accents)</em>; <code>byt</code> and <code>být</code> are different words</td></tr>
+      </tbody>
+    </table></div>
+    <p>The <strong>Add word</strong> button is blocked as long as saving would create a duplicate.</p>
+  </section>
+
+  <section>
+    <h2>One word in several decks</h2>
+    <p>
+      The word belongs to you, decks only link to it. When <code>hello</code> is in 20 episodes,
+      a test from the whole series asks it <strong>once</strong> and the rating counts in all decks.
+      But each deck keeps its own sentence.
+    </p>
+  </section>
+
+  <section>
+    <h2>Editing and removing</h2>
+    <ul>
+      <li>Click a word in the list to open its detail, from there <strong>✎ Edit</strong> (next to the word) or, in the <strong>⋯</strong> menu, <strong>Remove from this deck</strong>.</li>
+      <li>Changes to variants and the note apply in all decks, the sentence only in that one.</li>
+      <li><strong>Move</strong> (in the ⋯ menu in the word detail) moves it to another deck.</li>
+      <li>Removing a word from a deck deletes it <strong>only there</strong>. If it was its last deck, it's deleted completely, including its review history; the app warns you first.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Moving several words</h2>
+    <p>
+      Did words end up in the wrong deck, for example in <em>Series 1</em> instead of <em>Episode 1</em>?
+    </p>
+    <ol>
+      <li>In the word list, click <strong>Select</strong> and checkboxes appear (<em>All</em> selects all of them).</li>
+      <li>At the bottom, click <strong>Move…</strong> and pick the target deck. Only decks with the same languages are offered.</li>
+      <li><strong>Move</strong> moves the words, <strong>Add there too</strong> keeps them in both decks.</li>
+    </ol>
+    <p>
+      The sentence and learning progress stay. If the word is already in the target deck, it isn't duplicated,
+      only its sentence is filled in there if it was missing.
+    </p>
+  </section>
+{% endblock %}

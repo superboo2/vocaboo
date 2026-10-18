@@ -116,6 +116,8 @@ class TermForm(forms.Form):
         required=False,
         widget=forms.Textarea(attrs={"rows": 2}),
         help_text=_(
+            # The braces are an example for the user, not a placeholder (Czech has another word)
+            # xgettext:no-python-brace-format
             "Optional, to help understand the sentence. You can mark the word: He ran {away}."
         ),
     )

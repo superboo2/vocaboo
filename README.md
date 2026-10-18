@@ -561,11 +561,13 @@ services.search_terms(user, "impose")
 
 ### 15. Help
 
-The app has a help page for users (*Nápověda* in the top bar, `/help/`) with tabs *Slovníky*,
-*Slovíčka*, *Test* and *Přehled a statistiky*. Every tab is its own page
-(`templates/help/<tab>.html`); the list of tabs is `HELP_TOPICS` in `config/views.py`. The
+The app has a help page for users (*Nápověda* / *Help* in the top bar, `/help/`) with tabs
+*Slovníky*, *Slovíčka*, *Test* and *Přehled a statistiky*. Every tab is its own page in every
+language: `templates/help/cs/<tab>.html` and `templates/help/en/<tab>.html` (a language without
+its own page gets the English one); the frame with the tabs is `templates/help/base_help.html`
+and the list of tabs is `HELP_TOPICS` in `config/views.py`. The
 table of rating buttons is made from `study/ratings.py`, so it stays right when the buttons
-change. When a feature changes, update its help tab too.
+change. When a feature changes, update its help tab too, in both languages.
 
 ### 16. Languages of the app (translations)
 
@@ -612,7 +614,7 @@ the `.mo` file is old):
 # django = Python and templates, djangojs = the JavaScript files
 for domain in django djangojs; do
   uv run python manage.py makemessages -d $domain -l cs --no-location \
-      --ignore '.venv/*' --ignore 'templates/help/*' --ignore 'tests/*' \
+      --ignore '.venv/*' --ignore 'templates/help/cs/*' --ignore 'templates/help/en/*' --ignore 'tests/*' \
       --ignore 'staticfiles/*' --ignore '*/migrations/*' --ignore 'static/vendor/*'
 done
 # ... translate the empty msgstr "" in locale/cs/LC_MESSAGES/django.po and djangojs.po ...
@@ -638,7 +640,8 @@ formats for each language are in `config/formats/<code>/formats.py`
 A new language, e.g. German: add `("de", "Deutsch")` to `LANGUAGES`, run `makemessages -l de`,
 translate `locale/de/LC_MESSAGES/django.po` and compile it. Nothing else in the code changes.
 
-Not translated yet: the help pages (`templates/help/`, Czech only).
+The help pages are not in the catalog: each language has its own templates, see
+[15. Help](#15-help).
 
 ### 17. Run the app
 

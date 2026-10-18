@@ -1,0 +1,90 @@
+{% extends "help/base_help.html" %}
+
+{% block help %}
+  <section>
+    <h2>What is a deck</h2>
+    <p>
+      A deck is a folder of words. Decks can be nested, so you can build a tree based on where
+      your words come from, for example by show, season and episode:
+    </p>
+    <pre class="help-tree">📂 CzechEnglish (EN → CS)
+   📂 Two and half men
+      📂 Series 1
+         📄 Episode 1
+         📄 Episode 2
+📄 Španělština (ES → CS)</pre>
+    <ul>
+      <li>The tree can have at most <strong>{{ max_depth }} levels</strong>.</li>
+      <li>Each deck can have both words and sub-decks at the same time.</li>
+      <li>A name must be unique within one folder, and letter case does not matter (<code>HIMYM</code> = <code>himym</code>).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>New deck and languages</h2>
+    <ol>
+      <li>On the <a href="{% url 'dashboard' %}">Overview</a>, click <strong>+ New deck</strong>.</li>
+      <li>Fill in the name and the languages:
+        <ul>
+          <li><strong>I want to learn</strong>: the language of the words, e.g. English,</li>
+          <li><strong>I speak</strong>: the language you translate the words into, e.g. Czech. It is prefilled from <a href="{% url 'settings' %}">Settings</a>.</li>
+        </ul>
+      </li>
+    </ol>
+    <p>
+      Only a top-level deck has a language pair, shown next to its name, e.g. <code>(EN → CS)</code>.
+      Sub-decks inherit it, and it cannot be changed later.
+    </p>
+    <p>
+      To add a <strong>sub-deck</strong>, open the deck and click <strong>+ New</strong> next to the <em>Sub-decks</em> heading.
+    </p>
+  </section>
+
+  <section>
+    <h2>The tree on the Overview</h2>
+    <div class="overflow-auto"><table>
+      <tbody>
+        <tr><td>📂 / 📁</td><td>deck with sub-decks, open / closed</td></tr>
+        <tr><td>📄</td><td>deck without sub-decks</td></tr>
+        <tr><td>click the icon or the row</td><td>collapses or expands the folder; the browser remembers how you left the folders, so the tree looks the same after a test or on another page (each device remembers it separately). Folders you have not clicked yet show their first level open and deeper levels closed. When you drag a deck and hold it over a closed folder, the folder opens after a moment</td></tr>
+        <tr><td>click the name</td><td>opens the deck</td></tr>
+        <tr><td>number on the right</td><td>number of words including sub-decks; a word that is in several decks is counted once</td></tr>
+        <tr><td><strong>N to review</strong></td><td>how many words are due right now</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Moving by drag and drop</h2>
+    <p><strong>To move a deck on the Overview, drag it. On a phone, press and hold it for a moment first.</strong></p>
+    <p>Grab the deck and drag it. The rows do not move while you drag; you only see where the deck will land:</p>
+    <ul>
+      <li><strong>onto the middle of a row</strong>: the row is highlighted and the deck goes <strong>inside</strong> it, even into a deck that has no sub-decks yet,</li>
+      <li><strong>near the top or bottom edge of a row</strong>: a line appears and the deck is placed <strong>before or after</strong> it. This is how you change the order and also move a deck to the top level.</li>
+    </ul>
+    <p>
+      With a mouse, just drag. <strong>On a phone, press and hold the deck for a moment first</strong>, then drag.
+      A quick swipe only scrolls the page.
+    </p>
+    <p>The move is saved as soon as you let go. It is not possible when:</p>
+    <ul>
+      <li>the target folder has a different language pair,</li>
+      <li>the deck would end up inside itself or inside one of its sub-decks,</li>
+      <li>the tree would have more than {{ max_depth }} levels,</li>
+      <li>the target folder already has a deck with the same name.</li>
+    </ul>
+    <p>In that case the deck goes back to where it was and the reason is shown above the tree.</p>
+  </section>
+
+  <section>
+    <h2>More options on the deck page</h2>
+    <ul>
+      <li><strong>Practice deck</strong>: a test from this deck and its sub-decks only.</li>
+      <li><strong>⋯</strong> next to the deck name opens a menu: <strong>Rename and description</strong>, <strong>Move</strong> and <strong>Delete</strong>.</li>
+      <li><strong>Rename and description</strong>: the name and the description.</li>
+      <li><strong>Move</strong>: move by choosing from a list; only places where the deck can go are offered. Also handy if you use the keyboard.</li>
+      <li><strong>Arrows ↑ ↓</strong> next to sub-decks: change the order without dragging.</li>
+      <li><strong>Delete</strong>: deletes the deck <strong>and its sub-decks</strong>, plus the words that are not in any other deck. Words that are also elsewhere stay. Before deleting, you see how much of each will be removed.</li>
+    </ul>
+  </section>
+{% endblock %}

@@ -1,0 +1,136 @@
+{% extends "help/base_help.html" %}
+{% load study_tags %}
+
+{% block help %}
+  <section>
+    <h2>Starting a test</h2>
+    <p>
+      Use the <strong>▶︎ Practice</strong> button in the top bar (it is on every page), or
+      <strong>▶︎ Practice deck</strong> in the deck detail. Then choose:
+    </p>
+    <ul>
+      <li><strong>Decks</strong>: subdecks are included automatically, and a word that is in several decks comes up only once.</li>
+      <li><strong>Direction</strong>: foreign → native, native → foreign, or mixed. You can set the default direction in <a href="{% url 'settings' %}">Settings</a>.</li>
+      <li><strong>Which cards</strong>:
+        <ul>
+          <li><em>only due and new</em>: normal learning, the cards that are due and the words that have not been in a test yet,</li>
+          <li><em>all</em>: every card once, no matter when it is due (e.g. before an exam).</li>
+        </ul>
+      </li>
+      <li><strong>Max cards</strong>: when you only want a short review.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>The card</h2>
+    <p>You see the front side. Try to recall the answer, then flip the card (<strong>Show</strong> or the <strong>space bar</strong>).</p>
+    <div class="grid">
+      <article class="help-card">
+        <header>Front</header>
+        <p class="help-card-main">dlaň</p>
+        <p class="card-sentence">„She can read from her <span class="cloze">___</span>.“</p>
+      </article>
+      <article class="help-card">
+        <header>Back</header>
+        <p class="help-card-main">palm 🔊</p>
+        <p>You are also learning: palm → palma</p>
+        <p class="card-sentence">„She can read from her <mark>palm</mark>.“</p>
+        <p class="muted"><small>pracka · lehký · světlý <u>+3</u></small></p>
+      </article>
+    </div>
+    <ul>
+      <li>In the foreign → native direction, the whole sentence is already on the front. It tells you the meaning (palm: hand, or tree?).</li>
+      <li>In the native → foreign direction, the sentence on the front has a gap instead of the word. If the sentence has a translation, the translation is on the front too, so you know what goes in the gap: <em>„Mně se ta písnička <strong>také</strong> nelíbí.“ / „I don't like this song ___.“</em></li>
+      <li>In the foreign → native direction, the translation of the sentence is on the back.</li>
+      <li>If the word is in several decks of the test, the sentence changes each time.</li>
+      <li><em>“ahoj” is also: hello</em>: another word has the same translation.</li>
+      <li><em>„She can read from her palm.“ 🔊</em>: the browser voice reads the sentence when you click 🔊 or press <kbd>V</kbd>. In the foreign → native direction right away, in the native → foreign direction only after you flip the card (otherwise it would give away the answer).</li>
+      <li>How the <em>browser voice</em> sounds depends on your device: good on Android, Windows, Mac and in Chrome on Linux, robotic or not at all in Firefox on Linux. If the browser cannot speak at all, 🔊 is not shown.</li>
+      <li><em>palm 🔊</em>: pronunciation of the foreign word. The gray 🔊 is at the right edge of the card, on the line of the foreign word. Click 🔊 or press <kbd>P</kbd> and the <strong>browser voice</strong> reads the word; in the foreign → native direction 🔊 is visible right away, in the native → foreign direction after you flip the card. In <a href="{% url 'settings' %}">Settings</a> you can turn on reading the word or the whole sentence automatically. If you can read IPA, you can also turn on the pronunciation from the dictionary under the word in <a href="{% url 'settings' %}">Settings</a>, for example <em>[pɑːm]</em>. It is shown only after you flip the card.</li>
+      <li><em>You are also learning</em>: another word of yours with the same foreign word but a different translation (<code>palm → palma</code>).</li>
+      <li><em>pracka · lehký · světlý +3</em>: at the very bottom, in smaller text, other meanings of the foreign word from the dictionary. Only the first variant of each meaning. As many are shown as fit on one line, and clicking <em>+3</em> shows the rest. All of them, with all variants, are in the word detail. You can turn this off in <a href="{% url 'settings' %}">Settings</a>.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Ratings and intervals</h2>
+    <p>After flipping the card, rate how well you know the word:</p>
+    <div class="overflow-auto"><table>
+      <thead>
+        <tr><th>Button</th><th>Key</th><th>First time</th><th>Next reviews</th></tr>
+      </thead>
+      <tbody>
+        {% for rating in ratings %}
+          <tr>
+            <td><span aria-hidden="true">{{ rating.emoji }}</span> {{ rating.label }}</td>
+            <td><kbd>{{ rating.hotkey }}</kbd></td>
+            <td>{{ rating.min_interval|interval }}</td>
+            <td>
+              {% if rating.multiplier %}
+                previous interval × {{ rating.multiplier|floatformat:"-1" }}
+              {% else %}
+                always {{ rating.min_interval|interval }}
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table></div>
+    <ul>
+      <li>The interval grows with every good answer, up to <strong>{{ max_interval|interval }}</strong>. For example, always 😎: 7 days → 28 → 112 → 1 year.</li>
+      <li>After 😕 or 😵 it starts growing again from the beginning.</li>
+      <li>Intervals of one day or more are rounded to whole days.</li>
+      <li>Under each emoji you can see the <strong>actual next interval</strong> of this very card.</li>
+      <li>The rating applies in all decks the word is in.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Controls</h2>
+    <div class="overflow-auto"><table>
+      <tbody>
+        <tr><td><kbd>space bar</kbd></td><td>flips the card</td></tr>
+        <tr><td><kbd>1</kbd> – <kbd>4</kbd></td><td>rates the card (😎 🤔 😕 😵)</td></tr>
+        <tr><td><kbd>P</kbd></td><td>plays the pronunciation (in the native → foreign direction after flipping)</td></tr>
+        <tr><td><kbd>V</kbd></td><td>reads the sentence (in the native → foreign direction after flipping)</td></tr>
+        <tr><td><strong>?</strong> under the card</td><td>shows or hides the explanation of the buttons</td></tr>
+        <tr><td><strong>✎</strong> under the card or <kbd>E</kbd></td><td>opens editing of the word (a typo, a wrong translation); the <em>Save and back to the test</em> or <em>Back to the test without saving</em> button takes you back to the same card. The card has not been rated yet, so nothing is counted twice. Changes to variants and the note apply in all decks the word is in.</td></tr>
+        <tr><td><strong>Finish test</strong></td><td>ends the test and shows the summary</td></tr>
+      </tbody>
+    </table></div>
+    <p>On a phone, just tap. The next card loads without reloading the page.</p>
+  </section>
+
+  <section>
+    <h2>Order of cards</h2>
+    <ul>
+      <li>First the cards that are due, then new words. In both groups the order is <strong>random</strong>, different in every test. So both directions of the same word are usually far apart, and you do not get the second direction right just because you still remember it from a moment ago.</li>
+      <li>The same word in the other direction, or another meaning of the same word (palm / palm), never comes right after it.</li>
+      <li>A card rated 😵 comes back in the same test after 10 minutes.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Summary</h2>
+    <p>
+      At the end you see the count of each rating and the words rated 😕 or 😵.
+      <strong>Practice the wrong ones again</strong> starts a new test with only those words.
+    </p>
+    <p>
+      <strong>✍️ This word does not stick:</strong> when the test has a word that keeps failing over time
+      (at least half of the last 8 answers wrong, 😕 counts as half) and it has no sentence yet,
+      a form is offered for it: write a sentence under the foreign word and its translation under the native one.
+      Above the form there are <strong>colored dots</strong> of the last answers for each direction
+      (<em>EN → CS</em>, <em>CS → EN</em>), oldest on the left: you see right away in which direction the word fails
+      and whether it is getting better. The last 8 are shown, older ones are hidden under <em>+N</em> (hover over it to see how they went);
+      clicking it expands up to 30 dots, and more are in the word detail.
+      A word in a sentence is easier to learn. If the dictionary has an example for this meaning,
+      it is shown with a <strong>Use</strong> button (it fills in the sentence and its translation). <strong>Not now</strong> hides the form;
+      the word may be offered again after another test. A word you know and forget once is not offered.
+    </p>
+    <p class="muted">
+      For each answer, the app also saves your thinking time (until you flip the card) for the statistics.
+      When you lock your phone or switch to another app, the timer stops.
+    </p>
+  </section>
+{% endblock %}

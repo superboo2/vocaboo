@@ -1,5 +1,7 @@
 from django.http import Http404
 from django.shortcuts import redirect, render
+from django.template.loader import select_template
+from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 
 from study import services as study_services
@@ -7,7 +9,8 @@ from study import stats
 from study.ratings import MAX_INTERVAL, RATINGS
 from vocabulary import services as vocabulary_services
 
-# Help pages: (address, tab name). The first one opens for /help/.
+# Help pages: (address, tab name). The first one opens for /help/. Each tab has a template
+# for each language, templates/help/<language>/<address>.html; English when one is missing.
 HELP_TOPICS = [
     ("slovniky", _("Decks")),
     ("slovicka", _("Words")),
@@ -43,9 +46,10 @@ def help_page(request, topic):
     topics = dict(HELP_TOPICS)
     if topic not in topics:
         raise Http404
+    template = select_template([f"help/{get_language()}/{topic}.html", f"help/en/{topic}.html"])
     return render(
         request,
-        f"help/{topic}.html",
+        template.template.name,
         {
             "topics": HELP_TOPICS,
             "topic": topic,

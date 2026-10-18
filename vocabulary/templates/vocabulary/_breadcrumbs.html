@@ -2,7 +2,7 @@
 {# Path to the current page: Přehled › Angličtina › Seriály › current #}
 <nav aria-label="breadcrumb">
   <ul>
-    <li><a href="{% url 'dashboard' %}">{% translate "Dashboard" %}</a></li>
+    <li><a href="{% url 'dashboard' %}">{% translate "Overview" %}</a></li>
     {% for item in ancestors %}
       <li><a href="{% url 'vocabulary:deck_detail' item.pk %}">{{ item.name }}</a></li>
     {% endfor %}
