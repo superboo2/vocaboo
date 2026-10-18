@@ -14,8 +14,12 @@
 
     <form method="post">
       {% csrf_token %}
-      {{ form }}
+      {% for field in form %}{{ field.as_field_group }}{% endfor %}
       <input type="hidden" name="next" value="{{ next }}">
+      {# A wrong e-mail or password: red text right above the button, where the eyes are #}
+      {% for error in form.non_field_errors %}
+        <p class="form-error" role="alert">{{ error }}</p>
+      {% endfor %}
       <button type="submit">{% translate "Přihlásit se" %}</button>
     </form>
   </article>

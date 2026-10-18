@@ -343,3 +343,49 @@ document.addEventListener("click", function (event) {
 });
 
 document.addEventListener("DOMContentLoaded", showThemeChoice);
+
+// Password fields: an eye button inside the field shows the password and hides it again
+const EYE_OPEN =
+  '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+const EYE_CLOSED =
+  '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><path d="M1 1l22 22"/></svg>';
+
+function showPasswordState(button, shown) {
+  button.innerHTML = shown ? EYE_CLOSED : EYE_OPEN;
+  button.setAttribute("aria-pressed", shown ? "true" : "false");
+  // UI texts are Czech only for now
+  button.setAttribute("aria-label", shown ? "Skrýt heslo" : "Zobrazit heslo");
+  button.title = button.getAttribute("aria-label");
+}
+
+function addPasswordEyes() {
+  document.querySelectorAll("input[type='password']").forEach(function (input) {
+    if (input.parentElement.classList.contains("password-field")) {
+      return;
+    }
+    const wrap = document.createElement("span");
+    wrap.className = "password-field";
+    input.parentNode.insertBefore(wrap, input);
+    wrap.appendChild(input);
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "password-eye";
+    showPasswordState(button, false);
+    wrap.appendChild(button);
+  });
+}
+
+document.addEventListener("click", function (event) {
+  const button = event.target.closest(".password-eye");
+  if (!button) {
+    return;
+  }
+  const input = button.parentElement.querySelector("input");
+  const shown = input.type === "password";
+  input.type = shown ? "text" : "password";
+  showPasswordState(button, shown);
+  // Back to the field, so typing goes on
+  input.focus();
+});
+
+document.addEventListener("DOMContentLoaded", addPasswordEyes);

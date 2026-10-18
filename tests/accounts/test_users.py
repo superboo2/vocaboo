@@ -113,3 +113,92 @@ def test_settings_link_in_navigation(client):
     client.force_login(user)
 
     assert reverse("settings") in client.get(reverse("dashboard")).content.decode()
+
+
+@pytest.mark.django_db
+def test_password_change_keeps_the_user_logged_in(client):
+    user = User.objects.create_user(email="martin@example.com", password="secret-pass-123")
+    client.force_login(user)
+
+    page = client.get(reverse("password_change"))
+    response = client.post(
+        reverse("password_change"),
+        {
+            "old_password": "secret-pass-123",
+            "new_password1": "new-ghost-pass-456",
+            "new_password2": "new-ghost-pass-456",
+        },
+    )
+
+    assert page.status_code == 200
+    assert response.url == reverse("settings")
+    user.refresh_from_db()
+    assert user.check_password("new-ghost-pass-456")
+    # Still logged in after the change
+    assert client.get(reverse("settings")).status_code == 200
+
+
+@pytest.mark.django_db
+def test_password_change_needs_the_old_password(client):
+    user = User.objects.create_user(email="martin@example.com", password="secret-pass-123")
+    client.force_login(user)
+
+    response = client.post(
+        reverse("password_change"),
+        {
+            "old_password": "wrong-pass",
+            "new_password1": "new-ghost-pass-456",
+            "new_password2": "new-ghost-pass-456",
+        },
+    )
+
+    assert response.status_code == 200
+    user.refresh_from_db()
+    assert user.check_password("secret-pass-123")
+
+
+@pytest.mark.django_db
+def test_password_change_needs_login(client):
+    response = client.get(reverse("password_change"))
+
+    assert response.status_code == 302
+    assert reverse("login") in response.url
+
+
+@pytest.mark.django_db
+def test_wrong_login_shows_red_error_and_red_fields(client):
+    User.objects.create_user(email="martin@example.com", password="secret-pass-123")
+
+    response = client.post(
+        reverse("login"), {"username": "martin@example.com", "password": "wrong-pass"}
+    )
+
+    html = response.content.decode()
+    assert response.status_code == 200
+    assert '<p class="form-error" role="alert">' in html
+    assert "E-mail nebo heslo není správně. Zkus to znovu." in html
+    assert html.count('aria-invalid="true"') == 2
+    # The cursor waits in the password field
+    assert 'autofocus required id="id_password"' in html
+
+
+@pytest.mark.django_db
+def test_login_page_without_error_has_no_error_text(client):
+    html = client.get(reverse("login")).content.decode()
+
+    assert "form-error" not in html
+    assert 'aria-invalid="true"' not in html
+
+
+def test_password_rules_have_czech_texts():
+    from django.contrib.auth.password_validation import validate_password
+    from django.core.exceptions import ValidationError
+
+    with pytest.raises(ValidationError) as error:
+        validate_password("1234")
+
+    assert error.value.messages == [
+        "Heslo je moc krátké, potřebuje aspoň 8 znaků.",
+        "Heslo je moc běžné, vymysli jiné.",
+        "Heslo nemůže být jen z čísel.",
+    ]

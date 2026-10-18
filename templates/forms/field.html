@@ -2,7 +2,8 @@
 {% if field.label %}{{ field.label_tag }}{% endif %}
 {{ field }}
 {% if field.errors %}
-  <small id="{{ field.auto_id }}_error" class="field-error">{{ field.errors|join:" " }}</small>
+  {# Every error on its own line #}
+  <small id="{{ field.auto_id }}_error" class="field-error">{% for error in field.errors %}{% if not forloop.first %}<br>{% endif %}{{ error }}{% endfor %}</small>
 {% endif %}
 {% if field.help_text %}
   <small id="{{ field.auto_id }}_helptext">{{ field.help_text|safe }}</small>

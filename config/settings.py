@@ -157,19 +157,12 @@ LOGOUT_REDIRECT_URL = "login"
 
 # Password validation
 
+# Django's rules with Czech texts of the app (accounts/validators.py)
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
-    },
-    {
-        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
-    },
+    {"NAME": "accounts.validators.UserAttributeSimilarityValidator"},
+    {"NAME": "accounts.validators.MinimumLengthValidator"},
+    {"NAME": "accounts.validators.CommonPasswordValidator"},
+    {"NAME": "accounts.validators.NumericPasswordValidator"},
 ]
 
 

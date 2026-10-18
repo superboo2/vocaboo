@@ -1,4 +1,7 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import PasswordChangeForm as DjangoPasswordChangeForm
+from django.core.exceptions import ValidationError
 from django.utils.translation import gettext_lazy as _
 
 from vocabulary.forms import LanguageChoiceField
@@ -55,3 +58,44 @@ class SettingsForm(forms.ModelForm):
             ),
         }
         widgets = {"default_direction": forms.RadioSelect, "autoplay_content": forms.RadioSelect}
+
+
+class PasswordChangeForm(DjangoPasswordChangeForm):
+    """Django's form with the texts of the app (Django's own say "Vaše", the app says "ty")."""
+
+    error_messages = {
+        **DjangoPasswordChangeForm.error_messages,
+        "password_incorrect": _("Současné heslo není správně, zkus to znovu."),
+        "password_mismatch": _("Nová hesla se neshodují."),
+    }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields["old_password"].label = _("Současné heslo")
+        self.fields["new_password1"].label = _("Nové heslo")
+        self.fields["new_password1"].help_text = _(
+            "Aspoň 8 znaků, ne jen čísla, ne moc běžné a ne podobné tvému e-mailu."
+        )
+        self.fields["new_password2"].label = _("Nové heslo znovu")
+        self.fields["new_password2"].help_text = _("Pro kontrolu ještě jednou.")
+
+
+class LoginForm(AuthenticationForm):
+    """Login with the texts of the app; after a wrong try both fields are red and the cursor
+    waits in the password field (the e-mail stays filled in)."""
+
+    error_messages = {
+        **AuthenticationForm.error_messages,
+        "invalid_login": _("E-mail nebo heslo není správně. Zkus to znovu."),
+        "inactive": _("Tento účet je vypnutý."),
+    }
+
+    def clean(self):
+        try:
+            return super().clean()
+        except ValidationError:
+            for field in self.fields.values():
+                field.widget.attrs["aria-invalid"] = "true"
+            self.fields["username"].widget.attrs.pop("autofocus", None)
+            self.fields["password"].widget.attrs["autofocus"] = True
+            raise

@@ -310,6 +310,66 @@ nav .brand strong {
   line-height: 1;
 }
 
+/* An error of the whole form (wrong e-mail or password), right above the button */
+.form-error {
+  margin-bottom: var(--pico-spacing);
+  color: var(--pico-del-color);
+  font-size: 0.9rem;
+}
+
+/* A password field with the eye button inside it on the right (app.js) */
+.password-field {
+  position: relative;
+  display: block;
+}
+
+/* Room for the eye; Pico's red "!" of a wrong field goes left of it */
+.password-field > input {
+  padding-inline-end: 3rem !important;
+  background-position: center right 2.6rem !important;
+}
+
+.password-field > .password-eye {
+  position: absolute;
+  top: 0;
+  right: 0.35rem;
+  bottom: var(--pico-spacing);
+  display: flex;
+  align-items: center;
+  width: auto;
+  margin: 0;
+  padding: 0 0.45rem;
+  border: 0;
+  background: none;
+  color: var(--pico-muted-color);
+}
+
+.password-field > .password-eye:hover,
+.password-field > .password-eye:focus-visible {
+  color: var(--pico-primary);
+}
+
+/* Error and help under the field, like Pico does it right after an input (the input is now
+   inside the wrapper); :where keeps the red colour of .field-error */
+:where(.password-field) + small,
+:where(.password-field) + small + small {
+  display: block;
+  width: 100%;
+  margin-top: calc(var(--pico-spacing) * -0.75);
+  margin-bottom: var(--pico-spacing);
+  color: var(--pico-muted-color);
+}
+
+.password-eye svg {
+  width: 1.25rem;
+  height: 1.25rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 /* Narrow centered box, e.g. login */
 .narrow {
   max-width: 26rem;
@@ -608,7 +668,8 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
 }
 
 /* Error text under a form field */
-.field-error {
+.field-error,
+:where(.password-field) + small.field-error {
   color: var(--pico-del-color);
 }
 
@@ -1339,6 +1400,26 @@ main:focus {
 }
 
 .settings-group fieldset:last-child {
+  margin-bottom: 0;
+}
+
+/* The account card under the save button */
+.settings-account {
+  margin-top: 1.5rem;
+}
+
+.settings-account p {
+  margin-bottom: 0;
+}
+
+/* The save button with a quiet cancel link next to it */
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form-actions button {
   margin-bottom: 0;
 }
 

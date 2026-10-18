@@ -65,4 +65,10 @@
 
       <button type="submit" class="save-button">{% translate "Uložit" %}</button>
     </form>
+
+    {# Outside the form above: the password has its own page #}
+    <section class="settings-group card-section settings-account">
+      <h2>{% translate "Účet" %}</h2>
+      <p><a href="{% url 'password_change' %}">{% translate "Změnit heslo" %}</a></p>
+    </section>
 {% endblock %}
