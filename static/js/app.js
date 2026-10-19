@@ -388,3 +388,27 @@ document.addEventListener("click", function (event) {
 });
 
 document.addEventListener("DOMContentLoaded", addPasswordEyes);
+
+// Words from a topic: "select all on this page" and the number of ticked words in the button
+function showTopicCount(form) {
+  const ticked = form.querySelectorAll(".topic-words input[name='sense']:checked").length;
+  const button = form.querySelector("[data-topic-add]");
+  if (button) {
+    button.querySelector("[data-topic-count]").textContent = ticked;
+    button.disabled = ticked === 0;
+  }
+}
+
+document.addEventListener("change", function (event) {
+  const form = event.target.closest("form");
+  if (!form || !form.querySelector("[data-topic-add]")) {
+    return;
+  }
+  if (event.target.matches("[data-action='topic-select-all']")) {
+    form.querySelectorAll(".topic-words input[name='sense']:not(:disabled)").forEach(function (box) {
+      box.checked = event.target.checked;
+    });
+  }
+  showTopicCount(form);
+});
+

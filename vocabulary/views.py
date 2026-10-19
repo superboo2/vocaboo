@@ -11,6 +11,7 @@ from django.utils.translation import gettext as _
 from django.utils.translation import ngettext
 from django.views.decorators.http import require_POST
 
+from dictionary import topics
 from dictionary.providers import get_pronunciation, get_suggestions, other_meanings
 from study import services as study_services
 from study.models import StudySession
@@ -80,6 +81,72 @@ def deck_detail(request, pk):
             "deck_terms": services.list_deck_terms(deck, sort),
             "sort": sort,
             "sorts": services.TERM_SORTS,
+            "has_dictionary": topics.has_dictionary(deck),
+        },
+    )
+
+
+def topic_words(request, pk):
+    """Words of a topic from the dictionary of the app; the ticked ones are added to the deck.
+
+    GET ?topic=zvire&level=A1&level=A2&page=2 shows one page; POST adds the ticked meanings and
+    comes back to the same page (the added words are gone from it).
+    """
+    deck = _get_deck(request, pk)
+    if not topics.has_dictionary(deck):
+        raise Http404
+    tag = topics.find_topic(request.GET.get("topic", ""))
+    levels = [level for level in request.GET.getlist("level") if level in topics.LEVELS]
+    levels = levels or list(topics.DEFAULT_LEVELS)
+    page = int(request.GET["page"]) if request.GET.get("page", "").isdigit() else 1
+
+    if request.method == "POST" and tag:
+        added = topics.add_topic_words(deck, request.POST.getlist("sense"))
+        if added:
+            messages.success(
+                request,
+                ngettext(
+                    "Added %(count)s word to “%(deck)s”.",
+                    "Added %(count)s words to “%(deck)s”.",
+                    len(added),
+                )
+                % {"count": len(added), "deck": deck.name},
+            )
+        else:
+            messages.info(request, _("Tick the words you want to add."))
+        return redirect(request.get_full_path())
+
+    show_owned = request.GET.get("owned") == "1"
+    if tag:
+        words, has_next, counts = topics.topic_words(deck, tag, levels, page, show_owned)
+    else:
+        words, has_next, counts = [], False, topics.TopicCounts()
+    query = request.GET.copy()
+    query.pop("page", None)
+    # The same choice with or without the words from other decks
+    toggle = query.copy()
+    toggle.pop("owned", None)
+    if not show_owned:
+        toggle["owned"] = "1"
+    return render(
+        request,
+        "vocabulary/topic_words.html",
+        {
+            "deck": deck,
+            "ancestors": services.get_ancestors(deck)[:-1],
+            "topics": topics.topics(),
+            "tag": tag,
+            "topic_name": topics.topic_name(tag) if tag else "",
+            "levels": topics.LEVELS,
+            "chosen_levels": levels,
+            "words": words,
+            "page": page,
+            "has_next": has_next,
+            "query": query.urlencode(),
+            "page_size": topics.PAGE,
+            "counts": counts,
+            "show_owned": show_owned,
+            "toggle_query": toggle.urlencode(),
         },
     )
 

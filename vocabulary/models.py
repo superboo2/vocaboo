@@ -136,6 +136,8 @@ class Term(models.Model):
         TRANSLATED = "translated", _("translator")
         VOICE = "voice", _("voice")
         IMPORT = "import", _("import")
+        # Ticked on the page "Words from a topic" (dictionary of the app)
+        DICTIONARY = "dictionary", _("dictionary")
 
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,

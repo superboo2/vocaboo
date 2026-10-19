@@ -18,6 +18,7 @@ urlpatterns = [
     path("decks/<int:pk>/words/suggest/", views.term_suggest, name="term_suggest"),
     path("decks/<int:pk>/words/link/<int:term_pk>/", views.term_link, name="term_link"),
     path("decks/<int:pk>/words/move/", views.terms_move, name="terms_move"),
+    path("decks/<int:pk>/words/topic/", views.topic_words, name="topic_words"),
     path("decks/<int:deck_pk>/words/<int:pk>/", views.term_detail, name="term_detail"),
     path("decks/<int:deck_pk>/words/<int:pk>/edit/", views.term_edit, name="term_edit"),
     path(

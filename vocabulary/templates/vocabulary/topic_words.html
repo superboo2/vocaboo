@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load i18n arrows vocabulary_tags %}
+
+{% block title %}{% translate "Words from a topic" %} · {{ deck.name }} · Vocaboo{% endblock %}
+
+{% block content %}
+  {# Words of a topic from the dictionary of the app (dictionary/topics.py): the user picks #}
+  {# a topic and levels, ticks the words to learn and adds them; one page at a time, no #}
+  {# "select all", so the deck is not filled with words nobody chose. #}
+  <nav aria-label="breadcrumb">
+    <ul>
+      <li><a href="{% url 'dashboard' %}">{% translate "Overview" %}</a></li>
+      {% for item in ancestors %}
+        <li><a href="{% url 'vocabulary:deck_detail' item.pk %}">{{ item.name }}</a></li>
+      {% endfor %}
+      <li><a href="{% url 'vocabulary:deck_detail' deck.pk %}">{{ deck.name }}</a></li>
+      <li>{% translate "Words from a topic" %}</li>
+    </ul>
+  </nav>
+
+  <h1>{% translate "Words from a topic" %}</h1>
+  <p class="muted page-sub">{% blocktranslate with name=deck.name %}Tick the words you want to learn; they are added to “{{ name }}”.{% endblocktranslate %}</p>
+
+  <form method="get" class="card-section topic-choice">
+    <label for="id_topic">{% translate "Topic" %}</label>
+    <select name="topic" id="id_topic" required>
+      <option value="">{% translate "Choose a topic…" %}</option>
+      {% for group in topics %}
+        <optgroup label="{{ group.name }}">
+          <option value="{{ group.tag.slug }}"{% if tag and tag.pk == group.tag.pk %} selected{% endif %}>{% blocktranslate with name=group.name %}{{ name }} (all){% endblocktranslate %}</option>
+          {% for child in group.children %}
+            <option value="{{ child.tag.slug }}"{% if tag and tag.pk == child.tag.pk %} selected{% endif %}>{{ child.name }}</option>
+          {% endfor %}
+        </optgroup>
+      {% endfor %}
+    </select>
+    <fieldset class="topic-levels">
+      <legend>{% translate "Level" %}</legend>
+      {% for level in levels %}
+        <label><input type="checkbox" name="level" value="{{ level }}"{% if level in chosen_levels %} checked{% endif %}> {{ level }}</label>
+      {% endfor %}
+    </fieldset>
+    <button type="submit" class="outline">{% translate "Show words" %}</button>
+  </form>
+
+  {% if tag %}
+    <form method="post" class="card-section">
+      {% csrf_token %}
+      <h2 class="section-title">{{ topic_name }}</h2>
+      {# How many words the topic has and where they are; the ones from other decks are hidden #}
+      <p class="topic-count muted"><small>
+        <strong>{% blocktranslate count counter=counts.total with levels=chosen_levels|join:", " %}{{ counter }} word in the topic ({{ levels }}){% plural %}{{ counter }} words in the topic ({{ levels }}){% endblocktranslate %}</strong>{% if counts.elsewhere %} · {% blocktranslate count counter=counts.elsewhere %}{{ counter }} in other decks{% plural %}{{ counter }} in other decks{% endblocktranslate %}{% if not show_owned %} ({% translate "hidden" %}){% endif %}{% endif %}{% if counts.here %} · {% blocktranslate count counter=counts.here %}{{ counter }} already in this deck{% plural %}{{ counter }} already in this deck{% endblocktranslate %}{% endif %}
+        {% if counts.elsewhere %} · <a href="?{{ toggle_query }}">{% if show_owned %}{% translate "Hide them" %}{% else %}{% translate "Show them" %}{% endif %}</a>{% endif %}
+      </small></p>
+      {% if words %}
+        {# A short tip with the ghost: several small decks learn better than one big one #}
+        <p class="topic-tip">{% include "_ghost_wink.html" with class="tip-ghost" %}<span>{% blocktranslate count counter=page_size %}Small decks are easier to learn: we recommend about {{ counter }} word in a deck.{% plural %}Small decks are easier to learn: we recommend about {{ counter }} words in a deck.{% endblocktranslate %}</span></p>
+
+        <ul class="topic-words">
+          {% for item in words %}
+            <li{% if item.other_decks %} class="is-owned"{% endif %}>
+              <label>
+                <input type="checkbox" name="sense" value="{{ item.sense.pk }}"{% if item.other_decks %} disabled{% endif %}>
+                <span class="topic-word">
+                  <strong>{{ item.word }}</strong>{% arrow %}{{ item.translation }}
+                  <small class="topic-level">{{ item.level }}</small>
+                </span>
+                {% if item.other_decks %}
+                  <small class="muted">{% blocktranslate with names=item.other_decks|join:", " %}You already have it in “{{ names }}”{% endblocktranslate %}</small>
+                {% elif item.sense.sentence %}
+                  <small class="muted">„{{ item.sense.sentence|plain_sentence:"" }}“ · {{ item.sense.sentence_native|plain_sentence:"" }}</small>
+                {% endif %}
+              </label>
+            </li>
+          {% endfor %}
+        </ul>
+        <nav class="topic-pages" aria-label="{% translate 'Pages' %}">
+          {% if page > 1 %}<a href="?{{ query }}&page={{ page|add:'-1' }}">← {% translate "Previous" %}</a>{% endif %}
+          {% if has_next %}<a href="?{{ query }}&page={{ page|add:'1' }}">{% translate "Next" %} →</a>{% endif %}
+        </nav>
+        {# Stuck to the bottom of the screen, so both are always at hand while scrolling; #}
+        {# app.js keeps the number of ticked words in the button #}
+        <div class="topic-actions">
+          <label class="topic-all"><input type="checkbox" data-action="topic-select-all"> {% translate "Select all on this page" %}</label>
+          <button type="submit" class="save-button" data-topic-add disabled>+ {% translate "Add ticked words" %} (<span data-topic-count>0</span>)</button>
+        </div>
+      {% else %}
+        <p class="muted">{% translate "No more words for this topic and level. Try another level." %}</p>
+      {% endif %}
+    </form>
+  {% endif %}
+
+  <p><a href="{% url 'vocabulary:deck_detail' deck.pk %}">← {% translate "Back to the deck" %}</a></p>
+{% endblock %}

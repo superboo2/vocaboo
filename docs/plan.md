@@ -197,7 +197,7 @@ Krok 7 (kontrola duplicit) a krok 8 (výpočet intervalů) na sobě nezávisí, 
 
 ## Na později
 
-### Slovíčka z tématu (až pro další uživatele)
+### Slovíčka z tématu (hotovo 2026-10-19, viz `dictionary/topics.py`)
 
 Pomoc pro začátek, ne náhrada vlastního zapisování (slovíčko, které si člověk sám najde a
 zapíše, si pamatuje líp; to zůstává hlavní cesta).

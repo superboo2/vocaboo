@@ -2692,3 +2692,130 @@ button.test-button {
   white-space: nowrap;
 }
 
+/* Words from a topic (vocabulary/topic_words.html): the choice, then a list of ticks */
+.topic-levels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+}
+
+.topic-levels legend {
+  width: 100%;
+}
+
+.topic-words {
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.topic-words li {
+  margin: 0;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--pico-muted-border-color);
+  list-style: none;
+}
+
+.topic-words label {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  column-gap: 0.6rem;
+  margin: 0;
+  cursor: pointer;
+}
+
+.topic-words input[type="checkbox"] {
+  grid-row: 1 / span 2;
+  margin-top: 0.25rem;
+}
+
+.topic-words small {
+  grid-column: 2;
+}
+
+.topic-words .is-owned label {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.topic-level {
+  margin-left: 0.4rem;
+  padding: 0 0.35rem;
+  border-radius: var(--radius-small);
+  background: var(--primary-light);
+  font-size: 0.7rem;
+}
+
+/* "Select all" and the add button: a bar stuck to the bottom of the screen */
+.card-section > .topic-actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 5;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 0.75rem;
+  /* Over the padding of the card (1rem 1.25rem), so the bar reaches its edges */
+  margin: 0 -1.25rem -1rem;
+  padding: 0.6rem 1.25rem calc(0.6rem + env(safe-area-inset-bottom, 0px));
+  border-top: 1px solid var(--pico-muted-border-color);
+  border-radius: 0 0 var(--radius-card) var(--radius-card);
+  background: var(--pico-card-background-color);
+}
+
+.topic-actions .save-button {
+  margin-bottom: 0;
+}
+
+.topic-pages {
+  display: flex;
+  gap: 1rem;
+}
+
+/* The tip above the words: light indigo with the ghost of the logo */
+.topic-tip {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+  padding: 0.55rem 0.8rem;
+  border-radius: var(--radius-control);
+  background: color-mix(in srgb, var(--primary) 12%, transparent);
+  font-size: 0.9rem;
+}
+
+/* The lines of the winking ghost (closed eye, smile) in the colour of its eyes */
+.ghost-line {
+  stroke: var(--logo-eye);
+}
+
+.topic-tip .tip-ghost {
+  width: 2.3rem;
+  height: 2.3rem;
+  flex: none;
+}
+
+.topic-count {
+  margin-bottom: 0.6rem;
+}
+
+/* Quiet check boxes in the list (smaller, thin frame; indigo only when ticked) */
+.topic-words input[type="checkbox"],
+.topic-all input[type="checkbox"] {
+  width: 1.05rem;
+  height: 1.05rem;
+  border-width: 1px;
+  border-color: var(--pico-muted-border-color);
+}
+
+.topic-all {
+  margin: 0;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.topic-pages {
+  margin-bottom: 1rem;
+}
+

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-19 17:03+0200\n"
+"POT-Creation-Date: 2026-10-19 22:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -410,6 +410,171 @@ msgstr "fráz. slov."
 msgctxt "part of speech"
 msgid "phrase"
 msgstr "fráze"
+
+msgid "People"
+msgstr "Člověk"
+
+msgid "Body"
+msgstr "Tělo"
+
+msgid "Health and illness"
+msgstr "Zdraví a nemoci"
+
+msgid "Family and relationships"
+msgstr "Rodina a vztahy"
+
+msgid "Feelings and moods"
+msgstr "City a nálady"
+
+msgid "Character"
+msgstr "Povaha a vlastnosti"
+
+msgid "Appearance"
+msgstr "Vzhled"
+
+msgid "Clothes"
+msgstr "Oblečení"
+
+msgid "Food and drink"
+msgstr "Jídlo a pití"
+
+msgid "Fruit"
+msgstr "Ovoce"
+
+msgid "Vegetables"
+msgstr "Zelenina"
+
+msgid "Drinks"
+msgstr "Nápoje"
+
+msgid "Cooking and kitchen"
+msgstr "Vaření a kuchyně"
+
+msgid "Home"
+msgstr "Domov"
+
+msgid "Furniture and things at home"
+msgstr "Nábytek a vybavení"
+
+msgid "Housework"
+msgstr "Domácí práce"
+
+msgid "Nature"
+msgstr "Příroda"
+
+msgid "Animals"
+msgstr "Zvířata"
+
+msgid "Plants"
+msgstr "Rostliny"
+
+msgid "Weather"
+msgstr "Počasí"
+
+msgid "Landscape"
+msgstr "Krajina"
+
+msgid "Town and places"
+msgstr "Město a místa"
+
+msgid "Buildings"
+msgstr "Budovy"
+
+msgid "Transport"
+msgstr "Doprava"
+
+msgid "Shopping"
+msgstr "Nakupování"
+
+msgid "Travel"
+msgstr "Cestování"
+
+msgid "Work and school"
+msgstr "Práce a škola"
+
+msgid "School and learning"
+msgstr "Škola a učení"
+
+msgid "Jobs"
+msgstr "Zaměstnání"
+
+msgid "Money"
+msgstr "Peníze"
+
+msgid "Office"
+msgstr "Kancelář"
+
+msgid "Free time"
+msgstr "Volný čas"
+
+msgid "Sport"
+msgstr "Sport"
+
+msgid "Music"
+msgstr "Hudba"
+
+msgid "Films and series"
+msgstr "Filmy a seriály"
+
+msgid "Games"
+msgstr "Hry"
+
+msgid "Art and culture"
+msgstr "Umění a kultura"
+
+msgid "Communication"
+msgstr "Komunikace"
+
+msgid "Greetings and politeness"
+msgstr "Pozdravy a zdvořilost"
+
+msgid "Everyday conversation"
+msgstr "Běžná konverzace"
+
+msgid "Phone, computer, internet"
+msgstr "Telefon, počítač, internet"
+
+msgid "News and media"
+msgstr "Zprávy a média"
+
+msgid "Society"
+msgstr "Společnost"
+
+msgid "Law and crime"
+msgstr "Zákon a zločin"
+
+msgid "Politics"
+msgstr "Politika"
+
+msgid "War and army"
+msgstr "Válka a armáda"
+
+msgid "Religion"
+msgstr "Náboženství"
+
+msgid "Time"
+msgstr "Čas"
+
+msgid "Days, months, seasons"
+msgstr "Dny, měsíce, roční období"
+
+msgid "Numbers and amounts"
+msgstr "Čísla a množství"
+
+msgid "Colours"
+msgstr "Barvy"
+
+msgid "Place, direction, position"
+msgstr "Místo, směr, poloha"
+
+msgid "Movement"
+msgstr "Pohyb"
+
+msgid "Senses"
+msgstr "Smysly a vnímání"
+
+msgid "Thinking and knowing"
+msgstr "Myšlení a vědění"
 
 #, python-format
 msgid "%(count)s meaning"
@@ -978,9 +1143,6 @@ msgstr "Při ↔ je každé slovíčko v testu dvakrát, jednou každým směrem
 msgid "Success"
 msgstr "Úspěšnost"
 
-msgid "Time"
-msgstr "Čas"
-
 msgctxt "after a number"
 msgid "words"
 msgstr "slovíček"
@@ -1364,6 +1526,9 @@ msgstr "hlas"
 msgid "import"
 msgstr "import"
 
+msgid "dictionary"
+msgstr "slovník aplikace"
+
 msgid "main foreign variant"
 msgstr "hlavní cizí varianta"
 
@@ -1624,6 +1789,9 @@ msgstr "Procvičit slovník"
 msgid "New word"
 msgstr "Nové slovíčko"
 
+msgid "From a topic"
+msgstr "Z tématu"
+
 msgid "Sub-decks"
 msgstr "Podslovníky"
 
@@ -1767,6 +1935,98 @@ msgstr "Přidat podslovník"
 msgid "Back"
 msgstr "Zpět"
 
+msgid "Words from a topic"
+msgstr "Slovíčka z tématu"
+
+#, python-format
+msgid "Tick the words you want to learn; they are added to “%(name)s”."
+msgstr "Zaškrtni slovíčka, která se chceš učit; přidají se do „%(name)s“."
+
+msgid "Topic"
+msgstr "Téma"
+
+msgid "Choose a topic…"
+msgstr "Vyber téma…"
+
+#, python-format
+msgid "%(name)s (all)"
+msgstr "%(name)s (vše)"
+
+msgid "Level"
+msgstr "Úroveň"
+
+msgid "Show words"
+msgstr "Ukázat slovíčka"
+
+#, python-format
+msgid "%(counter)s word in the topic (%(levels)s)"
+msgid_plural "%(counter)s words in the topic (%(levels)s)"
+msgstr[0] "%(counter)s slovíčko v tématu (%(levels)s)"
+msgstr[1] "%(counter)s slovíčka v tématu (%(levels)s)"
+msgstr[2] "%(counter)s slovíček v tématu (%(levels)s)"
+
+#, python-format
+msgid "%(counter)s in other decks"
+msgid_plural "%(counter)s in other decks"
+msgstr[0] "%(counter)s v jiných slovnících"
+msgstr[1] "%(counter)s v jiných slovnících"
+msgstr[2] "%(counter)s v jiných slovnících"
+
+msgid "hidden"
+msgstr "skrytá"
+
+#, python-format
+msgid "%(counter)s already in this deck"
+msgid_plural "%(counter)s already in this deck"
+msgstr[0] "%(counter)s už v tomto slovníku"
+msgstr[1] "%(counter)s už v tomto slovníku"
+msgstr[2] "%(counter)s už v tomto slovníku"
+
+msgid "Hide them"
+msgstr "Skrýt je"
+
+msgid "Show them"
+msgstr "Ukázat je"
+
+#, python-format
+msgid ""
+"Small decks are easier to learn: we recommend about %(counter)s word in a "
+"deck."
+msgid_plural ""
+"Small decks are easier to learn: we recommend about %(counter)s words in a "
+"deck."
+msgstr[0] ""
+"Menší slovníky se učí líp: doporučujeme asi %(counter)s slovíčko na slovník."
+msgstr[1] ""
+"Menší slovníky se učí líp: doporučujeme asi %(counter)s slovíčka na slovník."
+msgstr[2] ""
+"Menší slovníky se učí líp: doporučujeme asi %(counter)s slovíček na slovník."
+
+#, python-format
+msgid "You already have it in “%(names)s”"
+msgstr "Už máš v „%(names)s“"
+
+msgid "Pages"
+msgstr "Stránky"
+
+msgid "Previous"
+msgstr "Předchozí"
+
+msgid "Next"
+msgstr "Další"
+
+msgid "Select all on this page"
+msgstr "Vybrat vše na této stránce"
+
+msgid "Add ticked words"
+msgstr "Přidat zaškrtnutá"
+
+msgid "No more words for this topic and level. Try another level."
+msgstr "Pro toto téma a úroveň už tu nic dalšího není. Zkus jinou úroveň."
+
+msgid "Back to the deck"
+msgstr "Zpět do slovníku"
+
 msgid "to"
 msgstr "do"
 
@@ -1779,6 +2039,16 @@ msgstr "Slovník „%(name)s“ je vytvořený."
 
 msgid "Create"
 msgstr "Vytvořit"
+
+#, python-format
+msgid "Added %(count)s word to “%(deck)s”."
+msgid_plural "Added %(count)s words to “%(deck)s”."
+msgstr[0] "Přidáno %(count)s slovíčko do „%(deck)s“."
+msgstr[1] "Přidána %(count)s slovíčka do „%(deck)s“."
+msgstr[2] "Přidáno %(count)s slovíček do „%(deck)s“."
+
+msgid "Tick the words you want to add."
+msgstr "Zaškrtni slovíčka, která chceš přidat."
 
 msgid "New sub-deck"
 msgstr "Nový podslovník"

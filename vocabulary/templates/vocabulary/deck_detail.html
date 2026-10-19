@@ -25,7 +25,11 @@
   <p class="practice-row"><a href="{% url 'study:new' %}?deck={{ deck.pk }}" class="practice-button">▶︎ {% translate "Practice deck" %}</a></p>
 
   <section class="card-section">
-    <h2 class="section-title">{% translate "New word" %}</h2>
+    <div class="section-head">
+      <h2 class="section-title">{% translate "New word" %}</h2>
+      {# Pick words of a topic from the dictionary of the app (only where it has the pair) #}
+      {% if has_dictionary %}<a href="{% url 'vocabulary:topic_words' deck.pk %}" class="section-add">+ {% translate "From a topic" %}</a>{% endif %}
+    </div>
     {% include "vocabulary/_term_form.html" %}
   </section>
 
