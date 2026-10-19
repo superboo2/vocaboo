@@ -192,3 +192,20 @@ Krok 7 (kontrola duplicit) a krok 8 (výpočet intervalů) na sobě nezávisí, 
 - Servisní funkce mají testy (`pytest`), protože obsahují veškerou logiku: strom, duplicity, intervaly, výběr karet.
 - Views a šablony se ověřují hlavně ručně v prohlížeči. Pár základních testů ověří, že stránky vyžadují přihlášení a nevrací chybu.
 - Testy běží proti lokálnímu PostgreSQL (kvůli `unaccent` a `Lower()` omezením).
+
+---
+
+## Na později
+
+### Slovíčka z tématu (až pro další uživatele)
+
+Pomoc pro začátek, ne náhrada vlastního zapisování (slovíčko, které si člověk sám najde a
+zapíše, si pamatuje líp; to zůstává hlavní cesta).
+
+- V detailu slovníku (a při jeho vytvoření) volba **+ Přidat slovíčka z tématu**.
+- Výběr **tématu** podle značek slovníku aplikace (`LexiconTag`, značky jsou u významů:
+  *zvire*, *jidlo*, *cestovani* …) a **úrovně** (A1–C2).
+- Nabídka asi 20 slovíček s překladem, **nejčastější první** (podle `band`); slova, která už
+  uživatel ve slovníku má, se nenabízejí.
+- Uživatel **zaškrtá, která chce**, přidají se jako jeho vlastní slovíčka (kopie, ne odkaz na
+  slovník aplikace), i s větou a jejím překladem z daného významu. Žádné hromadné předvyplnění.

@@ -13,8 +13,9 @@ class LexiconSenseInline(admin.TabularInline):
 class LexiconEntryAdmin(admin.ModelAdmin):
     """Imported data, mostly for looking (the next import replaces it; edit the file)."""
 
-    list_display = ("word", "part_of_speech", "band", "level", "ipa")
-    list_filter = ("part_of_speech", "band", "level", "foreign_code")
+    list_display = ("word", "part_of_speech", "band", "level", "ipa", "source")
+    # "source" shows what each package of new words brought (docs/slovnik.md)
+    list_filter = ("source", "part_of_speech", "band", "level", "foreign_code")
     search_fields = ("word", "forms__text", "senses__translation")
     inlines = [LexiconSenseInline]
 

@@ -61,6 +61,8 @@ class LexiconEntry(models.Model):
     level = models.CharField(_("level"), max_length=2)
     # Pronunciation in IPA without brackets, e.g. "pɑːm"
     ipa = models.CharField(_("pronunciation"), max_length=200, blank=True)
+    # Which file it came from: "base", or the package of new words, e.g. "2026-10-19"
+    source = models.CharField(_("source"), max_length=20, default="base", db_index=True)
 
     class Meta:
         verbose_name = _("dictionary entry")

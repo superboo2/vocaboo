@@ -341,6 +341,8 @@ Velikost písmen se při kontrole ignoruje (`Ahoj` = `ahoj`), zobrazí se ale ta
 
 **Hotovo:** aplikace má **vlastní anglicko-český slovník** (asi 10 000 hesel; obsah vytvořila AI, nic se nepřebírá z Wiktionary ani jiných slovníků, takže se zdroj neuvádí). Originál je soubor JSONL `dictionary/data/lexicon_en_cs.jsonl` + `lexicon_tags.json` (není v gitu, na server se kopíruje ručně), do databáze ho nahraje příkaz `import_lexicon` (další import data nahradí). Tabulky: `LexiconEntry` (slovo + slovní druh, jazykový pár, pásmo častosti 1–15 v mluvené řeči, úroveň CEFR, IPA), `LexiconForm` (texty, podle kterých se heslo hledá: heslo a jiné zápisy, malými písmeny, s indexem), `LexiconSense` (pořadí, překlad s variantami `;`, poznámka, věta a její překlad se `{…}`, tagy) a `LexiconTag` (pevný seznam, dvě úrovně). Použití: **návrhy** při psaní cizího slova, při přidání i úpravě (významy seřazené podle pásma a pořadí, se zkratkou slovního druhu a poznámkou v titulku; věta doplněná z návrhu se po změně cizího slova zase smaže, pokud ji uživatel neupravil), **další významy** na kartičce a v detailu slovíčka, **IPA** (když si ji uživatel zapne) a **příklad věty** na konci testu (věta významu, jehož překlad sedí na překlad slovíčka). Zvuk dělá jen hlas prohlížeče. Zatím jen angličtina → čeština. Wiktionary (výtah kaikki.org, tabulka `DictionaryEntry`, příkaz `import_wiktionary`, nahrávky z Wikimedia Commons) bylo odstraněno.
 
+**Chybějící slova** (hotovo): příkaz `missing_words` vypíše anglická slova, která uživatelé přidali (cizí strana balíčků EN → …, všichni uživatelé) a ke kterým aplikace neměla nápovědu, protože je slovník nezná ani jako heslo, ani jako jiný zápis. Jedno slovo na řádek, každé jednou, abecedně; `--output soubor` je uloží do souboru. Jen čte. Podklad pro další kolo generování slovníku přes AI (tvary jako *kids*, *ran* a překlepy AI profiltruje). **Balíčky nových slov** (hotovo): `dictionary/data/extensions/RRRR-MM-DD.jsonl`, příkaz `extend_lexicon` (nejdřív kontrola, pak přidá nebo nahradí heslo se stejným slovem a slovním druhem), `import_lexicon` bez cesty nahraje základ + všechny balíčky podle data, pole `LexiconEntry.source`. Postup a pravidla pro AI: [docs/slovnik.md](slovnik.md).
+
 **Další možný krok:** tematické slovníky podle tagů (např. *Zvířata, 30 nejčastějších*), *další nejčastější slova, která ještě nemáš* podle pásem, další jazyky přes stejné rozhraní (`dictionary/providers.py`).
 
 Původní návrh výběru významu:
@@ -375,6 +377,73 @@ Volání LLM je schované za jednotným rozhraním, aby šel poskytovatel vyměn
 - na API klíči nastavit měsíční limit útraty.
 
 Návrh **jen nabízí**, uložení vždy potvrzuje uživatel výběrem.
+
+#### Slovník pro více jazyků (na později, až přibude další jazyk)
+
+Dnes je slovník jen pro jeden pár (en → cs): hesla `LexiconEntry` a jejich významy
+`LexiconSense` s českým překladem a dvěma větami. Aplikace má mít časem asi 5 jazyků, tedy až
+20 párů (cs → es, de → cs …). **Samostatný slovník pro každý pár se nedělá** (20 slovníků,
+každá oprava 20×). Místo toho se slovník postaví přes **pojmy**, jako to dělají víceznačné
+slovníky (Wiktionary má překlady u anglických významů, WordNet a BabelNet pojmy s pevným ID).
+
+**Princip:** pojem je jeden význam nezávislý na jazyce. Významy se převezmou z angličtiny
+(z dnešního en_cs: každý anglický význam = jeden pojem) a slova všech jazyků se na pojmy
+napojují. Dva jazyky se propojí **přes pojem, ne přes anglické slovo**: anglické *palm* má dva
+pojmy (dlaň, palma), takže německé *Handfläche* vede jen na českou *dlaň*, ne na *palmu*.
+
+**Tabulky:**
+
+| Tabulka | Co obsahuje |
+|---|---|
+| `Concept` | pojem: **stálé ID** (např. `palm#1`), značky (`LexiconTag`), `source` (`base` / balíček) |
+| `ConceptSentence` | ukázková věta pojmu v jednom jazyce, hledané slovo ve `{}`; jeden pojem × jazyk = jedna věta |
+| `Word` | slovo jednoho jazyka s jedním slovním druhem: jazyk, slovo, slovní druh, četnost (`band`), úroveň, IPA, rod (kde ho jazyk má), `source` |
+| `WordForm` | tvary a jiné zápisy, podle kterých se slovo najde (malými písmeny: *palms*, *gatos*, *hablo*) |
+| `Sense` | význam slova = vazba slovo → pojem: pořadí (nejčastější první) a **poznámka** |
+
+Příklad:
+
+```
+Concept palm#1, značka telo
+  ConceptSentence en "She read my {palm}." · cs "Četla mi z {dlaně}." · es "Me leyó la {palma}."
+Word en palm (noun)       → Sense palm#1 (pozice 0), palm#2 (pozice 1, poznámka „strom“)
+Word cs dlaň (noun, ž)    → Sense palm#1
+Word es palma (noun, f)   → Sense palm#1
+Word es palmera (noun, f) → Sense palm#2
+```
+
+Nápověda pro pár X → Y: napsané slovo → `WordForm` jazyka X → `Word` → jeho `Sense` (pořadí) →
+`Concept` → slova jazyka Y se stejným pojmem (to jsou překlady) + věty pojmu v X a Y. Stejný
+dotaz pro všech 20 párů. IPA a další významy se berou z `Word` cizího jazyka.
+
+**Rozhodnutí:**
+
+- **Žádné popisky pojmů.** Význam pojmu definuje jeho **anglická věta**; podle ní AI pozná,
+  který význam přeložit, když přidává další jazyk.
+- **Stálé ID pojmu je v souborech**, ne jen v databázi (dnešní `import_lexicon` všechno maže a
+  ID v databázi se mění). Na ID se odkazuje mezi jazyky a později možná i ze slovíček
+  uživatelů (*slovíčka z tématu*); věta se smí opravit, ID nikdy.
+- **Pojem nemusí mít anglické slovo.** Angličtina se na pojem napojuje stejně jako ostatní
+  jazyky; pro významy, které anglicky jedním slovem nejdou (*dobírka*, *chalupa*, *tykat*,
+  *sobremesa*), vznikne pojem s větou v jazycích, které ho mají (a s anglickou větou, která ho
+  opíše).
+- **Poznámka patří k `Sense`** (slovo v jednom jazyce → pojem), protože ji čte uživatel v
+  nápovědě v jeho jazyce. Je volitelná (dnes má poznámku asi 3 500 z 12 500 významů): hlavně
+  u slov s hromadou významů (*get*, *run*: „vést (firmu)“, „fungovat (o stroji)“), u hovorových
+  a vulgárních slov. Věta pojmu se v řádku návrhů neukazuje, proto je poznámka potřeba.
+- **Slovíčka uživatelů zůstávají kopie** (jako dnes), na slovník neodkazují; IPA, další významy
+  a ukázková věta se dál hledají živě podle textu.
+
+**Převod dnešního slovníku** (jednou, těsně před přidáním prvního dalšího jazyka): každý
+`LexiconSense` → `Concept` + `ConceptSentence` (en, cs); `LexiconEntry` → `Word` (en);
+české překlady (`translation`, varianty oddělené `; `) → `Word` (cs) + `Sense`; poznámka →
+`Sense`. Soubory: pojmy (ID, značky, věty podle jazyků) a slova podle jazyků (každé s odkazy na
+ID pojmů). `import_lexicon`, `extend_lexicon`, `missing_words` (podle jazyka) a
+[docs/slovnik.md](slovnik.md) se upraví; pro uživatele se nic nemění.
+
+**Nový jazyk potom:** slovník `Word` toho jazyka (nejčastější slova podle četnosti, s tvary a
+IPA), každé slovo napojené na existující pojmy (nebo nové pojmy) a věty pojmů v tom jazyce.
+Práce roste s počtem jazyků, ne s počtem párů.
 
 ### 5.3 Hromadně (fáze 2)
 Vložení řádků ve tvaru `hello; hi - ahoj` a náhled před uložením (duplicity vyznačené).

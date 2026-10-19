@@ -326,9 +326,42 @@ Import it into the database (the tables `LexiconEntry`, `LexiconSense`, `Lexicon
 `LexiconTag`); importing again replaces the old data, so after editing the file just run it again:
 
 ```bash
-uv run python manage.py import_lexicon dictionary/data/lexicon_en_cs.jsonl
-# Imported 10006 entries with 12537 senses (en → cs), 60 tags.
+uv run python manage.py import_lexicon            # the base and all packages
+# Imported 10006 entries with 12537 senses (en → cs), 60 tags, 0 packages.
+uv run python manage.py import_lexicon --check    # only check the files
 ```
+
+**Packages of new words** extend the dictionary without touching the base: one file per round
+in `dictionary/data/extensions/`, named by its day (`2026-10-19.jsonl`). A package adds entries
+or replaces the entry with the same word and part of speech (e.g. a new form `kids` for `kid`);
+every entry remembers its file in `LexiconEntry.source` (`base` / `2026-10-19`, a filter in the
+admin). The whole round (which words, the rules for the AI that writes the package, the steps on
+the server) is in [docs/slovnik.md](docs/slovnik.md):
+
+```bash
+uv run python manage.py missing_words                          # 1. on the server: what is missing
+# 2. here: "Rozšiř slovník podle docs/slovnik.md" + the list → a package
+uv run python manage.py extend_lexicon dictionary/data/extensions/2026-10-19.jsonl --check
+uv run python manage.py extend_lexicon dictionary/data/extensions/2026-10-19.jsonl   # 3. on the server
+# Package 2026-10-19: added 41 entries, replaced 6, 58 senses.
+```
+
+English words the users added but the app had no hint for, because the dictionary does not
+know them (for its next round: give the list to the AI, let it check the words and write new
+entries, then import again). It reads the decks of all users and changes nothing:
+
+```bash
+uv run python manage.py missing_words
+# fella
+# kids
+# ogre
+# suit up
+uv run python manage.py missing_words --output missing.txt   # the same list into a file
+```
+
+One word per line, each once, A–Z. A word is known when it is a headword or another spelling of
+an entry (`mum`); forms like `kids` or `ran` are listed, so the AI decides whether they need an
+entry. One letter and words with digits are left out.
 
 What the app takes from it:
 
@@ -675,7 +708,7 @@ accounts/     custom user model (login with email), admin, login/logout
 vocabulary/   languages, decks (dictionary tree), words and their variants
   services.py   all rules for decks and words, views only call these functions
   sentences.py  the word in a sentence: found or {marked}, highlighted or replaced by a gap
-dictionary/   the dictionary of the app (import_lexicon) and its sources (providers.py)
+dictionary/   the dictionary of the app (import_lexicon, extend_lexicon, missing_words) and its sources (providers.py)
 study/        tests: review states, sessions, history, the test screen
   cards.py      what one card shows (question, answer, sentence, hints)
   formatting.py intervals in Czech ("8 dní")
@@ -907,9 +940,8 @@ sudo mkdir -p /srv/vocaboo/app/dictionary/data
 sudo mv /tmp/lexicon_en_cs.jsonl /tmp/lexicon_tags.json /srv/vocaboo/app/dictionary/data/
 sudo chown -R vocaboo:vocaboo /srv/vocaboo/app/dictionary/data
 cd /srv/vocaboo/app
-sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py import_lexicon \
-    dictionary/data/lexicon_en_cs.jsonl
-# Imported 10006 entries with 12537 senses (en → cs), 60 tags.
+sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py import_lexicon
+# Imported 10006 entries with 12537 senses (en → cs), 60 tags, 0 packages.
 ```
 
 Check it in the shell:
@@ -919,7 +951,10 @@ sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py shell -c \
     "from dictionary.providers import get_suggestions; print(get_suggestions('palm', 'en', 'cs'))"
 ```
 
-The app does not need a restart after the import. After you change the file, copy it again and
+The app does not need a restart after the import. A package of new words goes to
+`/srv/vocaboo/app/dictionary/data/extensions/` and is added with `extend_lexicon` (see
+[docs/slovnik.md](docs/slovnik.md)); keep the packages there, a full `import_lexicon` reads them
+again. After you change the base file, copy it again and
 run the import again; it replaces the old data.
 
 #### 4. gunicorn as a systemd service
