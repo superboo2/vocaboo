@@ -40,6 +40,12 @@
         <label><input type="checkbox" name="level" value="{{ level }}"{% if level in chosen_levels %} checked{% endif %}> {{ level }}</label>
       {% endfor %}
     </fieldset>
+    <fieldset class="topic-levels">
+      <legend>{% translate "Part of speech" %}</legend>
+      {% for key, name in pos_groups %}
+        <label><input type="checkbox" name="pos" value="{{ key }}"{% if key in chosen_pos %} checked{% endif %}> {{ name }}</label>
+      {% endfor %}
+    </fieldset>
     <button type="submit" class="outline">{% translate "Show words" %}</button>
   </form>
 
@@ -49,7 +55,7 @@
       <h2 class="section-title">{{ topic_name }}</h2>
       {# How many words the topic has and where they are; the ones from other decks are hidden #}
       <p class="topic-count muted"><small>
-        <strong>{% blocktranslate count counter=counts.total with levels=chosen_levels|join:", " %}{{ counter }} word in the topic ({{ levels }}){% plural %}{{ counter }} words in the topic ({{ levels }}){% endblocktranslate %}</strong>{% if counts.elsewhere %} · {% blocktranslate count counter=counts.elsewhere %}{{ counter }} in other decks{% plural %}{{ counter }} in other decks{% endblocktranslate %}{% if not show_owned %} ({% translate "hidden" %}){% endif %}{% endif %}{% if counts.here %} · {% blocktranslate count counter=counts.here %}{{ counter }} already in this deck{% plural %}{{ counter }} already in this deck{% endblocktranslate %}{% endif %}
+        <strong>{% blocktranslate count counter=counts.total with levels=filter_text %}{{ counter }} word in the topic ({{ levels }}){% plural %}{{ counter }} words in the topic ({{ levels }}){% endblocktranslate %}</strong>{% if counts.elsewhere %} · {% blocktranslate count counter=counts.elsewhere %}{{ counter }} in other decks{% plural %}{{ counter }} in other decks{% endblocktranslate %}{% if not show_owned %} ({% translate "hidden" %}){% endif %}{% endif %}{% if counts.here %} · {% blocktranslate count counter=counts.here %}{{ counter }} already in this deck{% plural %}{{ counter }} already in this deck{% endblocktranslate %}{% endif %}
         {% if counts.elsewhere %} · <a href="?{{ toggle_query }}">{% if show_owned %}{% translate "Hide them" %}{% else %}{% translate "Show them" %}{% endif %}</a>{% endif %}
       </small></p>
       {% if words %}

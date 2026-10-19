@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-19 22:13+0200\n"
+"POT-Creation-Date: 2026-10-19 22:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -410,6 +410,18 @@ msgstr "fráz. slov."
 msgctxt "part of speech"
 msgid "phrase"
 msgstr "fráze"
+
+msgid "nouns"
+msgstr "podstatná jména"
+
+msgid "verbs"
+msgstr "slovesa"
+
+msgid "adjectives"
+msgstr "přídavná jména"
+
+msgid "other"
+msgstr "ostatní"
 
 msgid "People"
 msgstr "Člověk"
@@ -1954,6 +1966,9 @@ msgstr "%(name)s (vše)"
 
 msgid "Level"
 msgstr "Úroveň"
+
+msgid "Part of speech"
+msgstr "Slovní druh"
 
 msgid "Show words"
 msgstr "Ukázat slovíčka"

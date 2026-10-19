@@ -6,6 +6,7 @@ most PAGE words, no "select all".
 from dataclasses import dataclass, field
 
 from django.core.exceptions import ValidationError
+from django.db.models import Q
 from django.utils.translation import gettext_lazy as _
 
 from vocabulary import services as vocabulary_services
@@ -17,6 +18,13 @@ from .models import LexiconEntry, LexiconSense, LexiconTag
 PAGE = 20
 LEVELS = ("A1", "A2", "B1", "B2", "C1", "C2")
 DEFAULT_LEVELS = ("A1", "A2", "B1")
+# Groups of parts of speech for the filter; "other" is everything else (adverbs, phrases …)
+POS_GROUPS = {
+    "noun": (_("nouns"), ["noun"]),
+    "verb": (_("verbs"), ["verb"]),
+    "adjective": (_("adjectives"), ["adjective"]),
+    "other": (_("other"), None),
+}
 # Tags of the style of speech and of grammar words are no topics; vulgar meanings are never offered
 NOT_TOPICS = {"styl", "hovorove", "formalni", "vulgarni", "gramatika"}
 NEVER_OFFERED = "vulgarni"
@@ -135,7 +143,22 @@ def find_topic(slug):
     return LexiconTag.objects.filter(slug=slug).first()
 
 
-def topic_words(deck, tag, levels, page=1, show_owned=False):
+def pos_filter(groups):
+    """Q of the parts of speech of the chosen groups (all groups: no filter)."""
+    if not groups or set(groups) >= set(POS_GROUPS):
+        return Q()
+    named = [pos for _name, kinds in POS_GROUPS.values() if kinds for pos in kinds]
+    query = Q(
+        entry__part_of_speech__in=[
+            pos for key in groups if POS_GROUPS[key][1] for pos in POS_GROUPS[key][1]
+        ]
+    )
+    if "other" in groups:
+        query |= ~Q(entry__part_of_speech__in=named)
+    return query
+
+
+def topic_words(deck, tag, levels, page=1, show_owned=False, pos_groups=None):
     """One page of words of the topic for the deck, the most common first.
 
     Words that are already in this deck with the same meaning are left out. The ones in another
@@ -151,6 +174,7 @@ def topic_words(deck, tag, levels, page=1, show_owned=False):
             entry__foreign_code=deck.foreign_language.code,
             entry__native_code=deck.native_language.code,
         )
+        .filter(pos_filter(pos_groups))
         .exclude(tags__slug=NEVER_OFFERED)
         .select_related("entry")
         .distinct()

@@ -99,6 +99,9 @@ def topic_words(request, pk):
     levels = [level for level in request.GET.getlist("level") if level in topics.LEVELS]
     levels = levels or list(topics.DEFAULT_LEVELS)
     page = int(request.GET["page"]) if request.GET.get("page", "").isdigit() else 1
+    # Parts of speech: all groups unless some are chosen
+    pos_groups = [key for key in request.GET.getlist("pos") if key in topics.POS_GROUPS]
+    pos_groups = pos_groups or list(topics.POS_GROUPS)
 
     if request.method == "POST" and tag:
         added = topics.add_topic_words(deck, request.POST.getlist("sense"))
@@ -118,9 +121,15 @@ def topic_words(request, pk):
 
     show_owned = request.GET.get("owned") == "1"
     if tag:
-        words, has_next, counts = topics.topic_words(deck, tag, levels, page, show_owned)
+        words, has_next, counts = topics.topic_words(
+            deck, tag, levels, page, show_owned, pos_groups
+        )
     else:
         words, has_next, counts = [], False, topics.TopicCounts()
+    # E.g. "A1, A2, B1 · nouns" for the line with the number of words (all parts: not named)
+    filter_parts = [", ".join(levels)]
+    if len(pos_groups) < len(topics.POS_GROUPS):
+        filter_parts.append(", ".join(str(topics.POS_GROUPS[key][0]) for key in pos_groups))
     query = request.GET.copy()
     query.pop("page", None)
     # The same choice with or without the words from other decks
@@ -139,6 +148,9 @@ def topic_words(request, pk):
             "topic_name": topics.topic_name(tag) if tag else "",
             "levels": topics.LEVELS,
             "chosen_levels": levels,
+            "pos_groups": [(key, name) for key, (name, _kinds) in topics.POS_GROUPS.items()],
+            "chosen_pos": pos_groups,
+            "filter_text": " · ".join(filter_parts),
             "words": words,
             "page": page,
             "has_next": has_next,

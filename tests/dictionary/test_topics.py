@@ -121,3 +121,21 @@ def test_deck_page_links_only_with_a_dictionary(logged_client, deck, user, es, c
     spanish_link = reverse("vocabulary:topic_words", args=[spanish.pk])
     assert spanish_link not in spanish_page.content.decode()
     assert logged_client.get(url(spanish, topic="zvire")).status_code == 404
+
+
+def test_parts_of_speech_filter(lexicon, deck):
+    walk = lexicon_entry(
+        "walk", "verb", [("vyvenčit", "{Walk} the dog.", "Vyvenči psa.", "", ["zvire"])]
+    )
+    lexicon(DOG, CAT, BEAR, TREE, RUDE, walk, tags=TAGS)
+    animals = topics.find_topic("zvire")
+
+    nouns = topics.topic_words(deck, animals, ["A1"], pos_groups=["noun"])[0]
+    verbs = topics.topic_words(deck, animals, ["A1"], pos_groups=["verb"])[0]
+    others = topics.topic_words(deck, animals, ["A1"], pos_groups=["other"])[0]
+    every = topics.topic_words(deck, animals, ["A1"], pos_groups=list(topics.POS_GROUPS))[0]
+
+    assert [item.word for item in nouns] == ["dog", "cat", "bear"]
+    assert [item.word for item in verbs] == ["walk"]
+    assert others == []
+    assert len(every) == 4
