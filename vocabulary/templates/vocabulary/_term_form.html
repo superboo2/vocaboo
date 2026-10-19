@@ -1,4 +1,4 @@
-{% load i18n vocabulary_tags %}
+{% load i18n vocabulary_tags arrows %}
 {# Form for a new word on the deck page. HTMX sends it and puts the answer in its place. #}
 {# On a phone the two fields, the row of suggestions and the button fit on the screen together #}
 {# with the keyboard, and nothing above the button changes height while typing. #}
@@ -10,7 +10,8 @@
 
   {% if added %}
     <p class="term-added" role="status">
-      <span aria-hidden="true">✓</span> {% blocktranslate with word=added.term.main_foreign deck_name=deck.name %}Added to “{{ deck_name }}”: {{ word }}{% endblocktranslate %}{% if added_variants %} (+ {{ added_variants|join:"; " }}){% endif %}
+      {# The whole word with its translation, so a typo shows at once (the deck is the page) #}
+      <span aria-hidden="true">✓</span> {% translate "Added:" %} {{ added.term.main_foreign }}{% arrow %}{{ added.term.main_native }}{% if added_variants %} (+ {{ added_variants|join:"; " }}){% endif %}
     </p>
   {% endif %}
 

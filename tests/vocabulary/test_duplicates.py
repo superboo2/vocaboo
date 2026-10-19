@@ -269,7 +269,7 @@ def test_link_view_adds_word_and_returns_form(logged_client, bbt, hello):
     html = response.content.decode()
 
     assert DeckTerm.objects.filter(deck=bbt, term=hello).exists()
-    assert "Přidáno do „Big Bang Theory“: hello" in html
+    assert "Přidáno: hello<svg" in html
     assert "(+ hi)" in html
     assert 'hx-swap-oob="true"' in html
 

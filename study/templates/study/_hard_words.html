@@ -2,19 +2,20 @@
 {# Cards "What you struggle with" (study/stats.py _facts). They turn like in a test: in front the animal #}
 {# with the kind and one side of the word, a small ↻ in the corner says it turns; a click #}
 {# (app.js) shows the other side, why and the #}
-{# link to the word. On the statistics page and the dashboard (compact: 3 in a row). #}
+{# link to the word. On the statistics page and the dashboard (compact: 3 in a row, on a phone #}
+{# 3 low rows of the same height under each other). #}
 <div class="hard-words{% if compact %} hard-words-compact{% endif %}">
   {% for fact in items %}
     <div class="hard-word tone-{{ fact.tone }}" role="button" tabindex="0" aria-pressed="false"
          data-action="flip-hard-word" title="{% translate 'Turn over' %}">
       <div class="hard-word-face hard-word-front">
         <span class="hard-word-turn" aria-hidden="true">↻</span>
-        <span class="hard-word-kind"><span class="hard-word-animal" aria-hidden="true">{{ fact.emoji }}</span> {{ fact.title }}</span>
+        <span class="hard-word-kind"><span class="hard-word-animal" aria-hidden="true">{{ fact.emoji }}</span> <span class="hard-word-kind-text">{{ fact.title }}</span></span>
         <strong class="hard-word-word">{{ fact.front }}</strong>
       </div>
       <div class="hard-word-face hard-word-back">
         <span class="hard-word-turn" aria-hidden="true">↻</span>
-        <span class="hard-word-kind"><span class="hard-word-animal" aria-hidden="true">{{ fact.emoji }}</span> {{ fact.title }}</span>
+        <span class="hard-word-kind"><span class="hard-word-animal" aria-hidden="true">{{ fact.emoji }}</span> <span class="hard-word-kind-text">{{ fact.title }}</span></span>
         <strong class="hard-word-word">{{ fact.back }}</strong>
         <small class="muted">{{ fact.text|arrows }}</small>
         <a class="hard-word-detail" href="{% url 'vocabulary:term_detail' fact.term.deck_pk fact.term.deck_term_pk %}">{% translate "Details" %}</a>
