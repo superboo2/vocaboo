@@ -60,7 +60,8 @@ def es(db):
 
 
 def lexicon_entry(word, pos, senses, band=1, ipa="", forms=()):
-    """One line of the dictionary file; a sense is (cs, sentence, sentence_cs[, note, tags])."""
+    """A word with its meanings for the fixture lexicon; a sense is
+    (cs, sentence, sentence_cs[, note, tags]) and becomes the concept word.pos.number."""
     return {
         "word": word,
         "pos": pos,
@@ -83,14 +84,21 @@ def lexicon_entry(word, pos, senses, band=1, ipa="", forms=()):
 
 @pytest.fixture
 def lexicon(db, tmp_path):
-    """Import dictionary lines into the database with the real command import_lexicon."""
+    """Import dictionary entries into the database with the real command import_lexicon.
+
+    The entries are in the short form of lexicon_entry (a word with its meanings); they are
+    written as the files of the app (concepts.jsonl, words_en.jsonl) and imported.
+    """
     from django.core.management import call_command
 
+    from dictionary import lexicon_files
+
     def load(*entries, tags=({"slug": "rostlina", "name": "rostliny", "parent": None},)):
-        path = tmp_path / "lexicon.jsonl"
-        path.write_text("".join(json.dumps(entry) + "\n" for entry in entries), encoding="utf-8")
-        (tmp_path / "lexicon_tags.json").write_text(json.dumps(list(tags)), encoding="utf-8")
-        call_command("import_lexicon", str(path), stdout=io.StringIO())
-        return path
+        folder = tmp_path / "lexicon"
+        concepts, words = lexicon_files.convert_old(entries)
+        lexicon_files.write_layer(folder, concepts, {"en": words})
+        (folder / "lexicon_tags.json").write_text(json.dumps(list(tags)), encoding="utf-8")
+        call_command("import_lexicon", "--data", str(folder), stdout=io.StringIO())
+        return folder
 
     return load

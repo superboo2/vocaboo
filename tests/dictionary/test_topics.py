@@ -139,3 +139,20 @@ def test_parts_of_speech_filter(lexicon, deck):
     assert [item.word for item in verbs] == ["walk"]
     assert others == []
     assert len(every) == 4
+
+
+def test_topic_words_for_a_czech_english_deck(deck, user, en, cs):
+    czech = services.create_deck(user, "Zvířata CS", foreign_language=cs, native_language=en)
+
+    words = topics.topic_words(czech, topics.find_topic("zvire"), ["A1"])[0]
+
+    # The Czech words with their English translation, in the order of the English words
+    assert [(item.word, item.translation) for item in words] == [
+        ("pes", "dog"),
+        ("kočka; kocour", "cat"),
+        ("medvěd", "bear"),
+    ]
+    assert topics.has_dictionary(czech)
+    added = topics.add_topic_words(czech, [words[1].sense.pk])
+    assert (added[0].term.main_foreign, added[0].term.main_native) == ("kočka", "cat")
+    assert added[0].context_sentence == "{Kočka} spí."

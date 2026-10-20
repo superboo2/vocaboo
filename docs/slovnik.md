@@ -1,27 +1,68 @@
 # Vocaboo – slovník aplikace a balíčky nových slov
 
-Slovník aplikace (návrhy překladu, další významy, IPA, věty) je **v souborech**, databáze je jen
-kopie pro rychlé hledání:
+Slovník aplikace (návrhy překladu, další významy, IPA, věty, slovíčka z tématu) je **v souborech**,
+databáze je jen kopie pro rychlé hledání:
 
 ```
 dictionary/data/
-  lexicon_en_cs.jsonl          základ (zdroj "base")
-  lexicon_tags.json            značky významů
+  concepts.jsonl               pojmy (významy) s texty v jednotlivých jazycích (zdroj "base")
+  words_en.jsonl               anglická slova, každé odkazuje na své pojmy
+  lexicon_tags.json            značky pojmů (témata)
+  lexicon_en_cs.old.jsonl      starý formát (jen záloha, aplikace ho nečte)
   extensions/
-    2026-10-19.jsonl           balíček nových slov (zdroj "2026-10-19")
-    2026-10-19.report.txt      jeho zpráva: co se se slovy ze seznamu udělalo
-    2026-11-16.jsonl           …
+    2026-11-02/                balíček nových slov (zdroj "2026-11-02")
+      concepts.jsonl
+      words_en.jsonl
+      report.txt               zpráva: co se se slovy ze seznamu udělalo
 ```
 
 - Složka `dictionary/data/` není v gitu. Soubory leží u autora a na serveru, balíčky tam vždycky
   zůstávají (jsou to zálohy).
-- **Heslo** = jedno anglické slovo s jedním slovním druhem. Angličtina je osa slovníku, překlady
-  a věty jsou ve všech jazycích slovníku (dnes jen `cs`).
-- Pozdější soubor **nahradí** heslo se stejným slovem a slovním druhem. Balíček tak může i
-  upravit existující heslo (nový tvar, nový význam), a stejný balíček spuštěný dvakrát nic
-  nezdvojí.
-- U každého hesla je v databázi `source` (`base` / `2026-10-19`), v adminu jde podle něj
-  filtrovat (*Slovník › Hesla slovníku*).
+- U každého pojmu a slova je v databázi `source` (`base` / `2026-11-02`), v adminu jde podle něj
+  filtrovat (*Slovník › Pojmy*, *Slovník › Slova slovníku*).
+
+## Jak je slovník postavený
+
+**Pojem** je jeden význam, stejný ve všech jazycích. Má **stálé ID** `slovo.slovní_druh.číslo`
+(`palm.noun.1` = dlaň, `palm.noun.2` = palma), značky a **text v každém jazyce**: slova (varianty
+oddělené `; `), poznámku pro čtenáře toho jazyka a ukázkovou větu. Co pojem znamená, určuje jeho
+**anglická věta**; popisky pojmy nemají.
+
+Představa: **velká tabulka**, kde řádek je pojem (anglický význam) a každý jazyk má „sloupec“
+s překladem, poznámkou a větou (to jsou texty pojmu, oddělené: `words`, `note`, `sentence`).
+
+**Nápověda pro jakýkoli pár X → Y:** napsané slovo se najde ve sloupci jazyka X (každá varianta
+textu zvlášť: „kočka; kocour“ → *kočka*, *kocour*) a vezme se sloupec jazyka Y. Dva jazyky se
+potkávají v pojmu, ne v anglickém slově:
+
+```
+CS → EN:  „kočka“ ve sloupci cs → cat.noun.1 → sloupec en → cat
+ES → CS:  „gato“  ve sloupci es → cat.noun.1 → sloupec cs → kočka; kocour
+EN → ES:  „cat“   ve sloupci en → cat.noun.1 → sloupec es → gato
+```
+
+Pořadí návrhů, slovní druh a úroveň (u slovíček z tématu) se berou z anglického slova pojmu.
+
+**Slovo** (`words_<jazyk>.jsonl`) jsou **doplňky** k jednomu jazyku: slovo s jedním slovním
+druhem, jeho tvary (*palms*, *clung*, *gatos*), výslovnost (IPA), četnost, úroveň, rod a seznam
+pojmů, které znamená (od nejčastějšího). Výslovnost patří ke slovu, ne k pojmu (*palm* zní
+stejně, ať je to dlaň, nebo palma). Dnes má slova jen angličtina.
+
+**Jazyky:** dnes en (texty + slova) a cs (texty). Další jazyk se doplňuje **postupně**:
+
+- **texty pojmů v novém jazyce** (třeba `es`: překlad, poznámka, věta) → hned funguje nápověda a
+  slovíčka z tématu pro **všechny páry** s tím jazykem (EN → ES, ES → CS, CS → ES …); pojmy bez
+  textu v tom jazyce se zatím neukazují,
+- **slova nového jazyka** (`words_es.jsonl`) → výslovnost (IPA) a nápověda i podle tvarů
+  (*gatos*, *hablo*), ne jen podle základního tvaru.
+
+Při přidání nového jazyka do slovníku doplnit i ukázku pro prázdné pole slovíčka
+(`VARIANT_SAMPLES` ve `vocabulary/forms.py`, dvě varianty slova v tom jazyce, třeba
+`"es": "hola; buenas"`); ukázky jsou jen pro jazyky, které slovník má.
+
+Pravidla ID: ID se **nikdy nemění** (věta se smí opravit, ID ne); nový pojem dostane další volné
+číslo u svého slova a druhu (`palm.noun.3`); pořadí významů je v seznamu `senses` slova, ne
+v čísle ID.
 
 ## Postup: jednou za čas nová slova
 
@@ -31,30 +72,27 @@ dictionary/data/
    ```
 2. **Lokálně** seznam vložit Claudovi s větou:
    > Rozšiř slovník podle `docs/slovnik.md`, tady jsou chybějící slova: …
-3. Claude podle pravidel níže napíše balíček `dictionary/data/extensions/RRRR-MM-DD.jsonl`
-   (datum dne, kdy vzniká; druhý balíček ve stejný den `RRRR-MM-DD-2.jsonl`) a vedle něj
-   zprávu `RRRR-MM-DD.report.txt` (viz *Zpráva k balíčku*), a zkontroluje ho
+3. Claude podle pravidel níže napíše balíček, složku `dictionary/data/extensions/RRRR-MM-DD/`
+   (datum dne, kdy vzniká; druhý balíček ve stejný den `RRRR-MM-DD-2`) se soubory
+   `concepts.jsonl`, `words_en.jsonl` a `report.txt`, a zkontroluje ho
    (`extend_lexicon … --check`).
-4. **Na server** zkopírovat balíček i zprávu do `dictionary/data/extensions/` a spustit:
+4. **Na server** zkopírovat celou složku balíčku do `dictionary/data/extensions/` a spustit:
    ```bash
    sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py extend_lexicon \
-       dictionary/data/extensions/2026-10-19.jsonl
+       dictionary/data/extensions/2026-11-02
    changed  pros → pro (plural, form added to "pro")
-   changed  cons → con (plural, form added to "con")
-   fixed    disingenuou → disingenuous (typo)
    fixed    urin → urine (typo)
-   skipped  ridicilous (typo, "ridiculous" is already in the dictionary)
    skipped  wep (unclear word)
-   Package 2026-10-19: added 21 entries, changed 2, 31 senses.
+   Package 2026-11-02: concepts added 21, changed 0; words added 21, changed 2.
    ```
-   Nejdřív se soubor zkontroluje, při chybě se nezapíše nic (vypíše řádek a důvod). Pak se
-   vypíše zpráva k balíčku a souhrn; *changed* v souhrnu = hesla, která už ve slovníku byla a
-   balíček je přepsal. Totéž bez zápisu ukáže `--check`. Aplikace nepotřebuje restart.
+   Nejdřív se všechno zkontroluje, při chybě se nezapíše nic (vypíše soubor, řádek a důvod).
+   Pak se vypíše zpráva k balíčku a souhrn; *changed* = pojmy a slova, která už ve slovníku
+   byla a balíček je upravil. Totéž bez zápisu ukáže `--check`. Aplikace nepotřebuje restart.
 5. Kontrola: `missing_words` na serveru už ta slova nevypíše.
 
 **Nový server / přesun databáze:** zkopírovat celou složku `dictionary/data/` a spustit
-`import_lexicon` bez cesty. Nahraje základ a všechny balíčky podle data
-(`import_lexicon --check` jen zkontroluje soubory).
+`import_lexicon` (nahraje základ a všechny balíčky podle data; `import_lexicon --check` jen
+zkontroluje soubory).
 
 ## Pravidla pro balíček (prompt pro AI)
 
@@ -64,30 +102,55 @@ Tuto část čte AI, která balíček píše.
 
 Každé slovo ze seznamu `missing_words` patří do jedné skupiny:
 
-- **Nové heslo:** opravdové anglické slovo nebo ustálená fráze (*ogre*, *suit up*, *fella*).
-  Napsat celé heslo podle formátu níže. Hovorová slova ano (se značkou `hovorove` a poznámkou
-  „hovorově“), vulgární jen se značkou `vulgarni` a poznámkou „vulgárně“.
-- **Tvar existujícího hesla:** množné číslo, minulý čas, jiný zápis (*kids* → *kid*, *ran* →
-  *run*, *colour* → *color*). Najít heslo v základu nebo v posledním balíčku, který ho obsahuje,
-  zkopírovat jeho řádek **celý beze změny** a jen přidat tvar do `forms` (malými písmeny). Tím
-  se k tvaru začne nabízet nápověda.
+- **Nové slovo:** opravdové anglické slovo nebo ustálená fráze (*ogre*, *suit up*, *fella*).
+  Napsat pojmy jeho významů (`concepts.jsonl`) a slovo (`words_en.jsonl`). Hovorová slova ano
+  (se značkou `hovorove` a poznámkou „hovorově“), vulgární jen se značkou `vulgarni` a
+  poznámkou „vulgárně“.
+- **Tvar existujícího slova:** množné číslo, minulý čas, jiný zápis (*kids* → *kid*, *ran* →
+  *run*, *colour* → *color*). Najít slovo v `dictionary/data/words_en.jsonl` (nebo v posledním
+  balíčku, který ho obsahuje), zkopírovat jeho řádek **celý beze změny** do `words_en.jsonl`
+  balíčku a jen přidat tvar do `forms` (malými písmeny). Pojmy se nemění.
+- **Nový význam existujícího slova:** nový pojem s dalším volným číslem (`get.verb.7`) a řádek
+  slova celý znovu s novým ID v `senses` (na místě podle četnosti).
 - **Vynechat:** překlepy (*recieve*), nesmysly, jména osob a značek, česká nebo jiná než anglická
-  slova, zkratky bez obecného významu. V souhrnu je vypsat s důvodem.
+  slova, zkratky bez obecného významu.
 
 Slovo, které už ve slovníku je (třeba jen jiným slovním druhem), zkontrolovat: chybí-li slovní
-druh, který uživatelé zjevně myslí, přidat nové heslo s tímto druhem.
+druh, který uživatelé zjevně myslí, přidat slovo s tímto druhem.
 
-### Formát řádku
+### Pojem (`concepts.jsonl`)
 
-Jeden řádek = jedno heslo jako JSON (UTF-8, bez zalamování), stejně jako v základu:
+Jeden řádek = jeden pojem jako JSON (UTF-8, bez zalamování):
+
+```json
+{"id": "ogre.noun.1", "tags": ["film"],
+ "texts": {"en": {"words": "ogre", "sentence": "{Ogres} are like onions."},
+           "cs": {"words": "zlobr", "note": "", "sentence": "{Zlobři} jsou jako cibule."}}}
+```
+
+- `id`: `slovo.slovní_druh.číslo` podle anglického slova, číslo od 1 (další volné u toho slova
+  a druhu).
+- `tags`: 0–2 značky **jen** ze `lexicon_tags.json` (pole `slug`).
+- `texts`: text pojmu pro každý jazyk slovníku (**dnes `en` a `cs`**):
+  - `words`: slova toho jazyka pro pojem, varianty oddělené `; ` (*představit; představovat*);
+    u `en` to anglické slovo,
+  - `note`: krátká nápověda pro čtenáře toho jazyka, která významy odliší (*o místě*,
+    *hovorově*), jinak `""` nebo vynechat; jen u slov s víc významy, hovorových a vulgárních,
+  - `sentence`: krátká přirozená věta (do 10 slov), slovo v ní ve `{složených závorkách}`
+    (i v jiném tvaru: `{ran}`); **anglická věta je povinná** (určuje význam pojmu), věta
+    v dalším jazyce je její překlad (odpovídající slovo ve `{}`, když jde označit).
+- Doplnění jazyka k existujícímu pojmu (postupné překlady): řádek jen s `id` a texty nových
+  jazyků, `{"id": "palm.noun.1", "texts": {"es": {"words": "palma", "sentence": "…"}}}`;
+  ostatní jazyky a značky zůstanou.
+
+### Slovo (`words_en.jsonl`)
 
 ```json
 {"word": "ogre", "pos": "noun", "band": 12, "level": "B2", "ipa": "ˈəʊɡə", "forms": ["ogres"],
- "senses": [{"cs": "zlobr", "note": "", "sentence": "{Ogres} are like onions.",
-             "sentence_cs": "{Zlobři} jsou jako cibule.", "tags": ["film"]}]}
+ "senses": ["ogre.noun.1"]}
 ```
 
-- `word`: heslo v základním tvaru, malými písmeny (kromě slov, která se píšou velkým písmenem).
+- `word`: základní tvar, malými písmeny (kromě slov, která se píšou velkým písmenem).
 - `pos`: `noun`, `verb`, `adjective`, `adverb`, `pronoun`, `determiner`, `preposition`,
   `conjunction`, `interjection`, `numeral`, `phrasal_verb`, `phrase`.
 - `band`: četnost v **mluvené** angličtině (seriály, běžná řeč): 1 = 1 000 nejčastějších slov,
@@ -95,16 +158,10 @@ Jeden řádek = jedno heslo jako JSON (UTF-8, bez zalamování), stejně jako v 
   nové. Vzácnější než cokoli v základu smí mít i 15 a víc.
 - `level`: CEFR `A1`–`C2`.
 - `ipa`: britská výslovnost v IPA **bez** lomítek a závorek.
-- `forms`: jiné zápisy a tvary, podle kterých se má heslo najít (malými písmeny), jinak `[]`.
-- `senses`: významy **od nejčastějšího**, každý:
-  - `cs`: český překlad, varianty oddělené `; ` (*představit; představovat*),
-  - `note`: krátká nápověda, která významy odliší (*o místě*, *hovorově*), jinak `""`,
-  - `sentence`: krátká přirozená anglická věta (do 10 slov), slovo v ní ve `{složených
-    závorkách}` (i v jiném tvaru: `{ran}`),
-  - `sentence_cs`: český překlad věty, odpovídající slovo ve `{}` (když jde označit),
-  - `tags`: 0–2 značky **jen** ze `lexicon_tags.json` (pole `slug`).
-- Další jazyky slovníku (až budou): u každého významu pole `es`, `sentence_es` atd. stejně jako
-  `cs`. **Jazyky slovníku dnes: `cs`.**
+- `forms`: jiné tvary a zápisy, podle kterých se má slovo najít (malými písmeny: *ogres*,
+  *clung*, *mum*), jinak `[]`.
+- `senses`: ID pojmů **od nejčastějšího** významu.
+- `gender`: jen u jazyků s rodem (pozdější slova jiných jazyků), jinak vynechat.
 
 ### Obsah
 
@@ -113,11 +170,10 @@ Jeden řádek = jedno heslo jako JSON (UTF-8, bez zalamování), stejně jako v 
 - Věty běžné, ze života, bez jmen skutečných lidí; čeština přirozená, ne doslovná.
 - Česky genderově neutrálně, kde to jde.
 
-### Zpráva k balíčku
+### Zpráva k balíčku (`report.txt`)
 
-Soubor `RRRR-MM-DD.report.txt` vedle balíčku, anglicky, **jedno slovo na řádek** (nejdřív
-všechna `changed`, pak `fixed`, pak `skipped`), druh zarovnaný na 9 znaků a za slovem krátký
-důvod v závorce:
+Anglicky, **jedno slovo na řádek** (nejdřív všechna `changed`, pak `fixed`, pak `skipped`), druh
+zarovnaný na 9 znaků a za slovem krátký důvod v závorce:
 
 ```
 changed  pros → pro (plural, form added to "pro")
@@ -131,14 +187,15 @@ skipped  wep (unclear word)
 - `fixed`: překlep, za který je v balíčku správné slovo.
 - `skipped`: vynechané slovo a proč.
 
-Nová hesla ze seznamu se do zprávy nepíšou.
+Nová slova ze seznamu se do zprávy nepíšou.
 
 ### Kontrola před předáním
 
 ```bash
-uv run python manage.py extend_lexicon dictionary/data/extensions/RRRR-MM-DD.jsonl --check
+uv run python manage.py extend_lexicon dictionary/data/extensions/RRRR-MM-DD --check
 ```
 
-Kontroluje platný JSON, povinná pole, slovní druh, `band`, `level`, `{slovo}` ve větě, známé
-značky a heslo dvakrát v jednom souboru. Lokálně jde balíček i rovnou vyzkoušet:
-`extend_lexicon …` bez `--check` a pak `missing_words`.
+Kontroluje platný JSON, tvar ID pojmu, texty (slova v každém jazyce, anglická věta nového
+pojmu se `{slovem}`), známé značky, povinná pole slova, slovní druh, `band`, `level`, že každé
+ID v `senses` existuje (v balíčku nebo ve slovníku) a slovo dvakrát v jednom souboru. Lokálně
+jde balíček i rovnou vyzkoušet: `extend_lexicon …` bez `--check` a pak `missing_words`.

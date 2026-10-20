@@ -97,6 +97,15 @@ class TermMoveForm(forms.Form):
         return self.targets[self.cleaned_data["target"]]
 
 
+# A word with two variants in each language, as the sample of an empty word field ("hello; hi").
+# These are words of the language, not texts of the app, so they are not translated. Only the
+# languages the dictionary of the app has; add one with each new language.
+VARIANT_SAMPLES = {
+    "cs": "ahoj; čau",
+    "en": "hello; hi",
+}
+
+
 class TermForm(forms.Form):
     """New word or editing a word. Labels show the languages of the deck."""
 
@@ -136,15 +145,16 @@ class TermForm(forms.Form):
         native = self.fields["native"]
         foreign.label = f"{deck.foreign_language.label} ({deck.foreign_language.code.upper()})"
         native.label = f"{deck.native_language.label} ({deck.native_language.code.upper()})"
-        foreign.help_text = _("Separate more variants with a semicolon: hello; hi")
-        native.help_text = _("Separate more variants with a semicolon: hi; hey")
-        # The grey sample in an empty field tells how to write variants (short form of help_text)
-        foreign.widget.attrs.update(
-            {"autocomplete": "off", "autocapitalize": "none", "placeholder": "hello; hi"}
-        )
-        native.widget.attrs.update(
-            {"autocomplete": "off", "autocapitalize": "none", "placeholder": _("hi; hey")}
-        )
+        # The grey sample in an empty field tells how to write variants; it is in the language
+        # of the field (a Czech field shows "ahoj; čau" also in a CS → EN deck)
+        for field, language in ((foreign, deck.foreign_language), (native, deck.native_language)):
+            sample = VARIANT_SAMPLES.get(language.code, "")
+            field.help_text = _("Separate more variants with a semicolon")
+            if sample:
+                field.help_text += f": {sample}"
+            field.widget.attrs.update(
+                {"autocomplete": "off", "autocapitalize": "none", "placeholder": sample}
+            )
 
     def more_has_values(self):
         """Open the "Více" part when some of its fields are filled or have errors."""

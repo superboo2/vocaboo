@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-19 22:44+0200\n"
+"POT-Creation-Date: 2026-10-20 11:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -248,6 +248,9 @@ msgstr "Slovíčka"
 msgid "Overview and statistics"
 msgstr "Přehled a statistiky"
 
+msgid "dictionary words"
+msgstr "slova slovníku"
+
 msgid "code"
 msgstr "kód"
 
@@ -299,11 +302,47 @@ msgstr "frázové sloveso"
 msgid "phrase"
 msgstr "fráze"
 
-msgid "word language"
-msgstr "jazyk slova"
+msgid "key"
+msgstr "klíč"
 
-msgid "meanings language"
-msgstr "jazyk významů"
+msgid "tags"
+msgstr "tagy"
+
+msgid "source"
+msgstr "zdroj"
+
+msgid "concept"
+msgstr "pojem"
+
+msgid "concepts"
+msgstr "pojmy"
+
+msgid "language"
+msgstr "jazyk"
+
+msgid "words"
+msgstr "slovíčka"
+
+msgid "note"
+msgstr "poznámka"
+
+msgid "sentence"
+msgstr "věta"
+
+msgid "concept text"
+msgstr "text pojmu"
+
+msgid "concept texts"
+msgstr "texty pojmů"
+
+msgid "form"
+msgstr "tvar"
+
+msgid "concept text form"
+msgstr "tvar textu pojmu"
+
+msgid "concept text forms"
+msgstr "tvary textů pojmů"
 
 msgctxt "dictionary entry"
 msgid "word"
@@ -321,47 +360,26 @@ msgstr "úroveň"
 msgid "pronunciation"
 msgstr "výslovnost"
 
-msgid "source"
-msgstr "zdroj"
+msgid "gender"
+msgstr "rod"
 
-msgid "dictionary entry"
-msgstr "heslo slovníku"
+msgid "dictionary word"
+msgstr "slovo slovníku"
 
-msgid "dictionary entries"
-msgstr "hesla slovníku"
+msgid "word form"
+msgstr "tvar slova"
 
-msgid "form"
-msgstr "tvar"
-
-msgid "entry form"
-msgstr "tvar hesla"
-
-msgid "entry forms"
-msgstr "tvary hesla"
+msgid "word forms"
+msgstr "tvary slova"
 
 msgid "position"
 msgstr "pořadí"
 
-msgid "translation"
-msgstr "překlad"
+msgid "word meaning"
+msgstr "význam slova"
 
-msgid "note"
-msgstr "poznámka"
-
-msgid "sentence"
-msgstr "věta"
-
-msgid "sentence translation"
-msgstr "překlad věty"
-
-msgid "tags"
-msgstr "tagy"
-
-msgid "entry meaning"
-msgstr "význam hesla"
-
-msgid "entry meanings"
-msgstr "významy hesla"
+msgid "word meanings"
+msgstr "významy slova"
 
 msgctxt "part of speech"
 msgid "n."
@@ -692,9 +710,6 @@ msgstr "všechna"
 
 msgid "decks"
 msgstr "slovníky"
-
-msgid "words"
-msgstr "slovíčka"
 
 msgid "scope"
 msgstr "rozsah"
@@ -1439,14 +1454,8 @@ msgstr "Volitelné, k pochopení věty. Slovo můžeš označit: Utekl {pryč}."
 msgid "Note"
 msgstr "Poznámka"
 
-msgid "Separate more variants with a semicolon: hello; hi"
-msgstr "Víc variant odděl středníkem: hello; hi"
-
-msgid "Separate more variants with a semicolon: hi; hey"
-msgstr "Víc variant odděl středníkem: ahoj; čau"
-
-msgid "hi; hey"
-msgstr "ahoj; čau"
+msgid "Separate more variants with a semicolon"
+msgstr "Víc variant odděl středníkem"
 
 msgid "Czech"
 msgstr "Čeština"
@@ -1495,9 +1504,6 @@ msgstr "Zadej dvoupísmenný kód ISO 639-1 malými písmeny, např. cs nebo en.
 
 msgid "ISO 639-1, for example, cs, en, es. Note: Czech is cs, not cz."
 msgstr "ISO 639-1, např. cs, en, es. Pozor: čeština je cs, ne cz."
-
-msgid "language"
-msgstr "jazyk"
 
 msgid "languages"
 msgstr "jazyky"
@@ -1570,6 +1576,9 @@ msgstr "varianta"
 
 msgid "variants"
 msgstr "varianty"
+
+msgid "sentence translation"
+msgstr "překlad věty"
 
 msgid "added"
 msgstr "přidáno"

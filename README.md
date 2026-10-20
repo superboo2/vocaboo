@@ -305,45 +305,72 @@ item.term.foreign_variants  # ['hello', 'hi']
 
 ### 10. The dictionary of the app (suggestions, other meanings, IPA, examples)
 
-The app has its own English–Czech dictionary: about 10 000 headwords (a word with one part of
-speech) with Czech meanings, the most common first, an example sentence with its translation for
-every meaning, IPA, a frequency band (1 = the 1 000 most common words of spoken English, 2 = the
-next 1 000 …), a CEFR level and topic tags. The original is a JSON lines file,
-`dictionary/data/lexicon_en_cs.jsonl`, with the tags in `dictionary/data/lexicon_tags.json`. The
-folder is in `.gitignore`, so the data is not in the repository: copy it to the server yourself.
+The app has its own dictionary built on **concepts** (meanings that are the same in all
+languages), so it can grow to more languages without a dictionary for every pair (docs/slovnik.md,
+spec 5.2). Today it has about 10 000 English words with 12 500 concepts in English and Czech:
+Czech meanings, the most common first, an example sentence with its translation for every
+meaning, IPA, a frequency band (1 = the 1 000 most common words of spoken English, 2 = the next
+1 000 …), a CEFR level and topic tags. The original is JSON lines files in `dictionary/data/`;
+the folder is in `.gitignore`, so the data is not in the repository: copy it to the server
+yourself.
 
-One line of the file (formatted here):
-
-```json
-{"word": "palm", "pos": "noun", "band": 5, "level": "B1", "ipa": "pɑːm", "forms": [],
- "senses": [
-  {"cs": "dlaň", "note": "", "sentence": "She read my {palm}.", "sentence_cs": "Četla mi z {dlaně}.", "tags": ["telo"]},
-  {"cs": "palma", "note": "strom", "sentence": "A {palm} on the beach.", "sentence_cs": "{Palma} na pláži.", "tags": ["rostlina"]}
- ]}
+```
+dictionary/data/concepts.jsonl     one concept per line, with its texts in each language
+dictionary/data/words_en.jsonl     one English word per line, pointing to its concepts
+dictionary/data/lexicon_tags.json  the topic tags
 ```
 
-Import it into the database (the tables `LexiconEntry`, `LexiconSense`, `LexiconForm`,
-`LexiconTag`); importing again replaces the old data, so after editing the file just run it again:
+One concept and one word (formatted here):
+
+```json
+{"id": "palm.noun.1", "tags": ["telo"],
+ "texts": {"en": {"words": "palm", "sentence": "She read my {palm}."},
+           "cs": {"words": "dlaň", "note": "", "sentence": "Četla mi z {dlaně}."}}}
+
+{"word": "palm", "pos": "noun", "band": 5, "level": "B1", "ipa": "pɑːm", "forms": ["palms"],
+ "senses": ["palm.noun.1", "palm.noun.2"]}
+```
+
+The id of a concept (`word.part_of_speech.number`) never changes. Think of a big table: a row is
+a concept, every language is a "column" with the translation, a note and a sentence (separate
+fields). A suggestion for any pair X → Y finds the typed word in the column of language X (every
+variant: "kočka; kocour" → *kočka*, *kocour*; the import makes this index) and takes the column of
+language Y, so two languages meet in a concept (`palm.noun.1`), not in the English word *palm*
+(which also means a palm tree):
+
+```
+CS → EN:  "kočka" in the cs column → cat.noun.1 → en: cat
+ES → CS:  "gato"  in the es column → cat.noun.1 → cs: kočka; kocour
+```
+
+The words of a language (`words_en.jsonl`) add what belongs to a word: other forms (*palms*),
+IPA, frequency and level. A new language comes bit by bit: texts of concepts in that language
+(then all pairs with it have suggestions and topic words), later its words with forms and IPA.
+
+Import it into the database (the tables `Concept`, `ConceptText`, `ConceptTextForm`,
+`LexiconWord`, `WordForm`, `WordSense`, `LexiconTag`); importing again replaces the old data, so after editing the files
+just run it again:
 
 ```bash
 uv run python manage.py import_lexicon            # the base and all packages
-# Imported 10006 entries with 12537 senses (en → cs), 60 tags, 0 packages.
+# Imported 12564 concepts and 10027 words (en), 60 tags, 0 packages.
 uv run python manage.py import_lexicon --check    # only check the files
 ```
 
-**Packages of new words** extend the dictionary without touching the base: one file per round
-in `dictionary/data/extensions/`, named by its day (`2026-10-19.jsonl`). A package adds entries
-or replaces the entry with the same word and part of speech (e.g. a new form `kids` for `kid`);
-every entry remembers its file in `LexiconEntry.source` (`base` / `2026-10-19`, a filter in the
-admin). The whole round (which words, the rules for the AI that writes the package, the steps on
-the server) is in [docs/slovnik.md](docs/slovnik.md):
+**Packages of new words** extend the dictionary without touching the base: one folder per round
+in `dictionary/data/extensions/`, named by its day (`2026-11-02/` with `concepts.jsonl`,
+`words_en.jsonl` and `report.txt`). A package adds concepts and words, gives known concepts the
+texts of new languages, or replaces a word with the same language, word and part of speech
+(e.g. a new form `kids` for `kid`); every concept and word remembers its source (`base` /
+`2026-11-02`, a filter in the admin). The whole round (which words, the rules for the AI that
+writes the package, the steps on the server) is in [docs/slovnik.md](docs/slovnik.md):
 
 ```bash
 uv run python manage.py missing_words                          # 1. on the server: what is missing
 # 2. here: "Rozšiř slovník podle docs/slovnik.md" + the list → a package
-uv run python manage.py extend_lexicon dictionary/data/extensions/2026-10-19.jsonl --check
-uv run python manage.py extend_lexicon dictionary/data/extensions/2026-10-19.jsonl   # 3. on the server
-# Package 2026-10-19: added 41 entries, replaced 6, 58 senses.
+uv run python manage.py extend_lexicon dictionary/data/extensions/2026-11-02 --check
+uv run python manage.py extend_lexicon dictionary/data/extensions/2026-11-02   # 3. on the server
+# Package 2026-11-02: concepts added 21, changed 0; words added 21, changed 2.
 ```
 
 English words the users added but the app had no hint for, because the dictionary does not
@@ -708,7 +735,7 @@ accounts/     custom user model (login with email), admin, login/logout
 vocabulary/   languages, decks (dictionary tree), words and their variants
   services.py   all rules for decks and words, views only call these functions
   sentences.py  the word in a sentence: found or {marked}, highlighted or replaced by a gap
-dictionary/   the dictionary of the app (import_lexicon, extend_lexicon, missing_words) and its sources (providers.py)
+dictionary/   the dictionary of the app (concepts and words of each language: import_lexicon, extend_lexicon, missing_words) and its sources (providers.py)
 study/        tests: review states, sessions, history, the test screen
   cards.py      what one card shows (question, answer, sentence, hints)
   formatting.py intervals in Czech ("8 dní")
@@ -933,15 +960,16 @@ and about 8 MB in the database, a Raspberry Pi is fine.
 
 ```bash
 # On your computer
-scp dictionary/data/lexicon_en_cs.jsonl dictionary/data/lexicon_tags.json pi@raspberrypi:/tmp/
+scp dictionary/data/concepts.jsonl dictionary/data/words_*.jsonl dictionary/data/lexicon_tags.json \
+    pi@raspberrypi:/tmp/
 
 # On the server
 sudo mkdir -p /srv/vocaboo/app/dictionary/data
-sudo mv /tmp/lexicon_en_cs.jsonl /tmp/lexicon_tags.json /srv/vocaboo/app/dictionary/data/
+sudo mv /tmp/concepts.jsonl /tmp/words_*.jsonl /tmp/lexicon_tags.json /srv/vocaboo/app/dictionary/data/
 sudo chown -R vocaboo:vocaboo /srv/vocaboo/app/dictionary/data
 cd /srv/vocaboo/app
 sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py import_lexicon
-# Imported 10006 entries with 12537 senses (en → cs), 60 tags, 0 packages.
+# Imported 12564 concepts and 10027 words (en), 60 tags, 0 packages.
 ```
 
 Check it in the shell:
@@ -954,8 +982,8 @@ sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py shell -c \
 The app does not need a restart after the import. A package of new words goes to
 `/srv/vocaboo/app/dictionary/data/extensions/` and is added with `extend_lexicon` (see
 [docs/slovnik.md](docs/slovnik.md)); keep the packages there, a full `import_lexicon` reads them
-again. After you change the base file, copy it again and
-run the import again; it replaces the old data.
+again. After you change the base files, copy them again and run the import again; it replaces
+the old data.
 
 #### 4. gunicorn as a systemd service
 
@@ -1065,10 +1093,11 @@ sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py collectstatic --n
 sudo systemctl restart vocaboo
 ```
 
-Newer dictionary data (only when the file changed): copy `lexicon_en_cs.jsonl` and
+Newer dictionary data (only when the files changed): copy `concepts.jsonl`, `words_*.jsonl` and
 `lexicon_tags.json` to `dictionary/data/` again and run `import_lexicon` as in *The dictionary of
-the app*. **Once, after the update that replaced Wiktionary**, run it in any case: the migration
-deletes the old Wiktionary table.
+the app*. **Once, after the update that brought concepts** (migration `dictionary.0005_concepts`,
+which drops the old tables), copy the new files and run `import_lexicon` in any case; the old
+`lexicon_en_cs.jsonl` is not read any more.
 
 #### 8. Backups
 

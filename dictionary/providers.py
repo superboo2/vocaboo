@@ -3,7 +3,8 @@
 Every source is a provider with the same small interface, so sources can be added or
 changed later without touching the rest of the app. The order of the sources is the
 setting SUGGESTION_PROVIDERS (and PRONUNCIATION_PROVIDERS); the first source that knows the
-word wins. Today there is one source: the dictionary of the app (dictionary.models).
+word wins. Today there is one source: the dictionary of the app (dictionary.models: words of
+the foreign language point to concepts, the concepts have the texts of the native language).
 """
 
 from dataclasses import dataclass, field
@@ -13,7 +14,7 @@ from django.utils.translation import pgettext_lazy
 
 from vocabulary.services import parse_variants
 
-from .models import LexiconEntry, LexiconSense
+from .models import ConceptText, ConceptTextForm, LexiconWord, PartOfSpeech, WordSense
 
 # Most suggestions shown for one word
 LIMIT = 12
@@ -53,7 +54,7 @@ class Suggestion:
 
     @property
     def pos_label(self):
-        return LexiconEntry.PartOfSpeech(self.part_of_speech).label if self.part_of_speech else ""
+        return PartOfSpeech(self.part_of_speech).label if self.part_of_speech else ""
 
 
 @dataclass
@@ -84,17 +85,80 @@ class Provider:
         return None
 
 
+@dataclass
+class Meaning:
+    """One meaning of a typed word for a language pair (a word sense and its concept)."""
+
+    translation: str
+    part_of_speech: str
+    note: str
+    sentence: str
+    sentence_native: str
+
+
+# The concepts are built from English: for a concept found only by its text (a language without
+# words, e.g. Czech), the English word of the concept gives the part of speech and the order
+DEFINING_LANGUAGE = "en"
+
+
 def _senses(word, foreign_code, native_code):
-    """Meanings of the word (headword or another spelling), the most common first."""
-    return (
-        LexiconSense.objects.filter(
-            entry__forms__text=word.lower(),
-            entry__foreign_code=foreign_code,
-            entry__native_code=native_code,
-        )
-        .select_related("entry")
-        .order_by("entry__band", "entry_id", "position")
+    """Meanings of the typed word for the pair, the most common first.
+
+    The word is looked up twice: as a word of the foreign language (with its other forms, e.g.
+    "palms" for "palm"; languages that have words, today English), and in the texts of the
+    concepts in the foreign language ("kočka" in "kočka; kocour"), so every pair works as soon
+    as both languages have texts. The concepts give the translation, the note and the sentence
+    in the native language; a concept without a native text has no translation yet.
+    """
+    typed = word.lower()
+    found = [
+        (sense.concept_id, sense.word.part_of_speech)
+        for sense in WordSense.objects.filter(word__forms__text=typed, word__language=foreign_code)
+        .select_related("word")
+        .order_by("word__band", "word_id", "position")
+    ]
+    seen = {concept_id for concept_id, _pos in found}
+    by_text = set(
+        ConceptTextForm.objects.filter(form=typed, text__language=foreign_code)
+        .exclude(text__concept_id__in=seen)
+        .values_list("text__concept_id", flat=True)
     )
+    if by_text:
+        # Ordered by the English word of the concept, the same order as from English
+        ordered = (
+            WordSense.objects.filter(concept_id__in=by_text, word__language=DEFINING_LANGUAGE)
+            .select_related("word")
+            .order_by("word__band", "word_id", "position")
+        )
+        for sense in ordered:
+            if sense.concept_id not in seen:
+                seen.add(sense.concept_id)
+                found.append((sense.concept_id, sense.word.part_of_speech))
+        found += [(concept_id, "") for concept_id in sorted(by_text - seen)]
+
+    texts = {
+        (text.concept_id, text.language): text
+        for text in ConceptText.objects.filter(
+            concept_id__in=[concept_id for concept_id, _pos in found],
+            language__in=[foreign_code, native_code],
+        )
+    }
+    meanings = []
+    for concept_id, part_of_speech in found:
+        native = texts.get((concept_id, native_code))
+        if native is None:
+            continue
+        foreign = texts.get((concept_id, foreign_code))
+        meanings.append(
+            Meaning(
+                translation=native.words,
+                part_of_speech=part_of_speech,
+                note=native.note,
+                sentence=foreign.sentence if foreign else "",
+                sentence_native=native.sentence,
+            )
+        )
+    return meanings
 
 
 class LexiconProvider(Provider):
@@ -112,7 +176,7 @@ class LexiconProvider(Provider):
             suggestions.append(
                 Suggestion(
                     translation=sense.translation,
-                    part_of_speech=sense.entry.part_of_speech,
+                    part_of_speech=sense.part_of_speech,
                     note=sense.note,
                     examples=[{"text": sense.sentence, "translation": sense.sentence_native}],
                 )
@@ -136,7 +200,7 @@ class LexiconProvider(Provider):
 
     def pronounce(self, word, foreign_code):
         ipa = (
-            LexiconEntry.objects.filter(forms__text=word.lower(), foreign_code=foreign_code)
+            LexiconWord.objects.filter(forms__text=word.lower(), language=foreign_code)
             .exclude(ipa="")
             .order_by("band", "pk")
             .values_list("ipa", flat=True)

@@ -5,7 +5,7 @@ from django.core.management import call_command
 from django.core.management.base import CommandError
 from django.urls import reverse
 
-from dictionary.models import LexiconEntry, LexiconSense, LexiconTag
+from dictionary.models import Concept, LexiconTag, LexiconWord
 from dictionary.providers import get_suggestions
 from tests.conftest import lexicon_entry
 from vocabulary import services
@@ -56,17 +56,17 @@ def imported(lexicon):
 
 
 def test_import(imported):
-    assert LexiconEntry.objects.count() == 4
-    palm = LexiconEntry.objects.get(word="palm")
-    assert (palm.band, palm.ipa, palm.part_of_speech) == (5, "pɑːm", "noun")
-    tree = palm.senses.get(position=1)
-    assert (tree.translation, tree.note, tree.sentence_native) == (
-        "palma",
-        "strom",
-        "{Palma} na pláži.",
-    )
+    assert LexiconWord.objects.count() == 4
+    palm = LexiconWord.objects.get(word="palm")
+    assert (palm.language, palm.band, palm.ipa, palm.part_of_speech) == ("en", 5, "pɑːm", "noun")
+    # Each meaning is a concept with its texts in English and Czech
+    tree = palm.senses.get(position=1).concept
+    assert tree.key == "palm.noun.2"
+    czech = tree.texts.get(language="cs")
+    assert (czech.words, czech.note, czech.sentence) == ("palma", "strom", "{Palma} na pláži.")
+    assert tree.texts.get(language="en").sentence == "A {palm} on the beach."
     assert list(tree.tags.values_list("slug", flat=True)) == ["rostlina"]
-    assert sorted(LexiconEntry.objects.get(word="mom").forms.values_list("text", flat=True)) == [
+    assert sorted(LexiconWord.objects.get(word="mom").forms.values_list("text", flat=True)) == [
         "mom",
         "mum",
     ]
@@ -75,8 +75,8 @@ def test_import(imported):
 def test_import_again_replaces_data(imported, lexicon):
     lexicon(PALM)
 
-    assert LexiconEntry.objects.count() == 1
-    assert LexiconSense.objects.count() == 2
+    assert LexiconWord.objects.count() == 1
+    assert Concept.objects.count() == 2
     assert LexiconTag.objects.count() == 1
 
 
@@ -86,15 +86,29 @@ def test_import_refuses_unknown_tag(lexicon):
     with pytest.raises(CommandError):
         lexicon(bad)
     # Nothing is half imported
-    assert LexiconEntry.objects.count() == 0
+    assert LexiconWord.objects.count() == 0
 
 
-def test_import_needs_existing_file(db, tmp_path):
+def test_import_needs_existing_folder(db, tmp_path):
     with pytest.raises(CommandError):
-        call_command("import_lexicon", str(tmp_path / "missing.jsonl"))
+        call_command("import_lexicon", "--data", str(tmp_path / "missing"))
 
 
 # Suggestions
+
+
+def test_suggestions_the_other_way_round(imported):
+    # CS → EN: the Czech word is found in the Czech texts of the concepts, the translation is
+    # the English text; the part of speech comes from the English word
+    result = get_suggestions("Dárek", "cs", "en")
+
+    assert [(s.translation, s.part_of_speech) for s in result.suggestions] == [("present", "noun")]
+    assert result.suggestions[0].examples == [
+        {"text": "Díky za {dárek}!", "translation": "Thanks for the {present}!"}
+    ]
+    # Each variant of "představit; představovat" is found
+    assert get_suggestions("představovat", "cs", "en").suggestions[0].translation == "present"
+    assert get_suggestions("neznámé", "cs", "en") is None
 
 
 def test_suggestions_for_word_with_more_meanings(imported):

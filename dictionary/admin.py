@@ -1,23 +1,53 @@
 from django.contrib import admin
+from django.utils.translation import gettext_lazy as _
 
-from .models import LexiconEntry, LexiconSense, LexiconTag
+from .models import Concept, ConceptText, LexiconTag, LexiconWord, WordForm, WordSense
+
+# Imported data, mostly for looking: the next import replaces it, so edit the files
+# (docs/slovnik.md). "source" shows what each package of new words brought.
 
 
-class LexiconSenseInline(admin.TabularInline):
-    model = LexiconSense
+class ConceptTextInline(admin.TabularInline):
+    model = ConceptText
     extra = 0
-    fields = ("position", "translation", "note", "sentence", "sentence_native", "tags")
+    fields = ("language", "words", "note", "sentence")
 
 
-@admin.register(LexiconEntry)
-class LexiconEntryAdmin(admin.ModelAdmin):
-    """Imported data, mostly for looking (the next import replaces it; edit the file)."""
+class ConceptSenseInline(admin.TabularInline):
+    model = WordSense
+    extra = 0
+    fields = ("word", "position")
+    raw_id_fields = ("word",)
+    verbose_name_plural = _("dictionary words")
 
-    list_display = ("word", "part_of_speech", "band", "level", "ipa", "source")
-    # "source" shows what each package of new words brought (docs/slovnik.md)
-    list_filter = ("source", "part_of_speech", "band", "level", "foreign_code")
-    search_fields = ("word", "forms__text", "senses__translation")
-    inlines = [LexiconSenseInline]
+
+@admin.register(Concept)
+class ConceptAdmin(admin.ModelAdmin):
+    list_display = ("key", "source")
+    list_filter = ("source", "tags")
+    search_fields = ("key", "texts__words", "texts__sentence")
+    filter_horizontal = ("tags",)
+    inlines = [ConceptTextInline, ConceptSenseInline]
+
+
+class WordFormInline(admin.TabularInline):
+    model = WordForm
+    extra = 0
+
+
+class WordSenseInline(admin.TabularInline):
+    model = WordSense
+    extra = 0
+    fields = ("position", "concept")
+    raw_id_fields = ("concept",)
+
+
+@admin.register(LexiconWord)
+class LexiconWordAdmin(admin.ModelAdmin):
+    list_display = ("word", "language", "part_of_speech", "band", "level", "ipa", "source")
+    list_filter = ("source", "language", "part_of_speech", "band", "level")
+    search_fields = ("word", "forms__text")
+    inlines = [WordSenseInline, WordFormInline]
 
 
 @admin.register(LexiconTag)

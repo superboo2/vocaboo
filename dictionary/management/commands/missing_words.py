@@ -8,7 +8,7 @@ entries). Only reads.
 
 from django.core.management.base import BaseCommand
 
-from dictionary.models import LexiconForm
+from dictionary.models import WordForm
 from vocabulary.models import TermVariant
 
 # The dictionary has hints for English words only
@@ -32,9 +32,7 @@ class Command(BaseCommand):
 
 def find_missing_words():
     """English foreign words of all users (each once, A–Z) that are no form of an entry."""
-    known = set(
-        LexiconForm.objects.filter(entry__foreign_code=LANGUAGE).values_list("text", flat=True)
-    )
+    known = set(WordForm.objects.filter(word__language=LANGUAGE).values_list("text", flat=True))
     texts = TermVariant.objects.filter(
         side=TermVariant.Side.FOREIGN, term__foreign_language__code=LANGUAGE
     ).values_list("text", flat=True)

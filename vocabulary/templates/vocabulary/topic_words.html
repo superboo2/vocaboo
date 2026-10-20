@@ -73,8 +73,8 @@
                 </span>
                 {% if item.other_decks %}
                   <small class="muted">{% blocktranslate with names=item.other_decks|join:", " %}You already have it in “{{ names }}”{% endblocktranslate %}</small>
-                {% elif item.sense.sentence %}
-                  <small class="muted">„{{ item.sense.sentence|plain_sentence:"" }}“ · {{ item.sense.sentence_native|plain_sentence:"" }}</small>
+                {% elif item.sentence %}
+                  <small class="muted">„{{ item.sentence|plain_sentence:"" }}“ · {{ item.sentence_native|plain_sentence:"" }}</small>
                 {% endif %}
               </label>
             </li>

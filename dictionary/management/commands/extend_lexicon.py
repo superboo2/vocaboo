@@ -1,15 +1,15 @@
 """Add a package of new words to the dictionary of the app (the rest stays as it is).
 
-    uv run python manage.py extend_lexicon dictionary/data/extensions/2026-10-19.jsonl
-    uv run python manage.py extend_lexicon dictionary/data/extensions/2026-10-19.jsonl --check
+    uv run python manage.py extend_lexicon dictionary/data/extensions/2026-11-02
+    uv run python manage.py extend_lexicon dictionary/data/extensions/2026-11-02 --check
 
-The file is checked first; with a mistake nothing is written. Next to the package can be its
-report (2026-10-19.report.txt, written with the package): which words were changed to their
-basic form, fixed or skipped; it is printed. An entry with the same word and part of speech as
-one in the database is replaced (e.g. a new form or meaning), so running the same package again
-changes nothing. Keep the package in
-dictionary/data/extensions/: a full import_lexicon (new server) reads it again. See
-docs/slovnik.md.
+A package is a folder named by its day with concepts.jsonl, words_<language>.jsonl and
+report.txt (what was done with the words of missing_words: changed, fixed, skipped), which is
+printed. Everything is checked first; with a mistake nothing is written. A known concept gets
+the texts of the languages in the package, a word with the same language, word and part of
+speech is replaced, so running the same package again changes nothing. Keep the package in
+dictionary/data/extensions/: a full import_lexicon (new server) reads it again.
+See docs/slovnik.md.
 """
 
 import pathlib
@@ -21,42 +21,46 @@ from dictionary import lexicon_files
 
 
 class Command(BaseCommand):
-    help = "Add a package of new words (JSONL) to the dictionary of the app."
+    help = "Add a package of new words (a folder) to the dictionary of the app."
 
     def add_arguments(self, parser):
-        parser.add_argument(
-            "path", help="The package, e.g. dictionary/data/extensions/2026-10-19.jsonl"
-        )
+        parser.add_argument("path", help="The package, e.g. dictionary/data/extensions/2026-11-02")
         parser.add_argument("--tags", help="Tags file (default: dictionary/data/lexicon_tags.json)")
         parser.add_argument("--check", action="store_true", help="Only check, write nothing")
 
     def handle(self, path, tags=None, check=False, **options):
         path = pathlib.Path(path)
-        if not lexicon_files.PACKAGE_NAME.match(path.stem):
-            raise CommandError(
-                f"Name the package by its day, e.g. 2026-10-19.jsonl, not {path.name}"
-            )
+        if not lexicon_files.PACKAGE_NAME.match(path.name):
+            raise CommandError(f"Name the package by its day (2026-11-02), not {path.name}")
         try:
             tag_data = lexicon_files.read_tags(tags or lexicon_files.TAGS_FILE)
-            items = lexicon_files.read_file(path)
+            layer = lexicon_files.read_layer(path, path.name)
         except lexicon_files.LexiconFileError as error:
             raise CommandError(str(error)) from error
-        problems = lexicon_files.check(items, {tag["slug"] for tag in tag_data}, path.stem)
+        slugs = {tag["slug"] for tag in tag_data}
+        problems = lexicon_files.check(layer, slugs, lexicon_files.known_concept_keys())
         if problems:
             raise CommandError("\n".join(["Nothing written:", *problems]))
-        # What was done with the words of missing_words (changed, fixed, skipped)
-        report = path.with_suffix(".report.txt")
+
+        report = path / lexicon_files.REPORT_FILE
         if report.exists():
             self.stdout.write(report.read_text(encoding="utf-8").rstrip())
         if check:
-            self.stdout.write(self.style.SUCCESS(f"OK: {len(items)} entries in {path.name}."))
+            words = sum(len(items) for items in layer.words.values())
+            self.stdout.write(
+                self.style.SUCCESS(
+                    f"OK: {len(layer.concepts)} concepts, {words} words in {path.name}."
+                )
+            )
             return
 
         with transaction.atomic():
             tags_by_slug = lexicon_files.save_tags(tag_data)
-            added, replaced, senses = lexicon_files.save_entries(items, tags_by_slug, path.stem)
+            saved = lexicon_files.save_layer(layer, tags_by_slug)
         self.stdout.write(
             self.style.SUCCESS(
-                f"Package {path.stem}: added {added} entries, changed {replaced}, {senses} senses."
+                f"Package {path.name}: concepts added {saved.concepts_added}, changed "
+                f"{saved.concepts_changed}; words added {saved.words_added}, changed "
+                f"{saved.words_changed}."
             )
         )

@@ -28,30 +28,102 @@ class LexiconTag(models.Model):
         return self.name
 
 
-class LexiconEntry(models.Model):
-    """One headword of the dictionary of the app: a word with one part of speech.
+class PartOfSpeech(models.TextChoices):
+    NOUN = "noun", _("noun")
+    VERB = "verb", _("verb")
+    ADJECTIVE = "adjective", _("adjective")
+    ADVERB = "adverb", _("adverb")
+    PRONOUN = "pronoun", _("pronoun")
+    DETERMINER = "determiner", _("determiner")
+    PREPOSITION = "preposition", _("preposition")
+    CONJUNCTION = "conjunction", _("conjunction")
+    INTERJECTION = "interjection", _("interjection")
+    NUMERAL = "numeral", _("numeral")
+    PHRASAL_VERB = "phrasal_verb", _("phrasal verb")
+    PHRASE = "phrase", _("phrase")
 
-    It is reference data, separate from the words of the users. Filled by the command
-    import_lexicon; importing again replaces all entries of the same language pair.
+
+class Concept(models.Model):
+    """One meaning, the same in all languages (spec 5.2, docs/slovnik.md).
+
+    The words of every language point to concepts, so two languages meet in a concept, not in
+    an English word: "palm" has the concepts palm.noun.1 (dlaň) and palm.noun.2 (palma).
+    The key never changes; the English sentence says what the concept means.
     """
 
-    class PartOfSpeech(models.TextChoices):
-        NOUN = "noun", _("noun")
-        VERB = "verb", _("verb")
-        ADJECTIVE = "adjective", _("adjective")
-        ADVERB = "adverb", _("adverb")
-        PRONOUN = "pronoun", _("pronoun")
-        DETERMINER = "determiner", _("determiner")
-        PREPOSITION = "preposition", _("preposition")
-        CONJUNCTION = "conjunction", _("conjunction")
-        INTERJECTION = "interjection", _("interjection")
-        NUMERAL = "numeral", _("numeral")
-        PHRASAL_VERB = "phrasal_verb", _("phrasal verb")
-        PHRASE = "phrase", _("phrase")
+    # Stable name used in the files, e.g. "palm.noun.1" (word, part of speech, number)
+    key = models.CharField(_("key"), max_length=200, unique=True)
+    tags = models.ManyToManyField(LexiconTag, verbose_name=_("tags"), blank=True)
+    # Which file it came from: "base", or the package of new words, e.g. "2026-10-19"
+    source = models.CharField(_("source"), max_length=20, default="base", db_index=True)
 
-    # ISO 639-1 codes: the word is in foreign_code, its meanings are in native_code
-    foreign_code = models.CharField(_("word language"), max_length=2)
-    native_code = models.CharField(_("meanings language"), max_length=2)
+    class Meta:
+        verbose_name = _("concept")
+        verbose_name_plural = _("concepts")
+        ordering = ["key"]
+
+    def __str__(self):
+        return self.key
+
+
+class ConceptText(models.Model):
+    """A concept in one language: its words as a translation, the example sentence, a note.
+
+    A language without a text has no translation for the concept yet (they are added bit by
+    bit); the suggestions of that pair then leave the concept out.
+    """
+
+    concept = models.ForeignKey(Concept, on_delete=models.CASCADE, related_name="texts")
+    # ISO 639-1 code, e.g. "cs"
+    language = models.CharField(_("language"), max_length=2)
+    # The words of the concept in this language, variants separated by "; " (the same format
+    # as the words of the users): "kočka; kocour"
+    words = models.CharField(_("words"), max_length=300)
+    # Short hint for readers of this language that tells meanings apart, e.g. "o místě"
+    note = models.CharField(_("note"), max_length=200, blank=True)
+    # The word is marked with braces, the same format as the sentences of the users
+    sentence = models.TextField(_("sentence"), blank=True)
+
+    class Meta:
+        verbose_name = _("concept text")
+        verbose_name_plural = _("concept texts")
+        constraints = [
+            models.UniqueConstraint(F("concept"), F("language"), name="unique_concept_text"),
+        ]
+
+    def __str__(self):
+        return f"{self.language}: {self.words}"
+
+
+class ConceptTextForm(models.Model):
+    """One word of a concept text in lower case ("kočka" and "kocour" of "kočka; kocour"), so a
+    typed word is found in the column of its language: CS → EN finds "kočka" in the Czech texts.
+
+    Made by the import from the texts, never written by hand.
+    """
+
+    text = models.ForeignKey(ConceptText, on_delete=models.CASCADE, related_name="forms")
+    form = models.CharField(_("form"), max_length=300, db_index=True)
+
+    class Meta:
+        verbose_name = _("concept text form")
+        verbose_name_plural = _("concept text forms")
+
+    def __str__(self):
+        return self.form
+
+
+class LexiconWord(models.Model):
+    """A word of one language with one part of speech, with its data (forms, IPA, frequency).
+
+    Its meanings are links to concepts (WordSense). Only languages that are learned as foreign
+    languages need words; a language that is only a translation has just concept texts.
+    """
+
+    PartOfSpeech = PartOfSpeech
+
+    # ISO 639-1 code, e.g. "en"
+    language = models.CharField(_("language"), max_length=2)
     word = models.CharField(pgettext_lazy("dictionary entry", "word"), max_length=200)
     part_of_speech = models.CharField(_("part of speech"), max_length=20, choices=PartOfSpeech)
     # How common the word is in spoken language: 1 = the most common 1000 words, 2 = the next
@@ -61,62 +133,54 @@ class LexiconEntry(models.Model):
     level = models.CharField(_("level"), max_length=2)
     # Pronunciation in IPA without brackets, e.g. "pɑːm"
     ipa = models.CharField(_("pronunciation"), max_length=200, blank=True)
-    # Which file it came from: "base", or the package of new words, e.g. "2026-10-19"
+    # Grammatical gender where the language has it, e.g. "f", "m", "n"
+    gender = models.CharField(_("gender"), max_length=10, blank=True)
     source = models.CharField(_("source"), max_length=20, default="base", db_index=True)
 
     class Meta:
-        verbose_name = _("dictionary entry")
-        verbose_name_plural = _("dictionary entries")
+        verbose_name = _("dictionary word")
+        verbose_name_plural = _("dictionary words")
         constraints = [
             models.UniqueConstraint(
-                F("foreign_code"),
-                F("native_code"),
-                Lower("word"),
-                F("part_of_speech"),
-                name="unique_lexicon_entry",
+                F("language"), Lower("word"), F("part_of_speech"), name="unique_lexicon_word"
             ),
         ]
 
     def __str__(self):
-        return f"{self.word} ({self.get_part_of_speech_display()})"
+        return f"{self.word} ({self.language}, {self.get_part_of_speech_display()})"
 
 
-class LexiconForm(models.Model):
-    """A text the entry is found by: the headword and its other spellings (mum for mom).
+class WordForm(models.Model):
+    """A text the word is found by: the word itself and its other forms (mum, palms, clung).
 
     Stored in lower case, so looking up a typed word is one indexed query.
     """
 
-    entry = models.ForeignKey(LexiconEntry, on_delete=models.CASCADE, related_name="forms")
+    word = models.ForeignKey(LexiconWord, on_delete=models.CASCADE, related_name="forms")
     text = models.CharField(_("form"), max_length=200, db_index=True)
 
     class Meta:
-        verbose_name = _("entry form")
-        verbose_name_plural = _("entry forms")
+        verbose_name = _("word form")
+        verbose_name_plural = _("word forms")
 
     def __str__(self):
         return self.text
 
 
-class LexiconSense(models.Model):
-    """One meaning of an entry, with its translation and an example sentence."""
+class WordSense(models.Model):
+    """One meaning of a word: the link of the word to a concept, the most common first."""
 
-    entry = models.ForeignKey(LexiconEntry, on_delete=models.CASCADE, related_name="senses")
-    # The most common meaning first
+    word = models.ForeignKey(LexiconWord, on_delete=models.CASCADE, related_name="senses")
+    concept = models.ForeignKey(Concept, on_delete=models.CASCADE, related_name="senses")
     position = models.PositiveSmallIntegerField(_("position"))
-    # Variants separated by "; ", the same format as the words of the users
-    translation = models.CharField(_("translation"), max_length=300)
-    # Short hint that tells the meanings apart, e.g. "váha", "hovorově"
-    note = models.CharField(_("note"), max_length=200, blank=True)
-    # The word is marked with braces, the same format as the sentences of the users
-    sentence = models.TextField(_("sentence"))
-    sentence_native = models.TextField(_("sentence translation"), blank=True)
-    tags = models.ManyToManyField(LexiconTag, verbose_name=_("tags"), blank=True)
 
     class Meta:
-        verbose_name = _("entry meaning")
-        verbose_name_plural = _("entry meanings")
-        ordering = ["entry", "position"]
+        verbose_name = _("word meaning")
+        verbose_name_plural = _("word meanings")
+        ordering = ["word", "position"]
+        constraints = [
+            models.UniqueConstraint(F("word"), F("concept"), name="unique_word_sense"),
+        ]
 
     def __str__(self):
-        return self.translation
+        return f"{self.word.word} → {self.concept.key}"

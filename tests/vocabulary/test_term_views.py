@@ -29,6 +29,21 @@ def test_deck_page_shows_form_with_languages(logged_client, himym):
     assert "Čeština (CS)" in html
 
 
+def test_samples_of_the_word_fields_are_in_their_languages(logged_client, user, en, cs):
+    # A Czech → English deck: the Czech field shows a Czech sample, the English one English
+    czech = services.create_deck(user, "Česky", foreign_language=cs, native_language=en)
+
+    html = logged_client.get(reverse("vocabulary:deck_detail", args=[czech.pk])).content.decode()
+
+    assert (
+        'autocapitalize="none" placeholder="ahoj; čau" required aria-describedby="id_foreign'
+        in html
+    )
+    assert (
+        'autocapitalize="none" placeholder="hello; hi" required aria-describedby="id_native' in html
+    )
+
+
 def test_add_term_with_htmx(logged_client, himym):
     response = logged_client.post(
         add_url(himym),

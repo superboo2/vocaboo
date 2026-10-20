@@ -339,9 +339,9 @@ Velikost písmen se při kontrole ignoruje (`Ahoj` = `ahoj`), zobrazí se ale ta
 
 ### 5.2 Vlastní slovník aplikace: návrhy překladu, další významy, IPA, příklady (hotovo)
 
-**Hotovo:** aplikace má **vlastní anglicko-český slovník** (asi 10 000 hesel; obsah vytvořila AI, nic se nepřebírá z Wiktionary ani jiných slovníků, takže se zdroj neuvádí). Originál je soubor JSONL `dictionary/data/lexicon_en_cs.jsonl` + `lexicon_tags.json` (není v gitu, na server se kopíruje ručně), do databáze ho nahraje příkaz `import_lexicon` (další import data nahradí). Tabulky: `LexiconEntry` (slovo + slovní druh, jazykový pár, pásmo častosti 1–15 v mluvené řeči, úroveň CEFR, IPA), `LexiconForm` (texty, podle kterých se heslo hledá: heslo a jiné zápisy, malými písmeny, s indexem), `LexiconSense` (pořadí, překlad s variantami `;`, poznámka, věta a její překlad se `{…}`, tagy) a `LexiconTag` (pevný seznam, dvě úrovně). Použití: **návrhy** při psaní cizího slova, při přidání i úpravě (významy seřazené podle pásma a pořadí, se zkratkou slovního druhu a poznámkou v titulku; věta doplněná z návrhu se po změně cizího slova zase smaže, pokud ji uživatel neupravil), **další významy** na kartičce a v detailu slovíčka, **IPA** (když si ji uživatel zapne) a **příklad věty** na konci testu (věta významu, jehož překlad sedí na překlad slovíčka). Zvuk dělá jen hlas prohlížeče. Zatím jen angličtina → čeština. Wiktionary (výtah kaikki.org, tabulka `DictionaryEntry`, příkaz `import_wiktionary`, nahrávky z Wikimedia Commons) bylo odstraněno.
+**Hotovo:** aplikace má **vlastní slovník postavený na pojmech** (dnes asi 10 000 anglických slov a 12 500 pojmů v angličtině a češtině; obsah vytvořila AI, nic se nepřebírá z Wiktionary ani jiných slovníků, takže se zdroj neuvádí). Originál jsou soubory JSONL `dictionary/data/concepts.jsonl` (pojmy s texty podle jazyků), `words_en.jsonl` (anglická slova s odkazy na pojmy) a `lexicon_tags.json` (nejsou v gitu, na server se kopírují ručně), do databáze je nahraje příkaz `import_lexicon` (další import data nahradí). Tabulky a pravidla viz *Slovník pro více jazyků* níže a [docs/slovnik.md](slovnik.md); pásmo častosti 1–15 v mluvené řeči, úroveň CEFR a IPA mají slova, překlad (varianty `;`), poznámka a věty jsou u textů pojmů; značky (témata, styl) mají pojmy.
 
-**Chybějící slova** (hotovo): příkaz `missing_words` vypíše anglická slova, která uživatelé přidali (cizí strana balíčků EN → …, všichni uživatelé) a ke kterým aplikace neměla nápovědu, protože je slovník nezná ani jako heslo, ani jako jiný zápis. Jedno slovo na řádek, každé jednou, abecedně; `--output soubor` je uloží do souboru. Jen čte. Podklad pro další kolo generování slovníku přes AI (tvary jako *kids*, *ran* a překlepy AI profiltruje). **Balíčky nových slov** (hotovo): `dictionary/data/extensions/RRRR-MM-DD.jsonl`, příkaz `extend_lexicon` (nejdřív kontrola, pak přidá nebo nahradí heslo se stejným slovem a slovním druhem), `import_lexicon` bez cesty nahraje základ + všechny balíčky podle data, pole `LexiconEntry.source`. Postup a pravidla pro AI: [docs/slovnik.md](slovnik.md).
+**Chybějící slova** (hotovo): příkaz `missing_words` vypíše anglická slova, která uživatelé přidali (cizí strana balíčků EN → …, všichni uživatelé) a ke kterým aplikace neměla nápovědu, protože je slovník nezná ani jako heslo, ani jako jiný zápis. Jedno slovo na řádek, každé jednou, abecedně; `--output soubor` je uloží do souboru. Jen čte. Podklad pro další kolo generování slovníku přes AI (tvary jako *kids*, *ran* a překlepy AI profiltruje). **Balíčky nových slov** (hotovo): příkaz `extend_lexicon` (nejdřív kontrola, pak přidá pojmy a slova, doplní texty dalších jazyků ke známým pojmům, nahradí slovo se stejným jazykem, slovem a slovním druhem), `import_lexicon` bez cesty nahraje základ + všechny balíčky podle data, pole `source` u pojmů a slov. Balíček je složka `extensions/RRRR-MM-DD/` (`concepts.jsonl`, `words_*.jsonl`, `report.txt`). Postup a pravidla pro AI: [docs/slovnik.md](slovnik.md).
 
 **Další možný krok:** tematické slovníky podle tagů (např. *Zvířata, 30 nejčastějších*), *další nejčastější slova, která ještě nemáš* podle pásem, další jazyky přes stejné rozhraní (`dictionary/providers.py`).
 
@@ -380,72 +380,66 @@ Návrh **jen nabízí**, uložení vždy potvrzuje uživatel výběrem.
 
 **Slovíčka z tématu** (hotovo): v detailu slovníku (jen pár, pro který má slovník aplikace data) odkaz *+ Z tématu* → stránka `decks/<id>/words/topic/`: výběr tématu podle značek (`LexiconTag`, skupina = všechna její témata; značky stylu řeči a gramatiky nejsou témata, vulgární významy se nenabízejí) úrovní (výchozí A1–B1) a slovních druhů (podstatná jména / slovesa / přídavná jména / ostatní, výchozí všechny), nejčastější první (`band`), po 20 na stránce. Uživatel **zaškrtá**, co chce; přidají se jako jeho slovíčka (kopie, `Term.origin = dictionary`) i s větou a jejím překladem. Slovíčka se stejným významem v tomto slovníku se nenabízejí, v jiném slovníku jsou skrytá (počet a odkaz *Ukázat je*, pak šedá s názvem slovníku), aby druhý slovník téhož tématu začínal novými slovíčky. Nejvýš 20 najednou, bez „vybrat vše“. Kód `dictionary/topics.py`, anglické názvy témat `TOPIC_NAMES`.
 
-#### Slovník pro více jazyků (na později, až přibude další jazyk)
+#### Slovník pro více jazyků (hotovo 2026-10-20: struktura; další jazyky se doplňují postupně)
 
-Dnes je slovník jen pro jeden pár (en → cs): hesla `LexiconEntry` a jejich významy
-`LexiconSense` s českým překladem a dvěma větami. Aplikace má mít časem asi 5 jazyků, tedy až
-20 párů (cs → es, de → cs …). **Samostatný slovník pro každý pár se nedělá** (20 slovníků,
-každá oprava 20×). Místo toho se slovník postaví přes **pojmy**, jako to dělají víceznačné
-slovníky (Wiktionary má překlady u anglických významů, WordNet a BabelNet pojmy s pevným ID).
+Aplikace má mít časem asi 5 jazyků, tedy až 20 párů (cs → es, de → cs …). **Samostatný slovník
+pro každý pár se nedělá** (20 slovníků, každá oprava 20×). Slovník je postavený přes **pojmy**,
+jako to dělají víceznačné slovníky (Wiktionary má překlady u anglických významů, WordNet a
+BabelNet pojmy s pevným ID).
 
-**Princip:** pojem je jeden význam nezávislý na jazyce. Významy se převezmou z angličtiny
-(z dnešního en_cs: každý anglický význam = jeden pojem) a slova všech jazyků se na pojmy
-napojují. Dva jazyky se propojí **přes pojem, ne přes anglické slovo**: anglické *palm* má dva
-pojmy (dlaň, palma), takže německé *Handfläche* vede jen na českou *dlaň*, ne na *palmu*.
+**Princip:** pojem je jeden význam nezávislý na jazyce. Významy jsou převzaté z angličtiny
+(z původního en_cs: každý anglický význam = jeden pojem) a slova jazyků se na pojmy napojují.
+Dva jazyky se propojí **přes pojem, ne přes anglické slovo**: anglické *palm* má dva pojmy
+(dlaň, palma), takže budoucí německé *Handfläche* povede jen na českou *dlaň*, ne na *palmu*.
+Tabulky jsou společné pro všechny jazyky (jazyk je sloupec), nový jazyk = nové řádky, ne nové
+tabulky ani kód.
 
 **Tabulky:**
 
 | Tabulka | Co obsahuje |
 |---|---|
-| `Concept` | pojem: **stálé ID** (např. `palm#1`), značky (`LexiconTag`), `source` (`base` / balíček) |
-| `ConceptSentence` | ukázková věta pojmu v jednom jazyce, hledané slovo ve `{}`; jeden pojem × jazyk = jedna věta |
-| `Word` | slovo jednoho jazyka s jedním slovním druhem: jazyk, slovo, slovní druh, četnost (`band`), úroveň, IPA, rod (kde ho jazyk má), `source` |
-| `WordForm` | tvary a jiné zápisy, podle kterých se slovo najde (malými písmeny: *palms*, *gatos*, *hablo*) |
-| `Sense` | význam slova = vazba slovo → pojem: pořadí (nejčastější první) a **poznámka** |
+| `Concept` | pojem: **stálé ID** `key` (`palm.noun.1`), značky (`LexiconTag`), `source` (`base` / balíček) |
+| `ConceptText` | pojem v jednom jazyce: slova (varianty `; `, např. *kočka; kocour*), **poznámka** pro čtenáře toho jazyka (*o místě*, *hovorově*), ukázková věta se `{slovem}`; jeden pojem × jazyk = jeden řádek |
+| `LexiconWord` | slovo jednoho jazyka s jedním slovním druhem: jazyk, slovo, slovní druh, četnost (`band`), úroveň, IPA, rod (kde ho jazyk má), `source` |
+| `WordForm` | tvary a jiné zápisy, podle kterých se slovo najde (malými písmeny: *palms*, *mum*) |
+| `ConceptTextForm` | varianty textu pojmu malými písmeny (*kočka*, *kocour*), rejstřík pro hledání ve „sloupci“ jazyka; vytváří ho import |
+| `WordSense` | význam slova = vazba slovo → pojem s pořadím (nejčastější první) |
 
-Příklad:
-
-```
-Concept palm#1, značka telo
-  ConceptSentence en "She read my {palm}." · cs "Četla mi z {dlaně}." · es "Me leyó la {palma}."
-Word en palm (noun)       → Sense palm#1 (pozice 0), palm#2 (pozice 1, poznámka „strom“)
-Word cs dlaň (noun, ž)    → Sense palm#1
-Word es palma (noun, f)   → Sense palm#1
-Word es palmera (noun, f) → Sense palm#2
-```
-
-Nápověda pro pár X → Y: napsané slovo → `WordForm` jazyka X → `Word` → jeho `Sense` (pořadí) →
-`Concept` → slova jazyka Y se stejným pojmem (to jsou překlady) + věty pojmu v X a Y. Stejný
-dotaz pro všech 20 párů. IPA a další významy se berou z `Word` cizího jazyka.
+Nápověda pro pár X → Y: napsané slovo se hledá (1) jako slovo jazyka X s jeho tvary
+(`WordForm` → `LexiconWord` → `WordSense`, jen jazyky se slovy, dnes en) a (2) **ve sloupci
+jazyka X**: `ConceptTextForm` (každá varianta textu pojmu malými písmeny, z „kočka; kocour“
+*kočka* a *kocour*; vytváří ho import, ručně se nepíše). Z nalezených pojmů se vezme `ConceptText`
+v jazyce Y (překlad, poznámka, věta) + věta v jazyce X; pojem bez textu v jazyce Y se vynechá.
+Pořadí a slovní druh u pojmů nalezených v textech dává anglické slovo pojmu. Stejný dotaz pro
+všechny páry, takže **CS → EN funguje** a po přidání textů `es` i EN → ES, ES → CS, CS → ES.
+IPA a tvary jsou u `LexiconWord` (výslovnost patří ke slovu, ne k pojmu; slova se stejným
+zápisem a slovním druhem, ale jinou výslovností podle významu, *lead* olovo/vedení, zatím
+nerozlišujeme: týká se desítek slov, IPA je ve výchozím stavu vypnutá a hlas prohlížeče čte podle
+zápisu). Slovíčka z tématu pro libovolný pár: anglické `WordSense` pojmů s textem v obou
+jazycích a se značkou tématu (úroveň, slovní druh a pořadí z anglického slova).
 
 **Rozhodnutí:**
 
 - **Žádné popisky pojmů.** Význam pojmu definuje jeho **anglická věta**; podle ní AI pozná,
   který význam přeložit, když přidává další jazyk.
-- **Stálé ID pojmu je v souborech**, ne jen v databázi (dnešní `import_lexicon` všechno maže a
-  ID v databázi se mění). Na ID se odkazuje mezi jazyky a později možná i ze slovíček
-  uživatelů (*slovíčka z tématu*); věta se smí opravit, ID nikdy.
-- **Pojem nemusí mít anglické slovo.** Angličtina se na pojem napojuje stejně jako ostatní
-  jazyky; pro významy, které anglicky jedním slovem nejdou (*dobírka*, *chalupa*, *tykat*,
-  *sobremesa*), vznikne pojem s větou v jazycích, které ho mají (a s anglickou větou, která ho
-  opíše).
-- **Poznámka patří k `Sense`** (slovo v jednom jazyce → pojem), protože ji čte uživatel v
-  nápovědě v jeho jazyce. Je volitelná (dnes má poznámku asi 3 500 z 12 500 významů): hlavně
-  u slov s hromadou významů (*get*, *run*: „vést (firmu)“, „fungovat (o stroji)“), u hovorových
-  a vulgárních slov. Věta pojmu se v řádku návrhů neukazuje, proto je poznámka potřeba.
-- **Slovíčka uživatelů zůstávají kopie** (jako dnes), na slovník neodkazují; IPA, další významy
-  a ukázková věta se dál hledají živě podle textu.
+- **Stálé ID pojmu je v souborech** (`slovo.slovní_druh.číslo`, čitelné kvůli kontrole očima i
+  pro AI, bez počítadla); databáze má navíc obyčejné číselné ID. ID se nikdy nemění, věta se
+  opravit smí; nový význam dostane další volné číslo.
+- **Pojem nemusí mít anglické slovo** (pro významy, které anglicky jedním slovem nejdou:
+  *dobírka*, *chalupa*, *tykat*): anglický text pojmu pak jen opisuje; povinná je anglická věta.
+- **Poznámka patří k textu pojmu v daném jazyce**, protože ji čte uživatel v nápovědě v jeho
+  jazyce. Je volitelná (asi 3 500 z 12 500 pojmů): u slov s hromadou významů (*get*, *run*),
+  hovorových a vulgárních slov.
+- **Texty pojmů stačí pro všechny páry**; slova jazyka (tvary, IPA, četnost) jsou doplněk.
+  Další jazyk postupně: nejdřív texty pojmů (→ nápověda a témata pro všechny páry s ním), pak
+  jeho slova s tvary a IPA.
+- **Slovíčka uživatelů zůstávají kopie**, na slovník neodkazují; IPA, další významy a ukázková
+  věta se dál hledají živě podle textu.
 
-**Převod dnešního slovníku** (jednou, těsně před přidáním prvního dalšího jazyka): každý
-`LexiconSense` → `Concept` + `ConceptSentence` (en, cs); `LexiconEntry` → `Word` (en);
-české překlady (`translation`, varianty oddělené `; `) → `Word` (cs) + `Sense`; poznámka →
-`Sense`. Soubory: pojmy (ID, značky, věty podle jazyků) a slova podle jazyků (každé s odkazy na
-ID pojmů). `import_lexicon`, `extend_lexicon`, `missing_words` (podle jazyka) a
-[docs/slovnik.md](slovnik.md) se upraví; pro uživatele se nic nemění.
-
-**Nový jazyk potom:** slovník `Word` toho jazyka (nejčastější slova podle četnosti, s tvary a
-IPA), každé slovo napojené na existující pojmy (nebo nové pojmy) a věty pojmů v tom jazyce.
-Práce roste s počtem jazyků, ne s počtem párů.
+**Převod** (2026-10-20, jednou): každý význam původního `lexicon_en_cs.jsonl` → pojem
+`slovo.druh.číslo` s texty en (slovo, věta) a cs (překlad, poznámka, věta); hesla → slova en
+s tvary a odkazy na pojmy (`dictionary.lexicon_files.convert_old`). Ověřeno skriptem: návrhy,
+IPA, ukázkové věty a slovíčka z tématu pro všech 9 413 tvarů jsou stejné jako před převodem.
 
 ### 5.3 Hromadně (fáze 2)
 Vložení řádků ve tvaru `hello; hi - ahoj` a náhled před uložením (duplicity vyznačené).
@@ -571,7 +565,7 @@ Základní kartičkový test: uvidím slovíčko, zamyslím se, otočím kartič
 2. Tlačítko „Ukázat“ zobrazí odpověď (všechny varianty), vlastní další významy, větu, poznámku a dole významy ze slovníku (viz 6.4 Homonyma).
 3. Uživatel se ohodnotí jedním z tlačítek (6.3).
 
-**Výslovnost** (hotovo): u cizího slova (ve směru F→N hned, protože slovo je otázka a zvuk nic neprozradí; ve směru N→F po otočení karty) a v detailu slovíčka: šedé, lehce průhledné 🔊 (ve směru F→N na řádku otázky, ve směru N→F na řádku odpovědi, vždy u **pravého okraje kartičky** a svisle na středu řádku, aby ho palec našel vždy na stejném místě a slovo neposkakovalo; slovo zůstává uprostřed, po obou stranách je místo na ikonu, slova delší než 10 znaků mají menší písmo; v detailu slovíčka vedle nadpisu; při najetí, klepnutí a přehrávání ztmavne) a pod slovem menším šedým písmem IPA v hranatých závorkách (`[pɑːm]`), ale **jen když si ho uživatel zapne** (`User.show_ipa`, výchozí vypnuto: většina lidí IPA neumí číst). Závorky ze zdroje (`[…]` i `/…/`) se při čtení odstraní a šablona přidá jednotné `[…]`. IPA je ze slovníku aplikace (`LexiconEntry.ipa`). Mp3 se přehrává přímo z Wikimedia Commons až po kliknutí nebo klávese **P**, nic se neukládá. Hledá se hlavní cizí varianta, bez ohledu na velikost písmen; při víc slovních druzích se bere IPA nejčastějšího hesla. Bez dat se řádek neukáže. 🔊 je vždycky (volba „Ukazovat výslovnost“ byla zrušena). Nastavení › Test › Audio: *Přehrát automaticky* (zapnuto; F→N hned, jak se kartička ukáže, N→F po kliknutí na Ukázat) s volbou *slovo* / *celé použití ve větě* (bez věty slovo). Prohlížeče nedovolí mluvit před prvním kliknutím na stránce, takže úplně první kartička testu se sama nepřečte (načtení testu bez nové stránky by to vyřešilo, ale zatím to není potřeba). Zdroje jsou za rozhraním `get_pronunciation(word, foreign_code)` v `dictionary/providers.py` s pořadím ve `VOCABOO_PRONUNCIATION_PROVIDERS`; **Zvuk dělá hlas prohlížeče** (hotovo, Web Speech API, zdarma a bez serveru; nahrávky z Wikimedia Commons byly odstraněny spolu s Wiktionary): slovo (hlavní cizí varianta) i větu na kartičce (🔊 na konci věty, klávesa **V**; ve směru N→F až po otočení) a věty v detailu slovíčka. Jazyk podle slovníku, u angličtiny přednost americkému hlasu (v seriálech nejčastější) a hlasům typu Google / Microsoft Natural; čte o něco pomaleji (0,9). Tlačítko přijde schované a JS ho ukáže, když prohlížeč umí mluvit vůbec. Hlas se vybírá až při přehrání; když prohlížeč pro jazyk hlas nenahlásí (některé je hlásí pozdě nebo s jiným kódem), předá se jen jazyk a prohlížeč vybere sám. Kvalita podle zařízení: Android, Windows, Mac a Chrome na Linuxu dobře, Firefox na Linuxu roboticky nebo bez hlasu. Hlas na serveru (Piper, cloud) jde přidat později jako další zdroj, kdyby hlasy prohlížeče nestačily.
+**Výslovnost** (hotovo): u cizího slova (ve směru F→N hned, protože slovo je otázka a zvuk nic neprozradí; ve směru N→F po otočení karty) a v detailu slovíčka: šedé, lehce průhledné 🔊 (ve směru F→N na řádku otázky, ve směru N→F na řádku odpovědi, vždy u **pravého okraje kartičky** a svisle na středu řádku, aby ho palec našel vždy na stejném místě a slovo neposkakovalo; slovo zůstává uprostřed, po obou stranách je místo na ikonu, slova delší než 10 znaků mají menší písmo; v detailu slovíčka vedle nadpisu; při najetí, klepnutí a přehrávání ztmavne) a pod slovem menším šedým písmem IPA v hranatých závorkách (`[pɑːm]`), ale **jen když si ho uživatel zapne** (`User.show_ipa`, výchozí vypnuto: většina lidí IPA neumí číst). Závorky ze zdroje (`[…]` i `/…/`) se při čtení odstraní a šablona přidá jednotné `[…]`. IPA je ze slovníku aplikace (`LexiconWord.ipa`). Mp3 se přehrává přímo z Wikimedia Commons až po kliknutí nebo klávese **P**, nic se neukládá. Hledá se hlavní cizí varianta, bez ohledu na velikost písmen; při víc slovních druzích se bere IPA nejčastějšího hesla. Bez dat se řádek neukáže. 🔊 je vždycky (volba „Ukazovat výslovnost“ byla zrušena). Nastavení › Test › Audio: *Přehrát automaticky* (zapnuto; F→N hned, jak se kartička ukáže, N→F po kliknutí na Ukázat) s volbou *slovo* / *celé použití ve větě* (bez věty slovo). Prohlížeče nedovolí mluvit před prvním kliknutím na stránce, takže úplně první kartička testu se sama nepřečte (načtení testu bez nové stránky by to vyřešilo, ale zatím to není potřeba). Zdroje jsou za rozhraním `get_pronunciation(word, foreign_code)` v `dictionary/providers.py` s pořadím ve `VOCABOO_PRONUNCIATION_PROVIDERS`; **Zvuk dělá hlas prohlížeče** (hotovo, Web Speech API, zdarma a bez serveru; nahrávky z Wikimedia Commons byly odstraněny spolu s Wiktionary): slovo (hlavní cizí varianta) i větu na kartičce (🔊 na konci věty, klávesa **V**; ve směru N→F až po otočení) a věty v detailu slovíčka. Jazyk podle slovníku, u angličtiny přednost americkému hlasu (v seriálech nejčastější) a hlasům typu Google / Microsoft Natural; čte o něco pomaleji (0,9). Tlačítko přijde schované a JS ho ukáže, když prohlížeč umí mluvit vůbec. Hlas se vybírá až při přehrání; když prohlížeč pro jazyk hlas nenahlásí (některé je hlásí pozdě nebo s jiným kódem), předá se jen jazyk a prohlížeč vybere sám. Kvalita podle zařízení: Android, Windows, Mac a Chrome na Linuxu dobře, Firefox na Linuxu roboticky nebo bez hlasu. Hlas na serveru (Piper, cloud) jde přidat později jako další zdroj, kdyby hlasy prohlížeče nestačily.
 
 **Zobrazení variant** (slovíčko `hello; hi` ↔ `ahoj; čau`):
 
