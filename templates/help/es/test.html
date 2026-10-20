@@ -1,0 +1,136 @@
+{% extends "help/base_help.html" %}
+{% load study_tags %}
+
+{% block help %}
+  <section>
+    <h2>Empezar un test</h2>
+    <p>
+      Usa el botón <strong>▶︎ Practicar</strong> de la barra superior (está en todas las páginas) o
+      <strong>▶︎ Practicar mazo</strong> en el detalle del mazo. Después elige:
+    </p>
+    <ul>
+      <li><strong>Mazos</strong>: los submazos se incluyen automáticamente, y una palabra que está en varios mazos sale solo una vez.</li>
+      <li><strong>Dirección</strong>: extranjero → tu idioma, tu idioma → extranjero o mezclado. Puedes fijar la dirección por defecto en <a href="{% url 'settings' %}">Ajustes</a>.</li>
+      <li><strong>Qué tarjetas</strong>:
+        <ul>
+          <li><em>solo pendientes y nuevas</em>: aprendizaje normal, las tarjetas que toca repasar y las palabras que todavía no han salido en ningún test,</li>
+          <li><em>todas</em>: cada tarjeta una vez, sin importar cuándo toca repasarla (p. ej. antes de un examen).</li>
+        </ul>
+      </li>
+      <li><strong>Máx. de tarjetas</strong>: cuando solo quieres un repaso corto.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>La tarjeta</h2>
+    <p>Ves el anverso. Intenta recordar la respuesta y luego da la vuelta a la tarjeta (<strong>Mostrar</strong> o la <strong>barra espaciadora</strong>).</p>
+    <div class="grid">
+      <article class="help-card">
+        <header>Anverso</header>
+        <p class="help-card-main">dlaň</p>
+        <p class="card-sentence">„She can read from her <span class="cloze">___</span>.“</p>
+      </article>
+      <article class="help-card">
+        <header>Reverso</header>
+        <p class="help-card-main">palm 🔊</p>
+        <p>También estás aprendiendo: palm → palma</p>
+        <p class="card-sentence">„She can read from her <mark>palm</mark>.“</p>
+        <p class="muted"><small>pracka · lehký · světlý <u>+3</u></small></p>
+      </article>
+    </div>
+    <ul>
+      <li>En la dirección extranjero → tu idioma, la frase entera ya está en el anverso. Te indica el significado (palm: ¿mano o árbol?).</li>
+      <li>En la dirección tu idioma → extranjero, la frase del anverso tiene un hueco en lugar de la palabra. Si la frase tiene traducción, la traducción también está en el anverso, así sabes qué va en el hueco: <em>„Mně se ta písnička <strong>také</strong> nelíbí.“ / „I don't like this song ___.“</em></li>
+      <li>En la dirección extranjero → tu idioma, la traducción de la frase está en el reverso.</li>
+      <li>Si la palabra está en varios mazos del test, la frase cambia cada vez.</li>
+      <li><em>“ahoj” también es: hello</em>: otra palabra tiene la misma traducción.</li>
+      <li><em>„She can read from her palm.“ 🔊</em>: la voz del navegador lee la frase cuando haces clic en 🔊 o pulsas <kbd>V</kbd>. En la dirección extranjero → tu idioma enseguida; en la dirección tu idioma → extranjero solo después de dar la vuelta a la tarjeta (si no, desvelaría la respuesta).</li>
+      <li>Cómo suena la <em>voz del navegador</em> depende de tu dispositivo: bien en Android, Windows, Mac y en Chrome en Linux; robótica o nada en Firefox en Linux. Si el navegador no puede hablar en absoluto, 🔊 no se muestra.</li>
+      <li><em>palm 🔊</em>: pronunciación de la palabra extranjera. El 🔊 gris está en el borde derecho de la tarjeta, en la línea de la palabra extranjera. Haz clic en 🔊 o pulsa <kbd>P</kbd> y la <strong>voz del navegador</strong> lee la palabra; en la dirección extranjero → tu idioma el 🔊 se ve enseguida, en la dirección tu idioma → extranjero después de dar la vuelta a la tarjeta. En <a href="{% url 'settings' %}">Ajustes</a> puedes activar que se lea automáticamente la palabra o la frase entera. Si sabes leer el AFI, también puedes activar en <a href="{% url 'settings' %}">Ajustes</a> la pronunciación del diccionario debajo de la palabra, por ejemplo <em>[pɑːm]</em>. Solo se muestra después de dar la vuelta a la tarjeta.</li>
+      <li><em>También estás aprendiendo</em>: otra palabra tuya con la misma palabra extranjera pero con otra traducción (<code>palm → palma</code>).</li>
+      <li><em>pracka · lehký · světlý +3</em>: abajo del todo, en letra más pequeña, otros significados de la palabra extranjera según el diccionario. Solo la primera variante de cada significado. Se muestran tantos como caben en una línea, y al hacer clic en <em>+3</em> se ven los demás. Todos, con todas sus variantes, están en el detalle de la palabra. Puedes desactivarlo en <a href="{% url 'settings' %}">Ajustes</a>.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Valoraciones e intervalos</h2>
+    <p>Después de dar la vuelta a la tarjeta, valora lo bien que te sabes la palabra:</p>
+    <div class="overflow-auto"><table>
+      <thead>
+        <tr><th>Botón</th><th>Tecla</th><th>Primera vez</th><th>Siguientes repasos</th></tr>
+      </thead>
+      <tbody>
+        {% for rating in ratings %}
+          <tr>
+            <td><span aria-hidden="true">{{ rating.emoji }}</span> {{ rating.label }}</td>
+            <td><kbd>{{ rating.hotkey }}</kbd></td>
+            <td>{{ rating.min_interval|interval }}</td>
+            <td>
+              {% if rating.multiplier %}
+                intervalo anterior × {{ rating.multiplier|floatformat:"-1" }}
+              {% else %}
+                siempre {{ rating.min_interval|interval }}
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table></div>
+    <ul>
+      <li>El intervalo crece con cada respuesta buena, hasta <strong>{{ max_interval|interval }}</strong>. Por ejemplo, siempre 😎: 7 días → 28 → 112 → 1 año.</li>
+      <li>Después de 😕 o 😵 vuelve a crecer desde el principio.</li>
+      <li>Los intervalos de un día o más se redondean a días enteros.</li>
+      <li>Debajo de cada emoji ves el <strong>siguiente intervalo real</strong> de esta misma tarjeta.</li>
+      <li>La valoración vale en todos los mazos en los que está la palabra.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Controles</h2>
+    <div class="overflow-auto"><table>
+      <tbody>
+        <tr><td><kbd>barra espaciadora</kbd></td><td>da la vuelta a la tarjeta</td></tr>
+        <tr><td><kbd>1</kbd> – <kbd>4</kbd></td><td>valora la tarjeta (😎 🤔 😕 😵)</td></tr>
+        <tr><td><kbd>P</kbd></td><td>reproduce la pronunciación (en la dirección tu idioma → extranjero después de dar la vuelta)</td></tr>
+        <tr><td><kbd>V</kbd></td><td>lee la frase (en la dirección tu idioma → extranjero después de dar la vuelta)</td></tr>
+        <tr><td><strong>?</strong> debajo de la tarjeta</td><td>muestra u oculta la explicación de los botones</td></tr>
+        <tr><td><strong>✎</strong> debajo de la tarjeta o <kbd>E</kbd></td><td>abre la edición de la palabra (una errata, una traducción incorrecta); el botón <em>Guardar y volver al test</em> o <em>Volver al test sin guardar</em> te devuelve a la misma tarjeta. La tarjeta todavía no se ha valorado, así que nada cuenta dos veces. Los cambios en las variantes y en la nota valen en todos los mazos en los que está la palabra.</td></tr>
+        <tr><td><strong>Terminar test</strong></td><td>termina el test y muestra el resumen</td></tr>
+      </tbody>
+    </table></div>
+    <p>En el móvil, basta con tocar. La siguiente tarjeta se carga sin recargar la página.</p>
+  </section>
+
+  <section>
+    <h2>Orden de las tarjetas</h2>
+    <ul>
+      <li>Primero las tarjetas que toca repasar, después las palabras nuevas. En ambos grupos el orden es <strong>aleatorio</strong>, distinto en cada test. Así las dos direcciones de la misma palabra suelen quedar lejos, y no aciertas la segunda dirección solo porque todavía la recuerdas de hace un momento.</li>
+      <li>La misma palabra en la otra dirección, u otro significado de la misma palabra (palm / palm), nunca sale justo después.</li>
+      <li>Una tarjeta valorada con 😵 vuelve en el mismo test al cabo de 10 minutos.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Resumen</h2>
+    <p>
+      Al final ves cuántas veces salió cada valoración y las palabras valoradas con 😕 o 😵.
+      <strong>Practicar otra vez las falladas</strong> empieza un test nuevo solo con esas palabras.
+    </p>
+    <p>
+      <strong>✍️ Esta palabra no se te queda:</strong> cuando el test tiene una palabra que sigue fallando con el tiempo
+      (al menos la mitad de las últimas 8 respuestas mal, 😕 cuenta como media) y todavía no tiene frase,
+      se ofrece un formulario para ella: escribe una frase debajo de la palabra extranjera y su traducción debajo de la de tu idioma.
+      Encima del formulario hay <strong>puntos de colores</strong> de las últimas respuestas en cada dirección
+      (<em>EN → CS</em>, <em>CS → EN</em>), las más antiguas a la izquierda: ves enseguida en qué dirección falla la palabra
+      y si va mejorando. Se muestran las 8 últimas; las más antiguas quedan ocultas bajo <em>+N</em> (pasa el ratón por encima para ver cómo fueron);
+      al hacer clic se despliegan hasta 30 puntos, y hay más en el detalle de la palabra.
+      Una palabra dentro de una frase se aprende mejor. Si el diccionario tiene un ejemplo para este significado,
+      se muestra con un botón <strong>Usar</strong> (rellena la frase y su traducción). <strong>Ahora no</strong> oculta el formulario;
+      la palabra puede volver a ofrecerse después de otro test. Una palabra que te sabes y olvidas una vez no se ofrece.
+    </p>
+    <p class="muted">
+      Por cada respuesta, la aplicación también guarda tu tiempo de reflexión (hasta que das la vuelta a la tarjeta) para las estadísticas.
+      Cuando bloqueas el móvil o cambias a otra aplicación, el cronómetro se detiene.
+    </p>
+  </section>
+{% endblock %}

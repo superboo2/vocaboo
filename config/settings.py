@@ -182,6 +182,7 @@ LANGUAGE_CODE = "en"
 LANGUAGES = [
     ("cs", "Čeština"),
     ("en", "English"),
+    ("es", "Español"),
 ]
 
 # Translations of the app (makemessages / compilemessages)

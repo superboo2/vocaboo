@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_not_required
@@ -19,7 +20,11 @@ urlpatterns = [
     path("help/<slug:topic>/", views.help_page, name="help"),
     path(
         "accounts/login/",
-        auth_views.LoginView.as_view(authentication_form=LoginForm),
+        auth_views.LoginView.as_view(
+            authentication_form=LoginForm,
+            # The language switch: every language by its own name (Čeština, English, Español)
+            extra_context={"languages": settings.LANGUAGES},
+        ),
         name="login",
     ),
     path("accounts/logout/", auth_views.LogoutView.as_view(), name="logout"),

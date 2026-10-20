@@ -257,3 +257,11 @@ def test_settings_save_the_language_and_the_cookie(client):
     user.refresh_from_db()
     assert user.ui_language == "en"
     assert response.cookies["django_language"].value == "en"
+
+
+@pytest.mark.django_db
+def test_language_switch_names_each_language_in_itself(client):
+    html = client.get(reverse("login"), HTTP_ACCEPT_LANGUAGE="es").content.decode()
+
+    for name in ("Čeština", "English", "Español"):
+        assert f">{name}</button>" in html

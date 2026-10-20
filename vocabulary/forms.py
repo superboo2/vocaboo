@@ -103,6 +103,7 @@ class TermMoveForm(forms.Form):
 VARIANT_SAMPLES = {
     "cs": "ahoj; čau",
     "en": "hello; hi",
+    "es": "hola; buenas",
 }
 
 

@@ -94,6 +94,47 @@ v čísle ID.
 `import_lexicon` (nahraje základ a všechny balíčky podle data; `import_lexicon --check` jen
 zkontroluje soubory).
 
+## Postup: překlad do dalšího jazyka (postupně)
+
+Nový jazyk se přidává **balíčky jen s texty toho jazyka** ke stávajícím pojmům, po 500–1 000
+pojmech, **nejčastější první** (podle `band` anglického slova, v pořadí souboru a významů).
+Další balíček vezme dalších N nejčastějších pojmů, které ještě **nemají text v tom jazyce**
+(ani v `concepts.jsonl`, ani v žádném balíčku v `extensions/`); vstup pro překlad je u každého
+pojmu jeho anglické slovo a věta a české slovo a poznámka.
+Po každém balíčku funguje nápověda a slovíčka z tématu pro přeložené pojmy ve všech párech
+s tím jazykem; nepřeložené se zatím neukazují.
+
+- Balíček: `extensions/RRRR-MM-DD/concepts.jsonl` s řádky
+  `{"id": "cat.noun.1", "texts": {"es": {"words": "gato; gata", "sentence": "El {gato} duerme en el sofá."}}}`
+  a `report.txt` s jedním řádkem, třeba `added    es: 1000 concepts (the most common, band 1)`.
+- Spuštění stejně jako u nových slov: `extend_lexicon dictionary/data/extensions/RRRR-MM-DD`.
+- Slova jazyka (`words_es.jsonl`: IPA, tvary, rod, četnost) později zvlášť.
+- K jazyku patří ukázka pro prázdné pole (`VARIANT_SAMPLES`, viz výše).
+
+**Pravidla překladu (prompt pro AI):**
+
+- Překládá se **význam**, ne anglické slovo: význam určuje anglická věta pojmu, české slovo a
+  poznámka pomůžou poznat, o který jde (*palm.noun.1* dlaň → *palma*, *palm.noun.2* strom →
+  *palmera*).
+- **Španělština evropská** (Španělsko: *coche*, *ordenador*, *móvil*, *vosotros*); běžné
+  latinskoamerické slovo smí být další varianta (*coche; carro*).
+- `words`: slova pro ten význam, nejběžnější první, nejvýš 3 varianty oddělené `; `;
+  podstatná jména bez členu (*gato*), u lidí a zvířat obě podoby (*gato; gata*, *profesor;
+  profesora*), slovesa v infinitivu, fráze přirozeně.
+- `sentence`: přirozený překlad anglické věty (stejný význam, ne slovo od slova), slovo pojmu
+  ve `{}` v tvaru, jaký má ve větě; poznámka (`note`) zatím ne.
+- Vlastní slova, nic nekopírovat; běžný, přirozený jazyk.
+
+**Hotové balíčky:**
+
+| Balíček | Jazyk | Pojmy |
+|---|---|---|
+| 2026-10-20 | es | 999 z 1 000 nejčastějších (band 1; *would* vynecháno, ve španělštině je to jen koncovka) |
+| 2026-10-20-2 | es | dalších 500 (zbytek band 1 = 314, začátek band 2 = 186) |
+| 2026-10-20-3 | es | dalších 200 (band 2) |
+| 2026-10-20-4 | es | dalších 200 (band 2) |
+| 2026-10-20-5 | es | dalších 200 (band 2) |
+
 ## Pravidla pro balíček (prompt pro AI)
 
 Tuto část čte AI, která balíček píše.

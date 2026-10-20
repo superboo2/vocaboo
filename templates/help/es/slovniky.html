@@ -1,0 +1,90 @@
+{% extends "help/base_help.html" %}
+
+{% block help %}
+  <section>
+    <h2>Qué es un mazo</h2>
+    <p>
+      Un mazo es una carpeta de palabras. Los mazos se pueden anidar, así que puedes crear un árbol según
+      de dónde vienen tus palabras, por ejemplo por serie, temporada y episodio:
+    </p>
+    <pre class="help-tree">📂 CzechEnglish (EN → CS)
+   📂 Two and half men
+      📂 Series 1
+         📄 Episode 1
+         📄 Episode 2
+📄 Španělština (ES → CS)</pre>
+    <ul>
+      <li>El árbol puede tener como máximo <strong>{{ max_depth }} niveles</strong>.</li>
+      <li>Cada mazo puede tener a la vez palabras y submazos.</li>
+      <li>Un nombre debe ser único dentro de una carpeta, y no importan las mayúsculas ni las minúsculas (<code>HIMYM</code> = <code>himym</code>).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Nuevo mazo e idiomas</h2>
+    <ol>
+      <li>En el <a href="{% url 'dashboard' %}">Resumen</a>, haz clic en <strong>+ Nuevo mazo</strong>.</li>
+      <li>Rellena el nombre y los idiomas:
+        <ul>
+          <li><strong>Quiero aprender</strong>: el idioma de las palabras, p. ej. inglés,</li>
+          <li><strong>Hablo</strong>: el idioma al que traduces las palabras, p. ej. checo. Viene rellenado desde <a href="{% url 'settings' %}">Ajustes</a>.</li>
+        </ul>
+      </li>
+    </ol>
+    <p>
+      Solo un mazo de nivel superior tiene un par de idiomas, que se muestra junto a su nombre, p. ej. <code>(EN → CS)</code>.
+      Los submazos lo heredan y no se puede cambiar más tarde.
+    </p>
+    <p>
+      Para añadir un <strong>submazo</strong>, abre el mazo y haz clic en <strong>+ Nuevo</strong> junto al encabezado <em>Submazos</em>.
+    </p>
+  </section>
+
+  <section>
+    <h2>El árbol en el Resumen</h2>
+    <div class="overflow-auto"><table>
+      <tbody>
+        <tr><td>📂 / 📁</td><td>mazo con submazos, abierto / cerrado</td></tr>
+        <tr><td>📄</td><td>mazo sin submazos</td></tr>
+        <tr><td>clic en el icono o en la fila</td><td>pliega o despliega la carpeta; el navegador recuerda cómo dejaste las carpetas, así que el árbol se ve igual después de un test o en otra página (cada dispositivo lo recuerda por separado). Las carpetas en las que aún no has hecho clic muestran su primer nivel abierto y los niveles más profundos cerrados. Si arrastras un mazo y lo mantienes sobre una carpeta cerrada, la carpeta se abre al cabo de un momento</td></tr>
+        <tr><td>clic en el nombre</td><td>abre el mazo</td></tr>
+        <tr><td>número a la derecha</td><td>número de palabras incluidos los submazos; una palabra que está en varios mazos se cuenta una sola vez</td></tr>
+        <tr><td><strong>N para repasar</strong></td><td>cuántas palabras tocan ahora mismo</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Mover arrastrando y soltando</h2>
+    <p><strong>Para mover un mazo en el Resumen, arrástralo. En el móvil, primero mantenlo pulsado un momento.</strong></p>
+    <p>Agarra el mazo y arrástralo. Las filas no se mueven mientras arrastras; solo ves dónde caerá el mazo:</p>
+    <ul>
+      <li><strong>sobre el centro de una fila</strong>: la fila se resalta y el mazo va <strong>dentro</strong> de ella, incluso a un mazo que todavía no tiene submazos,</li>
+      <li><strong>cerca del borde superior o inferior de una fila</strong>: aparece una línea y el mazo se coloca <strong>antes o después</strong> de ella. Así cambias el orden y también mueves un mazo al nivel superior.</li>
+    </ul>
+    <p>
+      Con el ratón, simplemente arrastra. <strong>En el móvil, primero mantén pulsado el mazo un momento</strong> y luego arrastra.
+      Un deslizamiento rápido solo desplaza la página.
+    </p>
+    <p>El movimiento se guarda en cuanto sueltas. No es posible cuando:</p>
+    <ul>
+      <li>la carpeta de destino tiene otro par de idiomas,</li>
+      <li>el mazo acabaría dentro de sí mismo o dentro de uno de sus submazos,</li>
+      <li>el árbol tendría más de {{ max_depth }} niveles,</li>
+      <li>la carpeta de destino ya tiene un mazo con el mismo nombre.</li>
+    </ul>
+    <p>En ese caso, el mazo vuelve a donde estaba y el motivo se muestra encima del árbol.</p>
+  </section>
+
+  <section>
+    <h2>Más opciones en la página del mazo</h2>
+    <ul>
+      <li><strong>Practicar mazo</strong>: un test solo de este mazo y sus submazos.</li>
+      <li><strong>⋯</strong> junto al nombre del mazo abre un menú: <strong>Renombrar y descripción</strong>, <strong>Mover</strong> y <strong>Eliminar</strong>.</li>
+      <li><strong>Renombrar y descripción</strong>: el nombre y la descripción.</li>
+      <li><strong>Mover</strong>: mover eligiendo de una lista; solo se ofrecen los lugares a los que puede ir el mazo. También es práctico si usas el teclado.</li>
+      <li><strong>Flechas ↑ ↓</strong> junto a los submazos: cambian el orden sin arrastrar.</li>
+      <li><strong>Eliminar</strong>: elimina el mazo <strong>y sus submazos</strong>, además de las palabras que no están en ningún otro mazo. Las palabras que también están en otro sitio se quedan. Antes de eliminar, ves cuánto se va a borrar de cada cosa.</li>
+    </ul>
+  </section>
+{% endblock %}

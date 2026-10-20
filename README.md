@@ -623,15 +623,15 @@ services.search_terms(user, "impose")
 
 The app has a help page for users (*Nápověda* / *Help* in the top bar, `/help/`) with tabs
 *Slovníky*, *Slovíčka*, *Test* and *Přehled a statistiky*. Every tab is its own page in every
-language: `templates/help/cs/<tab>.html` and `templates/help/en/<tab>.html` (a language without
+language: `templates/help/cs/`, `templates/help/en/` and `templates/help/es/<tab>.html` (a language without
 its own page gets the English one); the frame with the tabs is `templates/help/base_help.html`
 and the list of tabs is `HELP_TOPICS` in `config/views.py`. The
 table of rating buttons is made from `study/ratings.py`, so it stays right when the buttons
-change. When a feature changes, update its help tab too, in both languages.
+change. When a feature changes, update its help tab too, in all languages.
 
 ### 16. Languages of the app (translations)
 
-The app speaks Czech and English (`LANGUAGES` in `config/settings.py`). The source texts in
+The app speaks Czech, English and Spanish (European, *tú*; `LANGUAGES` in `config/settings.py`). The source texts in
 the code are **English**; Czech is a translation in `locale/cs/LC_MESSAGES/django.po`. The
 compiled file `django.mo` is in git too, so the app and the tests work without gettext.
 
