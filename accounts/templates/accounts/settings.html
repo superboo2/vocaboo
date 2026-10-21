@@ -20,6 +20,17 @@
       <section class="settings-group card-section">
         <h2>{% translate "App" %}</h2>
         {{ form.ui_language.as_field_group }}
+        {# Shown by app.js only where the app can be installed and is not yet #}
+        <div class="install-offer" data-install-item hidden>
+          <div class="install-card-body">
+            {% include "_ghost_install.html" with class="install-icon" %}
+            <p><strong>{% translate "Put Vocaboo on your home screen" %}</strong><br>
+              <span class="muted">{% translate "It opens with one tap, on the whole screen, like other apps." %}</span></p>
+          </div>
+          <div class="install-card-actions">
+            <button type="button" data-install>{% translate "Install" %}</button>
+          </div>
+        </div>
       </section>
 
       <section class="settings-group card-section">

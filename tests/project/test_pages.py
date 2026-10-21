@@ -80,11 +80,22 @@ def test_install_offer_waits_hidden_for_the_script(client, user):
     html = client.get(reverse("dashboard")).content.decode()
 
     # app.js shows them only where the browser can install the app
-    assert '<li dir="ltr" data-install-item hidden>' in html
     assert "data-install-card hidden" in html
-    assert 'id="install-guide"' in html
+    # Not in the account menu any more, only on the overview and in Settings
+    assert "data-install-item" not in html
+    assert 'id="install-guide-ios"' in html
+    assert 'id="install-guide-android"' in html
 
 
 def test_login_lasts_90_days_since_the_last_visit(settings):
     assert settings.SESSION_COOKIE_AGE == 60 * 60 * 24 * 90
     assert settings.SESSION_SAVE_EVERY_REQUEST
+
+
+def test_settings_offer_the_app_on_the_home_screen(client, user):
+    client.force_login(user)
+
+    html = client.get(reverse("settings")).content.decode()
+
+    assert 'class="install-offer" data-install-item hidden' in html
+    assert "ghost-install" in html

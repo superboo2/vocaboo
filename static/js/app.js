@@ -370,7 +370,8 @@ document.addEventListener("DOMContentLoaded", showThemeColor);
 
 // Installing the app on the home screen. Android and Chrome / Edge on a computer send
 // beforeinstallprompt, then our button opens their own "Install?" window. An iPhone has no
-// such window, so the button shows the steps (dialog #install-guide in base.html).
+// such window, and neither have some Android browsers (e.g. Firefox), so there the button
+// shows the steps (dialogs #install-guide-ios and #install-guide-android in base.html).
 let installPrompt = null;
 
 function isInstalled() {
@@ -381,6 +382,21 @@ function isIOS() {
   // An iPad says it is a Mac, but a Mac has no touch screen
   return /iPhone|iPad|iPod/.test(navigator.userAgent)
     || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+}
+
+function isAndroid() {
+  return /Android/.test(navigator.userAgent);
+}
+
+// Steps for a phone whose browser has no install window, or null
+function installGuide() {
+  if (isIOS()) {
+    return document.getElementById("install-guide-ios");
+  }
+  if (isAndroid()) {
+    return document.getElementById("install-guide-android");
+  }
+  return null;
 }
 
 function installDismissed() {
@@ -400,7 +416,7 @@ function dismissInstall() {
 }
 
 function showInstall() {
-  const canInstall = !isInstalled() && (installPrompt !== null || isIOS());
+  const canInstall = !isInstalled() && (installPrompt !== null || installGuide() !== null);
   document.querySelectorAll("[data-install-item]").forEach(function (item) {
     item.hidden = !canInstall;
   });
@@ -438,10 +454,10 @@ document.addEventListener("click", function (event) {
         }
         showInstall();
       });
-    } else if (isIOS()) {
-      document.getElementById("install-guide")?.showModal();
-      // Safari never says whether the steps were done; the offer on the overview has done its
-      // job, the menu item stays
+    } else if (installGuide()) {
+      installGuide().showModal();
+      // The browser never says whether the steps were done; the offer on the overview has
+      // done its job, the menu item stays
       dismissInstall();
       showInstall();
     }

@@ -659,12 +659,16 @@ services.search_terms(user, "impose")
 
 The app can be installed on a phone or a computer like an app (no store, no offline mode):
 
-- **Android, Chrome / Edge on a computer:** *📲 Nainstalovat aplikaci* in the account menu opens
-  the browser's own *Install?* window (`beforeinstallprompt` in `static/js/app.js`).
+- **Android, Chrome / Edge on a computer:** *Nainstalovat* in *Nastavení › Aplikace* (and on
+  the card on the overview) opens the browser's own *Install?* window (`beforeinstallprompt` in `static/js/app.js`).
 - **iPhone / iPad:** Apple has no such window, so the same item shows the steps
-  *Sdílet → Přidat na plochu → Přidat* (dialog `#install-guide` in `templates/base.html`).
+  *Sdílet → Přidat na plochu → Přidat* (dialog `#install-guide-ios` in `templates/base.html`).
+- **Android without the window** (Firefox and some other browsers, or Chrome before it offers
+  the installation): the steps from the browser menu *⋮ → Instalovat aplikaci / Přidat na
+  plochu* (dialog `#install-guide-android`). The system is told by `navigator.userAgent`.
 - On a phone the overview offers it once (*Dej si Vocaboo na plochu*); after *Teď ne* it stays
-  hidden in that browser (`localStorage` key `vocaboo.installDismissed`).
+  hidden in that browser (`localStorage` key `vocaboo.installDismissed`); the offer in
+  *Nastavení* stays (only where the browser can install the app and it is not installed yet).
 
 The browser offers the installation only over **HTTPS** (or on `localhost`) and with a valid
 `static/manifest.webmanifest`. Check it in Chrome: *DevTools › Application › Manifest*. The

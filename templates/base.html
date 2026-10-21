@@ -68,10 +68,6 @@
                   <button type="button" data-theme-choice="auto" aria-pressed="false">{% translate "Auto" context "theme" %}</button>
                 </li>
                 <li dir="ltr"><a href="{% url 'settings' %}">{% translate "Settings" %}</a></li>
-                {# Shown by app.js only where the app can be installed and is not yet #}
-                <li dir="ltr" data-install-item hidden>
-                  <button type="button" class="link-button" data-install>📲 {% translate "Install the app" %}</button>
-                </li>
                 {% if user.is_staff %}<li dir="ltr"><a href="{% url 'admin:index' %}">{% translate "Admin" %}</a></li>{% endif %}
                 <li dir="ltr">
                   <form method="post" action="{% url 'logout' %}" class="inline-form">
@@ -86,12 +82,12 @@
       </nav>
     </header>
 
-    {# An iPhone has no install button: these steps are shown instead (app.js) #}
-    <dialog id="install-guide" aria-labelledby="install-guide-title">
+    {# An iPhone has no install window: these steps are shown instead (app.js) #}
+    <dialog id="install-guide-ios" aria-labelledby="install-guide-ios-title">
       <article>
         <header>
           <button type="button" aria-label="{% translate 'Close' %}" rel="prev" data-install-close></button>
-          <h2 id="install-guide-title" class="section-title">📲 {% translate "Vocaboo on the home screen" %}</h2>
+          <h2 id="install-guide-ios-title" class="section-title install-guide-title">{% include "_ghost_install.html" with class="install-icon" %}{% translate "Vocaboo on the home screen" %}</h2>
         </header>
         <ol class="install-steps">
           <li>{% blocktranslate %}Tap <strong>Share</strong> (the square with an arrow up). In Safari it is at the bottom; if you don't see it, tap <strong>⋯</strong> first.{% endblocktranslate %}</li>
@@ -99,6 +95,24 @@
           <li>{% blocktranslate %}Tap <strong>Add</strong>. Vocaboo is now on the home screen, next to the other apps.{% endblocktranslate %}</li>
         </ol>
         <p class="muted">{% translate "The app on the home screen has its own login, so log in there once more." %}</p>
+        <footer>
+          <button type="button" data-install-close>{% translate "OK" %}</button>
+        </footer>
+      </article>
+    </dialog>
+
+    {# Android with a browser that has no install window (e.g. Firefox): steps from its menu #}
+    <dialog id="install-guide-android" aria-labelledby="install-guide-android-title">
+      <article>
+        <header>
+          <button type="button" aria-label="{% translate 'Close' %}" rel="prev" data-install-close></button>
+          <h2 id="install-guide-android-title" class="section-title install-guide-title">{% include "_ghost_install.html" with class="install-icon" %}{% translate "Vocaboo on the home screen" %}</h2>
+        </header>
+        <ol class="install-steps">
+          <li>{% blocktranslate %}Open the browser menu: <strong>⋮</strong> at the top right (in Firefox it can be at the bottom).{% endblocktranslate %}</li>
+          <li>{% blocktranslate %}Tap <strong>Install app</strong> or <strong>Add to Home screen</strong>.{% endblocktranslate %}</li>
+          <li>{% blocktranslate %}Confirm with <strong>Install</strong> or <strong>Add</strong>. Vocaboo is now on the home screen, next to the other apps.{% endblocktranslate %}</li>
+        </ol>
         <footer>
           <button type="button" data-install-close>{% translate "OK" %}</button>
         </footer>

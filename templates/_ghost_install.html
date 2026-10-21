@@ -1,0 +1,16 @@
+{# A phone with apps, one of them is Vocaboo: the icon of "put the app on the home screen". #}
+{# Colours from app.css (logo-card, logo-ghost, logo-eye); the attributes are a fallback without CSS. #}
+<svg class="ghost-install{% if class %} {{ class }}{% endif %}" viewBox="0 0 64 64" width="44" height="44" aria-hidden="true" focusable="false">
+  <rect class="logo-card" fill="#d9d4f5" stroke="#5b4bc4" x="14" y="4" width="36" height="56" rx="7" stroke-width="3"/>
+  {# The other apps, light #}
+  <rect class="install-app" fill="#5b4bc4" opacity="0.35" x="20" y="12" width="10" height="10" rx="2.5"/>
+  <rect class="install-app" fill="#5b4bc4" opacity="0.35" x="34" y="12" width="10" height="10" rx="2.5"/>
+  <rect class="install-app" fill="#5b4bc4" opacity="0.35" x="20" y="26" width="10" height="10" rx="2.5"/>
+  <rect class="install-app" fill="#5b4bc4" opacity="0.35" x="34" y="26" width="10" height="10" rx="2.5"/>
+  <rect class="install-app" fill="#5b4bc4" opacity="0.35" x="20" y="40" width="10" height="10" rx="2.5"/>
+  {# Vocaboo: a bigger tile with the ghost #}
+  <rect class="logo-ghost" fill="#5b4bc4" x="32" y="38" width="14" height="14" rx="3.5"/>
+  <path class="logo-eye" fill="#fff" d="M35 47.5 C35 42.5 37 40.5 39 40.5 C41 40.5 43 42.5 43 47.5 V49.5 L41.7 48.5 L40.3 49.5 L39 48.5 L37.7 49.5 L36.3 48.5 L35 49.5 Z"/>
+  <circle class="logo-ghost" fill="#5b4bc4" cx="37.6" cy="44.2" r="0.9"/>
+  <circle class="logo-ghost" fill="#5b4bc4" cx="40.4" cy="44.2" r="0.9"/>
+</svg>

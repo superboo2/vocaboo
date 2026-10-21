@@ -11,8 +11,11 @@
 
   {# Offer once on a phone to put the app on the home screen (app.js shows it) #}
   <section class="card-section install-card" data-install-card hidden>
-    <p><strong>📲 {% translate "Put Vocaboo on your home screen" %}</strong><br>
-      <span class="muted">{% translate "It opens with one tap, on the whole screen, like other apps." %}</span></p>
+    <div class="install-card-body">
+      {% include "_ghost_install.html" with class="install-icon" %}
+      <p><strong>{% translate "Put Vocaboo on your home screen" %}</strong><br>
+        <span class="muted">{% translate "It opens with one tap, on the whole screen, like other apps." %}</span></p>
+    </div>
     <div class="install-card-actions">
       <button type="button" data-install>{% translate "Install" %}</button>
       <button type="button" class="secondary outline" data-install-dismiss>{% translate "Not now" %}</button>

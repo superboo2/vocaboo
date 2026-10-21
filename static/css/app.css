@@ -2864,9 +2864,40 @@ body {
   padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
 }
 
-/* The offer to put the app on the home screen, at the top of the overview */
-.install-card p {
+/* The offer to put the app on the home screen (at the top of the overview, in Settings):
+   the phone icon next to the text, the buttons under them */
+.install-card-body {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   margin-bottom: 0.75rem;
+}
+
+.install-card-body p {
+  margin: 0;
+}
+
+.install-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: none;
+}
+
+/* The other apps on the phone of the icon, a light shade of the app colour */
+.install-app {
+  fill: var(--primary);
+}
+
+/* The heading of the steps with the small phone icon */
+.install-guide-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.install-guide-title .install-icon {
+  width: 2rem;
+  height: 2rem;
 }
 
 .install-card-actions {
