@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-20 22:55+0200\n"
+"POT-Creation-Date: 2026-10-21 22:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1481,6 +1481,9 @@ msgctxt "theme"
 msgid "Auto"
 msgstr "Auto"
 
+msgid "Install the app"
+msgstr "Nainstalovat aplikaci"
+
 msgid "Admin"
 msgstr "Admin"
 
@@ -1489,6 +1492,43 @@ msgstr "Odhlásit"
 
 msgid "Close"
 msgstr "Zavřít"
+
+msgid "Vocaboo on the home screen"
+msgstr "Vocaboo na plochu"
+
+msgid ""
+"Tap <strong>Share</strong> (the square with an arrow up). In Safari it is at"
+" the bottom; if you don't see it, tap <strong>⋯</strong> first."
+msgstr ""
+"Klepni na <strong>Sdílet</strong> (čtvereček se šipkou nahoru). V Safari je "
+"dole; když ho nevidíš, klepni nejdřív na <strong>⋯</strong>."
+
+msgid "Scroll down and tap <strong>Add to Home Screen</strong>."
+msgstr "Sjeď níž a klepni na <strong>Přidat na plochu</strong>."
+
+msgid ""
+"Tap <strong>Add</strong>. Vocaboo is now on the home screen, next to the "
+"other apps."
+msgstr ""
+"Klepni na <strong>Přidat</strong>. Vocaboo je teď na ploše vedle ostatních "
+"aplikací."
+
+msgid ""
+"The app on the home screen has its own login, so log in there once more."
+msgstr ""
+"Aplikace na ploše má vlastní přihlášení, takže se v ní přihlas ještě jednou."
+
+msgid "OK"
+msgstr "OK"
+
+msgid "Put Vocaboo on your home screen"
+msgstr "Dej si Vocaboo na plochu"
+
+msgid "It opens with one tap, on the whole screen, like other apps."
+msgstr "Otevře se jedním klepnutím, na celou obrazovku, jako jiné aplikace."
+
+msgid "Install"
+msgstr "Nainstalovat"
 
 msgid "What you struggle with today"
 msgstr "Co ti dnes nejde"

@@ -655,6 +655,22 @@ services.search_terms(user, "impose")
   answers, coloured dots of the last 30 answers (oldest first, the colours of the rating
   buttons; `answer_dots` in `study/services.py`), and the history of answers.
 
+#### The app on the home screen (PWA)
+
+The app can be installed on a phone or a computer like an app (no store, no offline mode):
+
+- **Android, Chrome / Edge on a computer:** *📲 Nainstalovat aplikaci* in the account menu opens
+  the browser's own *Install?* window (`beforeinstallprompt` in `static/js/app.js`).
+- **iPhone / iPad:** Apple has no such window, so the same item shows the steps
+  *Sdílet → Přidat na plochu → Přidat* (dialog `#install-guide` in `templates/base.html`).
+- On a phone the overview offers it once (*Dej si Vocaboo na plochu*); after *Teď ne* it stays
+  hidden in that browser (`localStorage` key `vocaboo.installDismissed`).
+
+The browser offers the installation only over **HTTPS** (or on `localhost`) and with a valid
+`static/manifest.webmanifest`. Check it in Chrome: *DevTools › Application › Manifest*. The
+login lasts 90 days since the last visit (`SESSION_COOKIE_AGE`), because on an iPhone the app on
+the home screen has its own cookies and its own login.
+
 ### 15. Help
 
 The app has a help page for users (*Nápověda* / *Help* in the top bar, `/help/`) with tabs

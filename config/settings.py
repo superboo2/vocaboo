@@ -154,6 +154,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 AUTH_USER_MODEL = "accounts.User"
 
+# Stay logged in for 90 days since the last visit, so the app on the home screen of a phone
+# (it has its own cookies) does not ask for the password every two weeks
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 90
+SESSION_SAVE_EVERY_REQUEST = True
+
 LOGIN_URL = "login"
 LOGIN_REDIRECT_URL = "dashboard"
 LOGOUT_REDIRECT_URL = "login"

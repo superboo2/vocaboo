@@ -340,9 +340,124 @@ document.addEventListener("click", function (event) {
     // Storage can be blocked, the look then lasts only for this page
   }
   showThemeChoice();
+  showThemeColor();
 });
 
 document.addEventListener("DOMContentLoaded", showThemeChoice);
+
+// The colour of the phone's top bar follows the look: indigo by day, dark at night. The
+// meta tags in base.html follow the system; a look chosen in the menu wins over it.
+const THEME_COLORS = {light: "#5b4bc4", dark: "#13171f"};
+
+function showThemeColor() {
+  const chosen = document.documentElement.dataset.theme;
+  document.querySelectorAll('meta[name="theme-color"]').forEach(function (meta) {
+    if (!meta.dataset.media) {
+      meta.dataset.media = meta.getAttribute("media");
+    }
+    if (chosen) {
+      meta.removeAttribute("media");
+      meta.setAttribute("content", THEME_COLORS[chosen]);
+    } else {
+      // Back to the system: each tag for its own look again
+      meta.setAttribute("media", meta.dataset.media);
+      meta.setAttribute("content", meta.dataset.media.includes("dark") ? THEME_COLORS.dark : THEME_COLORS.light);
+    }
+  });
+}
+
+document.addEventListener("DOMContentLoaded", showThemeColor);
+
+// Installing the app on the home screen. Android and Chrome / Edge on a computer send
+// beforeinstallprompt, then our button opens their own "Install?" window. An iPhone has no
+// such window, so the button shows the steps (dialog #install-guide in base.html).
+let installPrompt = null;
+
+function isInstalled() {
+  return window.matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+}
+
+function isIOS() {
+  // An iPad says it is a Mac, but a Mac has no touch screen
+  return /iPhone|iPad|iPod/.test(navigator.userAgent)
+    || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+}
+
+function installDismissed() {
+  try {
+    return localStorage.getItem("vocaboo.installDismissed") === "1";
+  } catch (error) {
+    return false;
+  }
+}
+
+function dismissInstall() {
+  try {
+    localStorage.setItem("vocaboo.installDismissed", "1");
+  } catch (error) {
+    // Storage can be blocked, the offer then comes back on the next page
+  }
+}
+
+function showInstall() {
+  const canInstall = !isInstalled() && (installPrompt !== null || isIOS());
+  document.querySelectorAll("[data-install-item]").forEach(function (item) {
+    item.hidden = !canInstall;
+  });
+  // The offer on the overview only on a phone or tablet, and only until "Not now"
+  const phone = window.matchMedia("(pointer: coarse)").matches;
+  document.querySelectorAll("[data-install-card]").forEach(function (card) {
+    card.hidden = !(canInstall && phone && !installDismissed());
+  });
+}
+
+window.addEventListener("beforeinstallprompt", function (event) {
+  // Our own button instead of the browser's bar at the bottom
+  event.preventDefault();
+  installPrompt = event;
+  showInstall();
+});
+
+window.addEventListener("appinstalled", function () {
+  installPrompt = null;
+  dismissInstall();
+  showInstall();
+});
+
+document.addEventListener("click", function (event) {
+  if (event.target.closest("[data-install]")) {
+    event.target.closest("details.dropdown")?.removeAttribute("open");
+    if (installPrompt) {
+      const prompt = installPrompt;
+      // The window can be opened only once, after that the browser sends a new event
+      installPrompt = null;
+      prompt.prompt();
+      prompt.userChoice.then(function (choice) {
+        if (choice.outcome === "accepted") {
+          dismissInstall();
+        }
+        showInstall();
+      });
+    } else if (isIOS()) {
+      document.getElementById("install-guide")?.showModal();
+      // Safari never says whether the steps were done; the offer on the overview has done its
+      // job, the menu item stays
+      dismissInstall();
+      showInstall();
+    }
+    return;
+  }
+  if (event.target.closest("[data-install-dismiss]")) {
+    dismissInstall();
+    showInstall();
+    return;
+  }
+  if (event.target.closest("[data-install-close]")) {
+    event.target.closest("dialog")?.close();
+  }
+});
+
+document.addEventListener("DOMContentLoaded", showInstall);
 
 // Password fields: an eye button inside the field shows the password and hides it again
 const EYE_OPEN =

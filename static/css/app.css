@@ -2851,3 +2851,36 @@ button.test-button {
   margin-bottom: 1rem;
 }
 
+
+/* The app on the home screen of an iPhone uses the whole screen (viewport-fit=cover):
+   keep the content away from the notch on the sides and the home bar at the bottom */
+body {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+#term-list.selecting .select-bar {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+/* The offer to put the app on the home screen, at the top of the overview */
+.install-card p {
+  margin-bottom: 0.75rem;
+}
+
+.install-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.install-card-actions button {
+  width: auto;
+  margin: 0;
+}
+
+/* The steps for an iPhone in the dialog */
+.install-steps li {
+  margin-bottom: 0.5rem;
+}

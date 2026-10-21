@@ -1,3 +1,5 @@
+import json
+
 import pytest
 from django.contrib.staticfiles import finders
 from django.urls import reverse
@@ -50,3 +52,39 @@ def test_logout_returns_to_login(client, user):
 
     assert response.status_code == 302
     assert response.url == reverse("login")
+
+
+def test_manifest_can_be_installed():
+    manifest = json.loads(open(finders.find("manifest.webmanifest"), encoding="utf-8").read())
+
+    assert manifest["display"] == "standalone"
+    assert manifest["start_url"] == "/"
+    assert manifest["scope"] == "/"
+    purposes = {(icon["sizes"], icon["purpose"]) for icon in manifest["icons"]}
+    assert {("192x192", "any"), ("512x512", "any"), ("512x512", "maskable")} <= purposes
+    for icon in manifest["icons"]:
+        assert finders.find(icon["src"].removeprefix("/static/")) is not None
+
+
+def test_pages_have_tags_for_the_home_screen(client, db):
+    html = client.get(reverse("login")).content.decode()
+
+    assert "viewport-fit=cover" in html
+    assert 'name="theme-color"' in html
+    assert 'name="apple-mobile-web-app-title" content="Vocaboo"' in html
+
+
+def test_install_offer_waits_hidden_for_the_script(client, user):
+    client.force_login(user)
+
+    html = client.get(reverse("dashboard")).content.decode()
+
+    # app.js shows them only where the browser can install the app
+    assert '<li dir="ltr" data-install-item hidden>' in html
+    assert "data-install-card hidden" in html
+    assert 'id="install-guide"' in html
+
+
+def test_login_lasts_90_days_since_the_last_visit(settings):
+    assert settings.SESSION_COOKIE_AGE == 60 * 60 * 24 * 90
+    assert settings.SESSION_SAVE_EVERY_REQUEST

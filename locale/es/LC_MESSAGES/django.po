@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-20 22:55+0200\n"
+"POT-Creation-Date: 2026-10-21 22:35+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1485,6 +1485,9 @@ msgctxt "theme"
 msgid "Auto"
 msgstr "Auto"
 
+msgid "Install the app"
+msgstr "Instalar la aplicación"
+
 msgid "Admin"
 msgstr "Admin"
 
@@ -1493,6 +1496,45 @@ msgstr "Cerrar sesión"
 
 msgid "Close"
 msgstr "Cerrar"
+
+msgid "Vocaboo on the home screen"
+msgstr "Vocaboo en la pantalla de inicio"
+
+msgid ""
+"Tap <strong>Share</strong> (the square with an arrow up). In Safari it is at"
+" the bottom; if you don't see it, tap <strong>⋯</strong> first."
+msgstr ""
+"Toca <strong>Compartir</strong> (el cuadrado con una flecha hacia arriba). "
+"En Safari está abajo; si no lo ves, toca antes <strong>⋯</strong>."
+
+msgid "Scroll down and tap <strong>Add to Home Screen</strong>."
+msgstr ""
+"Desliza hacia abajo y toca <strong>Añadir a pantalla de inicio</strong>."
+
+msgid ""
+"Tap <strong>Add</strong>. Vocaboo is now on the home screen, next to the "
+"other apps."
+msgstr ""
+"Toca <strong>Añadir</strong>. Vocaboo ya está en la pantalla de inicio, "
+"junto a las demás apps."
+
+msgid ""
+"The app on the home screen has its own login, so log in there once more."
+msgstr ""
+"La app de la pantalla de inicio tiene su propio inicio de sesión, así que "
+"inicia sesión allí otra vez."
+
+msgid "OK"
+msgstr "Vale"
+
+msgid "Put Vocaboo on your home screen"
+msgstr "Pon Vocaboo en tu pantalla de inicio"
+
+msgid "It opens with one tap, on the whole screen, like other apps."
+msgstr "Se abre con un toque, a pantalla completa, como las demás apps."
+
+msgid "Install"
+msgstr "Instalar"
 
 msgid "What you struggle with today"
 msgstr "Lo que hoy se te resiste"

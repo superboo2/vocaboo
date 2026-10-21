@@ -3,8 +3,18 @@
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  {# viewport-fit=cover: on an iPhone the page uses the whole screen, app.css keeps the #}
+  {# content away from the notch and the home bar (safe-area-inset) #}
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
+  {# Colour of the phone's top bar; app.js changes it when the look is chosen in the menu #}
+  <meta name="theme-color" content="#5b4bc4" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#13171f" media="(prefers-color-scheme: dark)">
+  {# The app on the home screen of an iPhone: its name and a normal status bar #}
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Vocaboo">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>{% block title %}Vocaboo{% endblock %}</title>
   {# The look chosen in the account menu (light / dark), before the page is drawn, so it #}
   {# does not flash; without a choice the system decides #}
@@ -58,6 +68,10 @@
                   <button type="button" data-theme-choice="auto" aria-pressed="false">{% translate "Auto" context "theme" %}</button>
                 </li>
                 <li dir="ltr"><a href="{% url 'settings' %}">{% translate "Settings" %}</a></li>
+                {# Shown by app.js only where the app can be installed and is not yet #}
+                <li dir="ltr" data-install-item hidden>
+                  <button type="button" class="link-button" data-install>📲 {% translate "Install the app" %}</button>
+                </li>
                 {% if user.is_staff %}<li dir="ltr"><a href="{% url 'admin:index' %}">{% translate "Admin" %}</a></li>{% endif %}
                 <li dir="ltr">
                   <form method="post" action="{% url 'logout' %}" class="inline-form">
@@ -71,6 +85,25 @@
         </ul>
       </nav>
     </header>
+
+    {# An iPhone has no install button: these steps are shown instead (app.js) #}
+    <dialog id="install-guide" aria-labelledby="install-guide-title">
+      <article>
+        <header>
+          <button type="button" aria-label="{% translate 'Close' %}" rel="prev" data-install-close></button>
+          <h2 id="install-guide-title" class="section-title">📲 {% translate "Vocaboo on the home screen" %}</h2>
+        </header>
+        <ol class="install-steps">
+          <li>{% blocktranslate %}Tap <strong>Share</strong> (the square with an arrow up). In Safari it is at the bottom; if you don't see it, tap <strong>⋯</strong> first.{% endblocktranslate %}</li>
+          <li>{% blocktranslate %}Scroll down and tap <strong>Add to Home Screen</strong>.{% endblocktranslate %}</li>
+          <li>{% blocktranslate %}Tap <strong>Add</strong>. Vocaboo is now on the home screen, next to the other apps.{% endblocktranslate %}</li>
+        </ol>
+        <p class="muted">{% translate "The app on the home screen has its own login, so log in there once more." %}</p>
+        <footer>
+          <button type="button" data-install-close>{% translate "OK" %}</button>
+        </footer>
+      </article>
+    </dialog>
   {% endif %}
 
   <main class="container" id="main" tabindex="-1">
