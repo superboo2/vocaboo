@@ -233,15 +233,45 @@ LOGGING = {
 
 
 # Email
-# The MVP sends no emails. Locally they would be printed to the console; on the server the
-# SMTP backend is set up already, it gets its settings once password reset by email comes.
+# The app sends the code of a new account and the link for a forgotten password. Locally
+# (DJANGO_DEBUG=1 and no VOCABOO_EMAIL_HOST) emails are printed to the console; on the server
+# they go over SMTP, e.g. Gmail with an app password (see README.md).
 
-MAILERS = {
-    "default": {
-        "BACKEND": (
-            "django.core.mail.backends.console.EmailBackend"
-            if DEBUG
-            else "django.core.mail.backends.smtp.EmailBackend"
-        ),
-    },
-}
+_email_host = env("VOCABOO_EMAIL_HOST", "")
+
+if DEBUG and not _email_host:
+    MAILERS = {"default": {"BACKEND": "django.core.mail.backends.console.EmailBackend"}}
+else:
+    MAILERS = {
+        "default": {
+            "BACKEND": "django.core.mail.backends.smtp.EmailBackend",
+            "OPTIONS": {
+                "host": _email_host or "localhost",
+                "port": int(env("VOCABOO_EMAIL_PORT", "587")),
+                "username": env("VOCABOO_EMAIL_USER", ""),
+                "password": env("VOCABOO_EMAIL_PASSWORD", ""),
+                "use_tls": env_bool("VOCABOO_EMAIL_USE_TLS", True),
+                # Do not let a slow mail server hold the page for long
+                "timeout": 20,
+            },
+        },
+    }
+
+# Sender of the emails, e.g. "Vocaboo <vocaboo.app@gmail.com>" (Gmail needs its own address)
+DEFAULT_FROM_EMAIL = env("VOCABOO_EMAIL_FROM", "Vocaboo <noreply@localhost>")
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
+
+
+# Registration
+# Anybody can create an account and confirm the email with a code. With a code here the
+# registration asks for it too, so only people who got it from you can sign up.
+REGISTRATION_CODE = env("VOCABOO_REGISTRATION_CODE", "")
+# How long the code from the email works and how often a new one can be sent
+VERIFICATION_CODE_MINUTES = 15
+VERIFICATION_RESEND_SECONDS = 60
+# Wrong tries of one code; then a new code is needed
+VERIFICATION_MAX_ATTEMPTS = 5
+# Accounts that never confirmed the email are deleted after this (cleanup_unverified)
+UNVERIFIED_ACCOUNT_DAYS = 7
+# A link for a forgotten password works this long (Django's setting, in seconds)
+PASSWORD_RESET_TIMEOUT = 60 * 60 * 24

@@ -22,6 +22,12 @@
       {% endfor %}
       <button type="submit">{% translate "Log in" %}</button>
     </form>
+
+    <p class="auth-links">
+      <a href="{% url 'password_reset' %}">{% translate "Forgot your password?" %}</a>
+      <span aria-hidden="true">·</span>
+      <a href="{% url 'register' %}">{% translate "Create an account" %}</a>
+    </p>
   </article>
 
   {# Language of the app for who is not logged in; after login the account decides #}

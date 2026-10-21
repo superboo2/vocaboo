@@ -1,0 +1,14 @@
+{% load i18n %}{% autoescape off %}{% translate "Hi," %}
+
+{% translate "Somebody tried to create a Vocaboo account with this email, but you already have one." %}
+
+{% translate "Log in here:" %}
+{{ login_url }}
+
+{% translate "Forgot your password? Set a new one here (the link works for 24 hours):" %}
+{{ reset_url }}
+
+{% translate "If it was not you, ignore this email, nothing changes." %}
+
+Vocaboo
+{% endautoescape %}

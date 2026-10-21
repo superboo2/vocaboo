@@ -370,6 +370,38 @@ nav .brand strong {
   stroke-linejoin: round;
 }
 
+/* Links under the login and registration form: forgotten password · create an account */
+.auth-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.auth-links .link-button {
+  padding: 0;
+  text-decoration: none;
+}
+
+/* The code from the email: big digits with space between them */
+.code-input {
+  font-size: 1.5rem !important;
+  letter-spacing: 0.3em;
+  text-align: center;
+}
+
+/* A trap for robots in the registration form: people never see it */
+.trap-field,
+label[for="id_website"] {
+  position: absolute !important;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 /* Čeština · English under the login box */
 .language-switch {
   display: flex;

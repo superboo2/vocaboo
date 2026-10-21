@@ -96,7 +96,9 @@ uv run python manage.py showmigrations
 
 ### 6. Create your user account
 
-There is no public registration. Accounts are created by hand. You log in with your **email**:
+Other people create their own account on the login page (*Vytvořit účet*), see
+[Registration](#registration). Your first account is created by hand. You log in with your
+**email**:
 
 ```bash
 uv run python manage.py createsuperuser
@@ -122,10 +124,44 @@ app when you do not need them any more.
 Your native language, the default test direction, the translation suggestions and the meanings
 from the dictionary on the test card (both on by default) can be set on the *Nastavení* page.
 
-To change a forgotten password (there is no password reset by email yet):
+A forgotten password is reset by email (*Zapomenuté heslo?* on the login page). Without email
+it can be changed on the command line:
 
 ```bash
 uv run python manage.py changepassword martin@example.com
+```
+
+#### Registration
+
+1. *Vytvořit účet* on the login page: email, password twice and, when `VOCABOO_REGISTRATION_CODE`
+   is set, the invitation code.
+2. The account is created turned off (`is_active=False`) and a six-digit code goes to the email
+   (only its hash is saved, in `accounts.EmailVerification`).
+3. The user enters the code on `/accounts/verify/`: the account is turned on and logged in.
+
+The code works for 15 minutes, a new one can be sent once a minute, 5 wrong tries block the code
+(then a new one is needed). Logging in to an account that is not confirmed yet sends a new code
+and opens the page for it. Signing up with the email of an existing account shows the same page
+and sends the owner a note with a link to a new password, so nobody learns from the page which
+emails have an account. A hidden field catches robots. The numbers are in `config/settings.py`
+(`VERIFICATION_*`, `UNVERIFIED_ACCOUNT_DAYS`).
+
+Locally (`DJANGO_DEBUG=1` without `VOCABOO_EMAIL_HOST`) the emails are printed in the terminal
+of `runserver`:
+
+```
+Subject: 482915 je tvůj kód pro Vocaboo
+...
+    482915
+```
+
+Accounts that never entered their code are deleted after 7 days (on the server from cron, see
+[Server › Backups](#8-backups)):
+
+```bash
+uv run python manage.py cleanup_unverified --dry-run
+# would delete  someone@example.com
+# Unverified accounts: 1.
 ```
 
 ### 7. Languages
@@ -731,7 +767,7 @@ Then open `http://192.168.1.20:8000/` on the phone.
 
 ```
 config/       Django project: settings, root URLs, WSGI/ASGI entry points
-accounts/     custom user model (login with email), admin, login/logout
+accounts/     custom user model (login with email), admin, login/logout, registration with a code from the email, forgotten password
 vocabulary/   languages, decks (dictionary tree), words and their variants
   services.py   all rules for decks and words, views only call these functions
   sentences.py  the word in a sentence: found or {marked}, highlighted or replaced by a gap
@@ -869,6 +905,13 @@ directory).
 | `DJANGO_LOG_LEVEL` | Log level of Django messages | `INFO` | `INFO` |
 | `VOCABOO_SUGGESTION_PROVIDERS` | Comma separated sources of translation suggestions | `lexicon` | `lexicon` |
 | `VOCABOO_PRONUNCIATION_PROVIDERS` | Comma separated sources of pronunciation (IPA) | `lexicon` | `lexicon` |
+| `VOCABOO_EMAIL_HOST` | SMTP server for emails (codes of new accounts, forgotten password); empty with `DJANGO_DEBUG=1` = emails in the console | (empty) | `smtp.gmail.com` |
+| `VOCABOO_EMAIL_PORT` | SMTP port | (not used) | `587` (default) |
+| `VOCABOO_EMAIL_USE_TLS` | STARTTLS on the SMTP connection | (not used) | `1` (default) |
+| `VOCABOO_EMAIL_USER` | SMTP login | (not used) | `vocaboo.app@gmail.com` |
+| `VOCABOO_EMAIL_PASSWORD` | SMTP password (Gmail: app password) | (not used) | `abcdabcdabcdabcd` |
+| `VOCABOO_EMAIL_FROM` | Sender of the emails | (not used) | `Vocaboo <vocaboo.app@gmail.com>` |
+| `VOCABOO_REGISTRATION_CODE` | Invitation code the registration asks for; empty = anybody can sign up | (empty) | `kamaradi2026` |
 
 With `DJANGO_DEBUG=0` the app refuses to start when `DJANGO_SECRET_KEY` is missing or still
 `change-me`:
@@ -896,6 +939,27 @@ DJANGO_SECRET_KEY=...generated...
 DJANGO_DEBUG=0
 DJANGO_ALLOWED_HOSTS=vocaboo.me
 DJANGO_CSRF_TRUSTED_ORIGINS=https://vocaboo.me
+
+VOCABOO_EMAIL_HOST=smtp.gmail.com
+VOCABOO_EMAIL_USER=vocaboo.app@gmail.com
+VOCABOO_EMAIL_PASSWORD=abcdabcdabcdabcd
+VOCABOO_EMAIL_FROM=Vocaboo <vocaboo.app@gmail.com>
+VOCABOO_REGISTRATION_CODE=kamaradi2026
+```
+
+**Emails over Gmail** (free, about 500 emails a day):
+
+1. Create a separate Google account for the app, e.g. `vocaboo.app@gmail.com`.
+2. Turn on 2-step verification (*Google Account › Security*).
+3. Create an app password on <https://myaccount.google.com/apppasswords> (name `vocaboo`); the
+   16 letters without spaces go to `VOCABOO_EMAIL_PASSWORD`.
+4. The sender (`VOCABOO_EMAIL_FROM`) must be that Gmail address.
+
+Another SMTP service (Brevo, Resend, your own domain) needs only other `VOCABOO_EMAIL_*`
+values. Test the sending on the server:
+
+```bash
+sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py sendtestemail you@example.com
 ```
 
 Make sure the file can be read only by the user that runs the app:
@@ -1111,6 +1175,14 @@ set -e
 mkdir -p /var/backups/vocaboo
 sudo -u postgres pg_dump --format=custom vokie > /var/backups/vocaboo/vocaboo-$(date +%F).dump
 find /var/backups/vocaboo -name "vocaboo-*.dump" -mtime +14 -delete
+```
+
+New accounts that never entered their code are deleted once a day too,
+`/etc/cron.daily/vocaboo-cleanup` (also `chmod +x`):
+
+```bash
+#!/bin/sh
+cd /srv/vocaboo/app && sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py cleanup_unverified
 ```
 
 Restore a backup (this replaces the current data):

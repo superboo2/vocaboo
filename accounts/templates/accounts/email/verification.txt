@@ -1,0 +1,12 @@
+{% load i18n %}{% autoescape off %}{% translate "Hi," %}
+
+{% translate "Your code to confirm the email:" %}
+
+    {{ code }}
+
+{% blocktranslate %}Enter it on the Vocaboo page where you signed up. It works for {{ minutes }} minutes.{% endblocktranslate %}
+
+{% translate "If you did not sign up for Vocaboo, ignore this email." %}
+
+Vocaboo
+{% endautoescape %}

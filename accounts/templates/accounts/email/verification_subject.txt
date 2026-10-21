@@ -1,0 +1,1 @@
+{% load i18n %}{% blocktranslate %}{{ code }} is your Vocaboo code{% endblocktranslate %}

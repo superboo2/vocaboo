@@ -98,3 +98,29 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.email
+
+
+class EmailVerification(models.Model):
+    """The code from the email that turns on a new account.
+
+    Only a hash of the code is kept. A new code replaces the old one.
+    """
+
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_("user"),
+        on_delete=models.CASCADE,
+        related_name="email_verification",
+    )
+    code_hash = models.CharField(max_length=64)
+    sent_at = models.DateTimeField(_("sent"))
+    # Wrong tries of the current code
+    attempts = models.PositiveSmallIntegerField(default=0)
+    created_at = models.DateTimeField(_("created"), auto_now_add=True)
+
+    class Meta:
+        verbose_name = _("email verification")
+        verbose_name_plural = _("email verifications")
+
+    def __str__(self):
+        return str(self.user)

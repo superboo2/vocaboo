@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-20 11:01+0200\n"
+"POT-Creation-Date: 2026-10-20 22:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -98,6 +98,11 @@ msgstr ""
 msgid "Same as the browser"
 msgstr "Podle prohlížeče"
 
+msgid ""
+"At least 8 characters, not only numbers, not too common and not similar to "
+"your email."
+msgstr "Aspoň 8 znaků, ne jen čísla, ne moc běžné a ne podobné tvému e-mailu."
+
 msgid "Your current password is wrong, try again."
 msgstr "Současné heslo není správně, zkus to znovu."
 
@@ -110,11 +115,6 @@ msgstr "Současné heslo"
 msgid "New password"
 msgstr "Nové heslo"
 
-msgid ""
-"At least 8 characters, not only numbers, not too common and not similar to "
-"your email."
-msgstr "Aspoň 8 znaků, ne jen čísla, ne moc běžné a ne podobné tvému e-mailu."
-
 msgid "New password again"
 msgstr "Nové heslo znovu"
 
@@ -126,6 +126,42 @@ msgstr "E-mail nebo heslo není správně. Zkus to znovu."
 
 msgid "This account is turned off."
 msgstr "Tento účet je vypnutý."
+
+msgid "Email"
+msgstr "E-mail"
+
+msgid "We will send you a code to check it."
+msgstr "Pošleme ti na něj kód pro ověření."
+
+msgid "Password"
+msgstr "Heslo"
+
+msgid "Password again"
+msgstr "Heslo znovu"
+
+msgid "Invitation code"
+msgstr "Kód pozvánky"
+
+msgid "You got it from the person who invited you."
+msgstr "Kód ti dá ten, kdo tě zve."
+
+msgid "This invitation code is wrong."
+msgstr "Tenhle kód pozvánky nesedí."
+
+msgid "Leave this field empty."
+msgstr "Tohle pole nech prázdné."
+
+msgid "The passwords don't match."
+msgstr "Hesla nejsou stejná."
+
+msgid "Code from the email"
+msgstr "Kód z e-mailu"
+
+msgid "The code has 6 digits."
+msgstr "Kód má 6 číslic."
+
+msgid "The email you log in with."
+msgstr "E-mail, kterým se přihlašuješ."
 
 msgid "email"
 msgstr "e-mail"
@@ -166,6 +202,57 @@ msgstr "uživatel"
 
 msgid "users"
 msgstr "uživatelé"
+
+msgid "sent"
+msgstr "odesláno"
+
+msgid "created"
+msgstr "vytvořeno"
+
+msgid "email verification"
+msgstr "ověření e-mailu"
+
+msgid "email verifications"
+msgstr "ověření e-mailů"
+
+msgid "Hi,"
+msgstr "Ahoj,"
+
+msgid ""
+"Somebody tried to create a Vocaboo account with this email, but you already "
+"have one."
+msgstr ""
+"někdo se pokusil založit účet ve Vocaboo s tímto e-mailem, ale ty už účet "
+"máš."
+
+msgid "Log in here:"
+msgstr "Přihlásit se můžeš tady:"
+
+msgid ""
+"Forgot your password? Set a new one here (the link works for 24 hours):"
+msgstr "Zapomenuté heslo? Nové si nastavíš tady (odkaz platí 24 hodin):"
+
+msgid "If it was not you, ignore this email, nothing changes."
+msgstr "Pokud o tom nevíš, e-mail ignoruj, nic se nemění."
+
+msgid "You already have a Vocaboo account"
+msgstr "Ve Vocaboo už účet máš"
+
+msgid "Your code to confirm the email:"
+msgstr "tvůj kód pro ověření e-mailu:"
+
+#, python-format
+msgid ""
+"Enter it on the Vocaboo page where you signed up. It works for %(minutes)s "
+"minutes."
+msgstr "Zadej ho na stránce registrace do Vocaboo. Platí %(minutes)s minut."
+
+msgid "If you did not sign up for Vocaboo, ignore this email."
+msgstr "Pokud o registraci do Vocaboo nevíš, e-mail ignoruj."
+
+#, python-format
+msgid "%(code)s is your Vocaboo code"
+msgstr "%(code)s je tvůj kód pro Vocaboo"
 
 msgid "Password change"
 msgstr "Změna hesla"
@@ -241,6 +328,27 @@ msgstr "Nastavení je uložené."
 
 msgid "Password changed."
 msgstr "Heslo je změněné."
+
+msgid "Your email is not confirmed yet. Enter the code from the email."
+msgstr "Tvůj e-mail ještě není ověřený. Zadej kód z e-mailu."
+
+msgid "Your account is ready. Welcome to Vocaboo!"
+msgstr "Účet je hotový. Vítej ve Vocaboo!"
+
+msgid "This code is wrong. Check it and try again."
+msgstr "Tenhle kód nesedí. Zkontroluj ho a zkus to znovu."
+
+msgid "This code no longer works. Send yourself a new one."
+msgstr "Tenhle kód už neplatí. Pošli si nový."
+
+msgid "Too many wrong tries. Send yourself a new code."
+msgstr "Moc špatných pokusů. Pošli si nový kód."
+
+msgid "Wait a minute before asking for a new code."
+msgstr "Než si řekneš o nový kód, chvíli počkej."
+
+msgid "We sent you a new code."
+msgstr "Poslali jsme ti nový kód."
 
 msgid "Words"
 msgstr "Slovíčka"
@@ -1392,9 +1500,6 @@ msgstr "Nový"
 msgid "You have no decks yet. Start by creating one."
 msgstr "Zatím nemáš žádné slovníky. Začni tím, že si jeden vytvoříš."
 
-msgid "Help sections"
-msgstr "Části nápovědy"
-
 msgctxt "page title"
 msgid "Log in"
 msgstr "Přihlášení"
@@ -1404,6 +1509,93 @@ msgstr "Přihlas se svým e-mailem."
 
 msgid "Log in"
 msgstr "Přihlásit se"
+
+msgid "Forgot your password?"
+msgstr "Zapomenuté heslo?"
+
+msgid "Create an account"
+msgstr "Vytvořit účet"
+
+msgid "Password changed"
+msgstr "Heslo je změněné"
+
+msgid "Now log in with the new password."
+msgstr "Teď se přihlas novým heslem."
+
+msgid ""
+"This link no longer works. It was used already or it is older than 24 hours."
+msgstr ""
+"Tenhle odkaz už neplatí. Buď už byl použitý, nebo je starší než 24 hodin."
+
+msgid "Save the password"
+msgstr "Uložit heslo"
+
+msgid "Send a new link"
+msgstr "Poslat nový odkaz"
+
+msgid "Forgotten password"
+msgstr "Zapomenuté heslo"
+
+msgid "Look into your email"
+msgstr "Podívej se do e-mailu"
+
+msgid ""
+"If the email has an account, a link to set a new password is on its way. It "
+"works for 24 hours. No email? Look into spam too."
+msgstr ""
+"Pokud k e-mailu existuje účet, odkaz na nastavení nového hesla je na cestě. "
+"Platí 24 hodin. E-mail nepřišel? Podívej se i do spamu."
+
+msgid "Back to login"
+msgstr "Zpět na přihlášení"
+
+msgid ""
+"Somebody asked for a new password for your Vocaboo account. Set it here:"
+msgstr "někdo požádal o nové heslo k tvému účtu ve Vocaboo. Nastavíš ho tady:"
+
+msgid ""
+"The link works for 24 hours. If you did not ask for it, ignore this email, "
+"your password stays the same."
+msgstr ""
+"Odkaz platí 24 hodin. Pokud o nové heslo nežádáš, e-mail ignoruj, heslo "
+"zůstane stejné."
+
+msgid "We will send you a link to set a new password."
+msgstr "Pošleme ti odkaz na nastavení nového hesla."
+
+msgid "Send the link"
+msgstr "Poslat odkaz"
+
+msgid "New password for Vocaboo"
+msgstr "Nové heslo pro Vocaboo"
+
+msgid "Then we will send you a code to confirm your email."
+msgstr "Pak ti pošleme kód pro ověření e-mailu."
+
+msgid "Already have an account?"
+msgstr "Už máš účet?"
+
+msgid "Confirm your email"
+msgstr "Ověř svůj e-mail"
+
+#, python-format
+msgid ""
+"We sent a code to <strong>%(email)s</strong>. It works for %(minutes)s "
+"minutes."
+msgstr ""
+"Poslali jsme kód na <strong>%(email)s</strong>. Platí %(minutes)s minut."
+
+msgid "Confirm"
+msgstr "Ověřit"
+
+msgid "No email? Look into spam too."
+msgstr "E-mail nepřišel? Podívej se i do spamu."
+
+msgid "Send a new code"
+msgstr "Poslat nový kód"
+
+msgid "Use another email"
+msgstr "Použít jiný e-mail"
 
 msgid "Name"
 msgstr "Název"
@@ -1522,9 +1714,6 @@ msgstr "chci se naučit"
 
 msgid "language I speak"
 msgstr "mluvím"
-
-msgid "created"
-msgstr "vytvořeno"
 
 msgid "deck"
 msgstr "slovník"

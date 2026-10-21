@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% translate "Create an account" %} · Vocaboo{% endblock %}
+
+{% block content %}
+  <article class="narrow">
+    <header class="login-brand">
+      {% include "_logo.html" with class="logo-big" %}
+      <h1>{% translate "Create an account" %}</h1>
+      <p>{% translate "Then we will send you a code to confirm your email." %}</p>
+    </header>
+
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {% for field in form %}{{ field.as_field_group }}{% endfor %}
+      <button type="submit">{% translate "Create an account" %}</button>
+    </form>
+
+    <p class="auth-links">
+      {% translate "Already have an account?" %} <a href="{% url 'login' %}">{% translate "Log in" %}</a>
+    </p>
+  </article>
+{% endblock %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-20 11:33+0200\n"
+"POT-Creation-Date: 2026-10-20 22:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -101,6 +101,13 @@ msgstr ""
 msgid "Same as the browser"
 msgstr "Igual que el navegador"
 
+msgid ""
+"At least 8 characters, not only numbers, not too common and not similar to "
+"your email."
+msgstr ""
+"Al menos 8 caracteres, no solo números, no demasiado común y no parecida a "
+"tu correo electrónico."
+
 msgid "Your current password is wrong, try again."
 msgstr "Tu contraseña actual no es correcta, inténtalo de nuevo."
 
@@ -112,13 +119,6 @@ msgstr "Contraseña actual"
 
 msgid "New password"
 msgstr "Contraseña nueva"
-
-msgid ""
-"At least 8 characters, not only numbers, not too common and not similar to "
-"your email."
-msgstr ""
-"Al menos 8 caracteres, no solo números, no demasiado común y no parecida a "
-"tu correo electrónico."
 
 msgid "New password again"
 msgstr "Repite la contraseña nueva"
@@ -132,6 +132,42 @@ msgstr ""
 
 msgid "This account is turned off."
 msgstr "Esta cuenta está desactivada."
+
+msgid "Email"
+msgstr "Correo electrónico"
+
+msgid "We will send you a code to check it."
+msgstr "Te enviaremos un código para comprobarlo."
+
+msgid "Password"
+msgstr "Contraseña"
+
+msgid "Password again"
+msgstr "Contraseña otra vez"
+
+msgid "Invitation code"
+msgstr "Código de invitación"
+
+msgid "You got it from the person who invited you."
+msgstr "Te lo ha dado quien te ha invitado."
+
+msgid "This invitation code is wrong."
+msgstr "Este código de invitación no es correcto."
+
+msgid "Leave this field empty."
+msgstr "Deja este campo vacío."
+
+msgid "The passwords don't match."
+msgstr "Las contraseñas no coinciden."
+
+msgid "Code from the email"
+msgstr "Código del correo"
+
+msgid "The code has 6 digits."
+msgstr "El código tiene 6 cifras."
+
+msgid "The email you log in with."
+msgstr "El correo con el que inicias sesión."
 
 msgid "email"
 msgstr "correo electrónico"
@@ -172,6 +208,61 @@ msgstr "usuario"
 
 msgid "users"
 msgstr "usuarios"
+
+msgid "sent"
+msgstr "enviado"
+
+msgid "created"
+msgstr "creado"
+
+msgid "email verification"
+msgstr "verificación del correo"
+
+msgid "email verifications"
+msgstr "verificaciones del correo"
+
+msgid "Hi,"
+msgstr "Hola:"
+
+msgid ""
+"Somebody tried to create a Vocaboo account with this email, but you already "
+"have one."
+msgstr ""
+"alguien ha intentado crear una cuenta de Vocaboo con este correo, pero ya "
+"tienes una."
+
+msgid "Log in here:"
+msgstr "Inicia sesión aquí:"
+
+msgid ""
+"Forgot your password? Set a new one here (the link works for 24 hours):"
+msgstr ""
+"¿Has olvidado la contraseña? Pon una nueva aquí (el enlace funciona 24 "
+"horas):"
+
+msgid "If it was not you, ignore this email, nothing changes."
+msgstr "Si no has sido tú, ignora este correo, no cambia nada."
+
+msgid "You already have a Vocaboo account"
+msgstr "Ya tienes una cuenta de Vocaboo"
+
+msgid "Your code to confirm the email:"
+msgstr "tu código para confirmar el correo:"
+
+#, python-format
+msgid ""
+"Enter it on the Vocaboo page where you signed up. It works for %(minutes)s "
+"minutes."
+msgstr ""
+"Escríbelo en la página de Vocaboo donde te has registrado. Funciona durante "
+"%(minutes)s minutos."
+
+msgid "If you did not sign up for Vocaboo, ignore this email."
+msgstr "Si no te has registrado en Vocaboo, ignora este correo."
+
+#, python-format
+msgid "%(code)s is your Vocaboo code"
+msgstr "%(code)s es tu código de Vocaboo"
 
 msgid "Password change"
 msgstr "Cambio de contraseña"
@@ -247,6 +338,27 @@ msgstr "Ajustes guardados."
 
 msgid "Password changed."
 msgstr "Contraseña cambiada."
+
+msgid "Your email is not confirmed yet. Enter the code from the email."
+msgstr "Tu correo aún no está confirmado. Escribe el código del correo."
+
+msgid "Your account is ready. Welcome to Vocaboo!"
+msgstr "Tu cuenta está lista. ¡Te damos la bienvenida a Vocaboo!"
+
+msgid "This code is wrong. Check it and try again."
+msgstr "Este código no es correcto. Revísalo e inténtalo otra vez."
+
+msgid "This code no longer works. Send yourself a new one."
+msgstr "Este código ya no funciona. Pide uno nuevo."
+
+msgid "Too many wrong tries. Send yourself a new code."
+msgstr "Demasiados intentos fallidos. Pide un código nuevo."
+
+msgid "Wait a minute before asking for a new code."
+msgstr "Espera un minuto antes de pedir un código nuevo."
+
+msgid "We sent you a new code."
+msgstr "Te hemos enviado un código nuevo."
 
 msgid "Words"
 msgstr "Palabras"
@@ -1392,9 +1504,6 @@ msgstr "Nuevo"
 msgid "You have no decks yet. Start by creating one."
 msgstr "Aún no tienes mazos. Empieza creando uno."
 
-msgid "Help sections"
-msgstr "Secciones de ayuda"
-
 msgctxt "page title"
 msgid "Log in"
 msgstr "Iniciar sesión"
@@ -1404,6 +1513,95 @@ msgstr "Inicia sesión con tu correo electrónico."
 
 msgid "Log in"
 msgstr "Iniciar sesión"
+
+msgid "Forgot your password?"
+msgstr "¿Has olvidado la contraseña?"
+
+msgid "Create an account"
+msgstr "Crear una cuenta"
+
+msgid "Password changed"
+msgstr "Contraseña cambiada"
+
+msgid "Now log in with the new password."
+msgstr "Ahora inicia sesión con la contraseña nueva."
+
+msgid ""
+"This link no longer works. It was used already or it is older than 24 hours."
+msgstr "Este enlace ya no funciona. Ya se ha usado o tiene más de 24 horas."
+
+msgid "Save the password"
+msgstr "Guardar la contraseña"
+
+msgid "Send a new link"
+msgstr "Enviar un enlace nuevo"
+
+msgid "Forgotten password"
+msgstr "Contraseña olvidada"
+
+msgid "Look into your email"
+msgstr "Mira tu correo"
+
+msgid ""
+"If the email has an account, a link to set a new password is on its way. It "
+"works for 24 hours. No email? Look into spam too."
+msgstr ""
+"Si el correo tiene una cuenta, te llegará un enlace para poner una "
+"contraseña nueva. Funciona 24 horas. ¿No te llega? Mira también en spam."
+
+msgid "Back to login"
+msgstr "Volver al inicio de sesión"
+
+msgid ""
+"Somebody asked for a new password for your Vocaboo account. Set it here:"
+msgstr ""
+"alguien ha pedido una contraseña nueva para tu cuenta de Vocaboo. Ponla "
+"aquí:"
+
+msgid ""
+"The link works for 24 hours. If you did not ask for it, ignore this email, "
+"your password stays the same."
+msgstr ""
+"El enlace funciona 24 horas. Si no lo has pedido tú, ignora este correo, tu "
+"contraseña sigue igual."
+
+msgid "We will send you a link to set a new password."
+msgstr "Te enviaremos un enlace para poner una contraseña nueva."
+
+msgid "Send the link"
+msgstr "Enviar el enlace"
+
+msgid "New password for Vocaboo"
+msgstr "Contraseña nueva para Vocaboo"
+
+msgid "Then we will send you a code to confirm your email."
+msgstr "Luego te enviaremos un código para confirmar tu correo."
+
+msgid "Already have an account?"
+msgstr "¿Ya tienes una cuenta?"
+
+msgid "Confirm your email"
+msgstr "Confirma tu correo"
+
+#, python-format
+msgid ""
+"We sent a code to <strong>%(email)s</strong>. It works for %(minutes)s "
+"minutes."
+msgstr ""
+"Hemos enviado un código a <strong>%(email)s</strong>. Funciona durante "
+"%(minutes)s minutos."
+
+msgid "Confirm"
+msgstr "Confirmar"
+
+msgid "No email? Look into spam too."
+msgstr "¿No te llega el correo? Mira también en spam."
+
+msgid "Send a new code"
+msgstr "Enviar un código nuevo"
+
+msgid "Use another email"
+msgstr "Usar otro correo"
 
 msgid "Name"
 msgstr "Nombre"
@@ -1529,9 +1727,6 @@ msgstr "idioma que quiero aprender"
 
 msgid "language I speak"
 msgstr "idioma que hablo"
-
-msgid "created"
-msgstr "creado"
 
 msgid "deck"
 msgstr "mazo"
