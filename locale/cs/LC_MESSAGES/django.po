@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-21 23:43+0200\n"
+"POT-Creation-Date: 2026-10-22 18:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -497,6 +497,18 @@ msgstr "význam slova"
 
 msgid "word meanings"
 msgstr "významy slova"
+
+msgid "package"
+msgstr "balíček"
+
+msgid "added"
+msgstr "přidáno"
+
+msgid "dictionary package"
+msgstr "balíček slovníku"
+
+msgid "dictionary packages"
+msgstr "balíčky slovníku"
 
 msgctxt "part of speech"
 msgid "n."
@@ -1825,9 +1837,6 @@ msgstr "varianty"
 
 msgid "sentence translation"
 msgstr "překlad věty"
-
-msgid "added"
-msgstr "přidáno"
 
 msgid "word in deck"
 msgstr "slovíčko ve slovníku"

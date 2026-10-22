@@ -1198,6 +1198,8 @@ sudo /srv/vocaboo/app/deploy/deploy.sh
 # ==> Getting the new code
 # ==> Libraries
 # ==> Database tables
+# ==> New packages of the dictionary
+# No new packages of the dictionary.
 # ==> Static files
 # ==> Checking the settings
 # ==> Restarting the app
@@ -1206,6 +1208,19 @@ sudo /srv/vocaboo/app/deploy/deploy.sh
 
 It stops at the first error; when the app does not start again, it prints the last lines of its
 log.
+
+A new package of the dictionary (not in git): copy its folder to the server, `deploy.sh` adds
+it (`extend_lexicon --new` adds every folder of `extensions/` that is not in the database yet;
+the added ones are in the admin under *Slovník › Balíčky slovníku*):
+
+```bash
+# On your computer
+scp -r dictionary/data/extensions/2026-10-23 pi:/tmp/
+# On the server
+sudo mv /tmp/2026-10-23 /srv/vocaboo/app/dictionary/data/extensions/
+sudo chown -R vocaboo:vocaboo /srv/vocaboo/app/dictionary/data
+sudo /srv/vocaboo/app/deploy/deploy.sh
+```
 
 Newer dictionary data (only when the files changed): copy `concepts.jsonl`, `words_*.jsonl` and
 `lexicon_tags.json` to `dictionary/data/` again and run `import_lexicon` as in *The dictionary of

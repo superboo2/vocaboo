@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-21 23:43+0200\n"
+"POT-Creation-Date: 2026-10-22 18:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -507,6 +507,18 @@ msgstr "significado de la palabra"
 
 msgid "word meanings"
 msgstr "significados de la palabra"
+
+msgid "package"
+msgstr "paquete"
+
+msgid "added"
+msgstr "añadido"
+
+msgid "dictionary package"
+msgstr "paquete del diccionario"
+
+msgid "dictionary packages"
+msgstr "paquetes del diccionario"
 
 msgctxt "part of speech"
 msgid "n."
@@ -1840,9 +1852,6 @@ msgstr "variantes"
 
 msgid "sentence translation"
 msgstr "traducción de la frase"
-
-msgid "added"
-msgstr "añadido"
 
 msgid "word in deck"
 msgstr "palabra en el mazo"

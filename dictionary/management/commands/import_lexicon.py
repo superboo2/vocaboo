@@ -15,7 +15,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 
 from dictionary import lexicon_files
-from dictionary.models import Concept, LexiconWord
+from dictionary.models import Concept, LexiconPackage, LexiconWord
 
 
 class Command(BaseCommand):
@@ -60,6 +60,9 @@ class Command(BaseCommand):
             tags_by_slug = lexicon_files.save_tags(tag_data)
             for layer in layers:
                 lexicon_files.save_layer(layer, tags_by_slug)
+            # Now exactly these packages are in the database (extend_lexicon --new)
+            LexiconPackage.objects.all().delete()
+            LexiconPackage.objects.bulk_create(LexiconPackage(name=p.name) for p in packages)
         languages = ", ".join(
             sorted(set(LexiconWord.objects.values_list("language", flat=True).distinct()))
         )

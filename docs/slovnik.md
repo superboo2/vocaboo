@@ -85,6 +85,10 @@ v čísle ID.
    skipped  wep (unclear word)
    Package 2026-11-02: concepts added 21, changed 0; words added 21, changed 2.
    ```
+   Nebo jen spustit `deploy/deploy.sh`: přidá každý balíček z `extensions/`, který v databázi
+   ještě není (`extend_lexicon --new`; přidané balíčky si databáze pamatuje v tabulce
+   `LexiconPackage`, v adminu *Slovník › Balíčky slovníku*, `import_lexicon` ji nastaví podle
+   všech balíčků).
    Nejdřív se všechno zkontroluje, při chybě se nezapíše nic (vypíše soubor, řádek a důvod).
    Pak se vypíše zpráva k balíčku a souhrn; *changed* = pojmy a slova, která už ve slovníku
    byla a balíček je upravil. Totéž bez zápisu ukáže `--check`. Aplikace nepotřebuje restart.

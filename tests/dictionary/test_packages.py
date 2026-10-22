@@ -8,7 +8,7 @@ from django.core.management import call_command
 from django.core.management.base import CommandError
 
 from dictionary import lexicon_files
-from dictionary.models import Concept, LexiconWord
+from dictionary.models import Concept, LexiconPackage, LexiconWord
 from dictionary.providers import get_suggestions
 from tests.conftest import lexicon_entry
 
@@ -134,3 +134,52 @@ def test_full_import_reads_the_base_and_all_packages_in_order(data):
     # The later package wins
     ogre = LexiconWord.objects.get(word="ogre")
     assert (ogre.band, ogre.source) == (10, "2026-11-16")
+
+
+def extend_new(*args):
+    out = io.StringIO()
+    call_command("extend_lexicon", "--new", *args, stdout=out)
+    return out.getvalue()
+
+
+def test_new_adds_only_packages_not_added_yet(data):
+    spanish = {"id": "palm.noun.1", "texts": {"es": {"words": "palma", "sentence": "La {palma}."}}}
+    extend(package(data, "2026-11-02", [OGRE_CONCEPT], {"en": [OGRE]}))
+    package(data, "2026-11-16", [spanish])
+
+    out = extend_new()
+
+    # Only the second one; a translation leaves no trace in the texts, the list remembers it
+    assert "Package 2026-11-16" in out
+    assert "Package 2026-11-02" not in out
+    assert [s.translation for s in get_suggestions("palm", "en", "es").suggestions] == ["palma"]
+    assert list(LexiconPackage.objects.values_list("name", flat=True)) == [
+        "2026-11-02",
+        "2026-11-16",
+    ]
+    assert extend_new() == "No new packages of the dictionary.\n"
+
+
+def test_new_with_check_writes_nothing(data):
+    package(data, "2026-11-02", [OGRE_CONCEPT], {"en": [OGRE]})
+
+    out = extend_new("--check")
+
+    assert "OK: 1 concepts, 1 words in 2026-11-02." in out
+    assert not LexiconPackage.objects.exists()
+    assert not Concept.objects.filter(key="ogre.noun.1").exists()
+
+
+def test_full_import_remembers_its_packages(data):
+    package(data, "2026-11-02", [OGRE_CONCEPT], {"en": [OGRE]})
+    LexiconPackage.objects.create(name="2026-01-01")
+
+    call_command("import_lexicon", stdout=io.StringIO())
+
+    assert list(LexiconPackage.objects.values_list("name", flat=True)) == ["2026-11-02"]
+    assert extend_new() == "No new packages of the dictionary.\n"
+
+
+def test_extend_needs_a_folder_or_new(data):
+    with pytest.raises(CommandError):
+        call_command("extend_lexicon", stdout=io.StringIO())

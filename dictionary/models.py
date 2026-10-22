@@ -184,3 +184,23 @@ class WordSense(models.Model):
 
     def __str__(self):
         return f"{self.word.word} → {self.concept.key}"
+
+
+class LexiconPackage(models.Model):
+    """A package of dictionary/data/extensions/ that is in the database already.
+
+    Translations add only texts, which do not remember their package, so this list tells
+    extend_lexicon --new which packages are new (deploy/deploy.sh runs it).
+    """
+
+    # The folder name, e.g. "2026-11-02"
+    name = models.CharField(_("package"), max_length=20, unique=True)
+    applied_at = models.DateTimeField(_("added"), auto_now=True)
+
+    class Meta:
+        verbose_name = _("dictionary package")
+        verbose_name_plural = _("dictionary packages")
+        ordering = ["name"]
+
+    def __str__(self):
+        return self.name

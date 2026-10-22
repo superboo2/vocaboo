@@ -1,7 +1,15 @@
 from django.contrib import admin
 from django.utils.translation import gettext_lazy as _
 
-from .models import Concept, ConceptText, LexiconTag, LexiconWord, WordForm, WordSense
+from .models import (
+    Concept,
+    ConceptText,
+    LexiconPackage,
+    LexiconTag,
+    LexiconWord,
+    WordForm,
+    WordSense,
+)
 
 # Imported data, mostly for looking: the next import replaces it, so edit the files
 # (docs/slovnik.md). "source" shows what each package of new words brought.
@@ -48,6 +56,11 @@ class LexiconWordAdmin(admin.ModelAdmin):
     list_filter = ("source", "language", "part_of_speech", "band", "level")
     search_fields = ("word", "forms__text")
     inlines = [WordSenseInline, WordFormInline]
+
+
+@admin.register(LexiconPackage)
+class LexiconPackageAdmin(admin.ModelAdmin):
+    list_display = ("name", "applied_at")
 
 
 @admin.register(LexiconTag)
