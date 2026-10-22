@@ -1,0 +1,17 @@
+#!/bin/sh
+# Every night (cron.daily): a dump of the database, the last 14 days are kept, and deleting
+# new accounts that never entered the code from the email.
+# Installed by deploy/install.sh to /etc/cron.daily/vocaboo.
+set -e
+
+APP=/srv/vocaboo/app
+BACKUPS=/var/backups/vocaboo
+# The name of the database from the settings of the app
+DB_NAME=$(sed -n 's/^DB_NAME=//p' "$APP/.env")
+
+mkdir -p "$BACKUPS"
+sudo -u postgres pg_dump --format=custom "${DB_NAME:-vocaboo}" > "$BACKUPS/vocaboo-$(date +%F).dump"
+find "$BACKUPS" -name "vocaboo-*.dump" -mtime +14 -delete
+
+cd "$APP"
+sudo -u vocaboo -H /srv/vocaboo/.local/bin/uv run --no-dev python manage.py cleanup_unverified

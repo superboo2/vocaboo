@@ -155,8 +155,8 @@ Subject: 482915 je tvůj kód pro Vocaboo
     482915
 ```
 
-Accounts that never entered their code are deleted after 7 days (on the server from cron, see
-[Server › Backups](#8-backups)):
+Accounts that never entered their code are deleted after 7 days (on the server by the nightly
+job of `deploy/install.sh`, see [Server › Backups](#8-backups)):
 
 ```bash
 uv run python manage.py cleanup_unverified --dry-run
@@ -1069,81 +1069,74 @@ The app does not need a restart after the import. A package of new words goes to
 again. After you change the base files, copy them again and run the import again; it replaces
 the old data.
 
-#### 4. gunicorn as a systemd service
+#### 4. Service, nginx and nightly jobs: `deploy/install.sh`
 
-`/etc/systemd/system/vocaboo.service`:
+The files for the system are in the repository, in `deploy/`:
 
-```ini
-[Unit]
-Description=Vocaboo (gunicorn)
-After=network.target postgresql.service
-
-[Service]
-User=vocaboo
-Group=vocaboo
-WorkingDirectory=/srv/vocaboo/app
-# Creates /run/vocaboo for the socket, owned by the vocaboo user
-RuntimeDirectory=vocaboo
-ExecStart=/srv/vocaboo/app/.venv/bin/gunicorn config.wsgi \
-    --bind unix:/run/vocaboo/gunicorn.sock \
-    --workers 3 \
-    --timeout 30 \
-    --access-logfile -
-Restart=on-failure
-
-[Install]
-WantedBy=multi-user.target
+```
+deploy/
+  vocaboo.service   the app as a systemd service (gunicorn on a unix socket)
+  nginx.conf        nginx: static files from disk, the rest to gunicorn
+  cron-daily        every night: a dump of the database (14 days kept) and cleanup_unverified
+  install.sh        set up the server once (installs the three files above)
+  deploy.sh         update the app (git pull, libraries, migrate, collectstatic, restart)
 ```
 
+Set up the server once, after steps 1–3:
+
 ```bash
-sudo systemctl daemon-reload
-sudo systemctl enable --now vocaboo
-sudo systemctl status vocaboo
-journalctl -u vocaboo -f        # logs, also Django errors
+cd /srv/vocaboo/app
+sudo deploy/install.sh
+# ==> nginx
+# ==> Access rights
+# ==> The app as a service
+# ==> Libraries
+# ...
+# ==> Check
+#     The login page answers (HTTP 200).
+# Done. At home open http://192.168.0.103/
+```
+
+It installs nginx when it is missing, locks `.env` (only `vocaboo` reads it), lets nginx
+(`www-data`) into the `vocaboo` group, installs and starts the service, puts the nginx site in
+place (and removes the welcome page of nginx), installs `/etc/cron.daily/vocaboo` and checks that
+the login page answers. Running it again does no harm. The nginx file is installed only when it
+is not there yet, because certbot adds its HTTPS part to it; to install a changed
+`deploy/nginx.conf`, delete `/etc/nginx/sites-available/vocaboo` first and run certbot again.
+
+Logs of the app (also Django errors):
+
+```bash
+journalctl -u vocaboo -f
+sudo tail -f /var/log/nginx/error.log
 ```
 
 The app reads `.env` from its directory, so the settings do not have to be in the service file.
 
-#### 5. nginx
+To test at home over plain http before HTTPS works, put `DJANGO_SECURE_SSL_REDIRECT=0` and the
+address of the Pi into `.env` (`DJANGO_ALLOWED_HOSTS=vocaboo.me,192.168.0.103`). The pages open,
+but logging in works only over HTTPS (the session cookie is `Secure`). Remove the line when
+HTTPS works.
 
-`/etc/nginx/sites-available/vocaboo`:
+#### 5. Commands of the app on the server
 
-```nginx
-server {
-    listen 80;
-    server_name vocaboo.me;
+Every command runs as the `vocaboo` user (it owns the code, `.env` and `.venv`). A short alias
+saves typing, e.g. in fish:
 
-    # Static files straight from disk, Django does not serve them in production
-    location /static/ {
-        alias /srv/vocaboo/app/staticfiles/;
-        expires 7d;
-        access_log off;
-    }
-
-    location / {
-        proxy_pass http://unix:/run/vocaboo/gunicorn.sock;
-        proxy_set_header Host $host;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        # Django knows from this that the browser uses HTTPS
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_redirect off;
-    }
-}
+```fish
+alias voc 'cd /srv/vocaboo/app; and sudo -u vocaboo -H /srv/vocaboo/.local/bin/uv run --no-dev python manage.py'
+funcsave voc
+voc createsuperuser
+voc import_lexicon
 ```
+
+in bash (`~/.bashrc`):
 
 ```bash
-sudo ln -s /etc/nginx/sites-available/vocaboo /etc/nginx/sites-enabled/vocaboo
-sudo nginx -t && sudo systemctl reload nginx
+alias voc='cd /srv/vocaboo/app && sudo -u vocaboo -H /srv/vocaboo/.local/bin/uv run --no-dev python manage.py'
 ```
 
-nginx must be able to read the static files and to connect to the socket:
-
-```bash
-# Let nginx (user www-data) into the vocaboo group
-sudo usermod -aG vocaboo www-data
-sudo chmod 750 /srv/vocaboo /srv/vocaboo/app
-sudo systemctl restart nginx
-```
+`--no-dev` keeps the development tools (pytest, ruff) off the server.
 
 #### 6. HTTPS
 
@@ -1168,14 +1161,21 @@ preload is not needed.
 
 #### 7. Updating the app
 
+On your computer `git push`, then on the server:
+
 ```bash
-cd /srv/vocaboo/app
-sudo -u vocaboo git pull
-sudo -u vocaboo -H ~vocaboo/.local/bin/uv sync --no-dev
-sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py migrate
-sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py collectstatic --noinput
-sudo systemctl restart vocaboo
+sudo /srv/vocaboo/app/deploy/deploy.sh
+# ==> Getting the new code
+# ==> Libraries
+# ==> Database tables
+# ==> Static files
+# ==> Checking the settings
+# ==> Restarting the app
+# ==> Done: 3f2a9c1 feat: ...
 ```
+
+It stops at the first error; when the app does not start again, it prints the last lines of its
+log.
 
 Newer dictionary data (only when the files changed): copy `concepts.jsonl`, `words_*.jsonl` and
 `lexicon_tags.json` to `dictionary/data/` again and run `import_lexicon` as in *The dictionary of
@@ -1185,27 +1185,19 @@ which drops the old tables), copy the new files and run `import_lexicon` in any 
 
 #### 8. Backups
 
-A daily dump of the database, the last 14 days are kept.
-
-`/etc/cron.daily/vocaboo-backup` (make it executable: `sudo chmod +x /etc/cron.daily/vocaboo-backup`):
-
-```bash
-#!/bin/sh
-set -e
-mkdir -p /var/backups/vocaboo
-sudo -u postgres pg_dump --format=custom vokie > /var/backups/vocaboo/vocaboo-$(date +%F).dump
-find /var/backups/vocaboo -name "vocaboo-*.dump" -mtime +14 -delete
-```
-
-New accounts that never entered their code are deleted once a day too,
-`/etc/cron.daily/vocaboo-cleanup` (also `chmod +x`):
+A daily dump of the database to `/var/backups/vocaboo/`, the last 14 days are kept
+(`/etc/cron.daily/vocaboo`, installed by `deploy/install.sh` from `deploy/cron-daily`). Try it
+by hand:
 
 ```bash
-#!/bin/sh
-cd /srv/vocaboo/app && sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py cleanup_unverified
+sudo /etc/cron.daily/vocaboo
+ls -l /var/backups/vocaboo/
 ```
 
-Restore a backup (this replaces the current data):
+The same nightly job deletes new accounts that never entered the code from the email
+(`cleanup_unverified`).
+
+Restore a backup (this replaces the current data; `vokie` is `DB_NAME` / `DB_USER` from `.env`):
 
 ```bash
 sudo systemctl stop vocaboo

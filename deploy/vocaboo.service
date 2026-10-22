@@ -1,0 +1,22 @@
+# The app as a systemd service: gunicorn on a unix socket, nginx talks to it.
+# Installed by deploy/install.sh to /etc/systemd/system/vocaboo.service.
+
+[Unit]
+Description=Vocaboo (gunicorn)
+After=network.target postgresql.service
+
+[Service]
+User=vocaboo
+Group=vocaboo
+WorkingDirectory=/srv/vocaboo/app
+# Creates /run/vocaboo for the socket, owned by the vocaboo user
+RuntimeDirectory=vocaboo
+ExecStart=/srv/vocaboo/app/.venv/bin/gunicorn config.wsgi \
+    --bind unix:/run/vocaboo/gunicorn.sock \
+    --workers 3 \
+    --timeout 30 \
+    --access-logfile -
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
