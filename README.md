@@ -1085,8 +1085,7 @@ deploy/
 Set up the server once, after steps 1–3:
 
 ```bash
-cd /srv/vocaboo/app
-sudo deploy/install.sh
+sudo /srv/vocaboo/app/deploy/install.sh
 # ==> nginx
 # ==> Access rights
 # ==> The app as a service
@@ -1124,7 +1123,7 @@ Every command runs as the `vocaboo` user (it owns the code, `.env` and `.venv`).
 saves typing, e.g. in fish:
 
 ```fish
-alias voc 'cd /srv/vocaboo/app; and sudo -u vocaboo -H /srv/vocaboo/.local/bin/uv run --no-dev python manage.py'
+alias voc 'sudo -u vocaboo -H /srv/vocaboo/.local/bin/uv run --no-dev --directory /srv/vocaboo/app python manage.py'
 funcsave voc
 voc createsuperuser
 voc import_lexicon
@@ -1133,12 +1132,43 @@ voc import_lexicon
 in bash (`~/.bashrc`):
 
 ```bash
-alias voc='cd /srv/vocaboo/app && sudo -u vocaboo -H /srv/vocaboo/.local/bin/uv run --no-dev python manage.py'
+alias voc='sudo -u vocaboo -H /srv/vocaboo/.local/bin/uv run --no-dev --directory /srv/vocaboo/app python manage.py'
 ```
 
-`--no-dev` keeps the development tools (pytest, ruff) off the server.
+`--no-dev` keeps the development tools (pytest, ruff) off the server. `--directory` is needed
+because only `vocaboo` (and nginx) may enter `/srv/vocaboo/app`, your own user may not.
 
 #### 6. HTTPS
+
+Two ways: **Cloudflare Tunnel** (no open port on the router, works behind a second router of the
+internet provider or a shared IP address) or **certbot** (the router forwards ports 80 and 443
+to the server, which needs a public IP address).
+
+**Cloudflare Tunnel** (free; this server uses it):
+
+1. Add the domain to Cloudflare (*Connect a domain*, plan *Free*) and replace the nameservers at
+   the registrar (Porkbun: *Domain Management › Nameservers*) with the two from Cloudflare.
+   DNSSEC at the registrar must be off.
+2. *Cloudflare One › Networks › Tunnels › Create a tunnel* (*Cloudflared*), choose *Debian* and
+   *arm64*, run the shown commands on the server. The second one installs the service:
+   `sudo cloudflared service install <token>` (keep the token secret). Do not run
+   `cloudflared tunnel run` by hand as well.
+3. In the tunnel *Add route › Published application*: domain `vocaboo.me`, service
+   `http://localhost:80`. Cloudflare creates the DNS record by itself.
+4. Cloudflare *SSL/TLS › Edge Certificates*: *Always Use HTTPS* on.
+5. In `.env` remove `DJANGO_SECURE_SSL_REDIRECT=0` and `sudo systemctl restart vocaboo`.
+
+nginx behind the tunnel gets plain http; `deploy/nginx.conf` tells Django the protocol from
+Cloudflare's `X-Forwarded-Proto` header (the `map` at the top), otherwise the HTTPS redirect of
+Django would never end. No certbot, the certificate is Cloudflare's. Check the tunnel:
+
+```bash
+sudo systemctl status cloudflared
+journalctl -u cloudflared -n 30
+```
+
+**certbot** (with forwarded ports):
+
 
 ```bash
 sudo apt install -y certbot python3-certbot-nginx

@@ -3,8 +3,9 @@
 # jobs. Before it: PostgreSQL with the database, the vocaboo user, the code in
 # /srv/vocaboo/app and its .env (see README.md, Server). Then:
 #
-#     cd /srv/vocaboo/app && sudo deploy/install.sh
+#     sudo /srv/vocaboo/app/deploy/install.sh
 #
+# Afterwards only vocaboo and nginx may enter /srv/vocaboo, so run it with the full path.
 # Running it again does no harm; the nginx file is kept when it exists (certbot changes it).
 
 main() {
@@ -14,7 +15,7 @@ main() {
     local here="$app/deploy"
 
     if [[ $EUID -ne 0 ]]; then
-        echo "Run it with sudo: cd $app && sudo deploy/install.sh" >&2
+        echo "Run it with sudo: sudo $app/deploy/install.sh" >&2
         exit 1
     fi
     if ! id vocaboo >/dev/null 2>&1; then
