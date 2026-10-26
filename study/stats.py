@@ -325,7 +325,7 @@ def _test_row(session, counts, names):
     direction = {
         StudyDirection.F2N: f"{foreign} → {native}",
         StudyDirection.N2F: f"{native} → {foreign}",
-    }.get(session.direction, f"{foreign} ↔ {native}")
+    }.get(session.direction, f"{foreign} → {native} + {native} → {foreign}")
     if session.scope == StudyScope.ALL:
         scope = pgettext("test scope", "all")
     else:

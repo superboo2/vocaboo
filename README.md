@@ -489,6 +489,11 @@ first value. The buttons are defined in `study/ratings.py`.
 A test is a `StudySession`: chosen decks (child decks are included), direction and scope. The
 next card is always computed from the database, so the app works the same on more devices.
 
+The setup page shows how many cards the test would have next to the choices (*jen k opakování
+a nová (42)*, *všechna (85)*), for the ticked decks and the direction; the
+part is reloaded by HTMX after every change (`study:counts`, `services.card_counts`). From the
+deck page (`?deck=<id>`) it shows only that deck instead of the tree, *Změnit* opens the tree.
+
 - **Scope "due"**: first the cards that are due, then new cards. Inside both groups the order is
   **random**, so the two directions of a word are usually far apart (when they came one card
   apart, the second one was easy only thanks to short memory). Every test gets its own random
@@ -803,7 +808,7 @@ templates/    project-wide templates (base.html = layout of all pages,
 static/       project-wide static files
   css/app.css   small custom styles on top of Pico.css
   js/app.js     helpers for all pages ("other meaning" button)
-  js/study.js   test screen: turning the card, keyboard, time measuring, legend
+  js/study.js   test screen: turning the card, keyboard, time measuring, help window
   js/tree.js    dashboard tree: moving decks by drag and drop
   vendor/       third-party files kept in the repository (see below)
 tests/        all tests, one folder per app

@@ -1,0 +1,26 @@
+{% load i18n arrows %}
+{# Direction and which cards, named by the languages and counted for the ticked decks. #}
+{# Any change of the form loads this part again (study_counts), so names and numbers fit. #}
+<div id="test-options"
+     hx-get="{% url 'study:counts' %}" hx-trigger="change from:closest form"
+     hx-include="closest form" hx-target="this" hx-swap="outerHTML">
+<fieldset class="card-section">
+  <legend class="section-title">{{ form.direction.label }}</legend>
+  {% for radio in form.direction %}
+    <label>{{ radio.tag }} {{ radio.choice_label|arrows }}</label>
+  {% endfor %}
+</fieldset>
+
+<fieldset class="card-section">
+  <legend class="section-title">{{ form.scope.label }}</legend>
+  {% for radio in form.scope %}
+    {# Only the number of cards in brackets, e.g. "only due and new (23)" #}
+    <label>{{ radio.tag }} {{ radio.choice_label }} ({% if radio.data.value == "due" %}{{ counts.due|add:counts.new }}{% else %}{{ counts.all }}{% endif %})</label>
+  {% endfor %}
+
+  {{ form.max_cards.label_tag }}
+  {{ form.max_cards }}
+  {% if form.max_cards.errors %}<small class="field-error">{{ form.max_cards.errors|join:" " }}</small>{% endif %}
+  <small id="{{ form.max_cards.auto_id }}_helptext">{% translate "Empty = no limit." %}</small>
+</fieldset>
+</div>

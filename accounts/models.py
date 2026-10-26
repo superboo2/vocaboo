@@ -77,6 +77,10 @@ class User(AbstractUser):
     )
     # Written pronunciation in IPA, e.g. [pɑːm], on the card and on the word page
     show_ipa = models.BooleanField(_("written pronunciation (IPA)"), default=False)
+    # Next to the rating buttons of a test: when the word comes again (10 min, 3 days …)
+    show_intervals = models.BooleanField(_("show when the word comes again"), default=False)
+    # The help of the test screen opens by itself only until the user closes it once
+    seen_test_help = models.BooleanField(_("has seen the help of the test"), default=False)
 
     # Language of the app (menus, buttons, help); empty = as the browser asks
     ui_language = models.CharField(

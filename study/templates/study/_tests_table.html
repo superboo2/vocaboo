@@ -1,6 +1,6 @@
 {% load i18n arrows %}
 {# The last tests (study/stats.py recent_tests): one row each, a click opens the summary of #}
-{# the test. With ↔ every word comes twice, once each way. The bar shows only the percent #}
+{# the test. With both directions (+) every word comes twice, once each way. The bar shows only the percent #}
 {# (one colour), the numbers of 😎 🤔 😕 😵 are in its title and in the summary. #}
 {# On a phone the row is a small block. ⏹ is the plain text symbol (not the coloured emoji), #}
 {# so it is grey like the rest of an unfinished row. #}
@@ -10,7 +10,7 @@
     <span role="columnheader">{% translate "Deck" %}</span>
     <span role="columnheader">{% translate "Direction" %}</span>
     <span role="columnheader">{% translate "Scope" %}</span>
-    <span role="columnheader" class="test-count" title="{% translate 'With ↔ every word is in the test twice, once each way.' %}">{% translate "Words" %}</span>
+    <span role="columnheader" class="test-count" title="{% translate 'With both directions (+) every word is in the test twice, once each way.' %}">{% translate "Words" %}</span>
     <span role="columnheader" class="test-success-head">{% translate "Success" %}</span>
     <span role="columnheader" class="test-count">{% translate "Time" %}</span>
   </div>

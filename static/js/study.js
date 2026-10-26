@@ -1,6 +1,5 @@
-// Test screen: turn the card, measure the time, keyboard and the legend of the buttons.
+// Test screen: turn the card, measure the time, keyboard and the help window of the buttons.
 (function () {
-  const LEGEND_KEY = "vocaboo.legendSeen";
 
   let card = null;
   let flipped = false;
@@ -180,6 +179,10 @@
     if (event.repeat || event.ctrlKey || event.metaKey || event.altKey) {
       return;
     }
+    // While the help window is open the keys belong to it (Esc closes it)
+    if (document.querySelector("dialog[open]")) {
+      return;
+    }
     if (event.target.closest("input, textarea, select")) {
       return;
     }
@@ -229,36 +232,51 @@
     }
   });
 
-  // Legend
-  function setLegend(visible) {
-    const legend = document.getElementById("legend");
-    if (legend) {
-      legend.hidden = !visible;
+  // Help window of the buttons. The time it is open does not count as thinking time.
+  let helpOpenedAt = null;
+
+  function openHelp() {
+    const help = document.getElementById("legend");
+    if (help && !help.open) {
+      help.showModal();
+      helpOpenedAt = now();
     }
   }
 
   document.addEventListener("click", function (event) {
     if (event.target.closest("[data-action='close-legend']")) {
-      setLegend(false);
-      try {
-        localStorage.setItem(LEGEND_KEY, "1");
-      } catch (error) {
-        // Storage can be blocked, the legend then comes again next time
-      }
+      document.getElementById("legend").close();
     } else if (event.target.closest("[data-action='toggle-legend']")) {
-      const legend = document.getElementById("legend");
-      setLegend(legend && legend.hidden);
+      openHelp();
     }
   });
 
   document.addEventListener("DOMContentLoaded", function () {
     start();
-    let seen = false;
-    try {
-      seen = localStorage.getItem(LEGEND_KEY) === "1";
-    } catch (error) {
-      seen = false;
+    const help = document.getElementById("legend");
+    if (!help) {
+      return;
     }
-    setLegend(!seen);
+    // Closed by "Got it" or Esc
+    help.addEventListener("close", function () {
+      if (helpOpenedAt !== null) {
+        paused += now() - helpOpenedAt;
+        helpOpenedAt = null;
+      }
+      // The first time: tell the server, so it does not open by itself again (on any device)
+      if ("openFirst" in help.dataset) {
+        delete help.dataset.openFirst;
+        const token = document.querySelector("[name=csrfmiddlewaretoken]");
+        fetch(help.dataset.seenUrl, {
+          method: "POST",
+          headers: { "X-CSRFToken": token ? token.value : "" },
+        }).catch(function () {
+          // Offline: the window opens once more next time, nothing else happens
+        });
+      }
+    });
+    if ("openFirst" in help.dataset) {
+      openHelp();
+    }
   });
 })();

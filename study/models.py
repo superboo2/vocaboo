@@ -56,7 +56,7 @@ class StudyDirection(models.TextChoices):
 
     F2N = "F2N", _("foreign → native")
     N2F = "N2F", _("native → foreign")
-    MIXED = "MIXED", _("mixed")
+    MIXED = "MIXED", _("foreign → native + native → foreign")
 
 
 class StudyScope(models.TextChoices):

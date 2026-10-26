@@ -6,6 +6,8 @@ app_name = "study"
 
 urlpatterns = [
     path("study/new/", views.study_new, name="new"),
+    path("study/new/counts/", views.study_counts, name="counts"),
+    path("study/help-seen/", views.study_help_seen, name="help_seen"),
     path("stats/", views.study_stats, name="stats"),
     path("study/<int:pk>/", views.study_card, name="card"),
     path("study/<int:pk>/answer/", views.study_answer, name="answer"),

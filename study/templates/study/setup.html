@@ -22,31 +22,32 @@
       {{ form.non_field_errors }}
 
       {# The same cards as on the dashboard: what to test, which way, how many #}
-      <fieldset class="card-section">
-        <legend class="section-title">{% translate "Decks" %}</legend>
-        <small class="muted">{% translate "Subdecks are included automatically. A word that is in more decks comes only once." %}</small>
-        {% if form.decks.errors %}<small class="field-error">{{ form.decks.errors|join:" " }}</small>{% endif %}
-        <ul class="deck-tree deck-tree-root deck-pick">
-          {% for deck in roots %}
-            {% include "study/_deck_checkbox.html" %}
-          {% endfor %}
-        </ul>
-      </fieldset>
+      {% if single_deck %}
+        {# Practise from the page of a deck: only that deck, the tree after "Change" #}
+        <section class="card-section">
+          <h2 class="section-title">{% translate "Deck" %}</h2>
+          <p class="practice-deck">
+            <strong>{{ single_deck.name }}</strong>
+            {% if subdeck_count %}<span class="muted">{% blocktranslate count counter=subdeck_count trimmed %}and {{ counter }} subdeck{% plural %}and {{ counter }} subdecks{% endblocktranslate %}</span>{% endif %}
+            · <a href="?deck={{ single_deck.pk }}&amp;pick=1">{% translate "Change" %}</a>
+          </p>
+          <input type="hidden" name="decks" value="{{ single_deck.pk }}">
+          <input type="hidden" name="one_deck" value="1">
+        </section>
+      {% else %}
+        <fieldset class="card-section">
+          <legend class="section-title">{% translate "Decks" %}</legend>
+          <small class="muted">{% translate "Subdecks are included automatically. A word that is in more decks comes only once." %}</small>
+          {% if form.decks.errors %}<small class="field-error">{{ form.decks.errors|join:" " }}</small>{% endif %}
+          <ul class="deck-tree deck-tree-root deck-pick">
+            {% for deck in roots %}
+              {% include "study/_deck_checkbox.html" %}
+            {% endfor %}
+          </ul>
+        </fieldset>
+      {% endif %}
 
-      <fieldset class="card-section">
-        <legend class="section-title">{{ form.direction.label }}</legend>
-        {% for radio in form.direction %}
-          <label>{{ radio.tag }} {{ radio.choice_label }}</label>
-        {% endfor %}
-      </fieldset>
-
-      <fieldset class="card-section">
-        <legend class="section-title">{{ form.scope.label }}</legend>
-        {% for radio in form.scope %}
-          <label>{{ radio.tag }} {{ radio.choice_label }}</label>
-        {% endfor %}
-        {{ form.max_cards.as_field_group }}
-      </fieldset>
+      {% include "study/_options.html" %}
 
       <button type="submit" class="start-test">▶︎ {% translate "Start test" %}</button>
     </form>

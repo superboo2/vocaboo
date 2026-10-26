@@ -9,8 +9,8 @@
       <strong>▶︎ Practicar mazo</strong> en el detalle del mazo. Después elige:
     </p>
     <ul>
-      <li><strong>Mazos</strong>: los submazos se incluyen automáticamente, y una palabra que está en varios mazos sale solo una vez.</li>
-      <li><strong>Dirección</strong>: extranjero → tu idioma, tu idioma → extranjero o mezclado. Puedes fijar la dirección por defecto en <a href="{% url 'settings' %}">Ajustes</a>.</li>
+      <li><strong>Mazos</strong>: los submazos se incluyen automáticamente, y una palabra que está en varios mazos sale solo una vez. Desde el detalle del mazo (<em>▶︎ Practicar mazo</em>) no aparece el árbol, solo el nombre del mazo y cuántos submazos tiene; el enlace <em>Cambiar</em> abre el árbol.</li>
+      <li><strong>Dirección</strong>: en un sentido o en los dos (<em>+</em>, las tarjetas de ambos sentidos mezcladas). Los sentidos llevan el nombre de los idiomas del mazo, p. ej. <em>EN → CS</em>, <em>CS → EN</em> y <em>EN → CS + CS → EN</em>; con mazos de idiomas distintos, en general <em>extranjero → tu idioma</em> y <em>tu idioma → extranjero</em>. Puedes fijar la dirección por defecto en <a href="{% url 'settings' %}">Ajustes</a>.</li>
       <li><strong>Qué tarjetas</strong>:
         <ul>
           <li><em>solo pendientes y nuevas</em>: aprendizaje normal, las tarjetas que toca repasar y las palabras que todavía no han salido en ningún test,</li>
@@ -19,6 +19,7 @@
       </li>
       <li><strong>Máx. de tarjetas</strong>: cuando solo quieres un repaso corto.</li>
     </ul>
+    <p>Junto a las opciones ves entre paréntesis cuántas tarjetas tendría el test, p. ej. <em>solo pendientes y nuevas (42)</em> o <em>todas (85)</em>. Se cuenta para los mazos marcados y la dirección elegida y cambia en cuanto cambias una opción. Con los dos sentidos (<em>+</em>) cada palabra está dos veces, una en cada dirección.</p>
   </section>
 
   <section>
@@ -54,7 +55,7 @@
 
   <section>
     <h2>Valoraciones e intervalos</h2>
-    <p>Después de dar la vuelta a la tarjeta, valora lo bien que te sabes la palabra:</p>
+    <p>Después de dar la vuelta a la tarjeta, valora lo bien que te sabes la palabra. Cuándo vuelve la palabra con cada valoración no se muestra debajo de los botones por defecto; actívalo en <a href="{% url 'settings' %}">Ajustes</a> › Test › <em>Mostrar cuándo vuelve la palabra</em>.</p>
     <div class="overflow-auto"><table>
       <thead>
         <tr><th>Botón</th><th>Tecla</th><th>Primera vez</th><th>Siguientes repasos</th></tr>
@@ -93,7 +94,7 @@
         <tr><td><kbd>1</kbd> – <kbd>4</kbd></td><td>valora la tarjeta (😎 🤔 😕 😵)</td></tr>
         <tr><td><kbd>P</kbd></td><td>reproduce la pronunciación (en la dirección tu idioma → extranjero después de dar la vuelta)</td></tr>
         <tr><td><kbd>V</kbd></td><td>lee la frase (en la dirección tu idioma → extranjero después de dar la vuelta)</td></tr>
-        <tr><td><strong>?</strong> debajo de la tarjeta</td><td>muestra u oculta la explicación de los botones</td></tr>
+        <tr><td><strong>?</strong> debajo de la tarjeta</td><td>abre la ventana <em>Cómo funciona el test</em> (cómo funciona y qué significan las caritas); en el primer test se abre sola, después de <em>Entendido</em> solo con <strong>?</strong> (se guarda en tu cuenta, así que en todos los dispositivos)</td></tr>
         <tr><td><strong>✎</strong> debajo de la tarjeta o <kbd>E</kbd></td><td>abre la edición de la palabra (una errata, una traducción incorrecta); el botón <em>Guardar y volver al test</em> o <em>Volver al test sin guardar</em> te devuelve a la misma tarjeta. La tarjeta todavía no se ha valorado, así que nada cuenta dos veces. Los cambios en las variantes y en la nota valen en todos los mazos en los que está la palabra.</td></tr>
         <tr><td><strong>Terminar test</strong></td><td>termina el test y muestra el resumen</td></tr>
       </tbody>

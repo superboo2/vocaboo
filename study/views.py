@@ -8,12 +8,12 @@ from django.views.decorators.http import require_POST
 
 from dictionary.providers import get_example_sentence, get_pronunciation
 from vocabulary import services as vocabulary_services
-from vocabulary.models import DeckTerm, Term
+from vocabulary.models import Deck, DeckTerm, Term
 
 from . import services, stats
 from .cards import build_card
 from .forms import StudySetupForm
-from .models import ReviewState, StudyScope, StudySession
+from .models import ReviewState, StudyDirection, StudyScope, StudySession
 from .ratings import RATINGS
 
 
@@ -26,7 +26,8 @@ def _is_htmx(request):
 
 
 def study_new(request):
-    """Settings of a new test. ?deck=<id> chooses that deck in advance."""
+    """Settings of a new test. ?deck=<id> tests that deck: the tree is hidden and only the
+    deck is shown, ?deck=<id>&pick=1 shows the tree with it ticked."""
     initial = {"direction": request.user.default_direction, "scope": StudyScope.DUE}
     if request.GET.get("deck", "").isdigit():
         initial["decks"] = [int(request.GET["deck"])]
@@ -49,13 +50,60 @@ def study_new(request):
 
     if form.is_bound:
         selected = {int(value) for value in form["decks"].value() or [] if str(value).isdigit()}
+        one_deck = request.POST.get("one_deck") == "1"
     else:
         selected = set(initial.get("decks", []))
-    return render(
-        request,
-        "study/setup.html",
-        {"form": form, "roots": vocabulary_services.load_tree(request.user), "selected": selected},
+        one_deck = bool(selected) and "pick" not in request.GET
+    decks = list(
+        Deck.objects.filter(owner=request.user, pk__in=selected).select_related(
+            "foreign_language", "native_language"
+        )
     )
+    form.name_directions(decks)
+    # Practising one deck from its page: no tree, only its name (and how many subdecks)
+    single_deck = decks[0] if one_deck and len(decks) == 1 else None
+    context = {
+        "form": form,
+        "roots": vocabulary_services.load_tree(request.user),
+        "selected": selected,
+        "single_deck": single_deck,
+        "subdeck_count": (
+            len(vocabulary_services.get_descendant_ids(single_deck, include_self=False))
+            if single_deck
+            else 0
+        ),
+        **_scope_context(request.user, decks, form["direction"].value()),
+    }
+    return render(request, "study/setup.html", context)
+
+
+def _scope_context(user, decks, direction):
+    """Card counts next to the choices "which cards" of the test setup."""
+    if direction not in StudyDirection.values:
+        direction = user.default_direction
+    return {"counts": services.card_counts(user, decks, direction)}
+
+
+def study_counts(request):
+    """The parts "direction" and "which cards" of the test setup again, with the languages
+    and the counts for the ticked decks (HTMX, after every change of the form)."""
+    decks = Deck.objects.filter(
+        owner=request.user,
+        pk__in=[value for value in request.GET.getlist("decks") if value.isdigit()],
+    ).select_related("foreign_language", "native_language")
+    direction = request.GET.get("direction", "")
+    scope = request.GET.get("scope", StudyScope.DUE)
+    form = StudySetupForm(
+        user=request.user,
+        initial={
+            "direction": direction,
+            "scope": scope,
+            "max_cards": request.GET.get("max_cards", ""),
+        },
+    )
+    form.name_directions(decks)
+    context = {"form": form, **_scope_context(request.user, list(decks), direction)}
+    return render(request, "study/_options.html", context)
 
 
 def _card_context(session, state):
@@ -206,3 +254,12 @@ def study_retry(request, pk):
 def study_stats(request):
     """Statistics of the user: words over time, success, activity and fun facts."""
     return render(request, "study/stats.html", {"stats": stats.user_statistics(request.user)})
+
+
+@require_POST
+def study_help_seen(request):
+    """The user closed the help of the test screen: it does not open by itself any more."""
+    if not request.user.seen_test_help:
+        request.user.seen_test_help = True
+        request.user.save(update_fields=["seen_test_help"])
+    return HttpResponse(status=204)

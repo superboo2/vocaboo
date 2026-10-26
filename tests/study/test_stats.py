@@ -283,7 +283,7 @@ def test_recent_tests(user, deck):
     )
     assert not newest["finished"]
     # Both directions: every word twice
-    assert (older["cards"], older["direction"]) == (4, "EN ↔ CS")
+    assert (older["cards"], older["direction"]) == (4, "EN → CS + CS → EN")
     assert [item["count"] for item in older["ratings"]] == [3, 0, 0, 1]
     assert older["percent"] == 75
     assert older["finished"]

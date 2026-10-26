@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-22 18:40+0200\n"
+"POT-Creation-Date: 2026-10-26 11:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,6 +56,9 @@ msgstr "Co přehrát"
 msgid "Show written pronunciation (IPA)"
 msgstr "Ukazovat zápis výslovnosti (IPA)"
 
+msgid "Show when the word comes again"
+msgstr "Ukazovat, kdy slovíčko přijde znovu"
+
 msgid "Menus, buttons and help. Your words stay the same."
 msgstr "Menu, tlačítka a nápověda. Slovíčka se tím nemění."
 
@@ -94,6 +97,13 @@ msgid ""
 msgstr ""
 "Pod cizím slovem na kartičce a v detailu slovíčka, např. [pɑːm]. Hodí se, "
 "když IPA umíš číst."
+
+msgid ""
+"Under the rating buttons of a test, e.g. 10 min, 1 day, 3 days: when the "
+"word comes again after that rating."
+msgstr ""
+"Pod tlačítky hodnocení v testu, např. 10 min, 1 den, 3 dny: kdy slovíčko po "
+"tomto hodnocení přijde znovu."
 
 msgid "Same as the browser"
 msgstr "Podle prohlížeče"
@@ -193,6 +203,12 @@ msgstr "co přehrát"
 
 msgid "written pronunciation (IPA)"
 msgstr "zápis výslovnosti (IPA)"
+
+msgid "show when the word comes again"
+msgstr "ukazovat, kdy slovíčko přijde znovu"
+
+msgid "has seen the help of the test"
+msgstr "nápověda testu už zobrazena"
 
 msgid "app language"
 msgstr "jazyk aplikace"
@@ -776,9 +792,6 @@ msgstr "Které kartičky"
 msgid "Max cards"
 msgstr "Nejvýš karet"
 
-msgid "Empty = no limit."
-msgstr "Prázdné = bez limitu."
-
 msgid "foreign → native"
 msgstr "cizí → rodný"
 
@@ -827,8 +840,8 @@ msgstr "stav opakování"
 msgid "review states"
 msgstr "stavy opakování"
 
-msgid "mixed"
-msgstr "zamíchat"
+msgid "foreign → native + native → foreign"
+msgstr "cizí → rodný + rodný → cizí"
 
 msgid "only due and new"
 msgstr "jen k opakování a nová"
@@ -1245,6 +1258,9 @@ msgstr "Otočit"
 msgid "Details"
 msgstr "Detail"
 
+msgid "Empty = no limit."
+msgstr "Prázdné = bez omezení."
+
 msgid "This word does not stick"
 msgstr "Tohle slovíčko ti nejde"
 
@@ -1293,8 +1309,11 @@ msgstr "Slovník"
 msgid "Scope"
 msgstr "Rozsah"
 
-msgid "With ↔ every word is in the test twice, once each way."
-msgstr "Při ↔ je každé slovíčko v testu dvakrát, jednou každým směrem."
+msgid ""
+"With both directions (+) every word is in the test twice, once each way."
+msgstr ""
+"Při obou směrech (+) je každé slovíčko v testu dvakrát, jednou každým "
+"směrem."
 
 msgid "Success"
 msgstr "Úspěšnost"
@@ -1324,34 +1343,15 @@ msgstr "Upravit slovíčko (E)"
 msgid "Finish test"
 msgstr "Ukončit test"
 
-#, python-format
-msgid "first in %(first)s, then longer each time"
-msgstr "poprvé za %(first)s, pak víckrát delší"
+msgid "How the test works"
+msgstr "Jak test funguje"
 
-#, python-format
-msgid "always again in %(first)s"
-msgstr "vždy znovu za %(first)s"
-
-msgid "turns the card over"
-msgstr "otočí kartičku"
-
-msgid "Play"
-msgstr "Přehrát"
-
-msgid "reads the word (P) or the sentence (V)"
-msgstr "přečte slovo (P) nebo větu (V)"
-
-msgid "Edit"
-msgstr "Upravit"
-
-msgid "edits the word and goes back to the card"
-msgstr "upraví slovíčko a vrátí se ke kartičce"
-
-msgid "Finish"
-msgstr "Ukončit"
-
-msgid "ends and shows the summary"
-msgstr "skončí a ukáže souhrn"
+msgid ""
+"Try to recall the answer, turn the card and rate how well you knew it. The "
+"worse you knew it, the sooner it comes again."
+msgstr ""
+"Zkus si vybavit odpověď, otoč kartičku a ohodnoť, jak dobře ji umíš. Čím "
+"hůř, tím dřív slovíčko přijde znovu."
 
 msgid "Got it"
 msgstr "Rozumím"
@@ -1364,6 +1364,16 @@ msgstr "Nejdřív si vytvoř slovník a přidej do něj slovíčka."
 
 msgid "New deck"
 msgstr "Nový slovník"
+
+#, python-format
+msgid "and %(counter)s subdeck"
+msgid_plural "and %(counter)s subdecks"
+msgstr[0] "a %(counter)s podslovník"
+msgstr[1] "a %(counter)s podslovníky"
+msgstr[2] "a %(counter)s podslovníků"
+
+msgid "Change"
+msgstr "Změnit"
 
 msgid ""
 "Subdecks are included automatically. A word that is in more decks comes only"
@@ -2121,6 +2131,9 @@ msgstr ""
 
 msgid "Remove"
 msgstr "Odebrat"
+
+msgid "Edit"
+msgstr "Upravit"
 
 msgid "More actions"
 msgstr "Další akce"

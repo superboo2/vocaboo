@@ -95,6 +95,8 @@ Pole navíc oproti `AbstractUser`:
 | `autoplay_pronunciation` | bool, výchozí `True` | přečíst cizí slovo samo (F→N hned, N→F po otočení) |
 | `autoplay_content` | `word` / `sentence`, výchozí `word` | co se přečte: slovo, nebo celá věta (bez věty slovo) |
 | `show_ipa` | bool, výchozí `False` | zápis výslovnosti (IPA) na kartičce a v detailu slovíčka |
+| `show_intervals` | bool, výchozí `False` | pod tlačítky hodnocení v testu, kdy slovíčko přijde znovu |
+| `seen_test_help` | bool, výchozí `False` | okno *Jak test funguje* už zavřel, neotevře se samo |
 | `strict_ignore_case` | bool | default `True` (fáze 2) |
 | `strict_ignore_diacritics` | bool | default `False` (fáze 2) |
 | `strict_allow_typo` | bool | default `False`, tolerance 1 překlepu (fáze 2) |
@@ -459,11 +461,24 @@ Mikrofon (seriál nahlas) nebo nahraný audio soubor, přepis (Whisper), věty, 
 ## 6. Testování
 
 ### 6.1 Nastavení testu
-1. Výběr slovníků (víc najednou, podslovníky se zahrnou automaticky)
+1. Výběr slovníků (víc najednou, podslovníky se zahrnou automaticky). Z detailu slovníku
+   (`?deck=<id>`) se strom neukazuje, jen název slovníku a počet podslovníků (skryté pole
+   `decks` + `one_deck`); odkaz *Změnit* (`?deck=<id>&pick=1`) ukáže strom se zaškrtnutým
+   slovníkem. Z *▶︎ Procvičit* v liště je strom vždy.
 2. Směr: `F→N`, `N→F`, zamíchat
 3. Režim: volný (MVP); striktní a výběr z 6 přibudou ve fázi 2
 4. Rozsah: jen k opakování (+ nová) / všechna
 5. Volitelně max. počet karet
+6. **Počty karet** u voleb v závorce (od 2026-10-26): *jen k opakování a nová (42)*,
+   *všechna (85)*; pod limitem jen *Prázdné = bez omezení*.
+   Počítá `services.card_counts(user, decks, direction)` (karta = `ReviewState`, tedy slovíčko
+   v jednom směru; zamíchat = oba směry): `due` = `due_at <= now`, `new` = `due_at` prázdné,
+   `all` = vše. Části *Směr* a *Které kartičky* jsou šablona `study/_options.html`, kterou HTMX
+   při každé změně formuláře načte znovu (`study:counts`, GET s hodnotami formuláře).
+7. **Názvy směrů podle jazyků** (od 2026-10-26): mají-li všechny vybrané slovníky stejný pár,
+   jsou směry *EN → CS*, *CS → EN*, *EN → CS + CS → EN* (`StudySetupForm.name_directions`);
+   jinak obecně *cizí → rodný*, *rodný → cizí*, *cizí → rodný + rodný → cizí*. Stejný zápis
+   s „+“ mají oba směry v tabulce posledních testů ve Statistikách (dřív „↔“).
 
 ### 6.2 Výběr další karty
 1. Posbírat slovíčka ze všech `DeckTerm` vybraných slovníků a jejich podslovníků, **distinct podle Term**. Tím se duplicity mezi slovníky odfiltrují automaticky.
@@ -475,7 +490,7 @@ Mikrofon (seriál nahlas) nebo nahraný audio soubor, přepis (Whisper), věty, 
 4. Karty odložené na později (`due_at > now`) se v rozsahu `due` nevrátí, dokud nebude jejich čas.
 5. Když nic nezbývá, test skončí a zobrazí se souhrn.
 
-V režimu „zamíchat“ se karta vybírá napříč oběma směry. Stejné slovíčko se nemá ukázat v obou směrech hned po sobě (jen pojistka, náhodné pořadí je většinou dá daleko od sebe; přísný rozestup není potřeba, občas blízko nevadí).
+Při obou směrech (`MIXED`, na stránce *cizí → rodný + rodný → cizí*, u jednoho jazykového páru třeba *EN → CS + CS → EN*; dřív „zamíchat“) se karta vybírá napříč oběma směry. Stejné slovíčko se nemá ukázat v obou směrech hned po sobě (jen pojistka, náhodné pořadí je většinou dá daleko od sebe; přísný rozestup není potřeba, občas blízko nevadí).
 
 **Rozestup homonym:** dva významy stejného slova (`palm` ruka / strom) se neukážou hned po sobě, aby si nenapovídaly.
 
@@ -541,9 +556,10 @@ Opakované „Vím“: 7 dní → 28 → 112 → 1 rok. Opakované „Po zamyšl
 - Jen starší emoji (Unicode 6–8), aby se správně zobrazila i na starších zařízeních.
 - **Barva pozadí** jako doplněk: zelená, světle zelená, oranžová, červená (jemné odstíny). Barva nikdy není jediný rozlišovací znak, takže to nevadí barvoslepým.
 - Na mobilu jedna řada 4 tlačítek (případně mřížka 2×2 na úzkých displejích).
-- **Legenda:** při prvním testu se nad tlačítky ukáže *„😎 vím · 🤔 vím po zamyšlení · 😕 vzpomínám si napůl · 😵 vůbec nevím“*. Dá se zavřít a pak už se neukazuje. Ikona **„?“** u tlačítek ji kdykoliv ukáže znovu.
+- **Nápověda jako okno** (od 2026-10-26): *Jak test funguje* je `<dialog>` přes kartičku: jedna věta o principu (čím hůř, tím dřív slovíčko přijde znovu) a čtyři smajlíci s názvem. Ostatní tlačítka mají text nebo známou ikonu, klávesy jsou na tlačítkách a v nápovědě. Při prvním testu se otevře samo, dokud ho uživatel jednou nezavře (*Rozumím* nebo Esc → `POST study:help_seen` → `User.seen_test_help`, platí pro účet na všech zařízeních). Pak jen přes **„?“** pod kartičkou. Dokud je okno otevřené, klávesy testu nefungují a čas otevřeného okna se nepočítá do doby přemýšlení.
 - Na počítači i **tooltip** s názvem při najetí myší. Na mobilu tooltip nefunguje, tam slouží legenda.
-- **`aria-label`** pro čtečky obrazovky, např. „Vím, opakovat za 7 dní“.
+- **Interval pod tlačítky** (*10 min*, *7 dní*) jen se zapnutou volbou Nastavení › Test › *Ukazovat, kdy slovíčko přijde znovu* (`User.show_intervals`, výchozí vypnuto): čísla se mění a odvádějí pozornost, rozhoduje se podle toho, jak slovíčko uměl.
+- **`aria-label`** pro čtečky obrazovky, např. „Vím, opakovat za 7 dní“ (bez intervalu jen „Vím“).
 
 #### Ovládání z klávesnice (počítač)
 - **mezerník** otočí kartičku,

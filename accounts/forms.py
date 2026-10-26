@@ -34,6 +34,7 @@ class SettingsForm(forms.ModelForm):
             "autoplay_pronunciation",
             "autoplay_content",
             "show_ipa",
+            "show_intervals",
         ]
         labels = {
             "ui_language": _("App language"),
@@ -43,6 +44,7 @@ class SettingsForm(forms.ModelForm):
             "autoplay_pronunciation": _("Play automatically"),
             "autoplay_content": _("What to play"),
             "show_ipa": _("Show written pronunciation (IPA)"),
+            "show_intervals": _("Show when the word comes again"),
         }
         help_texts = {
             "ui_language": _("Menus, buttons and help. Your words stay the same."),
@@ -65,6 +67,10 @@ class SettingsForm(forms.ModelForm):
             "show_ipa": _(
                 "Under the foreign word on the card and on the word page, e.g. [pɑːm]. "
                 "Useful if you can read IPA."
+            ),
+            "show_intervals": _(
+                "Under the rating buttons of a test, e.g. 10 min, 1 day, 3 days: when the word "
+                "comes again after that rating."
             ),
         }
         widgets = {"default_direction": forms.RadioSelect, "autoplay_content": forms.RadioSelect}

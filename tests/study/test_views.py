@@ -1,7 +1,11 @@
 """Test pages: setup, card, answer, summary, retry."""
 
+import re
+from datetime import timedelta
+
 import pytest
 from django.urls import reverse
+from django.utils import timezone
 
 from study import services
 from study.models import ReviewLog, ReviewState, StudySession
@@ -58,8 +62,92 @@ def test_setup_page_preselects_deck_and_direction(logged_client, user, himym):
     html = response.content.decode()
 
     assert response.status_code == 200
-    assert f'value="{himym.pk}" checked' in html
+    # Only this deck, no tree: a hidden field and a link to change it
+    assert f'<input type="hidden" name="decks" value="{himym.pk}">' in html
+    assert f'name="decks" value="{himym.pk}" checked' not in html
+    assert f"?deck={himym.pk}&amp;pick=1" in html
     assert response.context["form"].initial["direction"] == "N2F"
+
+
+def test_setup_change_link_shows_the_tree_with_the_deck_ticked(logged_client, himym):
+    response = logged_client.get(reverse("study:new") + f"?deck={himym.pk}&pick=1")
+
+    html = response.content.decode()
+    assert f'value="{himym.pk}" checked' in html
+    assert response.context["single_deck"] is None
+
+
+def test_setup_of_a_deck_tells_its_subdecks(logged_client, user, himym):
+    vocabulary.create_deck(user, "S01", parent=himym)
+    vocabulary.create_deck(user, "S02", parent=himym)
+
+    response = logged_client.get(reverse("study:new") + f"?deck={himym.pk}")
+
+    assert "a 2 podslovníky" in response.content.decode()
+
+
+def test_setup_shows_how_many_cards_there_are(logged_client, user, himym, words):
+    # One word was tested and is due again, the other one is new
+    state = ReviewState.objects.get(term=words[0], direction="F2N")
+    state.due_at = state.last_reviewed_at = timezone.now() - timedelta(days=1)
+    state.save()
+
+    response = logged_client.get(reverse("study:new") + f"?deck={himym.pk}")
+    counts = response.context["counts"]
+
+    # The user's default direction is mixed: every word is two cards
+    assert counts == {"due": 1, "new": 3, "all": 4}
+    html = response.content.decode()
+    assert "jen k opakování a nová (4)" in html
+    assert "Prázdné = bez omezení." in html
+
+
+def test_counts_follow_the_form(logged_client, himym, words):
+    response = logged_client.get(
+        reverse("study:counts"),
+        {"decks": [himym.pk], "direction": "F2N", "scope": "all", "max_cards": "5"},
+        headers=HTMX,
+    )
+
+    assert response.context["counts"] == {"due": 0, "new": 2, "all": 2}
+    html = response.content.decode()
+    assert 'id="test-options"' in html
+    assert re.search(r'value="all"[^>]*checked', html)
+    assert 'value="5"' in html
+
+
+def test_directions_are_named_by_the_languages_of_the_deck(logged_client, himym):
+    response = logged_client.get(reverse("study:new") + f"?deck={himym.pk}")
+
+    choices = dict(response.context["form"].fields["direction"].choices)
+    assert choices == {
+        "F2N": "EN → CS",
+        "N2F": "CS → EN",
+        "MIXED": "EN → CS + CS → EN",
+    }
+
+
+def test_directions_of_decks_with_other_languages_have_general_names(
+    logged_client, user, himym, es, cs
+):
+    spanish = vocabulary.create_deck(user, "Español", foreign_language=es, native_language=cs)
+
+    response = logged_client.get(
+        reverse("study:counts"), {"decks": [himym.pk, spanish.pk], "direction": "MIXED"}
+    )
+
+    choices = dict(response.context["form"].fields["direction"].choices)
+    assert choices["MIXED"] == "cizí → rodný + rodný → cizí"
+    # The part with the directions and the counts is loaded again after every change
+    assert 'id="test-options"' in response.content.decode()
+
+
+def test_counts_ignore_other_users_decks(client, other_user, himym, words):
+    client.force_login(other_user)
+
+    response = client.get(reverse("study:counts"), {"decks": [himym.pk], "direction": "F2N"})
+
+    assert response.context["counts"] == {"due": 0, "new": 0, "all": 0}
 
 
 def test_setup_starts_session(logged_client, himym, words):
@@ -99,9 +187,40 @@ def test_card_page_shows_question_and_buttons(logged_client, user, himym, words)
     first = services.next_card(session).term.main_foreign
     assert f'class="card-main">{first}<' in html
     assert "😎" in html and "😵" in html
+    # When the word comes again is hidden by default (Settings)
+    assert 'class="rating-interval"' not in html
+    assert 'aria-label="Vím"' in html
+    # The help window opens by itself at the first test
+    assert 'id="legend"' in html
+    assert "data-open-first" in html
+
+
+def test_card_page_shows_intervals_when_the_user_wants(logged_client, user, himym, words):
+    user.show_intervals = True
+    user.save()
+    session = new_session(user, himym)
+
+    html = logged_client.get(reverse("study:card", args=[session.pk])).content.decode()
+
     assert "7 dní" in html and "10 min" in html
     assert "Vím, opakovat za 7 dní" in html
+
+
+def test_help_does_not_open_by_itself_after_it_was_closed(logged_client, user, himym, words):
+    response = logged_client.post(reverse("study:help_seen"))
+
+    assert response.status_code == 204
+    user.refresh_from_db()
+    assert user.seen_test_help
+    session = new_session(user, himym)
+    html = logged_client.get(reverse("study:card", args=[session.pk])).content.decode()
+    # Still there for the "?" button, only not opened by itself
     assert 'id="legend"' in html
+    assert "data-open-first" not in html
+
+
+def test_help_seen_needs_post(logged_client, user):
+    assert logged_client.get(reverse("study:help_seen")).status_code == 405
 
 
 def test_empty_session_goes_to_summary(logged_client, user, himym):

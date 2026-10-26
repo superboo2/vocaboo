@@ -825,22 +825,24 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
   margin: 0 auto;
 }
 
-.legend {
-  padding: 0.75rem 1rem;
-  margin-top: var(--pico-spacing);
-  border-left: 0.25rem solid var(--pico-primary);
-  background: var(--pico-card-sectioning-background-color);
-  border-radius: var(--pico-border-radius);
+/* Help of the buttons: a window over the card (Pico draws dialog > article as a card) */
+.legend-dialog > .legend {
+  max-width: 32rem;
+  padding: 1.25rem 1.25rem 1rem;
+}
+
+.legend .section-title {
+  margin-bottom: 0.5rem;
 }
 
 .legend p {
   margin-bottom: 0.5rem;
 }
 
-/* One row per button: the button as it looks, name with the key, what it does */
+/* One row per rating: the button as it looks and its name */
 .legend-list {
   display: grid;
-  grid-template-columns: 3rem minmax(9rem, auto) 1fr;
+  grid-template-columns: 3rem 1fr;
   gap: 0.4rem 0.75rem;
   align-items: center;
   margin: 0 0 0.75rem;
@@ -861,32 +863,6 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
   border: 1px solid var(--pico-muted-border-color);
   border-radius: var(--pico-border-radius);
   font-size: 1.1rem;
-}
-
-.legend-plain {
-  color: var(--pico-muted-color);
-  font-size: 0.75rem;
-}
-
-.legend-plain:not(.legend-wide) {
-  font-size: 0.95rem;
-}
-
-.legend-name .hotkey {
-  margin-left: 0.2rem;
-}
-
-/* On a phone: what it does under the name */
-@media (max-width: 576px) {
-  .legend-list {
-    grid-template-columns: 3rem 1fr;
-  }
-
-  .legend-what {
-    grid-column: 2;
-    margin-top: -0.35rem;
-    font-size: 0.8rem;
-  }
 }
 
 .legend button {

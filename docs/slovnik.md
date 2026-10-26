@@ -138,6 +138,18 @@ s tím jazykem; nepřeložené se zatím neukazují.
 | 2026-10-20-3 | es | dalších 200 (band 2) |
 | 2026-10-20-4 | es | dalších 200 (band 2) |
 | 2026-10-20-5 | es | dalších 200 (band 2) |
+| 2026-10-26 | es | dalších 500 (zbytek band 2 = 289, začátek band 3 = 211) |
+| 2026-10-26-2 | es | dalších 1 000 (band 3 = 918, začátek band 4 = 82) |
+| 2026-10-26-3 | es | dalších 1 000 (band 4) |
+| 2026-10-26-4 | es | dalších 1 000 (zbytek band 4 = 184, začátek band 5 = 816) |
+| 2026-10-26-5 | es | dalších 1 000 (zbytek band 5 = 458, začátek band 6 = 542) |
+| 2026-10-26-6 | es | dalších 1 000 (zbytek band 6 = 722, začátek band 7 = 278) |
+| 2026-10-26-7 | es | dalších 1 000 (zbytek band 7 = 791, začátek band 8 = 209) |
+| 2026-10-26-8 | es | dalších 500 (band 8) |
+| 2026-10-26-9 | es | dalších 500 (zbytek band 8 = 182, začátek band 9 = 318) |
+| 2026-10-26-10 | es | dalších 1 000 (zbytek band 9 = 461, band 10 = 528, začátek band 11 = 11) |
+| 2026-10-26-11 | es | dalších 1 000 (zbytek band 11 = 541, začátek band 12 = 459) |
+| 2026-10-26-12 | es | zbylých 964 (band 12–15); **španělština je u všech pojmů základu** (12 563, bez *would*) |
 
 ## Pravidla pro balíček (prompt pro AI)
 

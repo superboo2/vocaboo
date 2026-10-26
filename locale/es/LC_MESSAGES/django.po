@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-22 18:40+0200\n"
+"POT-Creation-Date: 2026-10-26 11:19+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,6 +56,9 @@ msgstr "Qué reproducir"
 msgid "Show written pronunciation (IPA)"
 msgstr "Mostrar la pronunciación escrita (AFI)"
 
+msgid "Show when the word comes again"
+msgstr "Mostrar cuándo vuelve la palabra"
+
 msgid "Menus, buttons and help. Your words stay the same."
 msgstr "Menús, botones y ayuda. Tus palabras no cambian."
 
@@ -97,6 +100,13 @@ msgid ""
 msgstr ""
 "Bajo la palabra extranjera en la tarjeta y en la página de la palabra, p. "
 "ej., [pɑːm]. Útil si sabes leer el AFI."
+
+msgid ""
+"Under the rating buttons of a test, e.g. 10 min, 1 day, 3 days: when the "
+"word comes again after that rating."
+msgstr ""
+"Debajo de los botones de valoración del test, p. ej. 10 min, 1 día, 3 días: "
+"cuándo vuelve la palabra con esa valoración."
 
 msgid "Same as the browser"
 msgstr "Igual que el navegador"
@@ -199,6 +209,12 @@ msgstr "qué reproducir"
 
 msgid "written pronunciation (IPA)"
 msgstr "pronunciación escrita (AFI)"
+
+msgid "show when the word comes again"
+msgstr "mostrar cuándo vuelve la palabra"
+
+msgid "has seen the help of the test"
+msgstr "ha visto la ayuda del test"
 
 msgid "app language"
 msgstr "idioma de la aplicación"
@@ -783,9 +799,6 @@ msgstr "Qué tarjetas"
 msgid "Max cards"
 msgstr "Máx. de tarjetas"
 
-msgid "Empty = no limit."
-msgstr "Vacío = sin límite."
-
 msgid "foreign → native"
 msgstr "extranjero → tu idioma"
 
@@ -834,8 +847,8 @@ msgstr "estado de repaso"
 msgid "review states"
 msgstr "estados de repaso"
 
-msgid "mixed"
-msgstr "mezclado"
+msgid "foreign → native + native → foreign"
+msgstr "extranjero → tu idioma + tu idioma → extranjero"
 
 msgid "only due and new"
 msgstr "solo pendientes y nuevas"
@@ -1248,6 +1261,9 @@ msgstr "Dar la vuelta"
 msgid "Details"
 msgstr "Detalles"
 
+msgid "Empty = no limit."
+msgstr "Vacío = sin límite."
+
 msgid "This word does not stick"
 msgstr "Esta palabra no se te queda"
 
@@ -1297,8 +1313,11 @@ msgstr "Mazo"
 msgid "Scope"
 msgstr "Alcance"
 
-msgid "With ↔ every word is in the test twice, once each way."
-msgstr "Con ↔ cada palabra sale dos veces en el test, una en cada sentido."
+msgid ""
+"With both directions (+) every word is in the test twice, once each way."
+msgstr ""
+"Con los dos sentidos (+) cada palabra sale dos veces en el test, una en cada"
+" sentido."
 
 msgid "Success"
 msgstr "Aciertos"
@@ -1328,34 +1347,15 @@ msgstr "Editar palabra (E)"
 msgid "Finish test"
 msgstr "Terminar test"
 
-#, python-format
-msgid "first in %(first)s, then longer each time"
-msgstr "primero en %(first)s, luego cada vez más tiempo"
+msgid "How the test works"
+msgstr "Cómo funciona el test"
 
-#, python-format
-msgid "always again in %(first)s"
-msgstr "siempre otra vez en %(first)s"
-
-msgid "turns the card over"
-msgstr "da la vuelta a la tarjeta"
-
-msgid "Play"
-msgstr "Reproducir"
-
-msgid "reads the word (P) or the sentence (V)"
-msgstr "lee la palabra (P) o la frase (V)"
-
-msgid "Edit"
-msgstr "Editar"
-
-msgid "edits the word and goes back to the card"
-msgstr "edita la palabra y vuelve a la tarjeta"
-
-msgid "Finish"
-msgstr "Terminar"
-
-msgid "ends and shows the summary"
-msgstr "termina y muestra el resumen"
+msgid ""
+"Try to recall the answer, turn the card and rate how well you knew it. The "
+"worse you knew it, the sooner it comes again."
+msgstr ""
+"Intenta recordar la respuesta, da la vuelta a la tarjeta y valora lo bien "
+"que la sabías. Cuanto peor, antes vuelve la palabra."
 
 msgid "Got it"
 msgstr "Entendido"
@@ -1368,6 +1368,15 @@ msgstr "Primero crea un mazo y añádele palabras."
 
 msgid "New deck"
 msgstr "Nuevo mazo"
+
+#, python-format
+msgid "and %(counter)s subdeck"
+msgid_plural "and %(counter)s subdecks"
+msgstr[0] "y %(counter)s submazo"
+msgstr[1] "y %(counter)s submazos"
+
+msgid "Change"
+msgstr "Cambiar"
 
 msgid ""
 "Subdecks are included automatically. A word that is in more decks comes only"
@@ -2136,6 +2145,9 @@ msgstr ""
 
 msgid "Remove"
 msgstr "Quitar"
+
+msgid "Edit"
+msgstr "Editar"
 
 msgid "More actions"
 msgstr "Más acciones"

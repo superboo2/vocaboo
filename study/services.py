@@ -4,7 +4,7 @@ from datetime import timedelta
 
 from django.core.exceptions import ValidationError
 from django.db import transaction
-from django.db.models import Case, CharField, F, Q, Value, When, Window
+from django.db.models import Case, CharField, Count, F, Q, Value, When, Window
 from django.db.models.functions import MD5, Cast, Concat, RowNumber
 from django.utils import timezone
 from django.utils.dateformat import format as date_format
@@ -118,6 +118,31 @@ def start_session(
         session.decks.set(decks)
         session.terms.set(terms)
     return session
+
+
+def card_counts(user, decks, direction, now=None):
+    """How many cards a new test from these decks (with their child decks) would have.
+
+    For the test setup: "due" = tested before and due now, "new" = never tested, "all" =
+    every card. A card is a word in one direction, so both directions count a word twice.
+    """
+    now = now or timezone.now()
+    deck_ids = set()
+    for deck in decks:
+        if deck.owner_id == user.pk:
+            deck_ids.update(get_descendant_ids(deck))
+    directions = (
+        [Direction.F2N, Direction.N2F] if direction == StudyDirection.MIXED else [direction]
+    )
+    states = ReviewState.objects.filter(
+        term_id__in=DeckTerm.objects.filter(deck_id__in=deck_ids).values("term_id"),
+        direction__in=directions,
+    )
+    return states.aggregate(
+        due=Count("pk", filter=Q(due_at__lte=now)),
+        new=Count("pk", filter=Q(due_at__isnull=True)),
+        all=Count("pk"),
+    )
 
 
 def session_deck_ids(session):

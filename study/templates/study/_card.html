@@ -82,9 +82,10 @@
       <button type="submit" name="rating" value="{{ rating.key }}"
               class="rating rating-{{ rating.key }}" data-hotkey="{{ rating.hotkey }}"
               title="{{ rating.label }}"
-              aria-label="{% blocktranslate with label=rating.label when=next_interval|interval %}{{ label }}, again in {{ when }}{% endblocktranslate %}">
+              {# When the word comes again only if the user wants to see it (Settings) #}
+              {% if user.show_intervals %}aria-label="{% blocktranslate with label=rating.label when=next_interval|interval %}{{ label }}, again in {{ when }}{% endblocktranslate %}"{% else %}aria-label="{{ rating.label }}"{% endif %}>
         <span class="rating-emoji" aria-hidden="true">{{ rating.emoji }}</span>
-        <span class="rating-interval">{{ next_interval|interval }}</span>
+        {% if user.show_intervals %}<span class="rating-interval">{{ next_interval|interval }}</span>{% endif %}
         <kbd class="hotkey">{{ rating.hotkey }}</kbd>
       </button>
     {% endfor %}

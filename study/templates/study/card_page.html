@@ -22,42 +22,28 @@
       </form>
     </div>
 
-    {# Legend of the buttons: shown at the first test, then only after clicking "?". Under #}
-    {# the buttons, so the card does not move down when it opens. Each row: the button as it #}
-    {# looks, its name with the key (only with a keyboard) and what it does. The intervals #}
-    {# come from study/ratings.py, like on the help page. #}
-    <aside id="legend" class="legend" hidden>
-      <ul class="legend-list">
-        {% for rating in ratings %}
-          <li>
-            <span class="legend-button rating-{{ rating.key }}" aria-hidden="true">{{ rating.emoji }}</span>
-            <span class="legend-name">{{ rating.label }} <kbd class="hotkey">{{ rating.hotkey }}</kbd></span>
-            <span class="legend-what muted">{% if rating.multiplier %}{% blocktranslate with first=rating.min_interval|interval %}first in {{ first }}, then longer each time{% endblocktranslate %}{% else %}{% blocktranslate with first=rating.min_interval|interval %}always again in {{ first }}{% endblocktranslate %}{% endif %}</span>
-          </li>
-        {% endfor %}
-        <li>
-          <span class="legend-button legend-plain legend-wide" aria-hidden="true">{% translate "Show" %}</span>
-          <span class="legend-name">{% translate "Show" %} <kbd class="hotkey">␣</kbd></span>
-          <span class="legend-what muted">{% translate "turns the card over" %}</span>
-        </li>
-        <li>
-          <span class="legend-button legend-plain" aria-hidden="true">🔊</span>
-          <span class="legend-name">{% translate "Play" %} <kbd class="hotkey">P</kbd> <kbd class="hotkey">V</kbd></span>
-          <span class="legend-what muted">{% translate "reads the word (P) or the sentence (V)" %}</span>
-        </li>
-        <li>
-          <span class="legend-button legend-plain" aria-hidden="true">✎</span>
-          <span class="legend-name">{% translate "Edit" %} <kbd class="hotkey">E</kbd></span>
-          <span class="legend-what muted">{% translate "edits the word and goes back to the card" %}</span>
-        </li>
-        <li>
-          <span class="legend-button legend-plain legend-wide" aria-hidden="true">{% translate "Finish" %}</span>
-          <span class="legend-name">{% translate "Finish test" %}</span>
-          <span class="legend-what muted">{% translate "ends and shows the summary" %}</span>
-        </li>
-      </ul>
-      <button type="button" class="outline secondary" data-action="close-legend">{% translate "Got it" %}</button>
-    </aside>
+    {# Help of the buttons as a window over the card: it opens by itself at the first test #}
+    {# (until the user closes it once, User.seen_test_help), then only after clicking "?". #}
+    {# One row per rating: the button as it looks and its name. #}
+    <dialog id="legend" class="legend-dialog" aria-labelledby="legend-title"
+            {% if not user.seen_test_help %}data-open-first{% endif %}
+            data-seen-url="{% url 'study:help_seen' %}">
+      <article class="legend">
+        <h2 id="legend-title" class="section-title">{% translate "How the test works" %}</h2>
+        <p class="muted">{% translate "Try to recall the answer, turn the card and rate how well you knew it. The worse you knew it, the sooner it comes again." %}</p>
+        {# Only the ratings: the other buttons have a text or a known icon, the keys are on #}
+        {# the buttons and in the help #}
+        <ul class="legend-list">
+          {% for rating in ratings %}
+            <li>
+              <span class="legend-button rating-{{ rating.key }}" aria-hidden="true">{{ rating.emoji }}</span>
+              <span class="legend-name">{{ rating.label }}</span>
+            </li>
+          {% endfor %}
+        </ul>
+        <button type="button" data-action="close-legend">{% translate "Got it" %}</button>
+      </article>
+    </dialog>
   </div>
 
   <script src="{% static 'js/study.js' %}" defer></script>
