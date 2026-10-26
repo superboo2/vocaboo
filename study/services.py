@@ -443,132 +443,144 @@ def annotate_deck_counts(roots, user, now=None):
     }
 
 
-# The chart of answers on the word page: the levels from the bottom (😵) to the top (😎)
+# The charts of answers on the word page: the levels from the bottom (😵) to the top (😎)
 CHART_LEVELS = ["dontknow", "partial", "think", "ok"]
 CHART_TOP = 10  # y of the top level (😎)
 CHART_GAP = 24  # vertical space between two levels (room for the smileys of the axis)
-CHART_AXIS_Y = CHART_TOP + 3 * CHART_GAP + 10  # the row of the pauses under the chart
-CHART_HEIGHT = CHART_AXIS_Y + 26  # with the row of the dates under it
-# From this many days the gap between two answers is a pause: shortened, with its length
+CHART_BOTTOM = CHART_TOP + 3 * CHART_GAP  # y of the bottom level (😵)
+CHART_DATE_Y = CHART_BOTTOM + 24  # the row of the dates under the lowest chart
+# From this many days the gap between two answers is a pause: shortened, the line over it dashed
 CHART_PAUSE_DAYS = 7
-CHART_PAUSE_WIDTH = 6  # how wide a pause is, in steps of one answer (room for its label)
+CHART_PAUSE_WIDTH = 6  # how wide a pause is, in steps of one answer
 # With fewer answers the points are not joined by a line
 CHART_LINE_FROM = 3
 # The chart starts and ends a little inside its box, so the points are not cut (percent)
 CHART_MARGIN = 2
-
-
-def _pause_text(days):
-    """The length of a pause for the chart, e.g. "1 mo." or "2 wk." (the dashed line says
-    it is a pause)."""
-    if days >= 28:
-        return _("%(count)s mo.") % {"count": round(days / 30)}
-    return _("%(count)s wk.") % {"count": round(days / 7)}
-
-
 # Under the end the date of the last answer; the start date of the last learning period is
 # left out when it would stand too close to it (part of the width)
 CHART_DATES_APART = 0.3
 
 
-def answer_chart(term, direction, limit=DOTS_MAX):
-    """The last answers of a word in one direction as a chart on a time axis.
+def answer_charts(term, limit=DOTS_MAX):
+    """The last answers of a word as one chart for each direction, on one time axis.
 
-    Time goes from the left to the right, but not evenly: answers of one day stand next to
-    each other (a test with the word 4× is a zigzag, nothing covers anything), a few days
-    between answers make a slightly bigger step, and a pause of a week or more is shortened
-    and labelled ("1 mo."). The chart ends with the last answer. Under the chart is the date
-    where every learning period starts and, at the right end, the date of the last answer.
-    The height of a point is its rating: 😵 at the bottom, 😎 at the top.
+    The axis is made from the answers of both directions together, so the same day stands at
+    the same place in both charts (a test with both directions is one under the other). Time
+    goes from the left to the right, but not evenly: answers of one day stand next to each
+    other (nothing covers anything; the n-th answer of each direction that day at the same
+    place, so a test with both directions is exactly one under the other), a few days make a
+    slightly bigger step and a pause of a
+    week or more is shortened (the line over it is dashed). Under the lowest chart are only
+    dates: where every learning period starts and, at the right end, the last answer. The
+    height of a point is its rating: 😵 at the bottom, 😎 at the top.
 
-    Positions across are in percent of the width (the chart fills its box at any width),
-    positions up and down in pixels (the height is fixed).
+    Returns {direction: chart} for the directions with answers. Across in percent of the width
+    (the charts fill their box), up and down in pixels (the height is fixed).
     """
-    logs = list(
-        term.review_logs.filter(direction=direction)
-        .order_by("-reviewed_at", "-pk")
-        .values_list("rating", "rating_label", "result", "reviewed_at")[:limit]
-    )
-    logs.reverse()
+    logs = []
+    for direction in Direction.values:
+        logs += list(
+            term.review_logs.filter(direction=direction)
+            .order_by("-reviewed_at", "-pk")
+            .values_list("pk", "direction", "rating", "rating_label", "result", "reviewed_at")[
+                :limit
+            ]
+        )
+    logs.sort(key=lambda log: (log[5], log[0]))
+    if not logs:
+        return {}
     day_format = get_format("MONTH_DAY_FORMAT")
     time_format = get_format("TIME_FORMAT")
 
-    # 1. Steps from the left, in units of one answer
-    steps, pauses, starts = [], [], []
+    # 1. The common axis, in units of one answer. A day has as many places as the direction
+    # with more answers that day; the n-th answer of each direction that day takes the n-th
+    # place, so a test with both directions is exactly one under the other.
+    by_day = {}
+    for log in logs:
+        by_day.setdefault(timezone.localdate(log[5]), []).append(log)
+    place, starts = {}, []
     position, previous_day = 0.0, None
-    for _rating, _label, _result, reviewed_at in logs:
-        day = timezone.localdate(reviewed_at)
+    for day, day_logs in by_day.items():
         if previous_day is not None:
             gap = (day - previous_day).days
-            if gap == 0:
-                position += 1
-            elif gap < CHART_PAUSE_DAYS:
+            if gap < CHART_PAUSE_DAYS:
                 position += 1.4 + 0.5 * math.log2(1 + gap)
             else:
-                pauses.append((position, position + CHART_PAUSE_WIDTH, _pause_text(gap)))
                 position += CHART_PAUSE_WIDTH
         if previous_day is None or (day - previous_day).days >= CHART_PAUSE_DAYS:
             starts.append((position, date_format(day, day_format)))
-        steps.append(position)
+        count = {}
+        for pk, direction, *_rest in day_logs:
+            place[pk] = position + count.get(direction, 0)
+            count[direction] = count.get(direction, 0) + 1
+        # The last place of the day
+        position += max(count.values()) - 1
         previous_day = day
     end = position
     # The date of the last answer at the right end (once, when it is not a start already)
     dates = [(units, text, "middle") for units, text in starts]
-    if dates:
-        dates[0] = (dates[0][0], dates[0][1], "start")
-    if previous_day is not None and starts[-1][0] < end:
+    dates[0] = (dates[0][0], dates[0][1], "start")
+    if starts[-1][0] < end:
         if len(dates) > 1 and (end - dates[-1][0]) / end < CHART_DATES_APART:
             dates.pop()
         dates.append((end, date_format(previous_day, day_format), "end"))
 
-    # 2. Units to percent of the width
     def across(units):
         return round(CHART_MARGIN + units / max(end, 1) * (100 - 2 * CHART_MARGIN), 2)
 
     def height(key):
         return CHART_TOP + (len(CHART_LEVELS) - 1 - CHART_LEVELS.index(key)) * CHART_GAP
 
-    points = []
-    for (rating, label, result, reviewed_at), units in zip(logs, steps, strict=True):
-        known = RATINGS_BY_KEY.get(rating)
-        key = rating if known else _DOT_BY_RESULT.get(result, "dontknow")
-        moment = timezone.localtime(reviewed_at)
-        points.append(
-            {
-                "x": across(units),
-                "y": height(key),
-                "key": key,
-                "title": f"{date_format(moment, day_format)} {date_format(moment, time_format)} · "
-                f"{known.emoji + ' ' if known else ''}{known.label if known else label}",
-            }
-        )
-    # Lines between the answers; over a pause dashed, nothing happened there
-    lines = []
-    if len(points) >= CHART_LINE_FROM:
-        for index in range(1, len(points)):
-            gap = (timezone.localdate(logs[index][3]) - timezone.localdate(logs[index - 1][3])).days
-            first, second = points[index - 1], points[index]
-            lines.append(
+    levels = [{"y": height(key), "emoji": RATINGS_BY_KEY[key].emoji} for key in CHART_LEVELS]
+
+    # 2. Each direction draws its own answers on the common axis
+    charts = {}
+    for direction in Direction.values:
+        own = [log for log in logs if log[1] == direction]
+        if not own:
+            continue
+        points = []
+        for pk, _direction, rating, label, result, reviewed_at in own:
+            known = RATINGS_BY_KEY.get(rating)
+            key = rating if known else _DOT_BY_RESULT.get(result, "dontknow")
+            moment = timezone.localtime(reviewed_at)
+            points.append(
                 {
-                    "x1": first["x"],
-                    "y1": first["y"],
-                    "x2": second["x"],
-                    "y2": second["y"],
-                    "dashed": gap >= CHART_PAUSE_DAYS,
+                    "x": across(place[pk]),
+                    "y": height(key),
+                    "key": key,
+                    "title": f"{date_format(moment, day_format)} "
+                    f"{date_format(moment, time_format)} · "
+                    f"{known.emoji + ' ' if known else ''}{known.label if known else label}",
                 }
             )
-    return {
-        "points": points,
-        "lines": lines,
-        "pauses": [{"x": across((start + stop) / 2), "text": text} for start, stop, text in pauses],
-        "dates": [
-            {"x": across(units), "text": text, "anchor": anchor} for units, text, anchor in dates
-        ],
-        "levels": [{"y": height(key), "emoji": RATINGS_BY_KEY[key].emoji} for key in CHART_LEVELS],
-        "height": CHART_HEIGHT,
-        "pause_y": CHART_AXIS_Y + 3,
-        "date_y": CHART_AXIS_Y + 20,
-    }
+        # Lines between the answers; over a pause dashed, nothing happened there
+        lines = []
+        if len(points) >= CHART_LINE_FROM:
+            for index in range(1, len(points)):
+                gap = (
+                    timezone.localdate(own[index][5]) - timezone.localdate(own[index - 1][5])
+                ).days
+                first, second = points[index - 1], points[index]
+                lines.append(
+                    {
+                        "x1": first["x"],
+                        "y1": first["y"],
+                        "x2": second["x"],
+                        "y2": second["y"],
+                        "dashed": gap >= CHART_PAUSE_DAYS,
+                    }
+                )
+        charts[direction] = {"points": points, "lines": lines, "levels": levels, "dates": []}
+    # The dates only under the lowest chart, the charts above share them
+    lowest = charts[list(charts)[-1]]
+    lowest["dates"] = [
+        {"x": across(units), "text": text, "anchor": anchor} for units, text, anchor in dates
+    ]
+    for chart in charts.values():
+        chart["height"] = CHART_DATE_Y + 6 if chart["dates"] else CHART_BOTTOM + 10
+        chart["date_y"] = CHART_DATE_Y
+    return charts
 
 
 def term_status(states, tested):
@@ -594,9 +606,10 @@ def term_history(term, limit=100):
         rating = RATINGS_BY_KEY.get(log.rating)
         log.emoji = rating.emoji if rating else ""
 
+    charts = answer_charts(term)
     directions = []
     for direction in Direction.values:
-        chart = answer_chart(term, direction)
+        chart = charts.get(direction)
         directions.append(
             {
                 "direction": direction,

@@ -1308,15 +1308,9 @@ article.flashcard {
   stroke-dasharray: 3 4;
 }
 
-.chart-pause,
 .chart-date {
   fill: var(--pico-muted-color);
   font-size: 11px;
-}
-
-.chart-pause {
-  font-size: 10px;
-  font-style: italic;
 }
 
 .chart-point {

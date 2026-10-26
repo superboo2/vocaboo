@@ -29,14 +29,14 @@
 
   {# The most important first: how the word goes in each direction, one under the other #}
   <section class="card-section">
-    {# The status of the word (both directions) next to the heading, the directions under it #}
+    {# The status of the word (both directions) next to the heading, the directions under it; #}
+    {# how many times in a test and what "known" means are in its tooltip #}
     <div class="reviews-head">
       <h2 class="section-title">{% translate "Reviews" %}</h2>
       <p class="word-status word-status-{{ history.status }}"
-         title="{% if history.status == 'known' %}{% blocktranslate count counter=history.known_streak %}You know it: every tested direction right at least {{ counter }} time in a row{% plural %}You know it: every tested direction right at least {{ counter }} times in a row{% endblocktranslate %}{% elif history.status == 'learning' %}{% blocktranslate count counter=history.known_streak %}You know it once every tested direction is right {{ counter }} time in a row{% plural %}You know it once every tested direction is right {{ counter }} times in a row{% endblocktranslate %}{% else %}{% translate "The word has not been in any test yet." %}{% endif %}">
+         title="{% if history.tested %}{% blocktranslate count counter=history.tested %}{{ counter }}× in a test{% plural %}{{ counter }}× in a test{% endblocktranslate %} · {% endif %}{% if history.status == 'known' %}{% blocktranslate count counter=history.known_streak %}You know it: every tested direction right at least {{ counter }} time in a row{% plural %}You know it: every tested direction right at least {{ counter }} times in a row{% endblocktranslate %}{% elif history.status == 'learning' %}{% blocktranslate count counter=history.known_streak %}You know it once every tested direction is right {{ counter }} time in a row{% plural %}You know it once every tested direction is right {{ counter }} times in a row{% endblocktranslate %}{% else %}{% translate "The word has not been in any test yet." %}{% endif %}">
         <span class="word-status-dot" aria-hidden="true"></span>
         <strong>{% if history.status == "known" %}{% translate "You know it" %}{% elif history.status == "learning" %}{% translate "Learning" %}{% else %}{% translate "New" context "word status" %}{% endif %}</strong>
-        {% if history.tested %}<span class="muted">· {% blocktranslate count counter=history.tested %}{{ counter }}× in a test{% plural %}{{ counter }}× in a test{% endblocktranslate %}</span>{% endif %}
       </p>
     </div>
     {% for row in history.directions %}

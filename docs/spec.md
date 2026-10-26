@@ -659,24 +659,22 @@ aby se dlouhá fráze na telefonu mohla zalomit), poznámka,
 v záhlaví karty *Opakování* vpravo (obyčejný text s barevnou tečkou, aby nevypadal jako tlačítko; titulek vysvětluje pravidlo „umíš“) (**stav** *Umíš* / *Učíš se* / *Nové* podle `services.term_status`, stejné pravidlo
 jako ve Statistikách: umíš = každý směr, ve kterém bylo v testu, aspoň `KNOWN_STREAK` správně za
 sebou (`stats.is_known`; netestovaný směr se nepočítá), nové = ještě v testu
-nebylo; a **N× v testu**, odpovědi obou směrů dohromady), **Opakování**, *Ve slovnících*, *Další významy*, sbalená *Historie odpovědí*.
+nebylo; *N× v testu* (odpovědi obou směrů dohromady) a pravidlo „umíš“ jen v titulku stavu), **Opakování**, *Ve slovnících*, *Další významy*, sbalená *Historie odpovědí*.
 
 **Opakování**: pro každý směr řádek pod sebou (směry podle jazyků, *EN → CS* / *CS → EN*):
 - *Další opakování: za 3 dny* (`due_text`); přesné datum a „správně za sebou“ jen v titulku.
   Slovíčko bez odpovědi v tom směru: *Nové, ještě nebylo v testu*, bez grafu.
-- **graf odpovědí** (`study.services.answer_chart`, šablona `vocabulary/_answer_chart.html`, SVG
-  bez knihovny): posledních nejvýš 30 odpovědí na **časové ose se zkrácenými pauzami**, na svislé
-  ose 4 úrovně se smajlíky, dole 😵, nahoře 😎; bod v barvě hodnocení s titulkem (datum, čas,
-  hodnocení), body spojené čarou od 3 odpovědí. Vodorovně: odpovědi téhož dne vedle sebe
-  (krok 1, nic se nepřekrývá, test se slovíčkem 4× je cikcak), mezera pár dní krok
-  1,4 + 0,5·log₂(1 + dny), mezera od 7 dní je **pauza** (šířka 6 kroků, čára přes ni přerušovaná,
-  pod ní délka *1 měs.* / *2 týd.*). Graf končí poslední odpovědí (pauza do dneška se neukazuje,
-  kdy slovíčko přijde, říká *Další opakování*). Pod osou datum začátku každého období učení
-  a vpravo datum poslední odpovědi; začátek posledního období se vynechá, kdyby stál moc blízko.
-  Smajlíci osy 18 px, řádky 24 px od sebe. Graf má pevnou výšku a vodorovně se roztáhne přes celou šířku
-  (pozice v procentech, smajlíky osy ve vlastním úzkém sloupci). Nahradil prstenec
-  s procentem, řadu teček a počty hodnocení (tečky `_answer_dots.html` zůstávají ve Statistikách
-  a souhrnu testu). Barva nikdy není jediná informace: výška bodu, titulek a popis pro čtečky.
+- **grafy odpovědí** (`study.services.answer_charts`, šablona `vocabulary/_answer_chart.html`,
+  SVG bez knihovny): pro každý směr jeden graf posledních nejvýš 30 odpovědí, na svislé ose 4
+  úrovně se smajlíky (18 px, řádky 24 px), dole 😵, nahoře 😎; bod v barvě hodnocení
+  s titulkem (datum, čas, hodnocení), body spojené čarou od 3 odpovědí. **Společná časová
+  osa** obou směrů (spočítaná z odpovědí obou dohromady, stejný den je pod sebou): odpovědi
+  téhož dne vedle sebe (krok 1, nic se nepřekrývá), mezera pár dní krok
+  1,4 + 0,5·log₂(1 + dny), mezera od 7 dní je zkrácená na 6 kroků a čára přes ni přerušovaná
+  (bez popisku a bez přerušení osy). Pod spodním grafem jen data: začátek každého období
+  učení a vpravo poslední odpověď (začátek posledního období se vynechá, kdyby stál moc
+  blízko). Graf končí poslední odpovědí. Pevná výška, vodorovně přes celou šířku (pozice
+  v procentech, smajlíky osy ve vlastním úzkém sloupci).
 
 **Historie odpovědí** (`<details>`, sbalená): kdy, směr (*EN → CS*), hodnocení jako smajlík
 (název v titulku), doba přemýšlení (`think_ms`). Sloupec s intervalem byl odstraněn.

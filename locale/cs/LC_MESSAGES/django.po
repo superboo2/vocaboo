@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-26 17:11+0100\n"
+"POT-Creation-Date: 2026-10-26 17:36+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -931,14 +931,6 @@ msgstr "Tato kartička do testu nepatří."
 #, python-format
 msgid "%(count)d older: %(counts)s"
 msgstr "%(count)d starších: %(counts)s"
-
-#, python-format
-msgid "%(count)s mo."
-msgstr "%(count)s měs."
-
-#, python-format
-msgid "%(count)s wk."
-msgstr "%(count)s týd."
 
 msgctxt "weekday short"
 msgid "Mon"
@@ -2157,6 +2149,13 @@ msgid "Reviews"
 msgstr "Opakování"
 
 #, python-format
+msgid "%(counter)s× in a test"
+msgid_plural "%(counter)s× in a test"
+msgstr[0] "%(counter)s× v testu"
+msgstr[1] "%(counter)s× v testu"
+msgstr[2] "%(counter)s× v testu"
+
+#, python-format
 msgid ""
 "You know it: every tested direction right at least %(counter)s time in a row"
 msgid_plural ""
@@ -2187,13 +2186,6 @@ msgstr "Učíš se"
 msgctxt "word status"
 msgid "New"
 msgstr "Nové"
-
-#, python-format
-msgid "%(counter)s× in a test"
-msgid_plural "%(counter)s× in a test"
-msgstr[0] "%(counter)s× v testu"
-msgstr[1] "%(counter)s× v testu"
-msgstr[2] "%(counter)s× v testu"
 
 #, python-format
 msgid "correct in a row: %(streak)s"

@@ -138,7 +138,7 @@ def test_answer_chart_puts_better_answers_higher(user, tree):
     hello = add(tree["himym"], "hello")
     answers(hello, "F2N", [(3, "dontknow"), (2, "partial"), (1, "ok")])
 
-    chart = services.answer_chart(hello, "F2N")
+    chart = services.answer_charts(hello)["F2N"]
 
     points = chart["points"]
     # From the oldest, left to right; 😎 at the top (the smallest y), 😵 at the bottom
@@ -148,7 +148,6 @@ def test_answer_chart_puts_better_answers_higher(user, tree):
     # The chart fills the width (percent), three answers are joined by lines
     assert points[0]["x"] == 2 and points[-1]["x"] == 98
     assert len(chart["lines"]) == 2
-    assert not chart["pauses"]
     assert [level["emoji"] for level in chart["levels"]] == ["😵", "😕", "🤔", "😎"]
 
 
@@ -161,7 +160,7 @@ def test_answer_chart_answers_of_one_day_stand_next_to_each_other(user, tree):
         [(3.01, "partial"), (3.009, "think"), (3.008, "ok"), (3.007, "dontknow"), (0, "ok")],
     )
 
-    xs = [p["x"] for p in services.answer_chart(hello, "F2N")["points"]]
+    xs = [p["x"] for p in services.answer_charts(hello)["F2N"]["points"]]
 
     steps = [round(b - a, 1) for a, b in zip(xs, xs[1:], strict=False)]
     # Nothing covers anything: the same distance inside the day, a bigger one after 3 days
@@ -169,16 +168,53 @@ def test_answer_chart_answers_of_one_day_stand_next_to_each_other(user, tree):
     assert steps[3] > steps[0]
 
 
-def test_answer_chart_shortens_and_labels_pauses(user, tree):
+def test_answer_charts_share_one_time_axis(user, tree):
     hello = add(tree["himym"], "hello")
-    # Two weeks of tests, a month nothing, one test (a month ago: no pause until today)
+    # Both directions in the same tests (at noon, a few minutes apart), and one test with
+    # EN → CS only (in the middle)
+    noon = timezone.localtime().replace(hour=12, minute=0, second=0, microsecond=0)
+    for days_ago, minute, direction, rating in [
+        (10, 0, "F2N", "partial"),
+        (10, 3, "N2F", "dontknow"),
+        (5, 0, "F2N", "think"),
+        (1, 0, "F2N", "ok"),
+        (1, 3, "N2F", "partial"),
+    ]:
+        ReviewLog.objects.create(
+            user=user,
+            term=hello,
+            direction=direction,
+            rating=rating,
+            rating_label=rating,
+            result="correct",
+            chosen_interval=timedelta(days=1),
+            reviewed_at=noon - timedelta(days=days_ago) + timedelta(minutes=minute),
+        )
+
+    charts = services.answer_charts(hello)
+
+    f2n = [p["x"] for p in charts["F2N"]["points"]]
+    n2f = [p["x"] for p in charts["N2F"]["points"]]
+    # One axis: a test with both directions is exactly one under the other (also at the
+    # start and the end), the test with EN → CS only lies between them
+    assert f2n[0] == n2f[0] == 2
+    assert f2n[2] == n2f[1] == 98
+    assert f2n[0] < f2n[1] < f2n[2]
+    # The dates only under the lowest chart
+    assert charts["F2N"]["dates"] == []
+    assert charts["N2F"]["dates"]
+
+
+def test_answer_chart_dashes_the_line_over_a_pause(user, tree):
+    hello = add(tree["himym"], "hello")
+    # Two weeks of tests, a month nothing, one test
     answers(hello, "F2N", [(75, "partial"), (72, "think"), (68, "ok"), (31, "partial")])
 
-    chart = services.answer_chart(hello, "F2N")
+    chart = services.answer_charts(hello)["F2N"]
 
-    assert [pause["text"] for pause in chart["pauses"]] == ["1 měs."]
-    # The line over the pause is dashed, the others not
+    # The line over the pause is dashed, the others not; no labels of the pause
     assert [line["dashed"] for line in chart["lines"]] == [False, False, True]
+    assert "pauses" not in chart
     # A date where each learning period starts: the first answer and after the pause
     assert len(chart["dates"]) == 2
 
@@ -188,23 +224,23 @@ def test_answer_chart_ends_with_the_date_of_the_last_answer(user, tree):
     # One learning period of two weeks, the last answer 10 days ago
     answers(hello, "F2N", [(24, "partial"), (20, "think"), (16, "ok"), (10, "ok")])
 
-    chart = services.answer_chart(hello, "F2N")
+    chart = services.answer_charts(hello)["F2N"]
 
-    # The last point at the right end, under it its date; no pause until today
+    # The last point at the right end, under it its date
     assert chart["points"][-1]["x"] == 98
     assert [date["anchor"] for date in chart["dates"]] == ["start", "end"]
     assert chart["dates"][-1]["x"] == 98
-    assert chart["pauses"] == []
 
 
 def test_answer_chart_with_few_answers_has_no_line(user, tree):
     hello = add(tree["himym"], "hello")
     answers(hello, "F2N", [(1, "ok")])
 
-    chart = services.answer_chart(hello, "F2N")
+    charts = services.answer_charts(hello)
 
-    assert len(chart["points"]) == 1
-    assert chart["lines"] == []
+    assert len(charts["F2N"]["points"]) == 1
+    assert charts["F2N"]["lines"] == []
+    assert "N2F" not in charts
 
 
 def test_word_page(client, user, tree):

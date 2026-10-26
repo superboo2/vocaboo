@@ -1,7 +1,8 @@
 {% load i18n %}
-{# The last answers of the word in one direction on a time axis (study.services.answer_chart): #}
-{# answers of one day next to each other, long pauses shortened and labelled, the date where #}
-{# each learning period starts and the date of the last answer at the end. Higher is better: 😵 at the bottom, 😎 at the top. Across in #}
+{# The last answers of the word in one direction (study.services.answer_charts), on a time #}
+{# axis shared by both directions: answers of one day next to each other, long pauses #}
+{# shortened, under the lowest chart the dates where each learning period starts and the #}
+{# date of the last answer. Higher is better: 😵 at the bottom, 😎 at the top. Across in #}
 {# percent, so the chart fills the width; up and down in pixels, so points stay round. The #}
 {# colour is never the only sign: every point has a title (date, time, rating). #}
 <div class="answer-chart">
@@ -13,7 +14,6 @@
     {% for level in chart.levels %}<line class="chart-grid" x1="0" y1="{{ level.y }}" x2="100%" y2="{{ level.y }}"/>{% endfor %}
     {% for line in chart.lines %}<line class="chart-line{% if line.dashed %} chart-line-pause{% endif %}" x1="{{ line.x1|stringformat:'s' }}%" y1="{{ line.y1 }}" x2="{{ line.x2|stringformat:'s' }}%" y2="{{ line.y2 }}"/>{% endfor %}
     {% for point in chart.points %}<circle class="chart-point point-{{ point.key }}" cx="{{ point.x|stringformat:'s' }}%" cy="{{ point.y }}" r="5"><title>{{ point.title }}</title></circle>{% endfor %}
-    {% for pause in chart.pauses %}<text class="chart-pause" x="{{ pause.x|stringformat:'s' }}%" y="{{ chart.pause_y }}" text-anchor="middle" dominant-baseline="central">{{ pause.text }}</text>{% endfor %}
     {% for date in chart.dates %}<text class="chart-date" x="{{ date.x|stringformat:'s' }}%" y="{{ chart.date_y }}" text-anchor="{{ date.anchor }}">{{ date.text }}</text>{% endfor %}
   </svg>
 </div>
