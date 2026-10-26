@@ -150,6 +150,7 @@ s tím jazykem; nepřeložené se zatím neukazují.
 | 2026-10-26-10 | es | dalších 1 000 (zbytek band 9 = 461, band 10 = 528, začátek band 11 = 11) |
 | 2026-10-26-11 | es | dalších 1 000 (zbytek band 11 = 541, začátek band 12 = 459) |
 | 2026-10-26-12 | es | zbylých 964 (band 12–15); **španělština je u všech pojmů základu** (12 563, bez *would*) |
+| 2026-10-27 | cs, en, es | **opravy** po kontrole: 645 českých variant se závorkou (poznámka přesunutá do `note`, např. „zbavit se (get rid of)“), *bandit* (hvězdička ve větě), 3 španělské (duplicitní varianta, „…“ ve slovech) |
 
 ## Pravidla pro balíček (prompt pro AI)
 
