@@ -28,9 +28,17 @@ from .models import (
 )
 from .ratings import RATINGS
 
-# A word counts as known when foreign → native was right this many times in a row
-# (its interval is then a week or more)
+# A word counts as known ("umíš") when every direction it was tested in was right this many
+# times in a row (the interval is then a week or more). A direction never tested does not count.
 KNOWN_STREAK = 2
+
+
+def is_known(streaks):
+    """Known: streaks (right answers in a row) of the directions the word was tested in, all
+    at least KNOWN_STREAK. The one rule for the word page, the statistics and "learned"."""
+    streaks = list(streaks)
+    return bool(streaks) and all(streak >= KNOWN_STREAK for streak in streaks)
+
 
 # The table of recent tests: how many tests, and the days of the line above it
 RECENT_TESTS = 10
@@ -124,10 +132,15 @@ def user_statistics(user, now=None, period=DEFAULT_PERIOD):
 
 
 def known_words(user):
-    """Words the user knows: foreign → native right KNOWN_STREAK times in a row ("umíš")."""
-    return ReviewState.objects.filter(
-        term__owner=user, direction=Direction.F2N, correct_streak__gte=KNOWN_STREAK
-    ).count()
+    """Words the user knows ("umíš", is_known): every tested direction right KNOWN_STREAK
+    times in a row. The lowest streak of the tested directions decides."""
+    return (
+        ReviewState.objects.filter(term__owner=user, last_reviewed_at__isnull=False)
+        .values("term_id")
+        .annotate(lowest=Min("correct_streak"))
+        .filter(lowest__gte=KNOWN_STREAK)
+        .count()
+    )
 
 
 def recent_tests(user, now=None):
@@ -161,8 +174,8 @@ def today_overview(user, now=None):
     for a small bar chart (today is the last day):
 
     - first right: words right (😎 or 🤔, any direction) for the first time ever,
-    - learned: words for the first time right KNOWN_STREAK times in a row foreign → native
-      (the same "umíš" as on the statistics page),
+    - learned: words that became known ("umíš", is_known) for the first time: every tested
+      direction right KNOWN_STREAK times in a row (the same as on the statistics page),
     - tested: different words in the tests (both directions count once),
     - minutes: the length of the tests (to the last answer), by the day the test began.
     """
@@ -181,15 +194,17 @@ def today_overview(user, now=None):
         .values_list("first", flat=True)
     )
     learned = Counter()
-    in_a_row = Counter()
+    # Right answers in a row of each tested direction of a word: {term: {direction: streak}}
+    in_a_row = {}
     known = set()
-    for term_id, result, reviewed_at in (
-        ReviewLog.objects.filter(user=user, direction=Direction.F2N)
+    for term_id, direction, result, reviewed_at in (
+        ReviewLog.objects.filter(user=user)
         .order_by("reviewed_at", "pk")
-        .values_list("term_id", "result", "reviewed_at")
+        .values_list("term_id", "direction", "result", "reviewed_at")
     ):
-        in_a_row[term_id] = in_a_row[term_id] + 1 if result == Result.CORRECT else 0
-        if in_a_row[term_id] == KNOWN_STREAK and term_id not in known:
+        streaks = in_a_row.setdefault(term_id, {})
+        streaks[direction] = streaks.get(direction, 0) + 1 if result == Result.CORRECT else 0
+        if term_id not in known and is_known(streaks.values()):
             known.add(term_id)
             if reviewed_at >= since:
                 learned[_local_day(reviewed_at)] += 1

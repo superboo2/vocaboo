@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-26 11:19+0100\n"
+"POT-Creation-Date: 2026-10-26 17:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -932,6 +932,14 @@ msgstr "Tato kartička do testu nepatří."
 msgid "%(count)d older: %(counts)s"
 msgstr "%(count)d starších: %(counts)s"
 
+#, python-format
+msgid "%(count)s mo."
+msgstr "%(count)s měs."
+
+#, python-format
+msgid "%(count)s wk."
+msgstr "%(count)s týd."
+
 msgctxt "weekday short"
 msgid "Mon"
 msgstr "po"
@@ -1487,6 +1495,10 @@ msgstr "Přečíst větu"
 
 msgid "Play the pronunciation"
 msgstr "Přehrát výslovnost"
+
+msgctxt "pronunciation"
+msgid "Play"
+msgstr "Přehrát"
 
 msgid "Skip to content"
 msgstr "Přeskočit na obsah"
@@ -2141,6 +2153,61 @@ msgstr "Další akce"
 msgid "Remove from this deck"
 msgstr "Odebrat z tohoto slovníku"
 
+msgid "Reviews"
+msgstr "Opakování"
+
+#, python-format
+msgid ""
+"You know it: every tested direction right at least %(counter)s time in a row"
+msgid_plural ""
+"You know it: every tested direction right at least %(counter)s times in a "
+"row"
+msgstr[0] "Umíš: každý testovaný směr aspoň %(counter)s× po sobě správně"
+msgstr[1] "Umíš: každý testovaný směr aspoň %(counter)s× po sobě správně"
+msgstr[2] "Umíš: každý testovaný směr aspoň %(counter)s× po sobě správně"
+
+#, python-format
+msgid ""
+"You know it once every tested direction is right %(counter)s time in a row"
+msgid_plural ""
+"You know it once every tested direction is right %(counter)s times in a row"
+msgstr[0] "Umíš, až bude každý testovaný směr %(counter)s× po sobě správně"
+msgstr[1] "Umíš, až bude každý testovaný směr %(counter)s× po sobě správně"
+msgstr[2] "Umíš, až bude každý testovaný směr %(counter)s× po sobě správně"
+
+msgid "The word has not been in any test yet."
+msgstr "Slovíčko ještě nebylo v žádném testu."
+
+msgid "You know it"
+msgstr "Umíš"
+
+msgid "Learning"
+msgstr "Učíš se"
+
+msgctxt "word status"
+msgid "New"
+msgstr "Nové"
+
+#, python-format
+msgid "%(counter)s× in a test"
+msgid_plural "%(counter)s× in a test"
+msgstr[0] "%(counter)s× v testu"
+msgstr[1] "%(counter)s× v testu"
+msgstr[2] "%(counter)s× v testu"
+
+#, python-format
+msgid "correct in a row: %(streak)s"
+msgstr "správně za sebou: %(streak)s"
+
+msgid "Next review"
+msgstr "Další opakování"
+
+msgid "New, not in a test yet"
+msgstr "Nové, ještě nebylo v testu"
+
+msgid "In decks"
+msgstr "Ve slovnících"
+
 msgid "Other meanings"
 msgstr "Další významy"
 
@@ -2150,33 +2217,14 @@ msgstr "už se učíš"
 msgid "Learn this meaning too"
 msgstr "Učit se i tento význam"
 
-msgid "In decks"
-msgstr "Ve slovnících"
-
-msgid "Reviews"
-msgstr "Opakování"
-
-msgid "Next review"
-msgstr "Další opakování"
-
-#, python-format
-msgid "Tested %(total)s× · correct in a row %(streak)s · mistakes %(lapses)s"
-msgstr "V testu %(total)s× · správně za sebou %(streak)s · chyb %(lapses)s"
-
 msgid "Answer history"
 msgstr "Historie odpovědí"
 
 msgid "Rating"
 msgstr "Hodnocení"
 
-msgid "Interval"
-msgstr "Interval"
-
 msgid "Thinking time"
 msgstr "Přemýšlení"
-
-msgid "The word has not been in any test yet."
-msgstr "Slovíčko ještě nebylo v žádném testu."
 
 msgid "Editing a word during a test"
 msgstr "Úprava slovíčka během testu"

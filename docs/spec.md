@@ -651,14 +651,37 @@ Počet karet, úspěšnost, seznam chybných slovíček a tlačítko „Procvič
 
 Všechny statistiky se počítají z `ReviewLog` a `ReviewState`. Datový model se pro ně nemění, přibude jen index na `ReviewLog (user, term, reviewed_at)`. Počítají se dotazem nad historií. Kdyby to bylo pomalé, přidá se denní souhrnná tabulka.
 
-### 7.1 Detail slovíčka (MVP: historie a počty; fáze 2: vizualizace)
-Odpovídá na otázku „zlepšuju se?“. Zvlášť pro **každý směr**:
-- kolikrát bylo slovíčko v testu a kolikrát s jakým hodnocením,
-- **historie**: datum, směr, hodnocení, doba přemýšlení (`think_ms`),
-- **barevná řada výsledků** v čase (hotovo): tečky v barvách tlačítek, od nejstarší, nejvýš 30 na směr (zalamované po 10), starší jen jako „+N“; vedle prstenec s podílem správných odpovědí v procentech (jen CSS, `conic-gradient`). Koláč místo teček ne: ztratil by pořadí, a tedy odpověď na „zlepšuju se?“. Barva nikdy není jediná informace: každá tečka má titulek (datum, hodnocení) a řada popis pro čtečky obrazovky.
-- (fáze 2) **trend doby přemýšlení**, např. 6,1 s → 1,2 s. Ukáže zlepšení, i když hodnocení zůstává „OK“.
+### 7.1 Detail slovíčka
+Odpovídá na otázku „zlepšuju se?“. Pořadí na stránce (od 2026-10-26): slovo s výslovností [IPA]
+na jednom řádku (menší, šedá; jen se zapnutou IPA), překlad, řádek tlačítek stejné výšky
+(*🔊 Přehrát*, *✎ Upravit*, menu *⋯* s *Přesunout* a *Odebrat ze slovníku*; vedle slova nic,
+aby se dlouhá fráze na telefonu mohla zalomit), poznámka,
+v záhlaví karty *Opakování* vpravo (obyčejný text s barevnou tečkou, aby nevypadal jako tlačítko; titulek vysvětluje pravidlo „umíš“) (**stav** *Umíš* / *Učíš se* / *Nové* podle `services.term_status`, stejné pravidlo
+jako ve Statistikách: umíš = každý směr, ve kterém bylo v testu, aspoň `KNOWN_STREAK` správně za
+sebou (`stats.is_known`; netestovaný směr se nepočítá), nové = ještě v testu
+nebylo; a **N× v testu**, odpovědi obou směrů dohromady), **Opakování**, *Ve slovnících*, *Další významy*, sbalená *Historie odpovědí*.
 
-Ukazuje se i, ve kterých slovnících slovíčko je.
+**Opakování**: pro každý směr řádek pod sebou (směry podle jazyků, *EN → CS* / *CS → EN*):
+- *Další opakování: za 3 dny* (`due_text`); přesné datum a „správně za sebou“ jen v titulku.
+  Slovíčko bez odpovědi v tom směru: *Nové, ještě nebylo v testu*, bez grafu.
+- **graf odpovědí** (`study.services.answer_chart`, šablona `vocabulary/_answer_chart.html`, SVG
+  bez knihovny): posledních nejvýš 30 odpovědí na **časové ose se zkrácenými pauzami**, na svislé
+  ose 4 úrovně se smajlíky, dole 😵, nahoře 😎; bod v barvě hodnocení s titulkem (datum, čas,
+  hodnocení), body spojené čarou od 3 odpovědí. Vodorovně: odpovědi téhož dne vedle sebe
+  (krok 1, nic se nepřekrývá, test se slovíčkem 4× je cikcak), mezera pár dní krok
+  1,4 + 0,5·log₂(1 + dny), mezera od 7 dní je **pauza** (šířka 6 kroků, čára přes ni přerušovaná,
+  pod ní délka *1 měs.* / *2 týd.*). Graf končí poslední odpovědí (pauza do dneška se neukazuje,
+  kdy slovíčko přijde, říká *Další opakování*). Pod osou datum začátku každého období učení
+  a vpravo datum poslední odpovědi; začátek posledního období se vynechá, kdyby stál moc blízko.
+  Smajlíci osy 18 px, řádky 24 px od sebe. Graf má pevnou výšku a vodorovně se roztáhne přes celou šířku
+  (pozice v procentech, smajlíky osy ve vlastním úzkém sloupci). Nahradil prstenec
+  s procentem, řadu teček a počty hodnocení (tečky `_answer_dots.html` zůstávají ve Statistikách
+  a souhrnu testu). Barva nikdy není jediná informace: výška bodu, titulek a popis pro čtečky.
+
+**Historie odpovědí** (`<details>`, sbalená): kdy, směr (*EN → CS*), hodnocení jako smajlík
+(název v titulku), doba přemýšlení (`think_ms`). Sloupec s intervalem byl odstraněn.
+
+- (fáze 2) **trend doby přemýšlení**, např. 6,1 s → 1,2 s. Ukáže zlepšení, i když hodnocení zůstává „OK“.
 
 ### 7.2 Statistiky slovníku (fáze 2)
 ```
@@ -672,7 +695,7 @@ HIMYM              slovíček   😎 vím   🤔 zamyšlení   😕 napůl   �
 - Statistika slovníku říká, **jak znáš jeho slovíčka**, bez ohledu na to, z jakého testu odpověď přišla. Slovíčko je sdílené, takže `hello` zkoušené přes BBT se projeví i v HIMYM. Pokud by bylo potřeba rozlišit „výsledky testů spuštěných z tohoto slovníku“, jde to přes `StudySession.decks`.
 
 ### 7.3 Celkový přehled (hotovo: stránka Statistiky)
-Stránka `/stats/` (odkaz v liště, na telefonu ikona 📊), počítá se při zobrazení z `Term` a `ReviewLog` (`study/stats.py`), nic se neukládá: dlaždice (slovíček celkem a tento týden, umíš / učíš se / nová, 🔥 dní v řadě a nejdelší série, odpovědí), čárový graf *Slovíčka v čase* (slovíček celkem od prvního slovíčka: do 14 dní po dnech, do 4 měsíců po týdnech, do 2 let po měsících, pak po čtvrtletích; osa Y s 5 kulatými hodnotami, nejvýš 5 popisků data) tabulka *Poslední testy* (10 posledních testů s aspoň jednou odpovědí, počítáno z odpovědí, ne z počítadel testu: datum a čas, poslední 3 úrovně cesty slovníku s „…“ na začátku u delší cesty (celá cesta v titulku), směr „EN → CS“ / „CS → EN“ / „EN ↔ CS“, rozsah a limit, počet slovíček – při ↔ každé dvakrát, úspěšnost procentem a krátkým jednobarevným ukazatelem (počty 😎 🤔 😕 😵 v titulku), délka (⏹ u nedokončeného); nad ní počet testů za 14 dní a průměr slovíček; klik otevře souhrn testu; na telefonu blok) a sekce *Co ti nejde* (vždy za posledních 30 dní (bez přepínače); slovíčko „nejde“, když mělo v období 😵 nebo 😕 a v některém směru nemá 2 správné po sobě; až 10 otočných kartiček jako v testu, nejdřív tři z přehledu (🐢 🦀 🐘), pak ostatní: vpředu zvířátko s názvem kategorie a jedna strana slovíčka (střídavě cizí / rodná, u 🦀 ten těžký směr), po klepnutí vzadu druhá strana, drobně důvod a odkaz *Detail*, odkaz na detail, slovíčko se neopakuje: 🦈 největší nepřítel (nejvíc „vůbec nevím“ z pokusů v období), 🦀 jen jedním směrem, 🐿️ zapomínáš (chyba po 2 správných za sebou), 🦎 pleteš si (2 těžká slovíčka se stejným překladem, kartička ukáže dvojici), 🐒 horská dráha (aspoň 3 změny vím ↔ nevím), 🐇 moc rychle (😵 pod 3 s), 🦒 nejdelší, 🐢 nejdéle přemýšlíš, 🐌 nejdéle se učíš). Na přehledu nad slovníky je *Dnes*, jen pozitivní čísla testů: 🎯 poprvé správně (dnes poprvé v historii 😎 nebo 🤔, kterýkoli směr), 🎓 naučeno (poprvé 2× po sobě správně cizí → rodný), 📚 různých slovíček v testech, ⏱️ čas v testech; každé číslo je přepínač, pod čísly sloupcový graf vybraného čísla za 7 dní (hodnota nad sloupcem, ostatní dny světle modře, dnešek modře). Na přehledu pod slovníky je *Co ti dnes nejde*: až 3 menší kartičky v řádku jen z dnešních odpovědí – 🐢 nejdéle přemýšlíš, 🦀 jen jedním směrem, 🐘 pořád dokola (dnes těžké slovíčko s nejvíc pokusy v celé historii, aspoň 3); bez dnešních těžkých slovíček se sekce neukáže. Graf je čisté SVG bez knihovny (popisky a tečky jsou HTML, aby se na telefonu nedeformovaly); souřadnice se posílají jako text, protože česká lokalizace šablon by psala desetinnou čárku. Původní seznam:
+Stránka `/stats/` (odkaz v liště, na telefonu ikona 📊), počítá se při zobrazení z `Term` a `ReviewLog` (`study/stats.py`), nic se neukládá: dlaždice (slovíček celkem a tento týden, umíš / učíš se / nová – **umíš** = každý testovaný směr aspoň `KNOWN_STREAK` (2) správně za sebou, jedno pravidlo `stats.is_known` pro dlaždice, *naučeno* na přehledu i detail slovíčka (od 2026-10-26; dřív jen směr F→N), 🔥 dní v řadě a nejdelší série, odpovědí), čárový graf *Slovíčka v čase* (slovíček celkem od prvního slovíčka: do 14 dní po dnech, do 4 měsíců po týdnech, do 2 let po měsících, pak po čtvrtletích; osa Y s 5 kulatými hodnotami, nejvýš 5 popisků data) tabulka *Poslední testy* (10 posledních testů s aspoň jednou odpovědí, počítáno z odpovědí, ne z počítadel testu: datum a čas, poslední 3 úrovně cesty slovníku s „…“ na začátku u delší cesty (celá cesta v titulku), směr „EN → CS“ / „CS → EN“ / „EN ↔ CS“, rozsah a limit, počet slovíček – při ↔ každé dvakrát, úspěšnost procentem a krátkým jednobarevným ukazatelem (počty 😎 🤔 😕 😵 v titulku), délka (⏹ u nedokončeného); nad ní počet testů za 14 dní a průměr slovíček; klik otevře souhrn testu; na telefonu blok) a sekce *Co ti nejde* (vždy za posledních 30 dní (bez přepínače); slovíčko „nejde“, když mělo v období 😵 nebo 😕 a v některém směru nemá 2 správné po sobě; až 10 otočných kartiček jako v testu, nejdřív tři z přehledu (🐢 🦀 🐘), pak ostatní: vpředu zvířátko s názvem kategorie a jedna strana slovíčka (střídavě cizí / rodná, u 🦀 ten těžký směr), po klepnutí vzadu druhá strana, drobně důvod a odkaz *Detail*, odkaz na detail, slovíčko se neopakuje: 🦈 největší nepřítel (nejvíc „vůbec nevím“ z pokusů v období), 🦀 jen jedním směrem, 🐿️ zapomínáš (chyba po 2 správných za sebou), 🦎 pleteš si (2 těžká slovíčka se stejným překladem, kartička ukáže dvojici), 🐒 horská dráha (aspoň 3 změny vím ↔ nevím), 🐇 moc rychle (😵 pod 3 s), 🦒 nejdelší, 🐢 nejdéle přemýšlíš, 🐌 nejdéle se učíš). Na přehledu nad slovníky je *Dnes*, jen pozitivní čísla testů: 🎯 poprvé správně (dnes poprvé v historii 😎 nebo 🤔, kterýkoli směr), 🎓 naučeno (poprvé 2× po sobě správně cizí → rodný), 📚 různých slovíček v testech, ⏱️ čas v testech; každé číslo je přepínač, pod čísly sloupcový graf vybraného čísla za 7 dní (hodnota nad sloupcem, ostatní dny světle modře, dnešek modře). Na přehledu pod slovníky je *Co ti dnes nejde*: až 3 menší kartičky v řádku jen z dnešních odpovědí – 🐢 nejdéle přemýšlíš, 🦀 jen jedním směrem, 🐘 pořád dokola (dnes těžké slovíčko s nejvíc pokusy v celé historii, aspoň 3); bez dnešních těžkých slovíček se sekce neukáže. Graf je čisté SVG bez knihovny (popisky a tečky jsou HTML, aby se na telefonu nedeformovaly); souřadnice se posílají jako text, protože česká lokalizace šablon by psala desetinnou čárku. Původní seznam:
 - počet zopakování za den a týden,
 - úspěšnost v čase (podíl hodnocení OK po týdnech),
 - série dní v řadě,

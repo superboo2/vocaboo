@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-26 11:19+0100\n"
+"POT-Creation-Date: 2026-10-26 17:11+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -939,6 +939,14 @@ msgstr "Esta tarjeta no forma parte de este test."
 msgid "%(count)d older: %(counts)s"
 msgstr "%(count)d anteriores: %(counts)s"
 
+#, python-format
+msgid "%(count)s mo."
+msgstr "%(count)s mes."
+
+#, python-format
+msgid "%(count)s wk."
+msgstr "%(count)s sem."
+
 msgctxt "weekday short"
 msgid "Mon"
 msgstr "lun"
@@ -1490,6 +1498,10 @@ msgstr "Leer la frase"
 
 msgid "Play the pronunciation"
 msgstr "Reproducir la pronunciación"
+
+msgctxt "pronunciation"
+msgid "Play"
+msgstr "Escuchar"
 
 msgid "Skip to content"
 msgstr "Saltar al contenido"
@@ -2155,6 +2167,62 @@ msgstr "Más acciones"
 msgid "Remove from this deck"
 msgstr "Quitar de este mazo"
 
+msgid "Reviews"
+msgstr "Repasos"
+
+#, python-format
+msgid ""
+"You know it: every tested direction right at least %(counter)s time in a row"
+msgid_plural ""
+"You know it: every tested direction right at least %(counter)s times in a "
+"row"
+msgstr[0] ""
+"La sabes: cada sentido probado bien al menos %(counter)s vez seguida"
+msgstr[1] ""
+"La sabes: cada sentido probado bien al menos %(counter)s veces seguidas"
+
+#, python-format
+msgid ""
+"You know it once every tested direction is right %(counter)s time in a row"
+msgid_plural ""
+"You know it once every tested direction is right %(counter)s times in a row"
+msgstr[0] ""
+"La sabrás cuando cada sentido probado esté bien %(counter)s vez seguida"
+msgstr[1] ""
+"La sabrás cuando cada sentido probado esté bien %(counter)s veces seguidas"
+
+msgid "The word has not been in any test yet."
+msgstr "La palabra aún no ha estado en ningún test."
+
+msgid "You know it"
+msgstr "La sabes"
+
+msgid "Learning"
+msgstr "Aprendiendo"
+
+msgctxt "word status"
+msgid "New"
+msgstr "Nueva"
+
+#, python-format
+msgid "%(counter)s× in a test"
+msgid_plural "%(counter)s× in a test"
+msgstr[0] "%(counter)s× en tests"
+msgstr[1] "%(counter)s× en tests"
+
+#, python-format
+msgid "correct in a row: %(streak)s"
+msgstr "aciertos seguidos: %(streak)s"
+
+msgid "Next review"
+msgstr "Próximo repaso"
+
+msgid "New, not in a test yet"
+msgstr "Nueva, aún no ha estado en un test"
+
+msgid "In decks"
+msgstr "En los mazos"
+
 msgid "Other meanings"
 msgstr "Otros significados"
 
@@ -2164,33 +2232,14 @@ msgstr "ya la estás aprendiendo"
 msgid "Learn this meaning too"
 msgstr "Aprender también este significado"
 
-msgid "In decks"
-msgstr "En los mazos"
-
-msgid "Reviews"
-msgstr "Repasos"
-
-msgid "Next review"
-msgstr "Próximo repaso"
-
-#, python-format
-msgid "Tested %(total)s× · correct in a row %(streak)s · mistakes %(lapses)s"
-msgstr "En test %(total)s× · aciertos seguidos %(streak)s · fallos %(lapses)s"
-
 msgid "Answer history"
 msgstr "Historial de respuestas"
 
 msgid "Rating"
 msgstr "Valoración"
 
-msgid "Interval"
-msgstr "Intervalo"
-
 msgid "Thinking time"
 msgstr "Tiempo para pensar"
-
-msgid "The word has not been in any test yet."
-msgstr "La palabra aún no ha estado en ningún test."
 
 msgid "Editing a word during a test"
 msgstr "Editar una palabra durante un test"

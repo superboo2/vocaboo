@@ -17,7 +17,7 @@
     <p>Pod slovníky je <strong>Dnes</strong>: jen to, co se ti dnes povedlo v testech. Každé číslo je zároveň přepínač: klik na něj ukáže pod čísly sloupcový graf za posledních 7 dní (číslo nad každým sloupcem, ostatní dny světlým indigem, dnešek sytým).</p>
     <ul>
       <li>🎯 <strong>poprvé správně</strong>: slovíčka, na která byla dnes poprvé v historii odpověď 😎 nebo 🤔, v kterémkoli směru (každé jednou).</li>
-      <li>🎓 <strong>naučeno</strong>: slovíčka, která dnes poprvé splnila „umíš“, tedy ve směru cizí → rodný dvakrát po sobě správně (stejně jako ve Statistikách). Druhá správná odpověď přijde až po intervalu (u 😎 za 7 dní), proto tu nové slovíčko přibude nejdřív za pár dní.</li>
+      <li>🎓 <strong>naučeno</strong>: slovíčka, která dnes poprvé splnila „umíš“, tedy každý směr, ve kterém bylo v testu, dvakrát po sobě správně (stejně jako ve Statistikách). Druhá správná odpověď přijde až po intervalu (u 😎 za 7 dní), proto tu nové slovíčko přibude nejdřív za pár dní.</li>
       <li>📚 <strong>v testech</strong>: kolik různých slovíček dnes bylo v testech; slovíčko v obou směrech se počítá jednou.</li>
       <li>⏱️ <strong>čas v testech</strong>: jak dlouho dnes testy trvaly (do poslední odpovědi).</li>
     </ul>
@@ -28,7 +28,7 @@
     <h2>Statistiky</h2>
     <p>Odkaz <strong>Statistiky</strong> v horní liště otevře přehled tvého učení:</p>
     <ul>
-      <li><strong>Dlaždice nahoře</strong>: slovíček celkem (a kolik přibylo tento týden), kolik umíš (ve směru cizí → rodný aspoň dvakrát po sobě správně), 🔥 kolik dní v řadě se učíš a nejdelší série, počet odpovědí.</li>
+      <li><strong>Dlaždice nahoře</strong>: slovíček celkem (a kolik přibylo tento týden), kolik umíš (každý směr, ve kterém bylo slovíčko v testu, aspoň dvakrát po sobě správně; směr, který v testu ještě nebyl, se nepočítá), 🔥 kolik dní v řadě se učíš a nejdelší série, počet odpovědí.</li>
       <li><strong>Slovíčka v čase</strong>: kolik slovíček máš celkem, od dne prvního slovíčka. Krok se řídí tím, jak dlouho se učíš: první 2 týdny po dnech, do 4 měsíců po týdnech, do 2 let po měsících, pak po čtvrtletích. Čísla vlevo ukazují počet; přesnou hodnotu uvidíš po najetí na tečku.</li>
       <li><strong>Poslední testy</strong>: 10 posledních testů, každý na jednom řádku: kdy byl (datum a čas), cesta ke slovníku, poslední 3 úrovně (např. <em>… › Seriály › HIMYM › S01</em>; celou cestu uvidíš po najetí myší), směr (např. <em>EN → CS</em>, <em>CS → EN</em> nebo <em>EN → CS + CS → EN</em> pro oba směry), rozsah a limit, počet slovíček, úspěšnost (podíl 😎 a 🤔 jako procento a krátký ukazatel; počty 😎 🤔 😕 😵 uvidíš po najetí na ukazatel nebo v souhrnu testu) a délka testu (u nedokončeného testu ⏹). Při obou směrech je každé slovíčko v testu dvakrát, jednou každým směrem, a každé se hodnotí zvlášť. Nad tabulkou je, kolik testů jsi udělal za 14 dní. Klik na řádek otevře souhrn testu. Testy bez jediné odpovědi se nezobrazují.</li>
       <li><strong>Co ti nejde</strong>: slovíčka, která ti nejdou, jako kartičky z testu, ať se učíš i při koukání na statistiky. Vpředu je zvířátko s kategorií a jedna strana slovíčka (polovina kartiček cizí slovo, polovina překlad; u 🦀 vždy ten směr, který ti nejde). Klepnutím (nebo Enter) kartičku otočíš: uvidíš druhou stranu, proč tam slovíčko je, a odkaz <em>Detail</em>. Počítá se z odpovědí za posledních 30 dní, takže se karty průběžně mění.</li>
@@ -49,13 +49,12 @@
 
   <section>
     <h2>Detail slovíčka</h2>
-    <p>Klik na slovíčko v seznamu slovníku otevře jeho detail:</p>
+    <p>Klik na slovíčko v seznamu slovníku otevře jeho detail. Pod slovem, překladem a tlačítky je <strong>Opakování</strong>. Vpravo v jeho záhlaví je <strong>stav</strong> slovíčka s barevnou tečkou (<em>Umíš</em>, když je každý směr, ve kterém bylo v testu, aspoň dvakrát po sobě správně, jinak <em>Učíš se</em>, a <em>Nové</em>, když ještě nebylo v testu, stejně jako ve Statistikách; po najetí myší se ukáže, kdy je slovíčko „umíš“) a <strong>kolikrát bylo v testu</strong> (oba směry dohromady). Pod tím pro každý směr (např. <em>EN → CS</em> a <em>CS → EN</em>) pod sebou:</p>
     <ul>
-      <li><strong>Ve slovnících</strong>: všechny slovníky, ve kterých slovíčko je, i s větou,</li>
-      <li><strong>Opakování</strong> zvlášť pro každý směr: kdy přijde znovu (<em>teď</em>, <em>za 3 dny</em>, <em>nové</em>), kolikrát bylo v testu, kolikrát správně za sebou, počet chyb a počty jednotlivých hodnocení. Prstenec ukazuje podíl správných odpovědí v procentech a <strong>barevné tečky</strong> posledních až 30 odpovědí od nejstarší (🟢 😎, světle zelená 🤔, 🟠 😕, 🔴 😵), takže je vidět, jestli se zlepšuješ. Po najetí nebo podržení prstu na tečce uvidíš datum a hodnocení,</li>
-      <li><strong>Historie odpovědí</strong>: kdy, jakým směrem, jaké hodnocení, jaký interval a doba přemýšlení.</li>
+      <li><strong>Další opakování</strong>: kdy slovíčko přijde znovu (<em>teď</em>, <em>za 3 dny</em>); po najetí myší přesné datum a kolik správných odpovědí bylo za sebou. Slovíčko, které ještě nebylo v testu, má jen <em>Nové, ještě nebylo v testu</em>.</li>
+      <li><strong>Graf odpovědí</strong>: posledních až 30 odpovědí na časové ose zleva od nejstarší, každá jako tečka v barvě hodnocení, výš lépe (dole 😵, nahoru 😕, 🤔, 😎). Čára mezi nimi ukáže, jestli se zlepšuješ: stoupá, když slovíčko jde čím dál líp. Odpovědi z jednoho dne stojí vedle sebe (i když slovíčko přišlo v testu několikrát), delší pauza než týden je zkrácená, čára přes ni je přerušovaná a pod ní je, jak byla dlouhá (<em>1 měs.</em>, <em>2 týd.</em>). Pod osou je datum, kdy začalo každé období učení, a vpravo na konci datum poslední odpovědi. Po najetí nebo podržení prstu na tečce uvidíš datum a hodnocení. Při jedné nebo dvou odpovědích jsou jen tečky bez čáry.</li>
     </ul>
-    <p>Podle historie poznáš, jestli se zlepšuješ: méně 😵, víc 😎 a kratší doba přemýšlení.</p>
+    <p>Pod tím <strong>Ve slovnících</strong> (všechny slovníky, ve kterých slovíčko je, i s větou), <strong>Další významy</strong> ze slovníku a nakonec sbalená <strong>Historie odpovědí</strong>: klikem ji rozbalíš a uvidíš každou odpověď (kdy, směr, hodnocení jako smajlík, doba přemýšlení).</p>
   </section>
 
   <section>

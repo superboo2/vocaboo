@@ -6,14 +6,17 @@
 {% block content %}
   {% include "vocabulary/_breadcrumbs.html" with current=term.main_foreign %}
 
-  {# The word with 🔊 and ✎ Upravit; the rare things (move, remove) in the menu ⋯ #}
-  <div class="title-row">
-    <h1>
-      {{ term.foreign_variants|join:" · " }}
-      {% include "_speak.html" with text=term.main_foreign lang=term.foreign_language.code kind="word" %}
-      {% if pronunciation.ipa %}<span class="ipa">[{{ pronunciation.ipa }}]</span>{% endif %}
-    </h1>
-    <a href="{% url 'vocabulary:term_edit' deck.pk deck_term.pk %}?next={{ request.get_full_path|urlencode }}" class="edit-link">✎ {% translate "Edit" %}</a>
+  {# The word with its pronunciation, the translation, then the buttons in one row of the #}
+  {# same height: 🔊 Přehrát, ✎ Upravit and the rare things (move, remove) in the menu ⋯. #}
+  {# Nothing stands next to the word, so a long phrase can wrap on a phone. #}
+  <h1 class="term-title">
+    {{ term.foreign_variants|join:" · " }}
+    {% if pronunciation.ipa %}<span class="term-ipa">[{{ pronunciation.ipa }}]</span>{% endif %}
+  </h1>
+  <p class="term-translation">{% arrow %}{{ term.native_variants|join:" · " }}</p>
+  <div class="term-actions">
+    {% include "_speak.html" with text=term.main_foreign lang=term.foreign_language.code kind="word" label=True %}
+    <a href="{% url 'vocabulary:term_edit' deck.pk deck_term.pk %}?next={{ request.get_full_path|urlencode }}" class="action-pill">✎ {% translate "Edit" %}</a>
     <details class="dropdown more-menu">
       <summary role="button" class="more-button" aria-label="{% translate 'More actions' %}" title="{% translate 'More actions' %}">⋯</summary>
       <ul>
@@ -22,8 +25,58 @@
       </ul>
     </details>
   </div>
-  <p class="page-sub term-translation">{% arrow %}{{ term.native_variants|join:" · " }}</p>
   {% if term.note %}<p class="muted">{{ term.note|linebreaksbr }}</p>{% endif %}
+
+  {# The most important first: how the word goes in each direction, one under the other #}
+  <section class="card-section">
+    {# The status of the word (both directions) next to the heading, the directions under it #}
+    <div class="reviews-head">
+      <h2 class="section-title">{% translate "Reviews" %}</h2>
+      <p class="word-status word-status-{{ history.status }}"
+         title="{% if history.status == 'known' %}{% blocktranslate count counter=history.known_streak %}You know it: every tested direction right at least {{ counter }} time in a row{% plural %}You know it: every tested direction right at least {{ counter }} times in a row{% endblocktranslate %}{% elif history.status == 'learning' %}{% blocktranslate count counter=history.known_streak %}You know it once every tested direction is right {{ counter }} time in a row{% plural %}You know it once every tested direction is right {{ counter }} times in a row{% endblocktranslate %}{% else %}{% translate "The word has not been in any test yet." %}{% endif %}">
+        <span class="word-status-dot" aria-hidden="true"></span>
+        <strong>{% if history.status == "known" %}{% translate "You know it" %}{% elif history.status == "learning" %}{% translate "Learning" %}{% else %}{% translate "New" context "word status" %}{% endif %}</strong>
+        {% if history.tested %}<span class="muted">· {% blocktranslate count counter=history.tested %}{{ counter }}× in a test{% plural %}{{ counter }}× in a test{% endblocktranslate %}</span>{% endif %}
+      </p>
+    </div>
+    {% for row in history.directions %}
+      {% with state=row.state chart=row.chart %}
+        <div class="review-row">
+          <p class="review-head">
+            <strong>{{ row.label|arrows }}</strong>
+            {% if row.total %}
+              {# The exact date and the streak only on hover, the sentence says enough #}
+              <span title="{% if state.due_at %}{{ state.due_at|date:'SHORT_DATETIME_FORMAT' }} · {% endif %}{% blocktranslate with streak=state.correct_streak %}correct in a row: {{ streak }}{% endblocktranslate %}">
+                {% translate "Next review" %}: <strong>{{ state.due_at|due_text }}</strong>
+              </span>
+            {% else %}
+              <span class="muted">{% translate "New, not in a test yet" %}</span>
+            {% endif %}
+          </p>
+          {% if row.total %}
+            {% include "vocabulary/_answer_chart.html" %}
+          {% endif %}
+        </div>
+      {% endwith %}
+    {% endfor %}
+  </section>
+
+  <section class="card-section">
+    <h2 class="section-title">{% translate "In decks" %}</h2>
+    <ul class="term-list">
+      {% for item in in_decks %}
+        <li>
+          <a href="{% url 'vocabulary:deck_detail' item.deck.pk %}">{{ item.deck.name }}</a>
+          {% if item.context_sentence %}
+            <div class="term-context muted">
+              „{{ item.context_sentence|marked_sentence:term.foreign_variants }}“ {% include "_speak.html" with text=item.context_sentence|plain_sentence:term.foreign_variants lang=term.foreign_language.code kind="sentence" %}
+              {% if item.context_sentence_native %}<span class="sentence-native">„{{ item.context_sentence_native|marked_sentence:term.native_variants }}“</span>{% endif %}
+            </div>
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
 
   {% if other_meanings %}
     <section class="card-section">
@@ -48,54 +101,10 @@
     </section>
   {% endif %}
 
-  <section class="card-section">
-    <h2 class="section-title">{% translate "In decks" %}</h2>
-    <ul class="term-list">
-      {% for item in in_decks %}
-        <li>
-          <a href="{% url 'vocabulary:deck_detail' item.deck.pk %}">{{ item.deck.name }}</a>
-          {% if item.context_sentence %}
-            <div class="term-context muted">
-              „{{ item.context_sentence|marked_sentence:term.foreign_variants }}“ {% include "_speak.html" with text=item.context_sentence|plain_sentence:term.foreign_variants lang=term.foreign_language.code kind="sentence" %}
-              {% if item.context_sentence_native %}<span class="sentence-native">„{{ item.context_sentence_native|marked_sentence:term.native_variants }}“</span>{% endif %}
-            </div>
-          {% endif %}
-        </li>
-      {% endfor %}
-    </ul>
-  </section>
-
-  <section class="card-section">
-    <h2 class="section-title">{% translate "Reviews" %}</h2>
-    <div class="grid">
-      {% for row in history.directions %}
-        <article class="direction-box">
-          <header><strong>{{ row.label }}</strong></header>
-          {% with state=row.state %}
-            <p>
-              {% translate "Next review" %}: <strong>{{ state.due_at|due_text }}</strong>
-              {% if state.due_at %}<br><small class="muted">{{ state.due_at|date:"SHORT_DATETIME_FORMAT" }}</small>{% endif %}
-            </p>
-            <p class="muted">
-              {% blocktranslate with total=row.total streak=state.correct_streak lapses=state.lapses %}Tested {{ total }}× · correct in a row {{ streak }} · mistakes {{ lapses }}{% endblocktranslate %}
-            </p>
-          {% endwith %}
-          {% if row.total %}
-            {% include "study/_answer_dots.html" with row=row.dots ring=True %}
-            <p class="rating-counts">
-              {% for rating, count in row.counts %}
-                <span title="{{ rating.label }}"><span aria-hidden="true">{{ rating.emoji }}</span> {{ count }}×</span>
-              {% endfor %}
-            </p>
-          {% endif %}
-        </article>
-      {% endfor %}
-    </div>
-  </section>
-
-  <section class="card-section">
-    <h2 class="section-title">{% translate "Answer history" %}</h2>
-    {% if history.logs %}
+  {# Every answer, folded: only for who wants the details #}
+  {% if history.logs %}
+    <details class="card-section answer-history">
+      <summary class="section-title">{% translate "Answer history" %} ({{ history.logs|length }})</summary>
       <div class="overflow-auto">
         <table class="striped">
           <thead>
@@ -103,7 +112,6 @@
               <th scope="col">{% translate "When" %}</th>
               <th scope="col">{% translate "Direction" %}</th>
               <th scope="col">{% translate "Rating" %}</th>
-              <th scope="col">{% translate "Interval" %}</th>
               <th scope="col">{% translate "Thinking time" %}</th>
             </tr>
           </thead>
@@ -111,18 +119,15 @@
             {% for log in history.logs %}
               <tr>
                 <td>{{ log.reviewed_at|date:"SHORT_DATETIME_FORMAT" }}</td>
-                <td>{{ log.get_direction_display }}</td>
-                <td>{{ log.shown_label }}</td>
-                <td>{{ log.chosen_interval|interval }}</td>
+                <td>{{ log.direction_label|arrows }}</td>
+                <td><span title="{{ log.shown_label }}" aria-label="{{ log.shown_label }}">{{ log.emoji|default:log.shown_label }}</span></td>
                 <td>{{ log.think_ms|seconds }}</td>
               </tr>
             {% endfor %}
           </tbody>
         </table>
       </div>
-    {% else %}
-      <p class="muted">{% translate "The word has not been in any test yet." %}</p>
-    {% endif %}
-  </section>
+    </details>
+  {% endif %}
 
 {% endblock %}

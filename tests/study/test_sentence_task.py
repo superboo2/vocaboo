@@ -254,5 +254,5 @@ def test_summary_and_word_page_show_dots(client, user, deck):
     assert summary.count('class="dot dot-dontknow"') == 10
     assert 'data-action="more-dots"' in summary
     assert ">+2<" in summary
-    # The word page: all dots and the ring with the share of correct answers
-    assert 'class="dots-ring" style="--percent: 0"' in detail
+    # The word page: a chart with a point for each of the 10 answers
+    assert detail.count('class="chart-point point-dontknow"') == 10

@@ -57,7 +57,9 @@ def test_totals_streak_and_charts(user, deck):
     seat = vocabulary.add_term(deck, foreign="window seat", native="místo u okna").term
     Term.objects.filter(pk=hello.pk).update(created_at=NOW - timedelta(days=30))
     Term.objects.filter(pk=seat.pk).update(created_at=NOW)
-    ReviewState.objects.filter(term=hello, direction="F2N").update(correct_streak=2)
+    ReviewState.objects.filter(term=hello, direction="F2N").update(
+        correct_streak=2, last_reviewed_at=NOW - timedelta(days=1)
+    )
     # Three days in a row up to yesterday, and one older day
     for days_ago in (1, 2, 3, 10):
         answer(user, hello, days_ago)
@@ -524,3 +526,36 @@ def test_words_chart_by_days_months_and_quarters(user, deck):
     # The first word today: one point in the middle
     single = chart(0)
     assert [point["left"] for point in single["points"]] == ["50.00"]
+
+
+def test_known_needs_every_tested_direction(user, deck):
+    both = vocabulary.add_term(deck, foreign="veal", native="telecí").term
+    one_way = vocabulary.add_term(deck, foreign="hello", native="ahoj").term
+    # veal: EN → CS right twice, CS → EN wrong last time; hello: only EN → CS, right twice
+    for term, direction, streak in [
+        (both, "F2N", 2),
+        (both, "N2F", 0),
+        (one_way, "F2N", 2),
+    ]:
+        ReviewState.objects.filter(term=term, direction=direction).update(
+            correct_streak=streak, last_reviewed_at=NOW - timedelta(days=1)
+        )
+
+    assert stats.known_words(user) == 1
+
+
+def test_learned_waits_for_the_other_direction(user, deck):
+    veal = vocabulary.add_term(deck, foreign="veal", native="telecí").term
+    # EN → CS right twice (known, if it were the only direction), but CS → EN came between
+    # them and was wrong; known only when CS → EN is right twice as well, yesterday
+    answer(user, veal, 5)
+    answer(user, veal, 4, Result.WRONG, "dontknow", direction=Direction.N2F)
+    answer(user, veal, 3)
+    answer(user, veal, 2, direction=Direction.N2F)
+    answer(user, veal, 1, direction=Direction.N2F)
+
+    metrics = stats.today_overview(user, now=NOW)["metrics"]
+    learned = next(metric for metric in metrics if metric["key"] == "learned")
+
+    # Yesterday (not 3 days ago, when only EN → CS was right twice), nothing today
+    assert [bar["value"] for bar in learned["bars"]][-3:] == ["0", "1", "0"]
