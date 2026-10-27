@@ -1,0 +1,1 @@
+added    es: 964 concepts (all the rest: band 12 to 15), European Spanish; every concept of the base has a Spanish text now

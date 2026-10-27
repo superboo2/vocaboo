@@ -14,6 +14,3 @@ media/
 # Tools
 .pytest_cache/
 .ruff_cache/
-
-# Dictionary data of the app (imported with import_lexicon, see README)
-dictionary/data/*

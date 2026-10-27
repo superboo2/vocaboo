@@ -1,0 +1,647 @@
+{"id": "a little.phrase.2", "texts": {"cs": {"words": "trochu", "note": "a little + nepočitatelné; trochu něčeho", "sentence": "Potřebuju {trochu} pomoct."}}}
+{"id": "a lot.phrase.2", "texts": {"cs": {"words": "spousta; hodně", "note": "a lot of", "sentence": "Máme {spoustu} času."}}}
+{"id": "about.adverb.2", "texts": {"cs": {"words": "právě; zrovna", "note": "be about to; zrovna se chystat", "sentence": "Zrovna jsem ti {chtěl} zavolat."}}}
+{"id": "above.adverb.1", "texts": {"cs": {"words": "nahoře; nad tím", "note": "", "sentence": "Lidi v bytě {nad námi} jsou strašně hluční."}}}
+{"id": "above.adverb.2", "texts": {"cs": {"words": "výše", "note": "v textu; výše uvedený", "sentence": "Viz adresa {výše}."}}}
+{"id": "account for.phrasal_verb.2", "texts": {"cs": {"words": "tvořit", "note": "podíl", "sentence": "Ženy {tvoří} polovinu našich zaměstnanců."}}}
+{"id": "accumulate.verb.1", "texts": {"cs": {"words": "nahromadit se; nashromáždit; nahromadit", "note": "", "sentence": "Pod postelí se {hromadí} prach."}}}
+{"id": "ace.noun.2", "texts": {"cs": {"words": "eso", "note": "tenis; podání", "sentence": "Zahrála {eso}."}}}
+{"id": "acre.noun.1", "texts": {"cs": {"words": "akr", "note": "asi 0,4 ha", "sentence": "Farma má padesát {akrů}."}}}
+{"id": "active.adjective.2", "texts": {"cs": {"words": "činný", "note": "sopka", "sentence": "Je ta sopka pořád {činná}?"}}}
+{"id": "advertising.noun.1", "texts": {"cs": {"words": "reklama", "note": "obor", "sentence": "Pracuje v {reklamě}."}}}
+{"id": "agenda.noun.1", "texts": {"cs": {"words": "program; program jednání", "note": "", "sentence": "Co je dneska na {programu}?"}}}
+{"id": "ago.adverb.1", "texts": {"cs": {"words": "před", "note": "před časem", "sentence": "Odešla {před} deseti minutami."}}}
+{"id": "ahoy.interjection.1", "texts": {"cs": {"words": "ahoj; hej", "note": "námořnicky", "sentence": "{Ahoj}, kamaráde!"}}}
+{"id": "airtight.adjective.2", "texts": {"cs": {"words": "neprůstřelný", "note": "alibi", "sentence": "Jeho alibi je {neprůstřelné}."}}}
+{"id": "ale.noun.1", "texts": {"cs": {"words": "pivo; ale", "note": "svrchně kvašené pivo", "sentence": "Půllitr {piva}, prosím."}}}
+{"id": "alimony.noun.1", "texts": {"cs": {"words": "výživné", "note": "pro bývalého partnera", "sentence": "Platí jí {výživné}."}}}
+{"id": "all over.phrase.1", "texts": {"cs": {"words": "všude", "note": "všude po", "sentence": "Voda je {po celé} podlaze."}}}
+{"id": "all.adverb.3", "texts": {"cs": {"words": "nerozhodně", "note": "two all; skóre", "sentence": "Je to dva {dva}."}}}
+{"id": "alone.adverb.2", "texts": {"cs": {"words": "nech mě být", "note": "leave me alone", "sentence": "{Nech mě} být!"}}}
+{"id": "alter.verb.2", "texts": {"cs": {"words": "upravit", "note": "oblečení", "sentence": "Musím si nechat ty šaty {upravit}."}}}
+{"id": "alternate.adjective.1", "texts": {"cs": {"words": "střídavý; ob den", "note": "", "sentence": "Pracuju {každý druhý} víkend."}}}
+{"id": "amendment.noun.1", "texts": {"cs": {"words": "dodatek; pozměňovací návrh", "note": "dodatek ústavy", "sentence": "Odvolávám se na Pátý {dodatek}."}}}
+{"id": "among.preposition.2", "texts": {"cs": {"words": "mezi", "note": "rozdělit mezi", "sentence": "Rozdělte si pizzu {mezi} sebe."}}}
+{"id": "answer.verb.2", "texts": {"cs": {"words": "zvednout telefon; zvednout", "note": "", "sentence": "Proč jsi ne{zvedal} telefon?"}}}
+{"id": "anymore.adverb.1", "texts": {"cs": {"words": "už ne; už", "note": "v záporu", "sentence": "{Už} tě nemiluju."}}}
+{"id": "arcade.noun.1", "texts": {"cs": {"words": "herna", "note": "s automaty", "sentence": "Celý den jsme strávili v {herně}."}}}
+{"id": "arch.noun.2", "texts": {"cs": {"words": "klenba; klenba nohy", "note": "", "sentence": "Tyhle boty mě tlačí do {klenby}."}}}
+{"id": "as.adverb.1", "texts": {"cs": {"words": "tak", "note": "as ... as; tak jako", "sentence": "Je {stejně} vysoký jako jeho táta."}}}
+{"id": "ask after.phrasal_verb.1", "texts": {"cs": {"words": "ptát se", "note": "jak se kdo má", "sentence": "Babička {se ptala}, jak se máš."}}}
+{"id": "ask over.phrasal_verb.1", "texts": {"cs": {"words": "pozvat k sobě; pozvat domů", "note": "", "sentence": "{Pozvěme je} k nám na večeři."}}}
+{"id": "assassinate.verb.1", "texts": {"cs": {"words": "zavraždit; spáchat atentát", "note": "politicky", "sentence": "Na prezidenta byl v roce 1963 {spáchán atentát}."}}}
+{"id": "assemble.verb.2", "texts": {"cs": {"words": "shromáždit se", "note": "lidé", "sentence": "Všichni se {shromáždili} v sále."}}}
+{"id": "assembly.noun.1", "texts": {"cs": {"words": "shromáždění", "note": "ve škole", "sentence": "Každé pondělí ráno máme {shromáždění}."}}}
+{"id": "assert.verb.1", "texts": {"cs": {"words": "tvrdit; prosadit se", "note": "", "sentence": "Musíš se víc {prosazovat}."}}}
+{"id": "asterisk.noun.1", "texts": {"cs": {"words": "hvězdička", "note": "znak *", "sentence": "Pole s {hvězdičkou} jsou povinná."}}}
+{"id": "awaken.verb.1", "texts": {"cs": {"words": "probudit se; probudit; vzbudit", "note": "knižně", "sentence": "{Probudil} ji podivný zvuk."}}}
+{"id": "bachelor party.noun.1", "texts": {"cs": {"words": "rozlučka se svobodou", "note": "americky; pro muže", "sentence": "Plánujeme mu {rozlučku se svobodou}."}}}
+{"id": "bachelor.noun.2", "texts": {"cs": {"words": "rozlučka se svobodou", "note": "bachelor party", "sentence": "{Rozlučka se svobodou} je v sobotu."}}}
+{"id": "back out.phrasal_verb.1", "texts": {"cs": {"words": "vycouvat; odstoupit", "note": "slib; odstoupit od něčeho", "sentence": "Teď už nemůžeš {vycouvat}!"}}}
+{"id": "back out.phrasal_verb.2", "texts": {"cs": {"words": "vycouvat", "note": "auto", "sentence": "{Vycouval} z garáže."}}}
+{"id": "backfire.verb.1", "texts": {"cs": {"words": "obrátit se proti; nevyjít", "note": "obrátit se proti někomu", "sentence": "Jeho plán se mu {vymstil}."}}}
+{"id": "backseat.noun.2", "texts": {"cs": {"words": "jít stranou", "note": "take a backseat", "sentence": "Tentokrát {zůstanu rád v pozadí}."}}}
+{"id": "bail out.phrasal_verb.2", "texts": {"cs": {"words": "složit kauci", "note": "za někoho", "sentence": "Táta za něj {složil kauci}."}}}
+{"id": "bail.verb.2", "texts": {"cs": {"words": "vykašlat se na; vykašlat se", "note": "bail on", "sentence": "Teď se na mě nemůžeš {vykašlat}!"}}}
+{"id": "bait.noun.2", "texts": {"cs": {"words": "nenechat se vyprovokovat", "note": "take the bait; don't take the bait", "sentence": "Snaží se tě naštvat, {nenech se vyprovokovat}."}}}
+{"id": "ballistic.adjective.1", "texts": {"cs": {"words": "nepříčetný", "note": "go ballistic; vzteky", "sentence": "Máma byla {nepříčetná}, když uviděla ten nepořádek."}}}
+{"id": "ballpark.noun.1", "texts": {"cs": {"words": "přibližný", "note": "odhad; ballpark figure", "sentence": "Řekni mi aspoň {přibližné} číslo."}}}
+{"id": "bandwagon.noun.1", "texts": {"cs": {"words": "naskočit do rozjetého vlaku", "note": "jump on the bandwagon", "sentence": "Všichni {naskakují do rozjetého vlaku}."}}}
+{"id": "bare.adjective.2", "texts": {"cs": {"words": "holé minimum", "note": "bare minimum", "sentence": "V práci dělá jen {holé} minimum."}}}
+{"id": "bargain.verb.2", "texts": {"cs": {"words": "počítat s", "note": "bargain for", "sentence": "{S tím jsem nepočítal}."}}}
+{"id": "base.verb.1", "texts": {"cs": {"words": "zakládat na; být podle", "note": "based on", "sentence": "Ten film je {natočený} podle skutečného příběhu."}}}
+{"id": "bash.noun.2", "texts": {"cs": {"words": "zkusit to", "note": "britsky; have a bash", "sentence": "No tak, {zkus to}!"}}}
+{"id": "bash.verb.2", "texts": {"cs": {"words": "praštit se; praštit; bouchnout", "note": "", "sentence": "{Praštil} jsem se hlavou o dveře."}}}
+{"id": "basis.noun.1", "texts": {"cs": {"words": "pravidelně", "note": "jak často; on a regular basis", "sentence": "Scházíme se {každý týden}."}}}
+{"id": "beam.noun.3", "texts": {"cs": {"words": "dálková světla", "note": "high beams", "sentence": "Vypni {dálková světla}!"}}}
+{"id": "bear with.phrasal_verb.1", "texts": {"cs": {"words": "mít strpení", "note": "s někým", "sentence": "{Vydržte} prosím chvilku."}}}
+{"id": "beat.noun.2", "texts": {"cs": {"words": "úder", "note": "srdce", "sentence": "Srdce mi vynechalo {úder}."}}}
+{"id": "bedside.noun.1", "texts": {"cs": {"words": "lůžko; vedle postele", "note": "u nemocného", "sentence": "Zůstala celou noc u jeho {lůžka}."}}}
+{"id": "bedside.noun.2", "texts": {"cs": {"words": "noční stolek", "note": "bedside table", "sentence": "Brýle mám na {nočním stolku}."}}}
+{"id": "bedtime.noun.2", "texts": {"cs": {"words": "na dobrou noc", "note": "bedtime story", "sentence": "Přečteš mi pohádku {na dobrou noc}?"}}}
+{"id": "beef.noun.1", "texts": {"cs": {"words": "hovězí; hovězí maso", "note": "", "sentence": "Nejím {hovězí}."}}}
+{"id": "befriend.verb.1", "texts": {"cs": {"words": "spřátelit se", "note": "s někým", "sentence": "{Spřátelila se} s holkou ze třídy."}}}
+{"id": "beginner.noun.2", "texts": {"cs": {"words": "štěstí začátečníka", "note": "beginner's luck", "sentence": "To bylo jen {štěstí začátečníka}."}}}
+{"id": "behalf.noun.1", "texts": {"cs": {"words": "jménem", "note": "on behalf of", "sentence": "Volám {jménem} svého šéfa."}}}
+{"id": "behind your back.phrase.1", "texts": {"cs": {"words": "za zády", "note": "někoho", "sentence": "Pomlouvá tě {za zády}."}}}
+{"id": "being.noun.2", "texts": {"cs": {"words": "prozatím", "note": "for the time being", "sentence": "{Prozatím} tu můžeš zůstat."}}}
+{"id": "belief.noun.2", "texts": {"cs": {"words": "neuvěřitelně", "note": "beyond belief", "sentence": "Byla {neuvěřitelně} drzá."}}}
+{"id": "bend.noun.2", "texts": {"cs": {"words": "přivést k šílenství", "note": "round the bend; drive round the bend", "sentence": "Ten hluk mě {přivádí k šílenství}."}}}
+{"id": "bend.verb.2", "texts": {"cs": {"words": "ohnout", "note": "přeneseně; pravidla", "sentence": "Kvůli tobě jsem {ohnul} pravidla."}}}
+{"id": "beneath.preposition.2", "texts": {"cs": {"words": "pod úroveň", "note": "nedůstojné; pod něčí úroveň", "sentence": "Myslí si, že tahle práce je {pod jeho úroveň}."}}}
+{"id": "benefit.verb.1", "texts": {"cs": {"words": "mít prospěch; těžit", "note": "těžit z něčeho", "sentence": "Z toho {budou mít prospěch} všichni."}}}
+{"id": "bent.adjective.2", "texts": {"cs": {"words": "odhodlaný", "note": "bent on", "sentence": "Je {odhodlaný} vyhrát."}}}
+{"id": "best man.noun.1", "texts": {"cs": {"words": "svědek", "note": "ženicha", "sentence": "Můj brácha mi bude dělat {svědka}."}}}
+{"id": "beyond.adverb.2", "texts": {"cs": {"words": "a dál", "note": "and beyond", "sentence": "Na příští rok {a dál}!"}}}
+{"id": "bid.verb.1", "texts": {"cs": {"words": "přihazovat; nabídnout", "note": "aukce; cenu", "sentence": "Za ten obraz {nabídl} padesát dolarů."}}}
+{"id": "binge.verb.1", "texts": {"cs": {"words": "přejídat se; ujíždět na", "note": "ujíždět na něčem", "sentence": "Včera večer jsem se {přecpala} čokoládou."}}}
+{"id": "bitterly.adverb.2", "texts": {"cs": {"words": "krutě", "note": "bitterly cold; zima", "sentence": "Dneska je {krutá} zima."}}}
+{"id": "blame.noun.2", "texts": {"cs": {"words": "vzít vinu na sebe", "note": "take the blame", "sentence": "{Vezmu to na sebe}."}}}
+{"id": "bleep.verb.1", "texts": {"cs": {"words": "vypípat", "note": "sprosté slovo", "sentence": "Všechna sprostá slova {vypípali}."}}}
+{"id": "blend in.phrasal_verb.1", "texts": {"cs": {"words": "splynout s okolím; splynout; nevyčnívat", "note": "", "sentence": "Snaž se {splynout} s davem."}}}
+{"id": "blossom.noun.1", "texts": {"cs": {"words": "květ; květy", "note": "stromu", "sentence": "{Květy} třešní jsou letos nádherné."}}}
+{"id": "blow off.phrasal_verb.1", "texts": {"cs": {"words": "vykašlat se na; vypálit", "note": "hovorově; vypálit někoho", "sentence": "{Vykašlal se na mě} kvůli kamarádům."}}}
+{"id": "bluff.noun.2", "texts": {"cs": {"words": "nachytat na blafu", "note": "call someone's bluff", "sentence": "Rozhodl jsem se ho {nachytat na blafu}."}}}
+{"id": "blur.verb.1", "texts": {"cs": {"words": "rozmazat; rozmazávat se; rozmazávat", "note": "", "sentence": "Začíná se mi {rozmazávat} vidění."}}}
+{"id": "blur.verb.2", "texts": {"cs": {"words": "rozmazat", "note": "na fotce", "sentence": "Ve videu mu {rozmazali} obličej."}}}
+{"id": "board.verb.1", "texts": {"cs": {"words": "nastoupit", "note": "do letadla, vlaku", "sentence": "Za deset minut {nastupujeme}."}}}
+{"id": "boardwalk.noun.1", "texts": {"cs": {"words": "promenáda", "note": "z prken", "sentence": "Pojďme se projít po {promenádě}."}}}
+{"id": "boil.verb.1", "texts": {"cs": {"words": "vařit; uvařit", "note": "vodu", "sentence": "Nejdřív {uvař} vodu."}}}
+{"id": "bollocks.noun.2", "texts": {"cs": {"words": "koule", "note": "britsky; varlata", "sentence": "Dostal kopanec do {koulí}."}}}
+{"id": "bolt.noun.3", "texts": {"cs": {"words": "blesk", "note": "bolt of lightning", "sentence": "Do stromu udeřil {blesk}."}}}
+{"id": "bolt.verb.3", "texts": {"cs": {"words": "sedět jako přibitý", "note": "bolt upright", "sentence": "Posadil se v posteli {rovně jako svíčka}."}}}
+{"id": "bomb.verb.2", "texts": {"cs": {"words": "propadnout", "note": "hovorově; úplně", "sentence": "Jeho nový film úplně {propadl}."}}}
+{"id": "bombard.verb.1", "texts": {"cs": {"words": "zahrnout; bombardovat", "note": "otázkami", "sentence": "Děti mě {zasypaly} otázkami."}}}
+{"id": "bomber.noun.2", "texts": {"cs": {"words": "bunda bomber", "note": "bomber jacket", "sentence": "Ta tvoje {bunda} je super."}}}
+{"id": "boo.interjection.2", "texts": {"cs": {"words": "bú", "note": "nesouhlas", "sentence": "{Bú}! Slez z pódia!"}}}
+{"id": "booger.noun.1", "texts": {"cs": {"words": "holub; bubák", "note": "z nosu", "sentence": "Neutírej {holuby} o gauč!"}}}
+{"id": "bookcase.noun.1", "texts": {"cs": {"words": "knihovna", "note": "nábytek", "sentence": "Potřebujeme větší {knihovnu}."}}}
+{"id": "boost.noun.2", "texts": {"cs": {"words": "zvednout", "note": "pomoc nahoru; give someone a boost", "sentence": "{Pomoz mi} přes plot."}}}
+{"id": "booster.noun.1", "texts": {"cs": {"words": "posilující dávka", "note": "booster shot; očkování", "sentence": "Včera jsem dostal {posilující dávku}."}}}
+{"id": "booster.noun.2", "texts": {"cs": {"words": "dětská podložka do auta", "note": "booster seat", "sentence": "Pořád potřebuje {podsedák} do auta."}}}
+{"id": "boot up.phrasal_verb.1", "texts": {"cs": {"words": "nabootovat; spustit", "note": "počítač", "sentence": "Počkej, až notebook {naběhne}."}}}
+{"id": "booth.noun.2", "texts": {"cs": {"words": "box", "note": "restaurace", "sentence": "Můžeme si sednout do {boxu}?"}}}
+{"id": "bothered.adjective.1", "texts": {"cs": {"words": "nechce se mi", "note": "can't be bothered", "sentence": "Dneska {se mi nechce} vařit."}}}
+{"id": "bothered.adjective.2", "texts": {"cs": {"words": "mít problém; vadit", "note": "s něčím", "sentence": "Ty peníze mi {nevadí}."}}}
+{"id": "bottomless.adjective.2", "texts": {"cs": {"words": "bezedný", "note": "žaludek", "sentence": "Můj syn je {bezedná} jáma."}}}
+{"id": "bound.adjective.1", "texts": {"cs": {"words": "určitě", "note": "bound to; určitě se stane", "sentence": "Dřív nebo později se to {určitě} stane."}}}
+{"id": "bound.adjective.2", "texts": {"cs": {"words": "směřující", "note": "bound for; směřující do", "sentence": "Tento vlak {jede} do Londýna."}}}
+{"id": "boundary.noun.2", "texts": {"cs": {"words": "hranice", "note": "pozemku", "sentence": "Řeka tvoří {hranici}."}}}
+{"id": "bounty.noun.1", "texts": {"cs": {"words": "odměna", "note": "za dopadení", "sentence": "Na jeho hlavu je vypsaná {odměna}."}}}
+{"id": "bow.verb.2", "texts": {"cs": {"words": "sklonit hlavu; sklonit", "note": "", "sentence": "{Sklonila} hlavu."}}}
+{"id": "box office.noun.1", "texts": {"cs": {"words": "pokladna", "note": "divadlo, kino", "sentence": "Lístky si vyzvedněte v {pokladně}."}}}
+{"id": "boxer.noun.2", "texts": {"cs": {"words": "trenýrky", "note": "boxers", "sentence": "Chodil po bytě v {trenýrkách}."}}}
+{"id": "brace.verb.1", "texts": {"cs": {"words": "připravit se", "note": "brace yourself; připravit se na něco", "sentence": "{Připrav se}, mám špatné zprávy."}}}
+{"id": "break off.phrasal_verb.2", "texts": {"cs": {"words": "ulomit se; ulomit", "note": "", "sentence": "Od stolu se {ulomil} kus."}}}
+{"id": "breakdown.noun.1", "texts": {"cs": {"words": "zhroucení; nervové zhroucení", "note": "nervous breakdown", "sentence": "Měla nervové {zhroucení}."}}}
+{"id": "breakdown.noun.2", "texts": {"cs": {"words": "porucha", "note": "auto", "sentence": "Na dálnici jsme měli {poruchu}."}}}
+{"id": "breast.noun.2", "texts": {"cs": {"words": "prsa", "note": "jídlo; maso", "sentence": "Dám si kuřecí {prsa}."}}}
+{"id": "breed.noun.2", "texts": {"cs": {"words": "druh; typ", "note": "člověka", "sentence": "Je to vzácný {druh} člověka."}}}
+{"id": "brew.verb.1", "texts": {"cs": {"words": "uvařit; vařit", "note": "čaj, káva; pivo", "sentence": "{Uvařím} čerstvou kávu."}}}
+{"id": "bribe.verb.2", "texts": {"cs": {"words": "uplatit", "note": "v legraci", "sentence": "{Uplatila} jsem děti zmrzlinou."}}}
+{"id": "brief.adjective.2", "texts": {"cs": {"words": "krátký", "note": "čas", "sentence": "Měli jsme {krátký} rozhovor."}}}
+{"id": "bring out.phrasal_verb.2", "texts": {"cs": {"words": "vyzdvihnout; vytáhnout", "note": "vlastnost; z někoho", "sentence": "{Probouzíš} ve mně to nejlepší."}}}
+{"id": "bring up.phrasal_verb.1", "texts": {"cs": {"words": "zmínit; vytáhnout", "note": "téma", "sentence": "Proč jsi to {vytáhl}?"}}}
+{"id": "broad.adjective.2", "texts": {"cs": {"words": "za bílého dne", "note": "in broad daylight", "sentence": "Vykradli obchod {za bílého dne}."}}}
+{"id": "broadly.adverb.2", "texts": {"cs": {"words": "široce", "note": "úsměv", "sentence": "{Široce} se usmál."}}}
+{"id": "brownie.noun.2", "texts": {"cs": {"words": "plusové body", "note": "brownie points", "sentence": "Za to si u ní {šplhneš}."}}}
+{"id": "browse.verb.2", "texts": {"cs": {"words": "procházet; brouzdat", "note": "internetem", "sentence": "Celou noc jsem {brouzdal} po internetu."}}}
+{"id": "brush.verb.1", "texts": {"cs": {"words": "čistit", "note": "zuby; kartáčkem", "sentence": "Běž si {vyčistit} zuby."}}}
+{"id": "bubblegum.noun.1", "texts": {"cs": {"words": "žvýkačka", "note": "bublinová", "sentence": "Mám na botě {žvýkačku}!"}}}
+{"id": "bucket list.noun.1", "texts": {"cs": {"words": "seznam přání", "note": "než umřu", "sentence": "Seskok padákem mám na {seznamu věcí, které chci zažít}."}}}
+{"id": "buckle up.phrasal_verb.2", "texts": {"cs": {"words": "připravit se", "note": "hovorově; připravit se na to", "sentence": "{Připrav se}, bude to dlouhá noc."}}}
+{"id": "budge.verb.1", "texts": {"cs": {"words": "pohnout se; hnout se; pohnout", "note": "", "sentence": "Dveře se ani {nehnou}."}}}
+{"id": "bulk.noun.1", "texts": {"cs": {"words": "ve velkém", "note": "in bulk", "sentence": "Je levnější nakupovat {ve velkém}."}}}
+{"id": "bulletin.noun.2", "texts": {"cs": {"words": "nástěnka", "note": "bulletin board", "sentence": "Je to na {nástěnce}."}}}
+{"id": "bump into.phrasal_verb.1", "texts": {"cs": {"words": "potkat; narazit na", "note": "náhodou", "sentence": "Včera jsem náhodou {potkal} tvoji sestru."}}}
+{"id": "bundle.noun.2", "texts": {"cs": {"words": "uzlíček nervů; balík peněz; uzlíček", "note": "bundle of nerves", "sentence": "Dneska jsem {uzlíček} nervů."}}}
+{"id": "butterfly.noun.2", "texts": {"cs": {"words": "motýlci v břiše; motýlci", "note": "nervozita", "sentence": "Mám v břiše {motýlky}."}}}
+{"id": "button.verb.1", "texts": {"cs": {"words": "zapnout", "note": "button up; na knoflíky", "sentence": "{Zapni} si kabát, je zima."}}}
+{"id": "buy into.phrasal_verb.1", "texts": {"cs": {"words": "skočit na; věřit", "note": "věřit čemu", "sentence": "Na všechny ty diety {neskočím}."}}}
+{"id": "buzz.noun.3", "texts": {"cs": {"words": "zavolat", "note": "give someone a buzz", "sentence": "{Cinkni mi}, až budeš mít čas."}}}
+{"id": "buzz.verb.2", "texts": {"cs": {"words": "pustit dovnitř", "note": "buzz in; bzučákem", "sentence": "Můžeš mi {otevřít}?"}}}
+{"id": "by.adverb.2", "texts": {"cs": {"words": "stavit se", "note": "stop by, come by", "sentence": "Po práci se {stavím}."}}}
+{"id": "by.adverb.3", "texts": {"cs": {"words": "uběhnout", "note": "go by; o čase", "sentence": "Čas tak rychle {letí}."}}}
+{"id": "call it a day.phrase.1", "texts": {"cs": {"words": "skončit; zabalit to", "note": "pro dnešek", "sentence": "Jsem unavený. Pro dnešek {to zabalíme}."}}}
+{"id": "call out.phrasal_verb.2", "texts": {"cs": {"words": "upozornit; vytknout", "note": "call someone out; veřejně", "sentence": "Veřejně mu {vytkla}, že lže."}}}
+{"id": "call up.phrasal_verb.1", "texts": {"cs": {"words": "zavolat; brnknout", "note": "telefon; zavolat komu", "sentence": "Zítra jí {zavolám}."}}}
+{"id": "campus.noun.1", "texts": {"cs": {"words": "kampus; areál", "note": "univerzity", "sentence": "Bydlíš na {kampusu}?"}}}
+{"id": "capital.adjective.1", "texts": {"cs": {"words": "velký", "note": "písmeno", "sentence": "Začíná {velkým} písmenem."}}}
+{"id": "carve.verb.2", "texts": {"cs": {"words": "nakrájet", "note": "maso", "sentence": "Krocana vždycky {krájí} táta."}}}
+{"id": "cash in.phrasal_verb.1", "texts": {"cs": {"words": "vydělat na; zpeněžit", "note": "", "sentence": "Chtějí {vydělat} na jeho slávě."}}}
+{"id": "cast.verb.1", "texts": {"cs": {"words": "obsadit", "note": "film; roli", "sentence": "{Obsadili} ho do role padoucha."}}}
+{"id": "cast.verb.2", "texts": {"cs": {"words": "seslat", "note": "cast a spell; kouzlo", "sentence": "Čarodějnice na něj {seslala} kouzlo."}}}
+{"id": "catch.verb.3", "texts": {"cs": {"words": "chytit", "note": "nemoc", "sentence": "Asi jsem {chytil} rýmu."}}}
+{"id": "catwalk.noun.1", "texts": {"cs": {"words": "molo", "note": "módní přehlídka", "sentence": "Předváděla na {mole} v Paříži."}}}
+{"id": "cavity.noun.1", "texts": {"cs": {"words": "kaz; dutina", "note": "kaz v zubu", "sentence": "Zubař našel dva {kazy}."}}}
+{"id": "certificate.noun.2", "texts": {"cs": {"words": "list", "note": "birth certificate; rodný, oddací list", "sentence": "Potřebuju kopii rodného {listu}."}}}
+{"id": "change.noun.2", "texts": {"cs": {"words": "drobné; zpátky", "note": "peníze", "sentence": "{Drobné} si nechte."}}}
+{"id": "chart.noun.3", "texts": {"cs": {"words": "karta", "note": "v nemocnici; karta pacienta", "sentence": "Sestra se podívala do jeho {karty}."}}}
+{"id": "check-up.noun.1", "texts": {"cs": {"words": "prohlídka", "note": "u lékaře", "sentence": "Jdu k zubaři na {prohlídku}."}}}
+{"id": "check.verb.2", "texts": {"cs": {"words": "podívat se", "note": "check out, hovorově; podívat se na něco", "sentence": "{Mrkni} na tohle!"}}}
+{"id": "chill.noun.2", "texts": {"cs": {"words": "mrazení", "note": "mrazení v zádech", "sentence": "Z toho příběhu mě {mrazilo}."}}}
+{"id": "choose.verb.1", "texts": {"cs": {"words": "vybrat si; vybrat; zvolit", "note": "", "sentence": "{Vyber} si jeden."}}}
+{"id": "chopsticks.noun.1", "texts": {"cs": {"words": "hůlky", "note": "na jídlo", "sentence": "Umíš jíst {hůlkami}?"}}}
+{"id": "chuck.verb.2", "texts": {"cs": {"words": "vyhodit; nechat", "note": "hovorově; nechat koho", "sentence": "Minulý týden {dala kopačky} svému klukovi."}}}
+{"id": "claim.noun.2", "texts": {"cs": {"words": "nárok; žádost", "note": "pojišťovna; žádost o náhradu", "sentence": "Podal jsem u pojišťovny {žádost} o plnění."}}}
+{"id": "clap.noun.2", "texts": {"cs": {"words": "úder; rána", "note": "rána hromu", "sentence": "Ozvalo se hlasité {zahřmění}."}}}
+{"id": "classical.adjective.1", "texts": {"cs": {"words": "klasický; vážný", "note": "vážná hudba", "sentence": "Když se učím, poslouchám {vážnou} hudbu."}}}
+{"id": "clear.verb.2", "texts": {"cs": {"words": "očistit", "note": "zbavit viny; jméno", "sentence": "Chci jen {očistit} své jméno."}}}
+{"id": "clingy.adjective.1", "texts": {"cs": {"words": "přilnavý; vlezlý; lepivý", "note": "hovorově; ve vztahu", "sentence": "Můj bývalý byl hrozně {vlezlý}."}}}
+{"id": "clock in.phrasal_verb.1", "texts": {"cs": {"words": "píchnout; nastoupit do práce", "note": "píchnout příchod", "sentence": "Každé ráno {píchám} v osm."}}}
+{"id": "close down.phrasal_verb.1", "texts": {"cs": {"words": "zavřít; zrušit", "note": "podnik", "sentence": "Můj oblíbený bar {zavřeli}."}}}
+{"id": "co-worker.noun.1", "texts": {"cs": {"words": "kolega; kolegyně", "note": "v práci", "sentence": "Dneska jdu ven s {kolegy}."}}}
+{"id": "combination.noun.2", "texts": {"cs": {"words": "kód; kombinace", "note": "zámku", "sentence": "Jaká je {kombinace} k trezoru?"}}}
+{"id": "come down with.phrasal_verb.1", "texts": {"cs": {"words": "onemocnět; chytit", "note": "nemoc", "sentence": "Myslím, že na mě {leze} rýma."}}}
+{"id": "come out.phrasal_verb.3", "texts": {"cs": {"words": "přiznat se", "note": "k orientaci", "sentence": "{Přiznal se} rodičům, že je gay."}}}
+{"id": "come to.phrasal_verb.1", "texts": {"cs": {"words": "činit; dělat", "note": "účet; celkem", "sentence": "To {dělá} padesát liber."}}}
+{"id": "commute.verb.1", "texts": {"cs": {"words": "dojíždět", "note": "do práce", "sentence": "Každý den {dojíždím} do Londýna."}}}
+{"id": "condo.noun.1", "texts": {"cs": {"words": "byt", "note": "americky; v osobním vlastnictví", "sentence": "Koupili si {byt} v centru."}}}
+{"id": "conflict.noun.2", "texts": {"cs": {"words": "střet", "note": "zájmů, termínů", "sentence": "V rozvrhu se mi to {kryje}."}}}
+{"id": "content.noun.2", "texts": {"cs": {"words": "obsah", "note": "contents; balíčku", "sentence": "Vysypal {obsah} své tašky."}}}
+{"id": "convert.verb.2", "texts": {"cs": {"words": "konvertovat; přestoupit", "note": "na víru", "sentence": "{Konvertoval} k islámu."}}}
+{"id": "core.noun.2", "texts": {"cs": {"words": "podstata; jádro", "note": "jádro věci", "sentence": "{V jádru} je to dobrý člověk."}}}
+{"id": "corrupt.adjective.2", "texts": {"cs": {"words": "poškozený", "note": "počítač; soubor", "sentence": "Soubor je {poškozený}."}}}
+{"id": "counsellor.noun.2", "texts": {"cs": {"words": "vedoucí", "note": "americky; na táboře", "sentence": "Loni v létě dělala {vedoucí} na táboře."}}}
+{"id": "cover for.phrasal_verb.1", "texts": {"cs": {"words": "krýt", "note": "lhát za někoho", "sentence": "Můžeš mě {krýt}, kdyby se máma ptala?"}}}
+{"id": "cover.verb.2", "texts": {"cs": {"words": "krýt; zaskočit", "note": "cover for; krýt koho", "sentence": "Můžeš za mě zítra {zaskočit}?"}}}
+{"id": "coverage.noun.2", "texts": {"cs": {"words": "krytí", "note": "pojištění", "sentence": "Máš na tohle {krytí} v pojistce?"}}}
+{"id": "cringe.verb.1", "texts": {"cs": {"words": "ošívat se; stydět se", "note": "stydět se za něco", "sentence": "{Ošívám se}, když vidím svoje staré fotky."}}}
+{"id": "crossroads.noun.2", "texts": {"cs": {"words": "rozcestí", "note": "v životě", "sentence": "Jsem v životě na {rozcestí}."}}}
+{"id": "crush.verb.2", "texts": {"cs": {"words": "zdrtit", "note": "psychicky", "sentence": "Ta zpráva ho {zdrtila}."}}}
+{"id": "cub.noun.1", "texts": {"cs": {"words": "mládě", "note": "lev, medvěd; šelmy", "sentence": "Medvědice má dvě {mláďata}."}}}
+{"id": "cuisine.noun.1", "texts": {"cs": {"words": "kuchyně", "note": "jídlo; národní", "sentence": "Miluju italskou {kuchyni}."}}}
+{"id": "curve.noun.2", "texts": {"cs": {"words": "křivky", "note": "postavy", "sentence": "Je hrdá na své {křivky}."}}}
+{"id": "custody.noun.1", "texts": {"cs": {"words": "péče", "note": "po rozvodu; péče o dítě", "sentence": "Dostala děti do {péče}."}}}
+{"id": "damn.noun.1", "texts": {"cs": {"words": "je mi to fuk; fuk; ani za mák", "note": "not give a damn", "sentence": "Je mi úplně {fuk}, co si myslí."}}}
+{"id": "dare.verb.2", "texts": {"cs": {"words": "vyzvat", "note": "I dare you; vyzvat k něčemu", "sentence": "{Vsadím se}, že neskočíš do jezera."}}}
+{"id": "date.verb.1", "texts": {"cs": {"words": "chodit", "note": "chodit s kým", "sentence": "{Chodíš} s někým?"}}}
+{"id": "daydream.verb.1", "texts": {"cs": {"words": "snít; zasnít se", "note": "s otevřenýma očima", "sentence": "Přestaň {snít} a poslouchej."}}}
+{"id": "dead end.noun.2", "texts": {"cs": {"words": "slepá ulička", "note": "práce; bez budoucnosti", "sentence": "Tahle práce je {slepá ulička}."}}}
+{"id": "deck.noun.2", "texts": {"cs": {"words": "balíček", "note": "karty", "sentence": "Zamíchej {balíček}."}}}
+{"id": "decline.verb.1", "texts": {"cs": {"words": "odmítnout", "note": "zdvořile", "sentence": "{Odmítla} pozvání."}}}
+{"id": "definition.noun.2", "texts": {"cs": {"words": "přesně to", "note": "the definition of; pravý příklad", "sentence": "Je {ztělesněním} gentlemana."}}}
+{"id": "denial.noun.1", "texts": {"cs": {"words": "popírání", "note": "in denial; skutečnosti", "sentence": "Pořád to {popírá}."}}}
+{"id": "deposit.verb.1", "texts": {"cs": {"words": "uložit; vložit", "note": "peníze", "sentence": "Ráno jsem {uložil} šek na účet."}}}
+{"id": "destination.noun.1", "texts": {"cs": {"words": "cíl", "note": "cesty", "sentence": "Dorazili jsme do {cíle}."}}}
+{"id": "detention.noun.1", "texts": {"cs": {"words": "po škole", "note": "škola; trest", "sentence": "Za pozdní příchod jsem musel {zůstat po škole}."}}}
+{"id": "develop.verb.1", "texts": {"cs": {"words": "rozvíjet se; vyvíjet se; rozvíjet", "note": "", "sentence": "Město se hodně {rozvinulo}."}}}
+{"id": "devil.noun.2", "texts": {"cs": {"words": "my o vlku a vlk za humny", "note": "speak of the devil", "sentence": "My o vlku a vlk za dveřmi! Ahoj, Tome."}}}
+{"id": "devote.verb.1", "texts": {"cs": {"words": "věnovat", "note": "čas, život", "sentence": "{Zasvětila} život hudbě."}}}
+{"id": "dial.noun.1", "texts": {"cs": {"words": "ciferník; knoflík", "note": "otočný", "sentence": "Otoč {knoflíkem} doleva."}}}
+{"id": "dial.verb.1", "texts": {"cs": {"words": "vytočit", "note": "číslo", "sentence": "{Vytočil} jsem špatné číslo."}}}
+{"id": "dice.noun.1", "texts": {"cs": {"words": "kostka; kostky", "note": "hrací", "sentence": "Jsi na řadě s {kostkou}."}}}
+{"id": "die.verb.2", "texts": {"cs": {"words": "umírat", "note": "dying to, hovorově; touhou", "sentence": "{Umírám} touhou to vidět."}}}
+{"id": "dig up.phrasal_verb.2", "texts": {"cs": {"words": "vyhrabat; vyšťárat", "note": "informace", "sentence": "Zjisti, co na něj můžeš {vyhrabat}."}}}
+{"id": "dim.adjective.1", "texts": {"cs": {"words": "tlumený; slabý", "note": "světlo", "sentence": "Světlo je tady moc {slabé}."}}}
+{"id": "dime.noun.1", "texts": {"cs": {"words": "desetník", "note": "AmE; 10 centů", "sentence": "Nemám ani {floka}."}}}
+{"id": "dip.noun.1", "texts": {"cs": {"words": "omáčka; dip", "note": "jídlo; na namáčení", "sentence": "Tyhle chipsy jsou skvělé s {dipem}."}}}
+{"id": "disguise.verb.1", "texts": {"cs": {"words": "přestrojit se; zamaskovat", "note": "", "sentence": "Byl {převlečený} za číšníka."}}}
+{"id": "dish out.phrasal_verb.1", "texts": {"cs": {"words": "rozdávat", "note": "hovorově; rady, kritiku", "sentence": "{Rozdávat} umíš, ale snést to neumíš."}}}
+{"id": "dishwasher.noun.1", "texts": {"cs": {"words": "myčka; myčka nádobí", "note": "", "sentence": "Můžeš vyndat nádobí z {myčky}?"}}}
+{"id": "disorder.noun.1", "texts": {"cs": {"words": "porucha", "note": "zdravotní", "sentence": "Má {poruchu} příjmu potravy."}}}
+{"id": "ditch.verb.2", "texts": {"cs": {"words": "nechat; pláchnout", "note": "nechat někoho; pláchnout ze školy", "sentence": "Na večírku mě {nechal} samotnou."}}}
+{"id": "dive.verb.1", "texts": {"cs": {"words": "skočit; potápět se", "note": "do vody", "sentence": "{Skočil} do bazénu."}}}
+{"id": "documentary.noun.1", "texts": {"cs": {"words": "dokument", "note": "film", "sentence": "Dívali jsme se na {dokument} o velrybách."}}}
+{"id": "done.adjective.2", "texts": {"cs": {"words": "skončit; mít dost", "note": "done with; skončit s něčím", "sentence": "S tebou jsem {skončila}!"}}}
+{"id": "doorbell.noun.1", "texts": {"cs": {"words": "zvonek", "note": "u dveří", "sentence": "Zazvonil {zvonek}."}}}
+{"id": "doorstep.noun.1", "texts": {"cs": {"words": "práh", "note": "dveří", "sentence": "Na {prahu} leží balík."}}}
+{"id": "doorway.noun.1", "texts": {"cs": {"words": "vchod; dveře", "note": "otvor", "sentence": "Stála ve {dveřích}."}}}
+{"id": "double.noun.2", "texts": {"cs": {"words": "dvojitý", "note": "pití; panák", "sentence": "Dejte mi {dvojitou}."}}}
+{"id": "double.verb.1", "texts": {"cs": {"words": "zdvojnásobit se; zdvojnásobit", "note": "", "sentence": "Cena se {zdvojnásobila}."}}}
+{"id": "drag.noun.2", "texts": {"cs": {"words": "v ženských šatech", "note": "in drag; travesti", "sentence": "Vystupuje {v ženském převleku}."}}}
+{"id": "drag.verb.2", "texts": {"cs": {"words": "vytáhnout", "note": "proti vůli; někoho někam", "sentence": "{Vytáhla} mě na tu párty."}}}
+{"id": "dress up.phrasal_verb.2", "texts": {"cs": {"words": "převléknout se", "note": "kostým; převléknout se za", "sentence": "{Převlékla se} za čarodějnici."}}}
+{"id": "drive off.phrasal_verb.1", "texts": {"cs": {"words": "odjet", "note": "autem", "sentence": "Nasedla do auta a {odjela}."}}}
+{"id": "drive-through.noun.1", "texts": {"cs": {"words": "výdejní okénko; drive-in", "note": "pro auta", "sentence": "Zajedeme prostě k {okénku} pro auta."}}}
+{"id": "drop out.phrasal_verb.1", "texts": {"cs": {"words": "nedokončit; odejít", "note": "ze školy", "sentence": "{Nedokončil} vysokou."}}}
+{"id": "drop.verb.2", "texts": {"cs": {"words": "vysadit; hodit", "note": "drop off; hodit koho kam", "sentence": "Můžeš mě tady {vysadit}?"}}}
+{"id": "dumpling.noun.1", "texts": {"cs": {"words": "knedlík; taštička", "note": "plněná", "sentence": "Tyhle {knedlíčky} jsou výborné."}}}
+{"id": "dumpster.noun.1", "texts": {"cs": {"words": "kontejner", "note": "AmE; na odpad", "sentence": "Hoď to do {kontejneru}."}}}
+{"id": "dustpan.noun.1", "texts": {"cs": {"words": "lopatka", "note": "na smetí", "sentence": "Podej mi {lopatku}."}}}
+{"id": "each.pronoun.1", "texts": {"cs": {"words": "každý", "note": "each of; každý z", "sentence": "{Každý} z nás dostal dárek."}}}
+{"id": "eat up.phrasal_verb.1", "texts": {"cs": {"words": "sníst; dojíst", "note": "všechno", "sentence": "{Dojez} zeleninu."}}}
+{"id": "educated.adjective.2", "texts": {"cs": {"words": "kvalifikovaný", "note": "educated guess; odhad", "sentence": "Je to jen {kvalifikovaný} odhad."}}}
+{"id": "either.conjunction.1", "texts": {"cs": {"words": "buď", "note": "either … or; buď … nebo", "sentence": "{Buď} zůstaneš, nebo odejdeš."}, "es": {"words": "o", "note": "o … o", "sentence": "{O} te quedas o te vas."}}}
+{"id": "either.determiner.1", "texts": {"cs": {"words": "kterýkoli", "note": "z obou", "sentence": "Můžeš si vzít {kterýkoli}."}}}
+{"id": "either.determiner.2", "texts": {"cs": {"words": "ani jeden", "note": "v záporu; z obou", "sentence": "Neznám {ani jednoho} z nich."}}}
+{"id": "either.pronoun.1", "texts": {"cs": {"words": "kterýkoli; jeden nebo druhý", "note": "z obou", "sentence": "Čaj, nebo kafe? – {Cokoli} z toho."}}}
+{"id": "either.pronoun.2", "texts": {"cs": {"words": "ani jeden", "note": "v záporu; z obou", "sentence": "Nemám rád {ani jednoho} z nich."}}}
+{"id": "elder.adjective.1", "texts": {"cs": {"words": "starší", "note": "sourozenec", "sentence": "Můj {starší} bratr žije v zahraničí."}}}
+{"id": "eldest.adjective.1", "texts": {"cs": {"words": "nejstarší", "note": "v rodině", "sentence": "Je to naše {nejstarší} dcera."}}}
+{"id": "elementary.adjective.1", "texts": {"cs": {"words": "základní", "note": "AmE; škola", "sentence": "Můj syn chodí na {základní} školu."}}}
+{"id": "eligible.adjective.2", "texts": {"cs": {"words": "vhodný", "note": "eligible bachelor; k sňatku", "sentence": "Je to nejlepší {partie} ve městě."}}}
+{"id": "embrace.verb.2", "texts": {"cs": {"words": "přijmout za své; přijmout", "note": "", "sentence": "Prostě tu změnu {přijmi}."}}}
+{"id": "en suite.noun.1", "texts": {"cs": {"words": "vlastní koupelna", "note": "britsky; u pokoje", "sentence": "Ložnice má {vlastní koupelnu}."}}}
+{"id": "end up.phrasal_verb.1", "texts": {"cs": {"words": "skončit", "note": "někde", "sentence": "{Skončili jsme} v baru."}}}
+{"id": "end up.phrasal_verb.2", "texts": {"cs": {"words": "nakonec", "note": "něco udělat", "sentence": "{Nakonec} jsem zůstala doma."}}}
+{"id": "endangered.adjective.1", "texts": {"cs": {"words": "ohrožený", "note": "vyhynutím", "sentence": "Pandy jsou {ohrožený} druh."}}}
+{"id": "enforce.verb.1", "texts": {"cs": {"words": "prosazovat; vymáhat", "note": "pravidla", "sentence": "Pravidla se moc {nevymáhají}."}}}
+{"id": "enforcement.noun.1", "texts": {"cs": {"words": "vymáhání; policie", "note": "law enforcement", "sentence": "Pracuje u {policie}."}}}
+{"id": "engage.verb.1", "texts": {"cs": {"words": "zapojit se; zapojit; zaujmout", "note": "", "sentence": "Snažte se studenty {zaujmout}."}}}
+{"id": "enlist.verb.1", "texts": {"cs": {"words": "narukovat; přihlásit se", "note": "do armády", "sentence": "{Narukoval} v osmnácti."}}}
+{"id": "enlist.verb.2", "texts": {"cs": {"words": "získat", "note": "pomoc", "sentence": "{Získal} jsem bratrovu pomoc."}}}
+{"id": "entitled.adjective.2", "texts": {"cs": {"words": "rozmazlený; namyšlený", "note": "myslí si, že mu vše patří", "sentence": "Je tak {rozmazlený}."}}}
+{"id": "eraser.noun.1", "texts": {"cs": {"words": "guma", "note": "na gumování", "sentence": "Můžu si půjčit tvoji {gumu}?"}}}
+{"id": "evade.verb.2", "texts": {"cs": {"words": "krátit", "note": "daně", "sentence": "Byl obviněn z {krácení} daní."}}}
+{"id": "ever since.adverb.1", "texts": {"cs": {"words": "od té doby; odjakživa", "note": "", "sentence": "Seznámili jsme se ve škole a {od té doby} jsme přátelé."}}}
+{"id": "every other.determiner.1", "texts": {"cs": {"words": "ob; každý druhý", "note": "ob jeden", "sentence": "Chodím plavat {ob} den."}}}
+{"id": "evict.verb.1", "texts": {"cs": {"words": "vystěhovat; vyhodit", "note": "z bytu", "sentence": "Chtějí nás {vystěhovat}."}}}
+{"id": "eviction.noun.1", "texts": {"cs": {"words": "vystěhování", "note": "soudní", "sentence": "Dostali jsme výzvu k {vystěhování}."}}}
+{"id": "exchange.noun.3", "texts": {"cs": {"words": "kurz", "note": "exchange rate; měny", "sentence": "Jaký je dnes {kurz}?"}}}
+{"id": "exclusive.adjective.2", "texts": {"cs": {"words": "výhradní; jen spolu", "note": "vztah", "sentence": "Jsme teď {spolu jen my dva}?"}}}
+{"id": "exit.verb.2", "texts": {"cs": {"words": "zavřít; ukončit", "note": "počítač; program", "sentence": "{Ukonči} program a restartuj."}}}
+{"id": "expand.verb.1", "texts": {"cs": {"words": "rozšířit se; rozšířit; rozpínat se", "note": "", "sentence": "Chceme {rozšířit} podnikání."}}}
+{"id": "expense.noun.2", "texts": {"cs": {"words": "na úkor; na účet", "note": "at sb's expense; na úkor někoho", "sentence": "Přestaň si dělat legraci {na můj účet}."}}}
+{"id": "explicit.adjective.2", "texts": {"cs": {"words": "otevřený; lechtivý", "note": "obsah", "sentence": "Ten film má pár {odvážných} scén."}}}
+{"id": "expose.verb.2", "texts": {"cs": {"words": "vystavit", "note": "vystavit něčemu", "sentence": "{Nevystavuj} miminko slunci."}}}
+{"id": "exposure.noun.1", "texts": {"cs": {"words": "vystavení; expozice", "note": "vlivu", "sentence": "Přílišné {vystavení} slunci škodí."}}}
+{"id": "extension.noun.1", "texts": {"cs": {"words": "prodloužení", "note": "termínu", "sentence": "Požádal jsem o {prodloužení}."}}}
+{"id": "extension.noun.2", "texts": {"cs": {"words": "linka; telefonní linka", "note": "", "sentence": "Moje {linka} je 214."}}}
+{"id": "extract.verb.1", "texts": {"cs": {"words": "vytrhnout; vytáhnout; extrahovat", "note": "zub", "sentence": "Zubař mi {vytrhl} zub."}}}
+{"id": "eyelid.noun.1", "texts": {"cs": {"words": "víčko; oční víčko", "note": "", "sentence": "Pořád mi cuká {víčko}."}}}
+{"id": "face.verb.1", "texts": {"cs": {"words": "čelit; postavit se", "note": "postavit se čemu", "sentence": "Musíš {čelit} pravdě."}}}
+{"id": "face.verb.2", "texts": {"cs": {"words": "být obrácený k; být obrácený", "note": "směr", "sentence": "Náš pokoj {je obrácený} k moři."}}}
+{"id": "fall behind.phrasal_verb.2", "texts": {"cs": {"words": "být pozadu", "note": "se splátkami", "sentence": "{Jsme pozadu} s nájmem."}}}
+{"id": "fall for.phrasal_verb.2", "texts": {"cs": {"words": "naletět; naletět na", "note": "trik", "sentence": "Úplně na to {naletěl}!"}}}
+{"id": "fall off.phrasal_verb.1", "texts": {"cs": {"words": "spadnout", "note": "z něčeho", "sentence": "{Spadl} z kola."}}}
+{"id": "fancy.verb.2", "texts": {"cs": {"words": "líbit se", "note": "britsky, o člověku", "sentence": "Myslím, že se mu {líbíš}."}}}
+{"id": "feature.noun.2", "texts": {"cs": {"words": "rys", "note": "features; obličeje", "sentence": "Má {rysy} po matce."}}}
+{"id": "feature.verb.1", "texts": {"cs": {"words": "představovat; obsahovat; hrát", "note": "hrát v něčem", "sentence": "Ve filmu {hraje} slavný herec."}}}
+{"id": "feel like.phrase.1", "texts": {"cs": {"words": "mít chuť", "note": "na něco", "sentence": "{Nemám chuť} nikam jít."}}}
+{"id": "feminine.adjective.1", "texts": {"cs": {"words": "ženský; ženská", "note": "ženská podoba", "sentence": "Ty šaty jsou hodně {ženské}."}}}
+{"id": "fiddle.verb.1", "texts": {"cs": {"words": "hrát si; šťourat", "note": "fiddle with", "sentence": "Přestaň si {hrát} s telefonem."}}}
+{"id": "fight back.phrasal_verb.2", "texts": {"cs": {"words": "potlačit; zadržet", "note": "slzy", "sentence": "{Zadržovala} slzy."}}}
+{"id": "figure.verb.1", "texts": {"cs": {"words": "myslet si; počítat s tím", "note": "hovorově", "sentence": "{Myslel jsem si}, že budeš mít hlad."}}}
+{"id": "file.verb.1", "texts": {"cs": {"words": "podat", "note": "žádost, stížnost", "sentence": "{Podala} žádost o rozvod."}}}
+{"id": "fill in.phrasal_verb.2", "texts": {"cs": {"words": "zaskočit", "note": "fill in for; za někoho", "sentence": "Můžeš za mě zítra {zaskočit}?"}}}
+{"id": "flash.verb.2", "texts": {"cs": {"words": "ukázat; zamávat", "note": "rychle; zamávat něčím", "sentence": "{Ukázal} odznak."}}}
+{"id": "flip.noun.1", "texts": {"cs": {"words": "hod mincí; hod", "note": "", "sentence": "Rozhodneme to {hodem} mincí."}}}
+{"id": "flip.verb.1", "texts": {"cs": {"words": "hodit mincí; otočit", "note": "", "sentence": "{Hodíme} si mincí."}}}
+{"id": "float.verb.1", "texts": {"cs": {"words": "plavat; vznášet se", "note": "na hladině", "sentence": "Dřevo {plave} na vodě."}}}
+{"id": "fork out.phrasal_verb.1", "texts": {"cs": {"words": "vysolit", "note": "hovorově; peníze", "sentence": "Musel jsem {vysolit} 500 eur."}}}
+{"id": "form.verb.2", "texts": {"cs": {"words": "stoupnout si do řady", "note": "form a line", "sentence": "Prosím, {stoupněte si} do řady."}}}
+{"id": "forward.adverb.2", "texts": {"cs": {"words": "těšit se; těšit se na", "note": "look forward to", "sentence": "Moc se na to {těším}."}}}
+{"id": "frame.verb.1", "texts": {"cs": {"words": "hodit vinu na někoho; nastrčit", "note": "zločin", "sentence": "Já to neudělal, někdo mě {nastrčil}!"}}}
+{"id": "frankly.adverb.1", "texts": {"cs": {"words": "upřímně; upřímně řečeno", "note": "", "sentence": "{Upřímně} řečeno, je mi to jedno."}}}
+{"id": "fuck up.phrasal_verb.1", "texts": {"cs": {"words": "posrat to; zkazit", "note": "", "sentence": "Tentokrát jsem to fakt {posral}."}}}
+{"id": "fuck.interjection.2", "texts": {"cs": {"words": "sakra", "note": "what the fuck, velmi vulgární; zesílení", "sentence": "Co to {kurva} děláš?"}}}
+{"id": "fugitive.noun.1", "texts": {"cs": {"words": "uprchlík; uprchlý vězeň", "note": "", "sentence": "Teď je {na útěku}."}}}
+{"id": "game.adjective.1", "texts": {"cs": {"words": "pro; ochotný", "note": "hovorově; do toho jít", "sentence": "Zaplavat si? Jasně, jsem {pro}."}}}
+{"id": "gamer.noun.1", "texts": {"cs": {"words": "hráč; hráčka", "note": "počítačových her", "sentence": "Můj brácha je vášnivý {hráč}."}}}
+{"id": "gasp.verb.1", "texts": {"cs": {"words": "zalapat po dechu; vydechnout", "note": "údivem", "sentence": "Když vešla, všichni {zalapali po dechu}."}}}
+{"id": "gate.noun.2", "texts": {"cs": {"words": "východ; gate", "note": "letiště; k letadlu", "sentence": "Náš let odlétá z {východu} dvanáct."}}}
+{"id": "get across.phrasal_verb.1", "texts": {"cs": {"words": "vysvětlit; sdělit; dostat přes", "note": "myšlenku", "sentence": "Snažím se {vysvětlit}, co tím myslím."}}}
+{"id": "get ahead.phrasal_verb.2", "texts": {"cs": {"words": "předbíhat", "note": "get ahead of yourself; události", "sentence": "{Nepředbíhejme} událostem."}}}
+{"id": "get along.phrasal_verb.1", "texts": {"cs": {"words": "vycházet; vycházet spolu", "note": "", "sentence": "{Vycházíme} spolu fakt dobře."}}}
+{"id": "get around.phrasal_verb.1", "texts": {"cs": {"words": "pohybovat se; dostat se", "note": "po městě", "sentence": "Jak se bez auta {dostaneš} všude?"}}}
+{"id": "get around.phrasal_verb.2", "texts": {"cs": {"words": "obejít", "note": "pravidlo", "sentence": "Dá se to {obejít}."}}}
+{"id": "get at.phrasal_verb.1", "texts": {"cs": {"words": "narážet; chtít říct", "note": "what are you getting at?; narážet na něco", "sentence": "Na co {narážíš}?"}}}
+{"id": "get away with.phrasal_verb.1", "texts": {"cs": {"words": "projít; vyváznout bez trestu", "note": "projít komu něco", "sentence": "Tohle ti {neprojde}!"}}}
+{"id": "get down.phrasal_verb.1", "texts": {"cs": {"words": "slézt; lehnout si", "note": "k zemi", "sentence": "{K zemi}! Hned!"}}}
+{"id": "get into.phrasal_verb.1", "texts": {"cs": {"words": "dostat se; být přijat", "note": "do školy", "sentence": "{Dostala se} na Harvard."}}}
+{"id": "get into.phrasal_verb.2", "texts": {"cs": {"words": "začít se zajímat; chytnout", "note": "koníček", "sentence": "Loni jsem {propadla} józe."}}}
+{"id": "get off.phrasal_verb.2", "texts": {"cs": {"words": "pustit; slézt", "note": "slézt z", "sentence": "{Pusť} mě!"}}}
+{"id": "get on.phrasal_verb.2", "texts": {"cs": {"words": "vycházet", "note": "britsky; s někým", "sentence": "{Vycházíš} se sestrou?"}}}
+{"id": "get to.phrasal_verb.1", "texts": {"cs": {"words": "dostat se", "note": "někam", "sentence": "Jak se {dostanu} na nádraží?"}}}
+{"id": "get to.phrasal_verb.3", "texts": {"cs": {"words": "lézt na nervy; vzít", "note": "get to sb", "sentence": "Nenech se jím {rozhodit}."}}}
+{"id": "gift wrap.noun.1", "texts": {"cs": {"words": "balicí papír", "note": "na dárky", "sentence": "Potřebujete {balicí papír}?"}}}
+{"id": "give up.phrasal_verb.1", "texts": {"cs": {"words": "vzdát to; vzdát se; vzdát", "note": "", "sentence": "{Nevzdávej} to!"}}}
+{"id": "give up.phrasal_verb.2", "texts": {"cs": {"words": "přestat", "note": "zlozvyk; přestat s", "sentence": "Loni jsem {přestal} kouřit."}}}
+{"id": "glance.verb.1", "texts": {"cs": {"words": "pohlédnout; mrknout", "note": "na něco", "sentence": "{Mrkla} na hodinky."}}}
+{"id": "glow.verb.2", "texts": {"cs": {"words": "zářit", "note": "štěstím", "sentence": "Ty {záříš}! Nejsi těhotná?"}}}
+{"id": "go after.phrasal_verb.1", "texts": {"cs": {"words": "běžet za; jít po", "note": "po někom", "sentence": "Mám {jít za} ní?"}}}
+{"id": "go after.phrasal_verb.2", "texts": {"cs": {"words": "jít si za něčím; usilovat", "note": "", "sentence": "{Jdi si} za tím, co chceš."}}}
+{"id": "go by.phrasal_verb.2", "texts": {"cs": {"words": "říkat si", "note": "go by a name; jménem", "sentence": "{Říká si} Mike."}}}
+{"id": "go out.phrasal_verb.2", "texts": {"cs": {"words": "chodit", "note": "vztah; s někým", "sentence": "Chceš se mnou {chodit}?"}}}
+{"id": "go over.phrasal_verb.1", "texts": {"cs": {"words": "projít si; probrat; projít", "note": "", "sentence": "Pojďme ještě jednou {projít} plán."}}}
+{"id": "go over.phrasal_verb.2", "texts": {"cs": {"words": "zajít", "note": "k někomu", "sentence": "Později k ní {zajdu}."}}}
+{"id": "go through.phrasal_verb.2", "texts": {"cs": {"words": "procházet; prožívat", "note": "těžké období; procházet něčím", "sentence": "{Prochází} těžkým obdobím."}}}
+{"id": "go with.phrasal_verb.1", "texts": {"cs": {"words": "hodit se", "note": "k něčemu", "sentence": "{Hodí se} tahle kravata ke košili?"}}}
+{"id": "goggles.noun.1", "texts": {"cs": {"words": "brýle", "note": "plavecké, lyžařské", "sentence": "Nezapomeň si plavecké {brýle}."}}}
+{"id": "going to.phrase.2", "texts": {"cs": {"words": "bude", "note": "předpověď; určitě", "sentence": "{Bude} pršet."}}}
+{"id": "goner.noun.1", "texts": {"cs": {"words": "ztracený případ; konec", "note": "hovorově; konec s někým", "sentence": "Jestli to máma uvidí, {je se mnou konec}."}}}
+{"id": "gooseberry.noun.2", "texts": {"cs": {"words": "křen", "note": "britsky hovorově, play gooseberry; třetí navíc", "sentence": "Nechci vám na rande dělat {křena}."}}}
+{"id": "grant.verb.1", "texts": {"cs": {"words": "udělit; splnit", "note": "přání", "sentence": "{Splním} ti tři přání."}}}
+{"id": "grind.verb.2", "texts": {"cs": {"words": "skřípat; skřípat zuby", "note": "", "sentence": "V noci {skřípeš} zuby."}}}
+{"id": "groupie.noun.1", "texts": {"cs": {"words": "fanynka", "note": "kapely", "sentence": "Kapelu obklopovaly {fanynky}."}}}
+{"id": "hack.verb.1", "texts": {"cs": {"words": "hacknout; nabourat se", "note": "do počítače", "sentence": "Někdo mi {hacknul} účet."}}}
+{"id": "half-brother.noun.1", "texts": {"cs": {"words": "nevlastní bratr", "note": "jeden společný rodič", "sentence": "Je to můj {nevlastní bratr} — máme stejného tátu."}}}
+{"id": "half-sister.noun.1", "texts": {"cs": {"words": "nevlastní sestra", "note": "jeden společný rodič", "sentence": "Mám {nevlastní sestru} v Kanadě."}}}
+{"id": "hammer.verb.1", "texts": {"cs": {"words": "zatlouct; tlouct", "note": "kladivem", "sentence": "Můžeš {zatlouct} ten hřebík?"}}}
+{"id": "hang on.phrasal_verb.1", "texts": {"cs": {"words": "počkat; počkat chvilku", "note": "hovorově", "sentence": "{Počkej}, hned jsem zpátky."}}}
+{"id": "headmaster.noun.1", "texts": {"cs": {"words": "ředitel; ředitel školy", "note": "britsky", "sentence": "Jdi do {ředitelny}."}}}
+{"id": "heads-up.noun.1", "texts": {"cs": {"words": "upozornění; varování", "note": "hovorově; předem", "sentence": "Díky za {upozornění}."}}}
+{"id": "hen party.noun.1", "texts": {"cs": {"words": "rozlučka se svobodou", "note": "britsky; pro ženy", "sentence": "{Rozlučka se svobodou} bude v Praze."}}}
+{"id": "hide.verb.1", "texts": {"cs": {"words": "schovat se; schovat; skrývat", "note": "", "sentence": "Kam jsi {schoval} peníze?"}}}
+{"id": "high-tech.adjective.1", "texts": {"cs": {"words": "moderní; špičkový", "note": "technicky", "sentence": "Mají hodně {moderní} kuchyň."}}}
+{"id": "hit on.phrasal_verb.1", "texts": {"cs": {"words": "balit; nahazovat udičku", "note": "hovorově; na někoho", "sentence": "Ten chlap tě {balí}?"}}}
+{"id": "hold.noun.1", "texts": {"cs": {"words": "čekání", "note": "on hold; na lince", "sentence": "Už hodinu {čekám} na lince."}}}
+{"id": "homeschool.verb.1", "texts": {"cs": {"words": "učit doma", "note": "místo školy", "sentence": "Své děti {učí doma}."}}}
+{"id": "homesick.adjective.1", "texts": {"cs": {"words": "stýskat se", "note": "po domově", "sentence": "První měsíc se mi {stýskalo} po domově."}}}
+{"id": "honor.verb.2", "texts": {"cs": {"words": "dodržet", "note": "slib, dohoda", "sentence": "Tu dohodu {dodržíme}."}}}
+{"id": "hop.verb.2", "texts": {"cs": {"words": "naskočit", "note": "hovorově; do auta", "sentence": "{Naskoč}, odvezu tě domů."}}}
+{"id": "housesit.verb.1", "texts": {"cs": {"words": "hlídat dům", "note": "v nepřítomnosti majitelů", "sentence": "{Hlídám dům} sousedům."}}}
+{"id": "hover.verb.2", "texts": {"cs": {"words": "postávat; otravovat", "note": "kolem", "sentence": "Přestaň mi {stát za zády}!"}}}
+{"id": "hum.verb.1", "texts": {"cs": {"words": "broukat si; pobrukovat; broukat", "note": "", "sentence": "Když vaří, {pobrukuje} si."}}}
+{"id": "hunker down.phrasal_verb.1", "texts": {"cs": {"words": "zalézt; připravit se na delší dobu", "note": "do bezpečí", "sentence": "Během bouře jsme {zalezli} doma."}}}
+{"id": "hurt.noun.1", "texts": {"cs": {"words": "bolest; zranění", "note": "citové", "sentence": "Vidím jí v očích {bolest}."}}}
+{"id": "illustrate.verb.1", "texts": {"cs": {"words": "ilustrovat; ukázat", "note": "na příkladu", "sentence": "Dovolte, abych to {ukázal} na příkladu."}}}
+{"id": "in the mood.phrase.1", "texts": {"cs": {"words": "mít náladu", "note": "be in the mood for", "sentence": "Nemám {náladu} na vtipy."}}}
+{"id": "incapable.adjective.1", "texts": {"cs": {"words": "neschopný", "note": "be incapable of", "sentence": "Není {schopný} lhát."}}}
+{"id": "inside.adjective.2", "texts": {"cs": {"words": "zevnitř", "note": "inside job, inside info", "sentence": "Udělal to někdo {zevnitř}."}}}
+{"id": "intolerant.adjective.2", "texts": {"cs": {"words": "s intolerancí", "note": "jídlo", "sentence": "Mám {intoleranci} laktózy."}}}
+{"id": "invade.verb.2", "texts": {"cs": {"words": "narušit", "note": "soukromí", "sentence": "{Narušuješ} mi soukromí."}}}
+{"id": "invasion.noun.2", "texts": {"cs": {"words": "narušení", "note": "soukromí", "sentence": "To je {narušení} soukromí."}}}
+{"id": "iron out.phrasal_verb.1", "texts": {"cs": {"words": "vyžehlit; urovnat", "note": "problémy", "sentence": "Ještě musíme {vyladit} pár detailů."}}}
+{"id": "journal.noun.2", "texts": {"cs": {"words": "časopis", "note": "odborný", "sentence": "Vyšlo to v lékařském {časopise}."}}}
+{"id": "keep on.phrasal_verb.1", "texts": {"cs": {"words": "pořád; dál", "note": "keep on doing", "sentence": "{Pořád} mi volá."}}}
+{"id": "keep.verb.2", "texts": {"cs": {"words": "pořád; dál", "note": "keep doing", "sentence": "{Pokračuj}!"}}}
+{"id": "keg.noun.1", "texts": {"cs": {"words": "sud", "note": "piva", "sentence": "Potřebujeme další {sud}."}}}
+{"id": "kill.verb.2", "texts": {"cs": {"words": "zabít", "note": "nadsázka, hovorově", "sentence": "Máma mě {zabije}."}}}
+{"id": "killer.adjective.1", "texts": {"cs": {"words": "úžasný; vražedný", "note": "vražedný = skvělý", "sentence": "To je {úžasný} nápad!"}}}
+{"id": "knack.noun.1", "texts": {"cs": {"words": "talent; fígl; cit", "note": "pro něco", "sentence": "Máš na tohle {talent}."}}}
+{"id": "knock down.phrasal_verb.2", "texts": {"cs": {"words": "srazit; srazit k zemi", "note": "", "sentence": "Vítr {srazil} plot."}}}
+{"id": "knock off.phrasal_verb.1", "texts": {"cs": {"words": "skončit; přestat", "note": "s prací", "sentence": "Pojďme dneska {skončit} dřív."}}}
+{"id": "knuckle.noun.1", "texts": {"cs": {"words": "kloub; klouby", "note": "prstu", "sentence": "Zalupal {klouby}."}}}
+{"id": "label.verb.2", "texts": {"cs": {"words": "nálepkovat; označovat", "note": "o lidech; označovat za", "sentence": "Nedávej mi {nálepky}."}}}
+{"id": "lack.verb.1", "texts": {"cs": {"words": "postrádat; chybět", "note": "chybět komu co", "sentence": "{Chybí} mu sebevědomí."}}}
+{"id": "landing.noun.2", "texts": {"cs": {"words": "odpočívadlo; chodba", "note": "u schodů", "sentence": "Počkám na {chodbě}."}}}
+{"id": "lawnmower.noun.1", "texts": {"cs": {"words": "sekačka; sekačka na trávu", "note": "", "sentence": "Můžu si půjčit tvoji {sekačku}?"}}}
+{"id": "leave out.phrasal_verb.2", "texts": {"cs": {"words": "nechat stranou; vyloučit", "note": "feel left out", "sentence": "Cítil jsem se {odstrčený}."}}}
+{"id": "leftovers.noun.1", "texts": {"cs": {"words": "zbytky; zbytky jídla", "note": "", "sentence": "Dneska večer dojíme {zbytky}."}}}
+{"id": "let out.phrasal_verb.2", "texts": {"cs": {"words": "vydat", "note": "výkřik, povzdech; zvuk", "sentence": "{Vykřikla}."}}}
+{"id": "level.verb.1", "texts": {"cs": {"words": "srovnat; srovnat se zemí", "note": "", "sentence": "Bouře {srovnala} město se zemí."}}}
+{"id": "lightweight.noun.1", "texts": {"cs": {"words": "kdo nic nevydrží", "note": "v pití", "sentence": "Dvě piva? Ty {nic nevydržíš}."}}}
+{"id": "linen.noun.2", "texts": {"cs": {"words": "prádlo; ložní prádlo", "note": "", "sentence": "Vyměň {povlečení}."}}}
+{"id": "lippy.adjective.1", "texts": {"cs": {"words": "drzý", "note": "Br.; v řeči", "sentence": "Nebuď na mě {drzý}."}}}
+{"id": "litter.noun.1", "texts": {"cs": {"words": "odpadky", "note": "na zemi", "sentence": "Všude jsou {odpadky}."}}}
+{"id": "live with.phrasal_verb.1", "texts": {"cs": {"words": "smířit se s; žít s", "note": "žít s čím", "sentence": "{S tím} se smířím."}}}
+{"id": "lock out.phrasal_verb.1", "texts": {"cs": {"words": "zabouchnout si dveře; zamknout venku", "note": "lock yourself out", "sentence": "Zase jsem si {zabouchl}!"}}}
+{"id": "lock up.phrasal_verb.1", "texts": {"cs": {"words": "zamknout", "note": "budovu; všechno", "sentence": "Nezapomeň všechno {zamknout}."}}}
+{"id": "look back.phrasal_verb.2", "texts": {"cs": {"words": "vzpomínat; ohlédnout se", "note": "do minulosti; ohlédnout se zpět", "sentence": "Když {se ohlédnu}, byla jsem šťastná."}}}
+{"id": "loophole.noun.1", "texts": {"cs": {"words": "klička; mezera", "note": "v zákoně", "sentence": "Vždycky existuje nějaká {klička}."}}}
+{"id": "maid of honour.noun.1", "texts": {"cs": {"words": "svědkyně; hlavní družička", "note": "svědkyně nevěsty", "sentence": "Budeš mi dělat {svědkyni}?"}}}
+{"id": "mailbox.noun.2", "texts": {"cs": {"words": "schránka", "note": "e-mailová, hlasová", "sentence": "Mám plnou {schránku}."}}}
+{"id": "maintenance.noun.2", "texts": {"cs": {"words": "náročný", "note": "high maintenance, o člověku; na péči", "sentence": "Můj bývalý byl hodně {náročný}."}}}
+{"id": "maker.noun.2", "texts": {"cs": {"words": "přístroj", "note": "coffee maker apod.; přístroj na něco", "sentence": "Potřebujeme nový {kávovar}."}}}
+{"id": "marathon.noun.2", "texts": {"cs": {"words": "maraton", "note": "dlouhá akce; sledování, hraní", "sentence": "Včera jsme měli filmový {maraton}."}}}
+{"id": "marble.noun.2", "texts": {"cs": {"words": "kulička", "note": "hra", "sentence": "Děti hrají {kuličky}."}}}
+{"id": "mat.noun.2", "texts": {"cs": {"words": "podložka", "note": "na cvičení", "sentence": "Nezapomeň si {podložku} na jógu."}}}
+{"id": "max out.phrasal_verb.1", "texts": {"cs": {"words": "vyčerpat", "note": "kreditní karta; limit", "sentence": "{Vyčerpal} jsem limit na kreditce."}}}
+{"id": "meddle.verb.1", "texts": {"cs": {"words": "plést se; míchat se", "note": "do něčeho", "sentence": "Přestaň se mi {plést} do života!"}}}
+{"id": "mess around.phrasal_verb.2", "texts": {"cs": {"words": "zahrávat si; mít něco", "note": "mess around with", "sentence": "{Zahrává si} s někým jiným?"}}}
+{"id": "narrow down.phrasal_verb.1", "texts": {"cs": {"words": "zúžit", "note": "výběr", "sentence": "Pojďme to {zúžit} na tři možnosti."}}}
+{"id": "neither.conjunction.1", "texts": {"cs": {"words": "ani", "note": "neither… nor; ani… ani", "sentence": "Nezavolal {ani} Tom, ani Sarah."}}}
+{"id": "neither.determiner.1", "texts": {"cs": {"words": "žádný; ani jeden", "note": "z obou", "sentence": "{Ani jedna} odpověď není správně."}}}
+{"id": "niche.noun.1", "texts": {"cs": {"words": "nika; místo", "note": "na trhu, v životě", "sentence": "Konečně našla své {místo}."}}}
+{"id": "nipple.noun.2", "texts": {"cs": {"words": "dudlík", "note": "na lahvi", "sentence": "Dobře umyj {dudlík} na lahev."}}}
+{"id": "no.adverb.1", "texts": {"cs": {"words": "o nic; ne", "note": "s 2. stupněm; ne víc", "sentence": "{Není o nic} lepší než on."}}}
+{"id": "nursery.noun.3", "texts": {"cs": {"words": "zahradnictví; školka", "note": "rostlin", "sentence": "Ten strom jsme koupili v {zahradnictví}."}}}
+{"id": "o'clock.adverb.1", "texts": {"cs": {"words": "hodin", "note": "u času; celá hodina", "sentence": "Je pět {hodin}."}}}
+{"id": "occur.verb.1", "texts": {"cs": {"words": "napadnout", "note": "it occurred to me", "sentence": "Nikdy mě to {nenapadlo}."}}}
+{"id": "old.adjective.2", "texts": {"cs": {"words": "starý", "note": "věk; let starý", "sentence": "Kolik ti je let?"}, "es": {"words": "años; tener años", "note": "edad: tener … años", "sentence": "¿Cuántos {años} tienes?"}}}
+{"id": "one.pronoun.1", "texts": {"cs": {"words": "ten; ta; to", "note": "this one, the red one; místo podstatného jména", "sentence": "Líbí se mi {ten} modrý."}}}
+{"id": "order in.phrasal_verb.1", "texts": {"cs": {"words": "objednat si", "note": "jídlo; domů", "sentence": "Dneska si prostě {objednáme} jídlo domů."}}}
+{"id": "outburst.noun.1", "texts": {"cs": {"words": "výbuch", "note": "vzteku", "sentence": "Omlouvám se za ten včerejší {výbuch}."}}}
+{"id": "outlive.verb.1", "texts": {"cs": {"words": "přežít", "note": "žít déle; přežít někoho", "sentence": "{Přežila} všechny své kamarádky."}}}
+{"id": "outskirts.noun.1", "texts": {"cs": {"words": "okraj; periferie", "note": "okraj města", "sentence": "Bydlí na {okraji} Prahy."}}}
+{"id": "outspoken.adjective.1", "texts": {"cs": {"words": "otevřený; přímý", "note": "v řeči", "sentence": "O politice mluví velmi {otevřeně}."}}}
+{"id": "overwhelmed.adjective.1", "texts": {"cs": {"words": "zahlcený; přemožený", "note": "city", "sentence": "Momentálně jsem trochu {zahlcená}."}}}
+{"id": "pack.verb.1", "texts": {"cs": {"words": "sbalit se; sbalit; balit", "note": "", "sentence": "Už jsi {sbalená}?"}}}
+{"id": "page.verb.1", "texts": {"cs": {"words": "vyvolat; zavolat", "note": "rozhlasem, pagerem", "sentence": "Můžete prosím {vyvolat} doktora Browna?"}}}
+{"id": "particularly.adverb.1", "texts": {"cs": {"words": "zvlášť; obzvlášť; nijak", "note": "nijak v záporu", "sentence": "Nemám {nijak zvlášť} hlad."}}}
+{"id": "pass.noun.3", "texts": {"cs": {"words": "balit", "note": "hovorově; make a pass at", "sentence": "On mě {balil}?"}}}
+{"id": "pass.verb.2", "texts": {"cs": {"words": "udělat", "note": "zkoušku", "sentence": "{Udělal} jsem řidičák!"}}}
+{"id": "patch.noun.2", "texts": {"cs": {"words": "těžké období", "note": "rough patch", "sentence": "Procházíme {těžkým obdobím}."}}}
+{"id": "pay back.phrasal_verb.1", "texts": {"cs": {"words": "vrátit; splatit", "note": "peníze", "sentence": "Zítra ti to {vrátím}."}}}
+{"id": "pay.verb.2", "texts": {"cs": {"words": "dávat", "note": "pay attention; dávat pozor", "sentence": "{Dávej} pozor!"}}}
+{"id": "pee.noun.1", "texts": {"cs": {"words": "čůrání; čurat", "note": "hovorově; go for a pee", "sentence": "Potřebuju {čůrat}."}}}
+{"id": "peephole.noun.1", "texts": {"cs": {"words": "kukátko", "note": "ve dveřích", "sentence": "Nejdřív se podívej {kukátkem}."}}}
+{"id": "physically.adverb.2", "texts": {"cs": {"words": "vůbec", "note": "physically impossible; vůbec to nejde", "sentence": "To je {fyzicky} nemožné."}}}
+{"id": "pick up.phrasal_verb.1", "texts": {"cs": {"words": "vyzvednout; zastavit se pro", "note": "vyzvednout koho", "sentence": "{Vyzvednu} tě v osm."}}}
+{"id": "pick up.phrasal_verb.3", "texts": {"cs": {"words": "zvednout; zvednout telefon", "note": "", "sentence": "Proč jsi to {nezvedl}?"}}}
+{"id": "pin.verb.2", "texts": {"cs": {"words": "svalit vinu", "note": "hovorově; pin on", "sentence": "Nesnaž se to {hodit} na mě!"}}}
+{"id": "piss off.phrasal_verb.1", "texts": {"cs": {"words": "nasrat; naštvat", "note": "koho", "sentence": "Začínáš mě {srát}."}}}
+{"id": "pitch.verb.1", "texts": {"cs": {"words": "postavit", "note": "stan", "sentence": "{Postavme} stan tady."}}}
+{"id": "pitch.verb.2", "texts": {"cs": {"words": "složit se", "note": "hovorově; pitch in", "sentence": "Na dárek se {složili} všichni."}}}
+{"id": "pity.verb.1", "texts": {"cs": {"words": "litovat", "note": "někoho", "sentence": "Nechci, aby mě někdo {litoval}."}}}
+{"id": "place.noun.2", "texts": {"cs": {"words": "byt; bydlení", "note": "my place, hovorově; u koho", "sentence": "Pojďme {ke mně}."}}}
+{"id": "place.verb.2", "texts": {"cs": {"words": "zadat; udělat", "note": "place an order; objednávku", "sentence": "Ráda bych {udělala} objednávku."}}}
+{"id": "playdate.noun.1", "texts": {"cs": {"words": "domluvené hraní", "note": "dětí", "sentence": "Děti mají v úterý {domluvené hraní}."}}}
+{"id": "plea.noun.2", "texts": {"cs": {"words": "prohlášení viny; prohlášení neviny", "note": "soud", "sentence": "Jak se {vyjadřujete} k obžalobě?"}}}
+{"id": "plead.verb.2", "texts": {"cs": {"words": "prohlásit se vinným; prohlásit se nevinným", "note": "soud", "sentence": "{Prohlásil se} za nevinného."}}}
+{"id": "plunge.verb.1", "texts": {"cs": {"words": "skočit; ponořit se", "note": "do vody", "sentence": "{Skočila} do studené vody."}}}
+{"id": "plus-one.noun.1", "texts": {"cs": {"words": "doprovod", "note": "na akci", "sentence": "Můžu si na svatbu vzít {doprovod}?"}}}
+{"id": "point out.phrasal_verb.1", "texts": {"cs": {"words": "upozornit; poukázat", "note": "upozornit na co", "sentence": "Díky, že jsi mě na to {upozornil}."}}}
+{"id": "point.verb.1", "texts": {"cs": {"words": "ukázat; mířit", "note": "prstem", "sentence": "Ne{ukazuj} na lidi."}}}
+{"id": "pop.verb.2", "texts": {"cs": {"words": "skočit; zaskočit", "note": "na chvíli; někam", "sentence": "Jen {skočím} do obchodu."}}}
+{"id": "pork.noun.1", "texts": {"cs": {"words": "vepřové; vepřové maso", "note": "", "sentence": "K večeři máme pečené {vepřové}."}}}
+{"id": "pose.verb.2", "texts": {"cs": {"words": "představovat", "note": "hrozbu, problém", "sentence": "{Nepředstavuje} to žádné riziko."}}}
+{"id": "postpone.verb.1", "texts": {"cs": {"words": "odložit; přeložit", "note": "na později", "sentence": "Zápas {odložili}."}}}
+{"id": "pound.verb.2", "texts": {"cs": {"words": "bouchat; bušit", "note": "do dveří", "sentence": "Někdo {buší} na dveře."}}}
+{"id": "pour.verb.2", "texts": {"cs": {"words": "lít; lít jako z konve", "note": "o dešti", "sentence": "Venku {leje}."}}}
+{"id": "prescription.noun.1", "texts": {"cs": {"words": "recept", "note": "od lékaře", "sentence": "Na tohle potřebujete {recept}."}}}
+{"id": "press.verb.2", "texts": {"cs": {"words": "tlačit; naléhat", "note": "tlačit na koho", "sentence": "{Netlač} na ni, promluví, až bude připravená."}}}
+{"id": "primary school.noun.1", "texts": {"cs": {"words": "základní škola", "note": "britsky; 1. stupeň", "sentence": "Můj syn chodí na {první stupeň}."}}}
+{"id": "primary.adjective.1", "texts": {"cs": {"words": "základní; první stupeň", "note": "škola", "sentence": "Učí na {základní} škole."}}}
+{"id": "principle.noun.2", "texts": {"cs": {"words": "v zásadě", "note": "in principle", "sentence": "V {zásadě} souhlasím."}}}
+{"id": "prior.adjective.2", "texts": {"cs": {"words": "před", "note": "prior to", "sentence": "Odbavte se dvě hodiny {před} odletem."}}}
+{"id": "private.noun.1", "texts": {"cs": {"words": "v soukromí", "note": "in private", "sentence": "Můžeme si promluvit {v soukromí}?"}}}
+{"id": "profile.noun.2", "texts": {"cs": {"words": "nenápadně", "note": "keep a low profile", "sentence": "Chvíli {se drž v ústraní}."}}}
+{"id": "prom.noun.1", "texts": {"cs": {"words": "ples", "note": "americky; na konci střední školy", "sentence": "S kým jdeš na {ples}?"}}}
+{"id": "provide.verb.2", "texts": {"cs": {"words": "uživit; zajistit", "note": "provide for; rodinu", "sentence": "Tvrdě pracuje, aby {uživil} rodinu."}}}
+{"id": "public.noun.2", "texts": {"cs": {"words": "na veřejnosti", "note": "in public", "sentence": "Nedělej to na {veřejnosti}."}}}
+{"id": "pull back.phrasal_verb.1", "texts": {"cs": {"words": "ucuknout; stáhnout se; stáhnout", "note": "", "sentence": "{Stáhla} ruku."}}}
+{"id": "pull over.phrasal_verb.2", "texts": {"cs": {"words": "zastavit", "note": "policie; zastavit koho", "sentence": "{Zastavili} mě policajti."}}}
+{"id": "pull up.phrasal_verb.1", "texts": {"cs": {"words": "zastavit; zajet", "note": "autem", "sentence": "Před domem {zastavil} taxík."}}}
+{"id": "punchline.noun.1", "texts": {"cs": {"words": "pointa", "note": "vtipu", "sentence": "Zapomněl jsem {pointu}."}}}
+{"id": "pushchair.noun.1", "texts": {"cs": {"words": "kočárek", "note": "Br.; sportovní", "sentence": "Můžete mi pomoct s {kočárkem}?"}}}
+{"id": "put aside.phrasal_verb.1", "texts": {"cs": {"words": "odkládat; šetřit", "note": "peníze", "sentence": "Každý měsíc si {odkládám} nějaké peníze."}}}
+{"id": "put away.phrasal_verb.2", "texts": {"cs": {"words": "zavřít", "note": "hovorově; do vězení", "sentence": "{Zavřeli} ho na doživotí."}}}
+{"id": "put back.phrasal_verb.1", "texts": {"cs": {"words": "vrátit; vrátit na místo", "note": "", "sentence": "{Vrať to} tam, kde jsi to našel."}}}
+{"id": "put down.phrasal_verb.2", "texts": {"cs": {"words": "uspat", "note": "zvíře", "sentence": "Museli jsme nechat psa {uspat}."}}}
+{"id": "put in.phrasal_verb.1", "texts": {"cs": {"words": "vložit; dát do", "note": "práci, čas", "sentence": "{Dala} do toho hodně práce."}}}
+{"id": "put through.phrasal_verb.2", "texts": {"cs": {"words": "nechat projít", "note": "něco těžkého", "sentence": "Promiň, čím jsem tě {nechal projít}."}}}
+{"id": "put together.phrasal_verb.2", "texts": {"cs": {"words": "dohromady", "note": "all put together; všichni", "sentence": "Vydělá víc než my všichni {dohromady}."}}}
+{"id": "put up with.phrasal_verb.1", "texts": {"cs": {"words": "snášet; vydržet", "note": "vydržet s kým", "sentence": "Ten hluk už nemůžu {snášet}."}}}
+{"id": "quarter.noun.2", "texts": {"cs": {"words": "čtvrťák", "note": "v USA; mince 25 centů", "sentence": "Nemáš {čtvrťák} do automatu?"}}}
+{"id": "queasy.adjective.1", "texts": {"cs": {"words": "je mi zle; nevolno", "note": "od žaludku", "sentence": "Je mi trochu {špatně od žaludku}."}}}
+{"id": "quit.verb.1", "texts": {"cs": {"words": "dát výpověď; odejít", "note": "z práce", "sentence": "Dneska jsem {dala výpověď}."}}}
+{"id": "quit.verb.2", "texts": {"cs": {"words": "přestat", "note": "přestat s čím", "sentence": "{Přestaň} si stěžovat!"}}}
+{"id": "rail.noun.2", "texts": {"cs": {"words": "železnice; vlak", "note": "by rail", "sentence": "Cestovali jsme {vlakem}."}}}
+{"id": "rain check.noun.1", "texts": {"cs": {"words": "odložit na jindy", "note": "hovorově; take a rain check", "sentence": "Můžeme to {odložit na jindy}?"}}}
+{"id": "rank.noun.2", "texts": {"cs": {"words": "řady; postavení", "note": "ranks", "sentence": "Rychle {stoupala} ve firmě."}}}
+{"id": "rap.noun.2", "texts": {"cs": {"words": "odnést to", "note": "hovorově; take the rap", "sentence": "Proč bych to měl {odnést} já?"}}}
+{"id": "ray.noun.2", "texts": {"cs": {"words": "trocha; záblesk", "note": "naděje", "sentence": "Jsi {sluníčko}."}}}
+{"id": "reach out.phrasal_verb.1", "texts": {"cs": {"words": "ozvat se; obrátit se", "note": "obrátit se na koho", "sentence": "Díky, že ses {ozval}."}}}
+{"id": "rearrange.verb.2", "texts": {"cs": {"words": "přeložit", "note": "termín", "sentence": "Můžeme {přeložit} schůzku?"}}}
+{"id": "redundant.adjective.1", "texts": {"cs": {"words": "propuštěný", "note": "be made redundant; pro nadbytečnost", "sentence": "Loni ho {propustili}."}}}
+{"id": "refer.verb.1", "texts": {"cs": {"words": "mít na mysli; myslet", "note": "refer to", "sentence": "Koho {máš na mysli}?"}}}
+{"id": "regard.verb.1", "texts": {"cs": {"words": "považovat; považovat za", "note": "", "sentence": "{Považuju} ho za přítele."}}}
+{"id": "register.verb.1", "texts": {"cs": {"words": "zaregistrovat se; přihlásit se; zaregistrovat", "note": "", "sentence": "Musíš se {zaregistrovat} online."}}}
+{"id": "relapse.noun.1", "texts": {"cs": {"words": "recidiva; zhoršení; návrat", "note": "nemoci", "sentence": "Minulý měsíc se jí to {vrátilo}."}}}
+{"id": "relate.verb.1", "texts": {"cs": {"words": "vcítit se; rozumět", "note": "relate to", "sentence": "Naprosto to {chápu}."}}}
+{"id": "relieved.adjective.1", "texts": {"cs": {"words": "ulevilo se", "note": "komu", "sentence": "Tak se mi {ulevilo}, že jsi v pořádku."}}}
+{"id": "relocate.verb.1", "texts": {"cs": {"words": "přestěhovat se; přestěhovat", "note": "kvůli práci", "sentence": "Firma {se stěhuje} do Prahy."}}}
+{"id": "remind.verb.2", "texts": {"cs": {"words": "připomínat", "note": "podobnost", "sentence": "{Připomínáš} mi moji sestru."}}}
+{"id": "repay.verb.1", "texts": {"cs": {"words": "splatit; vrátit", "note": "peníze", "sentence": "Příští týden ti to {vrátím}."}}}
+{"id": "resort.noun.2", "texts": {"cs": {"words": "možnost", "note": "poslední; last resort", "sentence": "Je to naše poslední {možnost}."}}}
+{"id": "responsible.adjective.1", "texts": {"cs": {"words": "odpovědný; zodpovědný", "note": "za co", "sentence": "Kdo je {zodpovědný} za ten nepořádek?"}}}
+{"id": "rewind.verb.1", "texts": {"cs": {"words": "přetočit; přetočit zpátky; vrátit", "note": "", "sentence": "Můžeš to kousek {přetočit} zpátky?"}}}
+{"id": "rid.verb.1", "texts": {"cs": {"words": "zbavit se", "note": "get rid of", "sentence": "Musíme se {zbavit} téhle staré pohovky."}}}
+{"id": "riot.noun.2", "texts": {"cs": {"words": "strašná sranda; děs", "note": "hovorově; o člověku", "sentence": "Tvoje máma je {strašná sranda}!"}}}
+{"id": "rip off.phrasal_verb.1", "texts": {"cs": {"words": "obrat; natáhnout", "note": "hovorově; o peníze", "sentence": "Ten mechanik nás {obral}."}}}
+{"id": "roar.verb.2", "texts": {"cs": {"words": "burácet", "note": "smíchy", "sentence": "Publikum {burácelo} smíchy."}}}
+{"id": "roll.verb.1", "texts": {"cs": {"words": "kutálet se; válet se; kutálet", "note": "", "sentence": "Míč se {skutálel} pod auto."}}}
+{"id": "roll.verb.2", "texts": {"cs": {"words": "protočit", "note": "roll your eyes; oči", "sentence": "{Nekoulej} na mě očima."}}}
+{"id": "roller coaster.noun.2", "texts": {"cs": {"words": "jízda na horské dráze", "note": "přeneseně; o citech", "sentence": "Byla to citová {horská dráha}."}}}
+{"id": "rolling pin.noun.1", "texts": {"cs": {"words": "váleček", "note": "na těsto", "sentence": "Babiččin {váleček} je hodně starý."}}}
+{"id": "rot.verb.2", "texts": {"cs": {"words": "kazit", "note": "zuby", "sentence": "Sladkosti {kazí} zuby."}}}
+{"id": "round.adverb.2", "texts": {"cs": {"words": "k někomu", "note": "come round; na návštěvu", "sentence": "Jestli chceš, {stav se} večer."}}}
+{"id": "round.preposition.2", "texts": {"cs": {"words": "za; za roh", "note": "round the corner", "sentence": "Obchod je hned {za} rohem."}}}
+{"id": "run into.phrasal_verb.1", "texts": {"cs": {"words": "potkat; narazit na", "note": "náhodou", "sentence": "Včera jsem {narazila na} tvého bývalého."}}}
+{"id": "run over.phrasal_verb.1", "texts": {"cs": {"words": "přejet", "note": "autem; přejet koho", "sentence": "Málem ho {přejel} autobus."}}}
+{"id": "sake.noun.2", "texts": {"cs": {"words": "kvůli; pro", "note": "for somebody's sake; pro dobro", "sentence": "Udělej to {kvůli} mámě."}}}
+{"id": "salon.noun.1", "texts": {"cs": {"words": "salon", "note": "kadeřnický, kosmetický", "sentence": "Je objednaná v {salonu}."}}}
+{"id": "score.verb.2", "texts": {"cs": {"words": "získat", "note": "body", "sentence": "V testu jsem {získala} devadesát procent."}}}
+{"id": "scotch.noun.1", "texts": {"cs": {"words": "skotská; skotská whisky", "note": "", "sentence": "{Skotskou} s ledem, prosím."}}}
+{"id": "scrape.verb.1", "texts": {"cs": {"words": "odřít si; odřít", "note": "", "sentence": "Spadl jsem a {odřel} si koleno."}}}
+{"id": "scratch.verb.1", "texts": {"cs": {"words": "škrábat se; drbat se; škrábat", "note": "na těle", "sentence": "Přestaň se {škrábat}, bude to horší."}}}
+{"id": "screw.verb.2", "texts": {"cs": {"words": "podvést; vyjebat s", "note": "hrubě; s někým", "sentence": "Totálně nás {vyjebali}."}}}
+{"id": "scrumptious.adjective.1", "texts": {"cs": {"words": "výtečný; báječný", "note": "jídlo", "sentence": "Ten dort je {výtečný}!"}}}
+{"id": "scrunchie.noun.1", "texts": {"cs": {"words": "gumička do vlasů", "note": "látková", "sentence": "Neviděla jsi moji {gumičku do vlasů}?"}}}
+{"id": "seat.verb.1", "texts": {"cs": {"words": "posadit se; posadit; usadit", "note": "be seated", "sentence": "Zůstaňte prosím {sedět}."}}}
+{"id": "seat.verb.2", "texts": {"cs": {"words": "pojmout", "note": "lidi", "sentence": "Sál {pojme} pět set lidí."}}}
+{"id": "self-conscious.adjective.1", "texts": {"cs": {"words": "rozpačitý; nejistý", "note": "pozor: ne sebevědomý; nejistý sám sebou", "sentence": "V plavkách se cítím {nejistě}."}}}
+{"id": "sell out.phrasal_verb.1", "texts": {"cs": {"words": "vyprodat; vyprodat se", "note": "", "sentence": "Lístky byly za hodinu {vyprodané}."}}}
+{"id": "sense.noun.2", "texts": {"cs": {"words": "smysl", "note": "pro něco", "sentence": "Má skvělý {smysl} pro humor."}}}
+{"id": "settle.verb.3", "texts": {"cs": {"words": "spokojit se; spokojit se s", "note": "settle for", "sentence": "{Nespokoj se} s málem."}}}
+{"id": "shall.verb.1", "texts": {"cs": {"words": "mám; máme", "note": "návrh, nabídka", "sentence": "{Mám} otevřít okno?"}}}
+{"id": "shave.verb.1", "texts": {"cs": {"words": "holit se; oholit se; holit", "note": "", "sentence": "Před schůzkou se musím {oholit}."}}}
+{"id": "shell out.phrasal_verb.1", "texts": {"cs": {"words": "vysolit; vypláznout", "note": "hovorově; peníze", "sentence": "Musel jsem za to {vysolit} dvě stě liber."}}}
+{"id": "shift.verb.1", "texts": {"cs": {"words": "posunout se; posunout; přesunout", "note": "", "sentence": "Můžeš se trochu {posunout} doleva?"}}}
+{"id": "shock.noun.2", "texts": {"cs": {"words": "rána", "note": "elektřina; rána proudem", "sentence": "Dostal jsem {ránu} ze zásuvky."}}}
+{"id": "shotgun.noun.1", "texts": {"cs": {"words": "místo vpředu", "note": "I call shotgun, hovorově; vedle řidiče", "sentence": "{Sedím vepředu}!"}}}
+{"id": "show around.phrasal_verb.1", "texts": {"cs": {"words": "provést", "note": "po místě", "sentence": "Pojď, {provedu} tě."}}}
+{"id": "sick and tired.phrase.1", "texts": {"cs": {"words": "mít plné zuby", "note": "be sick and tired of; mít čeho plné zuby", "sentence": "Mám {plné zuby} tvých výmluv."}}}
+{"id": "skip.noun.1", "texts": {"cs": {"words": "kontejner", "note": "britsky; na odpad", "sentence": "Na všechen ten odpad potřebujeme {kontejner}."}}}
+{"id": "skip.verb.2", "texts": {"cs": {"words": "ulít se; chybět", "note": "skip school; ulít se z", "sentence": "Zase ses {ulil} ze školy?"}}}
+{"id": "slam.verb.2", "texts": {"cs": {"words": "dupnout na brzdu; dupnout", "note": "", "sentence": "{Dupla} na brzdu."}}}
+{"id": "sleep over.phrasal_verb.1", "texts": {"cs": {"words": "přespat", "note": "u někoho", "sentence": "Může u nás dneska Emma {přespat}?"}}}
+{"id": "sleepover.noun.1", "texts": {"cs": {"words": "přespávání", "note": "u kamarádů", "sentence": "Můžou u nás v pátek {přespat} kamarádky?"}}}
+{"id": "slide.verb.1", "texts": {"cs": {"words": "klouzat se; klouzat; sklouznout", "note": "", "sentence": "Děti se rády {kloužou} po ledě."}}}
+{"id": "slip.verb.2", "texts": {"cs": {"words": "uklouznout", "note": "it slipped out; slovo", "sentence": "Promiň, prostě mi to {ujelo}."}}}
+{"id": "smell.verb.2", "texts": {"cs": {"words": "cítit", "note": "čichem", "sentence": "{Cítíš} kouř?"}}}
+{"id": "snap.verb.1", "texts": {"cs": {"words": "vyjet; vyštěknout", "note": "naštvaně; vyjet na někoho", "sentence": "{Nevyjížděj} na mě!"}}}
+{"id": "solid.adjective.3", "texts": {"cs": {"words": "z čistého zlata; masivní", "note": "z čistého zlata apod.", "sentence": "Ten prsten je z {ryzího} zlata."}}}
+{"id": "sound.adjective.2", "texts": {"cs": {"words": "tvrdě", "note": "sound asleep; tvrdě spát", "sentence": "Děti {tvrdě} spí."}}}
+{"id": "spare.verb.2", "texts": {"cs": {"words": "ušetřit", "note": "ušetřit koho čeho", "sentence": "{Ušetři} mě podrobností."}}}
+{"id": "spike.verb.1", "texts": {"cs": {"words": "přimíchat", "note": "drogu, alkohol; do pití", "sentence": "Někdo jí něco {přimíchal} do pití."}}}
+{"id": "spin.verb.1", "texts": {"cs": {"words": "točit se; točit; roztočit", "note": "", "sentence": "Celá místnost se {točí}."}}}
+{"id": "splash out.phrasal_verb.1", "texts": {"cs": {"words": "rozhazovat; dopřát si", "note": "britsky hovorově; za peníze", "sentence": "Dopřejme si pořádnou večeři."}}}
+{"id": "split.verb.1", "texts": {"cs": {"words": "rozdělit se; rozdělit; podělit se", "note": "", "sentence": "{Rozdělíme} si účet."}}}
+{"id": "spread.verb.1", "texts": {"cs": {"words": "šířit se; rozšířit se; šířit", "note": "", "sentence": "Zpráva se rychle {rozšířila}."}}}
+{"id": "squeamish.adjective.1", "texts": {"cs": {"words": "citlivý; útlocitný", "note": "na krev apod.", "sentence": "Na krev jsem trochu {citlivý}."}}}
+{"id": "stag night.noun.1", "texts": {"cs": {"words": "rozlučka se svobodou", "note": "britsky; pro muže", "sentence": "Co se dělo na {rozlučce se svobodou}?"}}}
+{"id": "stand by.phrasal_verb.1", "texts": {"cs": {"words": "stát při; podržet", "note": "stát při kom", "sentence": "Ať se stane cokoli, {budu stát při tobě}."}}}
+{"id": "step back.phrasal_verb.2", "texts": {"cs": {"words": "odstoupit; nadechnout se", "note": "přeneseně; od problému", "sentence": "Pojďme si {dát chvilku odstup} a promyslet to."}}}
+{"id": "stick to.phrasal_verb.1", "texts": {"cs": {"words": "držet se", "note": "plánu, pravidel", "sentence": "Prostě se {držme} plánu."}}}
+{"id": "stood up.adjective.1", "texts": {"cs": {"words": "nechaný na holičkách", "note": "be stood up; na rande", "sentence": "Včera večer mě {nechal na holičkách}."}}}
+{"id": "stumble.verb.2", "texts": {"cs": {"words": "narazit; narazit na", "note": "stumble upon", "sentence": "Náhodou jsem {narazila} na tuhle skvělou kavárnu."}}}
+{"id": "such.determiner.2", "texts": {"cs": {"words": "jako; jako například", "note": "such as", "sentence": "Mám rád ovoce, {jako} třeba jablka."}}}
+{"id": "sucker.noun.2", "texts": {"cs": {"words": "slabost", "note": "be a sucker for; slabost pro", "sentence": "Mám {slabost} pro čokoládu."}}}
+{"id": "suppose.verb.2", "texts": {"cs": {"words": "mít", "note": "be supposed to; mít něco udělat", "sentence": "{Měl bys} být ve škole."}}}
+{"id": "swap.verb.1", "texts": {"cs": {"words": "vyměnit si; vyměnit; prohodit", "note": "", "sentence": "Chceš si {vyměnit} místa?"}}}
+{"id": "sweetcorn.noun.1", "texts": {"cs": {"words": "kukuřice; cukrová kukuřice", "note": "britsky", "sentence": "Chceš na pizzu {kukuřici}?"}}}
+{"id": "swimming trunks.noun.1", "texts": {"cs": {"words": "plavky; koupací šortky", "note": "pánské", "sentence": "Nezapomeň si {plavky}."}}}
+{"id": "swing.noun.2", "texts": {"cs": {"words": "výkyv; výkyvy nálady", "note": "mood swings", "sentence": "Má hrozné {výkyvy} nálad."}}}
+{"id": "swing.verb.1", "texts": {"cs": {"words": "houpat se; kývat se; houpat", "note": "", "sentence": "Děti se na zahradě {houpou}."}}}
+{"id": "switch.verb.1", "texts": {"cs": {"words": "vyměnit si; vyměnit; prohodit", "note": "", "sentence": "Můžeme si {vyměnit} místa?"}}}
+{"id": "swoon.verb.1", "texts": {"cs": {"words": "omdlévat; rozplývat se", "note": "nadšením", "sentence": "Všechny holky se z něj {rozplývají}."}}}
+{"id": "tab.noun.3", "texts": {"cs": {"words": "dohled", "note": "keep tabs on; nad někým", "sentence": "Mám ho pod {dohledem}."}}}
+{"id": "take after.phrasal_verb.1", "texts": {"cs": {"words": "být po; podobat se", "note": "rodina; být po někom", "sentence": "{Je po} mámě."}}}
+{"id": "take off.phrasal_verb.1", "texts": {"cs": {"words": "sundat si; sundat; svléknout", "note": "oblečení", "sentence": "{Sundej} si boty."}}}
+{"id": "take out.phrasal_verb.3", "texts": {"cs": {"words": "vzít", "note": "na rande, večeři; někam", "sentence": "{Vzal} mě na večeři."}}}
+{"id": "take up.phrasal_verb.1", "texts": {"cs": {"words": "začít", "note": "s koníčkem", "sentence": "{Začala} jsem s jógou."}}}
+{"id": "talk into.phrasal_verb.1", "texts": {"cs": {"words": "přemluvit", "note": "k něčemu", "sentence": "{Přemluvila} mě k tomu."}}}
+{"id": "term.noun.2", "texts": {"cs": {"words": "vycházet; vycházet spolu", "note": "be on good terms", "sentence": "Teď spolu dobře {vycházíme}."}}}
+{"id": "text.verb.1", "texts": {"cs": {"words": "napsat; esemeskovat", "note": "zprávu", "sentence": "{Napiš} mi, až tam dorazíš."}}}
+{"id": "thread.noun.2", "texts": {"cs": {"words": "vlákno", "note": "internet; diskuze", "sentence": "Přečti si nejdřív celé {vlákno}."}}}
+{"id": "thumb.noun.1", "texts": {"cs": {"words": "palec", "note": "na ruce", "sentence": "Řízl jsem se do {palce}."}}}
+{"id": "tire.verb.1", "texts": {"cs": {"words": "unavit; unavovat se; unavovat", "note": "", "sentence": "V poslední době se rychle {unaví}."}}}
+{"id": "toast.verb.1", "texts": {"cs": {"words": "připít; připít na", "note": "", "sentence": "{Připijme} šťastnému páru!"}}}
+{"id": "tongs.noun.1", "texts": {"cs": {"words": "kleště", "note": "kuchyňské", "sentence": "Na klobásy použij {kleště}."}}}
+{"id": "top up.phrasal_verb.1", "texts": {"cs": {"words": "dobít; dolít", "note": "kredit", "sentence": "Musím si {dobít} kredit."}}}
+{"id": "topping.noun.1", "texts": {"cs": {"words": "přísada; poleva", "note": "pizza, zmrzlina; navrch", "sentence": "Jaké {přísady} chceš na pizzu?"}}}
+{"id": "tortoise.noun.1", "texts": {"cs": {"words": "želva", "note": "suchozemská", "sentence": "Naší {želvě} je padesát let."}}}
+{"id": "toss.verb.2", "texts": {"cs": {"words": "hodit si", "note": "toss a coin; mincí", "sentence": "{Hodíme} si mincí."}}}
+{"id": "trillion.numeral.1", "texts": {"cs": {"words": "bilion", "note": "pozor: ne trilion; 10¹²", "sentence": "Dluh je přes {bilion} dolarů."}}}
+{"id": "trunk.noun.1", "texts": {"cs": {"words": "kufr", "note": "americky; auta", "sentence": "Dej tašky do {kufru}."}}}
+{"id": "try.noun.2", "texts": {"cs": {"words": "zkusit to; zkusit", "note": "give it a try", "sentence": "{Zkus} to."}}}
+{"id": "tuck in.phrasal_verb.1", "texts": {"cs": {"words": "zastrčit; uložit", "note": "do postele", "sentence": "{Uložím} děti a pak si můžeme promluvit."}}}
+{"id": "tune in.phrasal_verb.1", "texts": {"cs": {"words": "naladit; sledovat", "note": "pořad", "sentence": "{Nalaďte si} nás příští týden na poslední díl."}}}
+{"id": "turn in.phrasal_verb.3", "texts": {"cs": {"words": "udat; vydat", "note": "policii", "sentence": "{Udala} ho na policii."}}}
+{"id": "turn over.phrasal_verb.1", "texts": {"cs": {"words": "otočit se; obrátit se; otočit", "note": "", "sentence": "{Otoč} stránku."}}}
+{"id": "turn.noun.1", "texts": {"cs": {"words": "řada; na řadě", "note": "", "sentence": "Jsi na {řadě}."}}}
+{"id": "twist.verb.1", "texts": {"cs": {"words": "vyvrtnout si; vyvrtnout", "note": "", "sentence": "{Vyvrtla} jsem si kotník."}}}
+{"id": "type.verb.1", "texts": {"cs": {"words": "psát; napsat", "note": "na klávesnici", "sentence": "{Napište} své heslo."}}}
+{"id": "unable.adjective.1", "texts": {"cs": {"words": "neschopný", "note": "be unable to; něco udělat", "sentence": "{Nemohl} jsem spát."}}}
+{"id": "undress.verb.1", "texts": {"cs": {"words": "svléknout se; svlékat se; svléknout", "note": "", "sentence": "{Svlékněte se} prosím za zástěnou."}}}
+{"id": "unite.verb.1", "texts": {"cs": {"words": "sjednotit se; spojit se; sjednotit", "note": "", "sentence": "Musíme se proti nim {spojit}."}}}
+{"id": "unzip.verb.1", "texts": {"cs": {"words": "rozepnout zip; rozbalit", "note": "soubor", "sentence": "Můžeš mi {rozepnout} šaty?"}}}
+{"id": "up to.phrase.2", "texts": {"cs": {"words": "dělat", "note": "hovorově; dělat co", "sentence": "Co {děláš}?"}}}
+{"id": "upload.verb.1", "texts": {"cs": {"words": "nahrát", "note": "na internet", "sentence": "Večer ty fotky {nahraju}."}}}
+{"id": "upset.adjective.2", "texts": {"cs": {"words": "pokažený", "note": "upset stomach; žaludek", "sentence": "Mám {pokažený} žaludek."}}}
+{"id": "valentine.noun.1", "texts": {"cs": {"words": "milý; milá", "note": "na Valentýna", "sentence": "Budeš moje {valentýnka}?"}}}
+{"id": "veal.noun.1", "texts": {"cs": {"words": "telecí; telecí maso", "note": "", "sentence": "Dám si {telecí} s bramborem."}}}
+{"id": "vending machine.noun.1", "texts": {"cs": {"words": "automat", "note": "na nápoje, sladkosti", "sentence": "Koupil jsem si něco k snědku v {automatu}."}}}
+{"id": "wag.verb.1", "texts": {"cs": {"words": "vrtět; vrtět ocasem", "note": "", "sentence": "Pes {vrtí} ocasem."}}}
+{"id": "waistcoat.noun.1", "texts": {"cs": {"words": "vesta", "note": "britsky; k obleku", "sentence": "Měl oblek s {vestou}."}}}
+{"id": "wake-up call.noun.1", "texts": {"cs": {"words": "buzení", "note": "hotel; telefonem", "sentence": "Mohl bych mít {buzení} v sedm?"}}}
+{"id": "walk out.phrasal_verb.1", "texts": {"cs": {"words": "odejít", "note": "naštvaně", "sentence": "Prostě z porady {odešla}."}}}
+{"id": "walk out.phrasal_verb.2", "texts": {"cs": {"words": "opustit", "note": "walk out on; někoho", "sentence": "{Opustil} rodinu."}}}
+{"id": "ward.noun.1", "texts": {"cs": {"words": "oddělení", "note": "v nemocnici", "sentence": "Leží na dětském {oddělení}."}}}
+{"id": "waste.noun.1", "texts": {"cs": {"words": "ztráta", "note": "času, peněz", "sentence": "Je to {ztráta} času."}}}
+{"id": "weakness.noun.2", "texts": {"cs": {"words": "slabost", "note": "pro něco", "sentence": "Mám {slabost} pro čokoládu."}}}
+{"id": "wear out.phrasal_verb.2", "texts": {"cs": {"words": "obnosit se; opotřebovat se; opotřebovat", "note": "", "sentence": "{Obnosil} jsem si boty."}}}
+{"id": "wedgie.noun.1", "texts": {"cs": {"words": "vytažení trenýrek", "note": "žertík", "sentence": "Grázlové mu {vytáhli trenky}."}}}
+{"id": "whisk.noun.1", "texts": {"cs": {"words": "metla", "note": "kuchyňská", "sentence": "Ušlehej vajíčka {metlou}."}}}
+{"id": "wide.adverb.2", "texts": {"cs": {"words": "úplně", "note": "wide awake; úplně vzhůru", "sentence": "Jsem {úplně} vzhůru."}}}
+{"id": "wind up.phrasal_verb.1", "texts": {"cs": {"words": "skončit; dopadnout", "note": "někde", "sentence": "{Skončili} jsme v karaoke baru."}}}
+{"id": "windscreen.noun.1", "texts": {"cs": {"words": "přední sklo", "note": "BrE; auta", "sentence": "Na {předním skle} je prasklina."}}}
+{"id": "windshield.noun.1", "texts": {"cs": {"words": "přední sklo", "note": "US; auta", "sentence": "Na {předním skle} je prasklina."}}}
+{"id": "wingman.noun.1", "texts": {"cs": {"words": "parťák", "note": "při balení", "sentence": "Budeš dneska večer můj {parťák}?"}}}
+{"id": "wish.verb.2", "texts": {"cs": {"words": "přát", "note": "komu", "sentence": "{Přej} mi štěstí!"}}}
+{"id": "withdraw.verb.1", "texts": {"cs": {"words": "vybrat", "note": "peníze", "sentence": "Potřebuju {vybrat} nějakou hotovost."}}}
+{"id": "withdraw.verb.2", "texts": {"cs": {"words": "stáhnout se; odstoupit", "note": "", "sentence": "{Odstoupila} ze závodu."}}}
+{"id": "wonder.verb.1", "texts": {"cs": {"words": "přemýšlet; zajímat", "note": "I wonder; zajímat koho", "sentence": "{Zajímalo by mě}, kde je."}}}
+{"id": "worship.verb.2", "texts": {"cs": {"words": "uctívat", "note": "boha", "sentence": "{Modlí se} v malém kostele."}}}
+{"id": "worth.adjective.1", "texts": {"cs": {"words": "stát za to; stát za", "note": "", "sentence": "Věř mi, {nestojí} to za to."}}}
+{"id": "worthy.adjective.1", "texts": {"cs": {"words": "hodný; zasluhující si; zasluhující", "note": "be worthy of", "sentence": "Nejsem jí {hoden}."}}}
+{"id": "write down.phrasal_verb.1", "texts": {"cs": {"words": "zapsat si; zapsat; poznamenat si", "note": "", "sentence": "Počkej, {zapíšu si} tvoje číslo."}}}
+{"id": "yard.noun.2", "texts": {"cs": {"words": "yard", "note": "míra; asi 91 cm", "sentence": "Je to jen pár {metrů} odsud."}}}
+{"id": "yet.adverb.1", "texts": {"cs": {"words": "ještě ne; ještě", "note": "v záporu", "sentence": "{Ještě} jsem nejedl."}}}
+{"id": "zip.verb.1", "texts": {"cs": {"words": "zapnout; zapnout na zip", "note": "zip up", "sentence": "{Zapni} si bundu."}}}
+{"id": "bandit.noun.1", "texts": {"en": {"words": "bandit", "sentence": "You little {bandit}! You ate all the cake!"}}}
+{"id": "bye-bye.interjection.1", "texts": {"es": {"words": "adiós; chao", "sentence": "¡Di {adiós} a la abuela!"}}}

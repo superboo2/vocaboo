@@ -183,3 +183,19 @@ def test_full_import_remembers_its_packages(data):
 def test_extend_needs_a_folder_or_new(data):
     with pytest.raises(CommandError):
         call_command("extend_lexicon", stdout=io.StringIO())
+
+
+def test_import_only_when_empty(data):
+    # deploy.sh: a new server gets the dictionary, an old one keeps it (and its packages)
+    Concept.objects.get(key="kid.noun.1").delete()
+    out = io.StringIO()
+
+    call_command("import_lexicon", "--if-empty", stdout=out)
+
+    assert "nothing imported" in out.getvalue()
+    assert not Concept.objects.filter(key="kid.noun.1").exists()
+
+    Concept.objects.all().delete()
+    call_command("import_lexicon", "--if-empty", stdout=io.StringIO())
+
+    assert Concept.objects.filter(key="kid.noun.1").exists()

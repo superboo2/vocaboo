@@ -1,0 +1,200 @@
+{"id": "fear.noun.1", "texts": {"es": {"words": "miedo; temor", "sentence": "Vi el {miedo} en sus ojos."}}}
+{"id": "fifteen.numeral.1", "texts": {"es": {"words": "quince", "sentence": "Vuelvo en {quince} minutos."}}}
+{"id": "fifty.numeral.1", "texts": {"es": {"words": "cincuenta", "sentence": "Mi padre tiene {cincuenta} años."}}}
+{"id": "file.noun.1", "texts": {"es": {"words": "archivo; fichero", "sentence": "Primero guarda el {archivo}."}}}
+{"id": "file.noun.2", "texts": {"es": {"words": "expediente; dosier; carpeta", "sentence": "He leído tu {expediente}."}}}
+{"id": "final.adjective.1", "texts": {"es": {"words": "último; definitivo; final", "sentence": "Es mi {última} oferta."}}}
+{"id": "finger.noun.1", "texts": {"es": {"words": "dedo", "sentence": "Me he cortado el {dedo}."}}}
+{"id": "fire.verb.1", "texts": {"es": {"words": "despedir; echar", "sentence": "¡Estás {despedido}!"}}}
+{"id": "fire.verb.2", "texts": {"es": {"words": "disparar", "sentence": "¡No {disparéis}!"}}}
+{"id": "fit.verb.1", "texts": {"es": {"words": "quedar bien; sentar bien; quedar", "sentence": "Estos vaqueros no me {quedan} bien."}}}
+{"id": "fit.verb.2", "texts": {"es": {"words": "caber", "sentence": "¿{Cabrá} en el coche?"}}}
+{"id": "focus.verb.1", "texts": {"es": {"words": "concentrarse; centrarse", "sentence": "Ahora mismo no me puedo {concentrar}."}}}
+{"id": "fool.noun.1", "texts": {"es": {"words": "tonto; tonta; idiota", "sentence": "No seas {tonto}."}}}
+{"id": "forty.numeral.1", "texts": {"es": {"words": "cuarenta", "sentence": "Tiene casi {cuarenta} años."}}}
+{"id": "freak out.phrasal_verb.1", "texts": {"es": {"words": "ponerse histérico; asustarse; flipar", "sentence": "No {te pongas histérico}, solo es una araña."}}}
+{"id": "freak out.phrasal_verb.2", "texts": {"es": {"words": "asustar; dar miedo; poner nervioso", "sentence": "Para ya, me estás {asustando}."}}}
+{"id": "gas.noun.1", "texts": {"es": {"words": "gasolina", "sentence": "Tenemos que parar a echar {gasolina}."}}}
+{"id": "gas.noun.2", "texts": {"es": {"words": "gas", "sentence": "Huele a {gas}."}}}
+{"id": "gay.adjective.1", "texts": {"es": {"words": "gay; homosexual", "sentence": "Mi hermano es {gay}."}}}
+{"id": "general.adjective.1", "texts": {"es": {"words": "general", "sentence": "Tengo una pregunta {general}."}}}
+{"id": "general.adjective.2", "texts": {"es": {"words": "en general; por lo general", "sentence": "{En general}, me gusta estar aquí."}}}
+{"id": "gentleman.noun.1", "texts": {"es": {"words": "señor; caballero", "sentence": "¡Señoras y {señores}!"}}}
+{"id": "gentleman.noun.2", "texts": {"es": {"words": "caballero", "sentence": "Es todo un {caballero}."}}}
+{"id": "get on.phrasal_verb.1", "texts": {"es": {"words": "subir; subirse; montarse", "sentence": "Nos {subimos} al autobús equivocado."}}}
+{"id": "get on.phrasal_verb.2", "texts": {"es": {"words": "llevarse bien", "sentence": "¿Te {llevas bien} con tu hermana?"}}}
+{"id": "get over.phrasal_verb.1", "texts": {"es": {"words": "superar; olvidar", "sentence": "Ya lo {superarás}."}}}
+{"id": "get over.phrasal_verb.2", "texts": {"es": {"words": "quitarse; recuperarse; curarse", "sentence": "No consigo {quitarme} este resfriado."}}}
+{"id": "get along.phrasal_verb.1", "texts": {"es": {"words": "llevarse bien; entenderse", "sentence": "Nos {llevamos} muy bien."}}}
+{"id": "get rid of.phrase.1", "texts": {"es": {"words": "deshacerse de; librarse de; tirar", "sentence": "Tenemos que {deshacernos} de este sofá viejo."}}}
+{"id": "give back.phrasal_verb.1", "texts": {"es": {"words": "devolver", "sentence": "Tienes que {devolver} el dinero."}}}
+{"id": "go through.phrasal_verb.1", "texts": {"es": {"words": "revisar; mirar; registrar", "sentence": "Ella {revisó} todos sus correos."}}}
+{"id": "go through.phrasal_verb.2", "texts": {"es": {"words": "pasar por; atravesar", "sentence": "Está {pasando} por una mala racha."}}}
+{"id": "goal.noun.1", "texts": {"es": {"words": "objetivo; meta", "sentence": "¿Cuál es tu {objetivo} en la vida?"}}}
+{"id": "goal.noun.2", "texts": {"es": {"words": "gol", "sentence": "¡Qué {gol}!"}}}
+{"id": "gold.noun.1", "texts": {"es": {"words": "oro", "sentence": "¿Es {oro} de verdad?"}}}
+{"id": "gorgeous.adjective.1", "texts": {"es": {"words": "precioso; guapísimo; espléndido", "sentence": "Estás {preciosa} esta noche."}}}
+{"id": "gosh.interjection.1", "texts": {"es": {"words": "Dios mío; madre mía; vaya", "sentence": "¡{Dios mío}, mira eso!"}}}
+{"id": "government.noun.1", "texts": {"es": {"words": "gobierno", "sentence": "El {gobierno} quiere subir los impuestos."}}}
+{"id": "grandpa.noun.1", "texts": {"es": {"words": "abuelo; yayo", "sentence": "{Abuelo}, ¡cuéntanos un cuento!"}}}
+{"id": "grandfather.noun.1", "texts": {"es": {"words": "abuelo", "sentence": "Mi {abuelo} era médico."}}}
+{"id": "grandmother.noun.1", "texts": {"es": {"words": "abuela", "sentence": "Mi {abuela} vive en el campo."}}}
+{"id": "ground.noun.1", "texts": {"es": {"words": "suelo; tierra", "sentence": "Se cayó al {suelo}."}}}
+{"id": "group.noun.1", "texts": {"es": {"words": "grupo", "sentence": "Trabajaremos en {grupos}."}}}
+{"id": "group.noun.2", "texts": {"es": {"words": "grupo; banda", "sentence": "¿Cuál es tu {grupo} favorito?"}}}
+{"id": "guard.noun.1", "texts": {"es": {"words": "vigilante; guardia; guarda", "sentence": "El {vigilante} nos dejó entrar."}}}
+{"id": "guess.noun.1", "texts": {"es": {"words": "suposición; impresión; intuición", "sentence": "Mi {impresión} es que está mintiendo."}}}
+{"id": "guest.noun.1", "texts": {"es": {"words": "invitado; invitada; huésped", "sentence": "Esta noche tenemos {invitados}."}}}
+{"id": "guilty.adjective.1", "texts": {"es": {"words": "culpable", "sentence": "El jurado lo declaró {culpable}."}}}
+{"id": "guilty.adjective.2", "texts": {"es": {"words": "culpable", "sentence": "Me siento muy {culpable}."}}}
+{"id": "guitar.noun.1", "texts": {"es": {"words": "guitarra", "sentence": "Toco la {guitarra}."}}}
+{"id": "gym.noun.1", "texts": {"es": {"words": "gimnasio", "sentence": "Voy al {gimnasio} todos los días."}}}
+{"id": "gym.noun.2", "texts": {"es": {"words": "educación física; gimnasia", "sentence": "Los lunes tenemos {educación física}."}}}
+{"id": "go.noun.1", "texts": {"es": {"words": "intento; probar; intentar", "sentence": "Déjame {probar} a mí."}}}
+{"id": "go.noun.2", "texts": {"es": {"words": "turno; tocar", "sentence": "Es tu {turno}."}}}
+{"id": "goddamn.adjective.1", "texts": {"es": {"words": "maldito; puñetero; dichoso", "sentence": "¿Dónde están mis {malditas} llaves?"}}}
+{"id": "fun.adjective.1", "texts": {"es": {"words": "divertido", "sentence": "Fue una fiesta muy {divertida}."}}}
+{"id": "fresh.adjective.1", "texts": {"es": {"words": "fresco; tierno; del día", "sentence": "¿Está {tierno} el pan?"}}}
+{"id": "fresh.adjective.2", "texts": {"es": {"words": "fresco", "sentence": "Necesito tomar un poco de aire {fresco}."}}}
+{"id": "fridge.noun.1", "texts": {"es": {"words": "nevera; frigorífico; refrigerador", "sentence": "Hay cerveza en la {nevera}."}}}
+{"id": "friendly.adjective.1", "texts": {"es": {"words": "simpático; amable; agradable", "sentence": "Aquí la gente es muy {simpática}."}}}
+{"id": "fruit.noun.1", "texts": {"es": {"words": "fruta", "sentence": "Deberías comer más {fruta}."}}}
+{"id": "funeral.noun.1", "texts": {"es": {"words": "funeral; entierro", "sentence": "El {funeral} es el viernes."}}}
+{"id": "force.verb.1", "texts": {"es": {"words": "obligar; forzar", "sentence": "Nadie te {obligó} a venir."}}}
+{"id": "form.noun.1", "texts": {"es": {"words": "formulario; impreso", "sentence": "Rellena este {formulario}, por favor."}}}
+{"id": "form.noun.2", "texts": {"es": {"words": "forma; tipo", "sentence": "Es una {forma} de arte."}}}
+{"id": "forward.adverb.1", "texts": {"es": {"words": "adelante; hacia delante", "sentence": "Da un paso {adelante}."}}}
+{"id": "forward.adverb.2", "texts": {"es": {"words": "tener ganas; hacer ilusión", "sentence": "{Tengo muchísimas ganas}."}}}
+{"id": "for example.phrase.1", "texts": {"es": {"words": "por ejemplo", "sentence": "Coge algo de fruta, {por ejemplo} una manzana."}}}
+{"id": "fair enough.phrase.1", "texts": {"es": {"words": "vale; normal; me parece bien", "sentence": "Estoy demasiado cansado para ir. – {Vale}, lo entiendo."}}}
+{"id": "farm.noun.1", "texts": {"es": {"words": "granja; finca", "sentence": "Mi tío tiene una {granja}."}}}
+{"id": "field.noun.1", "texts": {"es": {"words": "campo; prado", "sentence": "Había vacas en el {campo}."}}}
+{"id": "field.noun.2", "texts": {"es": {"words": "campo; terreno de juego; cancha", "sentence": "Los jugadores vuelven al {campo}."}}}
+{"id": "field.noun.3", "texts": {"es": {"words": "sector; campo; ámbito", "sentence": "¿En qué {sector} trabajas?"}}}
+{"id": "figure.noun.1", "texts": {"es": {"words": "cifra; dato; número", "sentence": "Las {cifras} no pintan bien."}}}
+{"id": "figure.noun.2", "texts": {"es": {"words": "tipo; figura; cuerpo", "sentence": "Tiene un {tipo} estupendo."}}}
+{"id": "fit.adjective.1", "texts": {"es": {"words": "en forma", "sentence": "Quiero ponerme {en forma}."}}}
+{"id": "flight.noun.1", "texts": {"es": {"words": "vuelo", "sentence": "¿Qué tal el {vuelo}?"}}}
+{"id": "football.noun.1", "texts": {"es": {"words": "fútbol", "sentence": "¿Juegas al {fútbol}?"}}}
+{"id": "football.noun.2", "texts": {"es": {"words": "fútbol americano", "sentence": "Vimos {fútbol americano} todo el domingo."}}}
+{"id": "freedom.noun.1", "texts": {"es": {"words": "libertad", "sentence": "Necesito un poco de {libertad}."}}}
+{"id": "freeze.verb.1", "texts": {"es": {"words": "helarse; congelarse", "sentence": "Anoche se {heló} el lago."}}}
+{"id": "freeze.verb.2", "texts": {"es": {"words": "congelar", "sentence": "Puedes {congelar} la sopa."}}}
+{"id": "freeze.verb.3", "texts": {"es": {"words": "quieto; alto", "sentence": "¡{Quieto}! ¡Policía!"}}}
+{"id": "elevator.noun.1", "texts": {"es": {"words": "ascensor; elevador", "sentence": "Cojamos el {ascensor}."}}}
+{"id": "emergency.noun.1", "texts": {"es": {"words": "emergencia; urgencia", "sentence": "Llámame si hay alguna {emergencia}."}}}
+{"id": "emergency.noun.2", "texts": {"es": {"words": "urgencias", "sentence": "Lo llevamos a {urgencias}."}}}
+{"id": "email.verb.1", "texts": {"es": {"words": "enviar por correo; mandar por correo; mandar un email", "sentence": "Te {envío} los detalles por correo."}}}
+{"id": "embarrassed.adjective.1", "texts": {"es": {"words": "avergonzado; abochornado", "sentence": "Estaba muy {avergonzado}."}}}
+{"id": "embarrassing.adjective.1", "texts": {"es": {"words": "vergonzoso; bochornoso; embarazoso", "sentence": "¡Qué {bochornoso}!"}}}
+{"id": "engaged.adjective.1", "texts": {"es": {"words": "prometido; comprometido", "sentence": "¡Estamos {prometidos}!"}}}
+{"id": "engaged.adjective.2", "texts": {"es": {"words": "ocupado; comunicando", "sentence": "La línea está {ocupada}."}}}
+{"id": "engine.noun.1", "texts": {"es": {"words": "motor", "sentence": "El {motor} no arranca."}}}
+{"id": "dare.verb.1", "texts": {"es": {"words": "atreverse", "sentence": "¡No te {atrevas} a tocarme!"}}}
+{"id": "dare.verb.2", "texts": {"es": {"words": "retar; desafiar", "sentence": "Te {reto} a tirarte al lago."}}}
+{"id": "decent.adjective.1", "texts": {"es": {"words": "decente; honrado; buena persona", "sentence": "Es un tipo {decente}."}}}
+{"id": "decent.adjective.2", "texts": {"es": {"words": "decente; en condiciones", "sentence": "Necesito una comida {decente}."}}}
+{"id": "delicious.adjective.1", "texts": {"es": {"words": "buenísimo; delicioso; riquísimo", "sentence": "Esta sopa está {buenísima}."}}}
+{"id": "department.noun.1", "texts": {"es": {"words": "departamento; sección", "sentence": "Trabaja en el {departamento} de ventas."}}}
+{"id": "desk.noun.1", "texts": {"es": {"words": "escritorio; mesa", "sentence": "Tus llaves están en mi {escritorio}."}}}
+{"id": "desk.noun.2", "texts": {"es": {"words": "recepción; mostrador", "sentence": "Pregunta en {recepción}."}}}
+{"id": "desperate.adjective.1", "texts": {"es": {"words": "desesperado", "sentence": "Estaba {desesperado}."}}}
+{"id": "desperate.adjective.2", "texts": {"es": {"words": "morirse por; necesitar con urgencia", "sentence": "Me {muero} por un café."}}}
+{"id": "destroy.verb.1", "texts": {"es": {"words": "destruir; arrasar", "sentence": "El fuego {destruyó} la casa."}}}
+{"id": "destroy.verb.2", "texts": {"es": {"words": "destrozar; arruinar", "sentence": "¡Me has {destrozado} la vida!"}}}
+{"id": "detail.noun.1", "texts": {"es": {"words": "detalle", "sentence": "Cuéntame todos los {detalles}."}}}
+{"id": "detective.noun.1", "texts": {"es": {"words": "detective; inspector; inspectora", "sentence": "El {detective} Smith ha venido a verte."}}}
+{"id": "devil.noun.1", "texts": {"es": {"words": "diablo; demonio", "sentence": "¡Es el {diablo}!"}}}
+{"id": "devil.noun.2", "texts": {"es": {"words": "hablando del rey de Roma", "sentence": "¡{Hablando del rey de Roma}! Hola, Tom."}}}
+{"id": "dig.verb.1", "texts": {"es": {"words": "cavar; excavar", "sentence": "El perro está {cavando} un agujero."}}}
+{"id": "direction.noun.1", "texts": {"es": {"words": "dirección; sentido", "sentence": "Vamos en la {dirección} equivocada."}}}
+{"id": "direction.noun.2", "texts": {"es": {"words": "indicaciones; señas", "sentence": "¿Me puedes dar {indicaciones}?"}}}
+{"id": "disappear.verb.1", "texts": {"es": {"words": "desaparecer", "sentence": "Mi móvil ha {desaparecido} sin más."}}}
+{"id": "disappointed.adjective.1", "texts": {"es": {"words": "decepcionado", "sentence": "Estoy muy {decepcionado} contigo."}}}
+{"id": "disaster.noun.1", "texts": {"es": {"words": "desastre; catástrofe", "sentence": "La fiesta fue un {desastre}."}}}
+{"id": "disgusting.adjective.1", "texts": {"es": {"words": "asqueroso; repugnante; nauseabundo", "sentence": "¡Eso es {asqueroso}!"}}}
+{"id": "divorce.noun.1", "texts": {"es": {"words": "divorcio", "sentence": "Quiere el {divorcio}."}}}
+{"id": "drag.verb.1", "texts": {"es": {"words": "arrastrar", "sentence": "Ayúdame a {arrastrar} esta caja adentro."}}}
+{"id": "drag.verb.2", "texts": {"es": {"words": "arrastrar; llevar a rastras", "sentence": "Me {arrastró} a la fiesta."}}}
+{"id": "drive.noun.1", "texts": {"es": {"words": "trayecto; viaje en coche", "sentence": "Es un {trayecto} de dos horas en coche."}}}
+{"id": "drive.noun.2", "texts": {"es": {"words": "vuelta; paseo en coche", "sentence": "Vamos a dar una {vuelta} en coche."}}}
+{"id": "drop off.phrasal_verb.1", "texts": {"es": {"words": "dejar; llevar", "sentence": "Yo {dejo} a los niños en el colegio."}}}
+{"id": "drop off.phrasal_verb.2", "texts": {"es": {"words": "entregar; dejar; llevar", "sentence": "¿Puedes {entregar} este paquete?"}}}
+{"id": "dress up.phrasal_verb.1", "texts": {"es": {"words": "arreglarse; vestirse elegante", "sentence": "¿Tengo que {arreglarme}?"}}}
+{"id": "dress up.phrasal_verb.2", "texts": {"es": {"words": "disfrazarse", "sentence": "Se {disfrazó} de bruja."}}}
+{"id": "dry.verb.1", "texts": {"es": {"words": "secar; secarse", "sentence": "Tengo que {secarme} el pelo."}}}
+{"id": "dry.verb.2", "texts": {"es": {"words": "secarse; secar", "sentence": "{Sécate} las manos con esta toalla."}}}
+{"id": "dump.verb.1", "texts": {"es": {"words": "dejar; plantar; cortar con", "sentence": "Lo {dejó} la semana pasada."}}}
+{"id": "dump.verb.2", "texts": {"es": {"words": "tirar; soltar; echar", "sentence": "No {tires} tus cosas encima de mi cama."}}}
+{"id": "double.adjective.1", "texts": {"es": {"words": "doble", "sentence": "Para mí, un expreso {doble}."}}}
+{"id": "double.adjective.2", "texts": {"es": {"words": "doble", "sentence": "Una habitación {doble}, por favor."}}}
+{"id": "down.adjective.1", "texts": {"es": {"words": "decaído; desanimado; de bajón", "sentence": "Te veo un poco {decaído}."}}}
+{"id": "down.adjective.2", "texts": {"es": {"words": "caído; fuera de servicio", "sentence": "El servidor vuelve a estar {caído}."}}}
+{"id": "downtown.adverb.1", "texts": {"es": {"words": "al centro; en el centro", "sentence": "Vamos {al centro} esta noche."}}}
+{"id": "entire.adjective.1", "texts": {"es": {"words": "entero; todo", "sentence": "Me pasé el día {entero} en la cama."}}}
+{"id": "episode.noun.1", "texts": {"es": {"words": "capítulo; episodio", "sentence": "¿Has visto el último {capítulo}?"}}}
+{"id": "evidence.noun.1", "texts": {"es": {"words": "pruebas; prueba; evidencia", "sentence": "No tenemos {pruebas}."}}}
+{"id": "ex.noun.1", "texts": {"es": {"words": "ex", "sentence": "Ayer me encontré con mi {ex}."}}}
+{"id": "exact.adjective.1", "texts": {"es": {"words": "exacto; mismo", "sentence": "Esas fueron sus palabras {exactas}."}}}
+{"id": "exhausted.adjective.1", "texts": {"es": {"words": "agotado; reventado; hecho polvo", "sentence": "Estoy {agotado}."}}}
+{"id": "exciting.adjective.1", "texts": {"es": {"words": "emocionante; apasionante", "sentence": "¡Qué {emocionante}!"}}}
+{"id": "easy.adverb.1", "texts": {"es": {"words": "con calma; tranquilamente", "sentence": "Tómatelo {con calma}, ¿vale?"}}}
+{"id": "easy.adverb.2", "texts": {"es": {"words": "suave; con tacto; con calma", "sentence": "Sé {suave} con él, que es nuevo."}}}
+{"id": "fall in love.phrase.1", "texts": {"es": {"words": "enamorarse", "sentence": "Me {enamoré} de ella el primer día."}}}
+{"id": "folks.noun.1", "texts": {"es": {"words": "gente; chicos; chicas", "sentence": "Venga, {gente}, ¡vamos!"}}}
+{"id": "folks.noun.2", "texts": {"es": {"words": "padres; viejos", "sentence": "Este fin de semana voy a ver a mis {padres}."}}}
+{"id": "freaking.adjective.1", "texts": {"es": {"words": "puñetero; dichoso; maldito", "sentence": "¿Dónde está el {puñetero} mando?"}}}
+{"id": "fuck up.phrasal_verb.1", "texts": {"es": {"words": "cagarla; joderla; fastidiarla", "sentence": "Esta vez {la he cagado} de verdad."}}}
+{"id": "garbage.noun.1", "texts": {"es": {"words": "basura", "sentence": "¿Puedes sacar la {basura}?"}}}
+{"id": "garbage.noun.2", "texts": {"es": {"words": "tontería; chorrada; bobada", "sentence": "¡Eso son {tonterías}!"}}}
+{"id": "genius.noun.1", "texts": {"es": {"words": "genio", "sentence": "¡Eres un {genio}!"}}}
+{"id": "ghost.noun.1", "texts": {"es": {"words": "fantasma; espíritu", "sentence": "¿Crees en los {fantasmas}?"}}}
+{"id": "go off.phrasal_verb.1", "texts": {"es": {"words": "sonar; saltar", "sentence": "No me ha {sonado} el despertador."}}}
+{"id": "go off.phrasal_verb.2", "texts": {"es": {"words": "explotar; estallar", "sentence": "La bomba {explotó} a mediodía."}}}
+{"id": "go off.phrasal_verb.3", "texts": {"es": {"words": "estropearse; cortarse; ponerse malo", "sentence": "La leche se ha {cortado}."}}}
+{"id": "go over.phrasal_verb.1", "texts": {"es": {"words": "repasar; revisar", "sentence": "Vamos a {repasar} el plan otra vez."}}}
+{"id": "go over.phrasal_verb.2", "texts": {"es": {"words": "pasarse; ir", "sentence": "Luego me {paso} por su casa."}}}
+{"id": "good.noun.1", "texts": {"es": {"words": "bien", "sentence": "Es por tu propio {bien}."}}}
+{"id": "good.noun.2", "texts": {"es": {"words": "inútil; no servir de nada", "sentence": "Es {inútil}, no se abre."}}}
+{"id": "goodness.interjection.1", "texts": {"es": {"words": "madre mía; Dios mío; vaya", "sentence": "¡{Madre mía}, cuánto has crecido!"}}}
+{"id": "goodness.interjection.2", "texts": {"es": {"words": "menos mal; gracias a Dios", "sentence": "{Menos mal} que estás bien."}}}
+{"id": "grade.noun.1", "texts": {"es": {"words": "nota; calificación", "sentence": "He sacado buena {nota} en mates."}}}
+{"id": "grade.noun.2", "texts": {"es": {"words": "curso; año", "sentence": "Está en tercer {curso}."}}}
+{"id": "gross.adjective.1", "texts": {"es": {"words": "asqueroso; qué asco; repugnante", "sentence": "¡Puaj, {qué asco}!"}}}
+{"id": "get together.phrasal_verb.1", "texts": {"es": {"words": "quedar; reunirse; verse", "sentence": "{Quedemos} la semana que viene."}}}
+{"id": "get together.phrasal_verb.2", "texts": {"es": {"words": "empezar a salir; juntarse", "sentence": "¿Cuándo {empezasteis a salir} vosotros dos?"}}}
+{"id": "get through.phrasal_verb.1", "texts": {"es": {"words": "salir de; superar; aguantar", "sentence": "{Saldremos} de esta juntos."}}}
+{"id": "get through.phrasal_verb.2", "texts": {"es": {"words": "contactar; localizar; comunicar", "sentence": "No pude {contactar} con él."}}}
+{"id": "go for.phrasal_verb.1", "texts": {"es": {"words": "ir a por; lanzarse", "sentence": "Si lo quieres, ¡{ve a por} ello!"}}}
+{"id": "go for.phrasal_verb.2", "texts": {"es": {"words": "pedir; elegir; tomar", "sentence": "Yo {pediré} el pollo."}}}
+{"id": "darling.noun.1", "texts": {"es": {"words": "cariño; querido; querida", "sentence": "Ven aquí, {cariño}."}}}
+{"id": "doubt.verb.1", "texts": {"es": {"words": "dudar", "sentence": "Lo {dudo}."}}}
+{"id": "front.adjective.1", "texts": {"es": {"words": "delantero; de delante", "sentence": "¿Puedo sentarme en el asiento {delantero}?"}}}
+{"id": "eh.interjection.1", "texts": {"es": {"words": "¿eh?; ¿no?; ¿verdad?", "sentence": "Bonito coche, {¿eh?}"}}}
+{"id": "hmm.interjection.1", "texts": {"es": {"words": "mmm; hum", "sentence": "{Mmm}, déjame pensarlo."}}}
+{"id": "hang on.phrasal_verb.1", "texts": {"es": {"words": "esperar; un momento", "sentence": "{Espera}, ahora vuelvo."}}}
+{"id": "hang on.phrasal_verb.2", "texts": {"es": {"words": "agarrarse; sujetarse", "sentence": "¡{Agárrate} fuerte!"}}}
+{"id": "itself.pronoun.1", "texts": {"es": {"words": "solo; sola; sí mismo", "sentence": "La puerta se cerró {sola}."}}}
+{"id": "hers.pronoun.1", "texts": {"es": {"words": "de ella; suyo; suya", "sentence": "¿Este bolso es {de ella}?"}}}
+{"id": "however.adverb.1", "texts": {"es": {"words": "sin embargo; no obstante", "sentence": "Es barato. {Sin embargo}, no es muy bueno."}}}
+{"id": "however.adverb.2", "texts": {"es": {"words": "como; comoquiera", "sentence": "Hazlo {como} quieras."}}}
+{"id": "human.noun.1", "texts": {"es": {"words": "humano; ser humano; persona", "sentence": "Solo soy {humano}, me equivoco."}}}
+{"id": "human.adjective.1", "texts": {"es": {"words": "humano", "sentence": "Es la naturaleza {humana}."}}}
+{"id": "hurry.noun.1", "texts": {"es": {"words": "prisa", "sentence": "Lo siento, tengo {prisa}."}}}
+{"id": "hurry up.phrasal_verb.1", "texts": {"es": {"words": "darse prisa; correr; apurarse", "sentence": "¡{Date prisa}, que llegamos tarde!"}}}
+{"id": "hope.noun.1", "texts": {"es": {"words": "esperanza", "sentence": "Todavía hay {esperanza}."}}}
+{"id": "heaven.noun.1", "texts": {"es": {"words": "cielo; paraíso", "sentence": "Cree que irá al {cielo}."}}}
+{"id": "heaven.noun.2", "texts": {"es": {"words": "gloria; cielo; paraíso", "sentence": "¡Esta tarta es {gloria} bendita!"}}}
+{"id": "hero.noun.1", "texts": {"es": {"words": "héroe; heroína", "sentence": "Me has salvado la vida, ¡eres un {héroe}!"}}}
+{"id": "history.noun.1", "texts": {"es": {"words": "historia", "sentence": "Mañana tenemos examen de {historia}."}}}
+{"id": "history.noun.2", "texts": {"es": {"words": "historia; pasado", "sentence": "Tenemos mucha {historia} juntos."}}}
+{"id": "hit.noun.1", "texts": {"es": {"words": "éxito; exitazo", "sentence": "La canción fue un gran {éxito}."}}}
+{"id": "hit.noun.2", "texts": {"es": {"words": "golpe", "sentence": "Recibió un {golpe} en la cabeza."}}}
+{"id": "hardly.adverb.1", "texts": {"es": {"words": "apenas; casi no", "sentence": "{Apenas} te oigo."}}}
+{"id": "head.verb.1", "texts": {"es": {"words": "ir; irse; dirigirse", "sentence": "Me {voy} para casa."}}}
+{"id": "head.verb.2", "texts": {"es": {"words": "dirigir; liderar", "sentence": "Ella {dirige} todo el equipo."}}}
+{"id": "health.noun.1", "texts": {"es": {"words": "salud", "sentence": "Fumar es malo para la {salud}."}}}
+{"id": "horrible.adjective.1", "texts": {"es": {"words": "horrible; espantoso; fatal", "sentence": "¡Qué día más {horrible}!"}}}
+{"id": "horrible.adjective.2", "texts": {"es": {"words": "malo; cruel; borde", "sentence": "¿Por qué eres tan {mala} conmigo?"}}}
+{"id": "horse.noun.1", "texts": {"es": {"words": "caballo; yegua", "sentence": "¿Sabes montar a {caballo}?"}}}
+{"id": "ice.noun.1", "texts": {"es": {"words": "hielo", "sentence": "¿Me pones {hielo} en la bebida?"}}}

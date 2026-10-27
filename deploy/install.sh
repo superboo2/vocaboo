@@ -45,7 +45,7 @@ main() {
     systemctl daemon-reload
     systemctl enable vocaboo
 
-    # Libraries, tables, static files, (re)start of the service
+    # Libraries, tables, the dictionary of the app, static files, (re)start of the service
     "$here/deploy.sh" --no-pull
 
     echo "==> nginx site"

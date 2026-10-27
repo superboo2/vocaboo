@@ -1,0 +1,2 @@
+added    es: 999 concepts (the most common words, band 1), European Spanish
+skipped  would.verb.1 (only a verb ending in Spanish, no word)

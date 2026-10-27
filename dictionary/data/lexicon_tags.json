@@ -1,0 +1,74 @@
+[
+  {"slug": "clovek", "name": "člověk", "parent": null},
+  {"slug": "telo", "name": "tělo", "parent": "clovek"},
+  {"slug": "zdravi", "name": "zdraví a nemoci", "parent": "clovek"},
+  {"slug": "rodina", "name": "rodina a vztahy", "parent": "clovek"},
+  {"slug": "city", "name": "city a nálady", "parent": "clovek"},
+  {"slug": "povaha", "name": "povaha a vlastnosti", "parent": "clovek"},
+  {"slug": "vzhled", "name": "vzhled", "parent": "clovek"},
+  {"slug": "obleceni", "name": "oblečení", "parent": "clovek"},
+
+  {"slug": "jidlo", "name": "jídlo a pití", "parent": null},
+  {"slug": "ovoce", "name": "ovoce", "parent": "jidlo"},
+  {"slug": "zelenina", "name": "zelenina", "parent": "jidlo"},
+  {"slug": "napoje", "name": "nápoje", "parent": "jidlo"},
+  {"slug": "vareni", "name": "vaření a kuchyně", "parent": "jidlo"},
+
+  {"slug": "domov", "name": "domov", "parent": null},
+  {"slug": "nabytek", "name": "nábytek a vybavení", "parent": "domov"},
+  {"slug": "domacnost", "name": "domácí práce", "parent": "domov"},
+
+  {"slug": "priroda", "name": "příroda", "parent": null},
+  {"slug": "zvire", "name": "zvířata", "parent": "priroda"},
+  {"slug": "rostlina", "name": "rostliny", "parent": "priroda"},
+  {"slug": "pocasi", "name": "počasí", "parent": "priroda"},
+  {"slug": "krajina", "name": "krajina", "parent": "priroda"},
+
+  {"slug": "mesto", "name": "město a místa", "parent": null},
+  {"slug": "budovy", "name": "budovy", "parent": "mesto"},
+  {"slug": "doprava", "name": "doprava", "parent": "mesto"},
+  {"slug": "nakupovani", "name": "nakupování", "parent": "mesto"},
+  {"slug": "cestovani", "name": "cestování", "parent": "mesto"},
+
+  {"slug": "prace", "name": "práce a škola", "parent": null},
+  {"slug": "skola", "name": "škola a učení", "parent": "prace"},
+  {"slug": "zamestnani", "name": "zaměstnání", "parent": "prace"},
+  {"slug": "penize", "name": "peníze", "parent": "prace"},
+  {"slug": "kancelar", "name": "kancelář", "parent": "prace"},
+
+  {"slug": "volny_cas", "name": "volný čas", "parent": null},
+  {"slug": "sport", "name": "sport", "parent": "volny_cas"},
+  {"slug": "hudba", "name": "hudba", "parent": "volny_cas"},
+  {"slug": "film", "name": "filmy a seriály", "parent": "volny_cas"},
+  {"slug": "hry", "name": "hry", "parent": "volny_cas"},
+  {"slug": "umeni", "name": "umění a kultura", "parent": "volny_cas"},
+
+  {"slug": "komunikace", "name": "komunikace", "parent": null},
+  {"slug": "pozdravy", "name": "pozdravy a zdvořilost", "parent": "komunikace"},
+  {"slug": "konverzace", "name": "běžná konverzace", "parent": "komunikace"},
+  {"slug": "technika", "name": "telefon, počítač, internet", "parent": "komunikace"},
+  {"slug": "media", "name": "zprávy a média", "parent": "komunikace"},
+
+  {"slug": "spolecnost", "name": "společnost", "parent": null},
+  {"slug": "pravo", "name": "zákon a zločin", "parent": "spolecnost"},
+  {"slug": "politika", "name": "politika", "parent": "spolecnost"},
+  {"slug": "valka", "name": "válka a armáda", "parent": "spolecnost"},
+  {"slug": "nabozenstvi", "name": "náboženství", "parent": "spolecnost"},
+
+  {"slug": "cas", "name": "čas", "parent": null},
+  {"slug": "kalendar", "name": "dny, měsíce, roční období", "parent": "cas"},
+
+  {"slug": "mnozstvi", "name": "čísla a množství", "parent": null},
+  {"slug": "barva", "name": "barvy", "parent": null},
+  {"slug": "prostor", "name": "místo, směr, poloha", "parent": null},
+  {"slug": "pohyb", "name": "pohyb", "parent": null},
+  {"slug": "smysly", "name": "smysly a vnímání", "parent": null},
+  {"slug": "mysleni", "name": "myšlení a vědění", "parent": null},
+
+  {"slug": "styl", "name": "styl řeči", "parent": null},
+  {"slug": "hovorove", "name": "hovorové", "parent": "styl"},
+  {"slug": "formalni", "name": "formální", "parent": "styl"},
+  {"slug": "vulgarni", "name": "vulgární", "parent": "styl"},
+
+  {"slug": "gramatika", "name": "gramatická slova", "parent": null}
+]

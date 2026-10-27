@@ -1067,23 +1067,17 @@ sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py check --deploy
 
 #### 3. The dictionary of the app
 
-Optional: without it the app works, it only shows no translation suggestions, other meanings,
-IPA and example sentences. The data is not in the repository (`dictionary/data/` is in
-`.gitignore`), so copy the two files from your computer and import them; it takes a few seconds
-and about 8 MB in the database, a Raspberry Pi is fine.
+Nothing to do: the data is in the repository (`dictionary/data/`, about 6 MB) and `deploy.sh`
+(run by `install.sh` too) imports it when the dictionary in the database is empty
+(`import_lexicon --if-empty`). It takes a few seconds and about 8 MB in the database, a Raspberry
+Pi is fine. Without it the app works too, it only shows no translation suggestions, other
+meanings, IPA and example sentences.
 
 ```bash
-# On your computer
-scp dictionary/data/concepts.jsonl dictionary/data/words_*.jsonl dictionary/data/lexicon_tags.json \
-    pi@raspberrypi:/tmp/
-
-# On the server
-sudo mkdir -p /srv/vocaboo/app/dictionary/data
-sudo mv /tmp/concepts.jsonl /tmp/words_*.jsonl /tmp/lexicon_tags.json /srv/vocaboo/app/dictionary/data/
-sudo chown -R vocaboo:vocaboo /srv/vocaboo/app/dictionary/data
+# What deploy.sh does, by hand
 cd /srv/vocaboo/app
-sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py import_lexicon
-# Imported 12564 concepts and 10027 words (en), 60 tags, 0 packages.
+sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py import_lexicon --if-empty
+# Imported 12564 concepts and 10027 words (cs, en, es), 60 tags, 18 packages.
 ```
 
 Check it in the shell:
@@ -1093,11 +1087,11 @@ sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py shell -c \
     "from dictionary.providers import get_suggestions; print(get_suggestions('palm', 'en', 'cs'))"
 ```
 
-The app does not need a restart after the import. A package of new words goes to
-`/srv/vocaboo/app/dictionary/data/extensions/` and is added with `extend_lexicon` (see
-[docs/slovnik.md](docs/slovnik.md)); keep the packages there, a full `import_lexicon` reads them
-again. After you change the base files, copy them again and run the import again; it replaces
-the old data.
+The app does not need a restart after the import. A package of new words is a folder in
+`dictionary/data/extensions/` (see [docs/slovnik.md](docs/slovnik.md)); commit it, and
+`deploy.sh` adds it on the server with `extend_lexicon --new`. A full `import_lexicon` reads all
+packages again. After you change the base files, commit them and run `import_lexicon` on the
+server by hand (without `--if-empty`); it replaces the old data.
 
 #### 4. Service, nginx and nightly jobs: `deploy/install.sh`
 
@@ -1239,22 +1233,23 @@ sudo /srv/vocaboo/app/deploy/deploy.sh
 It stops at the first error; when the app does not start again, it prints the last lines of its
 log.
 
-A new package of the dictionary (not in git): copy its folder to the server, `deploy.sh` adds
-it (`extend_lexicon --new` adds every folder of `extensions/` that is not in the database yet;
-the added ones are in the admin under *Slovník › Balíčky slovníku*):
+A new package of the dictionary comes with git like the code: commit its folder in
+`dictionary/data/extensions/`, push, and `deploy.sh` adds it (`extend_lexicon --new` adds every
+folder of `extensions/` that is not in the database yet; the added ones are in the admin under
+*Slovník › Balíčky slovníku*).
+
+**Once, when the data first came into git** (before it, the folder on the server was copied by
+hand and git pull would stop on these files): move the old folder aside, deploy, and delete it
+when the suggestions work. The packages already added are not added again (`LexiconPackage`).
 
 ```bash
-# On your computer
-scp -r dictionary/data/extensions/2026-10-23 pi:/tmp/
-# On the server
-sudo mv /tmp/2026-10-23 /srv/vocaboo/app/dictionary/data/extensions/
-sudo chown -R vocaboo:vocaboo /srv/vocaboo/app/dictionary/data
+sudo mv /srv/vocaboo/app/dictionary/data /srv/vocaboo/data-old
 sudo /srv/vocaboo/app/deploy/deploy.sh
+sudo rm -rf /srv/vocaboo/data-old
 ```
 
-Newer dictionary data (only when the files changed): copy `concepts.jsonl`, `words_*.jsonl` and
-`lexicon_tags.json` to `dictionary/data/` again and run `import_lexicon` as in *The dictionary of
-the app*. **Once, after the update that brought concepts** (migration `dictionary.0005_concepts`,
+Newer base files of the dictionary (only when they changed): commit them, deploy and run
+`import_lexicon` as in *The dictionary of the app*. **Once, after the update that brought concepts** (migration `dictionary.0005_concepts`,
 which drops the old tables), copy the new files and run `import_lexicon` in any case; the old
 `lexicon_en_cs.jsonl` is not read any more.
 

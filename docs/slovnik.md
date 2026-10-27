@@ -8,7 +8,6 @@ dictionary/data/
   concepts.jsonl               pojmy (významy) s texty v jednotlivých jazycích (zdroj "base")
   words_en.jsonl               anglická slova, každé odkazuje na své pojmy
   lexicon_tags.json            značky pojmů (témata)
-  lexicon_en_cs.old.jsonl      starý formát (jen záloha, aplikace ho nečte)
   extensions/
     2026-11-02/                balíček nových slov (zdroj "2026-11-02")
       concepts.jsonl
@@ -16,8 +15,10 @@ dictionary/data/
       report.txt               zpráva: co se se slovy ze seznamu udělalo
 ```
 
-- Složka `dictionary/data/` není v gitu. Soubory leží u autora a na serveru, balíčky tam vždycky
-  zůstávají (jsou to zálohy).
+- Složka `dictionary/data/` je v gitu (od 2026-10-27, asi 6 MB; repozitář je veřejný, autor
+  s tím souhlasí). Na server se dostane přes `git pull` v `deploy.sh`: nový server ji naimportuje
+  celou (`import_lexicon --if-empty`), nové balíčky přidá `extend_lexicon --new`. Balíčky
+  zůstávají ve složce navždy (jsou to zálohy a celý `import_lexicon` je čte znovu).
 - U každého pojmu a slova je v databázi `source` (`base` / `2026-11-02`), v adminu jde podle něj
   filtrovat (*Slovník › Pojmy*, *Slovník › Slova slovníku*).
 
@@ -76,7 +77,8 @@ v čísle ID.
    (datum dne, kdy vzniká; druhý balíček ve stejný den `RRRR-MM-DD-2`) se soubory
    `concepts.jsonl`, `words_en.jsonl` a `report.txt`, a zkontroluje ho
    (`extend_lexicon … --check`).
-4. **Na server** zkopírovat celou složku balíčku do `dictionary/data/extensions/` a spustit:
+4. **Na server:** balíček commitnout a pushnout, `deploy/deploy.sh` na serveru ho po `git pull`
+   přidá sám (viz níže). Ručně jde i takhle:
    ```bash
    sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py extend_lexicon \
        dictionary/data/extensions/2026-11-02
@@ -85,7 +87,7 @@ v čísle ID.
    skipped  wep (unclear word)
    Package 2026-11-02: concepts added 21, changed 0; words added 21, changed 2.
    ```
-   Nebo jen spustit `deploy/deploy.sh`: přidá každý balíček z `extensions/`, který v databázi
+   `deploy/deploy.sh` přidá každý balíček z `extensions/`, který v databázi
    ještě není (`extend_lexicon --new`; přidané balíčky si databáze pamatuje v tabulce
    `LexiconPackage`, v adminu *Slovník › Balíčky slovníku*, `import_lexicon` ji nastaví podle
    všech balíčků).
@@ -94,9 +96,10 @@ v čísle ID.
    byla a balíček je upravil. Totéž bez zápisu ukáže `--check`. Aplikace nepotřebuje restart.
 5. Kontrola: `missing_words` na serveru už ta slova nevypíše.
 
-**Nový server / přesun databáze:** zkopírovat celou složku `dictionary/data/` a spustit
-`import_lexicon` (nahraje základ a všechny balíčky podle data; `import_lexicon --check` jen
-zkontroluje soubory).
+**Nový server / přesun databáze:** nic kopírovat netřeba, data přijdou s gitem a `deploy.sh`
+spustí `import_lexicon --if-empty` (když je slovník v databázi prázdný, nahraje základ a všechny
+balíčky podle data; jinak nedělá nic). Ručně `import_lexicon` slovník vždy nahradí,
+`import_lexicon --check` jen zkontroluje soubory.
 
 ## Postup: překlad do dalšího jazyka (postupně)
 

@@ -3,8 +3,8 @@
 #
 #     sudo /srv/vocaboo/app/deploy/deploy.sh
 #
-# Gets the code (git pull), installs the libraries, updates the database tables, adds new
-# packages of the dictionary (extensions/ folders copied by hand), updates the static files,
+# Gets the code (git pull), installs the libraries, updates the database tables, imports the
+# dictionary on a new server and adds its new packages (both come with git), updates the static files,
 # restarts the app and checks that it runs. Stops at the first error.
 # --no-pull does the same without getting new code (used by install.sh).
 
@@ -39,8 +39,10 @@ main() {
     echo "==> Database tables"
     manage migrate --noinput
 
-    echo "==> New packages of the dictionary"
-    # Folders in dictionary/data/extensions/ copied here by hand (they are not in git)
+    echo "==> Dictionary of the app"
+    # A new server (empty dictionary): the base and all packages at once
+    manage import_lexicon --if-empty
+    # New folders in dictionary/data/extensions/ (they come with git pull)
     manage extend_lexicon --new
 
     echo "==> Static files"

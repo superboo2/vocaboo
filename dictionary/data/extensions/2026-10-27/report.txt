@@ -1,0 +1,4 @@
+fixed    cs: 645 concepts, notes in brackets taken out of the words ("krátit (daně)" → words "krátit", note "daně"), so typed words are found and no bracket is inserted into a word
+fixed    en: bandit.noun.1 (a stray "*" in the sentence "{bandit*}")
+fixed    es: bye-bye.interjection.1 (duplicate variant "¡adiós!")
+fixed    es: old.adjective.2, either.conjunction.1 ("…" taken out of the words into the note)

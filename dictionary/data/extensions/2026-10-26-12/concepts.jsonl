@@ -1,0 +1,964 @@
+{"id": "dingy.adjective.1", "texts": {"es": {"words": "cutre; sucio; deslucido", "sentence": "Nos alojamos en un hotelito {cutre}."}}}
+{"id": "disgruntled.adjective.1", "texts": {"es": {"words": "descontento; molesto; disgustado", "sentence": "Un cliente {descontento} escribió una mala reseña."}}}
+{"id": "dopey.adjective.1", "texts": {"es": {"words": "atontado; adormilado; grogui", "sentence": "Estas pastillas me dejan {atontado}."}}}
+{"id": "downsize.verb.1", "texts": {"es": {"words": "reducir plantilla; recortar personal; reducir", "sentence": "La empresa está {reduciendo plantilla}."}}}
+{"id": "drab.adjective.1", "texts": {"es": {"words": "soso; apagado; gris", "sentence": "La habitación se ve muy {sosa}."}}}
+{"id": "dud.noun.1", "texts": {"es": {"words": "cacharro inútil; birria; fiasco", "sentence": "Esta pila es una {birria}."}}}
+{"id": "dumbfounded.adjective.1", "texts": {"es": {"words": "atónito; boquiabierto; estupefacto", "sentence": "Me quedé {atónito} con la noticia."}}}
+{"id": "earful.noun.1", "texts": {"es": {"words": "bronca; sermón; rapapolvo", "sentence": "Mi madre me echó una {bronca} por llegar tarde a casa."}}}
+{"id": "earthy.adjective.1", "texts": {"es": {"words": "terroso; a tierra", "sentence": "El vino tiene un sabor {terroso}."}}}
+{"id": "egotistical.adjective.1", "texts": {"es": {"words": "egocéntrico; egoísta; ególatra", "sentence": "Es un imbécil {egocéntrico}."}}}
+{"id": "embellish.verb.1", "texts": {"es": {"words": "adornar; exagerar; embellecer", "sentence": "Siempre {adorna} sus historias."}}}
+{"id": "empathize.verb.1", "texts": {"es": {"words": "empatizar; ponerse en el lugar", "sentence": "De verdad puedo {empatizar} contigo."}}}
+{"id": "endearing.adjective.1", "texts": {"es": {"words": "entrañable; encantador; tierno", "sentence": "Tiene una sonrisa {encantadora}."}}}
+{"id": "engrossed.adjective.1", "texts": {"es": {"words": "absorto; enfrascado; inmerso", "sentence": "Estaba {absorta} en su libro."}}}
+{"id": "exasperated.adjective.1", "texts": {"es": {"words": "exasperado; harto; desesperado", "sentence": "—¡Otra vez no! —dijo, {exasperada}."}}}
+{"id": "exhilarating.adjective.1", "texts": {"es": {"words": "emocionante; estimulante; vigorizante", "sentence": "¡El viaje fue {emocionante}!"}}}
+{"id": "eye-opener.noun.1", "texts": {"es": {"words": "revelación; experiencia reveladora", "sentence": "Vivir en el extranjero fue toda una {revelación}."}}}
+{"id": "farfetched.adjective.1", "texts": {"es": {"words": "rebuscado; inverosímil; traído por los pelos", "sentence": "Esa historia suena un poco {rebuscada}."}}}
+{"id": "fiery.adjective.1", "texts": {"es": {"words": "fogoso; impetuoso; explosivo", "sentence": "Tiene un carácter {explosivo}."}}}
+{"id": "forgery.noun.1", "texts": {"es": {"words": "falsificación", "sentence": "El cuadro resultó ser una {falsificación}."}}}
+{"id": "freeloader.noun.1", "texts": {"es": {"words": "gorrón; gorrona; aprovechado", "sentence": "Mi hermano es un {gorrón}, nunca paga nada."}}}
+{"id": "frenemy.noun.1", "texts": {"es": {"words": "falsa amiga; falso amigo; amienemigo", "sentence": "No es una amiga, es una {falsa amiga}."}}}
+{"id": "frisky.adjective.1", "texts": {"es": {"words": "juguetón; retozón; inquieto", "sentence": "El cachorro está muy {juguetón} hoy."}}}
+{"id": "frugal.adjective.1", "texts": {"es": {"words": "ahorrador; austero; frugal", "sentence": "Mis abuelos son muy {ahorradores}."}}}
+{"id": "fruity.adjective.1", "texts": {"es": {"words": "afrutado; frutal", "sentence": "Este té tiene un sabor {afrutado}."}}}
+{"id": "gaffe.noun.1", "texts": {"es": {"words": "metedura de pata; desliz; patinazo", "sentence": "El presidente ha tenido otra {metedura de pata}."}}}
+{"id": "gibberish.noun.1", "texts": {"es": {"words": "tonterías; galimatías; sinsentidos", "sentence": "Estás diciendo {tonterías}."}}}
+{"id": "glam.adjective.1", "texts": {"es": {"words": "glamuroso; elegante; despampanante", "sentence": "¡Estás muy {glamurosa} esta noche!"}}}
+{"id": "glum.adjective.1", "texts": {"es": {"words": "alicaído; desanimado; triste", "sentence": "¿Por qué estás tan {alicaído}?"}}}
+{"id": "gobsmacked.adjective.1", "texts": {"es": {"words": "alucinado; flipado; pasmado", "sentence": "¡Me quedé totalmente {alucinado}!"}}}
+{"id": "godsend.noun.1", "texts": {"es": {"words": "bendición; regalo del cielo", "sentence": "Este lavavajillas nuevo es una {bendición}."}}}
+{"id": "gory.adjective.1", "texts": {"es": {"words": "sangriento; gore; truculento", "sentence": "No me gustan las películas {sangrientas}."}}}
+{"id": "grapevine.noun.1", "texts": {"es": {"words": "rumores; radio macuto; boca a boca", "sentence": "Me enteré por {rumores}."}}}
+{"id": "grueling.adjective.1", "texts": {"es": {"words": "agotador; extenuante; duro", "sentence": "Fue un día {agotador} en el trabajo."}}}
+{"id": "half-baked.adjective.1", "texts": {"es": {"words": "poco pensado; a medio hacer; chapucero", "sentence": "Es una idea {poco pensada}."}}}
+{"id": "hand-me-down.noun.1", "texts": {"es": {"words": "ropa heredada; heredado", "sentence": "Siempre llevaba la {ropa heredada} de mi hermana."}}}
+{"id": "hangout.noun.1", "texts": {"es": {"words": "lugar de reunión; sitio favorito; garito", "sentence": "Este café es nuestro {lugar de reunión} favorito."}}}
+{"id": "headstrong.adjective.1", "texts": {"es": {"words": "testarudo; cabezota; obstinado", "sentence": "Es una joven muy {testaruda}."}}}
+{"id": "heckle.verb.1", "texts": {"es": {"words": "increpar; abuchear; interrumpir", "sentence": "Alguien {increpó} al humorista."}}}
+{"id": "hipster.noun.1", "texts": {"es": {"words": "hipster; moderno; moderna", "sentence": "Esta calle está llena de cafeterías {hipster}."}}}
+{"id": "hoard.verb.1", "texts": {"es": {"words": "acumular; acaparar; guardar", "sentence": "{Acumula} revistas viejas."}}}
+{"id": "hooligan.noun.1", "texts": {"es": {"words": "hooligan; gamberro; vándalo", "sentence": "Unos {hooligans} rompieron las ventanas."}}}
+{"id": "hubby.noun.1", "texts": {"es": {"words": "maridito; marido", "sentence": "Mi {maridito} cocina esta noche."}}}
+{"id": "humongous.adjective.1", "texts": {"es": {"words": "enorme; gigantesco; descomunal", "sentence": "Tienen una tele {enorme}."}}}
+{"id": "icebreaker.noun.1", "texts": {"es": {"words": "actividad para romper el hielo; rompehielos", "sentence": "Empecemos con una {actividad para romper el hielo}."}}}
+{"id": "incognito.adverb.1", "texts": {"es": {"words": "de incógnito", "sentence": "El actor viajó {de incógnito}."}}}
+{"id": "insufferable.adjective.1", "texts": {"es": {"words": "insoportable; inaguantable", "sentence": "Está {insoportable} desde que ganó."}}}
+{"id": "irate.adjective.1", "texts": {"es": {"words": "furioso; enfadado; airado", "sentence": "Un cliente {furioso} llamó esta mañana."}}}
+{"id": "jam-packed.adjective.1", "texts": {"es": {"words": "abarrotado; a reventar; lleno hasta arriba", "sentence": "La discoteca estaba {abarrotada}."}}}
+{"id": "jitters.noun.1", "texts": {"es": {"words": "nervios; canguelo", "sentence": "Siempre me entran los {nervios} antes de un examen."}}}
+{"id": "jumble.noun.1", "texts": {"es": {"words": "revoltijo; maraña; lío", "sentence": "Mi cajón es un {revoltijo} de cables."}}}
+{"id": "knick-knack.noun.1", "texts": {"es": {"words": "chuchería; baratija; adorno", "sentence": "Sus estanterías están llenas de {chucherías}."}}}
+{"id": "layover.noun.1", "texts": {"es": {"words": "escala", "sentence": "Tenemos una {escala} de tres horas en Dubái."}}}
+{"id": "baffle.verb.1", "texts": {"es": {"words": "desconcertar; dejar perplejo; confundir", "sentence": "Su respuesta {desconcertó} a todos."}}}
+{"id": "berserk.adjective.1", "texts": {"es": {"words": "loco; fuera de sí; como loco", "sentence": "El perro se volvió {loco} al ver al gato."}}}
+{"id": "bunk.noun.1", "texts": {"es": {"words": "litera; cama", "sentence": "Yo me quedo con la {litera} de arriba."}}}
+{"id": "cane.noun.1", "texts": {"es": {"words": "bastón", "sentence": "Mi abuelo camina con {bastón}."}}}
+{"id": "cane.noun.2", "texts": {"es": {"words": "caña", "sentence": "Aquí cultivan {caña} de azúcar."}}}
+{"id": "chat up.phrasal_verb.1", "texts": {"es": {"words": "ligar; tirar los tejos; intentar ligar", "sentence": "¿Está intentando {ligar} contigo?"}}}
+{"id": "chime in.phrasal_verb.1", "texts": {"es": {"words": "intervenir; meter baza; participar", "sentence": "Podéis {intervenir} cuando queráis."}}}
+{"id": "clogged.adjective.1", "texts": {"es": {"words": "atascado; obstruido; tapado", "sentence": "El fregadero está {atascado} otra vez."}}}
+{"id": "dagger.noun.1", "texts": {"es": {"words": "daga; puñal", "sentence": "Escondía una {daga} en la bota."}}}
+{"id": "dagger.noun.2", "texts": {"es": {"words": "mirada asesina; mirada fulminante", "sentence": "Me estaba echando {miradas asesinas}."}}}
+{"id": "dazzle.verb.1", "texts": {"es": {"words": "deslumbrar; impresionar; cautivar", "sentence": "{Deslumbró} a todos con su sonrisa."}}}
+{"id": "delirious.adjective.1", "texts": {"es": {"words": "delirante; que delira", "sentence": "Estaba {delirando} por la fiebre."}}}
+{"id": "delirious.adjective.2", "texts": {"es": {"words": "loco de alegría; eufórico; enloquecido", "sentence": "Los aficionados estaban {locos} de alegría."}}}
+{"id": "doggy.noun.1", "texts": {"es": {"words": "perrito; perrita", "sentence": "¡Mira qué {perrito} más mono!"}}}
+{"id": "dunk.verb.1", "texts": {"es": {"words": "mojar; remojar", "sentence": "Me gusta {mojar} las galletas en el té."}}}
+{"id": "dunk.verb.2", "texts": {"es": {"words": "machacar; hacer un mate", "sentence": "{Machaca} el balón con facilidad."}}}
+{"id": "far-fetched.adjective.1", "texts": {"es": {"words": "inverosímil; rebuscado; traído por los pelos", "sentence": "Esa historia suena un poco {inverosímil}."}}}
+{"id": "feverish.adjective.1", "texts": {"es": {"words": "con fiebre; febril; calenturiento", "sentence": "El bebé parece que tiene un poco {de fiebre}."}}}
+{"id": "feverish.adjective.2", "texts": {"es": {"words": "frenético; febril; vertiginoso", "sentence": "Trabajaban a un ritmo {frenético}."}}}
+{"id": "finger food.noun.1", "texts": {"es": {"words": "picoteo; canapés; aperitivos", "sentence": "En la fiesta solo serviremos {picoteo}."}}}
+{"id": "grate.verb.1", "texts": {"es": {"words": "rallar", "sentence": "¿Puedes {rallar} un poco de queso?"}}}
+{"id": "grate.verb.2", "texts": {"es": {"words": "crispar; sacar de quicio; irritar", "sentence": "Su voz me {crispa} de verdad."}}}
+{"id": "gush.verb.1", "texts": {"es": {"words": "salir a chorros; brotar; manar", "sentence": "El agua {salía a chorros} de la tubería."}}}
+{"id": "gush.verb.2", "texts": {"es": {"words": "deshacerse en elogios; no parar de hablar maravillas", "sentence": "No para de {deshacerse en elogios} sobre su nuevo novio."}}}
+{"id": "hiya.interjection.1", "texts": {"es": {"words": "¡hola!; ¡buenas!; ¡ey!", "sentence": "¡{Hola}! ¿Qué tal estás?"}}}
+{"id": "hump.noun.1", "texts": {"es": {"words": "joroba; giba", "sentence": "Los camellos almacenan grasa en sus {jorobas}."}}}
+{"id": "hump.noun.2", "texts": {"es": {"words": "badén; resalto; guardia tumbado", "sentence": "Frena, hay un {badén} delante."}}}
+{"id": "hung up.adjective.1", "texts": {"es": {"words": "obsesionado; acomplejado; agobiado", "sentence": "Deja de estar tan {obsesionada} con tu peso."}}}
+{"id": "jello.noun.1", "texts": {"es": {"words": "gelatina", "sentence": "De postre tomamos {gelatina}."}}}
+{"id": "mashed.adjective.1", "texts": {"es": {"words": "en puré; machacado; triturado", "sentence": "Quisiera {puré} de patatas, por favor."}}}
+{"id": "paparazzi.noun.1", "texts": {"es": {"words": "paparazzi; fotógrafos", "sentence": "Los {paparazzi} la seguían a todas partes."}}}
+{"id": "peep.noun.1", "texts": {"es": {"words": "ni pío; ni mu", "sentence": "No quiero oírte {ni pío}."}}}
+{"id": "peep.noun.2", "texts": {"es": {"words": "vistazo; ojeada", "sentence": "¡Echa un {vistazo} a esto!"}}}
+{"id": "penguin.noun.1", "texts": {"es": {"words": "pingüino; pingüina", "sentence": "A los niños les encantaron los {pingüinos} del zoo."}}}
+{"id": "prawn.noun.1", "texts": {"es": {"words": "gamba; langostino; camarón", "sentence": "Para mí, el sándwich de {gambas}."}}}
+{"id": "quits.adjective.1", "texts": {"es": {"words": "en paz; empatados", "sentence": "Tú pagaste la comida y yo el café, así que estamos {en paz}."}}}
+{"id": "rerun.noun.1", "texts": {"es": {"words": "reposición; redifusión", "sentence": "Están poniendo otra vez {reposiciones} de Friends."}}}
+{"id": "rummage.verb.1", "texts": {"es": {"words": "rebuscar; hurgar; revolver", "sentence": "{Rebuscó} en el bolso buscando las llaves."}}}
+{"id": "scramble.verb.1", "texts": {"es": {"words": "trepar; escalar", "sentence": "{Trepamos} por las rocas."}}}
+{"id": "scramble.verb.2", "texts": {"es": {"words": "pelearse; apresurarse; correr", "sentence": "Todos {se pelearon} por conseguir un asiento."}}}
+{"id": "shriek.verb.1", "texts": {"es": {"words": "chillar; gritar", "sentence": "Los niños {chillaban} de risa."}}}
+{"id": "snag.noun.1", "texts": {"es": {"words": "pega; inconveniente; problema", "sentence": "Solo hay una {pega}: es carísimo."}}}
+{"id": "sparkly.adjective.1", "texts": {"es": {"words": "brillante; reluciente; con purpurina", "sentence": "Llevó unos zapatos {brillantes} a la fiesta."}}}
+{"id": "spot on.adjective.1", "texts": {"es": {"words": "exacto; clavado; certero", "sentence": "Tu suposición fue {exacta}."}}}
+{"id": "squirm.verb.1", "texts": {"es": {"words": "retorcerse; moverse; revolverse", "sentence": "¡Deja de {moverte} y siéntate quieto!"}}}
+{"id": "squirm.verb.2", "texts": {"es": {"words": "sentirse incómodo; retorcerse; revolverse", "sentence": "Sus preguntas me hicieron {sentirme incómodo}."}}}
+{"id": "strand.noun.1", "texts": {"es": {"words": "mechón; hebra", "sentence": "Se apartó un {mechón} de pelo de la cara."}}}
+{"id": "stranded.adjective.1", "texts": {"es": {"words": "tirado; atrapado; varado", "sentence": "Nos quedamos {tirados} en el aeropuerto toda la noche."}}}
+{"id": "sushi.noun.1", "texts": {"es": {"words": "sushi", "sentence": "¿Te apetece {sushi} esta noche?"}}}
+{"id": "swamped.adjective.1", "texts": {"es": {"words": "hasta arriba; desbordado; agobiado", "sentence": "Lo siento, estoy {hasta arriba} de trabajo esta semana."}}}
+{"id": "teapot.noun.1", "texts": {"es": {"words": "tetera", "sentence": "Pon el hervidor y calienta la {tetera}."}}}
+{"id": "tingle.verb.1", "texts": {"es": {"words": "hormiguear; cosquillear", "sentence": "Me {hormiguean} los dedos por el frío."}}}
+{"id": "vanity.noun.1", "texts": {"es": {"words": "vanidad; presunción", "sentence": "Es pura {vanidad}, no necesita un coche nuevo."}}}
+{"id": "vanity.noun.2", "texts": {"es": {"words": "tocador; mueble de baño", "sentence": "Tu maquillaje está en el {tocador}."}}}
+{"id": "vent.verb.1", "texts": {"es": {"words": "desahogarse; soltarlo todo", "sentence": "Perdona, solo necesitaba {desahogarme}."}}}
+{"id": "whack.verb.1", "texts": {"es": {"words": "golpearse; darse un golpe; pegar", "sentence": "Se {golpeó} la cabeza con la puerta."}}}
+{"id": "whatnot.noun.1", "texts": {"es": {"words": "cosas así; demás; cosas por el estilo", "sentence": "Compramos aperitivos, bebidas y {cosas así}."}}}
+{"id": "whip.verb.1", "texts": {"es": {"words": "montar; batir", "sentence": "{Monta} la nata hasta que esté firme."}}}
+{"id": "whip.verb.2", "texts": {"es": {"words": "azotar; golpear", "sentence": "El viento nos {azotaba} la cara."}}}
+{"id": "whipped cream.noun.1", "texts": {"es": {"words": "nata montada; crema batida", "sentence": "¿Quieres {nata montada} en el café?"}}}
+{"id": "wince.verb.1", "texts": {"es": {"words": "hacer una mueca; estremecerse", "sentence": "{Hizo una mueca} al ver la cuenta."}}}
+{"id": "forensics.noun.1", "texts": {"es": {"words": "policía científica; forense", "sentence": "La {policía científica} encontró huellas en el vaso."}}}
+{"id": "interrogate.verb.1", "texts": {"es": {"words": "interrogar", "sentence": "La policía lo {interrogó} durante horas."}}}
+{"id": "parole.noun.1", "texts": {"es": {"words": "libertad condicional", "sentence": "Está en {libertad condicional}."}}}
+{"id": "stab.verb.1", "texts": {"es": {"words": "pinchar; clavar; apuñalar", "sentence": "{Pinchó} un trozo de patata con el tenedor."}}}
+{"id": "IV.noun.1", "texts": {"es": {"words": "gotero; suero; vía intravenosa", "sentence": "Tiene puesto un {gotero} para hidratarla."}}}
+{"id": "pharmacist.noun.1", "texts": {"es": {"words": "farmacéutico; farmacéutica", "sentence": "Pregunta al {farmacéutico} por los efectos secundarios."}}}
+{"id": "ultrasound.noun.1", "texts": {"es": {"words": "ecografía; ultrasonido", "sentence": "Vimos al bebé en la {ecografía}."}}}
+{"id": "fracture.noun.1", "texts": {"es": {"words": "fractura; rotura", "sentence": "Solo es una pequeña {fractura}."}}}
+{"id": "sprained.adjective.1", "texts": {"es": {"words": "torcido; con un esguince", "sentence": "Tengo el tobillo {torcido}."}}}
+{"id": "diarrhoea.noun.1", "texts": {"es": {"words": "diarrea", "sentence": "El bebé tiene {diarrea}."}}}
+{"id": "thermometer.noun.1", "texts": {"es": {"words": "termómetro", "sentence": "¿Dónde está el {termómetro}? Creo que tengo fiebre."}}}
+{"id": "bandaid.noun.1", "texts": {"es": {"words": "tirita; curita", "sentence": "¿Tienes una {tirita}? Me he cortado el dedo."}}}
+{"id": "fringe.noun.1", "texts": {"es": {"words": "flequillo", "sentence": "Quiero cortarme {flequillo}."}}}
+{"id": "fringe.noun.2", "texts": {"es": {"words": "afueras; periferia; extrarradio", "sentence": "Viven en las {afueras} de la ciudad."}}}
+{"id": "conditioner.noun.1", "texts": {"es": {"words": "acondicionador; suavizante", "sentence": "Usa un poco de {acondicionador} después del champú."}}}
+{"id": "greenhouse.noun.1", "texts": {"es": {"words": "invernadero", "sentence": "Mi padre cultiva tomates en el {invernadero}."}}}
+{"id": "duct tape.noun.1", "texts": {"es": {"words": "cinta americana; cinta adhesiva", "sentence": "Con {cinta americana} se puede arreglar cualquier cosa."}}}
+{"id": "vacuum cleaner.noun.1", "texts": {"es": {"words": "aspiradora", "sentence": "La {aspiradora} está en el armario."}}}
+{"id": "peg.noun.1", "texts": {"es": {"words": "pinza", "sentence": "Tiende la ropa con {pinzas}."}}}
+{"id": "peg.noun.2", "texts": {"es": {"words": "percha; colgador; gancho", "sentence": "Cuelga el abrigo en la {percha}."}}}
+{"id": "leftover.noun.1", "texts": {"es": {"words": "sobras; restos", "sentence": "Comemos {sobras}."}}}
+{"id": "main course.noun.1", "texts": {"es": {"words": "plato principal; segundo plato", "sentence": "¿Qué quiere de {plato principal}?"}}}
+{"id": "side dish.noun.1", "texts": {"es": {"words": "guarnición; acompañamiento", "sentence": "¿Arroz o patatas de {guarnición}?"}}}
+{"id": "dressing.noun.1", "texts": {"es": {"words": "aliño; aderezo; salsa", "sentence": "¿Me pone el {aliño} aparte?"}}}
+{"id": "dressing.noun.2", "texts": {"es": {"words": "vendaje; venda; apósito", "sentence": "La enfermera le cambió el {vendaje} de la pierna."}}}
+{"id": "stir-fry.noun.1", "texts": {"es": {"words": "salteado; wok", "sentence": "Voy a hacer un {salteado} rápido de pollo."}}}
+{"id": "taco.noun.1", "texts": {"es": {"words": "taco", "sentence": "Comamos {tacos} el viernes."}}}
+{"id": "nachos.noun.1", "texts": {"es": {"words": "nachos", "sentence": "Pedimos {nachos} con queso."}}}
+{"id": "cheeseburger.noun.1", "texts": {"es": {"words": "hamburguesa con queso; cheeseburger", "sentence": "Para mí, una {hamburguesa con queso} y patatas fritas."}}}
+{"id": "tart.noun.1", "texts": {"es": {"words": "tarta; tartaleta", "sentence": "Hizo una {tarta} de manzana."}}}
+{"id": "custard.noun.1", "texts": {"es": {"words": "natillas; crema pastelera", "sentence": "La tarta de manzana con {natillas} calientes es lo mejor."}}}
+{"id": "iced tea.noun.1", "texts": {"es": {"words": "té helado", "sentence": "Un vaso de {té helado}, por favor."}}}
+{"id": "espresso.noun.1", "texts": {"es": {"words": "expreso; café solo", "sentence": "Necesito un {expreso} doble."}}}
+{"id": "cappuccino.noun.1", "texts": {"es": {"words": "capuchino", "sentence": "Dos {capuchinos}, por favor."}}}
+{"id": "hot chocolate.noun.1", "texts": {"es": {"words": "chocolate caliente", "sentence": "Tomemos un {chocolate caliente} junto al fuego."}}}
+{"id": "rum.noun.1", "texts": {"es": {"words": "ron", "sentence": "Se tomó un {ron} con cola."}}}
+{"id": "tequila.noun.1", "texts": {"es": {"words": "tequila", "sentence": "¿Quién quiere un chupito de {tequila}?"}}}
+{"id": "cider.noun.1", "texts": {"es": {"words": "sidra", "sentence": "Una pinta de {sidra}, por favor."}}}
+{"id": "voucher.noun.1", "texts": {"es": {"words": "vale; cheque regalo; bono", "sentence": "Me regalaron un {vale} por mi cumpleaños."}}}
+{"id": "till.noun.1", "texts": {"es": {"words": "caja", "sentence": "Por favor, pague en {caja}."}}}
+{"id": "shop assistant.noun.1", "texts": {"es": {"words": "dependiente; dependienta", "sentence": "Pídele al {dependiente} una talla más grande."}}}
+{"id": "check-in.noun.1", "texts": {"es": {"words": "facturación; check-in", "sentence": "La {facturación} cierra una hora antes del vuelo."}}}
+{"id": "round trip.noun.1", "texts": {"es": {"words": "ida y vuelta; viaje de ida y vuelta", "sentence": "Son dos horas {ida y vuelta}."}}}
+{"id": "return ticket.noun.1", "texts": {"es": {"words": "billete de ida y vuelta", "sentence": "¿Es más barato el {billete de ida y vuelta}?"}}}
+{"id": "turbulence.noun.1", "texts": {"es": {"words": "turbulencias; turbulencia", "sentence": "Abróchense el cinturón, hay {turbulencias}."}}}
+{"id": "bed and breakfast.noun.1", "texts": {"es": {"words": "pensión; casa de huéspedes; alojamiento con desayuno", "sentence": "Nos alojamos en una {pensión} preciosa."}}}
+{"id": "campsite.noun.1", "texts": {"es": {"words": "camping; zona de acampada", "sentence": "El {camping} está justo al lado del lago."}}}
+{"id": "tour guide.noun.1", "texts": {"es": {"words": "guía turístico; guía turística; guía", "sentence": "Nuestro {guía turístico} era muy gracioso."}}}
+{"id": "travel agent.noun.1", "texts": {"es": {"words": "agencia de viajes; agente de viajes", "sentence": "Lo reservamos a través de una {agencia de viajes}."}}}
+{"id": "speeding ticket.noun.1", "texts": {"es": {"words": "multa por exceso de velocidad", "sentence": "Me han puesto una {multa por exceso de velocidad} de camino aquí."}}}
+{"id": "parking ticket.noun.1", "texts": {"es": {"words": "multa de aparcamiento; multa por aparcar", "sentence": "¡Oh, no, me han puesto una {multa de aparcamiento}!"}}}
+{"id": "petrol station.noun.1", "texts": {"es": {"words": "gasolinera", "sentence": "Tenemos que parar en una {gasolinera}."}}}
+{"id": "flat tyre.noun.1", "texts": {"es": {"words": "pinchazo; rueda pinchada", "sentence": "Perdón por el retraso, he tenido un {pinchazo}."}}}
+{"id": "driving licence.noun.1", "texts": {"es": {"words": "carné de conducir; permiso de conducir", "sentence": "¿Me enseña su {carné de conducir}, por favor?"}}}
+{"id": "driving test.noun.1", "texts": {"es": {"words": "examen de conducir; examen práctico", "sentence": "¡He aprobado el {examen de conducir}!"}}}
+{"id": "underground.noun.1", "texts": {"es": {"words": "metro", "sentence": "Vamos en {metro}, es más rápido."}}}
+{"id": "estate agent.noun.1", "texts": {"es": {"words": "agente inmobiliario; agente inmobiliaria", "sentence": "El {agente inmobiliario} nos enseñó tres pisos."}}}
+{"id": "real estate agent.noun.1", "texts": {"es": {"words": "agente inmobiliario; agente inmobiliaria", "sentence": "Nuestra {agente inmobiliaria} nos encontró una casa estupenda."}}}
+{"id": "router.noun.1", "texts": {"es": {"words": "router; rúter", "sentence": "Prueba a apagar y encender el {router}."}}}
+{"id": "username.noun.1", "texts": {"es": {"words": "nombre de usuario; usuario", "sentence": "Se me ha vuelto a olvidar el {nombre de usuario}."}}}
+{"id": "hashtag.noun.1", "texts": {"es": {"words": "hashtag; etiqueta", "sentence": "Usa el {hashtag} para que encontremos tus fotos."}}}
+{"id": "livestream.noun.1", "texts": {"es": {"words": "directo; retransmisión en directo; streaming", "sentence": "Vi el concierto en {directo} por internet."}}}
+{"id": "earbuds.noun.1", "texts": {"es": {"words": "auriculares; cascos", "sentence": "He vuelto a perder uno de los {auriculares}."}}}
+{"id": "whiteboard.noun.1", "texts": {"es": {"words": "pizarra blanca; pizarra", "sentence": "Escríbelo en la {pizarra blanca}."}}}
+{"id": "spam.noun.1", "texts": {"es": {"words": "spam; correo basura", "sentence": "Mira en la carpeta de {spam}."}}}
+{"id": "meeting room.noun.1", "texts": {"es": {"words": "sala de reuniones", "sentence": "Hablemos en la {sala de reuniones}."}}}
+{"id": "conference call.noun.1", "texts": {"es": {"words": "multiconferencia; llamada de grupo; videoconferencia", "sentence": "Tengo una {multiconferencia} a las tres."}}}
+{"id": "payday.noun.1", "texts": {"es": {"words": "día de cobro; día de paga", "sentence": "Te lo devuelvo el {día de cobro}."}}}
+{"id": "paycheck.noun.1", "texts": {"es": {"words": "nómina; sueldo; paga", "sentence": "Vivo de {nómina} en nómina."}}}
+{"id": "pay rise.noun.1", "texts": {"es": {"words": "aumento de sueldo; subida de sueldo", "sentence": "Voy a pedir un {aumento de sueldo}."}}}
+{"id": "sick leave.noun.1", "texts": {"es": {"words": "baja; baja por enfermedad; baja médica", "sentence": "Está de {baja} esta semana."}}}
+{"id": "maternity leave.noun.1", "texts": {"es": {"words": "baja por maternidad; baja maternal", "sentence": "Se coge la {baja por maternidad} en mayo."}}}
+{"id": "night shift.noun.1", "texts": {"es": {"words": "turno de noche", "sentence": "Tengo {turno de noche} toda la semana."}}}
+{"id": "freelancer.noun.1", "texts": {"es": {"words": "autónomo; autónoma; freelance", "sentence": "Como {autónoma}, puedo trabajar desde casa."}}}
+{"id": "cover letter.noun.1", "texts": {"es": {"words": "carta de presentación; carta de motivación", "sentence": "No olvides escribir una {carta de presentación}."}}}
+{"id": "job hunting.noun.1", "texts": {"es": {"words": "búsqueda de empleo; buscar trabajo", "sentence": "La {búsqueda de empleo} puede ser agotadora."}}}
+{"id": "coffee break.noun.1", "texts": {"es": {"words": "pausa para el café; descanso", "sentence": "Hagamos una {pausa para el café}."}}}
+{"id": "workload.noun.1", "texts": {"es": {"words": "carga de trabajo; volumen de trabajo", "sentence": "Mi {carga de trabajo} es una locura este mes."}}}
+{"id": "procrastinate.verb.1", "texts": {"es": {"words": "procrastinar; dejar las cosas para luego; aplazar", "sentence": "Deja de {procrastinar} y empieza la redacción."}}}
+{"id": "call in sick.phrase.1", "texts": {"es": {"words": "avisar de que se está enfermo; pedir la baja", "sentence": "Creo que mañana voy a {avisar de que estoy enfermo}."}}}
+{"id": "bank holiday.noun.1", "texts": {"es": {"words": "festivo; día festivo; puente", "sentence": "El lunes es {festivo}."}}}
+{"id": "long weekend.noun.1", "texts": {"es": {"words": "puente; fin de semana largo", "sentence": "Nos vamos fuera el {puente}."}}}
+{"id": "day trip.noun.1", "texts": {"es": {"words": "excursión de un día; excursión", "sentence": "Hagamos una {excursión de un día} a la playa."}}}
+{"id": "surprise party.noun.1", "texts": {"es": {"words": "fiesta sorpresa", "sentence": "Le vamos a hacer una {fiesta sorpresa}."}}}
+{"id": "bachelor party.noun.1", "texts": {"es": {"words": "despedida de soltero", "sentence": "Estamos organizando su {despedida de soltero}."}}}
+{"id": "baby shower.noun.1", "texts": {"es": {"words": "baby shower; fiesta del bebé", "sentence": "Le vamos a hacer un {baby shower}."}}}
+{"id": "wedding ring.noun.1", "texts": {"es": {"words": "alianza; anillo de boda", "sentence": "No lleva puesta la {alianza}."}}}
+{"id": "engagement ring.noun.1", "texts": {"es": {"words": "anillo de compromiso; anillo de pedida", "sentence": "¡Enséñame tu {anillo de compromiso}!"}}}
+{"id": "best man.noun.1", "texts": {"es": {"words": "padrino; testigo del novio", "sentence": "Mi hermano será mi {padrino}."}}}
+{"id": "soulmate.noun.1", "texts": {"es": {"words": "alma gemela; media naranja", "sentence": "Creo que he encontrado a mi {alma gemela}."}}}
+{"id": "one-night stand.noun.1", "texts": {"es": {"words": "aventura de una noche; rollo de una noche", "sentence": "Solo fue una {aventura de una noche}."}}}
+{"id": "hookup.noun.1", "texts": {"es": {"words": "rollo; lío; aventura", "sentence": "No era una relación, solo un {rollo}."}}}
+{"id": "hookup.noun.2", "texts": {"es": {"words": "toma; conexión; enganche", "sentence": "¿El camping tiene {toma} de electricidad?"}}}
+{"id": "flirting.noun.1", "texts": {"es": {"words": "coqueteo; flirteo; ligoteo", "sentence": "¡Deja de {coquetear} con el camarero!"}}}
+{"id": "father-in-law.noun.1", "texts": {"es": {"words": "suegro", "sentence": "A mi {suegro} le encanta pescar."}}}
+{"id": "sister-in-law.noun.1", "texts": {"es": {"words": "cuñada", "sentence": "Mi {cuñada} viene a cenar."}}}
+{"id": "only child.noun.1", "texts": {"es": {"words": "hijo único; hija única", "sentence": "Soy {hijo único}."}}}
+{"id": "secondary school.noun.1", "texts": {"es": {"words": "instituto; secundaria; colegio", "sentence": "Empieza el {instituto} en septiembre."}}}
+{"id": "report card.noun.1", "texts": {"es": {"words": "boletín de notas; notas", "sentence": "A mamá no le gustó mi {boletín de notas}."}}}
+{"id": "head teacher.noun.1", "texts": {"es": {"words": "director; directora", "sentence": "¡Ve al despacho del {director} ahora mismo!"}}}
+{"id": "recess.noun.1", "texts": {"es": {"words": "recreo", "sentence": "Jugamos al fútbol en el {recreo}."}}}
+{"id": "school bus.noun.1", "texts": {"es": {"words": "autobús escolar; ruta escolar", "sentence": "¡Date prisa, que vas a perder el {autobús escolar}!"}}}
+{"id": "field trip.noun.1", "texts": {"es": {"words": "excursión; salida escolar", "sentence": "Vamos de {excursión} al museo."}}}
+{"id": "PE.noun.1", "texts": {"es": {"words": "educación física; gimnasia", "sentence": "Me he olvidado la ropa de {educación física}."}}}
+{"id": "tuition.noun.1", "texts": {"es": {"words": "matrícula; tasas académicas", "sentence": "La {matrícula} aquí es carísima."}}}
+{"id": "tuition.noun.2", "texts": {"es": {"words": "clases particulares; clases; enseñanza", "sentence": "Da {clases particulares} de matemáticas."}}}
+{"id": "student loan.noun.1", "texts": {"es": {"words": "préstamo de estudios; préstamo estudiantil", "sentence": "Todavía estoy pagando el {préstamo de estudios}."}}}
+{"id": "gap year.noun.1", "texts": {"es": {"words": "año sabático", "sentence": "Me voy a tomar un {año sabático} para viajar."}}}
+{"id": "thesis.noun.1", "texts": {"es": {"words": "tesis; trabajo de fin de máster; tesina", "sentence": "Está terminando su {trabajo de fin de máster}."}}}
+{"id": "thesis.noun.2", "texts": {"es": {"words": "tesis; argumento; planteamiento", "sentence": "No estoy de acuerdo con su {tesis} principal."}}}
+{"id": "seminar.noun.1", "texts": {"es": {"words": "seminario", "sentence": "Tengo un {seminario} a las diez."}}}
+{"id": "football pitch.noun.1", "texts": {"es": {"words": "campo de fútbol", "sentence": "Los niños están en el {campo de fútbol}."}}}
+{"id": "goalie.noun.1", "texts": {"es": {"words": "portero; portera; arquero", "sentence": "Nuestro {portero} paró tres penaltis."}}}
+{"id": "free kick.noun.1", "texts": {"es": {"words": "tiro libre; falta", "sentence": "Marcó de {tiro libre}."}}}
+{"id": "offside.adjective.1", "texts": {"es": {"words": "en fuera de juego", "sentence": "El gol no valió, estaba {en fuera de juego}."}}}
+{"id": "half-time.noun.1", "texts": {"es": {"words": "descanso; medio tiempo", "sentence": "Íbamos perdiendo al {descanso}."}}}
+{"id": "extra time.noun.1", "texts": {"es": {"words": "prórroga; tiempo extra", "sentence": "El partido se fue a la {prórroga}."}}}
+{"id": "push-up.noun.1", "texts": {"es": {"words": "flexión; lagartija", "sentence": "Haz veinte {flexiones}."}}}
+{"id": "sit-up.noun.1", "texts": {"es": {"words": "abdominal", "sentence": "Hago cincuenta {abdominales} cada mañana."}}}
+{"id": "warm-up.noun.1", "texts": {"es": {"words": "calentamiento", "sentence": "No te saltes el {calentamiento}."}}}
+{"id": "personal trainer.noun.1", "texts": {"es": {"words": "entrenador personal; entrenadora personal", "sentence": "Mi {entrenador personal} es muy estricto."}}}
+{"id": "console.noun.1", "texts": {"es": {"words": "consola; videoconsola", "sentence": "Me han regalado una {consola} nueva."}}}
+{"id": "level up.phrasal_verb.1", "texts": {"es": {"words": "subir de nivel; pasar de nivel", "sentence": "Necesitas más puntos para {subir de nivel}."}}}
+{"id": "theme park.noun.1", "texts": {"es": {"words": "parque temático; parque de atracciones", "sentence": "Pasamos el día en un {parque temático}."}}}
+{"id": "magic trick.noun.1", "texts": {"es": {"words": "truco de magia", "sentence": "¿Quieres ver un {truco de magia}?"}}}
+{"id": "birthday cake.noun.1", "texts": {"es": {"words": "tarta de cumpleaños; pastel de cumpleaños", "sentence": "¡Sopla las velas de tu {tarta de cumpleaños}!"}}}
+{"id": "Halloween.noun.1", "texts": {"es": {"words": "Halloween", "sentence": "¿De qué te vas a disfrazar en {Halloween}?"}}}
+{"id": "Christmas tree.noun.1", "texts": {"es": {"words": "árbol de Navidad", "sentence": "Vamos a decorar el {árbol de Navidad}."}}}
+{"id": "Easter egg.noun.1", "texts": {"es": {"words": "huevo de Pascua", "sentence": "Los niños están buscando {huevos de Pascua}."}}}
+{"id": "New Year's Eve.noun.1", "texts": {"es": {"words": "Nochevieja; fin de año", "sentence": "¿Qué vas a hacer en {Nochevieja}?"}}}
+{"id": "movie theater.noun.1", "texts": {"es": {"words": "cine", "sentence": "Quedamos en la puerta del {cine}."}}}
+{"id": "remake.noun.1", "texts": {"es": {"words": "remake; nueva versión", "sentence": "El {remake} no es tan bueno como el original."}}}
+{"id": "horror film.noun.1", "texts": {"es": {"words": "película de terror; peli de miedo", "sentence": "No puedo ver {películas de terror} solo."}}}
+{"id": "reality show.noun.1", "texts": {"es": {"words": "reality; reality show; telerrealidad", "sentence": "Salió en un {reality} el año pasado."}}}
+{"id": "game show.noun.1", "texts": {"es": {"words": "concurso; concurso de televisión", "sentence": "Ganó un coche en un {concurso}."}}}
+{"id": "plot twist.noun.1", "texts": {"es": {"words": "giro argumental; giro; vuelta de tuerca", "sentence": "¡No me esperaba ese {giro argumental}!"}}}
+{"id": "happy ending.noun.1", "texts": {"es": {"words": "final feliz", "sentence": "Me encantan las películas con {final feliz}."}}}
+{"id": "red carpet.noun.1", "texts": {"es": {"words": "alfombra roja", "sentence": "Todas las estrellas desfilaron por la {alfombra roja}."}}}
+{"id": "tabloid.noun.1", "texts": {"es": {"words": "prensa sensacionalista; tabloide; prensa amarilla", "sentence": "No te creas lo que dice la {prensa sensacionalista}."}}}
+{"id": "breaking news.noun.1", "texts": {"es": {"words": "última hora; noticia de última hora", "sentence": "Acaba de llegar: ¡{última hora}!"}}}
+{"id": "weather forecast.noun.1", "texts": {"es": {"words": "previsión del tiempo; pronóstico del tiempo; el tiempo", "sentence": "¿Cuál es la {previsión del tiempo} para mañana?"}}}
+{"id": "scorching.adjective.1", "texts": {"es": {"words": "abrasador; achicharrante; sofocante", "sentence": "Fue un día {abrasador} de julio."}}}
+{"id": "pouring.adjective.1", "texts": {"es": {"words": "torrencial; a cántaros", "sentence": "Volvimos a casa andando bajo una lluvia {torrencial}."}}}
+{"id": "drenched.adjective.1", "texts": {"es": {"words": "empapado; calado; hecho una sopa", "sentence": "Me quedé {empapado} de camino a casa."}}}
+{"id": "flip-flop.noun.1", "texts": {"es": {"words": "chancla; chancleta", "sentence": "Perdí una {chancla} en la playa."}}}
+{"id": "high heels.noun.1", "texts": {"es": {"words": "tacones; zapatos de tacón", "sentence": "No sé andar con {tacones}."}}}
+{"id": "wedding dress.noun.1", "texts": {"es": {"words": "vestido de novia", "sentence": "Estaba guapísima con su {vestido de novia}."}}}
+{"id": "veil.noun.1", "texts": {"es": {"words": "velo", "sentence": "La novia se levantó el {velo}."}}}
+{"id": "shopping bag.noun.1", "texts": {"es": {"words": "bolsa de la compra; bolsa", "sentence": "¿Puedes llevar esta {bolsa de la compra}?"}}}
+{"id": "dress code.noun.1", "texts": {"es": {"words": "código de vestimenta; etiqueta", "sentence": "¿Cuál es el {código de vestimenta} de la fiesta?"}}}
+{"id": "secondhand.adjective.1", "texts": {"es": {"words": "de segunda mano; usado", "sentence": "Me compré una bici {de segunda mano}."}}}
+{"id": "seal.noun.1", "texts": {"es": {"words": "foca", "sentence": "Vimos {focas} en la playa."}}}
+{"id": "seal.noun.2", "texts": {"es": {"words": "precinto; sello; cierre", "sentence": "No rompas el {precinto} del tarro."}}}
+{"id": "troll.noun.1", "texts": {"es": {"words": "trol; troll; provocador", "sentence": "Ignora a los {troles} de internet."}}}
+{"id": "troll.noun.2", "texts": {"es": {"words": "trol; troll; ogro", "sentence": "El {trol} vivía debajo del puente."}}}
+{"id": "shield.noun.1", "texts": {"es": {"words": "escudo", "sentence": "El caballero alzó su {escudo}."}}}
+{"id": "touch wood.phrase.1", "texts": {"es": {"words": "toco madera; toquemos madera", "sentence": "Nunca he estado enfermo, {toco madera}."}}}
+{"id": "you're telling me.phrase.1", "texts": {"es": {"words": "¡a quién se lo dices!; ¡dímelo a mí!", "sentence": "—¡Qué calor hace! —¡{A quién se lo dices}!"}}}
+{"id": "I know right.phrase.1", "texts": {"es": {"words": "¿a que sí?; ¡ya ves!; ¿verdad?", "sentence": "—¡Esta pizza está buenísima! —¿{A que sí}?"}}}
+{"id": "my treat.phrase.1", "texts": {"es": {"words": "invito yo; pago yo; te invito", "sentence": "Guarda el dinero, {invito yo}."}}}
+{"id": "keep the change.phrase.1", "texts": {"es": {"words": "quédese con el cambio; quédate con el cambio", "sentence": "Aquí tiene veinte, {quédese con el cambio}."}}}
+{"id": "believe it or not.phrase.1", "texts": {"es": {"words": "aunque no te lo creas; lo creas o no", "sentence": "{Aunque no te lo creas}, nunca he estado en Londres."}}}
+{"id": "you're kidding.phrase.1", "texts": {"es": {"words": "¡no me digas!; ¡estás de broma!; ¡no puede ser!", "sentence": "¡{No me digas}! ¿Te ha tocado la lotería?"}}}
+{"id": "sorta.adverb.1", "texts": {"es": {"words": "un poco; algo; medio", "sentence": "Hoy estoy {un poco} cansado."}}}
+{"id": "y'all.pronoun.1", "texts": {"es": {"words": "vosotros; vosotras; ustedes", "sentence": "¿Venís {vosotros} esta noche?"}}}
+{"id": "oh boy.interjection.1", "texts": {"es": {"words": "¡madre mía!; ¡ay, Dios!; ¡vaya!", "sentence": "{Madre mía}, va a ser un día largo."}}}
+{"id": "bye-bye.interjection.1", "texts": {"es": {"words": "adiós; chao; ¡adiós!", "sentence": "¡Di {adiós} a la abuela!"}}}
+{"id": "yawn.noun.1", "texts": {"es": {"words": "bostezo", "sentence": "Intentó disimular un {bostezo}."}}}
+{"id": "yawn.noun.2", "texts": {"es": {"words": "rollo; aburrimiento; tostón", "sentence": "Esa película fue un {rollo} total."}}}
+{"id": "giggle.noun.1", "texts": {"es": {"words": "risita; risa tonta", "sentence": "Oí una {risita} detrás de la puerta."}}}
+{"id": "slap.noun.1", "texts": {"es": {"words": "bofetada; tortazo; cachete", "sentence": "Le dio una {bofetada} en la cara."}}}
+{"id": "peek.noun.1", "texts": {"es": {"words": "vistazo; ojeada", "sentence": "¡Échale un {vistazo} a esto!"}}}
+{"id": "sip.noun.1", "texts": {"es": {"words": "sorbo; trago", "sentence": "¿Me das un {sorbo} de tu café?"}}}
+{"id": "splash.noun.1", "texts": {"es": {"words": "chapuzón; salpicón; plaf", "sentence": "He oído un {chapuzón}: ¡alguien se ha caído a la piscina!"}}}
+{"id": "splash.noun.2", "texts": {"es": {"words": "chorrito; gota; poquito", "sentence": "Solo un {chorrito} de leche, por favor."}}}
+{"id": "snack.verb.1", "texts": {"es": {"words": "picar; picotear; comer entre horas", "sentence": "Intenta no {picar} entre comidas."}}}
+{"id": "facetime.verb.1", "texts": {"es": {"words": "hacer una videollamada; llamar por FaceTime", "sentence": "Te {hago una videollamada} cuando llegue a casa."}}}
+{"id": "photoshop.verb.1", "texts": {"es": {"words": "retocar con Photoshop; retocar; photoshopear", "sentence": "Está claro que esa foto está {retocada con Photoshop}."}}}
+{"id": "binge.noun.1", "texts": {"es": {"words": "juerga; atracón; borrachera", "sentence": "Se pasó tres días de {juerga}."}}}
+{"id": "chuck out.phrasal_verb.1", "texts": {"es": {"words": "tirar; deshacerse de", "sentence": "Voy a {tirar} estos zapatos viejos."}}}
+{"id": "head off.phrasal_verb.1", "texts": {"es": {"words": "irse; marcharse; ponerse en marcha", "sentence": "Será mejor que me {vaya} ya, es tarde."}}}
+{"id": "lock out.phrasal_verb.1", "texts": {"es": {"words": "quedarse fuera; dejarse las llaves dentro", "sentence": "¡Me he vuelto a {quedar fuera}!"}}}
+{"id": "pack up.phrasal_verb.1", "texts": {"es": {"words": "recoger; hacer las maletas; recoger las cosas", "sentence": "Vamos a {recoger} y a casa."}}}
+{"id": "pack up.phrasal_verb.2", "texts": {"es": {"words": "estropearse; dejar de funcionar; morirse", "sentence": "Mi portátil viejo por fin {se ha estropeado}."}}}
+{"id": "shake off.phrasal_verb.1", "texts": {"es": {"words": "quitarse de encima; librarse de; sacudirse", "sentence": "No consigo {quitarme de encima} este resfriado."}}}
+{"id": "top up.phrasal_verb.1", "texts": {"es": {"words": "recargar; rellenar", "sentence": "Tengo que {recargar} el móvil."}}}
+{"id": "top up.phrasal_verb.2", "texts": {"es": {"words": "rellenar; servir más", "sentence": "Deja que te {rellene} el vaso."}}}
+{"id": "wind down.phrasal_verb.1", "texts": {"es": {"words": "relajarse; desconectar; descansar", "sentence": "Leo un libro para {relajarme} antes de dormir."}}}
+{"id": "drained.adjective.1", "texts": {"es": {"words": "agotado; sin fuerzas; exhausto", "sentence": "Me siento completamente {agotado}."}}}
+{"id": "hands-on.adjective.1", "texts": {"es": {"words": "implicado; práctico; que se implica", "sentence": "Es una jefa muy {implicada}."}}}
+{"id": "hung over.adjective.1", "texts": {"es": {"words": "con resaca; resacoso", "sentence": "Tengo una {resaca} tremenda esta mañana."}}}
+{"id": "last-minute.adjective.1", "texts": {"es": {"words": "de última hora; última hora", "sentence": "Reservamos unas vacaciones {de última hora}."}}}
+{"id": "mouldy.adjective.1", "texts": {"es": {"words": "mohoso; con moho; enmohecido", "sentence": "Este pan está {mohoso}."}}}
+{"id": "on edge.adjective.1", "texts": {"es": {"words": "tenso; nervioso; con los nervios de punta", "sentence": "Hoy todo el mundo está un poco {tenso}."}}}
+{"id": "underrated.adjective.1", "texts": {"es": {"words": "infravalorado; subestimado", "sentence": "Es una película muy {infravalorada}."}}}
+{"id": "run-down.adjective.1", "texts": {"es": {"words": "destartalado; ruinoso; en mal estado", "sentence": "Compraron una casa vieja y {destartalada}."}}}
+{"id": "run-down.adjective.2", "texts": {"es": {"words": "agotado; bajo de defensas; decaído", "sentence": "Últimamente me siento un poco {agotado}."}}}
+{"id": "sleepless.adjective.1", "texts": {"es": {"words": "en vela; sin dormir; de insomnio", "sentence": "Pasé una noche {en vela}."}}}
+{"id": "user-friendly.adjective.1", "texts": {"es": {"words": "fácil de usar; intuitivo; sencillo", "sentence": "La nueva aplicación es muy {fácil de usar}."}}}
+{"id": "well-behaved.adjective.1", "texts": {"es": {"words": "educado; bien educado; obediente", "sentence": "Tus hijos se portan muy bien, son muy {educados}."}}}
+{"id": "wide awake.adjective.1", "texts": {"es": {"words": "totalmente despierto; despejado; desvelado", "sentence": "Son las dos de la mañana y estoy {totalmente despierto}."}}}
+{"id": "worked up.adjective.1", "texts": {"es": {"words": "alterado; nervioso; agobiado", "sentence": "No te pongas tan {alterado} por eso."}}}
+{"id": "unfold.verb.1", "texts": {"es": {"words": "desplegar; desdoblar; abrir", "sentence": "{Desplegó} el mapa."}}}
+{"id": "unfold.verb.2", "texts": {"es": {"words": "desarrollarse; evolucionar; ir", "sentence": "A ver cómo se {desarrollan} las cosas."}}}
+{"id": "refill.noun.1", "texts": {"es": {"words": "otra; recarga; relleno", "sentence": "¿Te sirvo {otra}?"}}}
+{"id": "rearrange.verb.1", "texts": {"es": {"words": "cambiar de sitio; reorganizar; reordenar", "sentence": "Vamos a {cambiar de sitio} los muebles."}}}
+{"id": "rearrange.verb.2", "texts": {"es": {"words": "cambiar; aplazar; reprogramar", "sentence": "¿Podemos {cambiar} la reunión?"}}}
+{"id": "babysitting.noun.1", "texts": {"es": {"words": "cuidar niños; canguro; cuidado de niños", "sentence": "Gano dinero {cuidando niños}."}}}
+{"id": "car wash.noun.1", "texts": {"es": {"words": "lavadero de coches; túnel de lavado", "sentence": "Llevaré el coche al {lavadero}."}}}
+{"id": "flea market.noun.1", "texts": {"es": {"words": "mercadillo; rastro; mercado de pulgas", "sentence": "Encontré esta chaqueta en un {mercadillo}."}}}
+{"id": "corner shop.noun.1", "texts": {"es": {"words": "tienda de barrio; tienda de la esquina; ultramarinos", "sentence": "Voy a por leche a la {tienda de la esquina}."}}}
+{"id": "chemist's.noun.1", "texts": {"es": {"words": "farmacia; droguería", "sentence": "Compraré analgésicos en la {farmacia}."}}}
+{"id": "contactless.adjective.1", "texts": {"es": {"words": "sin contacto; contactless", "sentence": "¿Puedo pagar {sin contacto}?"}}}
+{"id": "overdraft.noun.1", "texts": {"es": {"words": "descubierto; números rojos", "sentence": "Ya estoy en {descubierto}."}}}
+{"id": "savings account.noun.1", "texts": {"es": {"words": "cuenta de ahorro; cuenta de ahorros", "sentence": "Metí el dinero en mi {cuenta de ahorro}."}}}
+{"id": "spare change.noun.1", "texts": {"es": {"words": "suelto; calderilla; algo suelto", "sentence": "¿Tienes algo {suelto}?"}}}
+{"id": "dirt cheap.adjective.1", "texts": {"es": {"words": "tirado; baratísimo; regalado", "sentence": "Estos zapatos me salieron {tirados}."}}}
+{"id": "splash out.phrasal_verb.1", "texts": {"es": {"words": "darse un capricho; tirar la casa por la ventana; derrochar", "sentence": "Vamos a {darnos un capricho} con una buena cena."}}}
+{"id": "face mask.noun.1", "texts": {"es": {"words": "mascarilla", "sentence": "No olvides la {mascarilla}."}}}
+{"id": "hand sanitiser.noun.1", "texts": {"es": {"words": "gel hidroalcohólico; desinfectante de manos", "sentence": "Hay {gel hidroalcohólico} junto a la puerta."}}}
+{"id": "power cut.noun.1", "texts": {"es": {"words": "apagón; corte de luz", "sentence": "Anoche hubo un {apagón}."}}}
+{"id": "first aid kit.noun.1", "texts": {"es": {"words": "botiquín", "sentence": "Coge el {botiquín} del coche."}}}
+{"id": "back door.noun.1", "texts": {"es": {"words": "puerta trasera; puerta de atrás", "sentence": "Saca al perro por la {puerta trasera}."}}}
+{"id": "rooftop.noun.1", "texts": {"es": {"words": "azotea; terraza; tejado", "sentence": "Hay un bar en la {azotea}."}}}
+{"id": "spare room.noun.1", "texts": {"es": {"words": "habitación de invitados; cuarto de invitados", "sentence": "Puedes dormir en la {habitación de invitados}."}}}
+{"id": "rubbish bin.noun.1", "texts": {"es": {"words": "cubo de la basura; papelera; basura", "sentence": "Tíralo al {cubo de la basura}."}}}
+{"id": "baked beans.noun.1", "texts": {"es": {"words": "alubias con tomate; judías con tomate", "sentence": "Comí {alubias con tomate} sobre una tostada."}}}
+{"id": "fish and chips.noun.1", "texts": {"es": {"words": "pescado con patatas fritas; fish and chips", "sentence": "Vamos a comer {pescado con patatas fritas} junto al mar."}}}
+{"id": "chocolate bar.noun.1", "texts": {"es": {"words": "chocolatina; barrita de chocolate; tableta de chocolate", "sentence": "Me muero de hambre, ¿tienes una {chocolatina}?"}}}
+{"id": "flare.verb.1", "texts": {"es": {"words": "encenderse; caldearse; estallar", "sentence": "Los ánimos se {encendieron} en la reunión."}}}
+{"id": "redemption.noun.1", "texts": {"es": {"words": "redención; salvación", "sentence": "Es una historia de {redención}."}}}
+{"id": "elated.adjective.1", "texts": {"es": {"words": "eufórico; encantado; exultante", "sentence": "Nos pusimos {eufóricos} al enterarnos de la noticia."}}}
+{"id": "emigrate.verb.1", "texts": {"es": {"words": "emigrar", "sentence": "Mis abuelos {emigraron} a Canadá."}}}
+{"id": "endorse.verb.1", "texts": {"es": {"words": "promocionar; patrocinar; respaldar", "sentence": "{Promociona} una marca deportiva."}}}
+{"id": "enlarge.verb.1", "texts": {"es": {"words": "ampliar; agrandar", "sentence": "¿Puedes {ampliar} esta foto?"}}}
+{"id": "evade.verb.1", "texts": {"es": {"words": "eludir; esquivar; evitar", "sentence": "{Eludió} la pregunta."}}}
+{"id": "evade.verb.2", "texts": {"es": {"words": "evadir; defraudar", "sentence": "Lo acusaron de {evadir} impuestos."}}}
+{"id": "exhibit.verb.1", "texts": {"es": {"words": "exponer; exhibir", "sentence": "{Expone} sus cuadros en Praga."}}}
+{"id": "exhale.verb.1", "texts": {"es": {"words": "espirar; exhalar; soltar el aire", "sentence": "Inspira y {espira}."}}}
+{"id": "evict.verb.1", "texts": {"es": {"words": "desahuciar; echar; desalojar", "sentence": "Nos van a {desahuciar}."}}}
+{"id": "enhance.verb.1", "texts": {"es": {"words": "mejorar; realzar; potenciar", "sentence": "¿Puedes {mejorar} la imagen?"}}}
+{"id": "enlist.verb.1", "texts": {"es": {"words": "alistarse; enrolarse", "sentence": "Se {alistó} a los dieciocho."}}}
+{"id": "enlist.verb.2", "texts": {"es": {"words": "recurrir a; conseguir; pedir", "sentence": "{Recurrí a} la ayuda de mi hermano."}}}
+{"id": "equip.verb.1", "texts": {"es": {"words": "equipar", "sentence": "La cocina está totalmente {equipada}."}}}
+{"id": "erupt.verb.1", "texts": {"es": {"words": "entrar en erupción; estallar", "sentence": "El volcán podría {entrar en erupción} cualquier día."}}}
+{"id": "extract.verb.1", "texts": {"es": {"words": "extraer; sacar", "sentence": "El dentista me {extrajo} la muela."}}}
+{"id": "egg on.phrasal_verb.1", "texts": {"es": {"words": "incitar; animar; picar", "sentence": "Sus amigos lo {incitaron}."}}}
+{"id": "crouton.noun.1", "texts": {"es": {"words": "picatoste; crutón", "sentence": "¿Quieres {picatostes} en la sopa?"}}}
+{"id": "cufflink.noun.1", "texts": {"es": {"words": "gemelo", "sentence": "¿Me ayudas con los {gemelos}?"}}}
+{"id": "dinghy.noun.1", "texts": {"es": {"words": "bote; lancha; barca", "sentence": "Sacamos el {bote} al lago."}}}
+{"id": "ferret.noun.1", "texts": {"es": {"words": "hurón", "sentence": "Mi primo tiene un {hurón} de mascota."}}}
+{"id": "foal.noun.1", "texts": {"es": {"words": "potro; potra; potrillo", "sentence": "La yegua tuvo un {potro} anoche."}}}
+{"id": "gazebo.noun.1", "texts": {"es": {"words": "cenador; glorieta; carpa", "sentence": "Cenamos en el {cenador}."}}}
+{"id": "igloo.noun.1", "texts": {"es": {"words": "iglú", "sentence": "Los niños construyeron un {iglú} en la nieve."}}}
+{"id": "jaywalk.verb.1", "texts": {"es": {"words": "cruzar por donde no se debe; cruzar sin mirar; cruzar fuera del paso de peatones", "sentence": "Te pueden multar por {cruzar fuera del paso de peatones}."}}}
+{"id": "lather.noun.1", "texts": {"es": {"words": "espuma", "sentence": "Frota el jabón hasta que haga mucha {espuma}."}}}
+{"id": "leotard.noun.1", "texts": {"es": {"words": "maillot; malla", "sentence": "Llevaba un {maillot} rosa para ballet."}}}
+{"id": "lint.noun.1", "texts": {"es": {"words": "pelusa; pelusilla", "sentence": "Limpia la {pelusa} de la secadora."}}}
+{"id": "muzzle.noun.1", "texts": {"es": {"words": "bozal", "sentence": "El perro tiene que llevar {bozal} en el autobús."}}}
+{"id": "parakeet.noun.1", "texts": {"es": {"words": "periquito; cotorra", "sentence": "Nuestro {periquito} sabe decir hola."}}}
+{"id": "perm.noun.1", "texts": {"es": {"words": "permanente", "sentence": "Mi madre se hizo la {permanente} en los ochenta."}}}
+{"id": "pipsqueak.noun.1", "texts": {"es": {"words": "renacuajo; mocoso; enano", "sentence": "¡Fuera de aquí, {renacuajo}!"}}}
+{"id": "pitchfork.noun.1", "texts": {"es": {"words": "horca; horquilla; bieldo", "sentence": "El granjero cogió la {horca}."}}}
+{"id": "playpen.noun.1", "texts": {"es": {"words": "parque; corralito", "sentence": "Mete al bebé en el {parque} un momento."}}}
+{"id": "pocketknife.noun.1", "texts": {"es": {"words": "navaja; cortaplumas", "sentence": "Siempre lleva una {navaja}."}}}
+{"id": "porcupine.noun.1", "texts": {"es": {"words": "puercoespín", "sentence": "¡No toques el {puercoespín}!"}}}
+{"id": "prissy.adjective.1", "texts": {"es": {"words": "remilgado; melindroso; tiquismiquis", "sentence": "No seas tan {remilgada}, solo es un poco de barro."}}}
+{"id": "putty.noun.1", "texts": {"es": {"words": "masilla; plastilina", "sentence": "En sus manos es como {plastilina}."}}}
+{"id": "roadkill.noun.1", "texts": {"es": {"words": "animal atropellado", "sentence": "Hay otra vez un {animal atropellado} en la carretera."}}}
+{"id": "runt.noun.1", "texts": {"es": {"words": "el más pequeño de la camada; benjamín; canijo", "sentence": "Nos quedamos con el {más pequeño} de la camada."}}}
+{"id": "sachet.noun.1", "texts": {"es": {"words": "sobre; sobrecito", "sentence": "¿Me das un {sobre} de azúcar?"}}}
+{"id": "scamper.verb.1", "texts": {"es": {"words": "corretear; escabullirse", "sentence": "El ratón se {escabulló} debajo de la nevera."}}}
+{"id": "seesaw.noun.1", "texts": {"es": {"words": "balancín; subibaja", "sentence": "Los niños están jugando en el {balancín}."}}}
+{"id": "sequin.noun.1", "texts": {"es": {"words": "lentejuela", "sentence": "Su vestido estaba cubierto de {lentejuelas}."}}}
+{"id": "slingshot.noun.1", "texts": {"es": {"words": "tirachinas; honda", "sentence": "Rompió la ventana con un {tirachinas}."}}}
+{"id": "smock.noun.1", "texts": {"es": {"words": "bata; delantal; babi", "sentence": "Ponte una {bata} antes de pintar."}}}
+{"id": "snorkel.noun.1", "texts": {"es": {"words": "tubo de buceo; tubo; esnórquel", "sentence": "Me dejé el {tubo de buceo} en el hotel."}}}
+{"id": "tadpole.noun.1", "texts": {"es": {"words": "renacuajo", "sentence": "Cogimos {renacuajos} en el estanque."}}}
+{"id": "teetotal.adjective.1", "texts": {"es": {"words": "abstemio", "sentence": "Para mí vino no, soy {abstemio}."}}}
+{"id": "thimble.noun.1", "texts": {"es": {"words": "dedal", "sentence": "La abuela siempre cose con {dedal}."}}}
+{"id": "thistle.noun.1", "texts": {"es": {"words": "cardo", "sentence": "El campo estaba lleno de {cardos}."}}}
+{"id": "toupee.noun.1", "texts": {"es": {"words": "peluquín; bisoñé", "sentence": "Creo que lleva {peluquín}."}}}
+{"id": "tricycle.noun.1", "texts": {"es": {"words": "triciclo", "sentence": "A mi hijo le encanta su {triciclo} nuevo."}}}
+{"id": "trinket.noun.1", "texts": {"es": {"words": "baratija; chuchería; recuerdo", "sentence": "Me trajo una pequeña {baratija} de París."}}}
+{"id": "truant.noun.1", "texts": {"es": {"words": "hacer novillos; hacer pellas; faltar a clase", "sentence": "Solía {hacer novillos} para irse a pescar."}}}
+{"id": "tutu.noun.1", "texts": {"es": {"words": "tutú", "sentence": "Quiere ir al colegio con su {tutú}."}}}
+{"id": "waddle.verb.1", "texts": {"es": {"words": "anadear; caminar como un pato; bambolearse", "sentence": "Los patos fueron {anadeando} hasta el agua."}}}
+{"id": "wristwatch.noun.1", "texts": {"es": {"words": "reloj de pulsera; reloj", "sentence": "Le regalaron un {reloj de pulsera} por la graduación."}}}
+{"id": "zesty.adjective.1", "texts": {"es": {"words": "refrescante; cítrico; con chispa", "sentence": "Esta ensalada lleva un aliño de limón muy {refrescante}."}}}
+{"id": "airsick.adjective.1", "texts": {"es": {"words": "mareado en avión; mareado", "sentence": "Siempre me {mareo} en las avionetas."}}}
+{"id": "bagpipes.noun.1", "texts": {"es": {"words": "gaita", "sentence": "Toca la {gaita} en las bodas."}}}
+{"id": "bellhop.noun.1", "texts": {"es": {"words": "botones", "sentence": "El {botones} nos subió las maletas."}}}
+{"id": "bigwig.noun.1", "texts": {"es": {"words": "pez gordo; mandamás; jefazo", "sentence": "Viene de visita algún {pez gordo} de la central."}}}
+{"id": "bungee jumping.noun.1", "texts": {"es": {"words": "puenting; bungee jumping", "sentence": "Yo nunca haría {puenting}."}}}
+{"id": "chairlift.noun.1", "texts": {"es": {"words": "telesilla", "sentence": "Cojamos el {telesilla} hasta arriba."}}}
+{"id": "crackpot.noun.1", "texts": {"es": {"words": "chiflado; chiflada; chalado", "sentence": "Un {chiflado} dice que la Tierra es plana."}}}
+{"id": "crestfallen.adjective.1", "texts": {"es": {"words": "abatido; cabizbajo; decepcionado", "sentence": "Se quedó {abatido} cuando ella dijo que no."}}}
+{"id": "crony.noun.1", "texts": {"es": {"words": "amiguete; compinche; colega", "sentence": "Dio trabajo a todos sus {amiguetes}."}}}
+{"id": "dawdle.verb.1", "texts": {"es": {"words": "entretenerse; remolonear; ir despacio", "sentence": "¡Deja de {entretenerte}, que vamos a llegar tarde!"}}}
+{"id": "dither.verb.1", "texts": {"es": {"words": "dudar; titubear; vacilar", "sentence": "¡Deja de {dudar} y elige uno!"}}}
+{"id": "dollop.noun.1", "texts": {"es": {"words": "cucharada; pegote; poco", "sentence": "Añade una {cucharada} de nata."}}}
+{"id": "doting.adjective.1", "texts": {"es": {"words": "cariñoso; que adora; chocho", "sentence": "Tiene un abuelo muy {cariñoso}."}}}
+{"id": "faux pas.noun.1", "texts": {"es": {"words": "metedura de pata; desliz; faux pas", "sentence": "¿Fue una {metedura de pata} llevar vino?"}}}
+{"id": "fidgety.adjective.1", "texts": {"es": {"words": "inquieto; nervioso; revoltoso", "sentence": "Los niños se ponen {inquietos} en los viajes largos."}}}
+{"id": "figment.noun.1", "texts": {"es": {"words": "invención; producto; fruto", "sentence": "Fue solo un {producto} de tu imaginación."}}}
+{"id": "firstborn.noun.1", "texts": {"es": {"words": "primogénito; primogénita", "sentence": "Nuestro {primogénito} empieza el colegio este año."}}}
+{"id": "fishbowl.noun.1", "texts": {"es": {"words": "pecera", "sentence": "Vivir aquí es como vivir en una {pecera}."}}}
+{"id": "fixer-upper.noun.1", "texts": {"es": {"words": "casa para reformar; casa a reformar", "sentence": "Compramos una {casa para reformar} en el campo."}}}
+{"id": "gatecrash.verb.1", "texts": {"es": {"words": "colarse; presentarse sin invitación", "sentence": "Unos tíos se {colaron} en nuestra fiesta."}}}
+{"id": "gaudy.adjective.1", "texts": {"es": {"words": "hortera; chillón; recargado", "sentence": "Esa lámpara es muy {hortera}."}}}
+{"id": "gawky.adjective.1", "texts": {"es": {"words": "desgarbado; torpe", "sentence": "Era un adolescente {desgarbado}."}}}
+{"id": "gizmo.noun.1", "texts": {"es": {"words": "chisme; cacharro; artilugio", "sentence": "¿Para qué sirve este {chisme}?"}}}
+{"id": "goody-goody.noun.1", "texts": {"es": {"words": "santurrón; santurrona; niño bueno", "sentence": "No seas tan {santurrona}."}}}
+{"id": "heebie-jeebies.noun.1", "texts": {"es": {"words": "escalofríos; repelús; mal rollo", "sentence": "Esta casa vieja me da {escalofríos}."}}}
+{"id": "hothead.noun.1", "texts": {"es": {"words": "exaltado; exaltada; impulsivo", "sentence": "¡Cálmate, {exaltado}!"}}}
+{"id": "huffy.adjective.1", "texts": {"es": {"words": "ofendido; picado; mosqueado", "sentence": "No te pongas tan {ofendido} por eso."}}}
+{"id": "humdrum.adjective.1", "texts": {"es": {"words": "monótono; rutinario; aburrido", "sentence": "Necesito un descanso de mi vida {monótona}."}}}
+{"id": "hunky-dory.adjective.1", "texts": {"es": {"words": "de maravilla; perfecto; genial", "sentence": "Todo va {de maravilla}."}}}
+{"id": "inane.adjective.1", "texts": {"es": {"words": "tonto; estúpido; absurdo", "sentence": "Deja de hacer preguntas {tontas}."}}}
+{"id": "insatiable.adjective.1", "texts": {"es": {"words": "insaciable", "sentence": "Tiene un apetito {insaciable}."}}}
+{"id": "jazzed.adjective.1", "texts": {"es": {"words": "emocionado; entusiasmado; ilusionado", "sentence": "¡Estoy muy {emocionado} con el viaje!"}}}
+{"id": "joyride.noun.1", "texts": {"es": {"words": "paseo en coche robado; vuelta en coche robado", "sentence": "Los adolescentes se llevaron el coche para dar un {paseo}."}}}
+{"id": "kerfuffle.noun.1", "texts": {"es": {"words": "jaleo; alboroto; follón", "sentence": "¿A qué viene todo este {jaleo}?"}}}
+{"id": "awning.noun.1", "texts": {"es": {"words": "toldo; marquesina", "sentence": "Sentémonos bajo el {toldo}, que llueve."}}}
+{"id": "backstab.verb.1", "texts": {"es": {"words": "apuñalar por la espalda; traicionar; criticar a escondidas", "sentence": "Ella nunca {apuñalaría por la espalda} a una amiga."}}}
+{"id": "behold.verb.1", "texts": {"es": {"words": "contemplar; mirar; ver", "sentence": "Y, {mira} por dónde, ¡llegó puntual!"}}}
+{"id": "cackle.verb.1", "texts": {"es": {"words": "carcajearse; reír a carcajadas; cacarear", "sentence": "La vieja bruja se {carcajeó} con fuerza."}}}
+{"id": "cagey.adjective.1", "texts": {"es": {"words": "reservado; evasivo; misterioso", "sentence": "¿Por qué estás tan {reservado} con eso?"}}}
+{"id": "cannibal.noun.1", "texts": {"es": {"words": "caníbal; antropófago", "sentence": "La película trata de una tribu de {caníbales}."}}}
+{"id": "catty.adjective.1", "texts": {"es": {"words": "malicioso; malintencionado; venenoso", "sentence": "Fue un comentario muy {malicioso}."}}}
+{"id": "cauldron.noun.1", "texts": {"es": {"words": "caldero", "sentence": "La bruja removía el {caldero}."}}}
+{"id": "chipmunk.noun.1", "texts": {"es": {"words": "ardilla listada; tamia", "sentence": "Una pequeña {ardilla listada} subió corriendo al árbol."}}}
+{"id": "clam up.phrasal_verb.1", "texts": {"es": {"words": "cerrarse en banda; callarse; no soltar prenda", "sentence": "Siempre se {cierra en banda} cuando le pregunto por el trabajo."}}}
+{"id": "comforter.noun.1", "texts": {"es": {"words": "edredón; nórdico", "sentence": "Necesito un {edredón} más calentito para el invierno."}}}
+{"id": "concierge.noun.1", "texts": {"es": {"words": "conserje; recepcionista", "sentence": "Pídele al {conserje} que nos llame un taxi."}}}
+{"id": "croak.verb.1", "texts": {"es": {"words": "croar", "sentence": "Las ranas {croan} toda la noche."}}}
+{"id": "cussing.noun.1", "texts": {"es": {"words": "palabrotas; tacos; decir palabrotas", "sentence": "¡Nada de {palabrotas} delante de los niños!"}}}
+{"id": "daffodil.noun.1", "texts": {"es": {"words": "narciso", "sentence": "Los {narcisos} ya han florecido en el jardín."}}}
+{"id": "dollhouse.noun.1", "texts": {"es": {"words": "casa de muñecas", "sentence": "Le regalaron una {casa de muñecas} por Navidad."}}}
+{"id": "drape.noun.1", "texts": {"es": {"words": "cortina", "sentence": "Cierra las {cortinas}, hay demasiada luz."}}}
+{"id": "duster.noun.1", "texts": {"es": {"words": "trapo del polvo; plumero; bayeta", "sentence": "Coge un {trapo del polvo} y ayúdame a limpiar."}}}
+{"id": "fickle.adjective.1", "texts": {"es": {"words": "variable; cambiante; voluble", "sentence": "El tiempo en Gran Bretaña es muy {variable}."}}}
+{"id": "fondue.noun.1", "texts": {"es": {"words": "fondue", "sentence": "Hagamos {fondue} de queso esta noche."}}}
+{"id": "foxy.adjective.1", "texts": {"es": {"words": "sexy; atractivo; guapa", "sentence": "Está muy {sexy} con ese vestido."}}}
+{"id": "gnome.noun.1", "texts": {"es": {"words": "gnomo; enano", "sentence": "Hay un {gnomo} de jardín junto a la puerta."}}}
+{"id": "goof.verb.1", "texts": {"es": {"words": "meter la pata; equivocarse; liarla", "sentence": "Perdón, {metí la pata}: me equivoqué de fecha."}}}
+{"id": "goofball.noun.1", "texts": {"es": {"words": "payaso; payasa; bobo", "sentence": "Mi hermano es un {payaso}."}}}
+{"id": "groovy.adjective.1", "texts": {"es": {"words": "chulo; guay; molón", "sentence": "¡Qué camisa más {chula}, tío!"}}}
+{"id": "grubby.adjective.1", "texts": {"es": {"words": "sucio; mugriento; guarro", "sentence": "¡Quita tus manos {sucias} de mi tarta!"}}}
+{"id": "guacamole.noun.1", "texts": {"es": {"words": "guacamole", "sentence": "Pásame los nachos y el {guacamole}."}}}
+{"id": "gung-ho.adjective.1", "texts": {"es": {"words": "entusiasmado; muy entusiasta; lanzado", "sentence": "Está muy {entusiasmado} con el nuevo proyecto."}}}
+{"id": "gurgle.verb.1", "texts": {"es": {"words": "gorjear; hacer gorgoritos", "sentence": "El bebé {gorjeaba} contento."}}}
+{"id": "hem.noun.1", "texts": {"es": {"words": "dobladillo; bajo", "sentence": "¿Puedes subirme el {bajo} de estos pantalones?"}}}
+{"id": "hulk.noun.1", "texts": {"es": {"words": "mole; gigante; armario", "sentence": "En la puerta había un hombre que era una {mole}."}}}
+{"id": "jerky.noun.1", "texts": {"es": {"words": "cecina; carne seca", "sentence": "Siempre llevo {cecina} en las excursiones largas."}}}
+{"id": "jiggle.verb.1", "texts": {"es": {"words": "mover; menear; zarandear", "sentence": "{Mueve} un poco la llave y se abrirá."}}}
+{"id": "miffed.adjective.1", "texts": {"es": {"words": "molesto; mosqueado; dolido", "sentence": "Estaba un poco {molesta} porque nos olvidamos de ella."}}}
+{"id": "minion.noun.1", "texts": {"es": {"words": "secuaz; esbirro; lacayo", "sentence": "El jefe mandó a uno de sus {secuaces}."}}}
+{"id": "mojo.noun.1", "texts": {"es": {"words": "chispa; energía; ánimo", "sentence": "Por fin he recuperado la {chispa}."}}}
+{"id": "moose.noun.1", "texts": {"es": {"words": "alce", "sentence": "Vimos un {alce} en el bosque."}}}
+{"id": "mumbo jumbo.noun.1", "texts": {"es": {"words": "chino; galimatías; palabrería", "sentence": "Todo eso me suena a {chino}."}}}
+{"id": "nearsighted.adjective.1", "texts": {"es": {"words": "miope; corto de vista", "sentence": "Soy {miope}, así que necesito gafas para conducir."}}}
+{"id": "neckline.noun.1", "texts": {"es": {"words": "escote", "sentence": "Ese vestido tiene un {escote} muy pronunciado."}}}
+{"id": "necktie.noun.1", "texts": {"es": {"words": "corbata", "sentence": "Llevaba una {corbata} roja."}}}
+{"id": "nimble.adjective.1", "texts": {"es": {"words": "ágil; hábil; diestro", "sentence": "Tiene unos dedos muy {ágiles}."}}}
+{"id": "oaf.noun.1", "texts": {"es": {"words": "patoso; patosa; zoquete", "sentence": "¡Mira por dónde vas, {patoso}!"}}}
+{"id": "offhand.adjective.1", "texts": {"es": {"words": "casual; despreocupado; de pasada", "sentence": "Hizo un comentario {casual} sobre mi pelo."}}}
+{"id": "okey-dokey.interjection.1", "texts": {"es": {"words": "vale; vale, vale; okey", "sentence": "{Vale}, empecemos."}}}
+{"id": "partner in crime.noun.1", "texts": {"es": {"words": "compañero de fechorías; compañera de fechorías; cómplice", "sentence": "Este es Tom, mi {compañero de fechorías}."}}}
+{"id": "party pooper.noun.1", "texts": {"es": {"words": "aguafiestas", "sentence": "¡No seas {aguafiestas}, quédate un poco más!"}}}
+{"id": "pawn.verb.1", "texts": {"es": {"words": "empeñar", "sentence": "Tuvo que {empeñar} su reloj para pagar el alquiler."}}}
+{"id": "peachy.adjective.1", "texts": {"es": {"words": "estupendo; genial; de maravilla", "sentence": "Todo va {estupendo}, gracias."}}}
+{"id": "pedicure.noun.1", "texts": {"es": {"words": "pedicura", "sentence": "El sábado me hacen la {pedicura}."}}}
+{"id": "peekaboo.interjection.1", "texts": {"es": {"words": "¡cucú!; ¡cucú tras!", "sentence": "¡{Cucú}! ¡Te veo!"}}}
+{"id": "pleasantry.noun.1", "texts": {"es": {"words": "cumplido; cortesía; formalidad", "sentence": "Intercambiamos unos {cumplidos} y nos sentamos."}}}
+{"id": "prude.noun.1", "texts": {"es": {"words": "mojigato; mojigata; puritano", "sentence": "No seas tan {mojigato}, solo es una broma."}}}
+{"id": "puck.noun.1", "texts": {"es": {"words": "disco; disco de hockey", "sentence": "Metió el {disco} en la portería."}}}
+{"id": "puny.adjective.1", "texts": {"es": {"words": "enclenque; debilucho; flacucho", "sentence": "¡Mira qué brazos tan {enclenques} tengo!"}}}
+{"id": "pup.noun.1", "texts": {"es": {"words": "cría", "sentence": "La foca tuvo una {cría} la primavera pasada."}}}
+{"id": "quibble.verb.1", "texts": {"es": {"words": "discutir por nimiedades; poner pegas", "sentence": "No vamos a {discutir por} unas pocas libras."}}}
+{"id": "quickie.noun.1", "texts": {"es": {"words": "cosa rápida; momento", "sentence": "No tardaremos, es una {cosa rápida}."}}}
+{"id": "ratty.adjective.1", "texts": {"es": {"words": "raído; andrajoso; gastado", "sentence": "Todavía lleva ese jersey viejo y {raído}."}}}
+{"id": "ratty.adjective.2", "texts": {"es": {"words": "irritable; gruñón; de mal humor", "sentence": "Se pone {irritable} cuando está cansada."}}}
+{"id": "roach.noun.1", "texts": {"es": {"words": "cucaracha", "sentence": "¡He visto una {cucaracha} en la cocina!"}}}
+{"id": "sheepish.adjective.1", "texts": {"es": {"words": "avergonzado; tímido; cortado", "sentence": "Me dedicó una sonrisa {avergonzada}."}}}
+{"id": "shifty.adjective.1", "texts": {"es": {"words": "sospechoso; turbio", "sentence": "Ese tío parece un poco {sospechoso}."}}}
+{"id": "shopaholic.noun.1", "texts": {"es": {"words": "adicto a las compras; adicta a las compras; compradora compulsiva", "sentence": "Mi hermana es una {adicta a las compras} total."}}}
+{"id": "slapstick.noun.1", "texts": {"es": {"words": "comedia de golpes; payasada", "sentence": "Me encantan las viejas películas de {comedia de golpes}."}}}
+{"id": "sledge.noun.1", "texts": {"es": {"words": "trineo", "sentence": "Subamos el {trineo} a la colina."}}}
+{"id": "slimy.adjective.1", "texts": {"es": {"words": "viscoso; resbaladizo; baboso", "sentence": "Las rocas estaban {viscosas} y mojadas."}}}
+{"id": "slimy.adjective.2", "texts": {"es": {"words": "rastrero; falso; empalagoso", "sentence": "No me fío de él, es muy {rastrero}."}}}
+{"id": "slowpoke.noun.1", "texts": {"es": {"words": "tortuga; lento; tardón", "sentence": "¡Date prisa, {tortuga}!"}}}
+{"id": "snide.adjective.1", "texts": {"es": {"words": "malicioso; sarcástico; insidioso", "sentence": "Deja de hacer comentarios {maliciosos}."}}}
+{"id": "snog.verb.1", "texts": {"es": {"words": "morrearse; besarse; enrollarse", "sentence": "Se estaban {morreando} al fondo del autobús."}}}
+{"id": "snooty.adjective.1", "texts": {"es": {"words": "estirado; altivo; engreído", "sentence": "El camarero era muy {estirado}."}}}
+{"id": "soppy.adjective.1", "texts": {"es": {"words": "sensiblero; cursi; empalagoso", "sentence": "Lloré con esa película tan {sensiblera}."}}}
+{"id": "spank.verb.1", "texts": {"es": {"words": "dar azotes; zurrar; dar una zurra", "sentence": "Mis padres nunca nos {dieron azotes}."}}}
+{"id": "spellbound.adjective.1", "texts": {"es": {"words": "embelesado; hechizado; cautivado", "sentence": "Los niños escuchaban el cuento {embelesados}."}}}
+{"id": "spoilsport.noun.1", "texts": {"es": {"words": "aguafiestas", "sentence": "¡Venga, no seas {aguafiestas}!"}}}
+{"id": "stammer.verb.1", "texts": {"es": {"words": "tartamudear; balbucear", "sentence": "{Tartamudeó} una disculpa."}}}
+{"id": "swell.adjective.1", "texts": {"es": {"words": "estupendo; fenomenal; genial", "sentence": "¡Eso es {estupendo}, muchas gracias!"}}}
+{"id": "swig.noun.1", "texts": {"es": {"words": "trago", "sentence": "Echó un {trago} de cerveza."}}}
+{"id": "tattle.verb.1", "texts": {"es": {"words": "chivarse; acusar", "sentence": "No te {chives} de tu hermana."}}}
+{"id": "thong.noun.1", "texts": {"es": {"words": "tanga", "sentence": "Se compró un {tanga} de encaje."}}}
+{"id": "thong.noun.2", "texts": {"es": {"words": "chancla; chancleta", "sentence": "Ponte las {chanclas} en la playa."}}}
+{"id": "tiff.noun.1", "texts": {"es": {"words": "riña; pelea; rifirrafe", "sentence": "Tuvieron una pequeña {riña}, pero ya están bien."}}}
+{"id": "tote.noun.1", "texts": {"es": {"words": "bolsa de tela; tote bag", "sentence": "Siempre llevo una {bolsa de tela} para hacer la compra."}}}
+{"id": "trot.verb.1", "texts": {"es": {"words": "trotar", "sentence": "El caballo {trotaba} por el campo."}}}
+{"id": "twinkle.verb.1", "texts": {"es": {"words": "titilar; centellear; parpadear", "sentence": "Las estrellas {titilaban} en el cielo."}}}
+{"id": "wager.noun.1", "texts": {"es": {"words": "apuesta", "sentence": "Te hago una {apuesta}: llegará tarde."}}}
+{"id": "walrus.noun.1", "texts": {"es": {"words": "morsa", "sentence": "La {morsa} tiene unos colmillos enormes."}}}
+{"id": "welly.noun.1", "texts": {"es": {"words": "bota de agua; katiuska; bota de goma", "sentence": "Ponte las {botas de agua}, que hay barro."}}}
+{"id": "whirl.verb.1", "texts": {"es": {"words": "arremolinarse; girar; dar vueltas", "sentence": "Los copos de nieve se {arremolinaban} a nuestro alrededor."}}}
+{"id": "wiper.noun.1", "texts": {"es": {"words": "limpiaparabrisas", "sentence": "Pon los {limpiaparabrisas}, que está lloviendo."}}}
+{"id": "wisecrack.noun.1", "texts": {"es": {"words": "chiste; pulla; comentario sarcástico", "sentence": "Ahórrate los {chistes}."}}}
+{"id": "yap.verb.1", "texts": {"es": {"words": "ladrar", "sentence": "El perro del vecino {ladra} todo el día."}}}
+{"id": "yap.verb.2", "texts": {"es": {"words": "parlotear; cotorrear; charlar", "sentence": "Estuvieron {parloteando} por teléfono durante horas."}}}
+{"id": "yoo-hoo.interjection.1", "texts": {"es": {"words": "¡eh!; ¡yuju!; ¡hola!", "sentence": "¡{Eh}! ¡Aquí!"}}}
+{"id": "subpoena.noun.1", "texts": {"es": {"words": "citación; citación judicial", "sentence": "Recibió una {citación} para comparecer ante el tribunal."}}}
+{"id": "coroner.noun.1", "texts": {"es": {"words": "forense; médico forense; médica forense", "sentence": "El {forense} examinará el caso."}}}
+{"id": "mugshot.noun.1", "texts": {"es": {"words": "foto policial; foto de ficha policial", "sentence": "Su {foto policial} salía en todas las noticias."}}}
+{"id": "stakeout.noun.1", "texts": {"es": {"words": "vigilancia", "sentence": "Los policías estuvieron de {vigilancia} toda la noche."}}}
+{"id": "informant.noun.1", "texts": {"es": {"words": "informante; confidente; soplón", "sentence": "La policía tenía un {informante} dentro de la banda."}}}
+{"id": "manhunt.noun.1", "texts": {"es": {"words": "búsqueda; persecución; caza del hombre", "sentence": "Se ha iniciado una {búsqueda} del preso fugado."}}}
+{"id": "perp.noun.1", "texts": {"es": {"words": "sospechoso; sospechosa; autor del delito", "sentence": "El {sospechoso} huyó por el callejón."}}}
+{"id": "precinct.noun.1", "texts": {"es": {"words": "comisaría", "sentence": "Llévatelo de vuelta a la {comisaría}."}}}
+{"id": "perjury.noun.1", "texts": {"es": {"words": "perjurio; falso testimonio", "sentence": "Mentir en un juicio es {perjurio}."}}}
+{"id": "jailbreak.noun.1", "texts": {"es": {"words": "fuga; fuga de la cárcel", "sentence": "La película trata de una famosa {fuga} de la cárcel."}}}
+{"id": "embezzle.verb.1", "texts": {"es": {"words": "malversar; desfalcar", "sentence": "{Malversó} dinero de la empresa."}}}
+{"id": "extort.verb.1", "texts": {"es": {"words": "extorsionar; sacar con amenazas", "sentence": "Intentaron sacarle dinero {extorsionándolo}."}}}
+{"id": "mugging.noun.1", "texts": {"es": {"words": "atraco; asalto", "sentence": "Hubo un {atraco} cerca de la estación."}}}
+{"id": "strangle.verb.1", "texts": {"es": {"words": "estrangular", "sentence": "¡Lo {estrangularía} por llegar tan tarde!"}}}
+{"id": "shoplifter.noun.1", "texts": {"es": {"words": "ladrón de tiendas; ladrona de tiendas; ratero", "sentence": "El guardia pilló a un {ladrón} en la tienda."}}}
+{"id": "vandal.noun.1", "texts": {"es": {"words": "vándalo; vándala; gamberro", "sentence": "Los {vándalos} han vuelto a romper la parada del autobús."}}}
+{"id": "sedate.verb.1", "texts": {"es": {"words": "sedar", "sentence": "El veterinario tuvo que {sedar} al perro."}}}
+{"id": "sedative.noun.1", "texts": {"es": {"words": "sedante; tranquilizante", "sentence": "La enfermera le dio un {sedante} suave."}}}
+{"id": "stretcher.noun.1", "texts": {"es": {"words": "camilla", "sentence": "Se lo llevaron en {camilla}."}}}
+{"id": "miscarriage.noun.1", "texts": {"es": {"words": "aborto espontáneo; aborto", "sentence": "Tuvo un {aborto espontáneo}, pero ahora tiene dos hijos sanos."}}}
+{"id": "contraction.noun.1", "texts": {"es": {"words": "contracción", "sentence": "Tiene {contracciones} cada cinco minutos."}}}
+{"id": "contraction.noun.2", "texts": {"es": {"words": "contracción; forma contraída", "sentence": "«Del» es una {contracción} de «de el»."}}}
+{"id": "constipated.adjective.1", "texts": {"es": {"words": "estreñido", "sentence": "Llevo días {estreñido}."}}}
+{"id": "indigestion.noun.1", "texts": {"es": {"words": "indigestión; ardor de estómago", "sentence": "La comida picante me da {indigestión}."}}}
+{"id": "plaster cast.noun.1", "texts": {"es": {"words": "escayola; yeso", "sentence": "Tiene el brazo con {escayola}."}}}
+{"id": "tonsils.noun.1", "texts": {"es": {"words": "amígdalas; anginas", "sentence": "Le quitaron las {amígdalas} de pequeño."}}}
+{"id": "torso.noun.1", "texts": {"es": {"words": "torso; tronco", "sentence": "Tiene tatuajes por todo el {torso}."}}}
+{"id": "buttocks.noun.1", "texts": {"es": {"words": "nalgas; glúteos; trasero", "sentence": "Siéntate recto, no sobre las {nalgas}."}}}
+{"id": "sideburns.noun.1", "texts": {"es": {"words": "patillas", "sentence": "Se dejó unas {patillas} largas como Elvis."}}}
+{"id": "stubble.noun.1", "texts": {"es": {"words": "barba de varios días; barba incipiente", "sentence": "No se ha afeitado, ¡mira qué {barba de varios días}!"}}}
+{"id": "dreadlocks.noun.1", "texts": {"es": {"words": "rastas", "sentence": "Lleva {rastas} desde los dieciséis años."}}}
+{"id": "wax.verb.1", "texts": {"es": {"words": "depilar con cera; hacerse la cera", "sentence": "Se {depila} las piernas con cera todos los meses."}}}
+{"id": "moisturiser.noun.1", "texts": {"es": {"words": "crema hidratante; hidratante", "sentence": "Ponte {crema hidratante}, tienes la piel seca."}}}
+{"id": "cologne.noun.1", "texts": {"es": {"words": "colonia; agua de colonia", "sentence": "Hueles bien, ¿es una {colonia} nueva?"}}}
+{"id": "nail file.noun.1", "texts": {"es": {"words": "lima de uñas; lima", "sentence": "¿Me prestas tu {lima de uñas}?"}}}
+{"id": "blush.noun.1", "texts": {"es": {"words": "colorete", "sentence": "Solo un poco de {colorete} en las mejillas."}}}
+{"id": "blush.noun.2", "texts": {"es": {"words": "rubor; sonrojo", "sentence": "Vi un {rubor} en su cara."}}}
+{"id": "lip balm.noun.1", "texts": {"es": {"words": "bálsamo labial; cacao; protector labial", "sentence": "Tengo los labios secos, ¿tienes {cacao}?"}}}
+{"id": "cotton bud.noun.1", "texts": {"es": {"words": "bastoncillo; bastoncillo de algodón", "sentence": "Límpialo con cuidado con un {bastoncillo}."}}}
+{"id": "razor blade.noun.1", "texts": {"es": {"words": "cuchilla; cuchilla de afeitar", "sentence": "Tengo que comprar {cuchillas} nuevas."}}}
+{"id": "duvet cover.noun.1", "texts": {"es": {"words": "funda nórdica; funda del edredón", "sentence": "¿Me ayudas a poner la {funda nórdica}?"}}}
+{"id": "watering can.noun.1", "texts": {"es": {"words": "regadera", "sentence": "Llena la {regadera} y riega las flores."}}}
+{"id": "toolbox.noun.1", "texts": {"es": {"words": "caja de herramientas", "sentence": "Saca el martillo de la {caja de herramientas}."}}}
+{"id": "wrench.noun.1", "texts": {"es": {"words": "llave inglesa; llave", "sentence": "Pásame la {llave inglesa}, ¿quieres?"}}}
+{"id": "spanner.noun.1", "texts": {"es": {"words": "llave inglesa; llave fija; llave", "sentence": "Necesito una {llave inglesa} más grande para esto."}}}
+{"id": "paintbrush.noun.1", "texts": {"es": {"words": "pincel; brocha", "sentence": "Lava el {pincel} cuando termines."}}}
+{"id": "detergent.noun.1", "texts": {"es": {"words": "detergente", "sentence": "Se nos ha acabado el {detergente}."}}}
+{"id": "dishcloth.noun.1", "texts": {"es": {"words": "bayeta; trapo de cocina", "sentence": "Limpia la mesa con una {bayeta}."}}}
+{"id": "tea towel.noun.1", "texts": {"es": {"words": "paño de cocina; trapo de cocina", "sentence": "Coge un {paño de cocina} y ayúdame a secar."}}}
+{"id": "wok.noun.1", "texts": {"es": {"words": "wok", "sentence": "Fríe las verduras en un {wok}."}}}
+{"id": "peeler.noun.1", "texts": {"es": {"words": "pelador; pelapatatas", "sentence": "¿Dónde está el {pelapatatas}?"}}}
+{"id": "cutting board.noun.1", "texts": {"es": {"words": "tabla de cortar; tabla", "sentence": "Pon la cebolla en la {tabla de cortar}."}}}
+{"id": "tin opener.noun.1", "texts": {"es": {"words": "abrelatas", "sentence": "No encuentro el {abrelatas}."}}}
+{"id": "bottle opener.noun.1", "texts": {"es": {"words": "abrebotellas; abridor", "sentence": "¿Alguien tiene un {abrebotellas}?"}}}
+{"id": "pitcher.noun.1", "texts": {"es": {"words": "jarra", "sentence": "Vamos a pedir una {jarra} de cerveza."}}}
+{"id": "pitcher.noun.2", "texts": {"es": {"words": "lanzador; lanzadora; pícher", "sentence": "Es el mejor {lanzador} del equipo."}}}
+{"id": "cling film.noun.1", "texts": {"es": {"words": "film transparente; papel film", "sentence": "Tapa el bol con {film transparente}."}}}
+{"id": "basil.noun.1", "texts": {"es": {"words": "albahaca", "sentence": "Añade un poco de {albahaca} fresca a la pasta."}}}
+{"id": "meatloaf.noun.1", "texts": {"es": {"words": "pastel de carne; rollo de carne", "sentence": "Mamá hace el mejor {pastel de carne}."}}}
+{"id": "hash browns.noun.1", "texts": {"es": {"words": "patatas ralladas fritas; tortitas de patata", "sentence": "¿Quieres {tortitas de patata} con los huevos?"}}}
+{"id": "ice lolly.noun.1", "texts": {"es": {"words": "polo", "sentence": "Mamá, ¿me compras un {polo}?"}}}
+{"id": "sorbet.noun.1", "texts": {"es": {"words": "sorbete", "sentence": "Yo tomaré el {sorbete} de limón."}}}
+{"id": "herbal tea.noun.1", "texts": {"es": {"words": "infusión; té de hierbas", "sentence": "Yo solo tomaré una {infusión}."}}}
+{"id": "barman.noun.1", "texts": {"es": {"words": "camarero; barman", "sentence": "Pídele la carta al {camarero}."}}}
+{"id": "fitting room.noun.1", "texts": {"es": {"words": "probador", "sentence": "¿Dónde están los {probadores}?"}}}
+{"id": "window-shopping.noun.1", "texts": {"es": {"words": "mirar escaparates; ver escaparates", "sentence": "Fuimos a {mirar escaparates} al centro."}}}
+{"id": "splurge.noun.1", "texts": {"es": {"words": "derroche; despilfarro", "sentence": "Me di un pequeño {derroche} en las rebajas."}}}
+{"id": "carry-on.noun.1", "texts": {"es": {"words": "equipaje de mano; maleta de cabina", "sentence": "Solo llevo {equipaje de mano}."}}}
+{"id": "departure lounge.noun.1", "texts": {"es": {"words": "sala de embarque; sala de espera", "sentence": "Esperadnos en la {sala de embarque}."}}}
+{"id": "baggage claim.noun.1", "texts": {"es": {"words": "recogida de equipajes", "sentence": "Nos vemos en la {recogida de equipajes}."}}}
+{"id": "duty-free.adjective.1", "texts": {"es": {"words": "libre de impuestos; duty free", "sentence": "Compré un perfume {libre de impuestos}."}}}
+{"id": "one-way ticket.noun.1", "texts": {"es": {"words": "billete de ida; billete sencillo", "sentence": "Un {billete de ida} a Londres, por favor."}}}
+{"id": "window seat.noun.1", "texts": {"es": {"words": "asiento de ventanilla; ventanilla", "sentence": "¿Me puede dar un {asiento de ventanilla}?"}}}
+{"id": "aisle seat.noun.1", "texts": {"es": {"words": "asiento de pasillo; pasillo", "sentence": "En los vuelos largos prefiero {asiento de pasillo}."}}}
+{"id": "life jacket.noun.1", "texts": {"es": {"words": "chaleco salvavidas", "sentence": "Ponte el {chaleco salvavidas} antes de salir."}}}
+{"id": "cabin crew.noun.1", "texts": {"es": {"words": "tripulación de cabina; tripulación; personal de cabina", "sentence": "La {tripulación de cabina} traerá las bebidas enseguida."}}}
+{"id": "zebra crossing.noun.1", "texts": {"es": {"words": "paso de cebra; paso de peatones", "sentence": "Cruza siempre por el {paso de cebra}."}}}
+{"id": "speed bump.noun.1", "texts": {"es": {"words": "badén; resalto; guardia tumbado", "sentence": "Frena, que hay un {badén}."}}}
+{"id": "spare tyre.noun.1", "texts": {"es": {"words": "rueda de repuesto; rueda de recambio", "sentence": "¿Hay {rueda de repuesto} en el maletero?"}}}
+{"id": "spare tyre.noun.2", "texts": {"es": {"words": "michelín; flotador", "sentence": "Me está saliendo un poco de {michelín}."}}}
+{"id": "tow truck.noun.1", "texts": {"es": {"words": "grúa", "sentence": "Tuvimos que llamar a la {grúa}."}}}
+{"id": "handbrake.noun.1", "texts": {"es": {"words": "freno de mano", "sentence": "No te olvides del {freno de mano}."}}}
+{"id": "rear-view mirror.noun.1", "texts": {"es": {"words": "espejo retrovisor; retrovisor", "sentence": "Mira por el {retrovisor}."}}}
+{"id": "number plate.noun.1", "texts": {"es": {"words": "matrícula; placa", "sentence": "¿Viste la {matrícula}?"}}}
+{"id": "learner driver.noun.1", "texts": {"es": {"words": "conductor en prácticas; conductora en prácticas; alumno de autoescuela", "sentence": "Ten paciencia, es un {conductor en prácticas}."}}}
+{"id": "passenger seat.noun.1", "texts": {"es": {"words": "asiento del copiloto; asiento del acompañante", "sentence": "Deja el bolso en el {asiento del copiloto}."}}}
+{"id": "hitchhiker.noun.1", "texts": {"es": {"words": "autoestopista; mochilero; mochilera", "sentence": "Por el camino recogimos a un {autoestopista}."}}}
+{"id": "bike lane.noun.1", "texts": {"es": {"words": "carril bici", "sentence": "No te salgas del {carril bici}."}}}
+{"id": "crosswalk.noun.1", "texts": {"es": {"words": "paso de peatones; paso de cebra", "sentence": "Espera al semáforo en el {paso de peatones}."}}}
+{"id": "alleyway.noun.1", "texts": {"es": {"words": "callejón; pasaje", "sentence": "El gato se metió por el {callejón}."}}}
+{"id": "cul-de-sac.noun.1", "texts": {"es": {"words": "calle sin salida; callejón sin salida", "sentence": "Vivimos en una {calle sin salida} tranquila."}}}
+{"id": "utility bill.noun.1", "texts": {"es": {"words": "factura; recibo", "sentence": "Necesito una {factura} de la luz o del agua como justificante de domicilio."}}}
+{"id": "box set.noun.1", "texts": {"es": {"words": "serie completa; colección; pack", "sentence": "Este fin de semana me voy a ver una {serie completa} del tirón."}}}
+{"id": "sticky note.noun.1", "texts": {"es": {"words": "pósit; nota adhesiva", "sentence": "Te dejé un {pósit} en la nevera."}}}
+{"id": "paper clip.noun.1", "texts": {"es": {"words": "clip", "sentence": "¿Tienes un {clip}?"}}}
+{"id": "payslip.noun.1", "texts": {"es": {"words": "nómina; recibo de sueldo", "sentence": "Mira en tu {nómina} lo que te retienen."}}}
+{"id": "multitask.verb.1", "texts": {"es": {"words": "hacer varias cosas a la vez; ser multitarea", "sentence": "No sé {hacer varias cosas a la vez}, ¡una detrás de otra!"}}}
+{"id": "slack off.phrasal_verb.1", "texts": {"es": {"words": "escaquearse; relajarse; flojear", "sentence": "No te {escaquees} solo porque el jefe no está."}}}
+{"id": "annual leave.noun.1", "texts": {"es": {"words": "vacaciones; días de vacaciones", "sentence": "Me quedan diez días de {vacaciones}."}}}
+{"id": "pool party.noun.1", "texts": {"es": {"words": "fiesta en la piscina", "sentence": "El sábado hacen una {fiesta en la piscina}."}}}
+{"id": "hen party.noun.1", "texts": {"es": {"words": "despedida de soltera", "sentence": "La {despedida de soltera} es en Praga."}}}
+{"id": "stag night.noun.1", "texts": {"es": {"words": "despedida de soltero", "sentence": "¿Qué pasó en la {despedida de soltero}?"}}}
+{"id": "maid of honour.noun.1", "texts": {"es": {"words": "dama de honor", "sentence": "¿Quieres ser mi {dama de honor}?"}}}
+{"id": "pet name.noun.1", "texts": {"es": {"words": "apelativo cariñoso; nombre cariñoso", "sentence": "«Cariño» es el {apelativo cariñoso} que uso con él."}}}
+{"id": "half-brother.noun.1", "texts": {"es": {"words": "medio hermano; hermanastro", "sentence": "Es mi {medio hermano}, tenemos el mismo padre."}}}
+{"id": "half-sister.noun.1", "texts": {"es": {"words": "media hermana; hermanastra", "sentence": "Tengo una {media hermana} en Canadá."}}}
+{"id": "stepson.noun.1", "texts": {"es": {"words": "hijastro", "sentence": "Su {hijastro} es muy majo."}}}
+{"id": "stepdaughter.noun.1", "texts": {"es": {"words": "hijastra", "sentence": "Mi {hijastra} empieza el colegio la semana que viene."}}}
+{"id": "godmother.noun.1", "texts": {"es": {"words": "madrina", "sentence": "Mi tía es mi {madrina}."}}}
+{"id": "great-grandmother.noun.1", "texts": {"es": {"words": "bisabuela", "sentence": "Mi {bisabuela} tiene noventa y cinco años."}}}
+{"id": "foster parent.noun.1", "texts": {"es": {"words": "padre de acogida; madre de acogida; familia de acogida", "sentence": "El año pasado se hicieron {padres de acogida}."}}}
+{"id": "childminder.noun.1", "texts": {"es": {"words": "niñera; niñero; cuidadora", "sentence": "La {niñera} lo recoge del colegio."}}}
+{"id": "cheat sheet.noun.1", "texts": {"es": {"words": "chuleta", "sentence": "El profesor le encontró la {chuleta}."}}}
+{"id": "flunk out.phrasal_verb.1", "texts": {"es": {"words": "ser expulsado por malas notas; dejar los estudios", "sentence": "Lo {expulsaron} de la universidad por malas notas."}}}
+{"id": "teacher's pet.noun.1", "texts": {"es": {"words": "enchufado; enchufada; pelota", "sentence": "Es la {enchufada} de la profesora."}}}
+{"id": "class clown.noun.1", "texts": {"es": {"words": "payaso de la clase; payasa de la clase", "sentence": "En el colegio yo era el {payaso de la clase}."}}}
+{"id": "yearbook.noun.1", "texts": {"es": {"words": "anuario", "sentence": "¡Mira mi pelo en el {anuario}!"}}}
+{"id": "alumni.noun.1", "texts": {"es": {"words": "antiguos alumnos; exalumnos", "sentence": "Los {antiguos alumnos} se reúnen una vez al año."}}}
+{"id": "sophomore.noun.1", "texts": {"es": {"words": "alumno de segundo; alumna de segundo; estudiante de segundo", "sentence": "Es {alumno de segundo} de instituto."}}}
+{"id": "fraternity.noun.1", "texts": {"es": {"words": "fraternidad", "sentence": "En la universidad entró en una {fraternidad}."}}}
+{"id": "sorority.noun.1", "texts": {"es": {"words": "hermandad femenina; sororidad", "sentence": "Está en una {hermandad femenina}."}}}
+{"id": "dorm room.noun.1", "texts": {"es": {"words": "habitación de la residencia; cuarto de la residencia", "sentence": "Mi {habitación de la residencia} es diminuta."}}}
+{"id": "term paper.noun.1", "texts": {"es": {"words": "trabajo de fin de trimestre; trabajo; trabajo de curso", "sentence": "Tengo que entregar el {trabajo} el viernes."}}}
+{"id": "dissertation.noun.1", "texts": {"es": {"words": "tesis; trabajo de fin de grado; tesina", "sentence": "Estoy escribiendo la {tesis} sobre el cambio climático."}}}
+{"id": "sharpener.noun.1", "texts": {"es": {"words": "sacapuntas", "sentence": "¿Me prestas el {sacapuntas}?"}}}
+{"id": "corner kick.noun.1", "texts": {"es": {"words": "córner; saque de esquina", "sentence": "Tuvieron un {córner} en el último minuto."}}}
+{"id": "own goal.noun.1", "texts": {"es": {"words": "gol en propia puerta; autogol", "sentence": "Marcó un {gol en propia puerta}."}}}
+{"id": "scoreboard.noun.1", "texts": {"es": {"words": "marcador", "sentence": "¡Mira el {marcador}, vamos ganando!"}}}
+{"id": "season ticket.noun.1", "texts": {"es": {"words": "abono; abono de temporada", "sentence": "Tengo un {abono} del club."}}}
+{"id": "fan club.noun.1", "texts": {"es": {"words": "club de fans", "sentence": "Fundó un {club de fans} del grupo."}}}
+{"id": "pull-up.noun.1", "texts": {"es": {"words": "dominada", "sentence": "No soy capaz de hacer ni una {dominada}."}}}
+{"id": "diving board.noun.1", "texts": {"es": {"words": "trampolín", "sentence": "Saltó desde el {trampolín} alto."}}}
+{"id": "surfboard.noun.1", "texts": {"es": {"words": "tabla de surf", "sentence": "Alquilé una {tabla de surf} para todo el día."}}}
+{"id": "roller skates.noun.1", "texts": {"es": {"words": "patines; patines de ruedas", "sentence": "Le regalaron unos {patines} por su cumpleaños."}}}
+{"id": "ice rink.noun.1", "texts": {"es": {"words": "pista de hielo; pista de patinaje", "sentence": "Vamos a la {pista de hielo} el domingo."}}}
+{"id": "snowboard.noun.1", "texts": {"es": {"words": "snowboard; tabla de snowboard", "sentence": "Estoy aprendiendo a hacer {snowboard}."}}}
+{"id": "pool table.noun.1", "texts": {"es": {"words": "mesa de billar; billar", "sentence": "En el bar hay una {mesa de billar}."}}}
+{"id": "deck of cards.noun.1", "texts": {"es": {"words": "baraja; baraja de cartas", "sentence": "¿Tienes una {baraja}?"}}}
+{"id": "jigsaw puzzle.noun.1", "texts": {"es": {"words": "puzle; rompecabezas", "sentence": "En Navidad hicimos un {puzle} enorme."}}}
+{"id": "funfair.noun.1", "texts": {"es": {"words": "feria; parque de atracciones", "sentence": "Esta semana está la {feria} en el pueblo."}}}
+{"id": "merry-go-round.noun.1", "texts": {"es": {"words": "tiovivo; carrusel; caballitos", "sentence": "Los niños quieren otra vuelta en el {tiovivo}."}}}
+{"id": "ferris wheel.noun.1", "texts": {"es": {"words": "noria", "sentence": "¡Vamos a subir a la {noria}!"}}}
+{"id": "bumper cars.noun.1", "texts": {"es": {"words": "coches de choque; autos de choque", "sentence": "Me encantan los {coches de choque}."}}}
+{"id": "candyfloss.noun.1", "texts": {"es": {"words": "algodón de azúcar", "sentence": "¿Me compras {algodón de azúcar}?"}}}
+{"id": "water park.noun.1", "texts": {"es": {"words": "parque acuático", "sentence": "A los niños les encantó el {parque acuático}."}}}
+{"id": "petting zoo.noun.1", "texts": {"es": {"words": "granja escuela; minizoo", "sentence": "Los niños dieron de comer a las cabras en la {granja escuela}."}}}
+{"id": "sparkler.noun.1", "texts": {"es": {"words": "bengala", "sentence": "En Nochevieja encendimos {bengalas}."}}}
+{"id": "greeting card.noun.1", "texts": {"es": {"words": "tarjeta de felicitación; tarjeta; postal", "sentence": "Tengo que comprar una {tarjeta de felicitación} para mamá."}}}
+{"id": "fancy dress.noun.1", "texts": {"es": {"words": "disfraz", "sentence": "Es una fiesta de {disfraces}."}}}
+{"id": "stocking.noun.1", "texts": {"es": {"words": "calcetín de Navidad; media", "sentence": "Papá Noel me llenó el {calcetín de Navidad} de caramelos."}}}
+{"id": "mistletoe.noun.1", "texts": {"es": {"words": "muérdago", "sentence": "Se besaron bajo el {muérdago}."}}}
+{"id": "prequel.noun.1", "texts": {"es": {"words": "precuela", "sentence": "La {precuela} era mejor que la original."}}}
+{"id": "rom-com.noun.1", "texts": {"es": {"words": "comedia romántica", "sentence": "Veamos una {comedia romántica} esta noche."}}}
+{"id": "quiz show.noun.1", "texts": {"es": {"words": "concurso; concurso de preguntas", "sentence": "A mi abuelo le encantan los {concursos}."}}}
+{"id": "season finale.noun.1", "texts": {"es": {"words": "final de temporada; último capítulo de la temporada", "sentence": "¿Viste el {final de temporada}?"}}}
+{"id": "cameo.noun.1", "texts": {"es": {"words": "cameo; aparición especial", "sentence": "El director hace un {cameo} en la película."}}}
+{"id": "cold snap.noun.1", "texts": {"es": {"words": "ola de frío; bajón de temperaturas", "sentence": "Este fin de semana llega una {ola de frío}."}}}
+{"id": "hailstorm.noun.1", "texts": {"es": {"words": "granizada; tormenta de granizo", "sentence": "Una {granizada} nos dañó el coche."}}}
+{"id": "snowstorm.noun.1", "texts": {"es": {"words": "tormenta de nieve; ventisca; nevada", "sentence": "Nos quedamos atrapados en una {tormenta de nieve}."}}}
+{"id": "sleet.noun.1", "texts": {"es": {"words": "aguanieve", "sentence": "No es nieve, es {aguanieve}."}}}
+{"id": "twilight.noun.1", "texts": {"es": {"words": "crepúsculo; anochecer; penumbra", "sentence": "Volvimos a casa andando al {anochecer}."}}}
+{"id": "starry.adjective.1", "texts": {"es": {"words": "estrellado", "sentence": "¡Qué noche tan {estrellada}!"}}}
+{"id": "muggy.adjective.1", "texts": {"es": {"words": "bochornoso; húmedo; sofocante", "sentence": "Hoy hace un día muy {bochornoso}."}}}
+{"id": "wetsuit.noun.1", "texts": {"es": {"words": "traje de neopreno; neopreno", "sentence": "Necesitarás un {traje de neopreno}, el agua está fría."}}}
+{"id": "parka.noun.1", "texts": {"es": {"words": "parka; anorak", "sentence": "Ponte la {parka}, hace un frío que pela."}}}
+{"id": "fleece.noun.1", "texts": {"es": {"words": "forro polar; polar", "sentence": "Llévate un {forro polar} por si hace frío."}}}
+{"id": "fleece.noun.2", "texts": {"es": {"words": "vellón; lana", "sentence": "El {vellón} de la oveja se usa para hacer lana."}}}
+{"id": "tank top.noun.1", "texts": {"es": {"words": "camiseta de tirantes; camiseta sin mangas", "sentence": "Hace calor, solo llevo una {camiseta de tirantes}."}}}
+{"id": "miniskirt.noun.1", "texts": {"es": {"words": "minifalda", "sentence": "Llevaba una {minifalda} negra."}}}
+{"id": "swimming trunks.noun.1", "texts": {"es": {"words": "bañador; bañador de hombre", "sentence": "No te olvides el {bañador}."}}}
+{"id": "dressing gown.noun.1", "texts": {"es": {"words": "bata; albornoz", "sentence": "Abrió la puerta en {bata}."}}}
+{"id": "reading glasses.noun.1", "texts": {"es": {"words": "gafas de leer; gafas de lectura", "sentence": "No encuentro las {gafas de leer}."}}}
+{"id": "waistcoat.noun.1", "texts": {"es": {"words": "chaleco", "sentence": "Llevaba un traje con {chaleco}."}}}
+{"id": "hair tie.noun.1", "texts": {"es": {"words": "coletero; goma del pelo; goma", "sentence": "¿Tienes un {coletero} de sobra?"}}}
+{"id": "skintight.adjective.1", "texts": {"es": {"words": "ceñido; ajustado; pegado", "sentence": "Llevaba unos vaqueros {ceñidos}."}}}
+{"id": "see-through.adjective.1", "texts": {"es": {"words": "transparente", "sentence": "Esa camisa es un poco {transparente}."}}}
+{"id": "stripy.adjective.1", "texts": {"es": {"words": "de rayas; a rayas; rayado", "sentence": "¡Me encantan tus calcetines {de rayas}!"}}}
+{"id": "spotty.adjective.1", "texts": {"es": {"words": "con granos; granujiento", "sentence": "Era un adolescente {con granos}."}}}
+{"id": "spotty.adjective.2", "texts": {"es": {"words": "de lunares; a lunares", "sentence": "Llevaba un vestido {de lunares}."}}}
+{"id": "checked.adjective.1", "texts": {"es": {"words": "de cuadros; a cuadros", "sentence": "Llevaba una camisa {de cuadros}."}}}
+{"id": "plaid.adjective.1", "texts": {"es": {"words": "de cuadros; escocés", "sentence": "Me encanta mi camisa de franela {de cuadros}."}}}
+{"id": "floral.adjective.1", "texts": {"es": {"words": "de flores; floreado; estampado de flores", "sentence": "Llevaba un vestido de verano {de flores}."}}}
+{"id": "puppy love.noun.1", "texts": {"es": {"words": "amor adolescente; amor de juventud; primer amor", "sentence": "Es solo un {amor adolescente}, tienen doce años."}}}
+{"id": "stray.noun.1", "texts": {"es": {"words": "animal callejero; perro callejero; gato callejero", "sentence": "Adoptamos un {animal callejero} de la protectora."}}}
+{"id": "sparrow.noun.1", "texts": {"es": {"words": "gorrión", "sentence": "Un {gorrión} se posó en la ventana."}}}
+{"id": "ladybird.noun.1", "texts": {"es": {"words": "mariquita", "sentence": "Tienes una {mariquita} en el brazo."}}}
+{"id": "spiderweb.noun.1", "texts": {"es": {"words": "telaraña", "sentence": "Hay una {telaraña} en la esquina."}}}
+{"id": "polar bear.noun.1", "texts": {"es": {"words": "oso polar", "sentence": "Los {osos polares} viven en el Ártico."}}}
+{"id": "panda.noun.1", "texts": {"es": {"words": "panda; oso panda", "sentence": "¡La cría de {panda} es monísima!"}}}
+{"id": "werewolf.noun.1", "texts": {"es": {"words": "hombre lobo", "sentence": "Se convierte en {hombre lobo} con la luna llena."}}}
+{"id": "potion.noun.1", "texts": {"es": {"words": "poción; pócima; brebaje", "sentence": "La bruja preparó una {poción} de amor."}}}
+{"id": "horoscope.noun.1", "texts": {"es": {"words": "horóscopo", "sentence": "¿Has leído tu {horóscopo} hoy?"}}}
+{"id": "star sign.noun.1", "texts": {"es": {"words": "signo del zodiaco; signo", "sentence": "¿Cuál es tu {signo del zodiaco}?"}}}
+{"id": "lucky charm.noun.1", "texts": {"es": {"words": "amuleto; amuleto de la suerte; talismán", "sentence": "Este anillo es mi {amuleto de la suerte}."}}}
+{"id": "give it a rest.phrase.1", "texts": {"es": {"words": "déjalo ya; para ya; corta el rollo", "sentence": "Ay, {déjalo ya}, ¿quieres?"}}}
+{"id": "hold your horses.phrase.1", "texts": {"es": {"words": "para el carro; espera; tranquilo", "sentence": "¡{Para el carro}, que todavía no estamos listos!"}}}
+{"id": "chill pill.noun.1", "texts": {"es": {"words": "tila; calma", "sentence": "¡Tómate una {tila}, tío!"}}}
+{"id": "innit.interjection.1", "texts": {"es": {"words": "¿verdad?; ¿no?", "sentence": "Hoy hace frío, {¿verdad?}"}}}
+{"id": "ta.interjection.1", "texts": {"es": {"words": "gracias", "sentence": "«Aquí tienes el té». «¡{Gracias}!»"}}}
+{"id": "ta-da.interjection.1", "texts": {"es": {"words": "¡tachán!; ¡chan, chan!", "sentence": "¡{Tachán}! ¿Qué te parece mi nuevo peinado?"}}}
+{"id": "voila.interjection.1", "texts": {"es": {"words": "¡voilà!; ¡listo!; ¡y ya está!", "sentence": "Añade el queso y {voilà}, ¡la cena está lista!"}}}
+{"id": "psst.interjection.1", "texts": {"es": {"words": "¡pss!; ¡chis!; ¡eh!", "sentence": "¡{Pss}! Ven aquí."}}}
+{"id": "holy cow.interjection.1", "texts": {"es": {"words": "¡madre mía!; ¡hala!; ¡caramba!", "sentence": "¡{Madre mía}, mira ese coche!"}}}
+{"id": "night-night.interjection.1", "texts": {"es": {"words": "buenas noches; a dormir; hasta mañana", "sentence": "{Buenas noches}, cariño."}}}
+{"id": "grab.noun.1", "texts": {"es": {"words": "al alcance; disponible", "sentence": "El puesto está {disponible} para quien lo quiera."}}}
+{"id": "shrug.noun.1", "texts": {"es": {"words": "encogimiento de hombros", "sentence": "Respondió con un {encogimiento de hombros}."}}}
+{"id": "snore.noun.1", "texts": {"es": {"words": "ronquido", "sentence": "Oía sus {ronquidos} desde abajo."}}}
+{"id": "burp.noun.1", "texts": {"es": {"words": "eructo", "sentence": "Perdón, ha sido un {eructo}."}}}
+{"id": "hiccup.verb.1", "texts": {"es": {"words": "tener hipo; hipar", "sentence": "¿Por qué siempre {tengo hipo} después de beber refrescos?"}}}
+{"id": "pinch.noun.1", "texts": {"es": {"words": "pizca; pellizco", "sentence": "Añade una {pizca} de sal."}}}
+{"id": "pinch.noun.2", "texts": {"es": {"words": "pellizco", "sentence": "Me dio un {pellizco} para despertarme."}}}
+{"id": "poke.noun.1", "texts": {"es": {"words": "codazo; golpecito; empujoncito", "sentence": "Me dio un {codazo} en las costillas."}}}
+{"id": "squeeze.noun.1", "texts": {"es": {"words": "apretón", "sentence": "Me dio un {apretón} de mano."}}}
+{"id": "squeeze.noun.2", "texts": {"es": {"words": "estrechez; apretujón; ir apretados", "sentence": "Con cinco en el coche vamos un poco {apretados}."}}}
+{"id": "lick.noun.1", "texts": {"es": {"words": "lametón; chupada; lengüetazo", "sentence": "¿Me dejas darle un {lametón} a tu helado?"}}}
+{"id": "lick.noun.2", "texts": {"es": {"words": "mano de pintura; capa", "sentence": "A la puerta le hace falta una {mano} de pintura."}}}
+{"id": "spill.noun.1", "texts": {"es": {"words": "mancha; derrame; líquido derramado", "sentence": "Limpia esa {mancha} del suelo."}}}
+{"id": "spill.noun.2", "texts": {"es": {"words": "caída; trompazo; batacazo", "sentence": "Se dio una {caída} fea con la bici."}}}
+{"id": "barbecue.verb.1", "texts": {"es": {"words": "asar a la parrilla; hacer a la barbacoa; hacer a la brasa", "sentence": "Vamos a {asar} unos filetes a la parrilla."}}}
+{"id": "rain boots.noun.1", "texts": {"es": {"words": "botas de agua; botas de lluvia; katiuskas", "sentence": "Ponte las {botas de agua}, que fuera está mojado."}}}
+{"id": "swimming costume.noun.1", "texts": {"es": {"words": "bañador; traje de baño", "sentence": "¡Me he olvidado el {bañador}!"}}}
+{"id": "bin.verb.1", "texts": {"es": {"words": "tirar; tirar a la basura", "sentence": "{Tíralo}, que está roto."}}}
+{"id": "blip.noun.1", "texts": {"es": {"words": "bache; altibajo; contratiempo", "sentence": "Es solo un {bache}, las cosas mejorarán."}}}
+{"id": "boot up.phrasal_verb.1", "texts": {"es": {"words": "arrancar; iniciarse; encenderse", "sentence": "Espera a que el portátil {arranque}."}}}
+{"id": "bottle up.phrasal_verb.1", "texts": {"es": {"words": "reprimir; guardarse; tragarse", "sentence": "No {reprimas} tus sentimientos."}}}
+{"id": "cave in.phrasal_verb.1", "texts": {"es": {"words": "ceder; rendirse", "sentence": "Al final {cedió} y le compró el cachorro."}}}
+{"id": "cave in.phrasal_verb.2", "texts": {"es": {"words": "hundirse; derrumbarse", "sentence": "El tejado se {hundió} después de la tormenta."}}}
+{"id": "clock in.phrasal_verb.1", "texts": {"es": {"words": "fichar; fichar a la entrada", "sentence": "{Ficho} a las ocho todas las mañanas."}}}
+{"id": "clock off.phrasal_verb.1", "texts": {"es": {"words": "fichar a la salida; salir de trabajar; terminar", "sentence": "¿A qué hora {sales de trabajar}?"}}}
+{"id": "fizzle out.phrasal_verb.1", "texts": {"es": {"words": "irse apagando; decaer; desinflarse", "sentence": "La fiesta se {fue apagando} pasada la medianoche."}}}
+{"id": "gear up.phrasal_verb.1", "texts": {"es": {"words": "prepararse; alistarse", "sentence": "Nos estamos {preparando} para el gran partido."}}}
+{"id": "gobble up.phrasal_verb.1", "texts": {"es": {"words": "zamparse; devorar; engullir", "sentence": "Los niños se {zamparon} todas las galletas."}}}
+{"id": "horse around.phrasal_verb.1", "texts": {"es": {"words": "hacer el tonto; hacer el ganso", "sentence": "¡Deja de {hacer el tonto} y vístete!"}}}
+{"id": "hunker down.phrasal_verb.1", "texts": {"es": {"words": "refugiarse; atrincherarse; resguardarse", "sentence": "Nos {refugiamos} en casa durante la tormenta."}}}
+{"id": "iron out.phrasal_verb.1", "texts": {"es": {"words": "limar; resolver; pulir", "sentence": "Todavía tenemos que {limar} algunos detalles."}}}
+{"id": "jazz up.phrasal_verb.1", "texts": {"es": {"words": "alegrar; animar; dar vida", "sentence": "Añade un pañuelo para {alegrar} el conjunto."}}}
+{"id": "laze around.phrasal_verb.1", "texts": {"es": {"words": "holgazanear; gandulear; vaguear", "sentence": "Solo quiero {holgazanear} todo el fin de semana."}}}
+{"id": "liven up.phrasal_verb.1", "texts": {"es": {"words": "animar; alegrar", "sentence": "Un poco de música {animará} la fiesta."}}}
+{"id": "loosen up.phrasal_verb.1", "texts": {"es": {"words": "soltarse; relajarse", "sentence": "¡{Suéltate}, que es una fiesta!"}}}
+{"id": "play down.phrasal_verb.1", "texts": {"es": {"words": "quitar importancia; restar importancia; minimizar", "sentence": "No le {quites importancia} a lo mucho que has trabajado."}}}
+{"id": "polish off.phrasal_verb.1", "texts": {"es": {"words": "zamparse; acabarse; liquidar", "sentence": "Se {zampó} la pizza entera."}}}
+{"id": "rustle up.phrasal_verb.1", "texts": {"es": {"words": "improvisar; preparar", "sentence": "Si tienes hambre, puedo {improvisar} algo de pasta."}}}
+{"id": "scrape by.phrasal_verb.1", "texts": {"es": {"words": "ir tirando; apañárselas; sobrevivir", "sentence": "Vamos {tirando} con un solo sueldo."}}}
+{"id": "shell out.phrasal_verb.1", "texts": {"es": {"words": "soltar; apoquinar; desembolsar", "sentence": "Tuve que {soltar} doscientas libras por eso."}}}
+{"id": "shoot off.phrasal_verb.1", "texts": {"es": {"words": "salir pitando; irse corriendo", "sentence": "Perdona, hoy tengo que {salir pitando} pronto."}}}
+{"id": "smarten up.phrasal_verb.1", "texts": {"es": {"words": "arreglarse; ponerse elegante", "sentence": "Tendrás que {arreglarte} para la entrevista."}}}
+{"id": "space out.phrasal_verb.1", "texts": {"es": {"words": "despistarse; quedarse en blanco; desconectar", "sentence": "Perdona, me he {despistado} un segundo."}}}
+{"id": "space out.phrasal_verb.2", "texts": {"es": {"words": "espaciar; separar", "sentence": "{Separa} las plantas para que tengan sitio."}}}
+{"id": "spruce up.phrasal_verb.1", "texts": {"es": {"words": "arreglar; poner a punto; renovar", "sentence": "{Arreglamos} el piso antes de venderlo."}}}
+{"id": "stock up.phrasal_verb.1", "texts": {"es": {"words": "abastecerse; aprovisionarse; hacer acopio", "sentence": "Vamos a {abastecernos} de picoteo para el viaje."}}}
+{"id": "storm off.phrasal_verb.1", "texts": {"es": {"words": "irse hecho una furia; marcharse enfadado; largarse", "sentence": "Se {fue hecha una furia} sin despedirse."}}}
+{"id": "tone down.phrasal_verb.1", "texts": {"es": {"words": "moderar; suavizar; rebajar", "sentence": "¿Puedes {moderar} los chistes en la cena?"}}}
+{"id": "toughen up.phrasal_verb.1", "texts": {"es": {"words": "endurecerse; hacerse fuerte; espabilar", "sentence": "Tienes que {endurecerte} un poco."}}}
+{"id": "tune in.phrasal_verb.1", "texts": {"es": {"words": "sintonizar; no perderse", "sentence": "{Sintonízanos} la semana que viene para ver el último episodio."}}}
+{"id": "water down.phrasal_verb.1", "texts": {"es": {"words": "aguar; rebajar; diluir", "sentence": "Este zumo está {aguado}."}}}
+{"id": "wolf down.phrasal_verb.1", "texts": {"es": {"words": "zamparse; engullir; devorar", "sentence": "Se {zampó} la comida en cinco minutos."}}}
+{"id": "achy.adjective.1", "texts": {"es": {"words": "dolorido; molido", "sentence": "Me siento todo {dolorido} después del gimnasio."}}}
+{"id": "appetizing.adjective.1", "texts": {"es": {"words": "apetitoso; apetecible", "sentence": "Eso no tiene una pinta muy {apetitosa}."}}}
+{"id": "chewy.adjective.1", "texts": {"es": {"words": "correoso; duro; chicloso", "sentence": "La carne está un poco {correosa}."}}}
+{"id": "clean-cut.adjective.1", "texts": {"es": {"words": "de buena presencia; arreglado; formal", "sentence": "Es un joven majo y {de buena presencia}."}}}
+{"id": "cluttered.adjective.1", "texts": {"es": {"words": "desordenado; abarrotado; atestado", "sentence": "Tengo la mesa muy {desordenada}."}}}
+{"id": "crumpled.adjective.1", "texts": {"es": {"words": "arrugado", "sentence": "Tenía la camisa toda {arrugada}."}}}
+{"id": "crusty.adjective.1", "texts": {"es": {"words": "crujiente; de corteza crujiente", "sentence": "Me encanta el pan caliente y {crujiente}."}}}
+{"id": "dazed.adjective.1", "texts": {"es": {"words": "aturdido; atontado", "sentence": "Parecía {aturdido} después de la caída."}}}
+{"id": "deafening.adjective.1", "texts": {"es": {"words": "ensordecedor", "sentence": "La música era {ensordecedora}."}}}
+{"id": "dumbstruck.adjective.1", "texts": {"es": {"words": "mudo de asombro; boquiabierto; sin habla", "sentence": "Me quedé {boquiabierto} cuando me lo dijo."}}}
+{"id": "eye-catching.adjective.1", "texts": {"es": {"words": "llamativo; vistoso", "sentence": "Es un cartel muy {llamativo}."}}}
+{"id": "fiddly.adjective.1", "texts": {"es": {"words": "complicado; engorroso; laborioso", "sentence": "Estos botones son muy {engorrosos}."}}}
+{"id": "gooey.adjective.1", "texts": {"es": {"words": "pegajoso; meloso; cremoso", "sentence": "Me encanta la tarta de chocolate {cremosa} por dentro."}}}
+{"id": "heartwarming.adjective.1", "texts": {"es": {"words": "conmovedor; enternecedor", "sentence": "¡Qué historia tan {conmovedora}!"}}}
+{"id": "jaw-dropping.adjective.1", "texts": {"es": {"words": "impresionante; alucinante; asombroso", "sentence": "La vista era {impresionante}."}}}
+{"id": "leafy.adjective.1", "texts": {"es": {"words": "arbolado; frondoso; verde", "sentence": "Viven en un barrio residencial muy {arbolado}."}}}
+{"id": "minty.adjective.1", "texts": {"es": {"words": "mentolado; a menta; de menta", "sentence": "Este chicle sabe mucho {a menta}."}}}
+{"id": "mouth-watering.adjective.1", "texts": {"es": {"words": "apetitoso; delicioso; que hace la boca agua", "sentence": "El olor era tan {apetitoso} que se me hacía la boca agua."}}}
+{"id": "musty.adjective.1", "texts": {"es": {"words": "a humedad; a cerrado; mohoso", "sentence": "El sótano huele {a humedad}."}}}
+{"id": "nerve-racking.adjective.1", "texts": {"es": {"words": "angustioso; estresante; de infarto", "sentence": "La entrevista fue muy {estresante}."}}}
+{"id": "off-putting.adjective.1", "texts": {"es": {"words": "desagradable; repelente; poco atractivo", "sentence": "El olor es un poco {desagradable}."}}}
+{"id": "peckish.adjective.1", "texts": {"es": {"words": "con hambre; con un poco de hambre; con gusa", "sentence": "Tengo un poco de {hambre}."}}}
+{"id": "pear-shaped.adjective.1", "texts": {"es": {"words": "salir mal; irse al traste; torcerse", "sentence": "El plan {salió mal}."}}}
+{"id": "rattled.adjective.1", "texts": {"es": {"words": "nervioso; alterado; desconcertado", "sentence": "Parecía un poco {alterada}."}}}
+{"id": "second-rate.adjective.1", "texts": {"es": {"words": "de segunda; de segunda categoría; mediocre", "sentence": "Era un hotel {de segunda}."}}}
+{"id": "sheltered.adjective.1", "texts": {"es": {"words": "protegido; sobreprotegido", "sentence": "Tuvo una infancia muy {protegida}."}}}
+{"id": "skint.adjective.1", "texts": {"es": {"words": "pelado; sin blanca; sin un duro", "sentence": "No puedo ir, estoy {sin blanca}."}}}
+{"id": "smoky.adjective.1", "texts": {"es": {"words": "lleno de humo; humeante; ahumado", "sentence": "El bar estaba oscuro y {lleno de humo}."}}}
+{"id": "snug.adjective.1", "texts": {"es": {"words": "acogedor; calentito", "sentence": "La cabaña era cálida y {acogedora}."}}}
+{"id": "starstruck.adjective.1", "texts": {"es": {"words": "deslumbrado; alucinado; impresionado", "sentence": "Me quedé totalmente {deslumbrado} cuando lo conocí."}}}
+{"id": "steamy.adjective.1", "texts": {"es": {"words": "lleno de vapor; empañado", "sentence": "El baño estaba caliente y {lleno de vapor}."}}}
+{"id": "steamy.adjective.2", "texts": {"es": {"words": "tórrido; apasionado; ardiente", "sentence": "Tuvieron una aventura {tórrida}."}}}
+{"id": "sugary.adjective.1", "texts": {"es": {"words": "azucarado; dulce", "sentence": "Intenta evitar las bebidas {azucaradas}."}}}
+{"id": "tasteless.adjective.1", "texts": {"es": {"words": "insípido; soso; sin sabor", "sentence": "La sopa estaba totalmente {insípida}."}}}
+{"id": "tasteless.adjective.2", "texts": {"es": {"words": "de mal gusto", "sentence": "Fue un chiste muy {de mal gusto}."}}}
+{"id": "thrifty.adjective.1", "texts": {"es": {"words": "ahorrador; ahorradora; ahorrativo", "sentence": "Mi abuela era muy {ahorradora}."}}}
+{"id": "tongue-tied.adjective.1", "texts": {"es": {"words": "cortado; sin palabras; trabado", "sentence": "Me quedo {cortado} cuando estoy con ella."}}}
+{"id": "top-notch.adjective.1", "texts": {"es": {"words": "de primera; de categoría; excelente", "sentence": "La comida aquí es {de primera}."}}}
+{"id": "well-dressed.adjective.1", "texts": {"es": {"words": "bien vestido; elegante", "sentence": "Siempre va muy {bien vestido}."}}}
+{"id": "reheat.verb.1", "texts": {"es": {"words": "recalentar; calentar", "sentence": "{Calienta} la sopa en el microondas."}}}
+{"id": "unzip.verb.1", "texts": {"es": {"words": "bajar la cremallera; abrir la cremallera", "sentence": "¿Me {bajas la cremallera} del vestido?"}}}
+{"id": "fast-forward.verb.1", "texts": {"es": {"words": "pasar hacia delante; avanzar; adelantar", "sentence": "{Pasa} los anuncios hacia delante."}}}
+{"id": "misspell.verb.1", "texts": {"es": {"words": "escribir mal; escribir con faltas", "sentence": "Has vuelto a {escribir mal} mi nombre."}}}
+{"id": "mishear.verb.1", "texts": {"es": {"words": "oír mal; entender mal", "sentence": "Perdona, debo de haberte {oído mal}."}}}
+{"id": "backpack.verb.1", "texts": {"es": {"words": "viajar de mochilero; ir de mochilero", "sentence": "Estuve un año {viajando de mochilero} por Asia."}}}
+{"id": "carpool.verb.1", "texts": {"es": {"words": "compartir coche", "sentence": "{Compartimos coche} para ir al trabajo y ahorrar."}}}
+{"id": "daydream.noun.1", "texts": {"es": {"words": "ensoñación; sueño despierto; fantasía", "sentence": "Estaba perdida en una {ensoñación}."}}}
+{"id": "homeschool.verb.1", "texts": {"es": {"words": "educar en casa", "sentence": "{Educan} a sus hijos en casa."}}}
+{"id": "gift-wrap.verb.1", "texts": {"es": {"words": "envolver para regalo; envolver", "sentence": "¿Se lo {envuelvo} para regalo?"}}}
+{"id": "yard sale.noun.1", "texts": {"es": {"words": "venta de garaje; mercadillo casero", "sentence": "El sábado hacemos una {venta de garaje}."}}}
+{"id": "garage sale.noun.1", "texts": {"es": {"words": "venta de garaje", "sentence": "Vendieron el sofá viejo en una {venta de garaje}."}}}
+{"id": "off-licence.noun.1", "texts": {"es": {"words": "tienda de licores; bodega", "sentence": "¿Sigue abierta la {tienda de licores}?"}}}
+{"id": "liquor store.noun.1", "texts": {"es": {"words": "tienda de licores; licorería", "sentence": "Fue a la {tienda de licores} a por cerveza."}}}
+{"id": "launderette.noun.1", "texts": {"es": {"words": "lavandería; lavandería autoservicio", "sentence": "Hago la colada en la {lavandería}."}}}
+{"id": "dog walker.noun.1", "texts": {"es": {"words": "paseador de perros; paseadora de perros", "sentence": "Pagamos a un {paseador de perros} mientras trabajamos."}}}
+{"id": "laundromat.noun.1", "texts": {"es": {"words": "lavandería; lavandería autoservicio", "sentence": "La conocí en la {lavandería}."}}}
+{"id": "dry cleaner's.noun.1", "texts": {"es": {"words": "tintorería", "sentence": "¿Puedes recogerme el traje en la {tintorería}?"}}}
+{"id": "newsagent's.noun.1", "texts": {"es": {"words": "quiosco; quiosco de prensa; estanco", "sentence": "Compré el periódico en el {quiosco}."}}}
+{"id": "post box.noun.1", "texts": {"es": {"words": "buzón; buzón de correos", "sentence": "Hay un {buzón} en la esquina."}}}
+{"id": "cashback.noun.1", "texts": {"es": {"words": "sacar dinero en caja; retirada de efectivo", "sentence": "¿Quiere {sacar dinero} en caja?"}}}
+{"id": "direct debit.noun.1", "texts": {"es": {"words": "domiciliación; domiciliación bancaria", "sentence": "Pago la factura del móvil por {domiciliación}."}}}
+{"id": "bank statement.noun.1", "texts": {"es": {"words": "extracto bancario; extracto; movimientos de la cuenta", "sentence": "Revisa tu {extracto bancario}."}}}
+{"id": "current account.noun.1", "texts": {"es": {"words": "cuenta corriente", "sentence": "Me ingresan el sueldo en la {cuenta corriente}."}}}
+{"id": "loose change.noun.1", "texts": {"es": {"words": "suelto; calderilla; monedas sueltas", "sentence": "Guardo el {suelto} en un bote."}}}
+{"id": "small change.noun.1", "texts": {"es": {"words": "suelto; cambio; calderilla", "sentence": "Lo siento, no tengo {suelto}."}}}
+{"id": "barcode.noun.1", "texts": {"es": {"words": "código de barras", "sentence": "Escanea aquí el {código de barras}."}}}
+{"id": "haggling.noun.1", "texts": {"es": {"words": "regateo", "sentence": "En el mercado el {regateo} es normal."}}}
+{"id": "tight-fisted.adjective.1", "texts": {"es": {"words": "agarrado; tacaño; rácano", "sentence": "Es demasiado {agarrado} para pagar una ronda."}}}
+{"id": "well-to-do.adjective.1", "texts": {"es": {"words": "acomodado; adinerado; pudiente", "sentence": "Viene de una familia {acomodada}."}}}
+{"id": "hard up.adjective.1", "texts": {"es": {"words": "mal de dinero; justo de dinero; apurado", "sentence": "Este mes andamos un poco {mal de dinero}."}}}
+{"id": "hand cream.noun.1", "texts": {"es": {"words": "crema de manos", "sentence": "Tengo las manos secas, ¿tienes {crema de manos}?"}}}
+{"id": "nail clippers.noun.1", "texts": {"es": {"words": "cortaúñas", "sentence": "¿Dónde está el {cortaúñas}?"}}}
+{"id": "cotton wool.noun.1", "texts": {"es": {"words": "algodón", "sentence": "Limpia el corte con {algodón}."}}}
+{"id": "hot-water bottle.noun.1", "texts": {"es": {"words": "bolsa de agua caliente; guatero", "sentence": "En invierno duermo con una {bolsa de agua caliente}."}}}
+{"id": "snooze button.noun.1", "texts": {"es": {"words": "botón de repetición; botón de posponer", "sentence": "Le di al {botón de repetición} tres veces."}}}
+{"id": "bedside table.noun.1", "texts": {"es": {"words": "mesilla; mesilla de noche; mesita de noche", "sentence": "Tu móvil está en la {mesilla}."}}}
+{"id": "bedside lamp.noun.1", "texts": {"es": {"words": "lámpara de la mesilla; lamparita de noche", "sentence": "Apaga la {lámpara de la mesilla}."}}}
+{"id": "night light.noun.1", "texts": {"es": {"words": "lucecita de noche; luz quitamiedos; luz nocturna", "sentence": "Mi hijo duerme con una {luz quitamiedos}."}}}
+{"id": "light switch.noun.1", "texts": {"es": {"words": "interruptor; interruptor de la luz", "sentence": "¿Dónde está el {interruptor}?"}}}
+{"id": "plug socket.noun.1", "texts": {"es": {"words": "enchufe; toma de corriente", "sentence": "¿Hay un {enchufe} cerca de la cama?"}}}
+{"id": "extension lead.noun.1", "texts": {"es": {"words": "alargador; alargadera; regleta", "sentence": "Necesitamos un {alargador}."}}}
+{"id": "smoke alarm.noun.1", "texts": {"es": {"words": "detector de humo; alarma de humo", "sentence": "El {detector de humo} saltó cuando hice tostadas."}}}
+{"id": "fire extinguisher.noun.1", "texts": {"es": {"words": "extintor", "sentence": "Hay un {extintor} en la cocina."}}}
+{"id": "letterbox.noun.1", "texts": {"es": {"words": "ranura del buzón; buzón", "sentence": "El correo entró por la {ranura del buzón}."}}}
+{"id": "stairwell.noun.1", "texts": {"es": {"words": "hueco de la escalera; escalera", "sentence": "Oí voces en el {hueco de la escalera}."}}}
+{"id": "fire escape.noun.1", "texts": {"es": {"words": "escalera de incendios", "sentence": "Nos sentamos en la {escalera de incendios} a charlar."}}}
+{"id": "skylight.noun.1", "texts": {"es": {"words": "claraboya; tragaluz", "sentence": "Entraba lluvia por la {claraboya}."}}}
+{"id": "en suite.noun.1", "texts": {"es": {"words": "baño propio; baño en suite", "sentence": "El dormitorio tiene {baño propio}."}}}
+{"id": "walk-in closet.noun.1", "texts": {"es": {"words": "vestidor", "sentence": "Mi sueño es tener un {vestidor} grande."}}}
+{"id": "bin bag.noun.1", "texts": {"es": {"words": "bolsa de basura", "sentence": "Mete la basura en una {bolsa de basura}."}}}
+{"id": "recycling bin.noun.1", "texts": {"es": {"words": "contenedor de reciclaje; cubo de reciclaje", "sentence": "Las botellas van al {contenedor de reciclaje}."}}}
+{"id": "compost.noun.1", "texts": {"es": {"words": "compost; abono", "sentence": "Echa las peladuras al {compost}."}}}
+{"id": "wheelie bin.noun.1", "texts": {"es": {"words": "cubo de basura con ruedas; contenedor", "sentence": "Saca el {cubo de basura} esta noche."}}}
+{"id": "garden hose.noun.1", "texts": {"es": {"words": "manguera; manguera de jardín", "sentence": "Los niños jugaron con la {manguera}."}}}
+{"id": "flower bed.noun.1", "texts": {"es": {"words": "parterre; arriate; macizo de flores", "sentence": "El perro ha escarbado en el {parterre}."}}}
+{"id": "flowerpot.noun.1", "texts": {"es": {"words": "maceta; tiesto", "sentence": "La llave está debajo de la {maceta}."}}}
+{"id": "tulip.noun.1", "texts": {"es": {"words": "tulipán", "sentence": "Compró un ramo de {tulipanes}."}}}
+{"id": "dandelion.noun.1", "texts": {"es": {"words": "diente de león", "sentence": "El césped está lleno de {dientes de león}."}}}
+{"id": "nettle.noun.1", "texts": {"es": {"words": "ortiga", "sentence": "Me ha picado una {ortiga}."}}}
+{"id": "ivy.noun.1", "texts": {"es": {"words": "hiedra", "sentence": "La casa está cubierta de {hiedra}."}}}
+{"id": "pine cone.noun.1", "texts": {"es": {"words": "piña", "sentence": "Los niños recogieron {piñas} en el bosque."}}}
+{"id": "cranberry.noun.1", "texts": {"es": {"words": "arándano rojo", "sentence": "Yo tomaré un zumo de {arándano rojo}."}}}
+{"id": "grapefruit.noun.1", "texts": {"es": {"words": "pomelo; toronja", "sentence": "Desayuno medio {pomelo}."}}}
+{"id": "pomegranate.noun.1", "texts": {"es": {"words": "granada", "sentence": "Echa un poco de {granada} por encima de la ensalada."}}}
+{"id": "courgette.noun.1", "texts": {"es": {"words": "calabacín", "sentence": "Voy a freír un poco de {calabacín}."}}}
+{"id": "aubergine.noun.1", "texts": {"es": {"words": "berenjena", "sentence": "¿Te gusta la {berenjena} a la plancha?"}}}
+{"id": "beetroot.noun.1", "texts": {"es": {"words": "remolacha", "sentence": "La {remolacha} lo mancha todo."}}}
+{"id": "spring onion.noun.1", "texts": {"es": {"words": "cebolleta; cebollino", "sentence": "Pica unas {cebolletas}."}}}
+{"id": "lentils.noun.1", "texts": {"es": {"words": "lentejas", "sentence": "Hagamos sopa de {lentejas}."}}}
+{"id": "kidney beans.noun.1", "texts": {"es": {"words": "alubias rojas; judías rojas; frijoles rojos", "sentence": "Añade una lata de {alubias rojas} al chili."}}}
+{"id": "sweetcorn.noun.1", "texts": {"es": {"words": "maíz; maíz dulce", "sentence": "¿Quieres {maíz} en la pizza?"}}}
+{"id": "full English.noun.1", "texts": {"es": {"words": "desayuno inglés; desayuno inglés completo", "sentence": "Para mí el {desayuno inglés} completo, por favor."}}}
+{"id": "roast dinner.noun.1", "texts": {"es": {"words": "asado; comida de asado", "sentence": "Mamá hace un {asado} todos los domingos."}}}
+{"id": "jelly beans.noun.1", "texts": {"es": {"words": "gominolas; caramelos de goma", "sentence": "Ya está otra vez comiendo {gominolas}."}}}
+{"id": "gummy bears.noun.1", "texts": {"es": {"words": "ositos de gominola; ositos de goma", "sentence": "¿Me das unos {ositos de gominola}?"}}}
+{"id": "candy bar.noun.1", "texts": {"es": {"words": "chocolatina; barrita de chocolate", "sentence": "Cogí una {chocolatina} para comer."}}}
+{"id": "dine out.phrasal_verb.1", "texts": {"es": {"words": "comer fuera; cenar fuera", "sentence": "{Cenamos fuera} una vez a la semana."}}}
+{"id": "badger.noun.1", "texts": {"es": {"words": "tejón", "sentence": "Anoche vimos un {tejón} en el bosque."}}}
+{"id": "hawk.noun.1", "texts": {"es": {"words": "halcón; gavilán", "sentence": "Un {halcón} volaba en círculos sobre el campo."}}}
+{"id": "joystick.noun.1", "texts": {"es": {"words": "joystick; palanca de mando", "sentence": "Mueve el {joystick} hacia la izquierda."}}}
+{"id": "stuntman.noun.1", "texts": {"es": {"words": "especialista; doble", "sentence": "Trabaja de {especialista} en el cine."}}}
+{"id": "seam.noun.1", "texts": {"es": {"words": "costura", "sentence": "Se me rompió el pantalón por la {costura}."}}}
+{"id": "pendant.noun.1", "texts": {"es": {"words": "colgante", "sentence": "Llevaba un {colgante} de plata."}}}
+{"id": "ski lift.noun.1", "texts": {"es": {"words": "remonte; telesilla; telesquí", "sentence": "La cola del {remonte} era enorme."}}}
+{"id": "flock.verb.1", "texts": {"es": {"words": "acudir en masa; llegar en tropel; abarrotar", "sentence": "Cada verano los turistas {acuden en masa} a la playa."}}}
+{"id": "reek.verb.1", "texts": {"es": {"words": "apestar; oler fatal", "sentence": "Su ropa {apestaba} a humo."}}}
+{"id": "spike.verb.1", "texts": {"es": {"words": "echar algo; adulterar", "sentence": "Alguien le {echó algo} en la bebida."}}}
+{"id": "spike.verb.2", "texts": {"es": {"words": "dispararse; subir de golpe", "sentence": "Los precios se {dispararon} el mes pasado."}}}
+{"id": "urine.noun.1", "texts": {"es": {"words": "orina", "sentence": "El médico necesita una muestra de {orina}."}}}
+{"id": "veal.noun.1", "texts": {"es": {"words": "ternera; carne de ternera", "sentence": "Para mí la {ternera} con patatas."}}}
+{"id": "wedge.verb.1", "texts": {"es": {"words": "calzar; sujetar con una cuña; encajar", "sentence": "{Calzó} la puerta para que quedara abierta."}}}
+{"id": "entrust.verb.1", "texts": {"es": {"words": "confiar; encomendar", "sentence": "Me {confió} sus llaves."}}}
+{"id": "eviction.noun.1", "texts": {"es": {"words": "desahucio; desalojo", "sentence": "Nos llegó una notificación de {desahucio}."}}}
+{"id": "evaporate.verb.1", "texts": {"es": {"words": "evaporarse", "sentence": "El agua se {evaporó} al sol."}}}
+{"id": "nincompoop.noun.1", "texts": {"es": {"words": "bobo; boba; zoquete", "sentence": "¡Pero qué {bobo} eres, nos has dejado fuera!"}}}
+{"id": "spiffy.adjective.1", "texts": {"es": {"words": "elegante; guapo; arreglado", "sentence": "¡Qué {elegante} vas hoy!"}}}
+{"id": "tightwad.noun.1", "texts": {"es": {"words": "tacaño; tacaña; agarrado", "sentence": "¡No seas tan {tacaño} e invítanos a algo!"}}}
+{"id": "tosh.noun.1", "texts": {"es": {"words": "tonterías; bobadas; chorradas", "sentence": "¡Menuda sarta de {tonterías}!"}}}
+{"id": "arraignment.noun.1", "texts": {"es": {"words": "lectura de cargos; comparecencia", "sentence": "Su {lectura de cargos} está fijada para el lunes."}}}
+{"id": "defibrillator.noun.1", "texts": {"es": {"words": "desfibrilador", "sentence": "Hay un {desfibrilador} junto a la entrada."}}}
+{"id": "gurney.noun.1", "texts": {"es": {"words": "camilla", "sentence": "Ponga al paciente en la {camilla}."}}}
+{"id": "goldfish bowl.noun.1", "texts": {"es": {"words": "pecera", "sentence": "Vivir aquí es como vivir en una {pecera}."}}}
+{"id": "keep your hair on.phrase.1", "texts": {"es": {"words": "tranqui; no te pongas así; cálmate", "sentence": "¡{Tranqui}, que era solo una broma!"}}}
+{"id": "hey presto.interjection.1", "texts": {"es": {"words": "¡tachán!; ¡voilà!; ¡y listo!", "sentence": "Pulsa este botón y, {¡tachán!}, funciona."}}}
+{"id": "nuts.interjection.1", "texts": {"es": {"words": "¡vaya!; ¡caramba!; ¡mecachis!", "sentence": "¡Ay, {vaya}! Me he olvidado las llaves."}}}
+{"id": "chew.noun.1", "texts": {"es": {"words": "masticada; masticación", "sentence": "Dale una buena {masticada} antes de tragar."}}}
+{"id": "bodge.verb.1", "texts": {"es": {"words": "chapucear; hacer una chapuza", "sentence": "{Hizo una chapuza} con el arreglo y ahora gotea."}}}
+{"id": "dog-tired.adjective.1", "texts": {"es": {"words": "reventado; hecho polvo; molido", "sentence": "Estoy {reventado} después de ese paseo."}}}
+{"id": "tangy.adjective.1", "texts": {"es": {"words": "ácido; con un toque ácido; sabroso", "sentence": "Esta salsa tiene un punto {ácido} muy rico."}}}
+{"id": "unflattering.adjective.1", "texts": {"es": {"words": "poco favorecedor", "sentence": "Es una foto mía muy {poco favorecedora}."}}}
+{"id": "repack.verb.1", "texts": {"es": {"words": "volver a hacer la maleta; rehacer la maleta", "sentence": "Tuve que {rehacer} la maleta en el aeropuerto."}}}
+{"id": "redial.verb.1", "texts": {"es": {"words": "volver a marcar; rellamar", "sentence": "La línea estaba ocupada, así que {volví a marcar}."}}}
+{"id": "overpay.verb.1", "texts": {"es": {"words": "pagar de más; pagar demasiado", "sentence": "Creo que {pagamos de más} por ese coche."}}}
+{"id": "underpay.verb.1", "texts": {"es": {"words": "pagar mal; pagar poco", "sentence": "A las enfermeras a menudo se les {paga mal}."}}}
+{"id": "sightsee.verb.1", "texts": {"es": {"words": "hacer turismo; ver monumentos", "sentence": "Pasamos el día {haciendo turismo} por Roma."}}}
+{"id": "moonlight.verb.1", "texts": {"es": {"words": "pluriemplearse; trabajar en negro; hacer chapuzas", "sentence": "Se {pluriemplea} como taxista."}}}
+{"id": "sleepwalker.noun.1", "texts": {"es": {"words": "sonámbulo; sonámbula", "sentence": "Mi hermano es {sonámbulo}."}}}
+{"id": "housesit.verb.1", "texts": {"es": {"words": "cuidar la casa", "sentence": "Les estoy {cuidando la casa} a los vecinos."}}}
+{"id": "dog-sit.verb.1", "texts": {"es": {"words": "cuidar al perro", "sentence": "¿Puedes {cuidarnos al perro} este fin de semana?"}}}
+{"id": "car boot sale.noun.1", "texts": {"es": {"words": "mercadillo; rastro", "sentence": "Compré esta lámpara en un {mercadillo}."}}}
+{"id": "penny-pinching.adjective.1", "texts": {"es": {"words": "tacaño; rácano; roñoso", "sentence": "¡Deja de ser tan {tacaño}!"}}}
+{"id": "shortbread.noun.1", "texts": {"es": {"words": "galletas de mantequilla; mantecados", "sentence": "Te he traído unas {galletas de mantequilla} escocesas."}}}
+{"id": "gooseberry.noun.1", "texts": {"es": {"words": "grosella espinosa; uva espina", "sentence": "Mi abuela cultiva {grosellas espinosas}."}}}
+{"id": "gooseberry.noun.2", "texts": {"es": {"words": "sujetavelas; carabina", "sentence": "No quiero hacer de {sujetavelas} en vuestra cita."}}}
+{"id": "turnip.noun.1", "texts": {"es": {"words": "nabo", "sentence": "Echamos {nabo} al guiso."}}}
+{"id": "nectarine.noun.1", "texts": {"es": {"words": "nectarina", "sentence": "Yo tomaré una {nectarina}."}}}
+{"id": "anorak.noun.1", "texts": {"es": {"words": "anorak; chubasquero; cortavientos", "sentence": "Ponte el {anorak}, que hace viento."}}}
+{"id": "anorak.noun.2", "texts": {"es": {"words": "friki; fanático; obseso", "sentence": "Es un poco {friki} de los trenes."}}}
+{"id": "godson.noun.1", "texts": {"es": {"words": "ahijado", "sentence": "Le compré un regalo a mi {ahijado}."}}}
+{"id": "goddaughter.noun.1", "texts": {"es": {"words": "ahijada", "sentence": "Mi {ahijada} cumple diez años hoy."}}}
+{"id": "condone.verb.1", "texts": {"es": {"words": "aprobar; justificar; consentir", "sentence": "No {apruebo} la violencia."}}}
+{"id": "vermin.noun.1", "texts": {"es": {"words": "alimañas; bichos; plaga", "sentence": "El granero estaba lleno de {alimañas}."}}}
+{"id": "disingenuous.adjective.1", "texts": {"es": {"words": "falso; hipócrita; poco sincero", "sentence": "Fue {hipócrita} por su parte decir eso."}}}
+{"id": "divan.noun.1", "texts": {"es": {"words": "diván", "sentence": "Se tumbó en el {diván}."}}}
+{"id": "musky.adjective.1", "texts": {"es": {"words": "almizclado; a almizcle", "sentence": "Su habitación tenía un olor {almizclado}."}}}
+{"id": "wick.noun.1", "texts": {"es": {"words": "mecha", "sentence": "Recorta la {mecha} de la vela."}}}
