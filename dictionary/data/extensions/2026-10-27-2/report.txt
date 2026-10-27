@@ -1,0 +1,5 @@
+fixed    sentences of 442 concepts (cs 431, es 77, en 65 texts): the marked {word} was not the word of the concept, or the translation used another word
+fixed    65 concepts with an idiom or another meaning in the English sentence (e.g. plague, eyeball, ox, essence, therefore): a literal sentence in all languages
+fixed    cs/es: variants added where the sentence needs a common translation of the same meaning (e.g. free: volný, feather: pírko, when: až)
+fixed    cs: banana.noun.2, nuts.adjective.2 (go bananas / go nuts: zbláznit se), definition.noun.2 (ztělesnění); es: dying.adjective.1, grab.noun.1 (words of an idiom replaced)
+fixed    cs: a few sentences made gender-neutral
