@@ -448,17 +448,17 @@ CHART_LEVELS = ["dontknow", "partial", "think", "ok"]
 CHART_TOP = 10  # y of the top level (😎)
 CHART_GAP = 24  # vertical space between two levels (room for the smileys of the axis)
 CHART_BOTTOM = CHART_TOP + 3 * CHART_GAP  # y of the bottom level (😵)
-CHART_DATE_Y = CHART_BOTTOM + 24  # the row of the dates under the lowest chart
+CHART_DATE_Y = CHART_BOTTOM + 24  # the row of the dates under a chart
 # From this many days the gap between two answers is a pause: shortened, the line over it dashed
 CHART_PAUSE_DAYS = 7
 CHART_PAUSE_WIDTH = 6  # how wide a pause is, in steps of one answer
 # With fewer answers the points are not joined by a line
-CHART_LINE_FROM = 3
+CHART_LINE_FROM = 2
 # The chart starts and ends a little inside its box, so the points are not cut (percent)
 CHART_MARGIN = 2
-# Under the end the date of the last answer; the start date of the last learning period is
-# left out when it would stand too close to it (part of the width)
-CHART_DATES_APART = 0.3
+# Under a chart the dates of its first and last answer; the first one is left out when it
+# would stand too close to the last one (percent of the width)
+CHART_DATES_APART = 25
 
 
 def answer_charts(term, limit=DOTS_MAX):
@@ -470,9 +470,9 @@ def answer_charts(term, limit=DOTS_MAX):
     other (nothing covers anything; the n-th answer of each direction that day at the same
     place, so a test with both directions is exactly one under the other), a few days make a
     slightly bigger step and a pause of a
-    week or more is shortened (the line over it is dashed). Under the lowest chart are only
-    dates: where every learning period starts and, at the right end, the last answer. The
-    height of a point is its rating: 😵 at the bottom, 😎 at the top.
+    week or more is shortened (the line over it is dashed). Under each chart are the dates of
+    its first and last answer. The height of a point is its rating: 😵 at the bottom, 😎 at
+    the top.
 
     Returns {direction: chart} for the directions with answers. Across in percent of the width
     (the charts fill their box), up and down in pixels (the height is fixed).
@@ -498,7 +498,7 @@ def answer_charts(term, limit=DOTS_MAX):
     by_day = {}
     for log in logs:
         by_day.setdefault(timezone.localdate(log[5]), []).append(log)
-    place, starts = {}, []
+    place = {}
     position, previous_day = 0.0, None
     for day, day_logs in by_day.items():
         if previous_day is not None:
@@ -507,8 +507,6 @@ def answer_charts(term, limit=DOTS_MAX):
                 position += 1.4 + 0.5 * math.log2(1 + gap)
             else:
                 position += CHART_PAUSE_WIDTH
-        if previous_day is None or (day - previous_day).days >= CHART_PAUSE_DAYS:
-            starts.append((position, date_format(day, day_format)))
         count = {}
         for pk, direction, *_rest in day_logs:
             place[pk] = position + count.get(direction, 0)
@@ -517,13 +515,6 @@ def answer_charts(term, limit=DOTS_MAX):
         position += max(count.values()) - 1
         previous_day = day
     end = position
-    # The date of the last answer at the right end (once, when it is not a start already)
-    dates = [(units, text, "middle") for units, text in starts]
-    dates[0] = (dates[0][0], dates[0][1], "start")
-    if starts[-1][0] < end:
-        if len(dates) > 1 and (end - dates[-1][0]) / end < CHART_DATES_APART:
-            dates.pop()
-        dates.append((end, date_format(previous_day, day_format), "end"))
 
     def across(units):
         return round(CHART_MARGIN + units / max(end, 1) * (100 - 2 * CHART_MARGIN), 2)
@@ -571,16 +562,31 @@ def answer_charts(term, limit=DOTS_MAX):
                         "dashed": gap >= CHART_PAUSE_DAYS,
                     }
                 )
-        charts[direction] = {"points": points, "lines": lines, "levels": levels, "dates": []}
-    # The dates only under the lowest chart, the charts above share them
-    lowest = charts[list(charts)[-1]]
-    lowest["dates"] = [
-        {"x": across(units), "text": text, "anchor": anchor} for units, text, anchor in dates
-    ]
-    for chart in charts.values():
-        chart["height"] = CHART_DATE_Y + 6 if chart["dates"] else CHART_BOTTOM + 10
-        chart["date_y"] = CHART_DATE_Y
+        charts[direction] = {
+            "points": points,
+            "lines": lines,
+            "levels": levels,
+            "dates": _chart_dates(own, points, day_format),
+            "height": CHART_DATE_Y + 6,
+            "date_y": CHART_DATE_Y,
+        }
     return charts
+
+
+def _chart_dates(logs, points, day_format):
+    """The dates under a chart: under its first and its last answer. Only the last one when
+    both are the same day or would stand too close to each other."""
+    first_day = timezone.localdate(logs[0][5])
+    last_day = timezone.localdate(logs[-1][5])
+    first, last = points[0]["x"], points[-1]["x"]
+    if first_day == last_day or last - first < CHART_DATES_APART:
+        # Alone: under the point, but never out of the box at the sides
+        anchor = "start" if last < 25 else "end" if last > 75 else "middle"
+        return [{"x": last, "text": date_format(last_day, day_format), "anchor": anchor}]
+    return [
+        {"x": first, "text": date_format(first_day, day_format), "anchor": "start"},
+        {"x": last, "text": date_format(last_day, day_format), "anchor": "end"},
+    ]
 
 
 def term_status(states, tested):

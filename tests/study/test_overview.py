@@ -200,9 +200,22 @@ def test_answer_charts_share_one_time_axis(user, tree):
     assert f2n[0] == n2f[0] == 2
     assert f2n[2] == n2f[1] == 98
     assert f2n[0] < f2n[1] < f2n[2]
-    # The dates only under the lowest chart
-    assert charts["F2N"]["dates"] == []
-    assert charts["N2F"]["dates"]
+    # Each chart has its own dates: under its first and last answer (here the same places)
+    assert [d["x"] for d in charts["F2N"]["dates"]] == [2, 98]
+    assert [d["x"] for d in charts["N2F"]["dates"]] == [2, 98]
+
+
+def test_answer_chart_dates_stand_under_its_own_first_and_last_answer(user, tree):
+    hello = add(tree["himym"], "hello")
+    # EN → CS from day 10, CS → EN only from day 5: the lower chart starts later
+    answers(hello, "F2N", [(10, "partial"), (5, "think"), (1, "ok")])
+    answers(hello, "N2F", [(5, "partial"), (1, "ok")])
+
+    charts = services.answer_charts(hello)
+
+    n2f = charts["N2F"]
+    assert [d["x"] for d in n2f["dates"]] == [n2f["points"][0]["x"], n2f["points"][-1]["x"]]
+    assert n2f["dates"][0]["x"] > charts["F2N"]["dates"][0]["x"]
 
 
 def test_answer_chart_dashes_the_line_over_a_pause(user, tree):
@@ -215,7 +228,7 @@ def test_answer_chart_dashes_the_line_over_a_pause(user, tree):
     # The line over the pause is dashed, the others not; no labels of the pause
     assert [line["dashed"] for line in chart["lines"]] == [False, False, True]
     assert "pauses" not in chart
-    # A date where each learning period starts: the first answer and after the pause
+    # Only the first and the last date, not where the learning after the pause starts
     assert len(chart["dates"]) == 2
 
 
@@ -232,7 +245,7 @@ def test_answer_chart_ends_with_the_date_of_the_last_answer(user, tree):
     assert chart["dates"][-1]["x"] == 98
 
 
-def test_answer_chart_with_few_answers_has_no_line(user, tree):
+def test_answer_chart_with_one_answer_has_no_line(user, tree):
     hello = add(tree["himym"], "hello")
     answers(hello, "F2N", [(1, "ok")])
 
@@ -240,7 +253,29 @@ def test_answer_chart_with_few_answers_has_no_line(user, tree):
 
     assert len(charts["F2N"]["points"]) == 1
     assert charts["F2N"]["lines"] == []
+    assert len(charts["F2N"]["dates"]) == 1
     assert "N2F" not in charts
+
+
+def test_answer_chart_joins_two_answers(user, tree):
+    hello = add(tree["himym"], "hello")
+    answers(hello, "F2N", [(3, "partial"), (1, "ok")])
+
+    chart = services.answer_charts(hello)["F2N"]
+
+    assert len(chart["lines"]) == 1
+    assert [d["anchor"] for d in chart["dates"]] == ["start", "end"]
+
+
+def test_answer_chart_shows_one_date_for_one_day(user, tree):
+    hello = add(tree["himym"], "hello")
+    answers(hello, "F2N", [(1.001, "partial"), (1, "ok")])
+
+    chart = services.answer_charts(hello)["F2N"]
+
+    # Both answers the same day: one date, under the last one
+    assert len(chart["dates"]) == 1
+    assert chart["dates"][0]["x"] == chart["points"][-1]["x"]
 
 
 def test_word_page(client, user, tree):

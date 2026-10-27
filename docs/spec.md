@@ -669,13 +669,12 @@ nebylo; *N× v testu* (odpovědi obou směrů dohromady) a pravidlo „umíš“
 - **grafy odpovědí** (`study.services.answer_charts`, šablona `vocabulary/_answer_chart.html`,
   SVG bez knihovny): pro každý směr jeden graf posledních nejvýš 30 odpovědí, na svislé ose 4
   úrovně se smajlíky (18 px, řádky 24 px), dole 😵, nahoře 😎; bod v barvě hodnocení
-  s titulkem (datum, čas, hodnocení), body spojené čarou od 3 odpovědí. **Společná časová
+  s titulkem (datum, čas, hodnocení), body spojené čarou od 2 odpovědí. **Společná časová
   osa** obou směrů (spočítaná z odpovědí obou dohromady, stejný den je pod sebou): odpovědi
   téhož dne vedle sebe (krok 1, nic se nepřekrývá), mezera pár dní krok
   1,4 + 0,5·log₂(1 + dny), mezera od 7 dní je zkrácená na 6 kroků a čára přes ni přerušovaná
-  (bez popisku a bez přerušení osy). Pod spodním grafem jen data: začátek každého období
-  učení a vpravo poslední odpověď (začátek posledního období se vynechá, kdyby stál moc
-  blízko). Graf končí poslední odpovědí. Pevná výška, vodorovně přes celou šířku (pozice
+  (bez popisku a bez přerušení osy). Pod každým grafem data jeho první a poslední odpovědi
+  (jen poslední, když jsou ve stejný den nebo blíž než 25 % šířky). Graf končí poslední odpovědí. Pevná výška, vodorovně přes celou šířku (pozice
   v procentech, smajlíky osy ve vlastním úzkém sloupci).
 
 **Historie odpovědí** (`<details>`, sbalená): kdy, směr (*EN → CS*), hodnocení jako smajlík
