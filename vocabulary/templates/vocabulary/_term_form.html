@@ -12,8 +12,20 @@
     <p class="term-added" role="status">
       {# The whole word with its translation, so a typo shows at once (the deck is the page) #}
       <span aria-hidden="true">✓</span> {% translate "Added:" %} {{ added.term.main_foreign }}{% arrow %}{{ added.term.main_native }}{% if added_variants %} (+ {{ added_variants|join:"; " }}){% endif %}
+      {# Added from the list of words for later: back to the next one #}
+      {% if from_later and all_pending_count %}· <a href="{% url 'vocabulary:later_list' %}">{% blocktranslate count counter=all_pending_count %}Next pending ({{ counter }}){% plural %}Next pending ({{ counter }}){% endblocktranslate %}</a>{% endif %}
     </p>
   {% endif %}
+
+  {% if saved_later %}
+    {# Like "✓ Přidáno"; how many wait shows the card "Odložené" under the form #}
+    <p class="term-added" role="status">
+      <span class="later-icon" aria-hidden="true">📝</span> {% translate "Saved for later:" %} {{ saved_later.foreign }}
+    </p>
+  {% endif %}
+
+  {# The form was filled with a word for later: adding the word removes it from that list #}
+  {% if pending %}<input type="hidden" name="later" value="{{ pending.pk }}">{% endif %}
 
   {{ term_form.non_field_errors }}
   <div class="grid term-fields">
@@ -22,7 +34,8 @@
   </div>
 
   {% if user.show_suggestions %}
-    {% include "vocabulary/_term_suggest.html" with result=None %}
+    {# Empty while nothing is typed; filled at once for a word for later #}
+    {% include "vocabulary/_term_suggest.html" with result=suggest_result %}
   {% endif %}
 
   {% include "vocabulary/_term_check.html" %}

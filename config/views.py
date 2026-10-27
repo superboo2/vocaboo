@@ -34,6 +34,9 @@ def dashboard(request):
             "totals": totals,
             "hard_words": hard_words,
             "today": today,
+            # Words saved for later, waiting for a translation (a card above the decks)
+            "pending_count": vocabulary_services.pending_words(request.user).count(),
+            "pending_first": vocabulary_services.pending_words(request.user)[:2],
         },
     )
 

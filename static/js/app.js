@@ -543,3 +543,36 @@ document.addEventListener("change", function (event) {
   showTopicCount(form);
 });
 
+
+// A word from "Odložené" fills the form: move the page only when the section "Nové slovíčko"
+// is not all on the screen, and then only so far that its heading shows
+function showNewWordSection() {
+  const section = document.getElementById("new-word");
+  if (!section) {
+    return;
+  }
+  const box = section.getBoundingClientRect();
+  if (box.top >= 0 && box.bottom <= window.innerHeight) {
+    return;
+  }
+  section.scrollIntoView({ block: "start" });
+}
+
+// From the list "Odložené": the deck page opens with ?later=<id>
+if (new URLSearchParams(window.location.search).has("later")) {
+  showNewWordSection();
+}
+
+// From the card on the deck page: HTMX puts the filled form in place
+let laterFilling = false;
+document.addEventListener("click", function (event) {
+  if (event.target.closest("[data-later-fill]")) {
+    laterFilling = true;
+  }
+});
+document.addEventListener("htmx:afterSettle", function () {
+  if (laterFilling) {
+    laterFilling = false;
+    showNewWordSection();
+  }
+});

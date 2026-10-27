@@ -24,7 +24,8 @@
   {# A test of this deck only (the button in the bar tests everything); looks like the one in the bar #}
   <p class="practice-row"><a href="{% url 'study:new' %}?deck={{ deck.pk }}" class="practice-button">▶︎ {% translate "Practice deck" %}</a></p>
 
-  <section class="card-section">
+  {# id: app.js shows this section when a word for later fills the form #}
+  <section class="card-section" id="new-word">
     <div class="section-head">
       <h2 class="section-title">{% translate "New word" %}</h2>
       {# Pick words of a topic from the dictionary of the app (only where it has the pair) #}
@@ -32,6 +33,9 @@
     </div>
     {% include "vocabulary/_term_form.html" %}
   </section>
+
+  {# Words of this deck saved without a translation, only when some are waiting #}
+  {% include "vocabulary/_pending_card_deck.html" %}
 
   <section class="card-section">
     {% include "vocabulary/_term_list.html" %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-26 17:36+0100\n"
+"POT-Creation-Date: 2026-10-27 11:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1872,6 +1872,18 @@ msgstr "palabra en el mazo"
 msgid "words in decks"
 msgstr "palabras en mazos"
 
+msgid "foreign word"
+msgstr "palabra extranjera"
+
+msgid "saved"
+msgstr "guardada"
+
+msgid "word for later"
+msgstr "palabra pendiente"
+
+msgid "words for later"
+msgstr "palabras pendientes"
+
 msgid "missing word"
 msgstr "palabra omitida"
 
@@ -1917,6 +1929,9 @@ msgstr "alfabéticamente"
 msgid "by next review"
 msgstr "por próximo repaso"
 
+msgid "Enter the word."
+msgstr "Escribe la palabra."
+
 msgid "Enter at least one variant."
 msgstr "Escribe al menos una variante."
 
@@ -1930,6 +1945,19 @@ msgstr "%(count)s para repasar"
 
 msgid "to review"
 msgstr "para repasar"
+
+msgctxt "words saved for later"
+msgid "Pending"
+msgstr "Pendientes"
+
+msgid "Fill in"
+msgstr "Completar"
+
+#, python-format
+msgid "%(counter)s word is waiting for a translation"
+msgid_plural "%(counter)s words are waiting for a translation"
+msgstr[0] "%(counter)s palabra espera traducción"
+msgstr[1] "%(counter)s palabras esperan traducción"
 
 msgid "Search words…"
 msgstr "Buscar palabras…"
@@ -2022,6 +2050,15 @@ msgstr "Parecidas (sin tildes):"
 msgid "Added:"
 msgstr "Añadido:"
 
+#, python-format
+msgid "Next pending (%(counter)s)"
+msgid_plural "Next pending (%(counter)s)"
+msgstr[0] "Siguiente pendiente (%(counter)s)"
+msgstr[1] "Siguiente pendiente (%(counter)s)"
+
+msgid "Saved for later:"
+msgstr "Pendiente:"
+
 msgid "sentence, note"
 msgstr "frase, nota"
 
@@ -2047,6 +2084,12 @@ msgstr "Mover…"
 msgid "No words here yet. Add the first one with the form above."
 msgstr ""
 "Aquí aún no hay palabras. Añade la primera con el formulario de arriba."
+
+msgid "The suggestions don't know this word"
+msgstr "Las sugerencias no conocen esta palabra"
+
+msgid "Save for later"
+msgstr "Dejar pendiente"
 
 msgid "Suggestions:"
 msgstr "Sugerencias:"
@@ -2117,6 +2160,34 @@ msgstr ""
 msgid "Under the deck “%(name)s”, the languages %(pair)s are taken over."
 msgstr "Bajo el mazo “%(name)s”, se heredan los idiomas %(pair)s."
 
+msgid ""
+"Words saved without a translation. Tap a word: its deck opens with the word "
+"filled in, add the translation there."
+msgstr ""
+"Palabras guardadas sin traducción. Toca una palabra: se abre su mazo con la "
+"palabra ya escrita y allí añades la traducción."
+
+msgid "Word"
+msgstr "Palabra"
+
+msgctxt "word for later"
+msgid "Saved"
+msgstr "Guardada"
+
+msgid "Remove"
+msgstr "Quitar"
+
+#, python-format
+msgid "Remove %(word)s"
+msgstr "Quitar %(word)s"
+
+msgid "No word is waiting for a translation."
+msgstr "Ninguna palabra espera traducción."
+
+#, python-format
+msgid "Back to the deck %(name)s"
+msgstr "Volver al mazo %(name)s"
+
 msgid "Search"
 msgstr "Buscar"
 
@@ -2146,9 +2217,6 @@ msgid ""
 msgstr ""
 "La palabra no está en ningún otro mazo, así que se eliminará por completo, "
 "junto con su historial de repasos."
-
-msgid "Remove"
-msgstr "Quitar"
 
 msgid "Edit"
 msgstr "Editar"
@@ -2460,3 +2528,11 @@ msgstr "Palabra “%(word)s” eliminada."
 #, python-format
 msgid "Word “%(word)s” removed from this deck."
 msgstr "Palabra “%(word)s” quitada de este mazo."
+
+#, python-format
+msgid "Saved for later: %(word)s"
+msgstr "Pendiente: %(word)s"
+
+#, python-format
+msgid "Removed: %(word)s"
+msgstr "Quitada: %(word)s"

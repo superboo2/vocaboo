@@ -31,6 +31,10 @@
         {% include "study/_hard_words.html" with items=hard_words compact=True %}
       </section>
     {% endif %}
+    {# Words saved without a translation, only when some are waiting #}
+    {% if pending_count %}
+      {% include "vocabulary/_pending_card.html" %}
+    {% endif %}
     {# The decks: a new deck next to the heading, the search over the tree (moving by dragging #}
     {# is explained in the help) #}
     <section class="card-section">

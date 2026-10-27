@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Deck, DeckTerm, Language, Term, TermVariant
+from .models import Deck, DeckTerm, Language, PendingWord, Term, TermVariant
 
 
 @admin.register(Language)
@@ -37,3 +37,10 @@ class TermAdmin(admin.ModelAdmin):
     search_fields = ("main_foreign", "main_native", "variants__text")
     raw_id_fields = ("owner",)
     inlines = [TermVariantInline, DeckTermInline]
+
+
+@admin.register(PendingWord)
+class PendingWordAdmin(admin.ModelAdmin):
+    list_display = ("foreign", "deck", "owner", "created_at")
+    search_fields = ("foreign",)
+    raw_id_fields = ("owner", "deck")

@@ -19,7 +19,7 @@ from django.utils.translation import gettext_lazy
 
 from study.models import Direction, ReviewState
 
-from .models import Deck, DeckTerm, Term, TermVariant
+from .models import Deck, DeckTerm, PendingWord, Term, TermVariant
 
 # Maximum number of levels in the deck tree (root = level 1)
 MAX_DEPTH = 5
@@ -636,6 +636,35 @@ def list_deck_terms(deck, sort="added"):
     else:
         queryset = queryset.order_by("-added_at", "-pk")
     return queryset
+
+
+def save_for_later(deck, *, foreign, context_sentence="", note=""):
+    """Save a foreign word without a translation ("Na později"). Returns the PendingWord."""
+    foreign = foreign.strip()
+    if not foreign:
+        raise ValidationError({"foreign": _("Enter the word.")})
+    if len(foreign) > MAX_VARIANT_LENGTH:
+        raise ValidationError(
+            {
+                "foreign": _("A variant can have at most %(max)d characters.")
+                % {"max": MAX_VARIANT_LENGTH}
+            }
+        )
+    return PendingWord.objects.create(
+        owner=deck.owner,
+        deck=deck,
+        foreign=foreign,
+        context_sentence=context_sentence.strip(),
+        note=note.strip(),
+    )
+
+
+def pending_words(user, deck=None):
+    """The user's words for later, the newest first; only of one deck when it is given."""
+    words = PendingWord.objects.filter(owner=user).select_related(
+        "deck__foreign_language", "deck__native_language"
+    )
+    return words.filter(deck=deck) if deck is not None else words
 
 
 def _parse_side(text, field):

@@ -3051,3 +3051,116 @@ body {
 .install-steps li {
   margin-bottom: 0.5rem;
 }
+
+/* Words for later ("Na později") */
+/* The icon 📝 (action "Odložit", line "Odloženo"): a bit smaller, so it does not outweigh */
+/* the text or the plain ✓ of "Přidáno" */
+.later-icon {
+  font-size: 0.8em;
+}
+
+/* On hover only the text is underlined, never the icon 📝 */
+.later-link-strong:hover .later-text,
+.later-link-strong:focus-visible .later-text {
+  text-decoration: underline;
+}
+
+/* In the row of suggestions when the dictionary does not know the word: a bit stronger */
+.suggest-none {
+  color: var(--pico-muted-color);
+  font-size: 0.85rem;
+}
+
+.suggest-none .later-link-strong {
+  padding: 0;
+  color: var(--primary);
+  font-size: inherit;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* The card "Odložené" (overview, deck page): how many wait, the first two words */
+.pending-card p {
+  margin: 0;
+}
+
+/* The list of words for later: a small table, "Odebrat" at the end of each row */
+.later-table {
+  margin: 0;
+}
+
+.later-table th,
+.later-table td {
+  padding: 0.45rem 0.5rem;
+  vertical-align: middle;
+}
+
+.later-table .later-date {
+  white-space: nowrap;
+}
+
+.later-table .later-remove {
+  width: 1%;
+  text-align: right;
+}
+
+.later-remove form {
+  margin: 0;
+}
+
+.later-remove .link-button {
+  padding: 0 0.25rem;
+  color: var(--pico-muted-color);
+  font-size: 0.8rem;
+  opacity: 0.75;
+  text-decoration: none;
+}
+
+.later-remove .link-button:hover,
+.later-remove .link-button:focus-visible {
+  color: var(--pico-del-color);
+  opacity: 1;
+}
+
+/* The note of a word, small under it */
+.later-note {
+  display: block;
+}
+
+/* The deck in its column; on a phone under the word, so the table fits the width */
+.later-deck-under {
+  display: none;
+}
+
+@media (max-width: 576px) {
+  .later-table .later-deck-col {
+    display: none;
+  }
+
+  .later-table th,
+  .later-table td {
+    padding: 0.4rem 0.3rem;
+  }
+
+  .later-deck-under {
+    display: block;
+  }
+}
+
+/* A word from "Odložené" fills the form: when the page has to move to the section "Nové */
+/* slovíčko" (app.js), a bit of space stays above its heading; the filled word lights up */
+#new-word {
+  scroll-margin-top: 1rem;
+}
+
+#term-form input.just-filled {
+  animation: just-filled 2.5s ease-out;
+}
+
+@keyframes just-filled {
+  0%,
+  40% {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.2rem var(--primary-light);
+  }
+}

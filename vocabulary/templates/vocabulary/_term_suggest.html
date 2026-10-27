@@ -11,6 +11,15 @@
      hx-swap="outerHTML"
      hx-sync="this:replace"
      aria-live="polite">
+  {% if not result and word and not pending %}
+    {# The dictionary does not know the word (a word from a film?): save it for later #}
+    {% url 'vocabulary:term_later' deck.pk as later_url %}
+    <span class="suggest-none">
+      {% translate "The suggestions don't know this word" %} ·
+      <button type="button" class="link-button later-link-strong"
+              hx-post="{{ later_url }}" hx-include="#term-form" hx-target="#term-form" hx-swap="outerHTML"><span class="later-icon" aria-hidden="true">📝</span> <span class="later-text">{% translate "Save for later" %}</span></button>
+    </span>
+  {% endif %}
   {% if result %}
     <span class="suggest-label">{% translate "Suggestions:" %}</span>
     {% for item in result.suggestions %}

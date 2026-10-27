@@ -1,0 +1,14 @@
+{% load i18n %}
+{# Words saved without a translation: a card like the others, shown only when some are waiting. #}
+{# The first two words, "…" when there are more; "Doplnit" opens their list. On the deck page #}
+{# (words_deck given) a word fills the form of the deck at once, without loading the page. #}
+<section class="card-section pending-card">
+  <div class="section-head">
+    <h2 class="section-title">{% translate "Pending" context "words saved for later" %}</h2>
+    <a href="{% url 'vocabulary:later_list' %}{% if words_deck %}?deck={{ words_deck.pk }}{% endif %}" class="section-add">{% translate "Fill in" %}</a>
+  </div>
+  <p>
+    {% blocktranslate count counter=pending_count %}{{ counter }} word is waiting for a translation{% plural %}{{ counter }} words are waiting for a translation{% endblocktranslate %}:
+    <span class="muted">{% for word in pending_first %}{% if words_deck %}<a href="{% url 'vocabulary:deck_detail' words_deck.pk %}?later={{ word.pk }}" hx-get="{% url 'vocabulary:term_from_later' words_deck.pk word.pk %}" hx-target="#term-form" hx-swap="outerHTML" data-later-fill>{{ word.foreign }}</a>{% else %}{{ word.foreign }}{% endif %}{% if not forloop.last %}, {% endif %}{% endfor %}{% if pending_count > 2 %}, …{% endif %}</span>
+  </p>
+</section>

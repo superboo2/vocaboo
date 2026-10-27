@@ -9,7 +9,7 @@ entries). Only reads.
 from django.core.management.base import BaseCommand
 
 from dictionary.models import WordForm
-from vocabulary.models import TermVariant
+from vocabulary.models import PendingWord, TermVariant
 
 # The dictionary has hints for English words only
 LANGUAGE = "en"
@@ -31,11 +31,17 @@ class Command(BaseCommand):
 
 
 def find_missing_words():
-    """English foreign words of all users (each once, A–Z) that are no form of an entry."""
+    """English foreign words of all users (each once, A–Z) that are no form of an entry: of
+    their words and of the words saved for later without a translation."""
     known = set(WordForm.objects.filter(word__language=LANGUAGE).values_list("text", flat=True))
-    texts = TermVariant.objects.filter(
-        side=TermVariant.Side.FOREIGN, term__foreign_language__code=LANGUAGE
-    ).values_list("text", flat=True)
+    texts = list(
+        TermVariant.objects.filter(
+            side=TermVariant.Side.FOREIGN, term__foreign_language__code=LANGUAGE
+        ).values_list("text", flat=True)
+    )
+    texts += PendingWord.objects.filter(deck__foreign_language__code=LANGUAGE).values_list(
+        "foreign", flat=True
+    )
     words = {text.strip().lower() for text in texts}
     return sorted(word for word in words if word not in known and _worth_listing(word))
 

@@ -1,0 +1,4 @@
+{# The card "Odložené" on the deck page, in a box that an HTMX answer refreshes (oob) #}
+<div id="pending-card"{% if oob %} hx-swap-oob="true"{% endif %}>
+  {% if pending_count %}{% include "vocabulary/_pending_card.html" with words_deck=deck %}{% endif %}
+</div>

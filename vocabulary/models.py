@@ -245,3 +245,33 @@ class DeckTerm(models.Model):
 
     def __str__(self):
         return f"{self.term} @ {self.deck}"
+
+
+class PendingWord(models.Model):
+    """A foreign word saved for later without a translation ("Na později"), e.g. heard in a
+    film. It is no word of the deck yet: not in tests, statistics or counts. When the user
+    knows the translation, its list opens the usual form of the deck filled with it
+    (deck_detail ?later=<id>); adding the word removes it from the list."""
+
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_("owner"),
+        on_delete=models.CASCADE,
+        related_name="pending_words",
+    )
+    deck = models.ForeignKey(
+        Deck, verbose_name=_("deck"), on_delete=models.CASCADE, related_name="pending_words"
+    )
+    foreign = models.CharField(_("foreign word"), max_length=200)
+    # Where the word was seen, as in a word: the sentence and a note (e.g. "HIMYM S02E05")
+    context_sentence = models.TextField(_("sentence"), blank=True)
+    note = models.TextField(_("note"), blank=True)
+    created_at = models.DateTimeField(_("saved"), auto_now_add=True)
+
+    class Meta:
+        verbose_name = _("word for later")
+        verbose_name_plural = _("words for later")
+        ordering = ["-created_at", "-pk"]
+
+    def __str__(self):
+        return self.foreign

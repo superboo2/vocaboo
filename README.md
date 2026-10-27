@@ -339,6 +339,28 @@ item = services.add_term(
 item.term.foreign_variants  # ['hello', 'hi']
 ```
 
+#### Pending words (Odložené)
+
+A word from a film that you don't know (and the suggestions don't know either) can be saved
+**without a translation**: when the suggestions on the deck page don't know the typed word, their
+row offers *Nápověda slovo nezná · 📝 Odložit*.
+Such words are `vocabulary.PendingWord`, not words of the deck: no tests, statistics or counts.
+The list `/later/` (or `/later/?deck=<id>`) is a small table: tap a word and its deck opens with the usual
+form filled in (`/decks/<id>/?later=<pk>`: the word, the sentence and the note, the cursor in the
+translation, the suggestions shown at once). After *Přidat slovíčko* the word is a normal word of
+the deck and leaves the list (the hidden field `later` tells `term_add`). The overview has a card
+*Odložené* like the other sections (no icon): how many words are waiting, the newest two (then `…`)
+and the link *Doplnit* to the list. The deck page has the same card under the form (only words of
+that deck), where the two words fill in the form at once by HTMX (`term_from_later`), without
+loading the page. The page moves only when the section *Nové slovíčko* is not all on the screen. `missing_words` lists them for the next extension of the dictionary.
+
+```python
+from vocabulary import services
+
+services.save_for_later(deck, foreign="gnarly", note="HIMYM S02E05")
+services.pending_words(user).count()  # 1
+```
+
 ### 10. The dictionary of the app (suggestions, other meanings, IPA, examples)
 
 The app has its own dictionary built on **concepts** (meanings that are the same in all

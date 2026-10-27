@@ -25,7 +25,7 @@ from .forms import (
     TermMoveForm,
     add_service_errors,
 )
-from .models import Deck, DeckTerm, Term
+from .models import Deck, DeckTerm, PendingWord, Term
 
 
 def _get_deck(request, pk):
@@ -68,6 +68,14 @@ def deck_detail(request, pk):
     deck = _get_deck(request, pk)
     children = list(deck.children.all())
     sort = _get_sort(request)
+    # A word for later opened from its list: the usual form, filled with it, the cursor in
+    # the translation and the suggestions shown at once
+    pending = None
+    if request.GET.get("later", "").isdigit():
+        pending = PendingWord.objects.filter(
+            pk=request.GET["later"], owner=request.user, deck=deck
+        ).first()
+    term_form = _later_form(deck, pending) if pending is not None else TermForm(deck=deck)
     return render(
         request,
         "vocabulary/deck_detail.html",
@@ -77,13 +85,33 @@ def deck_detail(request, pk):
             "children": children,
             "can_add_child": services.can_add_child(deck),
             "max_depth": services.MAX_DEPTH,
-            "term_form": TermForm(deck=deck),
+            "term_form": term_form,
+            "pending": pending,
+            "suggest_result": _suggestions(request, deck, pending.foreign) if pending else None,
             "deck_terms": services.list_deck_terms(deck, sort),
             "sort": sort,
             "sorts": services.TERM_SORTS,
             "has_dictionary": topics.has_dictionary(deck),
+            "pending_count": services.pending_words(request.user, deck).count(),
+            "pending_first": services.pending_words(request.user, deck)[:2],
         },
     )
+
+
+def _later_form(deck, pending):
+    """The usual form filled with a word for later: the cursor in the translation."""
+    form = TermForm(
+        deck=deck,
+        initial={
+            "foreign": pending.foreign,
+            "context_sentence": pending.context_sentence,
+            "note": pending.note,
+        },
+    )
+    form.fields["native"].widget.attrs["autofocus"] = True
+    # The filled foreign word lights up for a moment, so it is clear what came in
+    form.fields["foreign"].widget.attrs["class"] = "just-filled"
+    return form
 
 
 def topic_words(request, pk):
@@ -338,8 +366,21 @@ def _find_duplicates(request, deck):
     )
 
 
-def _term_form_response(request, deck, form, *, added=None, added_variants=(), check=None):
-    """Answer for HTMX: the form (with duplicate hints) and the updated word list."""
+def _term_form_response(
+    request,
+    deck,
+    form,
+    *,
+    added=None,
+    added_variants=(),
+    check=None,
+    saved_later=None,
+    pending=None,
+    from_later=False,
+    suggest_result=None,
+):
+    """Answer for HTMX: the form (with duplicate hints), the updated word list and the card
+    "Odložené"."""
     sort = _get_sort(request)
     return render(
         request,
@@ -350,6 +391,14 @@ def _term_form_response(request, deck, form, *, added=None, added_variants=(), c
             "added": added,
             "added_variants": added_variants,
             "check": check,
+            "saved_later": saved_later,
+            # The word for later still being added (kept after an error), or one just added
+            "pending": pending,
+            "from_later": from_later,
+            "suggest_result": suggest_result,
+            "pending_count": services.pending_words(request.user, deck).count(),
+            "pending_first": services.pending_words(request.user, deck)[:2],
+            "all_pending_count": services.pending_words(request.user).count(),
             "deck_terms": services.list_deck_terms(deck, sort),
             "sort": sort,
             "sorts": services.TERM_SORTS,
@@ -397,8 +446,11 @@ def _suggestions(request, deck, foreign):
 def term_suggest(request, pk):
     """Translation suggestions while the foreign word is typed (HTMX, see _term_suggest.html)."""
     deck = _get_deck(request, pk)
-    result = _suggestions(request, deck, request.GET.get("foreign", ""))
-    return render(request, "vocabulary/_term_suggest.html", {"deck": deck, "result": result})
+    word = request.GET.get("foreign", "").strip()
+    result = _suggestions(request, deck, word)
+    return render(
+        request, "vocabulary/_term_suggest.html", {"deck": deck, "result": result, "word": word}
+    )
 
 
 @require_POST
@@ -448,12 +500,19 @@ def term_add(request, pk):
     """
     deck = _get_deck(request, pk)
     form = TermForm(request.POST, deck=deck)
+    # The word for later the form was filled with (?later=<id> on the deck page)
+    pending = PendingWord.objects.filter(
+        pk=request.POST.get("later") or 0, owner=request.user, deck=deck
+    ).first()
     added = None
     if form.is_valid():
         try:
             added = services.add_term(deck, **form.cleaned_data)
         except ValidationError as error:
             add_service_errors(form, error)
+    if added is not None and pending is not None:
+        # It has its translation now: it is a word of the deck, no longer waiting
+        pending.delete()
 
     if not _is_htmx(request):
         if added is not None:
@@ -464,9 +523,11 @@ def term_add(request, pk):
 
     if added is not None:
         form = _fresh_term_form(deck)
-        return _term_form_response(request, deck, form, added=added)
+        return _term_form_response(request, deck, form, added=added, from_later=pending is not None)
     form.fields["foreign"].widget.attrs["autofocus"] = True
-    return _term_form_response(request, deck, form, check=_find_duplicates(request, deck))
+    return _term_form_response(
+        request, deck, form, check=_find_duplicates(request, deck), pending=pending
+    )
 
 
 def term_detail(request, deck_pk, pk):
@@ -661,3 +722,73 @@ def term_remove(request, deck_pk, pk):
             "ancestors": services.get_ancestors(deck),
         },
     )
+
+
+# Words for later ("Na později"): a foreign word without a translation, saved from the form
+# of a deck and translated later in the same form.
+
+
+@require_POST
+def term_later(request, pk):
+    """ "Na později" in the form of a deck: save the foreign word (and its sentence and note)
+    without a translation. Answers like adding a word: a fresh form and what was saved."""
+    deck = _get_deck(request, pk)
+    try:
+        pending = services.save_for_later(
+            deck,
+            foreign=request.POST.get("foreign", ""),
+            context_sentence=request.POST.get("context_sentence", ""),
+            note=request.POST.get("note", ""),
+        )
+    except ValidationError as error:
+        form = TermForm(request.POST, deck=deck)
+        form.is_valid()
+        form.errors.pop("native", None)
+        add_service_errors(form, error)
+        return _term_form_response(request, deck, form)
+    if not _is_htmx(request):
+        messages.success(request, _("Saved for later: %(word)s") % {"word": pending.foreign})
+        return redirect("vocabulary:deck_detail", pk=deck.pk)
+    return _term_form_response(request, deck, _fresh_term_form(deck), saved_later=pending)
+
+
+def term_from_later(request, pk, later_pk):
+    """A word in the card "Odložené" on the deck page: the form filled with it (HTMX), so the
+    page does not load again and does not move when the form is on the screen."""
+    deck = _get_deck(request, pk)
+    pending = get_object_or_404(PendingWord, pk=later_pk, owner=request.user, deck=deck)
+    if not _is_htmx(request):
+        url = reverse("vocabulary:deck_detail", args=[deck.pk])
+        return redirect(f"{url}?later={pending.pk}")
+    return _term_form_response(
+        request,
+        deck,
+        _later_form(deck, pending),
+        pending=pending,
+        suggest_result=_suggestions(request, deck, pending.foreign),
+    )
+
+
+def later_list(request):
+    """The words for later, of all decks or of one (?deck=<id>). A word opens the usual form
+    of its deck, filled with it (deck_detail ?later=<id>)."""
+    deck = None
+    if request.GET.get("deck", "").isdigit():
+        deck = get_object_or_404(Deck, pk=request.GET["deck"], owner=request.user)
+    words = services.pending_words(request.user, deck)
+    return render(request, "vocabulary/later_list.html", {"deck": deck, "words": words})
+
+
+def _later_back(request):
+    # Back to the list it was sent from (all decks or one)
+    deck = request.POST.get("back_deck", "")
+    url = reverse("vocabulary:later_list")
+    return redirect(f"{url}?deck={deck}" if deck.isdigit() else url)
+
+
+@require_POST
+def later_delete(request, pk):
+    pending = get_object_or_404(PendingWord, pk=pk, owner=request.user)
+    pending.delete()
+    messages.success(request, _("Removed: %(word)s") % {"word": pending.foreign})
+    return _later_back(request)

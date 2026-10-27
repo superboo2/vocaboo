@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-26 17:36+0100\n"
+"POT-Creation-Date: 2026-10-27 11:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1858,6 +1858,18 @@ msgstr "slovíčko ve slovníku"
 msgid "words in decks"
 msgstr "slovíčka ve slovnících"
 
+msgid "foreign word"
+msgstr "cizí slovo"
+
+msgid "saved"
+msgstr "uloženo"
+
+msgid "word for later"
+msgstr "odložené slovíčko"
+
+msgid "words for later"
+msgstr "odložená slovíčka"
+
 msgid "missing word"
 msgstr "vynechané slovo"
 
@@ -1903,6 +1915,9 @@ msgstr "abecedně"
 msgid "by next review"
 msgstr "podle opakování"
 
+msgid "Enter the word."
+msgstr "Napiš slovíčko."
+
 msgid "Enter at least one variant."
 msgstr "Zadej aspoň jednu variantu."
 
@@ -1916,6 +1931,20 @@ msgstr "%(count)s k opakování"
 
 msgid "to review"
 msgstr "k opakování"
+
+msgctxt "words saved for later"
+msgid "Pending"
+msgstr "Odložené"
+
+msgid "Fill in"
+msgstr "Doplnit"
+
+#, python-format
+msgid "%(counter)s word is waiting for a translation"
+msgid_plural "%(counter)s words are waiting for a translation"
+msgstr[0] "%(counter)s slovíčko čeká na překlad"
+msgstr[1] "%(counter)s slovíčka čekají na překlad"
+msgstr[2] "%(counter)s slovíček čeká na překlad"
 
 msgid "Search words…"
 msgstr "Hledat slovíčko…"
@@ -2006,6 +2035,16 @@ msgstr "Podobné (bez diakritiky):"
 msgid "Added:"
 msgstr "Přidáno:"
 
+#, python-format
+msgid "Next pending (%(counter)s)"
+msgid_plural "Next pending (%(counter)s)"
+msgstr[0] "Další odložené (%(counter)s)"
+msgstr[1] "Další odložené (%(counter)s)"
+msgstr[2] "Další odložené (%(counter)s)"
+
+msgid "Saved for later:"
+msgstr "Odloženo:"
+
 msgid "sentence, note"
 msgstr "věta, poznámka"
 
@@ -2030,6 +2069,12 @@ msgstr "Přesunout…"
 
 msgid "No words here yet. Add the first one with the form above."
 msgstr "Zatím tu nejsou žádná slovíčka. Přidej první formulářem výše."
+
+msgid "The suggestions don't know this word"
+msgstr "Nápověda slovo nezná"
+
+msgid "Save for later"
+msgstr "Odložit"
 
 msgid "Suggestions:"
 msgstr "Návrhy:"
@@ -2103,6 +2148,34 @@ msgstr ""
 msgid "Under the deck “%(name)s”, the languages %(pair)s are taken over."
 msgstr "Pod slovníkem „%(name)s“, jazyky %(pair)s se převezmou."
 
+msgid ""
+"Words saved without a translation. Tap a word: its deck opens with the word "
+"filled in, add the translation there."
+msgstr ""
+"Slovíčka uložená bez překladu. Klepni na slovíčko: otevře se jeho slovník s "
+"vyplněným slovem a tam doplníš překlad."
+
+msgid "Word"
+msgstr "Slovíčko"
+
+msgctxt "word for later"
+msgid "Saved"
+msgstr "Uloženo"
+
+msgid "Remove"
+msgstr "Odebrat"
+
+#, python-format
+msgid "Remove %(word)s"
+msgstr "Odebrat %(word)s"
+
+msgid "No word is waiting for a translation."
+msgstr "Žádné slovíčko nečeká na překlad."
+
+#, python-format
+msgid "Back to the deck %(name)s"
+msgstr "Zpět do slovníku %(name)s"
+
 msgid "Search"
 msgstr "Hledat"
 
@@ -2132,9 +2205,6 @@ msgid ""
 msgstr ""
 "Slovíčko není v žádném jiném slovníku, takže se smaže úplně i s historií "
 "opakování."
-
-msgid "Remove"
-msgstr "Odebrat"
 
 msgid "Edit"
 msgstr "Upravit"
@@ -2449,3 +2519,11 @@ msgstr "Slovíčko „%(word)s“ je smazané."
 #, python-format
 msgid "Word “%(word)s” removed from this deck."
 msgstr "Slovíčko „%(word)s“ je odebrané z tohoto slovníku."
+
+#, python-format
+msgid "Saved for later: %(word)s"
+msgstr "Odloženo: %(word)s"
+
+#, python-format
+msgid "Removed: %(word)s"
+msgstr "Odebráno: %(word)s"

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load i18n arrows %}
+
+{% block title %}{% translate "Pending" context "words saved for later" %} · Vocaboo{% endblock %}
+
+{% block content %}
+  <nav aria-label="breadcrumb">
+    <ul>
+      <li><a href="{% url 'dashboard' %}">{% translate "Overview" %}</a></li>
+      {% if deck %}<li><a href="{% url 'vocabulary:deck_detail' deck.pk %}">{{ deck.name }}</a></li>{% endif %}
+      <li>{% translate "Pending" context "words saved for later" %}</li>
+    </ul>
+  </nav>
+
+  <h1>{% translate "Pending" context "words saved for later" %}</h1>
+  <p class="muted page-sub">{% translate "Words saved without a translation. Tap a word: its deck opens with the word filled in, add the translation there." %}</p>
+
+  {% if words %}
+    {# A small table: the word opens the usual form of its deck (filled with it), its note small #}
+    {# under it; "Odebrat" removes it #}
+    <section class="card-section">
+      <table class="later-table">
+        <thead>
+          <tr>
+            <th scope="col">{% translate "Word" %}</th>
+            {% if not deck %}<th scope="col" class="later-deck-col">{% translate "Deck" %}</th>{% endif %}
+            <th scope="col">{% translate "Saved" context "word for later" %}</th>
+            <th scope="col"><span class="visually-hidden">{% translate "Remove" %}</span></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for word in words %}
+            <tr>
+              <td>
+                <a href="{% url 'vocabulary:deck_detail' word.deck.pk %}?later={{ word.pk }}"><strong>{{ word.foreign }}</strong></a>
+                {# On a phone the deck goes under the word too (its column is hidden there) #}
+                {% if not deck %}<small class="muted later-deck-under">{{ word.deck.name }}</small>{% endif %}
+                {% if word.note %}<small class="muted later-note">{{ word.note }}</small>{% endif %}
+              </td>
+              {% if not deck %}<td class="muted later-deck-col">{{ word.deck.name }} <small>({{ word.deck.language_pair|arrows }})</small></td>{% endif %}
+              <td class="muted later-date">{{ word.created_at|date:"MONTH_DAY_FORMAT" }}</td>
+              <td class="later-remove">
+                <form method="post" action="{% url 'vocabulary:later_delete' word.pk %}">
+                  {% csrf_token %}
+                  <input type="hidden" name="back_deck" value="{{ deck.pk|default:'' }}">
+                  <button type="submit" class="link-button"
+                          aria-label="{% blocktranslate with word=word.foreign %}Remove {{ word }}{% endblocktranslate %}">{% translate "Remove" %}</button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  {% else %}
+    <p class="muted">{% translate "No word is waiting for a translation." %}</p>
+  {% endif %}
+
+  {# Back where the list was opened from: the deck, or the overview #}
+  <p>
+    {% if deck %}
+      <a href="{% url 'vocabulary:deck_detail' deck.pk %}">← {% blocktranslate with name=deck.name %}Back to the deck {{ name }}{% endblocktranslate %}</a>
+    {% else %}
+      <a href="{% url 'dashboard' %}">← {% translate "Overview" %}</a>
+    {% endif %}
+  </p>
+{% endblock %}

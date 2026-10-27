@@ -19,6 +19,15 @@ urlpatterns = [
     path("decks/<int:pk>/words/link/<int:term_pk>/", views.term_link, name="term_link"),
     path("decks/<int:pk>/words/move/", views.terms_move, name="terms_move"),
     path("decks/<int:pk>/words/topic/", views.topic_words, name="topic_words"),
+    path("decks/<int:pk>/words/later/", views.term_later, name="term_later"),
+    path(
+        "decks/<int:pk>/words/later/<int:later_pk>/",
+        views.term_from_later,
+        name="term_from_later",
+    ),
+    # Words for later: the list and removing one
+    path("later/", views.later_list, name="later_list"),
+    path("later/<int:pk>/delete/", views.later_delete, name="later_delete"),
     path("decks/<int:deck_pk>/words/<int:pk>/", views.term_detail, name="term_detail"),
     path("decks/<int:deck_pk>/words/<int:pk>/edit/", views.term_edit, name="term_edit"),
     path(
