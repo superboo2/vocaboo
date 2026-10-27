@@ -610,7 +610,7 @@ the browser and paused while the page is hidden (another app, locked phone).
   test has the cards *Slovníky*, *Směr* and *Které kartičky* and the big button `▶ Spustit test`;
   the test has a thin progress bar above the card. The summary of a test, the statistics and
   the word page use the same cards; the word page has `✎ Upravit` next to the word and a menu `⋯`
-  (move, remove from this deck). The dashboard order is *Co ti dnes nejde* (only when there is
+  (move, remove from this deck). The dashboard order is *Co ti nešlo* (only when there is
   something), *Slovníky*, *Dnes*.
 
 - **Hledat** (a light strip `Hledat slovíčko…` over the deck tree in the card *Slovníky*, **/** jumps into it; the results under the heading; Enter without JavaScript opens `/search/?q=cetka`): all the user's words, in every variant, the sentence and its
@@ -654,10 +654,13 @@ services.search_terms(user, "impose")
   time in tests. Each number is a tab: a click shows its last 7 days in a bar chart under
   them (the value above each bar, the other days light blue, today blue), without reloading the
   page.
-- Under the decks the dashboard shows **Co ti dnes nejde**: up to 3 smaller flip cards in one row,
-  only from today's answers: 🐢 the longest thinking, 🦀 only one direction and 🐘 *Pořád dokola*
-  (a word hard today with the most attempts in the whole history, at least 3, e.g. `zase nevím ·
-  už 12. pokus`). The section is not there when nothing was hard today.
+- The dashboard shows **Co ti nešlo**: up to 3 smaller flip cards in one row from **the last
+  day with a test before today** (`stats.hard_words`); the day is small and grey next to the
+  heading (*včera*, or e.g. *po 26. 10.*). Everything is as it was at the end of that day
+  (later answers are left out, the streaks come from the answers, not from `ReviewState`), so the
+  cards do not change during the day nor during a pause. The 10 kinds are mixed by the date of
+  that day (`random.Random(day.toordinal())`) and the first 3 with a word are shown, so another
+  day of tests shows other kinds. The section is not there when nothing was hard that day.
 - The card *Slovníky* has only `+ Nový`, the search and the tree (the totals are on the
   statistics page, moving by dragging is explained in the help).
 - Each deck in the tree has its words in brackets right after the name, e.g.

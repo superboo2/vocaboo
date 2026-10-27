@@ -2781,6 +2781,12 @@ button.test-button {
   margin: 0;
 }
 
+/* The day of the cards "Co ti nešlo": small and grey, the heading stays short */
+.section-day {
+  color: var(--pico-muted-color);
+  font-size: 0.9rem;
+}
+
 /* The same height with the magnifier and with the field, so nothing moves */
 .section-head {
   min-height: 1.9rem;

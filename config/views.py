@@ -1,6 +1,9 @@
+from datetime import timedelta
+
 from django.http import Http404
 from django.shortcuts import redirect, render
 from django.template.loader import select_template
+from django.utils import timezone
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 
@@ -23,8 +26,8 @@ def dashboard(request):
     # Start page; it shows data from more apps (decks, study), so it lives here
     roots = vocabulary_services.load_tree(request.user)
     totals = study_services.annotate_deck_counts(roots, request.user)
-    # Cards "Co ti nejde" of the last 7 days, the same as on the statistics page
-    hard_words = stats.hard_words(request.user) if roots else []
+    # Cards "Co ti včera / naposledy nešlo": the last day with a test before today
+    hard = stats.hard_words(request.user) if roots else {"day": None, "items": []}
     today = stats.today_overview(request.user) if roots else None
     return render(
         request,
@@ -32,7 +35,9 @@ def dashboard(request):
         {
             "roots": roots,
             "totals": totals,
-            "hard_words": hard_words,
+            "hard_words": hard["items"],
+            "hard_day": hard["day"],
+            "yesterday": timezone.localdate() - timedelta(days=1),
             "today": today,
             # Words saved for later, waiting for a translation (a card above the decks)
             "pending_count": vocabulary_services.pending_words(request.user).count(),

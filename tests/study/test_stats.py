@@ -5,6 +5,7 @@ from datetime import timedelta
 import pytest
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.formats import date_format
 
 from study import stats
 from study.models import Direction, Result, ReviewLog, ReviewState, StudySession
@@ -37,9 +38,9 @@ def answer(
 
 
 def facts_of(user, now=NOW, period="7"):
-    """The fun facts without the three of the dashboard (they come first on the statistics
-    page and would take the words these tests are about)."""
-    others = stats.STATS_FACTS[len(stats.TODAY_FACTS) :]
+    """The fun facts without the first three (they come first on the statistics page and
+    would take the words these tests are about)."""
+    others = stats.STATS_FACTS[3:]
     return stats._facts(user, stats._logs(user), now, period, kinds=others)
 
 
@@ -201,21 +202,19 @@ def test_round_top_of_the_y_axis():
     assert tops == [4, 4, 8, 80, 250, 1000]
 
 
-def test_dashboard_shows_all_hard_words(client, user, deck):
+def test_dashboard_shows_yesterdays_hard_words(client, user, deck):
     for word in ("cat", "dog", "ox"):
         term = vocabulary.add_term(deck, foreign=word, native=word + " cs").term
         answer(user, term, 0, Result.WRONG, "dontknow")
-    # The dashboard counts only today: the answers are from now, not from the fixed NOW
-    ReviewLog.objects.filter(user=user).update(reviewed_at=timezone.now())
+    # The dashboard is about the last day with a test before today: yesterday here
+    ReviewLog.objects.filter(user=user).update(reviewed_at=timezone.now() - timedelta(days=1))
     client.force_login(user)
 
     html = client.get(reverse("dashboard")).content.decode()
 
-    assert "Co ti dnes nejde" in html
-    # Only 🐢 has a word: no word is right one way, and no word has 3 attempts for 🐘
-    assert html.count('class="hard-word ') == 1
-    assert "Nejdéle přemýšlíš u" in html
-    assert "Nejdelší, co ti nejde" not in html
+    assert "Co ti nešlo" in html and '<span class="section-day">včera</span>' in html
+    # At most three cards, each word only once
+    assert 1 <= html.count('class="hard-word ') <= stats.DASHBOARD_FACTS
 
 
 def test_dashboard_hides_hard_words_without_answers(client, user, deck):
@@ -224,7 +223,7 @@ def test_dashboard_hides_hard_words_without_answers(client, user, deck):
 
     html = client.get(reverse("dashboard")).content.decode()
 
-    assert "Co ti dnes nejde" not in html
+    assert "Co ti nešlo" not in html
 
 
 def test_detail_link_uses_the_word_in_its_deck(client, user, deck):
@@ -435,7 +434,65 @@ def test_word_known_before_is_not_learned_again(user, deck):
     assert values["learned"] == "0"
 
 
-def test_dashboard_hard_words_are_only_from_today(client, user, deck):
+def test_dashboard_hard_words_are_not_from_today(client, user, deck):
+    # Only today's answers: they show tomorrow, the cards do not change during the day
+    cat = vocabulary.add_term(deck, foreign="cat", native="kočka").term
+    answer(user, cat, 0, Result.WRONG, "dontknow")
+    ReviewLog.objects.filter(user=user).update(reviewed_at=timezone.now())
+
+    assert stats.hard_words(user) == {"day": None, "items": []}
+
+
+def test_dashboard_cards_stay_after_a_pause_and_after_todays_tests(user, deck):
+    cat = vocabulary.add_term(deck, foreign="cat", native="kočka").term
+    # The last test two weeks ago: cat wrong
+    answer(user, cat, 14, Result.WRONG, "dontknow", think_ms=5000)
+    before = stats.hard_words(user, now=NOW)
+    # Today cat is right twice (known now), but the cards are about the day two weeks ago
+    answer(user, cat, 0)
+    answer(user, cat, 0)
+    ReviewState.objects.filter(term=cat).update(correct_streak=2)
+    after = stats.hard_words(user, now=NOW)
+
+    assert before["day"] == (NOW - timedelta(days=14)).date()
+    assert [card["word"] for card in before["items"]] == ["cat"]
+    assert [(card["kind"], card["word"]) for card in after["items"]] == [
+        (card["kind"], card["word"]) for card in before["items"]
+    ]
+
+
+def test_dashboard_kinds_are_mixed_by_the_day(user, deck):
+    words = [vocabulary.add_term(deck, foreign=w, native=w + " cs").term for w in "abcdefgh"]
+    for term in words:
+        for days_ago in (3, 2):
+            answer(user, term, days_ago, Result.WRONG, "dontknow", think_ms=1000)
+
+    cards = stats.hard_words(user, now=NOW)["items"]
+    kinds = [card["kind"] for card in cards]
+
+    # The kinds come in the order mixed by the date of that day (the same all day long)
+    day = (NOW - timedelta(days=2)).date()
+    order = list(stats.STATS_FACTS)
+    stats.random.Random(day.toordinal()).shuffle(order)
+    assert kinds == [kind for kind in order if kind in kinds]
+    assert stats.hard_words(user, now=NOW) == {"day": day, "items": cards}
+
+
+def test_dashboard_heading_names_the_day(client, user, deck):
+    cat = vocabulary.add_term(deck, foreign="cat", native="kočka").term
+    answer(user, cat, 0, Result.WRONG, "dontknow", think_ms=5000)
+    ReviewLog.objects.filter(user=user).update(reviewed_at=timezone.now() - timedelta(days=5))
+    client.force_login(user)
+
+    html = client.get(reverse("dashboard")).content.decode()
+
+    day = timezone.localdate() - timedelta(days=5)
+    assert (
+        f'<span class="section-day">{date_format(day, "D")} {day.day}. {day.month}.</span>' in html
+    )
+
+
+def test_dashboard_hard_words_old_test_counts_as_last_day(client, user, deck):
     cat = vocabulary.add_term(deck, foreign="cat", native="kočka").term
     ReviewLog.objects.create(
         user=user,
@@ -452,7 +509,8 @@ def test_dashboard_hard_words_are_only_from_today(client, user, deck):
 
     html = client.get(reverse("dashboard")).content.decode()
 
-    assert "Co ti dnes nejde" not in html
+    # A test a day and an hour ago is the last day: yesterday, or the day before after midnight
+    assert "Co ti nešlo" in html
 
 
 def test_mixed_up_rollercoaster_and_rushed_words(user, deck):
@@ -496,16 +554,13 @@ def test_dashboard_word_again_and_again(user, deck):
     answer(user, cat, 0, Result.WRONG, "dontknow", think_ms=1000)
     answer(user, dog, 0, Result.WRONG, "dontknow", think_ms=8000)
 
-    cards = stats.hard_words(user, now=NOW)
+    cards = stats._facts(
+        user, stats._logs(user), NOW, None, kinds=["slow", "again"], day=NOW.date()
+    )["items"]
 
     # 🐢 takes dog (longer thinking), 🐘 takes cat
     assert [(card["emoji"], card["word"]) for card in cards] == [("🐢", "dog"), ("🐘", "cat")]
     assert cards[1]["text"] == "zase nevím · už 4. pokus"
-
-
-def test_statistics_start_with_the_three_of_the_dashboard():
-    assert stats.STATS_FACTS[:3] == stats.TODAY_FACTS
-    assert len(set(stats.STATS_FACTS)) == len(stats.STATS_FACTS)
 
 
 def test_words_chart_by_days_months_and_quarters(user, deck):

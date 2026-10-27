@@ -5,8 +5,9 @@ states, nothing extra is stored. The user has hundreds or thousands of rows at m
 numbers are counted in Python from simple queries.
 """
 
+import random
 from collections import Counter
-from datetime import timedelta
+from datetime import datetime, time, timedelta
 
 from django.db.models import Count, Max, Min, OuterRef, Q, Subquery
 from django.utils import timezone
@@ -69,12 +70,12 @@ DEFAULT_PERIOD = "30"
 # all" faster than this (ms)
 SWITCHES = 3
 RUSH_MS = 3000
-# The dashboard: only today, and these kinds of cards in this order
-TODAY = "today"
-TODAY_FACTS = ["slow", "one_way", "again"]
-# The statistics page: first the three of the dashboard, then the others
+# The kinds of cards in the order of the statistics page. The dashboard shows
+# DASHBOARD_FACTS of them, mixed by the date of the day it is about (see hard_words).
 STATS_FACTS = [
-    *TODAY_FACTS,
+    "slow",
+    "one_way",
+    "again",
     "enemy",
     "mix_up",
     "forget",
@@ -96,6 +97,7 @@ FACT_TITLES = {
     "longest": gettext_lazy("Longest you struggle with"),
     "oldest": gettext_lazy("Learning it longest"),
 }
+DASHBOARD_FACTS = 3
 # "again" shows a word only after this many attempts in the whole history
 REPEAT_ATTEMPTS = 3
 
@@ -383,9 +385,32 @@ def _short_date(day):
 
 
 def hard_words(user, now=None):
-    """The cards "Co ti dnes nejde" for the dashboard: only today's answers, 4 kinds."""
+    """The cards "Co ti včera / naposledy nešlo" for the dashboard.
+
+    They are about the last day with a test before today, so they do not change during the
+    day (today's tests show tomorrow) nor during a pause. The kinds are mixed by the date of
+    that day: another day of tests shows other kinds. Returns {"day", "items"}; no day, no
+    items when there was no test before today.
+    """
     now = now or timezone.now()
-    return _facts(user, _logs(user), now, TODAY, kinds=TODAY_FACTS)["items"]
+    last = (
+        ReviewLog.objects.filter(user=user, reviewed_at__lt=_day_start(_local_day(now)))
+        .order_by("-reviewed_at")
+        .values_list("reviewed_at", flat=True)
+        .first()
+    )
+    if last is None:
+        return {"day": None, "items": []}
+    day = _local_day(last)
+    kinds = list(STATS_FACTS)
+    random.Random(day.toordinal()).shuffle(kinds)
+    items = _facts(user, _logs(user), now, None, kinds=kinds, day=day)["items"]
+    return {"day": day, "items": items[:DASHBOARD_FACTS]}
+
+
+def _day_start(day):
+    """Midnight at the start of a local day."""
+    return timezone.make_aware(datetime.combine(day, time.min))
 
 
 def _logs(user):
@@ -565,15 +590,19 @@ def _streak(logs, today):
     }
 
 
-def _facts(user, logs, now, period, kinds=None):
+def _facts(user, logs, now, period, kinds=None, day=None):
     """The "nej" words that are hard: each one shows a word with its translation.
 
     A word is hard when in the period it had an answer "vůbec nevím" or "napůl" and it is
     still not known (some direction has fewer than KNOWN_STREAK right answers in a row).
     One word is shown only once, the next fact takes the next word in its order.
+
+    With a day (the dashboard) the period is that one day and everything is as it was at its
+    end: later answers are left out, so the cards stay the same.
     """
-    if period == TODAY:
-        since = timezone.localtime(now).replace(hour=0, minute=0, second=0, microsecond=0)
+    if day is not None:
+        since = _day_start(day)
+        logs = [log for log in logs if log[0] < _day_start(day + timedelta(days=1))]
     else:
         days = PERIODS[period][0]
         since = now - timedelta(days=days) if days else None
@@ -619,10 +648,16 @@ def _facts(user, logs, now, period, kinds=None):
         in_a_row[key] = 0
 
     streaks = {}
-    for term_id, direction, streak in ReviewState.objects.filter(
-        term_id__in=bad_directions
-    ).values_list("term_id", "direction", "correct_streak"):
-        streaks.setdefault(term_id, {})[direction] = streak
+    if day is not None:
+        # Right in a row at the end of that day, from the answers up to then
+        for (term_id, direction), streak in in_a_row.items():
+            if term_id in bad_directions:
+                streaks.setdefault(term_id, {})[direction] = streak
+    else:
+        for term_id, direction, streak in ReviewState.objects.filter(
+            term_id__in=bad_directions
+        ).values_list("term_id", "direction", "correct_streak"):
+            streaks.setdefault(term_id, {})[direction] = streak
     hard_ids = [
         term_id
         for term_id in bad_directions

@@ -24,10 +24,15 @@
 
   {% if roots %}
 
-    {# Order: what does not stick today (to have it in sight), the decks, then today's numbers #}
+    {# Order: what did not stick last time (to have it in sight), the decks, then today's numbers. #}
+    {# The cards are about the last day with a test before today, so they stay all day. #}
     {% if hard_words %}
       <section class="card-section">
-        <h2 class="section-title">{% translate "What you struggle with today" %}</h2>
+        {# A short heading like the others, the day small and grey next to it #}
+        <div class="section-head">
+          <h2 class="section-title">{% translate "What you struggled with" %}</h2>
+          <span class="section-day">{% if hard_day == yesterday %}{% translate "yesterday" %}{% else %}{{ hard_day|date:"D" }} {{ hard_day|date:"MONTH_DAY_FORMAT" }}{% endif %}</span>
+        </div>
         {% include "study/_hard_words.html" with items=hard_words compact=True %}
       </section>
     {% endif %}
