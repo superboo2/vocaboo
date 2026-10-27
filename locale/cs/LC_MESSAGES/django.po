@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 22:48+0100\n"
+"POT-Creation-Date: 2026-10-27 23:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2260,9 +2260,6 @@ msgstr "Další akce"
 msgid "Remove from this deck"
 msgstr "Odebrat z tohoto slovníku"
 
-msgid "Edit the report"
-msgstr "Upravit hlášení"
-
 msgid "Reviews"
 msgstr "Opakování"
 
@@ -2352,17 +2349,18 @@ msgstr "Uložit a zpět do testu"
 msgid "Back to the test without saving"
 msgstr "Neukládat a zpět do testu"
 
-#| msgid "translation"
 msgid "Translation:"
 msgstr "Překlad:"
 
-#| msgid "sentence"
 msgid "Sentence:"
 msgstr "Věta:"
 
-#| msgid "Sentence translation"
 msgid "Sentence translation:"
 msgstr "Překlad věty:"
+
+#, python-format
+msgid "Reported on %(day)s. You can change it here."
+msgstr "Nahlášeno %(day)s. Můžeš ho tady změnit."
 
 msgid ""
 "The report helps to fix the dictionary of the app. Your word does not "
@@ -2371,8 +2369,9 @@ msgstr ""
 "Hlášení pomůže opravit slovník aplikace. Tvé slovíčko se tím nezmění: "
 "opravit si ho můžeš přes Upravit."
 
-msgid "Save the report"
-msgstr "Uložit hlášení"
+#| msgid "changed"
+msgid "Save changes"
+msgstr "Uložit změny"
 
 msgid "Report"
 msgstr "Nahlásit"
@@ -2558,6 +2557,9 @@ msgstr "Slovíčko je přidané."
 
 msgid "The word could not be added, check the form."
 msgstr "Slovíčko se nepodařilo přidat, zkontroluj formulář."
+
+msgid "The report is changed."
+msgstr "Hlášení je upravené."
 
 msgid "Thanks, the mistake is reported."
 msgstr "Díky, chyba je nahlášená."

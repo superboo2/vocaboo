@@ -550,7 +550,6 @@ def term_detail(request, deck_pk, pk):
             ),
             "history": study_services.term_history(term),
             "ancestors": services.get_ancestors(deck_term.deck),
-            "reported": reports.open_report(request.user, term) is not None,
         },
     )
 
@@ -558,8 +557,9 @@ def term_detail(request, deck_pk, pk):
 def term_report(request, deck_pk, pk):
     """ "Report a mistake" on the word page or in a test (?test=pk, button ⚐ on the card):
     what is wrong with the suggested translation or sentence, for the next fix round of the
-    dictionary (dictionary.reports). A second report of the word changes the open one. From
-    a test it goes back to the same card."""
+    dictionary (dictionary.reports). The menu always says "Report a mistake"; when the word
+    has an open report, this page says so and changes it. From a test it goes back to the
+    same card."""
     deck_term = _get_deck_term(request, deck_pk, pk)
     test = _running_test(request)
     if test:
@@ -573,7 +573,10 @@ def term_report(request, deck_pk, pk):
     form = ErrorReportForm(request.POST or None, initial=initial)
     if request.method == "POST" and form.is_valid():
         reports.report_error(request.user, deck_term, **form.cleaned_data)
-        messages.success(request, _("Thanks, the mistake is reported."))
+        if report:
+            messages.success(request, _("The report is changed."))
+        else:
+            messages.success(request, _("Thanks, the mistake is reported."))
         return redirect(back)
     return render(
         request,

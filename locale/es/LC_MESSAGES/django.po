@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 22:48+0100\n"
+"POT-Creation-Date: 2026-10-27 23:08+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2272,9 +2272,6 @@ msgstr "Más acciones"
 msgid "Remove from this deck"
 msgstr "Quitar de este mazo"
 
-msgid "Edit the report"
-msgstr "Editar el reporte"
-
 msgid "Reviews"
 msgstr "Repasos"
 
@@ -2367,17 +2364,18 @@ msgstr "Guardar y volver al test"
 msgid "Back to the test without saving"
 msgstr "Volver al test sin guardar"
 
-#| msgid "translation"
 msgid "Translation:"
 msgstr "Traducción:"
 
-#| msgid "sentence"
 msgid "Sentence:"
 msgstr "Frase:"
 
-#| msgid "Sentence translation"
 msgid "Sentence translation:"
 msgstr "Traducción de la frase:"
+
+#, python-format
+msgid "Reported on %(day)s. You can change it here."
+msgstr "Reportado el %(day)s. Puedes cambiarlo aquí."
 
 msgid ""
 "The report helps to fix the dictionary of the app. Your word does not "
@@ -2386,8 +2384,9 @@ msgstr ""
 "El reporte ayuda a corregir el diccionario de la aplicación. Tu palabra no "
 "cambia: puedes corregirla con Editar."
 
-msgid "Save the report"
-msgstr "Guardar el reporte"
+#| msgid "changed"
+msgid "Save changes"
+msgstr "Guardar cambios"
 
 msgid "Report"
 msgstr "Reportar"
@@ -2568,6 +2567,9 @@ msgstr "Palabra añadida."
 
 msgid "The word could not be added, check the form."
 msgstr "No se ha podido añadir la palabra, revisa el formulario."
+
+msgid "The report is changed."
+msgstr "El reporte se ha cambiado."
 
 msgid "Thanks, the mistake is reported."
 msgstr "Gracias, el error está reportado."

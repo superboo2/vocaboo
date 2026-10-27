@@ -74,15 +74,20 @@ def test_reporting_again_changes_the_open_report(client, user, palm):
     client.force_login(user)
     client.post(report_url(palm), {"kind": "translation"})
 
-    # The menu and the form know the open report
-    assert "Upravit hlášení" in client.get(detail_url(palm)).content.decode()
+    # The menu stays the same, the page says it is reported and fills the form
+    assert "Nahlásit chybu" in client.get(detail_url(palm)).content.decode()
+    page = client.get(report_url(palm)).content.decode()
+    assert "✓ Nahlášeno" in page and "Uložit změny" in page
     assert (
         'value="translation" required id="id_kind_0" checked'
         in client.get(report_url(palm)).content.decode()
     )
 
-    client.post(report_url(palm), {"kind": "sentence", "note": "Věta je divná."})
+    response = client.post(
+        report_url(palm), {"kind": "sentence", "note": "Věta je divná."}, follow=True
+    )
 
+    assert "Hlášení je upravené." in response.content.decode()
     report = ErrorReport.objects.get()
     assert (report.kind, report.note) == ("sentence", "Věta je divná.")
 
