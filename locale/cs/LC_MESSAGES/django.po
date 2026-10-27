@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 11:54+0100\n"
+"POT-Creation-Date: 2026-10-27 22:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -384,6 +384,9 @@ msgstr "Přehled a statistiky"
 msgid "dictionary words"
 msgstr "slova slovníku"
 
+msgid "Mark as resolved"
+msgstr "Označit jako vyřízené"
+
 msgid "code"
 msgstr "kód"
 
@@ -525,6 +528,48 @@ msgstr "balíček slovníku"
 
 msgid "dictionary packages"
 msgstr "balíčky slovníku"
+
+msgid "Wrong suggested translation"
+msgstr "Chyba v návrhu překladu"
+
+msgid "Wrong suggested sentence"
+msgstr "Chyba v návrhu věty"
+
+msgid "Something else"
+msgstr "Jiné"
+
+msgid "language to learn"
+msgstr "chci se naučit"
+
+msgid "language I speak"
+msgstr "mluvím"
+
+msgid "foreign word"
+msgstr "cizí slovo"
+
+msgid "translation"
+msgstr "překlad"
+
+msgid "sentence translation"
+msgstr "překlad věty"
+
+msgid "what is wrong"
+msgstr "co je špatně"
+
+msgid "resolved"
+msgstr "vyřízené"
+
+msgid "reported"
+msgstr "nahlášeno"
+
+msgid "changed"
+msgstr "změněno"
+
+msgid "error report"
+msgstr "hlášení chyby"
+
+msgid "error reports"
+msgstr "hlášení chyb"
 
 msgctxt "part of speech"
 msgid "n."
@@ -1340,6 +1385,9 @@ msgstr "Upravit slovíčko"
 msgid "Edit word (E)"
 msgstr "Upravit slovíčko (E)"
 
+msgid "Report a mistake"
+msgstr "Nahlásit chybu"
+
 msgid "Finish test"
 msgstr "Ukončit test"
 
@@ -1711,6 +1759,15 @@ msgstr "— nejvyšší úroveň —"
 msgid "To deck"
 msgstr "Do slovníku"
 
+msgid "What is wrong?"
+msgstr "Co je špatně?"
+
+msgid "Note"
+msgstr "Poznámka"
+
+msgid "Optional, e.g. the right translation."
+msgstr "Nepovinné, třeba správný překlad."
+
 msgid "Use in a sentence"
 msgstr "Použití ve větě"
 
@@ -1728,9 +1785,6 @@ msgid ""
 "Optional, to help understand the sentence. You can mark the word: He ran "
 "{away}."
 msgstr "Volitelné, k pochopení věty. Slovo můžeš označit: Utekl {pryč}."
-
-msgid "Note"
-msgstr "Poznámka"
 
 msgid "Separate more variants with a semicolon"
 msgstr "Víc variant odděl středníkem"
@@ -1795,12 +1849,6 @@ msgstr "nadřazený slovník"
 msgid "description"
 msgstr "popis"
 
-msgid "language to learn"
-msgstr "chci se naučit"
-
-msgid "language I speak"
-msgstr "mluvím"
-
 msgid "deck"
 msgstr "slovník"
 
@@ -1852,17 +1900,11 @@ msgstr "varianta"
 msgid "variants"
 msgstr "varianty"
 
-msgid "sentence translation"
-msgstr "překlad věty"
-
 msgid "word in deck"
 msgstr "slovíčko ve slovníku"
 
 msgid "words in decks"
 msgstr "slovíčka ve slovnících"
-
-msgid "foreign word"
-msgstr "cizí slovo"
 
 msgid "saved"
 msgstr "uloženo"
@@ -2218,6 +2260,9 @@ msgstr "Další akce"
 msgid "Remove from this deck"
 msgstr "Odebrat z tohoto slovníku"
 
+msgid "Edit the report"
+msgstr "Upravit hlášení"
+
 msgid "Reviews"
 msgstr "Opakování"
 
@@ -2307,6 +2352,34 @@ msgstr "Uložit a zpět do testu"
 msgid "Back to the test without saving"
 msgstr "Neukládat a zpět do testu"
 
+#| msgid "translation"
+msgid "Translation:"
+msgstr "Překlad:"
+
+#| msgid "sentence"
+msgid "Sentence:"
+msgstr "Věta:"
+
+#| msgid "Sentence translation"
+msgid "Sentence translation:"
+msgstr "Překlad věty:"
+
+msgid ""
+"The report helps to fix the dictionary of the app. Your word does not "
+"change: you can fix it with Edit."
+msgstr ""
+"Hlášení pomůže opravit slovník aplikace. Tvé slovíčko se tím nezmění: "
+"opravit si ho můžeš přes Upravit."
+
+msgid "Save the report"
+msgstr "Uložit hlášení"
+
+msgid "Report"
+msgstr "Nahlásit"
+
+msgid "Back"
+msgstr "Zpět"
+
 msgid "Move words"
 msgstr "Přesunout slovíčka"
 
@@ -2333,9 +2406,6 @@ msgstr ""
 
 msgid "Add sub-deck"
 msgstr "Přidat podslovník"
-
-msgid "Back"
-msgstr "Zpět"
 
 msgid "Words from a topic"
 msgstr "Slovíčka z tématu"
@@ -2488,6 +2558,9 @@ msgstr "Slovíčko je přidané."
 
 msgid "The word could not be added, check the form."
 msgstr "Slovíčko se nepodařilo přidat, zkontroluj formulář."
+
+msgid "Thanks, the mistake is reported."
+msgstr "Díky, chyba je nahlášená."
 
 #, python-format
 msgid "Added: %(word)s → %(native)s"

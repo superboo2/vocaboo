@@ -448,6 +448,26 @@ One word per line, each once, A–Z. A word is known when it is a headword or an
 an entry (`mum`); forms like `kids` or `ran` are listed, so the AI decides whether they need an
 entry. One letter and words with digits are left out.
 
+Mistakes the users reported on the word page (⋯ › *Report a mistake*) or in a test (the button
+⚐ under the card, then back to the same card): wrong suggested translation, wrong suggested
+sentence, something else, and a note. A report keeps a copy of the word
+as it was (it stays when the word is deleted); one user has at most one open report per word,
+reporting again changes it. The command lists the open ones with the concepts they are about
+(the meaning whose translation matches, or all meanings of the word), for the next fix round;
+after the fix package is deployed, mark them resolved in the admin (*Dictionary › Error
+reports*, action *Mark as resolved*):
+
+```bash
+uv run python manage.py reported_words
+# #3 2026-10-27 EN → CS · translation
+#   palm → dlaň; ruka
+#   sentence: Show me your {palm}.
+#   sentence translation: Ukaž mi {dlaň}.
+#   note: spíš jen dlaň
+#   concepts: palm.noun.1
+uv run python manage.py reported_words --output reported.txt   # the same list into a file
+```
+
 What the app takes from it:
 
 - **Translation suggestions** while a foreign word is typed: `present` → *dárek* (podst. jm.),

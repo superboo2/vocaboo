@@ -226,9 +226,20 @@
     }
   }
 
+  // ⚐: report a mistake of the hints for the shown card; then back to the same card
+  function reportTerm() {
+    const shown = document.getElementById("card");
+    if (shown && shown.dataset.reportUrl) {
+      window.location.href = shown.dataset.reportUrl;
+    }
+  }
+
   document.addEventListener("click", function (event) {
     if (event.target.closest("[data-action='edit-term']")) {
       editTerm();
+    }
+    if (event.target.closest("[data-action='report-term']")) {
+      reportTerm();
     }
   });
 

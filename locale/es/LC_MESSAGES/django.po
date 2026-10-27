@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 11:54+0100\n"
+"POT-Creation-Date: 2026-10-27 22:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -394,6 +394,9 @@ msgstr "Resumen y estadísticas"
 msgid "dictionary words"
 msgstr "palabras del diccionario"
 
+msgid "Mark as resolved"
+msgstr "Marcar como resuelto"
+
 msgid "code"
 msgstr "código"
 
@@ -535,6 +538,48 @@ msgstr "paquete del diccionario"
 
 msgid "dictionary packages"
 msgstr "paquetes del diccionario"
+
+msgid "Wrong suggested translation"
+msgstr "Error en la traducción sugerida"
+
+msgid "Wrong suggested sentence"
+msgstr "Error en la frase sugerida"
+
+msgid "Something else"
+msgstr "Otra cosa"
+
+msgid "language to learn"
+msgstr "idioma que quiero aprender"
+
+msgid "language I speak"
+msgstr "idioma que hablo"
+
+msgid "foreign word"
+msgstr "palabra extranjera"
+
+msgid "translation"
+msgstr "traducción"
+
+msgid "sentence translation"
+msgstr "traducción de la frase"
+
+msgid "what is wrong"
+msgstr "qué está mal"
+
+msgid "resolved"
+msgstr "resuelto"
+
+msgid "reported"
+msgstr "reportado"
+
+msgid "changed"
+msgstr "cambiado"
+
+msgid "error report"
+msgstr "reporte de error"
+
+msgid "error reports"
+msgstr "reportes de errores"
 
 msgctxt "part of speech"
 msgid "n."
@@ -1344,6 +1389,9 @@ msgstr "Editar palabra"
 msgid "Edit word (E)"
 msgstr "Editar palabra (E)"
 
+msgid "Report a mistake"
+msgstr "Reportar un error"
+
 msgid "Finish test"
 msgstr "Terminar test"
 
@@ -1719,6 +1767,15 @@ msgstr "— nivel superior —"
 msgid "To deck"
 msgstr "Al mazo"
 
+msgid "What is wrong?"
+msgstr "¿Qué está mal?"
+
+msgid "Note"
+msgstr "Nota"
+
+msgid "Optional, e.g. the right translation."
+msgstr "Opcional, por ejemplo la traducción correcta."
+
 msgid "Use in a sentence"
 msgstr "Uso en una frase"
 
@@ -1740,9 +1797,6 @@ msgid ""
 msgstr ""
 "Opcional, para entender la frase. Puedes marcar la palabra: Se escapó "
 "{lejos}."
-
-msgid "Note"
-msgstr "Nota"
 
 msgid "Separate more variants with a semicolon"
 msgstr "Separa varias variantes con punto y coma"
@@ -1809,12 +1863,6 @@ msgstr "mazo superior"
 msgid "description"
 msgstr "descripción"
 
-msgid "language to learn"
-msgstr "idioma que quiero aprender"
-
-msgid "language I speak"
-msgstr "idioma que hablo"
-
 msgid "deck"
 msgstr "mazo"
 
@@ -1866,17 +1914,11 @@ msgstr "variante"
 msgid "variants"
 msgstr "variantes"
 
-msgid "sentence translation"
-msgstr "traducción de la frase"
-
 msgid "word in deck"
 msgstr "palabra en el mazo"
 
 msgid "words in decks"
 msgstr "palabras en mazos"
-
-msgid "foreign word"
-msgstr "palabra extranjera"
 
 msgid "saved"
 msgstr "guardada"
@@ -2230,6 +2272,9 @@ msgstr "Más acciones"
 msgid "Remove from this deck"
 msgstr "Quitar de este mazo"
 
+msgid "Edit the report"
+msgstr "Editar el reporte"
+
 msgid "Reviews"
 msgstr "Repasos"
 
@@ -2322,6 +2367,34 @@ msgstr "Guardar y volver al test"
 msgid "Back to the test without saving"
 msgstr "Volver al test sin guardar"
 
+#| msgid "translation"
+msgid "Translation:"
+msgstr "Traducción:"
+
+#| msgid "sentence"
+msgid "Sentence:"
+msgstr "Frase:"
+
+#| msgid "Sentence translation"
+msgid "Sentence translation:"
+msgstr "Traducción de la frase:"
+
+msgid ""
+"The report helps to fix the dictionary of the app. Your word does not "
+"change: you can fix it with Edit."
+msgstr ""
+"El reporte ayuda a corregir el diccionario de la aplicación. Tu palabra no "
+"cambia: puedes corregirla con Editar."
+
+msgid "Save the report"
+msgstr "Guardar el reporte"
+
+msgid "Report"
+msgstr "Reportar"
+
+msgid "Back"
+msgstr "Volver"
+
 msgid "Move words"
 msgstr "Mover palabras"
 
@@ -2348,9 +2421,6 @@ msgstr ""
 
 msgid "Add sub-deck"
 msgstr "Añadir submazo"
-
-msgid "Back"
-msgstr "Volver"
 
 msgid "Words from a topic"
 msgstr "Palabras de un tema"
@@ -2498,6 +2568,9 @@ msgstr "Palabra añadida."
 
 msgid "The word could not be added, check the form."
 msgstr "No se ha podido añadir la palabra, revisa el formulario."
+
+msgid "Thanks, the mistake is reported."
+msgstr "Gracias, el error está reportado."
 
 #, python-format
 msgid "Added: %(word)s → %(native)s"

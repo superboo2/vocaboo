@@ -15,6 +15,10 @@
         {# ✎ is a plain text symbol, grey like "?" (an emoji would draw too much attention) #}
         <button type="button" class="outline secondary" data-action="edit-term"
                 aria-label="{% translate 'Edit word' %}" title="{% translate 'Edit word (E)' %}">✎</button>
+        {# Report a mistake of the hints (a wrong suggested translation or sentence), then back #}
+        {# to the same card; ⚐ is a plain text symbol like ✎ #}
+        <button type="button" class="outline secondary" data-action="report-term"
+                aria-label="{% translate 'Report a mistake' %}" title="{% translate 'Report a mistake' %}">⚐</button>
       </div>
       <form method="post" action="{% url 'study:finish' session.pk %}">
         {% csrf_token %}

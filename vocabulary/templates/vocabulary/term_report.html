@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% load i18n arrows vocabulary_tags %}
+
+{# "Report a mistake" on the word page or in a test (views.term_report): the word as it is #}
+{# now and what is wrong #}
+
+{% block title %}{% translate "Report a mistake" %} · Vocaboo{% endblock %}
+
+{% block content %}
+  {% include "vocabulary/_breadcrumbs.html" with current=term.main_foreign %}
+
+  <article class="form-box">
+    <header>
+      <h1>{% translate "Report a mistake" %}</h1>
+    </header>
+
+    {# Labelled rows, so the choices below ("suggested translation", "suggested sentence") #}
+    {# point at what is shown here #}
+    <p class="report-word"><strong>{{ term.foreign_variants|join:" · " }}</strong></p>
+    <dl class="report-rows">
+      <dt>{% translate "Translation:" %}</dt>
+      <dd>{{ term.native_variants|join:" · " }}</dd>
+      {% if deck_term.context_sentence %}
+        <dt>{% translate "Sentence:" %}</dt>
+        <dd>„{{ deck_term.context_sentence|marked_sentence:term.foreign_variants }}“</dd>
+      {% endif %}
+      {% if deck_term.context_sentence_native %}
+        <dt>{% translate "Sentence translation:" %}</dt>
+        <dd>„{{ deck_term.context_sentence_native|marked_sentence:term.native_variants }}“</dd>
+      {% endif %}
+    </dl>
+
+    <form method="post">
+      {% csrf_token %}
+      {{ form }}
+      <p class="muted"><small>{% translate "The report helps to fix the dictionary of the app. Your word does not change: you can fix it with Edit." %}</small></p>
+      <div class="actions">
+        <button type="submit">{% if report %}{% translate "Save the report" %}{% else %}{% translate "Report" %}{% endif %}</button>
+        <a href="{{ back }}" role="button" class="secondary outline">{% translate "Back" %}</a>
+      </div>
+    </form>
+  </article>
+{% endblock %}

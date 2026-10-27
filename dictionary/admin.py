@@ -4,6 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from .models import (
     Concept,
     ConceptText,
+    ErrorReport,
     LexiconPackage,
     LexiconTag,
     LexiconWord,
@@ -66,3 +67,27 @@ class LexiconPackageAdmin(admin.ModelAdmin):
 @admin.register(LexiconTag)
 class LexiconTagAdmin(admin.ModelAdmin):
     list_display = ("name", "slug", "parent")
+
+
+@admin.register(ErrorReport)
+class ErrorReportAdmin(admin.ModelAdmin):
+    """Mistakes the users reported on the word page (dictionary.reports); the command
+    reported_words lists the open ones for the next fix round."""
+
+    list_display = (
+        "foreign",
+        "native",
+        "kind",
+        "foreign_language",
+        "user",
+        "created_at",
+        "resolved",
+    )
+    list_filter = ("resolved", "kind", "foreign_language")
+    search_fields = ("foreign", "native", "note")
+    raw_id_fields = ("user", "term")
+    actions = ["mark_resolved"]
+
+    @admin.action(description=_("Mark as resolved"))
+    def mark_resolved(self, request, queryset):
+        queryset.update(resolved=True)

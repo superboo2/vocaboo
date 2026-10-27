@@ -7,6 +7,7 @@ import pytest
 from django.urls import reverse
 from django.utils import timezone
 
+from dictionary.models import ErrorReport
 from study import services
 from study.models import ReviewLog, ReviewState, StudySession
 from vocabulary import services as vocabulary
@@ -386,6 +387,26 @@ def test_edit_from_test_goes_back_to_the_same_card(logged_client, user, himym, w
     # The card was not rated, so it comes again, now fixed
     assert services.next_card(session).pk == state.pk
     assert ReviewLog.objects.filter(session=session).count() == 0
+
+
+def test_report_from_test_goes_back_to_the_same_card(logged_client, user, himym, words):
+    session = new_session(user, himym)
+    state = services.next_card(session)
+    deck_term = state.term.deck_terms.get()
+    url = reverse("vocabulary:term_report", args=[himym.pk, deck_term.pk]) + f"?test={session.pk}"
+
+    card = logged_client.get(reverse("study:card", args=[session.pk])).content.decode()
+    assert f'data-report-url="{url}"' in card and 'data-action="report-term"' in card
+    # "Back" goes to the test too
+    back = reverse("study:card", args=[session.pk])
+    assert f'href="{back}"' in logged_client.get(url).content.decode()
+
+    response = logged_client.post(url, {"kind": "translation"})
+
+    assert response.url == back
+    assert ErrorReport.objects.get().term == state.term
+    # The card was not rated, so it comes again
+    assert services.next_card(session).pk == state.pk
 
 
 def test_edit_without_test_or_with_finished_test_goes_to_the_deck(

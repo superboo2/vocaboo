@@ -36,6 +36,7 @@ urlpatterns = [
         name="term_add_meaning",
     ),
     path("decks/<int:deck_pk>/words/<int:pk>/remove/", views.term_remove, name="term_remove"),
+    path("decks/<int:deck_pk>/words/<int:pk>/report/", views.term_report, name="term_report"),
     path(
         "decks/<int:pk>/reorder/<str:direction>/",
         views.deck_reorder,

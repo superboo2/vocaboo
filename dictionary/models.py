@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.db.models import F
 from django.db.models.functions import Lower
@@ -204,3 +205,64 @@ class LexiconPackage(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class ErrorReport(models.Model):
+    """A mistake in a suggested translation or sentence that a user reported on the word page
+    or in a test.
+
+    Keeps a copy of the word as it was when reported (the word can change or be deleted
+    later). The command reported_words lists the open ones for the next fix round of the
+    dictionary (docs/slovnik.md); an admin marks them resolved.
+    """
+
+    class Kind(models.TextChoices):
+        # The hints of the app suggested a wrong translation of the word
+        TRANSLATION = "translation", _("Wrong suggested translation")
+        # The suggested sentence or its translation does not fit the meaning of the word
+        SENTENCE = "sentence", _("Wrong suggested sentence")
+        OTHER = "other", _("Something else")
+
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        verbose_name=_("user"),
+        on_delete=models.CASCADE,
+        related_name="error_reports",
+    )
+    term = models.ForeignKey(
+        "vocabulary.Term",
+        verbose_name=pgettext_lazy("dictionary entry", "word"),
+        null=True,
+        blank=True,
+        on_delete=models.SET_NULL,
+        related_name="error_reports",
+    )
+    # The copy of the word: language codes (e.g. "en", "cs") and the variants joined by "; "
+    foreign_language = models.CharField(_("language to learn"), max_length=2)
+    native_language = models.CharField(_("language I speak"), max_length=2)
+    foreign = models.CharField(_("foreign word"), max_length=500)
+    native = models.CharField(_("translation"), max_length=500)
+    sentence = models.TextField(_("sentence"), blank=True)
+    sentence_native = models.TextField(_("sentence translation"), blank=True)
+    kind = models.CharField(_("what is wrong"), max_length=20, choices=Kind)
+    note = models.TextField(_("note"), blank=True)
+    resolved = models.BooleanField(_("resolved"), default=False)
+    created_at = models.DateTimeField(_("reported"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("changed"), auto_now=True)
+
+    class Meta:
+        verbose_name = _("error report")
+        verbose_name_plural = _("error reports")
+        ordering = ["-created_at"]
+        constraints = [
+            # One open report of a user for one word: reporting again changes it
+            models.UniqueConstraint(
+                F("user"),
+                F("term"),
+                condition=models.Q(resolved=False),
+                name="unique_open_error_report",
+            ),
+        ]
+
+    def __str__(self):
+        return f"{self.foreign} → {self.native}"

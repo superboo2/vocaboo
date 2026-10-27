@@ -101,6 +101,25 @@ spustí `import_lexicon --if-empty` (když je slovník v databázi prázdný, na
 balíčky podle data; jinak nedělá nic). Ručně `import_lexicon` slovník vždy nahradí,
 `import_lexicon --check` jen zkontroluje soubory.
 
+## Postup: nahlášené chyby
+
+Uživatel může na detailu slovíčka (menu ⋯ › *Nahlásit chybu*) nebo v testu (tlačítko ⚐ pod
+kartičkou) nahlásit *Chybu v návrhu překladu*, *Chybu v návrhu věty* (věta nebo její překlad
+neodpovídá významu) nebo *Jiné*, s poznámkou. Hlášení (`ErrorReport`) si uloží kopii
+slovíčka, jak bylo v tu chvíli; s pojmem slovníku propojené není, dohledá se podle textu.
+
+1. **Na serveru** vypsat otevřená hlášení s pojmy, kterých se týkají:
+   ```bash
+   sudo -u vocaboo -H ~vocaboo/.local/bin/uv run python manage.py reported_words
+   ```
+   U každého hlášení `concepts:` = pojmy cizího slova, jejichž překlad sdílí variantu
+   s nahlášeným; když žádný (uživatel měl vlastní překlad), všechny pojmy slova.
+2. **Lokálně** výpis vložit Claudovi (klidně spolu s dalšími opravami slovníku):
+   opravy jdou do nového balíčku v `extensions/`, ID pojmů se nemění.
+3. Po nasazení balíčku hlášení v adminu označit jako vyřízená (*Slovník › Hlášení chyb*,
+   akce *Označit jako vyřízené*). Slovíčka, která si uživatelé už uložili, se opravou slovníku
+   nemění.
+
 ## Postup: překlad do dalšího jazyka (postupně)
 
 Nový jazyk se přidává **balíčky jen s texty toho jazyka** ke stávajícím pojmům, po 500–1 000

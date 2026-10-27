@@ -2,6 +2,8 @@ from django import forms
 from django.core.exceptions import NON_FIELD_ERRORS, ValidationError
 from django.utils.translation import gettext_lazy as _
 
+from dictionary.models import ErrorReport
+
 from .models import Language
 
 
@@ -95,6 +97,20 @@ class TermMoveForm(forms.Form):
 
     def clean_target(self):
         return self.targets[self.cleaned_data["target"]]
+
+
+class ErrorReportForm(forms.Form):
+    """ "Report a mistake" on the word page (dictionary.reports)."""
+
+    kind = forms.ChoiceField(
+        label=_("What is wrong?"), choices=ErrorReport.Kind.choices, widget=forms.RadioSelect
+    )
+    note = forms.CharField(
+        label=_("Note"),
+        required=False,
+        widget=forms.Textarea(attrs={"rows": 2}),
+        help_text=_("Optional, e.g. the right translation."),
+    )
 
 
 # A word with two variants in each language, as the sample of an empty word field ("hello; hi").

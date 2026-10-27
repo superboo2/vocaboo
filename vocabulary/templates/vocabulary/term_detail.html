@@ -22,6 +22,7 @@
       <ul>
         <li><a href="{% url 'vocabulary:terms_move' deck.pk %}?ids={{ deck_term.pk }}">{% translate "Move" %}</a></li>
         <li><a href="{% url 'vocabulary:term_remove' deck.pk deck_term.pk %}">{% translate "Remove from this deck" %}</a></li>
+        <li><a href="{% url 'vocabulary:term_report' deck.pk deck_term.pk %}">{% if reported %}{% translate "Edit the report" %}{% else %}{% translate "Report a mistake" %}{% endif %}</a></li>
       </ul>
     </details>
   </div>

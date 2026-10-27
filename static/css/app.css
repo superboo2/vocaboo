@@ -768,6 +768,28 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
   padding-left: 1.25rem;
 }
 
+/* Report a mistake: the word, then its parts with grey labels on the left */
+.report-word {
+  margin-bottom: 0.5rem;
+  font-size: 1.25rem;
+}
+
+.report-rows {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 0.75rem;
+  margin: 0 0 1.25rem;
+}
+
+.report-rows dt {
+  color: var(--pico-muted-color);
+  font-weight: normal;
+}
+
+.report-rows dd {
+  margin: 0;
+}
+
 .hint {
   font-style: italic;
 }

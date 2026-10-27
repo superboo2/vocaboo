@@ -11,7 +11,7 @@ from django.utils.translation import gettext as _
 from django.utils.translation import ngettext
 from django.views.decorators.http import require_POST
 
-from dictionary import topics
+from dictionary import reports, topics
 from dictionary.providers import get_pronunciation, get_suggestions, other_meanings
 from study import services as study_services
 from study.models import StudySession
@@ -21,6 +21,7 @@ from .forms import (
     DeckCreateForm,
     DeckForm,
     DeckMoveForm,
+    ErrorReportForm,
     TermForm,
     TermMoveForm,
     add_service_errors,
@@ -548,6 +549,42 @@ def term_detail(request, deck_pk, pk):
                 term.main_foreign, term.foreign_language.code, with_ipa=request.user.show_ipa
             ),
             "history": study_services.term_history(term),
+            "ancestors": services.get_ancestors(deck_term.deck),
+            "reported": reports.open_report(request.user, term) is not None,
+        },
+    )
+
+
+def term_report(request, deck_pk, pk):
+    """ "Report a mistake" on the word page or in a test (?test=pk, button ⚐ on the card):
+    what is wrong with the suggested translation or sentence, for the next fix round of the
+    dictionary (dictionary.reports). A second report of the word changes the open one. From
+    a test it goes back to the same card."""
+    deck_term = _get_deck_term(request, deck_pk, pk)
+    test = _running_test(request)
+    if test:
+        back = reverse("study:card", kwargs={"pk": test.pk})
+    else:
+        back = reverse(
+            "vocabulary:term_detail", kwargs={"deck_pk": deck_term.deck_id, "pk": deck_term.pk}
+        )
+    report = reports.open_report(request.user, deck_term.term)
+    initial = {"kind": report.kind, "note": report.note} if report else None
+    form = ErrorReportForm(request.POST or None, initial=initial)
+    if request.method == "POST" and form.is_valid():
+        reports.report_error(request.user, deck_term, **form.cleaned_data)
+        messages.success(request, _("Thanks, the mistake is reported."))
+        return redirect(back)
+    return render(
+        request,
+        "vocabulary/term_report.html",
+        {
+            "deck": deck_term.deck,
+            "deck_term": deck_term,
+            "term": deck_term.term,
+            "form": form,
+            "report": report,
+            "back": back,
             "ancestors": services.get_ancestors(deck_term.deck),
         },
     )
