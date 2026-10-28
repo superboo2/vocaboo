@@ -23,7 +23,7 @@
   <section>
     <h2>Nuevo mazo e idiomas</h2>
     <ol>
-      <li>En el <a href="{% url 'dashboard' %}">Resumen</a>, haz clic en <strong>+ Nuevo mazo</strong>.</li>
+      <li>En <a href="{% url 'dashboard' %}">Inicio</a>, haz clic en <strong>+ Nuevo mazo</strong>.</li>
       <li>Rellena el nombre y los idiomas:
         <ul>
           <li><strong>Quiero aprender</strong>: el idioma de las palabras, p. ej. inglés,</li>
@@ -41,7 +41,7 @@
   </section>
 
   <section>
-    <h2>El árbol en el Resumen</h2>
+    <h2>El árbol en Inicio</h2>
     <div class="overflow-auto"><table>
       <tbody>
         <tr><td>📂 / 📁</td><td>mazo con submazos, abierto / cerrado</td></tr>
@@ -56,7 +56,7 @@
 
   <section>
     <h2>Mover arrastrando y soltando</h2>
-    <p><strong>Para mover un mazo en el Resumen, arrástralo. En el móvil, primero mantenlo pulsado un momento.</strong></p>
+    <p><strong>Para mover un mazo en Inicio, arrástralo. En el móvil, primero mantenlo pulsado un momento.</strong></p>
     <p>Agarra el mazo y arrástralo. Las filas no se mueven mientras arrastras; solo ves dónde caerá el mazo:</p>
     <ul>
       <li><strong>sobre el centro de una fila</strong>: la fila se resalta y el mazo va <strong>dentro</strong> de ella, incluso a un mazo que todavía no tiene submazos,</li>
@@ -68,7 +68,7 @@
     </p>
     <p>El movimiento se guarda en cuanto sueltas. No es posible cuando:</p>
     <ul>
-      <li>la carpeta de destino tiene otro par de idiomas,</li>
+      <li>la carpeta de destino tiene otros idiomas,</li>
       <li>el mazo acabaría dentro de sí mismo o dentro de uno de sus submazos,</li>
       <li>el árbol tendría más de {{ max_depth }} niveles,</li>
       <li>la carpeta de destino ya tiene un mazo con el mismo nombre.</li>
@@ -80,8 +80,8 @@
     <h2>Más opciones en la página del mazo</h2>
     <ul>
       <li><strong>Practicar mazo</strong>: un test solo de este mazo y sus submazos.</li>
-      <li><strong>⋯</strong> junto al nombre del mazo abre un menú: <strong>Renombrar y descripción</strong>, <strong>Mover</strong> y <strong>Eliminar</strong>.</li>
-      <li><strong>Renombrar y descripción</strong>: el nombre y la descripción.</li>
+      <li><strong>⋯</strong> junto al nombre del mazo abre un menú: <strong>Editar nombre y descripción</strong>, <strong>Mover</strong> y <strong>Eliminar</strong>.</li>
+      <li><strong>Editar nombre y descripción</strong>: el nombre y la descripción.</li>
       <li><strong>Mover</strong>: mover eligiendo de una lista; solo se ofrecen los lugares a los que puede ir el mazo. También es práctico si usas el teclado.</li>
       <li><strong>Flechas ↑ ↓</strong> junto a los submazos: cambian el orden sin arrastrar.</li>
       <li><strong>Eliminar</strong>: elimina el mazo <strong>y sus submazos</strong>, además de las palabras que no están en ningún otro mazo. Las palabras que también están en otro sitio se quedan. Antes de eliminar, ves cuánto se va a borrar de cada cosa.</li>

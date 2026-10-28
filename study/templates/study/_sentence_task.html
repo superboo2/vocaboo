@@ -36,7 +36,7 @@
           </label>
         </div>
         {% if error %}<p class="field-error">{{ error }}</p>{% endif %}
-        <small class="muted">{% translate "I find the word in the sentence myself, mark another form with braces: He {ran} away. The translation is optional." %}</small>
+        <small class="muted">{% translate "The word is found automatically; mark another form with braces: He {ran} away." %} {% translate "The translation is optional." %}</small>
 
         {% if task.example %}
           <p class="sentence-example">

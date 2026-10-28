@@ -129,12 +129,11 @@ class TermForm(forms.Form):
     foreign = forms.CharField(max_length=1000)
     native = forms.CharField(max_length=1000)
     context_sentence = forms.CharField(
-        label=_("Use in a sentence"),
+        label=_("Sentence"),
         required=False,
         widget=forms.Textarea(attrs={"rows": 2}),
         help_text=_(
-            "The word is found in the sentence automatically. "
-            "Mark a different form with braces: He {ran} away."
+            "The word is found automatically; mark another form with braces: He {ran} away."
         ),
     )
     context_sentence_native = forms.CharField(

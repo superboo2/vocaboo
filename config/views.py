@@ -62,6 +62,9 @@ def help_page(request, topic):
             "topics": HELP_TOPICS,
             "topic": topic,
             "topic_name": topics[topic],
+            # Name of the tabs for screen readers; here, because help templates are not scanned
+            # by makemessages
+            "tabs_label": _("Help sections"),
             # The table of buttons comes from study/ratings.py, so it is always right
             "ratings": RATINGS,
             "max_interval": MAX_INTERVAL,

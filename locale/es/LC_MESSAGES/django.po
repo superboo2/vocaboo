@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-28 10:43+0100\n"
+"POT-Creation-Date: 2026-10-28 11:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,8 +44,8 @@ msgstr "Dirección del test por defecto"
 msgid "Suggest translations"
 msgstr "Sugerir traducciones"
 
-msgid "Show other meanings from the dictionary"
-msgstr "Mostrar otros significados del diccionario"
+msgid "Show other meanings from the app dictionary"
+msgstr "Mostrar otros significados del diccionario de la aplicación"
 
 msgid "Play automatically"
 msgstr "Reproducir automáticamente"
@@ -66,11 +66,11 @@ msgid "It is filled in when you set up a new test."
 msgstr "Se rellena al configurar un test nuevo."
 
 msgid ""
-"While you type a foreign word, suggestions from the dictionary show up under"
-" the translation field."
+"While you type a foreign word, suggestions from the app dictionary show up "
+"under the translation field."
 msgstr ""
 "Mientras escribes una palabra extranjera, bajo el campo de traducción "
-"aparecen sugerencias del diccionario."
+"aparecen sugerencias del diccionario de la aplicación."
 
 msgid ""
 "At the bottom of the back of the card, as many as fit on one line, the rest "
@@ -121,7 +121,7 @@ msgstr ""
 msgid "Your current password is wrong, try again."
 msgstr "Tu contraseña actual no es correcta, inténtalo de nuevo."
 
-msgid "The new passwords don't match."
+msgid "New passwords do not match."
 msgstr "Las contraseñas nuevas no coinciden."
 
 msgid "Current password"
@@ -167,7 +167,7 @@ msgstr "Este código de invitación no es correcto."
 msgid "Leave this field empty."
 msgstr "Deja este campo vacío."
 
-msgid "The passwords don't match."
+msgid "Passwords do not match."
 msgstr "Las contraseñas no coinciden."
 
 msgid "Code from the email"
@@ -284,7 +284,7 @@ msgid "Password change"
 msgstr "Cambio de contraseña"
 
 msgid "Overview"
-msgstr "Resumen"
+msgstr "Inicio"
 
 msgid "Settings"
 msgstr "Ajustes"
@@ -389,7 +389,10 @@ msgid "Words"
 msgstr "Palabras"
 
 msgid "Overview and statistics"
-msgstr "Resumen y estadísticas"
+msgstr "Inicio y estadísticas"
+
+msgid "Help sections"
+msgstr "Secciones de la ayuda"
 
 msgid "dictionary words"
 msgstr "palabras del diccionario"
@@ -570,16 +573,16 @@ msgid "resolved"
 msgstr "resuelto"
 
 msgid "reported"
-msgstr "reportado"
+msgstr "avisado"
 
 msgid "changed"
 msgstr "cambiado"
 
 msgid "error report"
-msgstr "reporte de error"
+msgstr "aviso de error"
 
 msgid "error reports"
-msgstr "reportes de errores"
+msgstr "avisos de errores"
 
 msgctxt "part of speech"
 msgid "n."
@@ -1022,7 +1025,7 @@ msgid "All"
 msgstr "Todo"
 
 msgid "You think longest about"
-msgstr "Lo que más tiempo piensas"
+msgstr "En lo que más tardas en pensar"
 
 msgid "Only one way"
 msgstr "Solo en un sentido"
@@ -1045,7 +1048,7 @@ msgstr "Montaña rusa"
 msgid "Too fast"
 msgstr "Demasiado rápido"
 
-msgid "Longest you struggle with"
+msgid "Struggling the longest"
 msgstr "Lo que más tiempo se te resiste"
 
 msgid "Learning it longest"
@@ -1095,14 +1098,14 @@ msgstr[0] "palabra aprendida"
 msgstr[1] "palabras aprendidas"
 
 msgid ""
-"Words that today became “known” for the first time: right twice in a row "
-"foreign → native. The second right answer comes only after an interval, so "
-"for new words in a few days at the earliest."
+"Words that today became “known” for the first time: right twice in a row (😎 "
+"or 🤔) in every tested direction. The second right answer comes only after an"
+" interval, so for new words in a few days at the earliest."
 msgstr ""
 "Palabras que hoy han pasado a “sabidas” por primera vez: bien dos veces "
-"seguidas idioma extranjero → tu idioma. La segunda respuesta correcta llega "
-"solo tras un intervalo, así que para palabras nuevas, como pronto en unos "
-"días."
+"seguidas (😎 o 🤔) en cada sentido probado. La segunda respuesta correcta "
+"llega solo tras un intervalo, así que para palabras nuevas, como pronto en "
+"unos días."
 
 msgid "time in tests"
 msgstr "tiempo en tests"
@@ -1123,7 +1126,7 @@ msgstr "extranjero"
 
 msgctxt "language"
 msgid "native"
-msgstr "tuyo"
+msgstr "tu idioma"
 
 msgctxt "test scope"
 msgid "all"
@@ -1161,8 +1164,8 @@ msgid "Total words %(unit)s since %(date)s"
 msgstr "Total de palabras %(unit)s desde el %(date)s"
 
 #, python-format
-msgid "Known words %(unit)s since %(date)s"
-msgstr "Palabras aprendidas %(unit)s desde el %(date)s"
+msgid "Words you know %(unit)s since %(date)s"
+msgstr "Palabras que sabes %(unit)s desde el %(date)s"
 
 msgid "by day"
 msgstr "por día"
@@ -1332,11 +1335,13 @@ msgstr "Su traducción"
 
 #, python-brace-format
 msgid ""
-"I find the word in the sentence myself, mark another form with braces: He "
-"{ran} away. The translation is optional."
+"The word is found automatically; mark another form with braces: He {ran} "
+"away."
 msgstr ""
-"La palabra en la frase la encuentro yo; marca otra forma con llaves: He "
-"{ran} away. La traducción es opcional."
+"La palabra se encuentra sola; marca otra forma con llaves: He {ran} away."
+
+msgid "The translation is optional."
+msgstr "La traducción es opcional."
 
 msgid "Example:"
 msgstr "Ejemplo:"
@@ -1359,8 +1364,8 @@ msgstr "Cuándo"
 msgid "Deck"
 msgstr "Mazo"
 
-msgid "Scope"
-msgstr "Alcance"
+msgid "Cards"
+msgstr "Tarjetas"
 
 msgid ""
 "With both directions (⇄) every word is in the test twice, once each way."
@@ -1394,7 +1399,7 @@ msgid "Edit word (E)"
 msgstr "Editar palabra (E)"
 
 msgid "Report a mistake"
-msgstr "Reportar un error"
+msgstr "Avisar de un error"
 
 msgid "Finish test"
 msgstr "Terminar test"
@@ -1422,8 +1427,8 @@ msgid "New deck"
 msgstr "Nuevo mazo"
 
 #, python-format
-msgid "and %(counter)s subdeck"
-msgid_plural "and %(counter)s subdecks"
+msgid "and %(counter)s sub-deck"
+msgid_plural "and %(counter)s sub-decks"
 msgstr[0] "y %(counter)s submazo"
 msgstr[1] "y %(counter)s submazos"
 
@@ -1431,8 +1436,8 @@ msgid "Change"
 msgstr "Cambiar"
 
 msgid ""
-"Subdecks are included automatically. A word that is in more decks comes only"
-" once."
+"Sub-decks are included automatically. A word that is in more decks comes "
+"only once."
 msgstr ""
 "Los submazos se incluyen automáticamente. Una palabra que está en varios "
 "mazos sale solo una vez."
@@ -1467,8 +1472,8 @@ msgctxt "chart of known words"
 msgid "You know"
 msgstr "Sabes"
 
-msgid "Learned = 2× in a row 😎 or 🤔 in each direction."
-msgstr "Aprendida = 2 veces seguidas 😎 o 🤔 en cada sentido."
+msgid "You know a word when every tested direction got 2× in a row 😎 or 🤔."
+msgstr "La sabes = en cada sentido probado 2 veces seguidas 😎 o 🤔."
 
 msgid "What you struggle with"
 msgstr "Lo que se te resiste"
@@ -1476,7 +1481,7 @@ msgstr "Lo que se te resiste"
 msgid "In the last 30 days"
 msgstr "En los últimos 30 días"
 
-msgid "Everything goes well for you in the last 30 days 🎉"
+msgid "Everything went well in the last 30 days 🎉"
 msgstr "En los últimos 30 días todo te va bien 🎉"
 
 msgid "No tests in the last 30 days."
@@ -1501,11 +1506,11 @@ msgstr "Practicar otra vez las falladas"
 msgid "All correct!"
 msgstr "¡Todo bien!"
 
-msgid "There are no cards to review right now."
-msgstr "Ahora mismo no hay tarjetas para repasar."
+msgid "No cards were rated in this test."
+msgstr "En este test no se valoró ninguna tarjeta."
 
-msgid "Back to dashboard"
-msgstr "Volver al resumen"
+msgid "Back to overview"
+msgstr "Volver al inicio"
 
 msgctxt "due"
 msgid "new"
@@ -1682,12 +1687,12 @@ msgstr "Enviar un enlace nuevo"
 msgid "Forgotten password"
 msgstr "Contraseña olvidada"
 
-msgid "Look into your email"
+msgid "Check your email"
 msgstr "Mira tu correo"
 
 msgid ""
-"If the email has an account, a link to set a new password is on its way. It "
-"works for 24 hours. No email? Look into spam too."
+"If there is an account for this email, a link to set a new password is on "
+"its way. It works for 24 hours. No email? Check your spam folder too."
 msgstr ""
 "Si el correo tiene una cuenta, te llegará un enlace para poner una "
 "contraseña nueva. Funciona 24 horas. ¿No te llega? Mira también en spam."
@@ -1737,7 +1742,7 @@ msgstr ""
 msgid "Confirm"
 msgstr "Confirmar"
 
-msgid "No email? Look into spam too."
+msgid "No email? Check your spam folder too."
 msgstr "¿No te llega el correo? Mira también en spam."
 
 msgid "Send a new code"
@@ -1784,16 +1789,8 @@ msgstr "Nota"
 msgid "Optional, e.g. the right translation."
 msgstr "Opcional, por ejemplo la traducción correcta."
 
-msgid "Use in a sentence"
-msgstr "Uso en una frase"
-
-#, python-brace-format
-msgid ""
-"The word is found in the sentence automatically. Mark a different form with "
-"braces: He {ran} away."
-msgstr ""
-"La palabra se encuentra en la frase automáticamente. Marca otra forma con "
-"llaves: He {ran} away."
+msgid "Sentence"
+msgstr "Frase"
 
 msgid "Sentence translation"
 msgstr "Traducción de la frase"
@@ -1908,7 +1905,7 @@ msgid "foreign"
 msgstr "extranjero"
 
 msgid "native"
-msgstr "nativo"
+msgstr "tu idioma"
 
 msgid "side"
 msgstr "lado"
@@ -1956,8 +1953,8 @@ msgstr "El mazo de destino pertenece a otra persona."
 msgid "A deck cannot be moved into itself or into its own sub-deck."
 msgstr "Un mazo no se puede mover dentro de sí mismo ni de su propio submazo."
 
-msgid "A deck can only be moved under a deck with the same language pair."
-msgstr "Un mazo solo se puede mover bajo un mazo con el mismo par de idiomas."
+msgid "A deck can only be moved under a deck with the same languages."
+msgstr "Un mazo solo se puede mover bajo un mazo con los mismos idiomas."
 
 #, python-format
 msgid "After the move, the tree would have more than %(max)d levels."
@@ -2174,11 +2171,11 @@ msgstr[1] ""
 msgid "This cannot be undone."
 msgstr "Esto no se puede deshacer."
 
-msgid "Edit deck"
-msgstr "Editar mazo"
+msgid "More actions"
+msgstr "Más acciones"
 
-msgid "Rename and description"
-msgstr "Renombrar y descripción"
+msgid "Edit name and description"
+msgstr "Editar nombre y descripción"
 
 msgid "Move"
 msgstr "Mover"
@@ -2210,8 +2207,8 @@ msgstr ""
 "%(max_depth)s niveles."
 
 #, python-format
-msgid "Under the deck “%(name)s”, the languages %(pair)s are taken over."
-msgstr "Bajo el mazo “%(name)s”, se heredan los idiomas %(pair)s."
+msgid "The sub-deck takes over the languages of “%(name)s” (%(pair)s)."
+msgstr "El submazo hereda los idiomas de “%(name)s” (%(pair)s)."
 
 msgid ""
 "Words saved without a translation. Tap a word: its deck opens with the word "
@@ -2227,19 +2224,16 @@ msgctxt "word for later"
 msgid "Saved"
 msgstr "Guardada"
 
-msgid "Remove"
-msgstr "Quitar"
-
 #, python-format
-msgid "Remove %(word)s"
-msgstr "Quitar %(word)s"
+msgid "Delete %(word)s"
+msgstr "Eliminar %(word)s"
 
 msgid "No word is waiting for a translation."
 msgstr "Ninguna palabra espera traducción."
 
 #, python-format
-msgid "Back to the deck %(name)s"
-msgstr "Volver al mazo %(name)s"
+msgid "Back to the deck “%(name)s”"
+msgstr "Volver al mazo “%(name)s”"
 
 msgid "Search"
 msgstr "Buscar"
@@ -2271,11 +2265,11 @@ msgstr ""
 "La palabra no está en ningún otro mazo, así que se eliminará por completo, "
 "junto con su historial de repasos."
 
+msgid "Remove"
+msgstr "Quitar"
+
 msgid "Edit"
 msgstr "Editar"
-
-msgid "More actions"
-msgstr "Más acciones"
 
 msgid "Remove from this deck"
 msgstr "Quitar de este mazo"
@@ -2339,8 +2333,8 @@ msgstr "En los mazos"
 msgid "Other meanings"
 msgstr "Otros significados"
 
-msgid "already learning"
-msgstr "ya la estás aprendiendo"
+msgid "you have it already"
+msgstr "ya la tienes"
 
 msgid "Learn this meaning too"
 msgstr "Aprender también este significado"
@@ -2383,23 +2377,20 @@ msgstr "Traducción de la frase:"
 
 #, python-format
 msgid "Reported on %(day)s. You can change it here."
-msgstr "Reportado el %(day)s. Puedes cambiarlo aquí."
+msgstr "Avisado el %(day)s. Puedes cambiarlo aquí."
 
 msgid ""
 "The report helps to fix the dictionary of the app. Your word does not "
 "change: you can fix it with Edit."
 msgstr ""
-"El reporte ayuda a corregir el diccionario de la aplicación. Tu palabra no "
+"El aviso ayuda a corregir el diccionario de la aplicación. Tu palabra no "
 "cambia: puedes corregirla con Editar."
 
 msgid "Save changes"
 msgstr "Guardar cambios"
 
 msgid "Report"
-msgstr "Reportar"
-
-msgid "Back"
-msgstr "Volver"
+msgstr "Avisar"
 
 msgid "Move words"
 msgstr "Mover palabras"
@@ -2427,6 +2418,9 @@ msgstr ""
 
 msgid "Add sub-deck"
 msgstr "Añadir submazo"
+
+msgid "Back"
+msgstr "Volver"
 
 msgid "Words from a topic"
 msgstr "Palabras de un tema"
@@ -2512,7 +2506,7 @@ msgid "Select all on this page"
 msgstr "Seleccionar todo en esta página"
 
 msgid "Add ticked words"
-msgstr "Añadir las marcadas"
+msgstr "Añadir las palabras marcadas"
 
 msgid "No more words for this topic and level. Try another level."
 msgstr "No hay más palabras para este tema y nivel. Prueba otro nivel."
@@ -2559,18 +2553,18 @@ msgstr "Mover mazo"
 
 #, python-format
 msgid ""
-"Only decks with the same language pair where the tree fits are offered (at "
-"most %(max)d levels)."
+"Only decks with the same languages where the tree fits are offered (at most "
+"%(max)d levels)."
 msgstr ""
-"Solo se ofrecen mazos con el mismo par de idiomas donde cabe el árbol (como "
+"Solo se ofrecen mazos con los mismos idiomas donde cabe el árbol (como "
 "máximo %(max)d niveles)."
 
 #, python-format
 msgid "Deck “%(name)s” deleted (decks: %(decks)d, words: %(terms)d)."
 msgstr "Mazo “%(name)s” eliminado (mazos: %(decks)d, palabras: %(terms)d)."
 
-msgid "The place for the deck is missing."
-msgstr "Falta el lugar del mazo."
+msgid "Could not tell where to move the deck. Try again."
+msgstr "No se ha podido saber adónde mover el mazo. Inténtalo de nuevo."
 
 msgid "Word added."
 msgstr "Palabra añadida."
@@ -2578,11 +2572,11 @@ msgstr "Palabra añadida."
 msgid "The word could not be added, check the form."
 msgstr "No se ha podido añadir la palabra, revisa el formulario."
 
-msgid "The report is changed."
-msgstr "El reporte se ha cambiado."
+msgid "Report updated."
+msgstr "Aviso actualizado."
 
 msgid "Thanks, the mistake is reported."
-msgstr "Gracias, el error está reportado."
+msgstr "Gracias por avisar del error."
 
 #, python-format
 msgid "Added: %(word)s → %(native)s"
@@ -2622,5 +2616,5 @@ msgid "Saved for later: %(word)s"
 msgstr "Pendiente: %(word)s"
 
 #, python-format
-msgid "Removed: %(word)s"
-msgstr "Quitada: %(word)s"
+msgid "Deleted: %(word)s"
+msgstr "Eliminado: %(word)s"

@@ -598,13 +598,18 @@ def term_status(states, tested):
     return "known" if is_known(streaks) else "learning"
 
 
+def direction_labels(term):
+    """The two directions of a word named by its languages: {F2N: "EN → CS", N2F: "CS → EN"}."""
+    foreign = term.foreign_language.code.upper()
+    native = term.native_language.code.upper()
+    return {Direction.F2N: f"{foreign} → {native}", Direction.N2F: f"{native} → {foreign}"}
+
+
 def term_history(term, limit=100):
     """Status, review state, chart of the answers and the answers of one word, for each
     direction (spec 7.1). The directions are named by the languages, e.g. "EN → CS"."""
     states = {state.direction: state for state in term.review_states.all()}
-    foreign = term.foreign_language.code.upper()
-    native = term.native_language.code.upper()
-    labels = {Direction.F2N: f"{foreign} → {native}", Direction.N2F: f"{native} → {foreign}"}
+    labels = direction_labels(term)
     logs = list(term.review_logs.order_by("-reviewed_at", "-pk")[:limit])
     for log in logs:
         # For the table: the direction by the languages and the rating as its smiley

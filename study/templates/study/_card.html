@@ -6,7 +6,7 @@
   {# How far the test is: a thin bar, the numbers small under it #}
   <div class="card-progress">
     <span class="progress-bar" aria-hidden="true"><span style="width: {{ progress }}%"></span></span>
-    <small class="muted">{% blocktranslate with done=session.answered left=remaining %}Done {{ done }} · {{ left }} left{% endblocktranslate %} · {{ card.state.get_direction_display }}</small>
+    <small class="muted">{% blocktranslate with done=session.answered left=remaining %}Done {{ done }} · {{ left }} left{% endblocktranslate %} · {{ card.direction_label|arrows }}</small>
   </div>
 
   <article class="flashcard">

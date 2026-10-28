@@ -189,9 +189,7 @@ def _check_move(deck, new_parent):
     if new_parent.pk in get_descendant_ids(deck):
         raise ValidationError(_("A deck cannot be moved into itself or into its own sub-deck."))
     if not _same_languages(new_parent, deck):
-        raise ValidationError(
-            _("A deck can only be moved under a deck with the same language pair.")
-        )
+        raise ValidationError(_("A deck can only be moved under a deck with the same languages."))
     if get_depth(new_parent) + get_subtree_height(deck) > MAX_DEPTH:
         raise ValidationError(
             _("After the move, the tree would have more than %(max)d levels."),

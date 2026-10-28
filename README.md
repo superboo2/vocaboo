@@ -343,7 +343,7 @@ item.term.foreign_variants  # ['hello', 'hi']
 
 A word from a film that you don't know (and the suggestions don't know either) can be saved
 **without a translation**: when the suggestions on the deck page don't know the typed word, their
-row offers *Nápověda slovo nezná · 📝 Odložit*.
+row offers *Návrhy toto slovo neznají · 📝 Odložit*.
 Such words are `vocabulary.PendingWord`, not words of the deck: no tests, statistics or counts.
 The list `/later/` (or `/later/?deck=<id>`) is a small table: tap a word and its deck opens with the usual
 form filled in (`/decks/<id>/?later=<pk>`: the word, the sentence and the note, the cursor in the

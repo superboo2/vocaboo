@@ -94,7 +94,7 @@ FACT_TITLES = {
     "forget": gettext_lazy("You forget"),
     "roller_coaster": gettext_lazy("Roller coaster"),
     "rush": gettext_lazy("Too fast"),
-    "longest": gettext_lazy("Longest you struggle with"),
+    "longest": gettext_lazy("Struggling the longest"),
     "oldest": gettext_lazy("Learning it longest"),
 }
 DASHBOARD_FACTS = 3
@@ -284,8 +284,8 @@ def today_overview(user, now=None):
                 ngettext("word learned", "words learned", learned[today]),
                 _(
                     "Words that today became “known” for the first time: right twice in a row "
-                    "foreign → native. The second right answer comes only after an interval, "
-                    "so for new words in a few days at the earliest."
+                    "(😎 or 🤔) in every tested direction. The second right answer comes only "
+                    "after an interval, so for new words in a few days at the earliest."
                 ),
             ),
             metric(
@@ -505,7 +505,7 @@ def _known_chart(terms, logs, known_now, today):
         counts.append(len(known))
     counts[-1] = known_now
     chart = _line_chart([_bucket_label(start, unit) for start in starts], counts)
-    chart["subtitle"] = _("Known words %(unit)s since %(date)s") % {
+    chart["subtitle"] = _("Words you know %(unit)s since %(date)s") % {
         "unit": UNIT_NAMES[unit],
         "date": _since(first),
     }

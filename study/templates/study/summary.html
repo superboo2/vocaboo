@@ -46,12 +46,12 @@
     </section>
   {% else %}
     <section class="card-section">
-      <p>{% translate "There are no cards to review right now." %}</p>
+      <p>{% translate "No cards were rated in this test." %}</p>
     </section>
   {% endif %}
 
   <div class="actions">
     <a href="{% url 'study:new' %}" role="button" class="outline">{% translate "New test" %}</a>
-    <a href="{% url 'dashboard' %}" role="button" class="secondary outline">{% translate "Back to dashboard" %}</a>
+    <a href="{% url 'dashboard' %}" role="button" class="secondary outline">{% translate "Back to overview" %}</a>
   </div>
 {% endblock %}

@@ -57,8 +57,8 @@ def test_suggestions_offer_saving_a_word_they_do_not_know(logged_client, himym):
     unknown = logged_client.get(url, {"foreign": "gnarly"}, headers=HTMX).content.decode()
     empty = logged_client.get(url, {"foreign": ""}, headers=HTMX).content.decode()
 
-    assert "Nápověda slovo nezná" in unknown and "Odložit" in unknown
-    assert "Nápověda slovo nezná" not in empty
+    assert "Návrhy toto slovo neznají" in unknown and "Odložit" in unknown
+    assert "Návrhy toto slovo neznají" not in empty
 
 
 def test_deck_form_saves_for_later_only_from_the_suggestions(logged_client, himym):
@@ -85,11 +85,11 @@ def test_list_is_a_table_with_a_way_back(logged_client, himym):
 
     html = one_deck.content.decode()
     assert '<table class="later-table">' in html
-    assert "Zpět do slovníku HIMYM" in html
+    assert "Zpět do slovníku „HIMYM“" in html
     # Of all decks: the deck column, and the way back to the overview
     html = all_decks.content.decode()
     assert "HIMYM" in html
-    assert reverse("dashboard") in html
+    assert reverse("dashboard") in html and "← Zpět na přehled" in html
 
 
 def test_no_quick_save_in_the_bar(logged_client, himym):
@@ -164,9 +164,13 @@ def test_list_shows_words_and_removes_them(logged_client, himym):
 
     html = logged_client.get(reverse("vocabulary:later_list")).content.decode()
     assert "gnarly" in html and "HIMYM" in html
+    assert ">Smazat</button>" in html
 
-    logged_client.post(reverse("vocabulary:later_delete", args=[pending.pk]))
+    response = logged_client.post(
+        reverse("vocabulary:later_delete", args=[pending.pk]), follow=True
+    )
     assert not PendingWord.objects.exists()
+    assert "Smazáno: gnarly" in response.content.decode()
 
 
 def test_other_users_cannot_touch_my_words_for_later(client, other_user, himym):

@@ -184,7 +184,7 @@ def test_passwords_must_match_and_follow_the_rules(client):
     assert not User.objects.filter(email="new@example.com").exists()
 
     response = register(client, password2="other-pass-456")
-    assert "nejsou stejná" in response.content.decode()
+    assert "Hesla se neshodují." in response.content.decode()
 
 
 @pytest.mark.django_db

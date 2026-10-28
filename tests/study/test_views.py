@@ -9,7 +9,7 @@ from django.utils import timezone
 
 from dictionary.models import ErrorReport
 from study import services
-from study.models import ReviewLog, ReviewState, StudySession
+from study.models import Direction, ReviewLog, ReviewState, StudySession
 from vocabulary import services as vocabulary
 
 HTMX = {"HX-Request": "true"}
@@ -194,6 +194,19 @@ def test_card_page_shows_question_and_buttons(logged_client, user, himym, words)
     # The help window opens by itself at the first test
     assert 'id="legend"' in html
     assert "data-open-first" in html
+
+
+def test_card_page_names_the_direction_by_languages(logged_client, user, himym, words):
+    session = new_session(user, himym)
+    state = services.next_card(session)
+
+    html = logged_client.get(reverse("study:card", args=[session.pk])).content.decode()
+
+    # "EN → CS" with the arrow as an icon, not the generic "cizí → rodný"
+    first, second = ("EN", "CS") if state.direction == Direction.F2N else ("CS", "EN")
+    assert f'{first}<svg class="arrow"' in html
+    assert f"{second}</small>" in html
+    assert "cizí → rodný" not in html and "rodný → cizí" not in html
 
 
 def test_card_page_shows_intervals_when_the_user_wants(logged_client, user, himym, words):
@@ -397,7 +410,7 @@ def test_report_from_test_goes_back_to_the_same_card(logged_client, user, himym,
 
     card = logged_client.get(reverse("study:card", args=[session.pk])).content.decode()
     assert f'data-report-url="{url}"' in card and 'data-action="report-term"' in card
-    # "Back" goes to the test too
+    # "Cancel" goes to the test too
     back = reverse("study:card", args=[session.pk])
     assert f'href="{back}"' in logged_client.get(url).content.decode()
 

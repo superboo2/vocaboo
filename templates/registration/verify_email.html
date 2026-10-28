@@ -18,7 +18,7 @@
     </form>
 
     {# No email: look into spam, send a new code, or sign up with another email #}
-    <p class="muted">{% translate "No email? Look into spam too." %}</p>
+    <p class="muted">{% translate "No email? Check your spam folder too." %}</p>
     <form method="post" action="{% url 'resend_code' %}" class="auth-links">
       {% csrf_token %}
       <button type="submit" class="link-button">{% translate "Send a new code" %}</button>

@@ -17,9 +17,9 @@
           <li><em>všechna</em>: každá kartička jednou, bez ohledu na termín (např. před zkouškou).</li>
         </ul>
       </li>
-      <li><strong>Nejvýš karet</strong>: když chceš jen krátké opakování.</li>
+      <li><strong>Nejvýš kartiček</strong>: když chceš jen krátké opakování.</li>
     </ul>
-    <p>U voleb je v závorce počet karet, které by test měl, třeba <em>jen k opakování a nová (42)</em> nebo <em>všechna (85)</em>. Počítá se pro zaškrtnuté slovníky a zvolený směr a mění se hned, když volbu změníš. Při obou směrech (<em>⇄</em>) je každé slovíčko dvakrát, jednou v každém směru.</p>
+    <p>U voleb je v závorce počet kartiček, které by test měl, třeba <em>jen k opakování a nová (42)</em> nebo <em>všechna (85)</em>. Počítá se pro zaškrtnuté slovníky a zvolený směr a mění se hned, když volbu změníš. Při obou směrech (<em>⇄</em>) je každé slovíčko dvakrát, jednou v každém směru.</p>
   </section>
 
   <section>
@@ -49,7 +49,7 @@
       <li><em>Hlas prohlížeče</em> zní podle zařízení: na Androidu, ve Windows, na Macu a v Chromu na Linuxu dobře, ve Firefoxu na Linuxu roboticky nebo vůbec. Když prohlížeč mluvit neumí vůbec, 🔊 se neukáže.</li>
       <li><em>palm 🔊</em>: výslovnost cizího slova. Šedé 🔊 je u pravého okraje kartičky, na řádku cizího slova. Klik na 🔊 nebo klávesa <kbd>P</kbd> slovo přečte <strong>hlasem prohlížeče</strong>; ve směru cizí → rodný je 🔊 vidět hned, ve směru rodný → cizí po otočení. V <a href="{% url 'settings' %}">Nastavení</a> si můžeš zapnout, aby se slovo nebo celá věta přečetly samy. Kdo umí číst IPA, může si v <a href="{% url 'settings' %}">Nastavení</a> zapnout i zápis výslovnosti pod slovem ze slovníku, třeba <em>[pɑːm]</em>. Ukáže se až po otočení kartičky.</li>
       <li><em>Učíš se i</em>: tvoje další slovíčko se stejným cizím slovem, ale jiným překladem (<code>palm → palma</code>).</li>
-      <li><em>pracka · lehký · světlý +3</em>: úplně dole a menším písmem další významy cizího slova ze slovníku. Z každého významu jen první varianta. Ukáže se jich tolik, kolik se vejde na jeden řádek, a klik na <em>+3</em> ukáže zbytek. Všechny i se všemi variantami jsou v detailu slovíčka. Jde to vypnout v <a href="{% url 'settings' %}">Nastavení</a>.</li>
+      <li><em>pracka · lehký · světlý +3</em>: úplně dole a menším písmem další významy cizího slova ze slovníku aplikace. Z každého významu jen první varianta. Ukáže se jich tolik, kolik se vejde na jeden řádek, a klik na <em>+3</em> ukáže zbytek. Všechny i se všemi variantami jsou v detailu slovíčka. Jde to vypnout v <a href="{% url 'settings' %}">Nastavení</a>.</li>
     </ul>
   </section>
 
@@ -96,7 +96,7 @@
         <tr><td><kbd>V</kbd></td><td>přečte větu (ve směru rodný → cizí po otočení)</td></tr>
         <tr><td><strong>?</strong> pod kartičkou</td><td>otevře okno <em>Jak test funguje</em> (princip a co znamenají smajlíci); při prvním testu se otevře samo, po <em>Rozumím</em> už jen přes <strong>?</strong> (platí pro účet, tedy na všech zařízeních)</td></tr>
         <tr><td><strong>✎</strong> pod kartičkou nebo <kbd>E</kbd></td><td>otevře úpravu slovíčka (překlep, špatný překlad); tlačítko <em>Uložit a zpět do testu</em> nebo <em>Neukládat a zpět do testu</em> tě vrátí ke stejné kartičce. Kartička ještě nebyla ohodnocená, takže se nic nezapočítá navíc. Úprava variant a poznámky platí ve všech slovnících, kde slovíčko je.</td></tr>
-        <tr><td><strong>⚐</strong> pod kartičkou</td><td>nahlásí chybu v nápovědě aplikace: <em>Chyba v návrhu překladu</em>, <em>Chyba v návrhu věty</em> nebo <em>Jiné</em>, s volitelnou poznámkou. Pak tě vrátí ke stejné kartičce. Hlášení pomůže opravit slovník aplikace; tvé slovíčko se tím nezmění (to opravíš přes ✎).</td></tr>
+        <tr><td><strong>⚐</strong> pod kartičkou</td><td>nahlásí chybu ve slovníku aplikace: <em>Chyba v návrhu překladu</em>, <em>Chyba v návrhu věty</em> nebo <em>Jiné</em>, s nepovinnou poznámkou. Pak tě vrátí ke stejné kartičce. Hlášení pomůže opravit slovník aplikace; tvé slovíčko se tím nezmění (to opravíš přes ✎).</td></tr>
         <tr><td><strong>Ukončit test</strong></td><td>skončí a ukáže souhrn</td></tr>
       </tbody>
     </table></div>

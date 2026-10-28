@@ -40,7 +40,7 @@ class SettingsForm(forms.ModelForm):
             "ui_language": _("App language"),
             "default_direction": _("Default test direction"),
             "show_suggestions": _("Suggest translations"),
-            "show_other_meanings": _("Show other meanings from the dictionary"),
+            "show_other_meanings": _("Show other meanings from the app dictionary"),
             "autoplay_pronunciation": _("Play automatically"),
             "autoplay_content": _("What to play"),
             "show_ipa": _("Show written pronunciation (IPA)"),
@@ -50,7 +50,7 @@ class SettingsForm(forms.ModelForm):
             "ui_language": _("Menus, buttons and help. Your words stay the same."),
             "default_direction": _("It is filled in when you set up a new test."),
             "show_suggestions": _(
-                "While you type a foreign word, suggestions from the dictionary show up under "
+                "While you type a foreign word, suggestions from the app dictionary show up under "
                 "the translation field."
             ),
             "show_other_meanings": _(
@@ -94,7 +94,7 @@ class PasswordChangeForm(DjangoPasswordChangeForm):
     error_messages = {
         **DjangoPasswordChangeForm.error_messages,
         "password_incorrect": _("Your current password is wrong, try again."),
-        "password_mismatch": _("The new passwords don't match."),
+        "password_mismatch": _("New passwords do not match."),
     }
 
     def __init__(self, *args, **kwargs):
@@ -206,7 +206,7 @@ class RegistrationForm(forms.Form):
         password1 = cleaned.get("password1")
         password2 = cleaned.get("password2")
         if password1 and password2 and password1 != password2:
-            self.add_error("password2", _("The passwords don't match."))
+            self.add_error("password2", _("Passwords do not match."))
         elif password1:
             try:
                 # The email is checked too: the password must not be similar to it
@@ -255,7 +255,7 @@ class SetPasswordForm(DjangoSetPasswordForm):
 
     error_messages = {
         **DjangoSetPasswordForm.error_messages,
-        "password_mismatch": _("The new passwords don't match."),
+        "password_mismatch": _("New passwords do not match."),
     }
 
     def __init__(self, *args, **kwargs):

@@ -12,7 +12,7 @@ from vocabulary import sentences
 from vocabulary.models import DeckTerm, Term, TermVariant
 
 from .models import Direction
-from .services import preview_intervals, session_deck_ids
+from .services import direction_labels, preview_intervals, session_deck_ids
 
 
 @dataclass
@@ -53,6 +53,12 @@ class Card:
     @property
     def is_f2n(self):
         return self.direction == Direction.F2N
+
+    @property
+    def direction_label(self):
+        """The direction by the languages, e.g. "EN → CS"; the generic name only as a fallback."""
+        label = direction_labels(self.term).get(self.direction)
+        return label or self.state.get_direction_display()
 
 
 def build_card(session, state):

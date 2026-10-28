@@ -28,7 +28,7 @@
           <h2 class="section-title">{% translate "Deck" %}</h2>
           <p class="practice-deck">
             <strong>{{ single_deck.name }}</strong>
-            {% if subdeck_count %}<span class="muted">{% blocktranslate count counter=subdeck_count trimmed %}and {{ counter }} subdeck{% plural %}and {{ counter }} subdecks{% endblocktranslate %}</span>{% endif %}
+            {% if subdeck_count %}<span class="muted">{% blocktranslate count counter=subdeck_count trimmed %}and {{ counter }} sub-deck{% plural %}and {{ counter }} sub-decks{% endblocktranslate %}</span>{% endif %}
             · <a href="?deck={{ single_deck.pk }}&amp;pick=1">{% translate "Change" %}</a>
           </p>
           <input type="hidden" name="decks" value="{{ single_deck.pk }}">
@@ -37,7 +37,7 @@
       {% else %}
         <fieldset class="card-section">
           <legend class="section-title">{% translate "Decks" %}</legend>
-          <small class="muted">{% translate "Subdecks are included automatically. A word that is in more decks comes only once." %}</small>
+          <small class="muted">{% translate "Sub-decks are included automatically. A word that is in more decks comes only once." %}</small>
           {% if form.decks.errors %}<small class="field-error">{{ form.decks.errors|join:" " }}</small>{% endif %}
           <ul class="deck-tree deck-tree-root deck-pick">
             {% for deck in roots %}

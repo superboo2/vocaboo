@@ -242,7 +242,7 @@ def deck_edit(request, pk):
         "vocabulary/deck_form.html",
         {
             "form": form,
-            "title": _("Edit deck"),
+            "title": _("Edit name and description"),
             "submit_label": _("Save"),
             "deck": deck,
             "ancestors": services.get_ancestors(deck),
@@ -275,7 +275,7 @@ def deck_move(request, pk):
             "deck": deck,
             "ancestors": services.get_ancestors(deck),
             "help_text": _(
-                "Only decks with the same language pair where the tree fits are offered "
+                "Only decks with the same languages where the tree fits are offered "
                 "(at most %(max)d levels)."
             )
             % {"max": services.MAX_DEPTH},
@@ -320,7 +320,7 @@ def deck_place(request, pk):
     try:
         index = int(request.POST.get("index", ""))
     except ValueError:
-        error = _("The place for the deck is missing.")
+        error = _("Could not tell where to move the deck. Try again.")
         return JsonResponse({"ok": False, "error": error}, status=400)
     try:
         services.place_deck(deck, parent, index)
@@ -574,7 +574,7 @@ def term_report(request, deck_pk, pk):
     if request.method == "POST" and form.is_valid():
         reports.report_error(request.user, deck_term, **form.cleaned_data)
         if report:
-            messages.success(request, _("The report is changed."))
+            messages.success(request, _("Report updated."))
         else:
             messages.success(request, _("Thanks, the mistake is reported."))
         return redirect(back)
@@ -830,5 +830,5 @@ def _later_back(request):
 def later_delete(request, pk):
     pending = get_object_or_404(PendingWord, pk=pk, owner=request.user)
     pending.delete()
-    messages.success(request, _("Removed: %(word)s") % {"word": pending.foreign})
+    messages.success(request, _("Deleted: %(word)s") % {"word": pending.foreign})
     return _later_back(request)

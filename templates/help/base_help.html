@@ -10,7 +10,7 @@
   <div class="help">
     <h1>{% translate "Help" %}</h1>
 
-    <nav class="tabs" aria-label="{% translate 'Help sections' %}">
+    <nav class="tabs" aria-label="{{ tabs_label }}">
       <ul>
         {% for slug, name in topics %}
           <li>

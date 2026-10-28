@@ -22,7 +22,7 @@ msgid "Hide password"
 msgstr "Skrýt heslo"
 
 msgid "Show password"
-msgstr "Zobrazit heslo"
+msgstr "Ukázat heslo"
 
 msgid "The deck could not be moved."
 msgstr "Přesun se nepodařil."

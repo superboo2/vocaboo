@@ -10,9 +10,9 @@
   <div class="title-row">
     <h1>{{ deck.name }}</h1>
     <details class="dropdown more-menu">
-      <summary role="button" class="more-button" aria-label="{% translate 'Edit deck' %}" title="{% translate 'Edit deck' %}">⋯</summary>
+      <summary role="button" class="more-button" aria-label="{% translate 'More actions' %}" title="{% translate 'More actions' %}">⋯</summary>
       <ul>
-        <li><a href="{% url 'vocabulary:deck_edit' deck.pk %}">{% translate "Rename and description" %}</a></li>
+        <li><a href="{% url 'vocabulary:deck_edit' deck.pk %}">{% translate "Edit name and description" %}</a></li>
         <li><a href="{% url 'vocabulary:deck_move' deck.pk %}">{% translate "Move" %}</a></li>
         <li><a href="{% url 'vocabulary:deck_delete' deck.pk %}">{% translate "Delete" %}</a></li>
       </ul>

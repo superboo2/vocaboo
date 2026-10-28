@@ -17,7 +17,7 @@
 
   {% if words %}
     {# A small table: the word opens the usual form of its deck (filled with it), its note small #}
-    {# under it; "Odebrat" removes it #}
+    {# under it; "Smazat" deletes it #}
     <section class="card-section">
       <table class="later-table">
         <thead>
@@ -25,7 +25,7 @@
             <th scope="col">{% translate "Word" %}</th>
             {% if not deck %}<th scope="col" class="later-deck-col">{% translate "Deck" %}</th>{% endif %}
             <th scope="col">{% translate "Saved" context "word for later" %}</th>
-            <th scope="col"><span class="visually-hidden">{% translate "Remove" %}</span></th>
+            <th scope="col"><span class="visually-hidden">{% translate "Delete" %}</span></th>
           </tr>
         </thead>
         <tbody>
@@ -44,7 +44,7 @@
                   {% csrf_token %}
                   <input type="hidden" name="back_deck" value="{{ deck.pk|default:'' }}">
                   <button type="submit" class="link-button"
-                          aria-label="{% blocktranslate with word=word.foreign %}Remove {{ word }}{% endblocktranslate %}">{% translate "Remove" %}</button>
+                          aria-label="{% blocktranslate with word=word.foreign %}Delete {{ word }}{% endblocktranslate %}">{% translate "Delete" %}</button>
                 </form>
               </td>
             </tr>
@@ -59,9 +59,9 @@
   {# Back where the list was opened from: the deck, or the overview #}
   <p>
     {% if deck %}
-      <a href="{% url 'vocabulary:deck_detail' deck.pk %}">← {% blocktranslate with name=deck.name %}Back to the deck {{ name }}{% endblocktranslate %}</a>
+      <a href="{% url 'vocabulary:deck_detail' deck.pk %}">← {% blocktranslate with name=deck.name %}Back to the deck “{{ name }}”{% endblocktranslate %}</a>
     {% else %}
-      <a href="{% url 'dashboard' %}">← {% translate "Overview" %}</a>
+      <a href="{% url 'dashboard' %}">← {% translate "Back to overview" %}</a>
     {% endif %}
   </p>
 {% endblock %}

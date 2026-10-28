@@ -12,7 +12,7 @@
     <header>
       <h1>{{ title }}</h1>
       {% if parent %}
-        <p>{% blocktranslate with name=parent.name pair=parent.language_pair|arrows %}Under the deck “{{ name }}”, the languages {{ pair }} are taken over.{% endblocktranslate %}</p>
+        <p>{% blocktranslate with name=parent.name pair=parent.language_pair|arrows %}The sub-deck takes over the languages of “{{ name }}” ({{ pair }}).{% endblocktranslate %}</p>
       {% elif deck %}
         <p>{{ deck.name }} ({{ deck.language_pair|arrows }})</p>
       {% endif %}

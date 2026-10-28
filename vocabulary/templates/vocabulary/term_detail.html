@@ -86,7 +86,7 @@
         {% for meaning in other_meanings %}
           <li>
             {% if meaning.own %}
-              <strong>{{ meaning.variants|join:" · " }}</strong> <small class="muted">{% translate "already learning" %}</small>
+              <strong>{{ meaning.variants|join:" · " }}</strong> <small class="muted">{% translate "you have it already" %}</small>
             {% else %}
               <form method="post" action="{% url 'vocabulary:term_add_meaning' deck.pk deck_term.pk %}" class="inline-form">
                 {% csrf_token %}

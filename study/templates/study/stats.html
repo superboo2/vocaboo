@@ -45,8 +45,8 @@
     {% if stats.known_chart %}
       <section class="stat-section">
         <h2>{% translate "You know" context "chart of known words" %}</h2>
-        {# What "learned" means, with the smileys of the test buttons that count as right #}
-        <p class="muted"><small>{{ stats.known_chart.subtitle }}<br>{% translate "Learned = 2× in a row 😎 or 🤔 in each direction." %}</small></p>
+        {# When you know a word, with the smileys of the test buttons that count as right #}
+        <p class="muted"><small>{{ stats.known_chart.subtitle }}<br>{% translate "You know a word when every tested direction got 2× in a row 😎 or 🤔." %}</small></p>
         {% include "study/_chart.html" with chart=stats.known_chart tone="chart-known" label=stats.known_chart.subtitle %}
       </section>
     {% endif %}
@@ -66,7 +66,7 @@
       {% if stats.facts.items %}
         {% include "study/_hard_words.html" with items=stats.facts.items %}
       {% elif stats.facts.answered %}
-        <p>{% translate "Everything goes well for you in the last 30 days 🎉" %}</p>
+        <p>{% translate "Everything went well in the last 30 days 🎉" %}</p>
       {% else %}
         <p class="muted">{% translate "No tests in the last 30 days." %}</p>
       {% endif %}

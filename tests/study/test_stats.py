@@ -117,7 +117,7 @@ def test_facts_show_each_hard_word_once(user, deck):
     # The first card shows the foreign word first
     assert by_title["Největší nepřítel"]["front"] == "window seat"
     # Both words are used, so there is nothing left for the longest word
-    assert "Nejdelší, co ti nejde" not in by_title
+    assert "Nejdéle ti nejde" not in by_title
     # Every word only once, the easy word never
     words = [fact["word"] for fact in facts["items"]]
     assert sorted(words) == ["ox", "window seat"]
@@ -150,7 +150,7 @@ def test_forgotten_and_oldest_hard_word(user, deck):
     assert by_title["Největší nepřítel"]["word"] == "enemy"
     assert by_title["Zapomínáš"]["word"] == "cat"
     assert by_title["Zapomínáš"]["text"] == "1× zapomenuto"
-    assert by_title["Nejdelší, co ti nejde"]["word"] == "dog"
+    assert by_title["Nejdéle ti nejde"]["word"] == "dog"
     assert stats._added_ago(dog, NOW) == "přidáno před 45 dny"
     assert stats._added_ago(dog, NOW - timedelta(days=44)) == "přidáno před 1 dnem"
     assert stats._added_ago(dog, NOW - timedelta(days=45)) == "přidáno dnes"
@@ -182,7 +182,7 @@ def test_stats_page(client, user, deck):
 
     assert "Statistiky" in html
     assert "<h2>Slovíčka</h2>" in html and "<h2>Umíš</h2>" in html
-    assert "Naučené = v každém směru 2× za sebou 😎 nebo 🤔." in html
+    assert "Umíš = v každém testovaném směru 2× za sebou 😎 nebo 🤔." in html
     assert "<polyline" in html
     assert "Co ti nejde" in html
     assert "Za posledních 30 dní" in html
@@ -611,7 +611,7 @@ def test_known_chart_counts_known_words_from_the_history(user, deck):
         "13. 10.: 1",
         "14. 10.: 1",
     ]
-    assert chart["subtitle"].startswith("Naučená slovíčka po dnech")
+    assert chart["subtitle"].startswith("Slovíčka, která umíš, po dnech")
 
 
 def test_known_chart_only_with_answers(client, user, deck):

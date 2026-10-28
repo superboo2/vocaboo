@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-28 10:43+0100\n"
+"POT-Creation-Date: 2026-10-28 11:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,8 +44,8 @@ msgstr "Výchozí směr testu"
 msgid "Suggest translations"
 msgstr "Navrhovat překlad"
 
-msgid "Show other meanings from the dictionary"
-msgstr "Ukazovat další významy ze slovníku"
+msgid "Show other meanings from the app dictionary"
+msgstr "Ukazovat další významy ze slovníku aplikace"
 
 msgid "Play automatically"
 msgstr "Přehrát automaticky"
@@ -66,10 +66,11 @@ msgid "It is filled in when you set up a new test."
 msgstr "Předvyplní se v nastavení nového testu."
 
 msgid ""
-"While you type a foreign word, suggestions from the dictionary show up under"
-" the translation field."
+"While you type a foreign word, suggestions from the app dictionary show up "
+"under the translation field."
 msgstr ""
-"Když píšeš cizí slovo, pod polem pro překlad se ukážou návrhy ze slovníku."
+"Když píšeš cizí slovo, pod polem pro překlad se ukážou návrhy ze slovníku "
+"aplikace."
 
 msgid ""
 "At the bottom of the back of the card, as many as fit on one line, the rest "
@@ -116,7 +117,7 @@ msgstr "Aspoň 8 znaků, ne jen čísla, ne moc běžné a ne podobné tvému e-
 msgid "Your current password is wrong, try again."
 msgstr "Současné heslo není správně, zkus to znovu."
 
-msgid "The new passwords don't match."
+msgid "New passwords do not match."
 msgstr "Nová hesla se neshodují."
 
 msgid "Current password"
@@ -161,8 +162,8 @@ msgstr "Tenhle kód pozvánky nesedí."
 msgid "Leave this field empty."
 msgstr "Tohle pole nech prázdné."
 
-msgid "The passwords don't match."
-msgstr "Hesla nejsou stejná."
+msgid "Passwords do not match."
+msgstr "Hesla se neshodují."
 
 msgid "Code from the email"
 msgstr "Kód z e-mailu"
@@ -186,14 +187,14 @@ msgid "suggest translations"
 msgstr "navrhovat překlad"
 
 msgid "other meanings on the card"
-msgstr "další významy na kartě"
+msgstr "další významy na kartičce"
 
 msgctxt "autoplay"
 msgid "word"
 msgstr "slovo"
 
 msgid "the whole sentence"
-msgstr "celé použití ve větě"
+msgstr "celou větu"
 
 msgid "play automatically"
 msgstr "přehrát automaticky"
@@ -380,6 +381,9 @@ msgstr "Slovíčka"
 
 msgid "Overview and statistics"
 msgstr "Přehled a statistiky"
+
+msgid "Help sections"
+msgstr "Části nápovědy"
 
 msgid "dictionary words"
 msgstr "slova slovníku"
@@ -835,7 +839,7 @@ msgid "Which cards"
 msgstr "Které kartičky"
 
 msgid "Max cards"
-msgstr "Nejvýš karet"
+msgstr "Nejvýš kartiček"
 
 msgid "foreign → native"
 msgstr "cizí → rodný"
@@ -902,7 +906,7 @@ msgid "scope"
 msgstr "rozsah"
 
 msgid "max. number of cards"
-msgstr "max. počet karet"
+msgstr "max. počet kartiček"
 
 msgid "start"
 msgstr "začátek"
@@ -968,7 +972,7 @@ msgid "The word belongs to another user."
 msgstr "Slovíčko patří jinému uživateli."
 
 msgid "The number of cards must be at least 1."
-msgstr "Počet karet musí být aspoň 1."
+msgstr "Počet kartiček musí být aspoň 1."
 
 msgid "This card is not part of this test."
 msgstr "Tato kartička do testu nepatří."
@@ -1038,8 +1042,8 @@ msgstr "Horská dráha"
 msgid "Too fast"
 msgstr "Moc rychle"
 
-msgid "Longest you struggle with"
-msgstr "Nejdelší, co ti nejde"
+msgid "Struggling the longest"
+msgstr "Nejdéle ti nejde"
 
 msgid "Learning it longest"
 msgstr "Nejdéle se učíš"
@@ -1088,17 +1092,17 @@ msgstr ""
 msgid "word learned"
 msgid_plural "words learned"
 msgstr[0] "slovíčko naučeno"
-msgstr[1] "slovíčka naučeno"
+msgstr[1] "slovíčka naučena"
 msgstr[2] "slovíček naučeno"
 
 msgid ""
-"Words that today became “known” for the first time: right twice in a row "
-"foreign → native. The second right answer comes only after an interval, so "
-"for new words in a few days at the earliest."
+"Words that today became “known” for the first time: right twice in a row (😎 "
+"or 🤔) in every tested direction. The second right answer comes only after an"
+" interval, so for new words in a few days at the earliest."
 msgstr ""
-"Slovíčka, která dnes poprvé splnila „umíš“: ve směru cizí → rodný dvakrát po"
-" sobě správně. Druhá správná odpověď přijde až po intervalu, u nových "
-"slovíček tedy nejdřív za pár dní."
+"Slovíčka, která dnes poprvé splnila „umíš“: v každém testovaném směru "
+"dvakrát po sobě správně (😎 nebo 🤔). Druhá správná odpověď přijde až po "
+"intervalu, u nových slovíček tedy nejdřív za pár dní."
 
 msgid "time in tests"
 msgstr "čas v testech"
@@ -1125,7 +1129,7 @@ msgstr "všechna"
 
 msgctxt "test scope"
 msgid "due + new"
-msgstr "opak. + nová"
+msgstr "k opakování + nová"
 
 msgctxt "test scope"
 msgid "wrong again"
@@ -1155,8 +1159,8 @@ msgid "Total words %(unit)s since %(date)s"
 msgstr "Slovíček celkem %(unit)s od %(date)s"
 
 #, python-format
-msgid "Known words %(unit)s since %(date)s"
-msgstr "Naučená slovíčka %(unit)s od %(date)s"
+msgid "Words you know %(unit)s since %(date)s"
+msgstr "Slovíčka, která umíš, %(unit)s od %(date)s"
 
 msgid "by day"
 msgstr "po dnech"
@@ -1328,11 +1332,13 @@ msgstr "Její překlad"
 
 #, python-brace-format
 msgid ""
-"I find the word in the sentence myself, mark another form with braces: He "
-"{ran} away. The translation is optional."
+"The word is found automatically; mark another form with braces: He {ran} "
+"away."
 msgstr ""
-"Slovo ve větě najdu sám, jiný tvar označ závorkami: He {ran} away. Překlad "
-"je volitelný."
+"Slovo ve větě se najde samo. Jiný tvar označ závorkami: He {ran} away."
+
+msgid "The translation is optional."
+msgstr "Překlad je nepovinný."
 
 msgid "Example:"
 msgstr "Příklad:"
@@ -1355,8 +1361,8 @@ msgstr "Kdy"
 msgid "Deck"
 msgstr "Slovník"
 
-msgid "Scope"
-msgstr "Rozsah"
+msgid "Cards"
+msgstr "Kartičky"
 
 msgid ""
 "With both directions (⇄) every word is in the test twice, once each way."
@@ -1418,8 +1424,8 @@ msgid "New deck"
 msgstr "Nový slovník"
 
 #, python-format
-msgid "and %(counter)s subdeck"
-msgid_plural "and %(counter)s subdecks"
+msgid "and %(counter)s sub-deck"
+msgid_plural "and %(counter)s sub-decks"
 msgstr[0] "a %(counter)s podslovník"
 msgstr[1] "a %(counter)s podslovníky"
 msgstr[2] "a %(counter)s podslovníků"
@@ -1428,8 +1434,8 @@ msgid "Change"
 msgstr "Změnit"
 
 msgid ""
-"Subdecks are included automatically. A word that is in more decks comes only"
-" once."
+"Sub-decks are included automatically. A word that is in more decks comes "
+"only once."
 msgstr ""
 "Podslovníky se zahrnou automaticky. Slovíčko, které je ve více slovnících, "
 "přijde jen jednou."
@@ -1464,8 +1470,8 @@ msgctxt "chart of known words"
 msgid "You know"
 msgstr "Umíš"
 
-msgid "Learned = 2× in a row 😎 or 🤔 in each direction."
-msgstr "Naučené = v každém směru 2× za sebou 😎 nebo 🤔."
+msgid "You know a word when every tested direction got 2× in a row 😎 or 🤔."
+msgstr "Umíš = v každém testovaném směru 2× za sebou 😎 nebo 🤔."
 
 msgid "What you struggle with"
 msgstr "Co ti nejde"
@@ -1473,7 +1479,7 @@ msgstr "Co ti nejde"
 msgid "In the last 30 days"
 msgstr "Za posledních 30 dní"
 
-msgid "Everything goes well for you in the last 30 days 🎉"
+msgid "Everything went well in the last 30 days 🎉"
 msgstr "Za posledních 30 dní ti jde všechno 🎉"
 
 msgid "No tests in the last 30 days."
@@ -1498,10 +1504,10 @@ msgstr "Procvičit chybné znovu"
 msgid "All correct!"
 msgstr "Všechno správně!"
 
-msgid "There are no cards to review right now."
-msgstr "Teď tu nejsou žádné kartičky k opakování."
+msgid "No cards were rated in this test."
+msgstr "V tomto testu není žádná ohodnocená kartička."
 
-msgid "Back to dashboard"
+msgid "Back to overview"
 msgstr "Zpět na přehled"
 
 msgctxt "due"
@@ -1678,12 +1684,12 @@ msgstr "Poslat nový odkaz"
 msgid "Forgotten password"
 msgstr "Zapomenuté heslo"
 
-msgid "Look into your email"
+msgid "Check your email"
 msgstr "Podívej se do e-mailu"
 
 msgid ""
-"If the email has an account, a link to set a new password is on its way. It "
-"works for 24 hours. No email? Look into spam too."
+"If there is an account for this email, a link to set a new password is on "
+"its way. It works for 24 hours. No email? Check your spam folder too."
 msgstr ""
 "Pokud k e-mailu existuje účet, odkaz na nastavení nového hesla je na cestě. "
 "Platí 24 hodin. E-mail nepřišel? Podívej se i do spamu."
@@ -1730,7 +1736,7 @@ msgstr ""
 msgid "Confirm"
 msgstr "Ověřit"
 
-msgid "No email? Look into spam too."
+msgid "No email? Check your spam folder too."
 msgstr "E-mail nepřišel? Podívej se i do spamu."
 
 msgid "Send a new code"
@@ -1776,14 +1782,8 @@ msgstr "Poznámka"
 msgid "Optional, e.g. the right translation."
 msgstr "Nepovinné, třeba správný překlad."
 
-msgid "Use in a sentence"
-msgstr "Použití ve větě"
-
-#, python-brace-format
-msgid ""
-"The word is found in the sentence automatically. Mark a different form with "
-"braces: He {ran} away."
-msgstr "Slovo ve větě najdu sám. Jiný tvar označ závorkami: He {ran} away."
+msgid "Sentence"
+msgstr "Věta"
 
 msgid "Sentence translation"
 msgstr "Překlad věty"
@@ -1792,7 +1792,7 @@ msgstr "Překlad věty"
 msgid ""
 "Optional, to help understand the sentence. You can mark the word: He ran "
 "{away}."
-msgstr "Volitelné, k pochopení věty. Slovo můžeš označit: Utekl {pryč}."
+msgstr "Nepovinné, k pochopení věty. Slovo můžeš označit: Utekl {pryč}."
 
 msgid "Separate more variants with a semicolon"
 msgstr "Víc variant odděl středníkem"
@@ -1942,8 +1942,8 @@ msgstr "Cílový slovník patří jinému uživateli."
 msgid "A deck cannot be moved into itself or into its own sub-deck."
 msgstr "Slovník nejde přesunout do sebe ani do svého podslovníku."
 
-msgid "A deck can only be moved under a deck with the same language pair."
-msgstr "Slovník jde přesunout jen pod slovník se stejným jazykovým párem."
+msgid "A deck can only be moved under a deck with the same languages."
+msgstr "Slovník jde přesunout jen pod slovník se stejnými jazyky."
 
 #, python-format
 msgid "After the move, the tree would have more than %(max)d levels."
@@ -2035,7 +2035,7 @@ msgid "“%(word)s” is already in this deck."
 msgstr "„%(word)s“ už v tomto slovníku je."
 
 msgid "View"
-msgstr "Zobrazit"
+msgstr "Detail"
 
 msgid "Add new variants"
 msgstr "Přidat nové varianty"
@@ -2124,7 +2124,7 @@ msgid "No words here yet. Add the first one with the form above."
 msgstr "Zatím tu nejsou žádná slovíčka. Přidej první formulářem výše."
 
 msgid "The suggestions don't know this word"
-msgstr "Nápověda slovo nezná"
+msgstr "Návrhy toto slovo neznají"
 
 msgid "Save for later"
 msgstr "Odložit"
@@ -2162,11 +2162,11 @@ msgstr[2] ""
 msgid "This cannot be undone."
 msgstr "Tuto akci nejde vrátit."
 
-msgid "Edit deck"
-msgstr "Upravit slovník"
+msgid "More actions"
+msgstr "Další akce"
 
-msgid "Rename and description"
-msgstr "Přejmenovat a popis"
+msgid "Edit name and description"
+msgstr "Upravit název a popis"
 
 msgid "Move"
 msgstr "Přesunout"
@@ -2198,8 +2198,8 @@ msgstr ""
 "úrovní."
 
 #, python-format
-msgid "Under the deck “%(name)s”, the languages %(pair)s are taken over."
-msgstr "Pod slovníkem „%(name)s“, jazyky %(pair)s se převezmou."
+msgid "The sub-deck takes over the languages of “%(name)s” (%(pair)s)."
+msgstr "Podslovník převezme jazyky slovníku „%(name)s“ (%(pair)s)."
 
 msgid ""
 "Words saved without a translation. Tap a word: its deck opens with the word "
@@ -2215,19 +2215,16 @@ msgctxt "word for later"
 msgid "Saved"
 msgstr "Uloženo"
 
-msgid "Remove"
-msgstr "Odebrat"
-
 #, python-format
-msgid "Remove %(word)s"
-msgstr "Odebrat %(word)s"
+msgid "Delete %(word)s"
+msgstr "Smazat %(word)s"
 
 msgid "No word is waiting for a translation."
 msgstr "Žádné slovíčko nečeká na překlad."
 
 #, python-format
-msgid "Back to the deck %(name)s"
-msgstr "Zpět do slovníku %(name)s"
+msgid "Back to the deck “%(name)s”"
+msgstr "Zpět do slovníku „%(name)s“"
 
 msgid "Search"
 msgstr "Hledat"
@@ -2259,11 +2256,11 @@ msgstr ""
 "Slovíčko není v žádném jiném slovníku, takže se smaže úplně i s historií "
 "opakování."
 
+msgid "Remove"
+msgstr "Odebrat"
+
 msgid "Edit"
 msgstr "Upravit"
-
-msgid "More actions"
-msgstr "Další akce"
 
 msgid "Remove from this deck"
 msgstr "Odebrat z tohoto slovníku"
@@ -2326,8 +2323,8 @@ msgstr "Ve slovnících"
 msgid "Other meanings"
 msgstr "Další významy"
 
-msgid "already learning"
-msgstr "už se učíš"
+msgid "you have it already"
+msgstr "už máš"
 
 msgid "Learn this meaning too"
 msgstr "Učit se i tento význam"
@@ -2383,9 +2380,6 @@ msgstr "Uložit změny"
 msgid "Report"
 msgstr "Nahlásit"
 
-msgid "Back"
-msgstr "Zpět"
-
 msgid "Move words"
 msgstr "Přesunout slovíčka"
 
@@ -2412,6 +2406,9 @@ msgstr ""
 
 msgid "Add sub-deck"
 msgstr "Přidat podslovník"
+
+msgid "Back"
+msgstr "Zpět"
 
 msgid "Words from a topic"
 msgstr "Slovíčka z tématu"
@@ -2500,7 +2497,7 @@ msgid "Select all on this page"
 msgstr "Vybrat vše na této stránce"
 
 msgid "Add ticked words"
-msgstr "Přidat zaškrtnutá"
+msgstr "Přidat zaškrtnutá slovíčka"
 
 msgid "No more words for this topic and level. Try another level."
 msgstr "Pro toto téma a úroveň už tu nic dalšího není. Zkus jinou úroveň."
@@ -2548,19 +2545,19 @@ msgstr "Přesunout slovník"
 
 #, python-format
 msgid ""
-"Only decks with the same language pair where the tree fits are offered (at "
-"most %(max)d levels)."
+"Only decks with the same languages where the tree fits are offered (at most "
+"%(max)d levels)."
 msgstr ""
-"Nabízí se jen slovníky se stejným jazykovým párem, kam se strom vejde "
-"(nejvýš %(max)d úrovní)."
+"Nabízí se jen slovníky se stejnými jazyky, kam se strom vejde (nejvýš "
+"%(max)d úrovní)."
 
 #, python-format
 msgid "Deck “%(name)s” deleted (decks: %(decks)d, words: %(terms)d)."
 msgstr ""
 "Slovník „%(name)s“ je smazaný (slovníků: %(decks)d, slovíček: %(terms)d)."
 
-msgid "The place for the deck is missing."
-msgstr "Chybí místo, kam slovník patří."
+msgid "Could not tell where to move the deck. Try again."
+msgstr "Nepodařilo se zjistit, kam slovník přesunout. Zkus to znovu."
 
 msgid "Word added."
 msgstr "Slovíčko je přidané."
@@ -2568,7 +2565,7 @@ msgstr "Slovíčko je přidané."
 msgid "The word could not be added, check the form."
 msgstr "Slovíčko se nepodařilo přidat, zkontroluj formulář."
 
-msgid "The report is changed."
+msgid "Report updated."
 msgstr "Hlášení je upravené."
 
 msgid "Thanks, the mistake is reported."
@@ -2613,5 +2610,5 @@ msgid "Saved for later: %(word)s"
 msgstr "Odloženo: %(word)s"
 
 #, python-format
-msgid "Removed: %(word)s"
-msgstr "Odebráno: %(word)s"
+msgid "Deleted: %(word)s"
+msgstr "Smazáno: %(word)s"
