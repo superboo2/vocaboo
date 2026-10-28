@@ -181,7 +181,8 @@ def test_stats_page(client, user, deck):
     html = client.get(reverse("study:stats")).content.decode()
 
     assert "Statistiky" in html
-    assert "Slovíčka v čase" in html
+    assert "<h2>Slovíčka</h2>" in html and "<h2>Umíš</h2>" in html
+    assert "Naučené = v každém směru 2× za sebou 😎 nebo 🤔." in html
     assert "<polyline" in html
     assert "Co ti nejde" in html
     assert "Za posledních 30 dní" in html
@@ -581,6 +582,46 @@ def test_words_chart_by_days_months_and_quarters(user, deck):
     # The first word today: one point in the middle
     single = chart(0)
     assert [point["left"] for point in single["points"]] == ["50.00"]
+
+
+def test_known_chart_counts_known_words_from_the_history(user, deck):
+    cat = vocabulary.add_term(deck, foreign="cat", native="kočka").term
+    dog = vocabulary.add_term(deck, foreign="dog", native="pes").term
+    Term.objects.filter(pk__in=[cat.pk, dog.pk]).update(created_at=NOW - timedelta(days=6))
+    # cat: right twice (known from 4 days ago), wrong yesterday (not known any more);
+    # dog: right twice up to 2 days ago, then known
+    answer(user, cat, 5)
+    answer(user, cat, 4)
+    answer(user, cat, 1, Result.WRONG, "dontknow")
+    answer(user, dog, 3)
+    answer(user, dog, 2)
+    ReviewState.objects.filter(term=dog, direction="F2N").update(
+        correct_streak=2, last_reviewed_at=NOW - timedelta(days=2)
+    )
+
+    chart = stats.user_statistics(user, now=NOW)["known_chart"]
+
+    # The same days as the words chart, the known words at the end of each day
+    assert [point["title"] for point in chart["points"]] == [
+        "8. 10.: 0",
+        "9. 10.: 0",
+        "10. 10.: 1",
+        "11. 10.: 1",
+        "12. 10.: 2",
+        "13. 10.: 1",
+        "14. 10.: 1",
+    ]
+    assert chart["subtitle"].startswith("Naučená slovíčka po dnech")
+
+
+def test_known_chart_only_with_answers(client, user, deck):
+    vocabulary.add_term(deck, foreign="cat", native="kočka")
+    client.force_login(user)
+
+    html = client.get(reverse("study:stats")).content.decode()
+
+    assert stats.user_statistics(user, now=NOW)["known_chart"] is None
+    assert "<h2>Slovíčka</h2>" in html and "<h2>Umíš</h2>" not in html
 
 
 def test_known_needs_every_tested_direction(user, deck):

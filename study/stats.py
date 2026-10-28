@@ -123,6 +123,7 @@ def user_statistics(user, now=None, period=DEFAULT_PERIOD):
     return {
         "totals": _totals(terms, logs, known, tested, today),
         "words_chart": _words_chart(terms, today),
+        "known_chart": _known_chart(terms, logs, known, today) if logs else None,
         "streak": _streak(logs, today),
         "tests": recent_tests(user, now),
         "facts": _facts(user, logs, now, period),
@@ -438,11 +439,12 @@ def _totals(terms, logs, known, tested, today):
     }
 
 
-def _words_chart(terms, today):
-    """All words over time, from the day of the first word: by days at the start, then by
-    weeks, months and quarters, so the chart always has a few points and no empty start."""
-    days = sorted(_local_day(created) for created, _word, _pk in terms)
-    first = min(days[0], today) if days else today
+def _chart_steps(terms, today):
+    """The points of the words charts, from the day of the first word: by days at the start,
+    then by weeks, months and quarters, so the chart always has a few points and no empty
+    start. Returns the unit, the first day and the starts of the points."""
+    days = [_local_day(created) for created, _word, _pk in terms]
+    first = min(min(days), today) if days else today
     span = (today - first).days
     if span < CHART_DAYS:
         unit, starts = "day", [first + timedelta(days=n) for n in range(span + 1)]
@@ -453,17 +455,59 @@ def _words_chart(terms, today):
     else:
         quarter = first.replace(month=(first.month - 1) // 3 * 3 + 1, day=1)
         unit, starts = "quarter", _steps(quarter, today, lambda d: _add_months(d, 3))
-    nexts = [*starts[1:], today + timedelta(days=1)]
-    totals = [sum(1 for day in days if day < end) for end in nexts]
-    chart = _line_chart([_bucket_label(start, unit) for start in starts], totals)
-    since = _("%(month)s/%(day)s/%(year)s") % {
+    return unit, first, starts
+
+
+def _since(first):
+    return _("%(month)s/%(day)s/%(year)s") % {
         "day": first.day,
         "month": first.month,
         "year": first.year,
     }
+
+
+def _words_chart(terms, today):
+    """All words over time (the total at the end of each point)."""
+    unit, first, starts = _chart_steps(terms, today)
+    days = [_local_day(created) for created, _word, _pk in terms]
+    nexts = [*starts[1:], today + timedelta(days=1)]
+    totals = [sum(1 for day in days if day < end) for end in nexts]
+    chart = _line_chart([_bucket_label(start, unit) for start in starts], totals)
     chart["subtitle"] = _("Total words %(unit)s since %(date)s") % {
         "unit": UNIT_NAMES[unit],
-        "date": since,
+        "date": _since(first),
+    }
+    return chart
+
+
+def _known_chart(terms, logs, known_now, today):
+    """Known words ("umíš", is_known) over time, on the same points as the words chart, with
+    its own y axis so the progress shows. Counted again from the history: the answers up to
+    the end of each point. The last point is the number of the card above (known_words)."""
+    unit, first, starts = _chart_steps(terms, today)
+    ends = [_day_start(day) for day in [*starts[1:], today + timedelta(days=1)]]
+    streaks = {}  # {term: {direction: right answers in a row}}
+    known = set()
+    counts = []
+    index = 0
+    for end in ends:
+        while index < len(logs) and logs[index][0] < end:
+            reviewed_at, result, *_rest, term_id, direction = logs[index]
+            directions = streaks.setdefault(term_id, {})
+            directions[direction] = (
+                directions.get(direction, 0) + 1 if result == Result.CORRECT else 0
+            )
+            if is_known(directions.values()):
+                known.add(term_id)
+            else:
+                known.discard(term_id)
+            index += 1
+        counts.append(len(known))
+    counts[-1] = known_now
+    chart = _line_chart([_bucket_label(start, unit) for start in starts], counts)
+    chart["subtitle"] = _("Known words %(unit)s since %(date)s") % {
+        "unit": UNIT_NAMES[unit],
+        "date": _since(first),
     }
     return chart
 

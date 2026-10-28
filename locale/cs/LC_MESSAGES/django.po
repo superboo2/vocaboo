@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-28 09:51+0100\n"
+"POT-Creation-Date: 2026-10-28 10:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -885,7 +885,6 @@ msgstr "stav opakování"
 msgid "review states"
 msgstr "stavy opakování"
 
-#| msgid "foreign → native"
 msgid "foreign ⇄ native"
 msgstr "cizí ⇄ rodný"
 
@@ -1155,6 +1154,10 @@ msgstr "%(day)s. %(month)s. %(year)s"
 msgid "Total words %(unit)s since %(date)s"
 msgstr "Slovíček celkem %(unit)s od %(date)s"
 
+#, python-format
+msgid "Known words %(unit)s since %(date)s"
+msgstr "Naučená slovíčka %(unit)s od %(date)s"
+
 msgid "by day"
 msgstr "po dnech"
 
@@ -1355,8 +1358,6 @@ msgstr "Slovník"
 msgid "Scope"
 msgstr "Rozsah"
 
-#| msgid ""
-#| "With both directions (+) every word is in the test twice, once each way."
 msgid ""
 "With both directions (⇄) every word is in the test twice, once each way."
 msgstr ""
@@ -1459,8 +1460,12 @@ msgstr "nejdelší série %(longest)s"
 msgid "Nothing here yet. Add your first words and start a test."
 msgstr "Zatím tu nic není. Přidej si první slovíčka a pusť se do testu."
 
-msgid "Words over time"
-msgstr "Slovíčka v čase"
+msgctxt "chart of known words"
+msgid "You know"
+msgstr "Umíš"
+
+msgid "Learned = 2× in a row 😎 or 🤔 in each direction."
+msgstr "Naučené = v každém směru 2× za sebou 😎 nebo 🤔."
 
 msgid "What you struggle with"
 msgstr "Co ti nejde"

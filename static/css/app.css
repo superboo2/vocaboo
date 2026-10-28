@@ -1998,6 +1998,11 @@ main:focus {
   --chart-color: var(--primary);
 }
 
+/* Known words in the green of the good answers */
+.chart-known {
+  --chart-color: var(--rating-ok);
+}
+
 /* "Poslední testy": a table made of grid rows, so a whole row can be a link */
 .test-row {
   display: grid;

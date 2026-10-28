@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-28 09:51+0100\n"
+"POT-Creation-Date: 2026-10-28 10:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -892,7 +892,6 @@ msgstr "estado de repaso"
 msgid "review states"
 msgstr "estados de repaso"
 
-#| msgid "foreign → native"
 msgid "foreign ⇄ native"
 msgstr "extranjero ⇄ tu idioma"
 
@@ -1161,6 +1160,10 @@ msgstr "%(day)s/%(month)s/%(year)s"
 msgid "Total words %(unit)s since %(date)s"
 msgstr "Total de palabras %(unit)s desde el %(date)s"
 
+#, python-format
+msgid "Known words %(unit)s since %(date)s"
+msgstr "Palabras aprendidas %(unit)s desde el %(date)s"
+
 msgid "by day"
 msgstr "por día"
 
@@ -1359,8 +1362,6 @@ msgstr "Mazo"
 msgid "Scope"
 msgstr "Alcance"
 
-#| msgid ""
-#| "With both directions (+) every word is in the test twice, once each way."
 msgid ""
 "With both directions (⇄) every word is in the test twice, once each way."
 msgstr ""
@@ -1462,8 +1463,12 @@ msgstr "racha más larga %(longest)s"
 msgid "Nothing here yet. Add your first words and start a test."
 msgstr "Aquí aún no hay nada. Añade tus primeras palabras y empieza un test."
 
-msgid "Words over time"
-msgstr "Palabras en el tiempo"
+msgctxt "chart of known words"
+msgid "You know"
+msgstr "Sabes"
+
+msgid "Learned = 2× in a row 😎 or 🤔 in each direction."
+msgstr "Aprendida = 2 veces seguidas 😎 o 🤔 en cada sentido."
 
 msgid "What you struggle with"
 msgstr "Lo que se te resiste"

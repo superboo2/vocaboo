@@ -36,10 +36,20 @@
     <p>{% translate "Nothing here yet. Add your first words and start a test." %}</p>
   {% else %}
     <section class="stat-section">
-      <h2>{% translate "Words over time" %}</h2>
+      <h2>{% translate "Words" %}</h2>
       <p class="muted"><small>{{ stats.words_chart.subtitle }}</small></p>
       {% include "study/_chart.html" with chart=stats.words_chart tone="chart-words" label=stats.words_chart.subtitle %}
     </section>
+
+    {# Known words on the same points, with their own y axis so the progress shows #}
+    {% if stats.known_chart %}
+      <section class="stat-section">
+        <h2>{% translate "You know" context "chart of known words" %}</h2>
+        {# What "learned" means, with the smileys of the test buttons that count as right #}
+        <p class="muted"><small>{{ stats.known_chart.subtitle }}<br>{% translate "Learned = 2× in a row 😎 or 🤔 in each direction." %}</small></p>
+        {% include "study/_chart.html" with chart=stats.known_chart tone="chart-known" label=stats.known_chart.subtitle %}
+      </section>
+    {% endif %}
 
     {% if stats.tests.rows %}
       <section class="stat-section">
