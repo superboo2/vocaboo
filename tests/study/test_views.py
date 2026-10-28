@@ -124,7 +124,7 @@ def test_directions_are_named_by_the_languages_of_the_deck(logged_client, himym)
     assert choices == {
         "F2N": "EN → CS",
         "N2F": "CS → EN",
-        "MIXED": "EN → CS + CS → EN",
+        "MIXED": "EN ⇄ CS",
     }
 
 
@@ -138,7 +138,7 @@ def test_directions_of_decks_with_other_languages_have_general_names(
     )
 
     choices = dict(response.context["form"].fields["direction"].choices)
-    assert choices["MIXED"] == "cizí → rodný + rodný → cizí"
+    assert choices["MIXED"] == "cizí ⇄ rodný"
     # The part with the directions and the counts is loaded again after every change
     assert 'id="test-options"' in response.content.decode()
 

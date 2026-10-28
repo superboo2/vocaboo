@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-27 23:08+0100\n"
+"POT-Creation-Date: 2026-10-28 09:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -892,8 +892,9 @@ msgstr "estado de repaso"
 msgid "review states"
 msgstr "estados de repaso"
 
-msgid "foreign → native + native → foreign"
-msgstr "extranjero → tu idioma + tu idioma → extranjero"
+#| msgid "foreign → native"
+msgid "foreign ⇄ native"
+msgstr "extranjero ⇄ tu idioma"
 
 msgid "only due and new"
 msgstr "solo pendientes y nuevas"
@@ -1358,10 +1359,12 @@ msgstr "Mazo"
 msgid "Scope"
 msgstr "Alcance"
 
+#| msgid ""
+#| "With both directions (+) every word is in the test twice, once each way."
 msgid ""
-"With both directions (+) every word is in the test twice, once each way."
+"With both directions (⇄) every word is in the test twice, once each way."
 msgstr ""
-"Con los dos sentidos (+) cada palabra sale dos veces en el test, una en cada"
+"Con los dos sentidos (⇄) cada palabra sale dos veces en el test, una en cada"
 " sentido."
 
 msgid "Success"
@@ -2384,7 +2387,6 @@ msgstr ""
 "El reporte ayuda a corregir el diccionario de la aplicación. Tu palabra no "
 "cambia: puedes corregirla con Editar."
 
-#| msgid "changed"
 msgid "Save changes"
 msgstr "Guardar cambios"
 
@@ -2518,6 +2520,9 @@ msgstr "a"
 
 msgid "and back"
 msgstr "y vuelta"
+
+msgid "both directions"
+msgstr "ambos sentidos"
 
 #, python-format
 msgid "Deck “%(name)s” created."

@@ -35,7 +35,7 @@ class StudySetupForm(forms.Form):
         self.fields["decks"].queryset = Deck.objects.filter(owner=user)
 
     def name_directions(self, decks):
-        """EN → CS, CS → EN, EN → CS + CS → EN when all decks have the same languages;
+        """EN → CS, CS → EN, EN ⇄ CS (both) when all decks have the same languages;
         otherwise the general names (foreign → native …)."""
         pairs = {(deck.foreign_language.code, deck.native_language.code) for deck in decks}
         if len(pairs) != 1:
@@ -44,5 +44,5 @@ class StudySetupForm(forms.Form):
         self.fields["direction"].choices = [
             (StudyDirection.F2N, f"{foreign} → {native}"),
             (StudyDirection.N2F, f"{native} → {foreign}"),
-            (StudyDirection.MIXED, f"{foreign} → {native} + {native} → {foreign}"),
+            (StudyDirection.MIXED, f"{foreign} ⇄ {native}"),
         ]

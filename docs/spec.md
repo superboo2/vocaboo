@@ -480,8 +480,8 @@ Mikrofon (seriál nahlas) nebo nahraný audio soubor, přepis (Whisper), věty, 
    `all` = vše. Části *Směr* a *Které kartičky* jsou šablona `study/_options.html`, kterou HTMX
    při každé změně formuláře načte znovu (`study:counts`, GET s hodnotami formuláře).
 7. **Názvy směrů podle jazyků** (od 2026-10-26): mají-li všechny vybrané slovníky stejný pár,
-   jsou směry *EN → CS*, *CS → EN*, *EN → CS + CS → EN* (`StudySetupForm.name_directions`);
-   jinak obecně *cizí → rodný*, *rodný → cizí*, *cizí → rodný + rodný → cizí*. Stejný zápis
+   jsou směry *EN → CS*, *CS → EN*, *EN ⇄ CS* (`StudySetupForm.name_directions`; ⇄ je SVG ikona šipky tam a pod ní zpět, filtr `arrows`);
+   jinak obecně *cizí → rodný*, *rodný → cizí*, *cizí ⇄ rodný*. Stejný zápis
    s „+“ mají oba směry v tabulce posledních testů ve Statistikách (dřív „↔“).
 
 ### 6.2 Výběr další karty
@@ -494,7 +494,7 @@ Mikrofon (seriál nahlas) nebo nahraný audio soubor, přepis (Whisper), věty, 
 4. Karty odložené na později (`due_at > now`) se v rozsahu `due` nevrátí, dokud nebude jejich čas.
 5. Když nic nezbývá, test skončí a zobrazí se souhrn.
 
-Při obou směrech (`MIXED`, na stránce *cizí → rodný + rodný → cizí*, u jednoho jazykového páru třeba *EN → CS + CS → EN*; dřív „zamíchat“) se karta vybírá napříč oběma směry. Stejné slovíčko se nemá ukázat v obou směrech hned po sobě (jen pojistka, náhodné pořadí je většinou dá daleko od sebe; přísný rozestup není potřeba, občas blízko nevadí).
+Při obou směrech (`MIXED`, na stránce *cizí ⇄ rodný*, u jednoho jazykového páru třeba *EN ⇄ CS*; dřív „zamíchat“) se karta vybírá napříč oběma směry. Stejné slovíčko se nemá ukázat v obou směrech hned po sobě (jen pojistka, náhodné pořadí je většinou dá daleko od sebe; přísný rozestup není potřeba, občas blízko nevadí).
 
 **Rozestup homonym:** dva významy stejného slova (`palm` ruka / strom) se neukážou hned po sobě, aby si nenapovídaly.
 

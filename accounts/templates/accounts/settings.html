@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n arrows %}
 
 {% block title %}{% translate "Settings" %} · Vocaboo{% endblock %}
 
@@ -51,7 +51,7 @@
         <fieldset>
           <legend>{{ form.default_direction.label }}</legend>
           {% for radio in form.default_direction %}
-            <label>{{ radio.tag }} {{ radio.choice_label }}</label>
+            <label>{{ radio.tag }} {{ radio.choice_label|arrows }}</label>
           {% endfor %}
           <small>{{ form.default_direction.help_text }}</small>
         </fieldset>
