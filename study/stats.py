@@ -612,6 +612,8 @@ def _line_chart(labels, values, most_labels=5):
         "segments": [" ".join(segment) for segment in segments],
         "ticks": ticks,
         "labels": shown,
+        # The longest number of the y axis, so its column is just as wide
+        "axis_chars": max(len(tick["label"]) for tick in ticks),
     }
 
 

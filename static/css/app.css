@@ -1922,10 +1922,13 @@ main:focus {
   margin: 0.5rem 0 2rem;
 }
 
+/* As wide as the longest number (--axis-chars from the template), so there is no empty
+   space on the left */
 .line-chart-y {
   position: relative;
   flex-shrink: 0;
-  width: 2.75rem;
+  width: calc(var(--axis-chars, 3) * 1ch + 0.15rem);
+  font-size: 0.75rem;
 }
 
 .line-chart-y small,
@@ -1941,9 +1944,11 @@ main:focus {
   transform: translateY(-50%);
 }
 
+/* A little room on the right, so the last dot does not touch the edge */
 .line-chart-plot {
   position: relative;
   flex: 1;
+  margin-right: 0.4rem;
 }
 
 .line-chart-plot svg {
@@ -1991,6 +1996,13 @@ main:focus {
 /* The last date ends at the right edge, so it does not go over it */
 .line-chart-x small:last-child {
   transform: translateX(-100%);
+}
+
+/* On a phone every second date (from the last one back), so they do not run together */
+@media (max-width: 576px) {
+  .line-chart-x small:nth-last-child(2n) {
+    display: none;
+  }
 }
 
 /* The line of the words chart in the second colour (green is for the ratings) */

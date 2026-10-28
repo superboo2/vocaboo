@@ -3,7 +3,7 @@
 {# the lines in a 0–100 box stretched to the width; the texts and dots are HTML, so they #}
 {# keep their size on a phone. #}
 <div class="line-chart {{ tone }}" role="img" aria-label="{{ label }}">
-  <div class="line-chart-y">
+  <div class="line-chart-y" style="--axis-chars: {{ chart.axis_chars }}">
     {% for tick in chart.ticks %}<small style="top: {{ tick.top }}%">{{ tick.label }}</small>{% endfor %}
   </div>
   <div class="line-chart-plot">
