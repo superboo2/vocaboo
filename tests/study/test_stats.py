@@ -193,8 +193,10 @@ def test_stats_page_shows_only_own_data(client, user, other_user, deck):
 
 
 def test_round_top_of_the_y_axis():
-    tops = [stats._nice_top(value) for value in (0, 3, 7, 63, 230, 1000)]
-    assert tops == [4, 4, 8, 80, 250, 1000]
+    tops = [stats._nice_top(value) for value in (0, 3, 6, 7, 22, 63, 230, 1000)]
+    assert tops == [4, 4, 8, 8, 24, 80, 240, 1000]
+    # Every top splits into 4 even whole steps
+    assert all(top % 4 == 0 for top in tops)
 
 
 def test_dashboard_shows_yesterdays_hard_words(client, user, deck):

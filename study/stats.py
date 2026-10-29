@@ -556,14 +556,18 @@ def _bucket_label(start, unit):
 
 
 def _nice_top(value):
-    """A round top of the y axis: 7 -> 8, 63 -> 80, 230 -> 250."""
+    """A round top of the y axis that splits into 4 even, round steps (the 5 values on the
+    axis): 7 -> 8 (0 2 4 6 8), 22 -> 24 (0 6 12 18 24), 63 -> 80, 230 -> 240."""
     if value <= 4:
         return 4
-    step = 10 ** (len(str(int(value))) - 1)
-    for factor in (1, 1.2, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10):
-        if value <= factor * step:
-            return int(factor * step)
-    return int(10 * step)
+    need = value / 4
+    power = 10 ** (len(str(int(need))) - 1)
+    for factor in (1, 1.5, 2, 2.5, 3, 4, 5, 6, 8, 10):
+        step = factor * power
+        # Only whole steps, so the values on the axis have no decimals
+        if step >= need and step == int(step):
+            return int(4 * step)
+    return int(40 * power)
 
 
 def _line_chart(labels, values, most_labels=5):
