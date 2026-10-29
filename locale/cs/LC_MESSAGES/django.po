@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-28 11:31+0100\n"
+"POT-Creation-Date: 2026-10-29 15:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1018,35 +1018,34 @@ msgstr "30 dní"
 msgid "All"
 msgstr "Vše"
 
-msgid "You think longest about"
-msgstr "Nejdéle přemýšlíš u"
+msgid "most often you don't know"
+msgstr "nejčastěji nevíš"
 
-msgid "Only one way"
-msgstr "Jen jedním směrem"
+#| msgid "Only one way"
+msgid "only one way"
+msgstr "jen jedním směrem"
 
-msgid "Over and over"
-msgstr "Pořád dokola"
+#| msgid "You think longest about"
+msgid "you think long"
+msgstr "dlouho přemýšlíš"
 
-msgid "Worst enemy"
-msgstr "Největší nepřítel"
+msgid "quick and wrong"
+msgstr "rychle a vedle"
 
-msgid "You mix up"
-msgstr "Pleteš si"
+#| msgid "You forget"
+msgid "you forget it"
+msgstr "zapomínáš"
 
-msgid "You forget"
-msgstr "Zapomínáš"
+msgid "you know it, then you don't"
+msgstr "střídavě víš a nevíš"
 
-msgid "Roller coaster"
-msgstr "Horská dráha"
+#| msgid "Learning it longest"
+msgid "learning it longest"
+msgstr "učíš se nejdéle"
 
-msgid "Too fast"
-msgstr "Moc rychle"
-
-msgid "Struggling the longest"
-msgstr "Nejdéle ti nejde"
-
-msgid "Learning it longest"
-msgstr "Nejdéle se učíš"
+#| msgid "What you struggle with"
+msgid "the longest you struggle with"
+msgstr "nejdelší, co ti nejde"
 
 #, python-format
 msgid "%(count)s test in %(days)s days"
@@ -1225,50 +1224,6 @@ msgstr "pro"
 #, python-format
 msgid "Q%(quarter)s %(year)s"
 msgstr "Q%(quarter)s %(year)s"
-
-#, python-format
-msgid "%(wrong)s× don't know at all out of %(count)s try"
-msgid_plural "%(wrong)s× don't know at all out of %(count)s tries"
-msgstr[0] "%(wrong)s× vůbec nevím z %(count)s pokusu"
-msgstr[1] "%(wrong)s× vůbec nevím z %(count)s pokusů"
-msgstr[2] "%(wrong)s× vůbec nevím z %(count)s pokusů"
-
-msgid "same translation, keep getting mixed up"
-msgstr "stejný překlad, pořád se pletou"
-
-#, python-format
-msgid "%(count)s× forgotten"
-msgstr "%(count)s× zapomenuto"
-
-#, python-format
-msgid "%(count)s× switch know ↔ don't know"
-msgstr "%(count)s× změna vím ↔ nevím"
-
-#, python-format
-msgid "%(seconds)s s and don't know at all"
-msgstr "za %(seconds)s s a vůbec nevím"
-
-#, python-format
-msgid "don't know again · try no. %(count)s"
-msgstr "zase nevím · už %(count)s. pokus"
-
-#, python-format
-msgid "%(seconds)s s on average"
-msgstr "průměrně %(seconds)s s"
-
-#, python-format
-msgid "%(good)s yes, %(bad)s no"
-msgstr "%(good)s ano, %(bad)s ne"
-
-msgid "added today"
-msgstr "přidáno dnes"
-
-#, python-format
-msgid "added %(count)s day ago"
-msgid_plural "added %(count)s days ago"
-msgstr[0] "přidáno před %(count)s dnem"
-msgstr[1] "přidáno před %(count)s dny"
-msgstr[2] "přidáno před %(count)s dny"
 
 #, python-format
 msgid "%(count)s character"

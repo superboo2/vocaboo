@@ -73,33 +73,28 @@ RUSH_MS = 3000
 # The kinds of cards in the order of the statistics page. The dashboard shows
 # DASHBOARD_FACTS of them, mixed by the date of the day it is about (see hard_words).
 STATS_FACTS = [
-    "slow",
-    "one_way",
-    "again",
     "enemy",
-    "mix_up",
+    "one_way",
+    "slow",
+    "rush",
     "forget",
     "roller_coaster",
-    "rush",
-    "longest",
     "oldest",
+    "longest",
 ]
-# The title of each kind of card (the kinds above are only keys)
+# The name of each kind of card (the kinds above are only keys): a short, plain phrase,
+# written small on the back with a value in brackets, e.g. "dlouho přemýšlíš (9 s)"
 FACT_TITLES = {
-    "slow": gettext_lazy("You think longest about"),
-    "one_way": gettext_lazy("Only one way"),
-    "again": gettext_lazy("Over and over"),
-    "enemy": gettext_lazy("Worst enemy"),
-    "mix_up": gettext_lazy("You mix up"),
-    "forget": gettext_lazy("You forget"),
-    "roller_coaster": gettext_lazy("Roller coaster"),
-    "rush": gettext_lazy("Too fast"),
-    "longest": gettext_lazy("Struggling the longest"),
-    "oldest": gettext_lazy("Learning it longest"),
+    "enemy": gettext_lazy("most often you don't know"),
+    "one_way": gettext_lazy("only one way"),
+    "slow": gettext_lazy("you think long"),
+    "rush": gettext_lazy("quick and wrong"),
+    "forget": gettext_lazy("you forget it"),
+    "roller_coaster": gettext_lazy("you know it, then you don't"),
+    "oldest": gettext_lazy("learning it longest"),
+    "longest": gettext_lazy("the longest you struggle with"),
 }
 DASHBOARD_FACTS = 3
-# "again" shows a word only after this many attempts in the whole history
-REPEAT_ATTEMPTS = 3
 
 
 def _week_start(day):
@@ -677,9 +672,6 @@ def _facts(user, logs, now, period, kinds=None, day=None):
             switches[term_id] += 1
         last_right[key] = right
 
-    # Attempts of a word in the whole history (for "again")
-    all_attempts = Counter(log[5] for log in logs)
-
     # Forgotten = a wrong answer after KNOWN_STREAK right ones in a row (the whole history
     # is needed for the streak, only the wrong answers in the period count)
     forgotten = Counter()
@@ -735,27 +727,8 @@ def _facts(user, logs, now, period, kinds=None, day=None):
             and any(other != direction and streak > 0 for other, streak in directions.items())
         ]
 
-    # Two hard words with the same translation (borrow / lend – půjčit): the partner of each
-    same_translation = {}
-    for term in terms.values():
-        key = (term.foreign_language_id, term.native_language_id, term.main_native.lower())
-        same_translation.setdefault(key, []).append(term)
-    partner = {}
-    for group in same_translation.values():
-        if len(group) > 1:
-            for term in group:
-                partner[term.pk] = next(other for other in group if other.pk != term.pk)
-
-    def enemy_text(term):
-        count = attempts[term.pk]
-        return ngettext(
-            "%(wrong)s× don't know at all out of %(count)s try",
-            "%(wrong)s× don't know at all out of %(count)s tries",
-            count,
-        ) % {"wrong": wrong[term.pk], "count": count}
-
     hard = list(terms.values())
-    # (kind, animal, colour of the stripe, words in order, why)
+    # (kind, animal, colour of the stripe, words in order, value in brackets or "")
     candidates = [
         (
             "enemy",
@@ -765,76 +738,14 @@ def _facts(user, logs, now, period, kinds=None, day=None):
                 (term for term in hard if wrong[term.pk]),
                 key=lambda term: (-wrong[term.pk], -attempts[term.pk]),
             ),
-            enemy_text,
-        ),
-        (
-            "mix_up",
-            "🦎",
-            "partial",
-            sorted(
-                (term for term in hard if term.pk in partner),
-                key=lambda term: -(wrong[term.pk] + wrong[partner[term.pk].pk]),
-            ),
-            lambda term: _("same translation, keep getting mixed up"),
+            lambda term: f"{wrong[term.pk]}×",
         ),
         (
             "one_way",
             "🦀",
             "think",
             [term for term in hard if one_direction(term)],
-            lambda term: _directions_text(term, one_direction(term)[0]),
-        ),
-        (
-            "forget",
-            "🐿️",
-            "dontknow",
-            sorted(
-                (term for term in hard if forgotten[term.pk]),
-                key=lambda term: -forgotten[term.pk],
-            ),
-            lambda term: _("%(count)s× forgotten") % {"count": forgotten[term.pk]},
-        ),
-        (
-            "roller_coaster",
-            "🐒",
-            "think",
-            sorted(
-                (term for term in hard if switches[term.pk] >= SWITCHES),
-                key=lambda term: -switches[term.pk],
-            ),
-            lambda term: _("%(count)s× switch know ↔ don't know") % {"count": switches[term.pk]},
-        ),
-        (
-            "rush",
-            "🐇",
-            "dontknow",
-            sorted(
-                (term for term in hard if fast_wrong.get(term.pk, RUSH_MS) < RUSH_MS),
-                key=lambda term: fast_wrong[term.pk],
-            ),
-            lambda term: (
-                _("%(seconds)s s and don't know at all")
-                % {"seconds": _decimal(fast_wrong[term.pk] / 1000)}
-            ),
-        ),
-        (
-            "again",
-            "🐘",
-            "dontknow",
-            sorted(
-                (term for term in hard if all_attempts[term.pk] >= REPEAT_ATTEMPTS),
-                key=lambda term: -all_attempts[term.pk],
-            ),
-            lambda term: (
-                _("don't know again · try no. %(count)s") % {"count": all_attempts[term.pk]}
-            ),
-        ),
-        (
-            "longest",
-            "🦒",
-            "partial",
-            sorted(hard, key=lambda term: -len(term.main_foreign)),
-            lambda term: _characters(len(term.main_foreign)),
+            lambda term: "",
         ),
         (
             "slow",
@@ -844,42 +755,63 @@ def _facts(user, logs, now, period, kinds=None, day=None):
                 (term for term in hard if term.pk in think),
                 key=lambda term: -_average(think[term.pk]),
             ),
-            lambda term: (
-                _("%(seconds)s s on average")
-                % {"seconds": _decimal(_average(think[term.pk]) / 1000)}
+            lambda term: f"{max(1, round(_average(think[term.pk]) / 1000))} s",
+        ),
+        (
+            "rush",
+            "🐇",
+            "dontknow",
+            sorted(
+                (term for term in hard if fast_wrong.get(term.pk, RUSH_MS) < RUSH_MS),
+                key=lambda term: fast_wrong[term.pk],
             ),
+            lambda term: f"{_decimal(fast_wrong[term.pk] / 1000)} s",
+        ),
+        (
+            "forget",
+            "🐿️",
+            "dontknow",
+            sorted(
+                (term for term in hard if forgotten[term.pk]),
+                key=lambda term: -forgotten[term.pk],
+            ),
+            lambda term: f"{forgotten[term.pk]}×",
+        ),
+        (
+            "roller_coaster",
+            "🐒",
+            "think",
+            sorted(
+                (term for term in hard if switches[term.pk] >= SWITCHES),
+                key=lambda term: -switches[term.pk],
+            ),
+            lambda term: f"{switches[term.pk]}×",
         ),
         (
             "oldest",
             "🐌",
             "think",
             sorted(hard, key=lambda term: term.created_at),
-            lambda term: _added_ago(term, now),
+            lambda term: _learning_days(term, now),
+        ),
+        (
+            "longest",
+            "🦒",
+            "partial",
+            sorted(hard, key=lambda term: -len(term.main_foreign)),
+            lambda term: "",
         ),
     ]
     by_kind = {candidate[0]: candidate for candidate in candidates}
     candidates = [by_kind[kind] for kind in kinds or STATS_FACTS]
     items = []
     used = set()
-    for kind, emoji, tone, ordered, text in candidates:
+    for kind, emoji, tone, ordered, value in candidates:
         term = next((term for term in ordered if term.pk not in used), None)
-        if kind == "mix_up":
-            # Both words of the pair must be free
-            term = next(
-                (
-                    term
-                    for term in ordered
-                    if term.pk not in used and partner[term.pk].pk not in used
-                ),
-                None,
-            )
         if term is None:
             continue
         used.add(term.pk)
         foreign = term.main_foreign
-        if kind == "mix_up":
-            used.add(partner[term.pk].pk)
-            foreign = f"{term.main_foreign} · {partner[term.pk].main_foreign}"
         # The card turns like in a test: every second one shows the native side first;
         # "one_way" shows the direction that is hard
         if kind == "one_way":
@@ -887,41 +819,31 @@ def _facts(user, logs, now, period, kinds=None, day=None):
         else:
             native_first = len(items) % 2 == 1
         front, back = foreign, term.main_native
+        title = str(FACT_TITLES[kind])
         if native_first:
             front, back = back, front
         items.append(
             {
                 "kind": kind,
                 "emoji": emoji,
-                "title": str(FACT_TITLES[kind]),
+                "title": title,
                 "tone": tone,
                 "term": term,
                 "word": foreign,
                 "translation": term.main_native,
                 "front": front,
                 "back": back,
-                "text": text(term),
+                # The name with its value, e.g. "dlouho přemýšlíš (9 s)"
+                "text": f"{title} ({value(term)})" if value(term) else title,
             }
         )
     return {"items": items, "answered": True}
 
 
-def _directions_text(term, bad_direction):
-    """E.g. "EN → CS yes, CS → EN no" when native → foreign is the hard one."""
-    foreign, native = term.foreign_language.code.upper(), term.native_language.code.upper()
-    to_native, to_foreign = f"{foreign} → {native}", f"{native} → {foreign}"
-    if bad_direction == Direction.N2F:
-        good, bad = to_native, to_foreign
-    else:
-        good, bad = to_foreign, to_native
-    return _("%(good)s yes, %(bad)s no") % {"good": good, "bad": bad}
-
-
-def _added_ago(term, now):
+def _learning_days(term, now):
+    """Days since the word was added, e.g. "21 dní" (nothing on the first day)."""
     days = (_local_day(now) - _local_day(term.created_at)).days
-    if days < 1:
-        return _("added today")
-    return ngettext("added %(count)s day ago", "added %(count)s days ago", days) % {"count": days}
+    return _days(days) if days else ""
 
 
 def _average(values):

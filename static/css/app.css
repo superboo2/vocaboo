@@ -2210,9 +2210,15 @@ main:focus {
 
 .hard-word-face {
   grid-area: 1 / 1;
+  position: relative;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding: 0.9rem 1rem;
+  align-items: center;
+  justify-content: center;
+  height: 7rem;
+  padding: 0.7rem 2rem;
+  text-align: center;
   /* No frame: a light fill in the colour of the kind (red for the enemy, green for …) */
   border: 0;
   border-radius: var(--radius-card);
@@ -2241,10 +2247,6 @@ main:focus {
 }
 
 /* The small ↻ in the top right corner: the card turns (darker under the mouse) */
-.hard-word-face {
-  position: relative;
-}
-
 .hard-word-turn {
   position: absolute;
   top: 0.55rem;
@@ -2260,12 +2262,38 @@ main:focus {
   opacity: 1;
 }
 
-/* "Detail" on the back: a quiet word, not an underlined link (darker under the mouse) */
-.hard-words a.hard-word-detail {
-  align-self: flex-end;
-  margin-top: 0.25rem;
-  color: var(--pico-muted-color);
+/* The animal of the kind: small, in front of why on the back (the colour of the card is
+   enough in front) */
+.hard-word-animal {
   font-size: 0.85rem;
+}
+
+.hard-word-word {
+  position: relative;
+  font-size: 1.3rem;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.hard-word-face > small {
+  position: relative;
+  font-size: 0.75rem;
+  line-height: 1.3;
+}
+
+/* The back has more text: room at the bottom for "Detail" */
+.hard-word-back {
+  padding: 0.5rem 1.2rem 1.4rem;
+}
+
+/* "Detail" on the back in the bottom right corner: a quiet word, not an underlined link
+   (darker under the mouse), far from ↻ so a tap to turn the card does not open the word */
+.hard-words a.hard-word-detail {
+  position: absolute;
+  right: 0.7rem;
+  bottom: 0.5rem;
+  color: var(--pico-muted-color);
+  font-size: 0.8rem;
   font-weight: 600;
   text-decoration: none;
 }
@@ -2297,137 +2325,24 @@ main:focus {
   --stripe: var(--rating-dontknow);
 }
 
-.hard-word-kind {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-bottom: 0.4rem;
-  font-size: 0.9rem;
-  font-weight: bold;
-}
-
-.hard-word-animal {
-  font-size: 1.75rem;
-  line-height: 1;
-}
-
-.hard-word-word {
-  font-size: 1.4rem;
-  line-height: 1.2;
-}
-
-/* Smaller cards on the dashboard: 3 in a row (2 on a phone); with fewer cards the row is
-   not filled, so the cards keep their size */
+/* The dashboard: 3 cards in a row; on a phone lower cards under each other */
 .hard-words.hard-words-compact {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.6rem;
 }
 
-.hard-words-compact .hard-word-face {
-  padding: 0.7rem 0.75rem;
-}
-
-.hard-words-compact .hard-word-kind {
-  align-items: flex-start;
-  gap: 0.35rem;
-  font-size: 0.8rem;
-  line-height: 1.25;
-}
-
-.hard-words-compact .hard-word-animal {
-  font-size: 1.3rem;
-}
-
-.hard-words-compact .hard-word-word {
-  font-size: 1.1rem;
-  overflow-wrap: anywhere;
-}
-
-.hard-words-compact .hard-word-detail {
-  font-size: 0.8rem;
-}
-
-/* On a phone the 3 cards of the dashboard are low rows of the same height under each other,
-   so all of them stay in sight: the animal on the left, the kind small above the big word,
-   ↻ on the right; the back has the text and "Details" on one line. Long texts end with "…". */
 @media (max-width: 576px) {
   .hard-words.hard-words-compact {
     grid-template-columns: 1fr;
-    grid-auto-rows: 5.9rem;
     gap: 0.45rem;
   }
 
   .hard-words-compact .hard-word-face {
-    display: grid;
-    grid-template-columns: 2.4rem minmax(0, 1fr);
-    column-gap: 0.6rem;
-    row-gap: 0.1rem;
-    align-items: center;
-    align-content: center;
-    height: 5.9rem;
-    padding: 0.4rem 2.2rem 0.4rem 0.7rem;
-    overflow: hidden;
-  }
-
-  .hard-words-compact .hard-word-kind {
-    display: contents;
-  }
-
-  .hard-words-compact .hard-word-animal {
-    grid-row: 1 / span 9;
-    justify-self: center;
-    font-size: 1.9rem;
-  }
-
-  .hard-words-compact .hard-word-kind-text {
-    grid-column: 2;
-    font-size: 0.78rem;
-  }
-
-  .hard-words-compact .hard-word-word,
-  .hard-words-compact .hard-word-face > small {
-    grid-column: 2;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+    height: 5.6rem;
   }
 
   .hard-words-compact .hard-word-word {
-    font-size: 1.15rem;
-    overflow-wrap: normal;
-  }
-
-  .hard-words-compact .hard-word-turn {
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  /* The back: no kind (the front has it); "Details" under the text on the left, far from ↻,
-     so a tap to turn the card does not open the word */
-  .hard-words-compact .hard-word-back .hard-word-kind-text {
-    display: none;
-  }
-
-  /* The text may take two lines, so "EN → CS yes, CS → EN no" is not cut on a narrow phone */
-  .hard-words-compact .hard-word-back > small {
-    display: -webkit-box;
-    font-size: 0.8rem;
-    line-height: 1.25;
-    white-space: normal;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 2;
-  }
-
-  .hard-words-compact .hard-word-back .hard-word-detail {
-    grid-column: 2;
-    justify-self: start;
-    margin: 0;
-    font-size: 0.78rem;
-    line-height: 1.2;
-  }
-
-  .hard-words-compact .hard-word-back .hard-word-word {
-    font-size: 1.05rem;
+    font-size: 1.2rem;
   }
 }
 

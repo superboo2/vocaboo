@@ -38,9 +38,9 @@ def answer(
 
 
 def facts_of(user, now=NOW, period="7"):
-    """The fun facts without the first three (they come first on the statistics page and
-    would take the words these tests are about)."""
-    others = stats.STATS_FACTS[3:]
+    """The fun facts without "one way" and "slow" (they would take the words these tests are
+    about)."""
+    others = [kind for kind in stats.STATS_FACTS if kind not in ("one_way", "slow")]
     return stats._facts(user, stats._logs(user), now, period, kinds=others)
 
 
@@ -86,8 +86,8 @@ def test_totals_streak_and_charts(user, deck):
     # Two words of 4 are in the middle; SVG needs a dot, not the Czech comma
     assert chart["points"][-1]["top"] == "50.00"
     facts = {fact["title"]: fact for fact in facts_of(user)["items"]}
-    assert facts["Největší nepřítel"]["word"] == "hello"
-    assert facts["Největší nepřítel"]["translation"] == "ahoj"
+    assert facts["nejčastěji nevíš"]["word"] == "hello"
+    assert facts["nejčastěji nevíš"]["translation"] == "ahoj"
 
 
 def test_facts_show_each_hard_word_once(user, deck):
@@ -105,19 +105,20 @@ def test_facts_show_each_hard_word_once(user, deck):
     facts = stats._facts(user, stats._logs(user), NOW, "7", kinds=kinds)
 
     by_title = {fact["title"]: fact for fact in facts["items"]}
-    assert by_title["Největší nepřítel"]["word"] == "window seat"
-    assert by_title["Největší nepřítel"]["text"] == "2× vůbec nevím z 2 pokusů"
-    assert by_title["Jen jedním směrem"]["word"] == "ox"
-    assert by_title["Jen jedním směrem"]["text"] == "EN → CS ano, CS → EN ne"
+    assert by_title["nejčastěji nevíš"]["word"] == "window seat"
+    # The name with a short value in brackets; "one way" needs none
+    assert by_title["nejčastěji nevíš"]["text"] == "nejčastěji nevíš (2×)"
+    assert by_title["jen jedním směrem"]["word"] == "ox"
+    assert by_title["jen jedním směrem"]["text"] == "jen jedním směrem"
     # The card shows first the side that is hard: native → foreign
-    assert (by_title["Jen jedním směrem"]["front"], by_title["Jen jedním směrem"]["back"]) == (
+    assert (by_title["jen jedním směrem"]["front"], by_title["jen jedním směrem"]["back"]) == (
         "vůl",
         "ox",
     )
     # The first card shows the foreign word first
-    assert by_title["Největší nepřítel"]["front"] == "window seat"
+    assert by_title["nejčastěji nevíš"]["front"] == "window seat"
     # Both words are used, so there is nothing left for the longest word
-    assert "Nejdéle ti nejde" not in by_title
+    assert "nejdelší, co ti nejde" not in by_title
     # Every word only once, the easy word never
     words = [fact["word"] for fact in facts["items"]]
     assert sorted(words) == ["ox", "window seat"]
@@ -141,26 +142,19 @@ def test_forgotten_and_oldest_hard_word(user, deck):
     # cat: right twice in a row, then wrong = forgotten once
     answer(user, cat, 5)
     answer(user, cat, 4)
-    answer(user, cat, 3, Result.WRONG, "dontknow")
+    answer(user, cat, 3, Result.WRONG, "dontknow", think_ms=5000)
     answer(user, dog, 3, Result.PARTIAL, "partial", think_ms=None)
 
     facts = facts_of(user)
 
     by_title = {fact["title"]: fact for fact in facts["items"]}
-    assert by_title["Největší nepřítel"]["word"] == "enemy"
-    assert by_title["Zapomínáš"]["word"] == "cat"
-    assert by_title["Zapomínáš"]["text"] == "1× zapomenuto"
-    assert by_title["Nejdéle ti nejde"]["word"] == "dog"
-    assert stats._added_ago(dog, NOW) == "přidáno před 45 dny"
-    assert stats._added_ago(dog, NOW - timedelta(days=44)) == "přidáno před 1 dnem"
-    assert stats._added_ago(dog, NOW - timedelta(days=45)) == "přidáno dnes"
-
-
-def test_one_direction_text(user, deck):
-    ox = vocabulary.add_term(deck, foreign="ox", native="vůl").term
-
-    assert stats._directions_text(ox, Direction.N2F) == "EN → CS ano, CS → EN ne"
-    assert stats._directions_text(ox, Direction.F2N) == "CS → EN ano, EN → CS ne"
+    assert by_title["nejčastěji nevíš"]["word"] == "enemy"
+    assert by_title["zapomínáš"]["word"] == "cat"
+    assert by_title["zapomínáš"]["text"] == "zapomínáš (1×)"
+    assert by_title["učíš se nejdéle"]["word"] == "dog"
+    assert by_title["učíš se nejdéle"]["text"] == "učíš se nejdéle (45 dní)"
+    # On the first day no value
+    assert stats._learning_days(dog, NOW - timedelta(days=45)) == ""
 
 
 def test_streak_is_broken_after_a_day_without_answers(user, deck):
@@ -514,14 +508,9 @@ def test_dashboard_hard_words_old_test_counts_as_last_day(client, user, deck):
     assert "Co ti nešlo" in html
 
 
-def test_mixed_up_rollercoaster_and_rushed_words(user, deck):
-    borrow = vocabulary.add_term(deck, foreign="borrow", native="půjčit").term
-    lend = vocabulary.add_term(deck, foreign="lend", native="půjčit si").term
-    Term.objects.filter(pk=lend.pk).update(main_native="půjčit")
+def test_rollercoaster_and_rushed_words(user, deck):
     swing = vocabulary.add_term(deck, foreign="swing", native="houpat").term
     rush = vocabulary.add_term(deck, foreign="rush", native="spěch").term
-    for term in (borrow, lend):
-        answer(user, term, 3, Result.WRONG, "dontknow", think_ms=5000)
     # swing: wrong, right, wrong, right, wrong = 4 changes
     for days_ago, result in zip((6, 5, 4, 3, 2), "wcwcw", strict=True):
         if result == "w":
@@ -536,32 +525,27 @@ def test_mixed_up_rollercoaster_and_rushed_words(user, deck):
 
     by_title = {fact["title"]: fact for fact in facts_of(user)["items"]}
 
-    # The pair takes both words, so each of them is on no other card
-    assert by_title["Pleteš si"]["word"] in ("borrow · lend", "lend · borrow")
-    assert by_title["Pleteš si"]["translation"] == "půjčit"
-    assert by_title["Horská dráha"]["word"] == "swing"
-    assert by_title["Horská dráha"]["text"] == "4× změna vím ↔ nevím"
-    assert by_title["Moc rychle"]["text"] == "za 1,2 s a vůbec nevím"
-    words = [fact["word"] for fact in by_title.values()]
-    assert sum("borrow" in word for word in words) == 1
+    assert by_title["střídavě víš a nevíš"]["word"] == "swing"
+    assert by_title["střídavě víš a nevíš"]["text"] == "střídavě víš a nevíš (4×)"
+    assert by_title["rychle a vedle"]["text"] == "rychle a vedle (1,2 s)"
 
 
-def test_dashboard_word_again_and_again(user, deck):
+def test_dashboard_slow_and_enemy(user, deck):
     cat = vocabulary.add_term(deck, foreign="cat", native="kočka").term
     dog = vocabulary.add_term(deck, foreign="dog", native="pes").term
-    # cat: 3 old attempts and a wrong answer today; dog: wrong only today
-    for days_ago in (9, 8, 7):
-        answer(user, cat, days_ago)
+    # cat: wrong twice today; dog: wrong once today, thinking longer
     answer(user, cat, 0, Result.WRONG, "dontknow", think_ms=1000)
-    answer(user, dog, 0, Result.WRONG, "dontknow", think_ms=8000)
+    answer(user, cat, 0.01, Result.WRONG, "dontknow", think_ms=1000)
+    answer(user, dog, 0, Result.WRONG, "dontknow", think_ms=8400)
 
     cards = stats._facts(
-        user, stats._logs(user), NOW, None, kinds=["slow", "again"], day=NOW.date()
+        user, stats._logs(user), NOW, None, kinds=["slow", "enemy"], day=NOW.date()
     )["items"]
 
-    # 🐢 takes dog (longer thinking), 🐘 takes cat
-    assert [(card["emoji"], card["word"]) for card in cards] == [("🐢", "dog"), ("🐘", "cat")]
-    assert cards[1]["text"] == "zase nevím · už 4. pokus"
+    # 🐢 takes dog (longer thinking, whole seconds), 🦈 takes cat
+    assert [(card["emoji"], card["word"]) for card in cards] == [("🐢", "dog"), ("🦈", "cat")]
+    assert cards[0]["text"] == "dlouho přemýšlíš (8 s)"
+    assert cards[1]["text"] == "nejčastěji nevíš (2×)"
 
 
 def test_words_chart_by_days_months_and_quarters(user, deck):

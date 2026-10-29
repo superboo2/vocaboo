@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-28 11:31+0100\n"
+"POT-Creation-Date: 2026-10-29 15:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1024,35 +1024,34 @@ msgstr "30 días"
 msgid "All"
 msgstr "Todo"
 
-msgid "You think longest about"
-msgstr "En lo que más tardas en pensar"
+msgid "most often you don't know"
+msgstr "la que más veces no sabes"
 
-msgid "Only one way"
-msgstr "Solo en un sentido"
+#| msgid "Only one way"
+msgid "only one way"
+msgstr "solo en un sentido"
 
-msgid "Over and over"
-msgstr "Una y otra vez"
+#| msgid "You think longest about"
+msgid "you think long"
+msgstr "piensas mucho"
 
-msgid "Worst enemy"
-msgstr "Peor enemigo"
+msgid "quick and wrong"
+msgstr "rápido y mal"
 
-msgid "You mix up"
-msgstr "Confundes"
+#| msgid "You forget"
+msgid "you forget it"
+msgstr "la olvidas"
 
-msgid "You forget"
-msgstr "Olvidas"
+msgid "you know it, then you don't"
+msgstr "a veces la sabes y a veces no"
 
-msgid "Roller coaster"
-msgstr "Montaña rusa"
+#| msgid "Learning it longest"
+msgid "learning it longest"
+msgstr "la que llevas más tiempo aprendiendo"
 
-msgid "Too fast"
-msgstr "Demasiado rápido"
-
-msgid "Struggling the longest"
-msgstr "Lo que más tiempo se te resiste"
-
-msgid "Learning it longest"
-msgstr "Lo que más tiempo llevas aprendiendo"
+#| msgid "What you struggle with"
+msgid "the longest you struggle with"
+msgstr "la más larga que se te resiste"
 
 #, python-format
 msgid "%(count)s test in %(days)s days"
@@ -1230,48 +1229,6 @@ msgstr "dic"
 #, python-format
 msgid "Q%(quarter)s %(year)s"
 msgstr "T%(quarter)s %(year)s"
-
-#, python-format
-msgid "%(wrong)s× don't know at all out of %(count)s try"
-msgid_plural "%(wrong)s× don't know at all out of %(count)s tries"
-msgstr[0] "%(wrong)s× ni idea de %(count)s intento"
-msgstr[1] "%(wrong)s× ni idea de %(count)s intentos"
-
-msgid "same translation, keep getting mixed up"
-msgstr "misma traducción, siempre se confunden"
-
-#, python-format
-msgid "%(count)s× forgotten"
-msgstr "%(count)s× olvidada"
-
-#, python-format
-msgid "%(count)s× switch know ↔ don't know"
-msgstr "%(count)s× cambio lo sé ↔ no lo sé"
-
-#, python-format
-msgid "%(seconds)s s and don't know at all"
-msgstr "%(seconds)s s y ni idea"
-
-#, python-format
-msgid "don't know again · try no. %(count)s"
-msgstr "otra vez no lo sé · intento n.º %(count)s"
-
-#, python-format
-msgid "%(seconds)s s on average"
-msgstr "%(seconds)s s de media"
-
-#, python-format
-msgid "%(good)s yes, %(bad)s no"
-msgstr "%(good)s sí, %(bad)s no"
-
-msgid "added today"
-msgstr "añadida hoy"
-
-#, python-format
-msgid "added %(count)s day ago"
-msgid_plural "added %(count)s days ago"
-msgstr[0] "añadida hace %(count)s día"
-msgstr[1] "añadida hace %(count)s días"
 
 #, python-format
 msgid "%(count)s character"

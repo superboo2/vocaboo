@@ -658,14 +658,14 @@ services.search_terms(user, "impose")
   translation and a link to the word page, for the last 30 days (no choice of the period: enough
   words for the cards, and still about now). A word is hard when it had 😵 or 😕 in the period and is not known yet; each
   word is shown once, as a card that turns like in a test (click or Enter; a short 3D turn, none
-  with reduced motion): in front the animal with the name of the kind and one side of the word
+  with reduced motion): in front only one side of the word in the middle, on the colour of the kind
   (every second card the native side; 🦀 the hard direction), on the back the other side, a small
-  note why and the link *Detail*: 🦈 *Největší nepřítel* (`suit up` – obleč se do obleku, 3×
-  vůbec nevím z 5 pokusů), 🦀 *Jen jedním směrem* (`EN → CS ano, CS → EN ne`), 🐿️ *Zapomínáš*
-  (wrong after 2 right answers in a row, `2× zapomenuto`), 🐒 *Horská dráha* (most changes between
-  right and wrong, at least 3), 🐇 *Moc rychle* (the fastest 😵, under 3 s), 🦎 *Pleteš si* (two hard
-  words with the same translation, `borrow · lend` – půjčit), 🦒 the longest hard word, 🐢 the
-  longest thinking, 🐌 the oldest hard word (`přidáno před 45 dny`). Everything is counted from
+  line with the animal, the name of the kind and a short value, and the link *Detail*. 8 kinds:
+  🦈 *nejčastěji nevíš (3×)* (most 😵), 🦀 *jen jedním směrem*, 🐢 *dlouho přemýšlíš (9 s)*
+  (longest average thinking), 🐇 *rychle a vedle (1,2 s)* (the fastest 😵, under 3 s),
+  🐿️ *zapomínáš (2×)* (wrong after 2 right answers in a row), 🐒 *střídavě víš a nevíš (4×)*
+  (most changes between right and wrong, at least 3), 🐌 *učíš se nejdéle (45 dní)* (the oldest
+  hard word), 🦒 *nejdelší, co ti nejde*. Everything is counted from
   `Term` and `ReviewLog` when the page opens (`study/stats.py`); the chart is plain SVG without a
   chart library.
 - Above the decks the dashboard shows **Dnes** (`stats.today_overview`), only good news of the tests:
