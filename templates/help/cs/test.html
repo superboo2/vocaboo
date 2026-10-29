@@ -24,30 +24,30 @@
 
   <section>
     <h2>Kartička</h2>
-    <p>Uvidíš přední stranu, zkus si odpověď vybavit a kartičku otoč (<strong>Ukázat</strong> nebo <strong>mezerník</strong>).</p>
+    <p>Uvidíš přední stranu, zkus si odpověď vybavit a kartičku otoč (<strong>Ukázat</strong> nebo <strong>mezerník</strong>). Kartička se otočí jako papírová: přední strana zmizí a místo ní je zadní.</p>
     <div class="grid">
       <article class="help-card">
         <header>Přední strana</header>
         <p class="help-card-main">dlaň</p>
-        <p class="card-sentence">„She can read from her <span class="cloze">___</span>.“</p>
+        <p class="card-sentence">„Umí číst z <mark>dlaně</mark>.“</p>
       </article>
       <article class="help-card">
         <header>Zadní strana</header>
         <p class="help-card-main">palm 🔊</p>
-        <p>Učíš se i: palm → palma</p>
         <p class="card-sentence">„She can read from her <mark>palm</mark>.“</p>
+        <p class="muted"><small>Učíš se i: palm → palma</small></p>
         <p class="muted"><small>pracka · lehký · světlý <u>+3</u></small></p>
       </article>
     </div>
     <ul>
-      <li>Ve směru cizí → rodný je věta celá už vpředu, určí význam (palm: ruka, nebo strom?).</li>
-      <li>Ve směru rodný → cizí je věta vpředu s mezerou místo slova. Když má věta i překlad, je vpředu i ten, takže víš, co do mezery patří: <em>„Mně se ta písnička <strong>také</strong> nelíbí.“ / „I don't like this song ___.“</em></li>
-      <li>Ve směru cizí → rodný je překlad věty na zadní straně.</li>
+      <li>Na každé straně je velké slovíčko a pod ním jedna věta ve stejném jazyce, slovo je v ní zvýrazněné. Věta určí význam (palm: dlaň, nebo palma?) a ukáže tvar slova.</li>
+      <li>Ve směru cizí → rodný je vpředu anglická věta, vzadu její překlad. Ve směru rodný → cizí je to obráceně: vpředu <em>„Jsem <strong>ráda</strong>, že jsi přišel.“</em>, vzadu <em>„I'm <strong>glad</strong> you came.“</em> Ohodnoť se podle slovíčka, celou větu přeložit nemusíš.</li>
+      <li>Když věta nemá překlad, je ve směru rodný → cizí vpředu anglická věta s mezerou místo slova a vzadu doplněná.</li>
       <li>Když je slovíčko ve víc slovnících testu, věta se pokaždé střídá.</li>
       <li><em>„ahoj“ je i: hello</em>: stejný překlad má i jiné slovíčko.</li>
       <li><em>„She can read from her palm.“ 🔊</em>: větu přečte hlas prohlížeče, klik na 🔊 nebo klávesa <kbd>V</kbd>. Ve směru cizí → rodný hned, ve směru rodný → cizí až po otočení (jinak by prozradila odpověď).</li>
       <li><em>Hlas prohlížeče</em> zní podle zařízení: na Androidu, ve Windows, na Macu a v Chromu na Linuxu dobře, ve Firefoxu na Linuxu roboticky nebo vůbec. Když prohlížeč mluvit neumí vůbec, 🔊 se neukáže.</li>
-      <li><em>palm 🔊</em>: výslovnost cizího slova. Šedé 🔊 je u pravého okraje kartičky, na řádku cizího slova. Klik na 🔊 nebo klávesa <kbd>P</kbd> slovo přečte <strong>hlasem prohlížeče</strong>; ve směru cizí → rodný je 🔊 vidět hned, ve směru rodný → cizí po otočení. V <a href="{% url 'settings' %}">Nastavení</a> si můžeš zapnout, aby se slovo nebo celá věta přečetly samy. Kdo umí číst IPA, může si v <a href="{% url 'settings' %}">Nastavení</a> zapnout i zápis výslovnosti pod slovem ze slovníku, třeba <em>[pɑːm]</em>. Ukáže se až po otočení kartičky.</li>
+      <li><em>palm 🔊</em>: výslovnost cizího slova. Šedé 🔊 je u pravého okraje kartičky, na řádku cizího slova. Klik na 🔊 nebo klávesa <kbd>P</kbd> slovo přečte <strong>hlasem prohlížeče</strong>; ve směru cizí → rodný je 🔊 vidět hned, ve směru rodný → cizí po otočení. V <a href="{% url 'settings' %}">Nastavení</a> si můžeš zapnout, aby se slovo nebo celá věta přečetly samy. Kdo umí číst IPA, může si v <a href="{% url 'settings' %}">Nastavení</a> zapnout i zápis výslovnosti pod slovem ze slovníku, třeba <em>[pɑːm]</em>. Ve směru cizí → rodný je vidět hned, ve směru rodný → cizí po otočení.</li>
       <li><em>Učíš se i</em>: tvoje další slovíčko se stejným cizím slovem, ale jiným překladem (<code>palm → palma</code>).</li>
       <li><em>pracka · lehký · světlý +3</em>: úplně dole a menším písmem další významy cizího slova ze slovníku aplikace. Z každého významu jen první varianta. Ukáže se jich tolik, kolik se vejde na jeden řádek, a klik na <em>+3</em> ukáže zbytek. Všechny i se všemi variantami jsou v detailu slovíčka. Jde to vypnout v <a href="{% url 'settings' %}">Nastavení</a>.</li>
     </ul>

@@ -433,3 +433,66 @@ def test_edit_without_test_or_with_finished_test_goes_to_the_deck(
     for address in (url, f"{url}?test={session.pk}", f"{url}?test=x"):
         response = logged_client.post(address, {"foreign": "hello", "native": "ahoj"})
         assert response.url == reverse("vocabulary:deck_detail", args=[himym.pk])
+
+
+# The card: one big word and one sentence on each side
+
+
+def _sides(html):
+    front = html[html.index('class="card-front"') : html.index('class="card-back"')]
+    back = html[html.index('class="card-back"') : html.index('class="card-show"')]
+    return front, back
+
+
+def test_card_shows_one_sentence_on_each_side(logged_client, user, himym):
+    vocabulary.add_term(
+        himym,
+        foreign="glad",
+        native="rád",
+        context_sentence="I'm {glad} you came.",
+        context_sentence_native="Jsem {ráda}, že jsi přišel.",
+    )
+    session = new_session(user, himym, direction="N2F")
+
+    front, back = _sides(
+        logged_client.get(reverse("study:card", args=[session.pk])).content.decode()
+    )
+
+    # Native → foreign: in front the Czech sentence, no English sentence with a gap
+    assert "<mark>ráda</mark>" in front and "you came" not in front and "___" not in front
+    # The back: the English sentence with the word marked, not the Czech one again
+    assert "<mark>glad</mark> you came" in back and "přišel" not in back
+
+
+def test_card_without_translation_of_the_sentence_has_a_gap(logged_client, user, himym):
+    vocabulary.add_term(
+        himym, foreign="glad", native="rád", context_sentence="I'm {glad} you came."
+    )
+    session = new_session(user, himym, direction="N2F")
+
+    front, back = _sides(
+        logged_client.get(reverse("study:card", args=[session.pk])).content.decode()
+    )
+
+    assert "___" in front and "glad" not in front
+    assert "<mark>glad</mark> you came" in back
+
+
+def test_foreign_to_native_card_shows_the_translation_of_the_sentence_on_the_back(
+    logged_client, user, himym
+):
+    vocabulary.add_term(
+        himym,
+        foreign="glad",
+        native="rád",
+        context_sentence="I'm {glad} you came.",
+        context_sentence_native="Jsem {ráda}, že jsi přišel.",
+    )
+    session = new_session(user, himym, direction="F2N")
+
+    front, back = _sides(
+        logged_client.get(reverse("study:card", args=[session.pk])).content.decode()
+    )
+
+    assert "<mark>glad</mark> you came" in front and "přišel" not in front
+    assert "<mark>ráda</mark>" in back and "you came" not in back

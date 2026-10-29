@@ -953,24 +953,29 @@ article.flashcard {
   color: var(--pico-muted-color);
 }
 
+/* The sentence under the big word: plain text, the word in it marked like everywhere else */
 .card-sentence {
-  font-style: italic;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
 }
 
-/* The translation of the sentence is only a help: not in italics, grey */
-.card-sentence-native {
-  font-style: normal;
-  color: var(--pico-muted-color);
-}
-
-.card-sentence mark {
-  font-style: normal;
-  font-weight: bold;
-}
-
+/* The back: the answer as big as the question on the front */
 .card-answer {
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: bold;
+  line-height: 1.2;
+  margin-bottom: 0.5rem;
+}
+
+/* Other words, the note and the meanings: small under the sentence, so the focus stays */
+.card-extra {
+  margin-top: 0.75rem;
+  color: var(--pico-muted-color);
+  font-size: 0.875rem;
+}
+
+.card-extra p {
+  margin-bottom: 0.35rem;
 }
 
 .card-note {

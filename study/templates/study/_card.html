@@ -9,58 +9,73 @@
     <small class="muted">{% blocktranslate with done=session.answered left=remaining %}Done {{ done }} · {{ left }} left{% endblocktranslate %} · {{ card.direction_label|arrows }}</small>
   </div>
 
+  {# Each side shows one big word and one sentence with the word marked, so the focus stays on #}
+  {# the word. Turning the card hides the front (study.js), like a paper card. #}
   <article class="flashcard">
     <div class="card-front">
       <p class="card-question">
         {# 🔊 is at the right edge of the card, on the line of the foreign word. #}
-        {# Foreign → native: the word is the question, its sound gives nothing away, so 🔊 is #}
-        {# there from the start (only the IPA waits for turning the card). #}
+        {# Foreign → native: the word is the question, its sound gives nothing away, so 🔊 and #}
+        {# the IPA are there from the start. #}
         <span class="card-main{% if card.question.0|length > 10 %} card-main-long{% endif %}">{{ card.question.0 }}{% if card.speech_lang and card.is_f2n %}<span class="card-speak">{% include "_speak.html" with text=card.term.main_foreign lang=card.speech_lang kind="word" %}</span>{% endif %}</span>
-        {% if card.pronunciation.ipa and card.is_f2n %}<span class="after-flip ipa" hidden>[{{ card.pronunciation.ipa }}]</span>{% endif %}
+        {% if card.pronunciation.ipa and card.is_f2n %}<span class="ipa">[{{ card.pronunciation.ipa }}]</span>{% endif %}
         {% if card.question|length > 1 %}
           <span class="card-others">({% translate "also" %}: {{ card.question|slice:"1:"|join:", " }})</span>
         {% endif %}
       </p>
       {% if card.front_hint %}<p class="card-hint">({{ card.front_hint }})</p>{% endif %}
-      {% if card.sentence_on_front %}
-        <p class="card-sentence">„{{ card.sentence }}“{% if card.speech_lang %} {% include "_speak.html" with text=card.sentence_text lang=card.speech_lang kind="sentence" %}{% endif %}</p>
+      {% if card.is_f2n %}
+        {% if card.sentence %}<p class="card-sentence">„{{ card.sentence }}“{% if card.speech_lang %} {% include "_speak.html" with text=card.sentence_text lang=card.speech_lang kind="sentence" %}{% endif %}</p>{% endif %}
+      {% elif card.sentence_native %}
+        {# Native → foreign: the sentence in the native language, the word in it marked #}
+        <p class="card-sentence">„{{ card.sentence_native }}“</p>
+      {% elif card.cloze %}
+        {# No translation of the sentence: the foreign sentence with a gap #}
+        <p class="card-sentence">„{{ card.cloze }}“</p>
       {% endif %}
-      {% if card.sentence_native and not card.is_f2n %}<p class="card-sentence card-sentence-native">„{{ card.sentence_native }}“</p>{% endif %}
-      {% if card.cloze %}<p class="card-sentence">„{{ card.cloze }}“</p>{% endif %}
     </div>
 
-    {# Back, from the most important: answer, the user's own words, sentence, dictionary #}
+    {# Back: the answer and the sentence in the other language; the rest small under it #}
     <div class="card-back" hidden>
-      <hr>
       <p class="card-answer">
-        <span class="card-word-line">
+        <span class="card-word-line{% if card.answer.0|length > 10 %} card-main-long{% endif %}">
           {{ card.answer|join:" · " }}
           {% if card.speech_lang and not card.is_f2n %}<span class="card-speak">{% include "_speak.html" with text=card.term.main_foreign lang=card.speech_lang kind="word" %}</span>{% endif %}
         </span>
         {% if card.pronunciation.ipa and not card.is_f2n %}<span class="ipa">[{{ card.pronunciation.ipa }}]</span>{% endif %}
       </p>
-      {% if card.own_meanings %}
-        <p class="card-own">
-          {% translate "You are also learning:" %}
-          {% for variants in card.own_meanings %}{% if not card.is_f2n %}{{ card.term.main_foreign }}{% arrow %}{% endif %}{{ variants|join:" · " }}{% if not forloop.last %}, {% endif %}{% endfor %}
-        </p>
-      {% endif %}
-      {% if card.also %}
-        <p class="card-own">
-          {% blocktranslate with word=card.question.0 others=card.also|join:", " %}“{{ word }}” is also: {{ others }}{% endblocktranslate %}
-        </p>
-      {% endif %}
-      {% if card.sentence and not card.sentence_on_front %}
+      {% if card.is_f2n %}
+        {% if card.sentence_native %}
+          <p class="card-sentence">„{{ card.sentence_native }}“</p>
+        {% elif card.sentence %}
+          {# No translation of the sentence: the foreign sentence again, so the context stays #}
+          <p class="card-sentence">„{{ card.sentence }}“</p>
+        {% endif %}
+      {% elif card.sentence %}
         <p class="card-sentence">„{{ card.sentence }}“{% if card.speech_lang %} {% include "_speak.html" with text=card.sentence_text lang=card.speech_lang kind="sentence" %}{% endif %}</p>
       {% endif %}
-      {% if card.sentence_native and card.is_f2n %}<p class="card-sentence card-sentence-native">„{{ card.sentence_native }}“</p>{% endif %}
-      {% if card.term.note %}<p class="card-note">{{ card.term.note|linebreaksbr }}</p>{% endif %}
-      {% if card.dictionary_meanings %}
-        <div class="card-dictionary muted">
-          <p class="meaning-row">
-            {% for word in card.dictionary_meanings %}<span class="meaning">{{ word }}</span> {% endfor %}
-            <button type="button" class="link-button meaning-more" data-action="more-meanings" hidden></button>
-          </p>
+      {% if card.own_meanings or card.also or card.term.note or card.dictionary_meanings %}
+        <div class="card-extra">
+          {% if card.own_meanings %}
+            <p class="card-own">
+              {% translate "You are also learning:" %}
+              {% for variants in card.own_meanings %}{% if not card.is_f2n %}{{ card.term.main_foreign }}{% arrow %}{% endif %}{{ variants|join:" · " }}{% if not forloop.last %}, {% endif %}{% endfor %}
+            </p>
+          {% endif %}
+          {% if card.also %}
+            <p class="card-own">
+              {% blocktranslate with word=card.question.0 others=card.also|join:", " %}“{{ word }}” is also: {{ others }}{% endblocktranslate %}
+            </p>
+          {% endif %}
+          {% if card.term.note %}<p class="card-note">{{ card.term.note|linebreaksbr }}</p>{% endif %}
+          {% if card.dictionary_meanings %}
+            <div class="card-dictionary muted">
+              <p class="meaning-row">
+                {% for word in card.dictionary_meanings %}<span class="meaning">{{ word }}</span> {% endfor %}
+                <button type="button" class="link-button meaning-more" data-action="more-meanings" hidden></button>
+              </p>
+            </div>
+          {% endif %}
         </div>
       {% endif %}
     </div>

@@ -24,30 +24,30 @@
 
   <section>
     <h2>The card</h2>
-    <p>You see the front side. Try to recall the answer, then flip the card (<strong>Show</strong> or the <strong>space bar</strong>).</p>
+    <p>You see the front side. Try to recall the answer, then flip the card (<strong>Show</strong> or the <strong>space bar</strong>). The card turns like a paper one: the front disappears and the back takes its place.</p>
     <div class="grid">
       <article class="help-card">
         <header>Front</header>
         <p class="help-card-main">dlaň</p>
-        <p class="card-sentence">„She can read from her <span class="cloze">___</span>.“</p>
+        <p class="card-sentence">„Umí číst z <mark>dlaně</mark>.“</p>
       </article>
       <article class="help-card">
         <header>Back</header>
         <p class="help-card-main">palm 🔊</p>
-        <p>You are also learning: palm → palma</p>
         <p class="card-sentence">„She can read from her <mark>palm</mark>.“</p>
+        <p class="muted"><small>You are also learning: palm → palma</small></p>
         <p class="muted"><small>pracka · lehký · světlý <u>+3</u></small></p>
       </article>
     </div>
     <ul>
-      <li>In the foreign → native direction, the whole sentence is already on the front. It tells you the meaning (palm: hand, or tree?).</li>
-      <li>In the native → foreign direction, the sentence on the front has a gap instead of the word. If the sentence has a translation, the translation is on the front too, so you know what goes in the gap: <em>„Mně se ta písnička <strong>také</strong> nelíbí.“ / „I don't like this song ___.“</em></li>
-      <li>In the foreign → native direction, the translation of the sentence is on the back.</li>
+      <li>Each side has a big word and under it one sentence in the same language, with the word marked. The sentence tells you the meaning (palm: hand, or tree?) and shows the form of the word.</li>
+      <li>In the foreign → native direction the English sentence is on the front and its translation on the back. In the native → foreign direction it is the other way round: on the front <em>„Jsem <strong>ráda</strong>, že jsi přišel.“</em>, on the back <em>„I'm <strong>glad</strong> you came.“</em> Rate yourself by the word; you don't have to translate the whole sentence.</li>
+      <li>When the sentence has no translation, in the native → foreign direction the front shows the English sentence with a gap instead of the word, and the back shows it filled in.</li>
       <li>If the word is in several decks of the test, the sentence changes each time.</li>
       <li><em>“ahoj” is also: hello</em>: another word has the same translation.</li>
       <li><em>„She can read from her palm.“ 🔊</em>: the browser voice reads the sentence when you click 🔊 or press <kbd>V</kbd>. In the foreign → native direction right away, in the native → foreign direction only after you flip the card (otherwise it would give away the answer).</li>
       <li>How the <em>browser voice</em> sounds depends on your device: good on Android, Windows, Mac and in Chrome on Linux, robotic or not at all in Firefox on Linux. If the browser cannot speak at all, 🔊 is not shown.</li>
-      <li><em>palm 🔊</em>: pronunciation of the foreign word. The gray 🔊 is at the right edge of the card, on the line of the foreign word. Click 🔊 or press <kbd>P</kbd> and the <strong>browser voice</strong> reads the word; in the foreign → native direction 🔊 is visible right away, in the native → foreign direction after you flip the card. In <a href="{% url 'settings' %}">Settings</a> you can turn on reading the word or the whole sentence automatically. If you can read IPA, you can also turn on the pronunciation from the dictionary under the word in <a href="{% url 'settings' %}">Settings</a>, for example <em>[pɑːm]</em>. It is shown only after you flip the card.</li>
+      <li><em>palm 🔊</em>: pronunciation of the foreign word. The gray 🔊 is at the right edge of the card, on the line of the foreign word. Click 🔊 or press <kbd>P</kbd> and the <strong>browser voice</strong> reads the word; in the foreign → native direction 🔊 is visible right away, in the native → foreign direction after you flip the card. In <a href="{% url 'settings' %}">Settings</a> you can turn on reading the word or the whole sentence automatically. If you can read IPA, you can also turn on the pronunciation from the dictionary under the word in <a href="{% url 'settings' %}">Settings</a>, for example <em>[pɑːm]</em>. In the foreign → native direction it is shown right away, in the native → foreign direction after you flip the card.</li>
       <li><em>You are also learning</em>: another word of yours with the same foreign word but a different translation (<code>palm → palma</code>).</li>
       <li><em>pracka · lehký · světlý +3</em>: at the very bottom, in smaller text, other meanings of the foreign word from the app dictionary. Only the first variant of each meaning. As many are shown as fit on one line, and clicking <em>+3</em> shows the rest. All of them, with all variants, are in the word detail. You can turn this off in <a href="{% url 'settings' %}">Settings</a>.</li>
     </ul>

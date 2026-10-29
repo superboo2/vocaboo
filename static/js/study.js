@@ -56,10 +56,9 @@
     }
     flipped = true;
     thinkMs = phaseTime();
+    // The card turns: the back takes the place of the front
+    card.querySelector(".card-front").hidden = true;
     card.querySelector(".card-back").hidden = false;
-    card.querySelectorAll(".after-flip").forEach(function (element) {
-      element.hidden = false;
-    });
     card.querySelector(".card-show").hidden = true;
     card.querySelector(".ratings").hidden = false;
     fitMeanings();
