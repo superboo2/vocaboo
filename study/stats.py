@@ -167,6 +167,25 @@ def recent_tests(user, now=None):
     return {"rows": rows, "summary": summary}
 
 
+# The daily goal counts at most this long for one card, so a test left open does not fill it
+GOAL_CARD_LIMIT_MS = 20 * 1000
+
+
+def goal_minutes(user, now=None):
+    """Minutes of today for the daily goal: the time of each answer of today (thinking and
+    rating), at most GOAL_CARD_LIMIT_MS for one card. Answers without a time count 0. Only
+    the goal is counted like this; "time in tests" stays the length of the tests."""
+    now = now or timezone.now()
+    midnight = timezone.localtime(now).replace(hour=0, minute=0, second=0, microsecond=0)
+    total = sum(
+        min((think or 0) + (decide or 0), GOAL_CARD_LIMIT_MS)
+        for think, decide in ReviewLog.objects.filter(
+            user=user, reviewed_at__gte=midnight
+        ).values_list("think_ms", "decide_ms")
+    )
+    return round(total / 60000)
+
+
 def today_overview(user, now=None):
     """Today on the dashboard, only good news of the tests, each with its last WEEK_DAYS days
     for a small bar chart (today is the last day):
@@ -251,8 +270,6 @@ def today_overview(user, now=None):
         }
 
     return {
-        # For the daily goal on the dashboard
-        "minutes": minutes[today],
         "metrics": [
             metric(
                 "tested",

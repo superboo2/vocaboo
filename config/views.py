@@ -31,15 +31,10 @@ def dashboard(request):
     today = stats.today_overview(request.user) if roots else None
     # The daily goal of the user: minutes in today's tests of the goal
     goal = request.user.daily_goal
-    daily_goal = (
-        {
-            "minutes": today["minutes"],
-            "goal": goal,
-            "percent": min(100, 100 * today["minutes"] // goal),
-        }
-        if today and goal
-        else None
-    )
+    daily_goal = None
+    if today and goal:
+        minutes = stats.goal_minutes(request.user)
+        daily_goal = {"minutes": minutes, "goal": goal, "percent": min(100, 100 * minutes // goal)}
     return render(
         request,
         "dashboard.html",

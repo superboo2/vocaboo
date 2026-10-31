@@ -2,7 +2,7 @@
 {# The daily goal at the top of the dashboard (Settings › Daily goal): a small card like the #}
 {# others, the bar fills up with the minutes of today's tests, green when it is done. One line #}
 {# on the whole width; next to "Odložené" (half of the width) the bar is under the heading. #}
-<section class="card-section daily-goal" title="{% translate 'Time in today’s tests. You set the goal in Settings.' %}">
+<section class="card-section daily-goal" title="{% translate 'Time over the cards of today’s tests, at most 20 s for one card. You set the goal in Settings.' %}">
   <h2 class="section-title">{% translate "Daily goal" %}</h2>
   <span class="goal-row">
     <span class="goal-bar{% if daily_goal.percent == 100 %} done{% endif %}" role="progressbar"

@@ -670,7 +670,8 @@ the browser and paused while the page is hidden (another app, locked phone).
   the word page use the same cards; the word page has `✎ Upravit` next to the word and a menu `⋯`
   (move, remove from this deck). The dashboard order is *Denní cíl* (15 minutes by default,
   set in Settings, empty = none: one line `Denní cíl ▬▬▬▭▭ 12 / 20 min`, green with `✓ 22 / 20 min` when it
-  is done; the minutes are the ⏱️ time of today's tests) next to *Odložené ›* (only when words
+  is done; the minutes are the time over the cards of today's tests, at most 20 s for one card, so
+  a test left open does not fill the goal; ⏱️ *čas v testech* stays the whole length of the tests) next to *Odložené ›* (only when words
   wait for a translation; two halves on a computer, one under the other on a phone), *Co ti nešlo* (only when there is
   something), *Slovníky*, *Dnes*.
 

@@ -6,7 +6,7 @@ import pytest
 from django.urls import reverse
 from django.utils import timezone
 
-from study import services
+from study import services, stats
 from study.models import Direction, ReviewLog, ReviewState
 from study.templatetags.study_tags import due_text, seconds
 from vocabulary import services as vocabulary
@@ -369,21 +369,27 @@ def test_word_status_follows_the_statistics(user, tree):
 # Daily goal
 
 
-def spend_minutes(user, deck, minutes):
-    """A test that took this many minutes (from its start to its last answer)."""
-    term = add(deck, f"word{minutes}")
-    session = services.start_session(user, [deck])
+def answer(user, deck, session, think_ms, after=timedelta(0)):
     ReviewLog.objects.create(
         user=user,
-        term=term,
+        term=add(deck, f"word{ReviewLog.objects.count()}"),
         session=session,
         direction=Direction.F2N,
         rating="ok",
         rating_label="OK",
         result="correct",
         chosen_interval=timedelta(days=1),
-        reviewed_at=session.started_at + timedelta(minutes=minutes),
+        think_ms=think_ms,
+        decide_ms=0,
+        reviewed_at=session.started_at + after,
     )
+
+
+def spend_minutes(user, deck, minutes):
+    """A test with answers of 20 s each, together this many minutes."""
+    session = services.start_session(user, [deck])
+    for _ in range(minutes * 3):
+        answer(user, deck, session, 20_000)
 
 
 def test_dashboard_has_a_goal_of_15_minutes_until_it_is_emptied(client, user, tree):
@@ -431,3 +437,17 @@ def test_settings_save_the_daily_goal(client, user):
     client.post(reverse("settings"), {**data, "daily_goal": ""})
     user.refresh_from_db()
     assert user.daily_goal is None
+
+
+def test_goal_counts_at_most_20_seconds_for_one_card(client, user, tree):
+    session = services.start_session(user, [tree["himym"]])
+    # A test left open: one card for 10 minutes, the last answer half an hour after the start
+    answer(user, tree["himym"], session, 10 * 60_000, after=timedelta(minutes=30))
+    spend_minutes(user, tree["himym"], 2)
+
+    assert stats.goal_minutes(user) == 2
+    client.force_login(user)
+    html = client.get(reverse("dashboard")).content.decode()
+    # The goal counts 20 s for that card; "time in tests" stays the length of the tests
+    assert "<strong>2</strong> / 15 min" in html
+    assert "30 min" in html
