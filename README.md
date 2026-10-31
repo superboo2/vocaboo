@@ -186,8 +186,9 @@ Or from the shell:
 uv run python manage.py shell -c "from vocabulary.models import Language; Language.objects.create(code='de', name='Němčina')"
 ```
 
-Your own native language (used as the default for new decks) can be set in the admin on your
-user: *Uživatelé → your email → Mluvím*, or on the *Nastavení* page.
+Your own native language (filled in for a new deck) comes from the language of the page at
+registration; after that every new deck remembers its *Mluvím* for the next one. It can also be
+changed in the admin on your user: *Uživatelé → your email*.
 
 ### 8. Decks (dictionaries)
 

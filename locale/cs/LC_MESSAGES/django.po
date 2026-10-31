@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-31 15:05+0100\n"
+"POT-Creation-Date: 2026-10-31 15:14+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,14 +26,6 @@ msgstr "Oprávnění"
 
 msgid "Important dates"
 msgstr "Důležitá data"
-
-msgid "I speak"
-msgstr "Mluvím"
-
-msgid ""
-"The language you translate your words into. It is filled in for a new deck."
-msgstr ""
-"Jazyk, do kterého si slovíčka překládáš. Předvyplní se u nového slovníku."
 
 msgid "Daily goal (min)"
 msgstr "Denní cíl (min)"
@@ -314,9 +306,6 @@ msgstr "Otevře se jedním klepnutím, na celou obrazovku, jako jiné aplikace."
 msgid "Install"
 msgstr "Nainstalovat"
 
-msgid "Decks"
-msgstr "Slovníky"
-
 msgid "Adding words"
 msgstr "Přidávání slovíček"
 
@@ -397,6 +386,9 @@ msgstr "Než si řekneš o nový kód, chvíli počkej."
 
 msgid "We sent you a new code."
 msgstr "Poslali jsme ti nový kód."
+
+msgid "Decks"
+msgstr "Slovníky"
 
 msgid "Words"
 msgstr "Slovíčka"
@@ -1761,6 +1753,9 @@ msgstr "Chci se naučit"
 
 msgid "For example, English."
 msgstr "Např. angličtina."
+
+msgid "I speak"
+msgstr "Mluvím"
 
 msgid "The language you translate the words into, for example, Czech."
 msgstr "Jazyk, do kterého si slovíčka překládáš, např. čeština."

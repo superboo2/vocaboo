@@ -43,7 +43,8 @@ class UserManager(DjangoUserManager):
 class User(AbstractUser):
     username = None
     email = models.EmailField(_("email"), unique=True)
-    # Used as default native language for new decks
+    # Filled in for a new deck; it is the native language of the last deck the user created
+    # (at the start the language of the page at registration)
     native_language = models.ForeignKey(
         "vocabulary.Language",
         verbose_name=_("native language"),

@@ -78,17 +78,12 @@ def test_admin_user_pages_work(client):
 
 @pytest.mark.django_db
 def test_settings_page_saves_preferences(client):
-    from vocabulary.models import Language
-
     user = User.objects.create_user(email="martin@example.com", password="secret-pass-123")
     client.force_login(user)
-    czech = Language.objects.get(code="cs")
-
     page = client.get(reverse("settings"))
     response = client.post(
         reverse("settings"),
         {
-            "native_language": czech.pk,
             "autoplay_pronunciation": "on",
             "autoplay_content": "sentence",
         },
@@ -98,8 +93,9 @@ def test_settings_page_saves_preferences(client):
     # Suggestions are on for a new user, the check box is ticked
     assert 'id="id_show_suggestions" checked' in page.content.decode()
     assert response.url == reverse("settings")
+    # "Mluvím" is not in the settings any more (new decks remember it)
+    assert 'name="native_language"' not in page.content.decode()
     user.refresh_from_db()
-    assert user.native_language == czech
     # The check box was not sent, so the suggestions are off now
     assert user.show_suggestions is False
     assert (user.autoplay_pronunciation, user.autoplay_content) == (True, "sentence")
@@ -237,8 +233,6 @@ def test_language_switch_works_without_login(client):
 
 @pytest.mark.django_db
 def test_settings_save_the_language_and_the_cookie(client):
-    from vocabulary.models import Language
-
     user = User.objects.create_user(email="martin@example.com", password="secret-pass-123")
     client.force_login(user)
 
@@ -246,7 +240,6 @@ def test_settings_save_the_language_and_the_cookie(client):
         reverse("settings"),
         {
             "ui_language": "en",
-            "native_language": Language.objects.get(code="cs").pk,
             "autoplay_content": "word",
         },
     )

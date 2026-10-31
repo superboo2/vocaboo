@@ -9,19 +9,10 @@ from django.core.exceptions import ValidationError
 from django.utils.crypto import constant_time_compare
 from django.utils.translation import gettext_lazy as _
 
-from vocabulary.forms import LanguageChoiceField
-from vocabulary.models import Language
-
 from .models import User
 
 
 class SettingsForm(forms.ModelForm):
-    native_language = LanguageChoiceField(
-        queryset=Language.objects.all(),
-        label=_("I speak"),
-        required=False,
-        help_text=_("The language you translate your words into. It is filled in for a new deck."),
-    )
     daily_goal = forms.IntegerField(
         label=_("Daily goal (min)"),
         required=False,
@@ -37,7 +28,6 @@ class SettingsForm(forms.ModelForm):
         model = User
         fields = [
             "ui_language",
-            "native_language",
             "show_suggestions",
             "daily_goal",
             "show_other_meanings",

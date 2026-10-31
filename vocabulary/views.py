@@ -51,6 +51,10 @@ def deck_create(request):
         except ValidationError as error:
             add_service_errors(form, error)
         else:
+            # The next new deck has the same native language filled in
+            if request.user.native_language_id != deck.native_language_id:
+                request.user.native_language = deck.native_language
+                request.user.save(update_fields=["native_language"])
             messages.success(request, _("Deck “%(name)s” created.") % {"name": deck.name})
             return redirect("vocabulary:deck_detail", pk=deck.pk)
     return render(

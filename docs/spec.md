@@ -88,7 +88,7 @@ Pole navíc oproti `AbstractUser`:
 
 | Pole | Typ | Poznámka |
 |---|---|---|
-| `native_language` | FK Language | výchozí rodný jazyk |
+| `native_language` | FK Language | výchozí rodný jazyk: předvyplní se u nového slovníku; při registraci podle jazyka stránky, pak se uloží „Mluvím“ každého nově založeného slovníku (od 2026-10-31 už není v Nastavení, uživateli přišlo zbytečné) |
 | `default_direction` | enum | `F2N` / `N2F` / `MIXED` |
 | `show_suggestions` | bool, výchozí `True` | návrhy překladu při přidávání i úpravě slovíčka (5.2), vypíná se v Nastavení |
 | `show_other_meanings` | bool, výchozí `True` | další významy ze slovníku na zadní straně kartičky (6.4) |
@@ -765,7 +765,7 @@ Stránka `/stats/` (odkaz v liště, na telefonu ikona 📊), počítá se při 
 | **▶︎ Procvičit** | viz 6.1 |
 | **Test** | Jedna karta, velká tlačítka, ovladatelné palcem |
 | **Souhrn testu** | viz 6.7 |
-| **Nastavení** | Aplikace, Slovníky (rodný jazyk), Přidávání slovíček, Test (odkaz na stránku ▶︎ Procvičit, další významy, IPA, intervaly, audio) |
+| **Nastavení** | Aplikace, Přidávání slovíček, Test (odkaz na stránku ▶︎ Procvičit, denní cíl, další významy, IPA, intervaly, audio) |
 | Vyhledávání | Napříč všemi slovníky (fáze 2) |
 
 Všechny obrazovky jsou mobile-first. Test musí být pohodlný na telefonu (tlačítka dole, žádné drobné prvky).

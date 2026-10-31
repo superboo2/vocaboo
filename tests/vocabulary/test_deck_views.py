@@ -58,6 +58,18 @@ def test_native_language_is_prefilled(logged_client, user, cs):
     assert response.context["form"].initial["native_language"] == cs
 
 
+def test_new_deck_remembers_its_native_language(logged_client, user, en, es):
+    logged_client.post(
+        reverse("vocabulary:deck_create"),
+        {"name": "Inglés", "foreign_language": en.pk, "native_language": es.pk},
+    )
+
+    user.refresh_from_db()
+    assert user.native_language == es
+    response = logged_client.get(reverse("vocabulary:deck_create"))
+    assert response.context["form"].initial["native_language"] == es
+
+
 def test_dashboard_shows_tree(logged_client, english):
     services.create_deck(english.owner, "Seriály", parent=english)
 
