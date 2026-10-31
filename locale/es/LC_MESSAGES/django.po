@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-31 16:03+0100\n"
+"POT-Creation-Date: 2026-10-31 16:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1290,16 +1290,12 @@ msgstr ""
 "Tiempo con las tarjetas de los tests de hoy, como máximo 20 s por tarjeta. "
 "El objetivo se configura en Ajustes."
 
-msgid "Daily goal"
-msgstr "Objetivo diario"
-
 #, python-format
 msgid "%(minutes)s / %(goal)s min"
 msgstr "%(minutes)s / %(goal)s min"
 
-#, python-format
-msgid "<strong>%(minutes)s</strong> / %(goal)s min"
-msgstr "<strong>%(minutes)s</strong> / %(goal)s min"
+msgid "daily goal"
+msgstr "objetivo diario"
 
 msgid "Turn over"
 msgstr "Dar la vuelta"
@@ -2009,11 +2005,10 @@ msgid_plural "%(counter)s words are waiting for a translation"
 msgstr[0] "%(counter)s palabra espera traducción"
 msgstr[1] "%(counter)s palabras esperan traducción"
 
-#, python-format
-msgid "%(counter)s is waiting for a translation"
-msgid_plural "%(counter)s are waiting for a translation"
-msgstr[0] "%(counter)s espera traducción"
-msgstr[1] "%(counter)s esperan traducción"
+msgid "word for later waits for a translation"
+msgid_plural "words for later wait for a translation"
+msgstr[0] "guardada espera traducción"
+msgstr[1] "guardadas esperan traducción"
 
 msgid "Search words…"
 msgstr "Buscar palabras…"

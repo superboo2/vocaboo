@@ -395,11 +395,11 @@ def spend_minutes(user, deck, minutes):
 def test_dashboard_has_a_goal_of_15_minutes_until_it_is_emptied(client, user, tree):
     client.force_login(user)
 
-    assert "<strong>0</strong> / 15 min" in client.get(reverse("dashboard")).content.decode()
+    assert "<strong>0 / 15 min</strong>" in client.get(reverse("dashboard")).content.decode()
 
     user.daily_goal = None
     user.save()
-    assert "Denní cíl" not in client.get(reverse("dashboard")).content.decode()
+    assert "denní cíl" not in client.get(reverse("dashboard")).content.decode()
 
 
 def test_dashboard_shows_minutes_of_the_goal(client, user, tree):
@@ -410,8 +410,8 @@ def test_dashboard_shows_minutes_of_the_goal(client, user, tree):
 
     html = client.get(reverse("dashboard")).content.decode()
 
-    assert "Denní cíl" in html and "<strong>12</strong> / 20 min" in html
-    assert 'style="width: 60%"' in html and "goal-bar done" not in html
+    assert "denní cíl" in html and "<strong>12 / 20 min</strong>" in html
+    assert "goal-done" not in html
 
 
 def test_dashboard_shows_a_done_goal(client, user, tree):
@@ -422,8 +422,7 @@ def test_dashboard_shows_a_done_goal(client, user, tree):
 
     html = client.get(reverse("dashboard")).content.decode()
 
-    assert "✓ 22 / 20 min" in html and "goal-bar done" in html
-    assert 'style="width: 100%"' in html
+    assert "<strong>✓ 22 / 20 min</strong>" in html and "goal-done" in html
 
 
 def test_settings_save_the_daily_goal(client, user):
@@ -449,5 +448,5 @@ def test_goal_counts_at_most_20_seconds_for_one_card(client, user, tree):
     client.force_login(user)
     html = client.get(reverse("dashboard")).content.decode()
     # The goal counts 20 s for that card; "time in tests" stays the length of the tests
-    assert "<strong>2</strong> / 15 min" in html
+    assert "<strong>2 / 15 min</strong>" in html
     assert "30 min" in html

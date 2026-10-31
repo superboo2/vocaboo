@@ -350,7 +350,7 @@ The list `/later/` (or `/later/?deck=<id>`) is a small table: tap a word and its
 form filled in (`/decks/<id>/?later=<pk>`: the word, the sentence and the note, the cursor in the
 translation, the suggestions shown at once). After *Přidat slovíčko* the word is a normal word of
 the deck and leaves the list (the hidden field `later` tells `term_add`). The overview has a small card
-`Odložené › 3 čekají na překlad` at the top (all of it a link to the list; next to *Denní cíl* on a
+`📝 3 odložená čekají na překlad ›` at the top (all of it a link to the list; next to *Denní cíl* on a
 computer, under it on a phone). The deck page has a bigger card under the form (only words of
 that deck): how many words are waiting, the newest two (then `…`) and the link *Doplnit*; the two
 words fill in the form at once by HTMX (`term_from_later`), without
@@ -669,9 +669,9 @@ the browser and paused while the page is hidden (another app, locked phone).
   the test has a thin progress bar above the card. The summary of a test, the statistics and
   the word page use the same cards; the word page has `✎ Upravit` next to the word and a menu `⋯`
   (move, remove from this deck). The dashboard order is *Denní cíl* (15 minutes by default,
-  set in Settings, empty = none: one line `Denní cíl ▬▬▬▭▭ 12 / 20 min`, green with `✓ 22 / 20 min` when it
-  is done; the minutes are the time over the cards of today's tests, at most 20 s for one card, so
-  a test left open does not fill the goal; ⏱️ *čas v testech* stays the whole length of the tests) next to *Odložené ›* (only when words
+  set in Settings, empty = none: a small card `⏱️ 12 / 15 min · denní cíl` like the numbers of *Dnes*,
+  green with `✓ 16 / 15 min` when it is done; the minutes are the time over the cards of today's tests, at most 20 s for one card, so
+  a test left open does not fill the goal; ⏱️ *čas v testech* stays the whole length of the tests) next to `📝 3 · odložená čekají na překlad ›` (only when words
   wait for a translation; two halves on a computer, one under the other on a phone), *Co ti nešlo* (only when there is
   something), *Slovníky*, *Dnes*.
 

@@ -192,11 +192,11 @@ def test_overview_and_deck_remind_of_words_for_later(logged_client, himym):
     ).content.decode()
 
     # On the overview a small card, all of it a link to the list
-    assert "1 čeká na překlad" in overview and "Odložené ›" in overview
+    assert "<strong>1</strong>" in overview and "odložené čeká na překlad ›" in overview
     assert (
-        f'href="{reverse("vocabulary:later_list")}" class="card-section pending-line"' in overview
+        f'href="{reverse("vocabulary:later_list")}" class="card-section top-card pending-line"'
+        in overview
     )
-    assert "📝" not in overview
     # On the deck page the card is under the form and the word fills the form at once (HTMX)
     pending = PendingWord.objects.get()
     assert f"later/?deck={himym.pk}" in deck_page

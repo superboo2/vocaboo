@@ -1,7 +1,8 @@
 {% load i18n %}
-{# Words saved without a translation on the dashboard: a small card, all of it a link to their #}
-{# list. Shown only when some are waiting; the deck page has the bigger card with the words. #}
-<a href="{% url 'vocabulary:later_list' %}" class="card-section pending-line">
-  <h2 class="section-title">{% translate "Pending" context "words saved for later" %} ›</h2>
-  <span class="muted">{% blocktranslate count counter=pending_count %}{{ counter }} is waiting for a translation{% plural %}{{ counter }} are waiting for a translation{% endblocktranslate %}</span>
+{# Words saved without a translation on the dashboard: a small card like the daily goal next to #}
+{# it, all of it a link to their list. Shown only when some are waiting; the deck page has the #}
+{# bigger card with the words. #}
+<a href="{% url 'vocabulary:later_list' %}" class="card-section top-card pending-line">
+  <span class="top-card-value"><span aria-hidden="true">📝</span> <strong>{{ pending_count }}</strong></span>
+  <small class="muted">{% blocktranslate count counter=pending_count trimmed %}word for later waits for a translation{% plural %}words for later wait for a translation{% endblocktranslate %} ›</small>
 </a>
