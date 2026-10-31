@@ -28,7 +28,6 @@ class SettingsForm(forms.ModelForm):
         fields = [
             "ui_language",
             "native_language",
-            "default_direction",
             "show_suggestions",
             "show_other_meanings",
             "autoplay_pronunciation",
@@ -38,7 +37,6 @@ class SettingsForm(forms.ModelForm):
         ]
         labels = {
             "ui_language": _("App language"),
-            "default_direction": _("Default test direction"),
             "show_suggestions": _("Suggest translations"),
             "show_other_meanings": _("Show other meanings from the app dictionary"),
             "autoplay_pronunciation": _("Play automatically"),
@@ -48,7 +46,6 @@ class SettingsForm(forms.ModelForm):
         }
         help_texts = {
             "ui_language": _("Menus, buttons and help. Your words stay the same."),
-            "default_direction": _("It is filled in when you set up a new test."),
             "show_suggestions": _(
                 "While you type a foreign word, suggestions from the app dictionary show up under "
                 "the translation field."
@@ -73,7 +70,7 @@ class SettingsForm(forms.ModelForm):
                 "comes again after that rating."
             ),
         }
-        widgets = {"default_direction": forms.RadioSelect, "autoplay_content": forms.RadioSelect}
+        widgets = {"autoplay_content": forms.RadioSelect}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

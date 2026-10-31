@@ -5,21 +5,33 @@
   <section>
     <h2>Empezar un test</h2>
     <p>
-      Usa el botón <strong>▶︎ Practicar</strong> de la barra superior (está en todas las páginas) o
-      <strong>▶︎ Practicar mazo</strong> en el detalle del mazo. Después elige:
+      El botón <strong>▶︎ Practicar</strong> de la barra superior (está en todas las páginas) empieza un test al momento,
+      sin elegir nada. En el detalle del mazo, <strong>▶︎ Practicar mazo</strong> empieza el mismo test solo con este mazo y
+      sus submazos. Lo que inician exactamente se configura en la página <strong>▶︎ Practicar</strong>.
     </p>
+    <p>Debajo de <em>▶︎ Practicar mazo</em> una línea pequeña dice qué empieza, p. ej. <em>20 tarjetas · EN ⇄ CS · Configurar</em>. Cuando no hay nada pendiente, lo dice: <em>nada pendiente, practicas las palabras que no se te quedan</em>. En el resumen, una línea parecida debajo de los mazos habla del botón de la barra: <em>▶︎ Practicar toma tarjetas de todos los mazos · Configurar</em> (o nombra los mazos elegidos). <strong>Configurar</strong> abre la página ▶︎ Practicar; también está al final de cada test (<em>Configurar la práctica</em>) y en <a href="{% url 'settings' %}">Ajustes</a>.</p>
+
+    <h3>La página ▶︎ Practicar</h3>
+    <p>Se ve igual desde los dos sitios. Lo que eliges aquí se recuerda, y los botones ▶︎ Practicar hacen justo eso. <strong>▶︎ Empezar test</strong> arriba guarda las opciones y empieza el test al momento; <strong>Guardar</strong> abajo solo las guarda y te devuelve atrás.</p>
     <ul>
-      <li><strong>Mazos</strong>: los submazos se incluyen automáticamente, y una palabra que está en varios mazos sale solo una vez. Desde el detalle del mazo (<em>▶︎ Practicar mazo</em>) no aparece el árbol, solo el nombre del mazo y cuántos submazos tiene; el enlace <em>Cambiar</em> abre el árbol.</li>
-      <li><strong>Dirección</strong>: en un sentido o en los dos (<em>⇄</em>, las tarjetas de ambos sentidos mezcladas). Los sentidos llevan el nombre de los idiomas del mazo, p. ej. <em>EN → CS</em>, <em>CS → EN</em> y <em>EN ⇄ CS</em>; con mazos de idiomas distintos, en general <em>extranjero → tu idioma</em> y <em>tu idioma → extranjero</em>. Puedes fijar la dirección por defecto en <a href="{% url 'settings' %}">Ajustes</a>.</li>
+      <li><strong>Mazos</strong>: desde un mazo, solo su nombre y cuántos submazos tiene. Desde la barra y el resumen, un árbol: qué mazos toma <em>▶︎ Practicar</em> de la barra. Si están todos marcados, toma todos, también los que añadas más tarde. Los submazos se incluyen automáticamente, y una palabra que está en varios mazos sale solo una vez.</li>
+      <li><strong>Dirección</strong>: en un sentido o en los dos (<em>⇄</em>, las tarjetas de ambos sentidos mezcladas). Los sentidos llevan el nombre de los idiomas del mazo, p. ej. <em>EN → CS</em>, <em>CS → EN</em> y <em>EN ⇄ CS</em>; con mazos de idiomas distintos, en general <em>extranjero → tu idioma</em> y <em>tu idioma → extranjero</em>.</li>
       <li><strong>Qué tarjetas</strong>:
         <ul>
-          <li><em>solo pendientes y nuevas</em>: aprendizaje normal, las tarjetas que toca repasar y las palabras que todavía no han salido en ningún test,</li>
+          <li><em>solo pendientes y nuevas</em>: aprendizaje normal, las tarjetas que toca repasar y las palabras que todavía no han salido en ningún test. Si no hay nada pendiente, se añaden palabras que no se te quedan, ver abajo,</li>
           <li><em>todas</em>: cada tarjeta una vez, sin importar cuándo toca repasarla (p. ej. antes de un examen).</li>
         </ul>
       </li>
-      <li><strong>Máx. de tarjetas</strong>: cuando solo quieres un repaso corto.</li>
+      <li><strong>Máx. de tarjetas</strong> (20 por defecto): para las dos opciones. Vacío = sin límite.</li>
     </ul>
-    <p>Junto a las opciones ves entre paréntesis cuántas tarjetas tendría el test, p. ej. <em>solo pendientes y nuevas (42)</em> o <em>todas (85)</em>. Se cuenta para los mazos marcados y la dirección elegida y cambia en cuanto cambias una opción. Con los dos sentidos (<em>⇄</em>) cada palabra está dos veces, una en cada dirección.</p>
+    <p>Junto a las opciones ves entre paréntesis cuántas tarjetas hay, p. ej. <em>solo pendientes y nuevas (42)</em> o <em>todas (85)</em>. Se cuenta para los mazos marcados y la dirección elegida y cambia en cuanto cambias una opción. Con los dos sentidos (<em>⇄</em>) cada palabra está dos veces, una en cada dirección.</p>
+    <p>Con <em>solo pendientes y nuevas</em> salen:</p>
+    <ol>
+      <li>primero las tarjetas <strong>pendientes</strong>, las que llevan más tiempo esperando primero,</li>
+      <li>luego las <strong>nuevas</strong>,</li>
+      <li>si son menos que el límite, el resto se <strong>completa</strong> con palabras a las que pronto les tocaría. Son sobre todo las que no se te quedan (tienen intervalos cortos). Se mezclan un poco para que no sea siempre igual. Sin límite solo se completa cuando no hay nada pendiente, con 15 tarjetas.</li>
+    </ol>
+    <p>Así el test nunca está vacío, aunque lo tengas todo repasado. Si hay palabras suficientes, cada una sale en una sola dirección. Las respuestas cuentan como siempre.</p>
   </section>
 
   <section>

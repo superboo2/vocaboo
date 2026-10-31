@@ -42,6 +42,8 @@ def dashboard(request):
             # Words saved for later, waiting for a translation (a card above the decks)
             "pending_count": vocabulary_services.pending_words(request.user).count(),
             "pending_first": vocabulary_services.pending_words(request.user)[:2],
+            # The decks of the button ▶︎ Practice in the bar; none = all decks
+            "practice_decks": [deck.name for deck in request.user.practice_decks.all()],
         },
     )
 

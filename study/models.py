@@ -81,6 +81,10 @@ class StudySession(models.Model):
     decks = models.ManyToManyField("vocabulary.Deck", verbose_name=_("decks"), blank=True)
     # When set, only these words are tested (e.g. "practise the wrong ones again")
     terms = models.ManyToManyField("vocabulary.Term", verbose_name=_("words"), blank=True)
+    # When set, only these cards are tested: the button ▶︎ Practice picks them at the start
+    picked_cards = models.ManyToManyField(
+        ReviewState, verbose_name=_("picked cards"), blank=True, related_name="+"
+    )
     direction = models.CharField(
         _("direction"), max_length=5, choices=StudyDirection.choices, default=StudyDirection.MIXED
     )

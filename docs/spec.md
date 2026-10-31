@@ -465,24 +465,59 @@ Mikrofon (seriál nahlas) nebo nahraný audio soubor, přepis (Whisper), věty, 
 ## 6. Testování
 
 ### 6.1 Nastavení testu
-1. Výběr slovníků (víc najednou, podslovníky se zahrnou automaticky). Z detailu slovníku
-   (`?deck=<id>`) se strom neukazuje, jen název slovníku a počet podslovníků (skryté pole
-   `decks` + `one_deck`); odkaz *Změnit* (`?deck=<id>&pick=1`) ukáže strom se zaškrtnutým
-   slovníkem. Z *▶︎ Procvičit* v liště je strom vždy.
-2. Směr: `F→N`, `N→F`, zamíchat
-3. Režim: volný (MVP); striktní a výběr z 6 přibudou ve fázi 2
-4. Rozsah: jen k opakování (+ nová) / všechna
-5. Volitelně max. počet karet
-6. **Počty karet** u voleb v závorce (od 2026-10-26): *jen k opakování a nová (42)*,
-   *všechna (85)*; pod limitem jen *Prázdné = bez omezení*.
-   Počítá `services.card_counts(user, decks, direction)` (karta = `ReviewState`, tedy slovíčko
-   v jednom směru; zamíchat = oba směry): `due` = `due_at <= now`, `new` = `due_at` prázdné,
-   `all` = vše. Části *Směr* a *Které kartičky* jsou šablona `study/_options.html`, kterou HTMX
-   při každé změně formuláře načte znovu (`study:counts`, GET s hodnotami formuláře).
-7. **Názvy směrů podle jazyků** (od 2026-10-26): mají-li všechny vybrané slovníky stejný pár,
-   jsou směry *EN → CS*, *CS → EN*, *EN ⇄ CS* (`StudySetupForm.name_directions`; ⇄ je SVG ikona šipky tam a pod ní zpět, filtr `arrows`);
-   jinak obecně *cizí → rodný*, *rodný → cizí*, *cizí ⇄ rodný*. Stejný zápis
-   s „+“ mají oba směry v tabulce posledních testů ve Statistikách (dřív „↔“).
+
+**▶︎ Procvičit jedním klikem** (od 2026-10-31): *▶︎ Procvičit* v liště a *▶︎ Procvičit slovník*
+v detailu slovníku test **hned spustí**, nic se nevybírá (malé formuláře, `POST study:practice`,
+ze slovníku s `deck=<id>`). Co spustí, se nastavuje na **jedné stránce ▶︎ Procvičit**
+(`study:new`, dřív *Nový test* / krátce *Vlastní test*), která vypadá stejně z obou míst
+a ukládá volby uživateli; tlačítka pak dělají přesně to. Uživatel nechtěl dvě místa s podobným
+nastavením (sekce v Nastavení + stránka testu) ani jednorázový test.
+
+- **Odkazy na stránku:** pod *▶︎ Procvičit slovník* drobný řádek *20 kartiček · EN ⇄ CS ·
+  Nastavit* (`?deck=<id>`; počet podle voleb níže, u *jen k opakování a nová* bez limitu
+  počet čekajících; když nic nečeká, navíc *nic k opakování, procvičíš si slovíčka, která ti
+  nejdou*); ve slovníku bez slovíček tlačítko ani řádek nejsou. Na přehledu pod stromem
+  *▶︎ Procvičit bere kartičky ze všech slovníků · Nastavit* (nebo *… z: Seriály, Kniha*). Dál
+  *Nastavit procvičování* na konci testu a *Test › ▶︎ Procvičit* v Nastavení.
+- **Stránka:** nadpis *▶︎ Procvičit*, pod ním „Co spustí tlačítka ▶︎ Procvičit. Aplikace si to
+  zapamatuje.“, hned velké **▶︎ Spustit test** (uloží a spustí), karty *Slovníky*, *Směr*
+  a *Které kartičky* (s limitem), dole *Uložit* (uloží, zpět na slovník / přehled) a *Zrušit*.
+  Uživatel chtěl stejně jednoduché volby jako dřív (verze s *doporučené*, *Počet kartiček*
+  a *Nejvýš nových kartiček* se mu nelíbila).
+  1. **Slovníky:** ze slovníku (`?deck=<id>`, skryté pole `deck`) jen název a počet podslovníků,
+     slovníky lišty se nemění. Z lišty strom = `User.practice_decks` (M2M; prázdné = všechny
+     slovníky, i nově přidané; když jsou zaškrtnuté všechny kořenové, uloží se prázdné).
+     Podslovníky se zahrnou automaticky.
+  2. **Směr** (`User.default_direction`): `F→N`, `N→F`, oba.
+  3. **Které kartičky** (`User.practice_scope`, `StudyScope`): *jen k opakování a nová* (drobně
+     „když nic nečeká, doplní se slovíčka, která ti nejdou“, výběr níže) / *všechna* (každá
+     karta jednou, sezení s rozsahem `all` a `max_cards` = limit).
+  4. **Nejvýš kartiček** `User.practice_cards` (1–1000, výchozí 20, prázdné = bez omezení),
+     pro obě volby.
+  5. **Počty u voleb** v závorce: *jen k opakování a nová (42)* = na řadě + nové, *všechna
+     (85)*; `services.card_counts(user, decks, direction)` (karta = `ReviewState`, tedy slovíčko
+     v jednom směru; oba směry = dvakrát). Karty *Směr* a *Které kartičky* jsou šablona
+     `study/_options.html`, kterou HTMX při každé změně formuláře načte znovu (`study:counts`).
+- **Jen k opakování a nová** (`services.pick_practice_cards`, uloží se do
+  `StudySession.picked_cards`, M2M na `ReviewState`; test pak bere jen je, rozsah `all`; odpověď
+  na jinou kartu se odmítne):
+  1. karty na řadě (`due_at <= now`), nejdéle čekající první,
+  2. nové (náhodně),
+  3. když jich je míň než limit, doplnit kartami, které přijdou nejdřív (`due_at > now` podle
+     `due_at`; hlavně slovíčka, která nejdou – mají krátké intervaly); bere se 3× víc, než je
+     potřeba, a z nich náhodně. Bez limitu se doplňuje jen, když nic nečeká, a to 15 karet
+     (`PRACTICE_FILL_WITHOUT_LIMIT`).
+
+  Nejvýš limit; slovíčko jen jedním směrem, druhý jen když slovíček není dost. Test tak není
+  nikdy prázdný. Uživatel nechtěl čistě náhodná slovíčka (obcházela by opakování).
+- Bez slovíček hláška „Zatím tu nejsou slovíčka k procvičení.“, bez slovníků stránka ▶︎ Procvičit
+  s *+ Nový slovník*. V tabulce posledních testů mají testy s vybranými kartami rozsah
+  *▶︎ procvičit*.
+- Režim: volný (MVP); striktní a výběr z 6 přibudou ve fázi 2.
+- **Názvy směrů podle jazyků** (od 2026-10-26): mají-li všechny vybrané slovníky stejný pár,
+  jsou směry *EN → CS*, *CS → EN*, *EN ⇄ CS* (`StudySetupForm.name_directions`; ⇄ je SVG ikona šipky tam a pod ní zpět, filtr `arrows`);
+  jinak obecně *cizí → rodný*, *rodný → cizí*, *cizí ⇄ rodný*. Stejný zápis
+  s „+“ mají oba směry v tabulce posledních testů ve Statistikách (dřív „↔“).
 
 ### 6.2 Výběr další karty
 1. Posbírat slovíčka ze všech `DeckTerm` vybraných slovníků a jejich podslovníků, **distinct podle Term**. Tím se duplicity mezi slovníky odfiltrují automaticky.
@@ -723,14 +758,14 @@ Stránka `/stats/` (odkaz v liště, na telefonu ikona 📊), počítá se při 
 | **Hledat** (`/search/`) | pole bez rámečku, jen šedý text „Hledat slovíčko…“ vpravo na řádku *Slovníky* vedle čísel, při psaní tenká čára pod ním (výsledky pod nadpisem), klávesa `/` (stránka `/search/` jen pro Enter bez JavaScriptu): hledá ve všech slovíčkách uživatele (varianty, věta a její překlad, poznámka) bez háčků a velikosti písmen, od 2 znaků, při psaní; nejdřív shoda ve slově/překladu, pak ve větě/poznámce; zvýrazněná shoda, slovníky (poslední 3 úrovně cesty), detail a ✎; max 50 (`vocabulary.services.search_terms`) |
 | Co ti nešlo (telefon) | na přehledu na telefonu 3 nízké řádky pod sebou, všechny stejně vysoké (5,9 rem, 70 % dřívější kartičky): zvíře vlevo, druh malým písmem nad velkým slovem, ↻ vpravo; zadní strana: slovo, text (nejvýš 2 řádky) a pod ním vlevo *Detail* (daleko od ↻, aby se při otáčení omylem neotevřel); dlouhé texty končí „…“; na počítači 3 kartičky vedle sebe |
 | Přidání slovíčka | tlačítko během odesílání zamáčknuté s textem *Přidávám…* (`#term-form.htmx-request`); po přidání se řádek *✓ Přidáno: slovo → překlad* (bez názvu slovníku, ten je v nadpisu stránky) na 2 s rozsvítí světlým indigem (`--primary-light`) a zase zhasne (formulář je po každém slovíčku nový, takže se rozsvítí pokaždé); bez animace při `prefers-reduced-motion` |
-| **Slovník** | Drobečková navigace, seznam slovíček (vyhledávání, řazení: podle data přidání (výchozí) / abecedně / podle termínu opakování), formulář pro přidání, výběr slovíček a jejich přesun / přidání do jiného slovníku, podslovníky (šipky ↑ ↓ pro pořadí), úprava, přesun a smazání slovníku, „▶ Procvičit slovník“ (stejný indigový obrys jako „▶ Procvičit“ v liště; obrys = otevře nastavení testu, plné tlačítko = test opravdu spustí) |
+| **Slovník** | Drobečková navigace, seznam slovíček (vyhledávání, řazení: podle data přidání (výchozí) / abecedně / podle termínu opakování), formulář pro přidání, výběr slovíček a jejich přesun / přidání do jiného slovníku, podslovníky (šipky ↑ ↓ pro pořadí), úprava, přesun a smazání slovníku, „▶ Procvičit slovník“ (stejný indigový obrys jako „▶ Procvičit“ v liště; obě test hned spustí, viz 6.1) s řádkem *… · Nastavit* |
 | **Slovíčko** | Úprava variant, poznámky a kontextů v jednotlivých slovnících, stav opakování obou směrů, statistiky a historie (7.1) |
 | Statistiky | Celkový přehled a problémová slovíčka (7.3, 7.4, fáze 2) |
 | **Nápověda** | Záložky Slovníky, Slovíčka, Test, Přehled a statistiky; každá záložka je vlastní stránka (`/help/<záložka>/`). Tabulka tlačítek se generuje z `study/ratings.py`. Při změně funkce se aktualizuje i nápověda. |
-| **Nastavení testu** | viz 6.1 |
+| **▶︎ Procvičit** | viz 6.1 |
 | **Test** | Jedna karta, velká tlačítka, ovladatelné palcem |
 | **Souhrn testu** | viz 6.7 |
-| **Nastavení** | Rodný jazyk, výchozí směr, pravidla striktního režimu |
+| **Nastavení** | Aplikace, Slovníky (rodný jazyk), Přidávání slovíček, Test (odkaz na stránku ▶︎ Procvičit, další významy, IPA, intervaly, audio) |
 | Vyhledávání | Napříč všemi slovníky (fáze 2) |
 
 Všechny obrazovky jsou mobile-first. Test musí být pohodlný na telefonu (tlačítka dole, žádné drobné prvky).

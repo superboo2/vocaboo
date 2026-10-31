@@ -89,7 +89,6 @@ def test_settings_page_saves_preferences(client):
         reverse("settings"),
         {
             "native_language": czech.pk,
-            "default_direction": "N2F",
             "autoplay_pronunciation": "on",
             "autoplay_content": "sentence",
         },
@@ -101,7 +100,6 @@ def test_settings_page_saves_preferences(client):
     assert response.url == reverse("settings")
     user.refresh_from_db()
     assert user.native_language == czech
-    assert user.default_direction == "N2F"
     # The check box was not sent, so the suggestions are off now
     assert user.show_suggestions is False
     assert (user.autoplay_pronunciation, user.autoplay_content) == (True, "sentence")
@@ -249,7 +247,6 @@ def test_settings_save_the_language_and_the_cookie(client):
         {
             "ui_language": "en",
             "native_language": Language.objects.get(code="cs").pk,
-            "default_direction": "N2F",
             "autoplay_content": "word",
         },
     )

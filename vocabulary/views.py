@@ -93,6 +93,7 @@ def deck_detail(request, pk):
             "sort": sort,
             "sorts": services.TERM_SORTS,
             "has_dictionary": topics.has_dictionary(deck),
+            "practice": study_services.practice_preview(request.user, deck),
             "pending_count": services.pending_words(request.user, deck).count(),
             "pending_first": services.pending_words(request.user, deck)[:2],
         },

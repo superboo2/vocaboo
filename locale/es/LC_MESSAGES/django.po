@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 15:23+0100\n"
+"POT-Creation-Date: 2026-10-31 13:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,9 +38,6 @@ msgstr ""
 msgid "App language"
 msgstr "Idioma de la aplicación"
 
-msgid "Default test direction"
-msgstr "Dirección del test por defecto"
-
 msgid "Suggest translations"
 msgstr "Sugerir traducciones"
 
@@ -61,9 +58,6 @@ msgstr "Mostrar cuándo vuelve la palabra"
 
 msgid "Menus, buttons and help. Your words stay the same."
 msgstr "Menús, botones y ayuda. Tus palabras no cambian."
-
-msgid "It is filled in when you set up a new test."
-msgstr "Se rellena al configurar un test nuevo."
 
 msgid ""
 "While you type a foreign word, suggestions from the app dictionary show up "
@@ -185,8 +179,17 @@ msgstr "correo electrónico"
 msgid "native language"
 msgstr "tu idioma"
 
-msgid "default test direction"
-msgstr "dirección del test por defecto"
+msgid "practice direction"
+msgstr "dirección al practicar"
+
+msgid "practice cards"
+msgstr "qué tarjetas practicar"
+
+msgid "practice decks"
+msgstr "mazos para practicar"
+
+msgid "max cards in practice"
+msgstr "máx. de tarjetas al practicar"
 
 msgid "suggest translations"
 msgstr "sugerir traducciones"
@@ -315,6 +318,12 @@ msgstr "Añadir palabras"
 
 msgid "Test"
 msgstr "Test"
+
+msgid "Practice"
+msgstr "Practicar"
+
+msgid "how many cards, which direction and which decks"
+msgstr "cuántas tarjetas, en qué dirección y de qué mazos"
 
 msgid "Audio"
 msgstr "Audio"
@@ -908,6 +917,9 @@ msgstr "todas"
 msgid "decks"
 msgstr "mazos"
 
+msgid "picked cards"
+msgstr "tarjetas elegidas"
+
 msgid "scope"
 msgstr "alcance"
 
@@ -980,6 +992,9 @@ msgstr "La palabra pertenece a otro usuario."
 msgid "The number of cards must be at least 1."
 msgstr "El número de tarjetas debe ser al menos 1."
 
+msgid "There are no words to practise yet."
+msgstr "Todavía no hay palabras para practicar."
+
 msgid "This card is not part of this test."
 msgstr "Esta tarjeta no forma parte de este test."
 
@@ -1027,29 +1042,24 @@ msgstr "Todo"
 msgid "most often you don't know"
 msgstr "la que más veces no sabes"
 
-#| msgid "Only one way"
 msgid "only one way"
 msgstr "solo en un sentido"
 
-#| msgid "You think longest about"
 msgid "you think long"
 msgstr "piensas mucho"
 
 msgid "quick and wrong"
 msgstr "rápido y mal"
 
-#| msgid "You forget"
 msgid "you forget it"
 msgstr "la olvidas"
 
 msgid "you know it, then you don't"
 msgstr "a veces la sabes y a veces no"
 
-#| msgid "Learning it longest"
 msgid "learning it longest"
 msgstr "la que llevas más tiempo aprendiendo"
 
-#| msgid "What you struggle with"
 msgid "the longest you struggle with"
 msgstr "la más larga que se te resiste"
 
@@ -1138,6 +1148,10 @@ msgstr "pendientes + nuevas"
 msgctxt "test scope"
 msgid "wrong again"
 msgstr "falladas otra vez"
+
+msgctxt "test scope"
+msgid "▶︎ practice"
+msgstr "▶︎ practicar"
 
 #, python-format
 msgid "max %(count)s"
@@ -1270,6 +1284,12 @@ msgstr "Dar la vuelta"
 msgid "Details"
 msgstr "Detalles"
 
+msgid "when nothing is waiting, words that don't stick are added"
+msgstr "si no hay nada pendiente, se añaden palabras que no se te quedan"
+
+msgid "every card once, no matter when it is due"
+msgstr "cada tarjeta una vez, sin importar cuándo toca"
+
 msgid "Empty = no limit."
 msgstr "Vacío = sin límite."
 
@@ -1374,14 +1394,17 @@ msgstr ""
 msgid "Got it"
 msgstr "Entendido"
 
-msgid "New test"
-msgstr "Nuevo test"
-
 msgid "First create a deck and add words to it."
 msgstr "Primero crea un mazo y añádele palabras."
 
 msgid "New deck"
 msgstr "Nuevo mazo"
+
+msgid "What the buttons ▶︎ Practice start. It is remembered."
+msgstr "Lo que inician los botones ▶︎ Practicar. La aplicación lo recuerda."
+
+msgid "Start test"
+msgstr "Empezar test"
 
 #, python-format
 msgid "and %(counter)s sub-deck"
@@ -1389,18 +1412,12 @@ msgid_plural "and %(counter)s sub-decks"
 msgstr[0] "y %(counter)s submazo"
 msgstr[1] "y %(counter)s submazos"
 
-msgid "Change"
-msgstr "Cambiar"
-
 msgid ""
-"Sub-decks are included automatically. A word that is in more decks comes "
-"only once."
+"For ▶︎ Practice in the bar. Sub-decks are included automatically. A word "
+"that is in more decks comes only once."
 msgstr ""
-"Los submazos se incluyen automáticamente. Una palabra que está en varios "
-"mazos sale solo una vez."
-
-msgid "Start test"
-msgstr "Empezar test"
+"Para ▶︎ Practicar de la barra. Los submazos se incluyen automáticamente. Una"
+" palabra que está en varios mazos sale solo una vez."
 
 msgid "Statistics"
 msgstr "Estadísticas"
@@ -1466,6 +1483,9 @@ msgstr "¡Todo bien!"
 msgid "No cards were rated in this test."
 msgstr "En este test no se valoró ninguna tarjeta."
 
+msgid "Set up practice"
+msgstr "Configurar la práctica"
+
 msgid "Back to overview"
 msgstr "Volver al inicio"
 
@@ -1515,9 +1535,6 @@ msgstr "Escuchar"
 
 msgid "Skip to content"
 msgstr "Saltar al contenido"
-
-msgid "Practice"
-msgstr "Practicar"
 
 msgid "Help"
 msgstr "Ayuda"
@@ -1605,6 +1622,15 @@ msgstr "ayer"
 msgctxt "deck"
 msgid "New"
 msgstr "Nuevo"
+
+msgid "Practice takes cards from:"
+msgstr "Practicar toma tarjetas de:"
+
+msgid "Practice takes cards from all decks"
+msgstr "Practicar toma tarjetas de todos los mazos"
+
+msgid "Set up"
+msgstr "Configurar"
 
 msgid "You have no decks yet. Start by creating one."
 msgstr "Aún no tienes mazos. Empieza creando uno."
@@ -2139,6 +2165,15 @@ msgstr "Mover"
 
 msgid "Practice deck"
 msgstr "Practicar mazo"
+
+#, python-format
+msgid "%(counter)s card"
+msgid_plural "%(counter)s cards"
+msgstr[0] "%(counter)s tarjeta"
+msgstr[1] "%(counter)s tarjetas"
+
+msgid "nothing due, you practise the ones that don't stick"
+msgstr "nada pendiente, practicas las palabras que no se te quedan"
 
 msgid "New word"
 msgstr "Palabra nueva"

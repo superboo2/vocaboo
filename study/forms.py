@@ -7,7 +7,8 @@ from .models import StudyDirection, StudyScope
 
 
 class StudySetupForm(forms.Form):
-    """Settings of a new test (spec 6.1). The deck tree is drawn by the template."""
+    """The page ▶︎ Practice (spec 6.1): what the buttons ▶︎ Practice start. The choices are
+    saved for the user; the deck tree is drawn by the template."""
 
     decks = forms.ModelMultipleChoiceField(
         queryset=Deck.objects.none(),
@@ -23,11 +24,8 @@ class StudySetupForm(forms.Form):
         widget=forms.RadioSelect,
         initial=StudyScope.DUE,
     )
-    max_cards = forms.IntegerField(
-        label=_("Max cards"),
-        required=False,
-        min_value=1,
-        max_value=1000,
+    practice_cards = forms.IntegerField(
+        label=_("Max cards"), required=False, min_value=1, max_value=1000
     )
 
     def __init__(self, *args, user, **kwargs):

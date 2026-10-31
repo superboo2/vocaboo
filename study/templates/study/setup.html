@@ -1,43 +1,46 @@
 {% extends "base.html" %}
 {% load i18n %}
 
-{% block title %}{% translate "New test" %} · Vocaboo{% endblock %}
+{% block title %}{% translate "Practice" %} · Vocaboo{% endblock %}
 
 {% block content %}
   <nav aria-label="breadcrumb">
     <ul>
       <li><a href="{% url 'dashboard' %}">{% translate "Overview" %}</a></li>
-      <li>{% translate "New test" %}</li>
+      {% if single_deck %}<li><a href="{% url 'vocabulary:deck_detail' single_deck.pk %}">{{ single_deck.name }}</a></li>{% endif %}
+      <li>{% translate "Practice" %}</li>
     </ul>
   </nav>
 
-  <h1>{% translate "New test" %}</h1>
+  {# "Nastavit" under the buttons ▶︎ Practice: what they start. The choices are saved. #}
+  <h1>▶︎ {% translate "Practice" %}</h1>
 
   {% if not roots %}
     <p>{% translate "First create a deck and add words to it." %}</p>
     <a href="{% url 'vocabulary:deck_create' %}" role="button">+ {% translate "New deck" %}</a>
   {% else %}
-    <form method="post">
+    <p class="muted page-sub">{% translate "What the buttons ▶︎ Practice start. It is remembered." %}</p>
+    <form method="post" class="practice-setup">
       {% csrf_token %}
       {{ form.non_field_errors }}
+      {# At the top, so nothing has to be scrolled; it also saves the choices #}
+      <button type="submit" name="start" value="1" class="start-test">▶︎ {% translate "Start test" %}</button>
 
-      {# The same cards as on the dashboard: what to test, which way, how many #}
       {% if single_deck %}
-        {# Practise from the page of a deck: only that deck, the tree after "Change" #}
+        {# The button of a deck: only that deck; the decks of the bar button stay as they are #}
         <section class="card-section">
           <h2 class="section-title">{% translate "Deck" %}</h2>
           <p class="practice-deck">
             <strong>{{ single_deck.name }}</strong>
             {% if subdeck_count %}<span class="muted">{% blocktranslate count counter=subdeck_count trimmed %}and {{ counter }} sub-deck{% plural %}and {{ counter }} sub-decks{% endblocktranslate %}</span>{% endif %}
-            · <a href="?deck={{ single_deck.pk }}&amp;pick=1">{% translate "Change" %}</a>
           </p>
+          <input type="hidden" name="deck" value="{{ single_deck.pk }}">
           <input type="hidden" name="decks" value="{{ single_deck.pk }}">
-          <input type="hidden" name="one_deck" value="1">
         </section>
       {% else %}
         <fieldset class="card-section">
           <legend class="section-title">{% translate "Decks" %}</legend>
-          <small class="muted">{% translate "Sub-decks are included automatically. A word that is in more decks comes only once." %}</small>
+          <small class="muted">{% translate "For ▶︎ Practice in the bar. Sub-decks are included automatically. A word that is in more decks comes only once." %}</small>
           {% if form.decks.errors %}<small class="field-error">{{ form.decks.errors|join:" " }}</small>{% endif %}
           <ul class="deck-tree deck-tree-root deck-pick">
             {% for deck in roots %}
@@ -49,7 +52,10 @@
 
       {% include "study/_options.html" %}
 
-      <button type="submit" class="start-test">▶︎ {% translate "Start test" %}</button>
+      <div class="actions">
+        <button type="submit" class="secondary">{% translate "Save" %}</button>
+        <a href="{{ back }}" role="button" class="secondary outline">{% translate "Cancel" %}</a>
+      </div>
     </form>
   {% endif %}
 {% endblock %}

@@ -1,6 +1,7 @@
 """Business logic for study: intervals (spec 6.3), choosing cards and saving answers (6.2)."""
 
 import math
+import random
 from datetime import timedelta
 
 from django.core.exceptions import ValidationError
@@ -12,7 +13,7 @@ from django.utils.dateformat import format as date_format
 from django.utils.formats import get_format
 from django.utils.translation import gettext as _
 
-from vocabulary.models import DeckTerm
+from vocabulary.models import Deck, DeckTerm
 from vocabulary.services import get_descendant_ids
 
 from .models import (
@@ -122,13 +123,16 @@ def start_session(
     return session
 
 
-def card_counts(user, decks, direction, now=None):
-    """How many cards a new test from these decks (with their child decks) would have.
+# The buttons ▶︎ Practice fill the test up to the limit (also when nothing is due) with the
+# cards that would come soonest: mostly the ones that do not stick, they have short
+# intervals. It takes this many times more of them than it needs and picks from them at
+# random, so it is not always the same. Without a limit and with nothing due, this many.
+PRACTICE_FILL_POOL = 3
+PRACTICE_FILL_WITHOUT_LIMIT = 15
 
-    For the test setup: "due" = tested before and due now, "new" = never tested, "all" =
-    every card. A card is a word in one direction, so both directions count a word twice.
-    """
-    now = now or timezone.now()
+
+def deck_states(user, decks, direction):
+    """Review states of the decks (with their child decks) in the direction of a test."""
     deck_ids = set()
     for deck in decks:
         if deck.owner_id == user.pk:
@@ -136,10 +140,114 @@ def card_counts(user, decks, direction, now=None):
     directions = (
         [Direction.F2N, Direction.N2F] if direction == StudyDirection.MIXED else [direction]
     )
-    states = ReviewState.objects.filter(
+    return ReviewState.objects.filter(
         term_id__in=DeckTerm.objects.filter(deck_id__in=deck_ids).values("term_id"),
         direction__in=directions,
     )
+
+
+def pick_practice_cards(user, decks, direction, limit, now=None, rng=None):
+    """Cards for the buttons ▶︎ Practice with "due and new", at most limit (None = no limit).
+
+    First the due ones (the longest waiting first), then the new ones, then up to the limit
+    the ones that would come soonest. A word comes in one direction only when there are
+    enough other words.
+    """
+    now = now or timezone.now()
+    rng = rng or random.Random()
+    states = deck_states(user, decks, direction)
+
+    due = list(states.filter(due_at__lte=now).order_by("due_at", "pk"))
+    new = list(states.filter(due_at__isnull=True).order_by("pk"))
+    rng.shuffle(new)
+    waiting = due + new
+    if limit:
+        missing = limit - len(waiting)
+    else:
+        missing = 0 if waiting else PRACTICE_FILL_WITHOUT_LIMIT
+    fill = []
+    if missing > 0:
+        fill = list(
+            states.filter(due_at__gt=now).order_by("due_at", "pk")[: missing * PRACTICE_FILL_POOL]
+        )
+        rng.shuffle(fill)
+        if not limit:
+            fill = fill[:missing]
+    ordered = waiting + fill
+
+    picked, rest, term_ids = [], [], set()
+    for state in ordered:
+        if state.term_id in term_ids:
+            rest.append(state)
+        else:
+            picked.append(state)
+            term_ids.add(state.term_id)
+    # The other direction of a word only when there are not enough words
+    cards = picked + rest
+    return cards[:limit] if limit else cards
+
+
+def practice_decks(user):
+    """Decks of the button ▶︎ Practice in the bar: the chosen ones, or all decks."""
+    chosen = list(user.practice_decks.filter(owner=user))
+    return chosen or list(Deck.objects.filter(owner=user, parent__isnull=True))
+
+
+def start_practice(user, decks, now=None):
+    """Start a test of the buttons ▶︎ Practice by the settings of the user: due and new
+    cards filled up to the limit (the picked cards), or every card once (all)."""
+    direction = user.default_direction
+    if user.practice_scope == StudyScope.ALL:
+        if not card_counts(user, decks, direction, now=now)["all"]:
+            raise ValidationError(_("There are no words to practise yet."))
+        return start_session(
+            user, decks, direction=direction, scope=StudyScope.ALL, max_cards=user.practice_cards
+        )
+
+    cards = pick_practice_cards(user, decks, direction, user.practice_cards, now=now)
+    if not cards:
+        raise ValidationError(_("There are no words to practise yet."))
+    with transaction.atomic():
+        session = StudySession.objects.create(user=user, direction=direction, scope=StudyScope.ALL)
+        session.decks.set(decks)
+        session.picked_cards.set(cards)
+    return session
+
+
+def practice_preview(user, deck, now=None):
+    """What ▶︎ Practice deck starts, for the line under the button: the direction, how many
+    cards, whether nothing is due, and how many cards the deck has at all."""
+    counts = card_counts(user, [deck], user.default_direction, now=now)
+    waiting = counts["due"] + counts["new"]
+    limit = user.practice_cards
+    if user.practice_scope == StudyScope.ALL:
+        count = min(limit or counts["all"], counts["all"])
+    elif limit:
+        count = min(limit, counts["all"])
+    else:
+        count = waiting or min(PRACTICE_FILL_WITHOUT_LIMIT, counts["all"])
+    foreign = deck.foreign_language.code.upper()
+    native = deck.native_language.code.upper()
+    return {
+        "direction": {
+            StudyDirection.F2N: f"{foreign} → {native}",
+            StudyDirection.N2F: f"{native} → {foreign}",
+        }.get(user.default_direction, f"{foreign} ⇄ {native}"),
+        "count": count,
+        # Only for "due and new": with "all" every card comes anyway
+        "nothing_due": user.practice_scope == StudyScope.DUE and not waiting,
+        "all": counts["all"],
+    }
+
+
+def card_counts(user, decks, direction, now=None):
+    """How many cards a new test from these decks (with their child decks) would have.
+
+    For the test setup: "due" = tested before and due now, "new" = never tested, "all" =
+    every card. A card is a word in one direction, so both directions count a word twice.
+    """
+    now = now or timezone.now()
+    states = deck_states(user, decks, direction)
     return states.aggregate(
         due=Count("pk", filter=Q(due_at__lte=now)),
         new=Count("pk", filter=Q(due_at__isnull=True)),
@@ -171,6 +279,8 @@ def session_cards(session, now=None):
         term_id__in=session_term_ids(session),
         direction__in=session.directions,
     )
+    if session.picked_cards.exists():
+        cards = cards.filter(pk__in=session.picked_cards.values("pk"))
     if session.scope == StudyScope.DUE:
         # Cards that are due, and new cards that were never reviewed
         cards = cards.filter(Q(due_at__lte=now) | Q(due_at__isnull=True))
@@ -230,6 +340,10 @@ def record_answer(session, state, rating_key, *, think_ms=None, decide_ms=None, 
         if (
             state.direction not in session.directions
             or not session_term_ids(session).filter(term_id=state.term_id).exists()
+            or (
+                session.picked_cards.exists()
+                and not session.picked_cards.filter(pk=state.pk).exists()
+            )
         ):
             raise ValidationError(_("This card is not part of this test."))
 

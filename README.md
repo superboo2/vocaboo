@@ -566,8 +566,44 @@ services.session_summary(session)
 
 ### 13. The test screen
 
-Start a test from the bar (*Procvičit*, "practise") or from a deck (*Procvičit slovník*):
-choose decks, direction and which cards. Then:
+**▶︎ Procvičit** ("practise") in the bar starts a test at once, with nothing to choose.
+**▶︎ Procvičit slovník** on a deck does the same with that deck and its sub-decks. Both are
+small forms that `POST` to `study:practice` (with `deck=<id>` from a deck).
+
+What they start is set on **one page ▶︎ Procvičit** (`study:new`; the link *Nastavit* under
+the deck button and under the decks of the dashboard, *Nastavit procvičování* at the end of a
+test, and *Test › ▶︎ Procvičit* in Settings). The page looks the same from both places and
+saves the choices for the user (`User.default_direction`, `practice_scope`, `practice_cards`,
+and for the bar button `practice_decks`; none = all decks):
+
+```text
+▶︎ Procvičit                         Co spustí tlačítka ▶︎ Procvičit. Aplikace si to zapamatuje.
+[ ▶︎ Spustit test ]                  saves and starts
+Slovníky          from a deck: only its name; from the bar: a tree (all ticked = all decks)
+Směr              EN → CS · CS → EN · EN ⇄ CS
+Které kartičky    jen k opakování a nová (42) · všechna (85)
+Nejvýš kartiček   20            (empty = no limit; for both choices)
+[ Uložit ] [ Zrušit ]                saves and goes back
+```
+
+With *jen k opakování a nová* the cards are picked by `services.pick_practice_cards` and saved
+in `StudySession.picked_cards`:
+
+```text
+1. due cards, the longest waiting first        (due_at <= now, by due_at)
+2. new cards                                   (random order)
+3. fewer than the limit: fill up with the cards that come soonest
+                                               (due_at > now: mostly words that don't stick;
+                                                3× more than needed, then a random choice)
+   no limit: filled up only when nothing is waiting, with 15 cards
+   → at most "Nejvýš kartiček"; a word in one direction only,
+     the other direction only when there are not enough words
+```
+
+So the test is never empty. *Všechna* is every card once, at most the limit. Under the deck button
+a small line says what it starts, e.g. `20 kartiček · EN ⇄ CS · Nastavit`, and adds *nic
+k opakování, procvičíš si slovíčka, která ti nejdou* when nothing is due. The dashboard says
+`▶︎ Procvičit bere kartičky ze všech slovníků · Nastavit` (or names the chosen decks). Then:
 
 1. The card shows the question. In the foreign → native direction the sentence is shown too,
    with the word marked.
@@ -625,9 +661,9 @@ the browser and paused while the page is hidden (another app, locked phone).
   `<html>`, kept in `localStorage` of the browser and set before the page is drawn –, Nastavení,
   Admin for staff, Odhlásit; a Pico `details.dropdown`, closed by a click elsewhere). The dashboard starts with the card *Dnes*; `+ Nový` (new deck) is next to
   the heading *Slovníky*. The deck page and the test pages look the same: the deck page has its
-  name with a small menu `⋯` (rename, move, delete), the button `▶ Procvičit slovník` (the same indigo frame as `▶ Procvičit` in the bar)
-  and the cards *Nové slovíčko*, *Slovíčka* and *Podslovníky* (with `+ Nový`); the setup of a
-  test has the cards *Slovníky*, *Směr* and *Které kartičky* and the big button `▶ Spustit test`;
+  name with a small menu `⋯` (rename, move, delete), the button `▶ Procvičit slovník` (the same indigo frame as `▶ Procvičit` in the bar; both start a test at once) with a small line under it
+  and the cards *Nové slovíčko*, *Slovíčka* and *Podslovníky* (with `+ Nový`); the page
+  *▶︎ Procvičit* has the big button `▶ Spustit test` at the top and the cards *Slovníky*, *Směr* and *Které kartičky* (with the limit);
   the test has a thin progress bar above the card. The summary of a test, the statistics and
   the word page use the same cards; the word page has `✎ Upravit` next to the word and a menu `⋯`
   (move, remove from this deck). The dashboard order is *Co ti nešlo* (only when there is

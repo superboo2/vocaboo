@@ -5,21 +5,33 @@
   <section>
     <h2>Starting a test</h2>
     <p>
-      Use the <strong>▶︎ Practice</strong> button in the top bar (it is on every page), or
-      <strong>▶︎ Practice deck</strong> in the deck detail. Then choose:
+      The <strong>▶︎ Practice</strong> button in the top bar (it is on every page) starts a test at once, there is nothing
+      to choose. In the deck detail, <strong>▶︎ Practice deck</strong> starts the same test from this deck and its sub-decks
+      only. What exactly they start is set on the <strong>▶︎ Practice</strong> page.
     </p>
+    <p>Under <em>▶︎ Practice deck</em> a small line says what it starts, e.g. <em>20 cards · EN ⇄ CS · Set up</em>. When nothing is due, it says so: <em>nothing due, you practise the ones that don't stick</em>. On the overview, a similar line under the decks is about the button in the bar: <em>▶︎ Practice takes cards from all decks · Set up</em> (or it names the chosen decks). <strong>Set up</strong> opens the ▶︎ Practice page; it is also at the end of every test (<em>Set up practice</em>) and in <a href="{% url 'settings' %}">Settings</a>.</p>
+
+    <h3>The ▶︎ Practice page</h3>
+    <p>It looks the same from both places. What you choose here is remembered, and the ▶︎ Practice buttons then do exactly that. <strong>▶︎ Start test</strong> at the top saves the choices and starts the test at once, <strong>Save</strong> at the bottom only saves them and takes you back.</p>
     <ul>
-      <li><strong>Decks</strong>: sub-decks are included automatically, and a word that is in several decks comes up only once. From the deck detail (<em>▶︎ Practice deck</em>) there is no tree, only the name of the deck and how many sub-decks it has; the <em>Change</em> link opens the tree.</li>
-      <li><strong>Direction</strong>: one way, or both (<em>⇄</em>, the cards of both directions shuffled). The directions are named by the languages of the deck, e.g. <em>EN → CS</em>, <em>CS → EN</em> and <em>EN ⇄ CS</em>; with decks of different languages generally <em>foreign → native</em> and <em>native → foreign</em>. You can set the default direction in <a href="{% url 'settings' %}">Settings</a>.</li>
+      <li><strong>Decks</strong>: from a deck, only its name and how many sub-decks it has. From the bar and the overview, a tree: which decks <em>▶︎ Practice</em> in the bar takes. When all are ticked, it takes all of them, also the ones you add later. Sub-decks are included automatically, and a word that is in several decks comes up only once.</li>
+      <li><strong>Direction</strong>: one way, or both (<em>⇄</em>, the cards of both directions shuffled). The directions are named by the languages of the deck, e.g. <em>EN → CS</em>, <em>CS → EN</em> and <em>EN ⇄ CS</em>; with decks of different languages generally <em>foreign → native</em> and <em>native → foreign</em>.</li>
       <li><strong>Which cards</strong>:
         <ul>
-          <li><em>only due and new</em>: normal learning, the cards that are due and the words that have not been in a test yet,</li>
+          <li><em>only due and new</em>: normal learning, the cards that are due and the words that have not been in a test yet. When nothing is waiting, words that don't stick are added, see below,</li>
           <li><em>all</em>: every card once, no matter when it is due (e.g. before an exam).</li>
         </ul>
       </li>
-      <li><strong>Max cards</strong>: when you only want a short review.</li>
+      <li><strong>Max cards</strong> (20 by default): for both choices. Empty = no limit.</li>
     </ul>
-    <p>Next to the choices you see in brackets how many cards the test would have, e.g. <em>only due and new (42)</em> or <em>all (85)</em>. It is counted for the ticked decks and the chosen direction and changes as soon as you change a choice. With both directions (<em>⇄</em>) every word is there twice, once in each direction.</p>
+    <p>Next to the choices you see in brackets how many cards there are, e.g. <em>only due and new (42)</em> or <em>all (85)</em>. It is counted for the ticked decks and the chosen direction and changes as soon as you change a choice. With both directions (<em>⇄</em>) every word is there twice, once in each direction.</p>
+    <p>With <em>only due and new</em> these come:</p>
+    <ol>
+      <li>first the <strong>due</strong> cards, the longest waiting first,</li>
+      <li>then the <strong>new</strong> ones,</li>
+      <li>when there are fewer than the limit, the rest is <strong>filled up</strong> with words that would be due soon. These are mostly the ones that don't stick (they have short intervals). They are shuffled a bit, so it is not always the same. Without a limit it is filled up only when nothing is waiting, with 15 cards.</li>
+    </ol>
+    <p>So the test is never empty, even when you have reviewed everything. When there are enough words, each comes in one direction only. The answers count as usual.</p>
   </section>
 
   <section>

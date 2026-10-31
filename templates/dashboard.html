@@ -60,6 +60,11 @@
         {% endfor %}
       </ul>
     </div>
+    {# Which decks the button ▶︎ Practice in the bar takes, and "Nastavit" (its page) #}
+    <p class="practice-note"><small class="muted">
+      ▶︎ {% if practice_decks %}{% translate "Practice takes cards from:" %} {{ practice_decks|join:", " }}{% else %}{% translate "Practice takes cards from all decks" %}{% endif %}
+      · <a href="{% url 'study:new' %}">{% translate "Set up" %}</a>
+    </small></p>
     </section>
     {% include "study/_today.html" %}
   {% else %}

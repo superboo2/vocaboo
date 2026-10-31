@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-29 15:23+0100\n"
+"POT-Creation-Date: 2026-10-31 13:49+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,9 +38,6 @@ msgstr ""
 msgid "App language"
 msgstr "Jazyk aplikace"
 
-msgid "Default test direction"
-msgstr "Výchozí směr testu"
-
 msgid "Suggest translations"
 msgstr "Navrhovat překlad"
 
@@ -61,9 +58,6 @@ msgstr "Ukazovat, kdy slovíčko přijde znovu"
 
 msgid "Menus, buttons and help. Your words stay the same."
 msgstr "Menu, tlačítka a nápověda. Slovíčka se tím nemění."
-
-msgid "It is filled in when you set up a new test."
-msgstr "Předvyplní se v nastavení nového testu."
 
 msgid ""
 "While you type a foreign word, suggestions from the app dictionary show up "
@@ -180,8 +174,17 @@ msgstr "e-mail"
 msgid "native language"
 msgstr "mluvím"
 
-msgid "default test direction"
-msgstr "výchozí směr testu"
+msgid "practice direction"
+msgstr "směr procvičování"
+
+msgid "practice cards"
+msgstr "které kartičky procvičovat"
+
+msgid "practice decks"
+msgstr "slovníky procvičování"
+
+msgid "max cards in practice"
+msgstr "nejvýš kartiček v procvičení"
 
 msgid "suggest translations"
 msgstr "navrhovat překlad"
@@ -306,6 +309,12 @@ msgstr "Přidávání slovíček"
 
 msgid "Test"
 msgstr "Test"
+
+msgid "Practice"
+msgstr "Procvičit"
+
+msgid "how many cards, which direction and which decks"
+msgstr "kolik kartiček, jakým směrem a ze kterých slovníků"
 
 msgid "Audio"
 msgstr "Audio"
@@ -902,6 +911,9 @@ msgstr "všechna"
 msgid "decks"
 msgstr "slovníky"
 
+msgid "picked cards"
+msgstr "vybrané kartičky"
+
 msgid "scope"
 msgstr "rozsah"
 
@@ -974,6 +986,9 @@ msgstr "Slovíčko patří jinému uživateli."
 msgid "The number of cards must be at least 1."
 msgstr "Počet kartiček musí být aspoň 1."
 
+msgid "There are no words to practise yet."
+msgstr "Zatím tu nejsou slovíčka k procvičení."
+
 msgid "This card is not part of this test."
 msgstr "Tato kartička do testu nepatří."
 
@@ -1021,29 +1036,24 @@ msgstr "Vše"
 msgid "most often you don't know"
 msgstr "nejčastěji nevíš"
 
-#| msgid "Only one way"
 msgid "only one way"
 msgstr "jen jedním směrem"
 
-#| msgid "You think longest about"
 msgid "you think long"
 msgstr "dlouho přemýšlíš"
 
 msgid "quick and wrong"
 msgstr "rychle a vedle"
 
-#| msgid "You forget"
 msgid "you forget it"
 msgstr "zapomínáš"
 
 msgid "you know it, then you don't"
 msgstr "střídavě víš a nevíš"
 
-#| msgid "Learning it longest"
 msgid "learning it longest"
 msgstr "učíš se nejdéle"
 
-#| msgid "What you struggle with"
 msgid "the longest you struggle with"
 msgstr "nejdelší, co ti nejde"
 
@@ -1133,6 +1143,10 @@ msgstr "k opakování + nová"
 msgctxt "test scope"
 msgid "wrong again"
 msgstr "chybné znovu"
+
+msgctxt "test scope"
+msgid "▶︎ practice"
+msgstr "▶︎ procvičit"
 
 #, python-format
 msgid "max %(count)s"
@@ -1266,6 +1280,12 @@ msgstr "Otočit"
 msgid "Details"
 msgstr "Detail"
 
+msgid "when nothing is waiting, words that don't stick are added"
+msgstr "když nic nečeká, doplní se slovíčka, která ti nejdou"
+
+msgid "every card once, no matter when it is due"
+msgstr "každá kartička jednou, bez ohledu na termín"
+
 msgid "Empty = no limit."
 msgstr "Prázdné = bez omezení."
 
@@ -1369,14 +1389,17 @@ msgstr ""
 msgid "Got it"
 msgstr "Rozumím"
 
-msgid "New test"
-msgstr "Nový test"
-
 msgid "First create a deck and add words to it."
 msgstr "Nejdřív si vytvoř slovník a přidej do něj slovíčka."
 
 msgid "New deck"
 msgstr "Nový slovník"
+
+msgid "What the buttons ▶︎ Practice start. It is remembered."
+msgstr "Co spustí tlačítka ▶︎ Procvičit. Aplikace si to zapamatuje."
+
+msgid "Start test"
+msgstr "Spustit test"
 
 #, python-format
 msgid "and %(counter)s sub-deck"
@@ -1385,18 +1408,12 @@ msgstr[0] "a %(counter)s podslovník"
 msgstr[1] "a %(counter)s podslovníky"
 msgstr[2] "a %(counter)s podslovníků"
 
-msgid "Change"
-msgstr "Změnit"
-
 msgid ""
-"Sub-decks are included automatically. A word that is in more decks comes "
-"only once."
+"For ▶︎ Practice in the bar. Sub-decks are included automatically. A word "
+"that is in more decks comes only once."
 msgstr ""
-"Podslovníky se zahrnou automaticky. Slovíčko, které je ve více slovnících, "
-"přijde jen jednou."
-
-msgid "Start test"
-msgstr "Spustit test"
+"Pro ▶︎ Procvičit v liště. Podslovníky se zahrnou automaticky. Slovíčko, "
+"které je ve více slovnících, přijde jen jednou."
 
 msgid "Statistics"
 msgstr "Statistiky"
@@ -1462,6 +1479,9 @@ msgstr "Všechno správně!"
 msgid "No cards were rated in this test."
 msgstr "V tomto testu není žádná ohodnocená kartička."
 
+msgid "Set up practice"
+msgstr "Nastavit procvičování"
+
 msgid "Back to overview"
 msgstr "Zpět na přehled"
 
@@ -1511,9 +1531,6 @@ msgstr "Přehrát"
 
 msgid "Skip to content"
 msgstr "Přeskočit na obsah"
-
-msgid "Practice"
-msgstr "Procvičit"
 
 msgid "Help"
 msgstr "Nápověda"
@@ -1599,6 +1616,15 @@ msgstr "včera"
 msgctxt "deck"
 msgid "New"
 msgstr "Nový"
+
+msgid "Practice takes cards from:"
+msgstr "Procvičit bere kartičky z:"
+
+msgid "Practice takes cards from all decks"
+msgstr "Procvičit bere kartičky ze všech slovníků"
+
+msgid "Set up"
+msgstr "Nastavit"
 
 msgid "You have no decks yet. Start by creating one."
 msgstr "Zatím nemáš žádné slovníky. Začni tím, že si jeden vytvoříš."
@@ -2128,6 +2154,16 @@ msgstr "Přesunout"
 
 msgid "Practice deck"
 msgstr "Procvičit slovník"
+
+#, python-format
+msgid "%(counter)s card"
+msgid_plural "%(counter)s cards"
+msgstr[0] "%(counter)s kartička"
+msgstr[1] "%(counter)s kartičky"
+msgstr[2] "%(counter)s kartiček"
+
+msgid "nothing due, you practise the ones that don't stick"
+msgstr "nic k opakování, procvičíš si slovíčka, která ti nejdou"
 
 msgid "New word"
 msgstr "Nové slovíčko"

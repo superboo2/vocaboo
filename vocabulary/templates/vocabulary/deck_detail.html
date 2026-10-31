@@ -21,8 +21,23 @@
   <p class="muted page-sub">{{ deck.foreign_language.label }}{% arrow %}{{ deck.native_language.label }}</p>
   {% if deck.description %}<p>{{ deck.description|linebreaksbr }}</p>{% endif %}
 
-  {# A test of this deck only (the button in the bar tests everything); looks like the one in the bar #}
-  <p class="practice-row"><a href="{% url 'study:new' %}?deck={{ deck.pk }}" class="practice-button">▶︎ {% translate "Practice deck" %}</a></p>
+  {# A test of this deck only, at once (the button in the bar tests all decks); looks like the #}
+  {# one in the bar. Under it what it starts and "Nastavit" (the page ▶︎ Practice). #}
+  {% if practice.all %}
+    <div class="practice-row">
+      <form method="post" action="{% url 'study:practice' %}">
+        {% csrf_token %}
+        <input type="hidden" name="deck" value="{{ deck.pk }}">
+        <button type="submit" class="practice-button">▶︎ {% translate "Practice deck" %}</button>
+      </form>
+      <small class="muted practice-info">
+        {% blocktranslate count counter=practice.count trimmed %}{{ counter }} card{% plural %}{{ counter }} cards{% endblocktranslate %}
+        · {{ practice.direction|arrows }}
+        {% if practice.nothing_due %}· {% translate "nothing due, you practise the ones that don't stick" %}{% endif %}
+        · <a href="{% url 'study:new' %}?deck={{ deck.pk }}">{% translate "Set up" %}</a>
+      </small>
+    </div>
+  {% endif %}
 
   {# id: app.js shows this section when a word for later fills the form #}
   <section class="card-section" id="new-word">

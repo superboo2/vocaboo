@@ -5,21 +5,33 @@
   <section>
     <h2>Spuštění testu</h2>
     <p>
-      Tlačítkem <strong>▶︎ Procvičit</strong> v horní liště (je na každé stránce), nebo v detailu slovníku
-      <strong>▶︎ Procvičit slovník</strong>. Pak vyber:
+      Tlačítko <strong>▶︎ Procvičit</strong> v horní liště (je na každé stránce) spustí test hned, nic se nevybírá.
+      V detailu slovníku spustí <strong>▶︎ Procvičit slovník</strong> stejný test jen z tohoto slovníku a jeho podslovníků.
+      Co přesně se spustí, nastavíš na stránce <strong>▶︎ Procvičit</strong>.
     </p>
+    <p>Pod <em>▶︎ Procvičit slovník</em> je drobný řádek s tím, co se spustí, třeba <em>20 kartiček · EN ⇄ CS · Nastavit</em>. Když není nic k opakování, řekne to: <em>nic k opakování, procvičíš si slovíčka, která ti nejdou</em>. Na přehledu je pod slovníky podobný řádek pro tlačítko v liště: <em>▶︎ Procvičit bere kartičky ze všech slovníků · Nastavit</em> (nebo jmenuje vybrané slovníky). <strong>Nastavit</strong> otevře stránku ▶︎ Procvičit; je i na konci každého testu (<em>Nastavit procvičování</em>) a v <a href="{% url 'settings' %}">Nastavení</a>.</p>
+
+    <h3>Stránka ▶︎ Procvičit</h3>
+    <p>Z obou míst vypadá stejně. Co tu vybereš, si aplikace zapamatuje a tlačítka ▶︎ Procvičit pak dělají přesně tohle. <strong>▶︎ Spustit test</strong> nahoře volby uloží a test rovnou spustí, <strong>Uložit</strong> dole je jen uloží a vrátí tě zpátky.</p>
     <ul>
-      <li><strong>Slovníky</strong>: podslovníky se zahrnou samy, slovíčko ve víc slovnících přijde jednou. Z detailu slovníku (<em>▶︎ Procvičit slovník</em>) se strom neukazuje, jen název slovníku a kolik má podslovníků; odkaz <em>Změnit</em> strom otevře.</li>
-      <li><strong>Směr</strong>: jedním směrem, nebo oběma (<em>⇄</em>, karty obou směrů na přeskáčku). Směry jsou pojmenované podle jazyků slovníku, třeba <em>EN → CS</em>, <em>CS → EN</em> a <em>EN ⇄ CS</em>; když vybereš slovníky s různými jazyky, obecně <em>cizí → rodný</em> a <em>rodný → cizí</em>. Výchozí směr nastavíš v <a href="{% url 'settings' %}">Nastavení</a>.</li>
+      <li><strong>Slovníky</strong>: ze slovníku jen jeho název a kolik má podslovníků. Z lišty a přehledu strom: které slovníky bere <em>▶︎ Procvičit</em> v liště. Když jsou zaškrtnuté všechny, bere všechny, i ty, které přidáš později. Podslovníky se zahrnou samy, slovíčko ve víc slovnících přijde jednou.</li>
+      <li><strong>Směr</strong>: jedním směrem, nebo oběma (<em>⇄</em>, karty obou směrů na přeskáčku). Směry jsou pojmenované podle jazyků slovníku, třeba <em>EN → CS</em>, <em>CS → EN</em> a <em>EN ⇄ CS</em>; u slovníků s různými jazyky obecně <em>cizí → rodný</em> a <em>rodný → cizí</em>.</li>
       <li><strong>Které kartičky</strong>:
         <ul>
-          <li><em>jen k opakování a nová</em>: běžné učení, kartičky, které jsou na řadě, a slovíčka, která ještě nebyla v testu,</li>
+          <li><em>jen k opakování a nová</em>: běžné učení, kartičky na řadě a slovíčka, která ještě nebyla v testu. Když nic nečeká, doplní se slovíčka, která ti nejdou, viz níže,</li>
           <li><em>všechna</em>: každá kartička jednou, bez ohledu na termín (např. před zkouškou).</li>
         </ul>
       </li>
-      <li><strong>Nejvýš kartiček</strong>: když chceš jen krátké opakování.</li>
+      <li><strong>Nejvýš kartiček</strong> (výchozí 20): pro obě volby. Prázdné = bez omezení.</li>
     </ul>
-    <p>U voleb je v závorce počet kartiček, které by test měl, třeba <em>jen k opakování a nová (42)</em> nebo <em>všechna (85)</em>. Počítá se pro zaškrtnuté slovníky a zvolený směr a mění se hned, když volbu změníš. Při obou směrech (<em>⇄</em>) je každé slovíčko dvakrát, jednou v každém směru.</p>
+    <p>U voleb je v závorce počet kartiček, třeba <em>jen k opakování a nová (42)</em> nebo <em>všechna (85)</em>. Počítá se pro zaškrtnuté slovníky a zvolený směr a mění se hned, když volbu změníš. Při obou směrech (<em>⇄</em>) je každé slovíčko dvakrát, jednou v každém směru.</p>
+    <p>U <em>jen k opakování a nová</em> přijdou:</p>
+    <ol>
+      <li>nejdřív kartičky <strong>na řadě k opakování</strong>, nejdéle čekající první,</li>
+      <li>pak <strong>nové</strong>,</li>
+      <li>když jich je míň, než je limit, zbytek se <strong>doplní</strong> slovíčky, která by brzy byla na řadě. To jsou hlavně ta, která ti nejdou (mají krátké intervaly). Aby to nebylo pokaždé stejné, trochu se zamíchají. Bez limitu se doplní, jen když nic nečeká, a to 15 kartiček.</li>
+    </ol>
+    <p>Test tak není nikdy prázdný, ani když máš všechno zopakované. Když je slovíček dost, přijde každé jen jedním směrem. Odpovědi se počítají normálně.</p>
   </section>
 
   <section>

@@ -315,6 +315,7 @@ def _test_rows(user, tests):
             words=Count("logs__term", distinct=True),
             last_answer=Max("logs__reviewed_at"),
             retry=Count("terms", distinct=True),
+            practice=Count("picked_cards", distinct=True),
         )
     )
     counts = Counter()
@@ -345,6 +346,8 @@ def _test_row(session, counts, names):
         scope = pgettext("test scope", "due + new")
     if session.retry:
         scope = pgettext("test scope", "wrong again")
+    elif session.practice:
+        scope = pgettext("test scope", "▶︎ practice")
     finished = session.finished_at is not None or (
         session.max_cards is not None and session.cards >= session.max_cards
     )

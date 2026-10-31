@@ -14,13 +14,15 @@
 <fieldset class="card-section">
   <legend class="section-title">{{ form.scope.label }}</legend>
   {% for radio in form.scope %}
-    {# Only the number of cards in brackets, e.g. "only due and new (23)" #}
-    <label>{{ radio.tag }} {{ radio.choice_label }} ({% if radio.data.value == "due" %}{{ counts.due|add:counts.new }}{% else %}{{ counts.all }}{% endif %})</label>
+    {# The number of cards in brackets, what the choice means small under it #}
+    <label class="scope-choice">{{ radio.tag }} {{ radio.choice_label }} ({% if radio.data.value == "due" %}{{ counts.due|add:counts.new }}{% else %}{{ counts.all }}{% endif %})
+      <small class="muted">{% if radio.data.value == "due" %}{% translate "when nothing is waiting, words that don't stick are added" %}{% else %}{% translate "every card once, no matter when it is due" %}{% endif %}</small>
+    </label>
   {% endfor %}
 
-  {{ form.max_cards.label_tag }}
-  {{ form.max_cards }}
-  {% if form.max_cards.errors %}<small class="field-error">{{ form.max_cards.errors|join:" " }}</small>{% endif %}
-  <small id="{{ form.max_cards.auto_id }}_helptext">{% translate "Empty = no limit." %}</small>
+  {{ form.practice_cards.label_tag }}
+  {{ form.practice_cards }}
+  {% if form.practice_cards.errors %}<small class="field-error">{{ form.practice_cards.errors|join:" " }}</small>{% endif %}
+  <small id="{{ form.practice_cards.auto_id }}_helptext">{% translate "Empty = no limit." %}</small>
 </fieldset>
 </div>

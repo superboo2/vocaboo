@@ -25,24 +25,54 @@ def _is_htmx(request):
     return request.headers.get("HX-Request") == "true"
 
 
+@require_POST
+def study_practice(request):
+    """The buttons ▶︎ Practice: a test right away, by the settings of their page. From the
+    page of a deck (deck=<id>) only that deck, from the bar the chosen decks (or all)."""
+    deck_id = request.POST.get("deck", "")
+    if deck_id.isdigit():
+        deck = get_object_or_404(Deck, pk=deck_id, owner=request.user)
+        decks, back = [deck], reverse("vocabulary:deck_detail", args=[deck.pk])
+    else:
+        decks, back = services.practice_decks(request.user), reverse("dashboard")
+    if not decks:
+        # No deck yet: the page ▶︎ Practice says what to do first
+        return redirect("study:new")
+    try:
+        session = services.start_practice(request.user, decks)
+    except ValidationError as error:
+        messages.info(request, error.messages[0])
+        return redirect(back)
+    return redirect("study:card", pk=session.pk)
+
+
 def study_new(request):
-    """Settings of a new test. ?deck=<id> tests that deck: the tree is hidden and only the
-    deck is shown, ?deck=<id>&pick=1 shows the tree with it ticked."""
-    initial = {"direction": request.user.default_direction, "scope": StudyScope.DUE}
-    if request.GET.get("deck", "").isdigit():
-        initial["decks"] = [int(request.GET["deck"])]
-    form = StudySetupForm(request.POST or None, user=request.user, initial=initial)
+    """The page ▶︎ Practice ("Nastavit" under the buttons): what the buttons start. The
+    choices are saved for the user; "Spustit test" also starts the test, "Uložit" goes back.
+    ?deck=<id> is the button of that deck: only the deck is shown, no tree, and the decks of
+    the button in the bar stay as they are."""
+    user = request.user
+    one_deck = (request.POST if request.method == "POST" else request.GET).get("deck", "")
+    deck = get_object_or_404(Deck, pk=one_deck, owner=user) if one_deck.isdigit() else None
+    initial = {
+        "decks": [deck.pk] if deck else [item.pk for item in services.practice_decks(user)],
+        "direction": user.default_direction,
+        "scope": user.practice_scope,
+        "practice_cards": user.practice_cards,
+    }
+    data = request.POST.copy() if request.method == "POST" else None
+    if data is not None and deck:
+        data.setlist("decks", [str(deck.pk)])
+    form = StudySetupForm(data, user=user, initial=initial)
+    back = reverse("vocabulary:deck_detail", args=[deck.pk]) if deck else reverse("dashboard")
 
     if request.method == "POST" and form.is_valid():
-        data = form.cleaned_data
+        _save_practice(user, form.cleaned_data, with_decks=deck is None)
+        if "start" not in request.POST:
+            messages.success(request, _("Settings saved."))
+            return redirect(back)
         try:
-            session = services.start_session(
-                request.user,
-                data["decks"],
-                direction=data["direction"],
-                scope=data["scope"],
-                max_cards=data["max_cards"],
-            )
+            session = services.start_practice(user, list(form.cleaned_data["decks"]))
         except ValidationError as error:
             form.add_error(None, error)
         else:
@@ -50,55 +80,62 @@ def study_new(request):
 
     if form.is_bound:
         selected = {int(value) for value in form["decks"].value() or [] if str(value).isdigit()}
-        one_deck = request.POST.get("one_deck") == "1"
     else:
-        selected = set(initial.get("decks", []))
-        one_deck = bool(selected) and "pick" not in request.GET
+        selected = set(initial["decks"])
     decks = list(
-        Deck.objects.filter(owner=request.user, pk__in=selected).select_related(
+        Deck.objects.filter(owner=user, pk__in=selected).select_related(
             "foreign_language", "native_language"
         )
     )
     form.name_directions(decks)
-    # Practising one deck from its page: no tree, only its name (and how many subdecks)
-    single_deck = decks[0] if one_deck and len(decks) == 1 else None
     context = {
         "form": form,
-        "roots": vocabulary_services.load_tree(request.user),
+        "roots": vocabulary_services.load_tree(user),
         "selected": selected,
-        "single_deck": single_deck,
+        "single_deck": deck,
         "subdeck_count": (
-            len(vocabulary_services.get_descendant_ids(single_deck, include_self=False))
-            if single_deck
-            else 0
+            len(vocabulary_services.get_descendant_ids(deck, include_self=False)) if deck else 0
         ),
-        **_scope_context(request.user, decks, form["direction"].value()),
+        "back": back,
+        **_scope_context(user, decks, form["direction"].value()),
     }
     return render(request, "study/setup.html", context)
 
 
+def _save_practice(user, data, with_decks):
+    """Save the choices of the page ▶︎ Practice for the user. The decks only for the button
+    in the bar; all top decks ticked are saved as none, so a new deck is in too."""
+    user.default_direction = data["direction"]
+    user.practice_scope = data["scope"]
+    user.practice_cards = data["practice_cards"]
+    user.save(update_fields=["default_direction", "practice_scope", "practice_cards"])
+    if with_decks:
+        chosen = set(data["decks"])
+        roots = set(Deck.objects.filter(owner=user, parent__isnull=True))
+        user.practice_decks.set([] if roots <= chosen else chosen)
+
+
 def _scope_context(user, decks, direction):
-    """Card counts next to the choices "which cards" of the test setup."""
+    """Card counts next to the choices "which cards" of the page ▶︎ Practice."""
     if direction not in StudyDirection.values:
         direction = user.default_direction
     return {"counts": services.card_counts(user, decks, direction)}
 
 
 def study_counts(request):
-    """The parts "direction" and "which cards" of the test setup again, with the languages
-    and the counts for the ticked decks (HTMX, after every change of the form)."""
+    """The parts "direction" and "which cards" of the page ▶︎ Practice again, with the
+    languages and the counts for the ticked decks (HTMX, after every change of the form)."""
     decks = Deck.objects.filter(
         owner=request.user,
         pk__in=[value for value in request.GET.getlist("decks") if value.isdigit()],
     ).select_related("foreign_language", "native_language")
     direction = request.GET.get("direction", "")
-    scope = request.GET.get("scope", StudyScope.DUE)
     form = StudySetupForm(
         user=request.user,
         initial={
             "direction": direction,
-            "scope": scope,
-            "max_cards": request.GET.get("max_cards", ""),
+            "scope": request.GET.get("scope", StudyScope.DUE),
+            "practice_cards": request.GET.get("practice_cards", ""),
         },
     )
     form.name_directions(decks)

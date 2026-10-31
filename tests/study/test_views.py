@@ -55,7 +55,7 @@ def answer(client, session, rating="ok", **extra):
 # Setup
 
 
-def test_setup_page_preselects_deck_and_direction(logged_client, user, himym):
+def test_setup_of_a_deck_shows_only_the_deck(logged_client, user, himym):
     user.default_direction = "N2F"
     user.save()
 
@@ -63,19 +63,10 @@ def test_setup_page_preselects_deck_and_direction(logged_client, user, himym):
     html = response.content.decode()
 
     assert response.status_code == 200
-    # Only this deck, no tree: a hidden field and a link to change it
-    assert f'<input type="hidden" name="decks" value="{himym.pk}">' in html
+    # Only this deck, no tree
+    assert f'<input type="hidden" name="deck" value="{himym.pk}">' in html
     assert f'name="decks" value="{himym.pk}" checked' not in html
-    assert f"?deck={himym.pk}&amp;pick=1" in html
     assert response.context["form"].initial["direction"] == "N2F"
-
-
-def test_setup_change_link_shows_the_tree_with_the_deck_ticked(logged_client, himym):
-    response = logged_client.get(reverse("study:new") + f"?deck={himym.pk}&pick=1")
-
-    html = response.content.decode()
-    assert f'value="{himym.pk}" checked' in html
-    assert response.context["single_deck"] is None
 
 
 def test_setup_of_a_deck_tells_its_subdecks(logged_client, user, himym):
@@ -88,25 +79,24 @@ def test_setup_of_a_deck_tells_its_subdecks(logged_client, user, himym):
 
 
 def test_setup_shows_how_many_cards_there_are(logged_client, user, himym, words):
-    # One word was tested and is due again, the other one is new
-    state = ReviewState.objects.get(term=words[0], direction="F2N")
-    state.due_at = state.last_reviewed_at = timezone.now() - timedelta(days=1)
-    state.save()
+    # One word was tested and is not due yet, the other one is new
+    ReviewState.objects.filter(term=words[0]).update(
+        due_at=timezone.now() + timedelta(days=1), last_reviewed_at=timezone.now()
+    )
 
     response = logged_client.get(reverse("study:new") + f"?deck={himym.pk}")
-    counts = response.context["counts"]
 
     # The user's default direction is mixed: every word is two cards
-    assert counts == {"due": 1, "new": 3, "all": 4}
+    assert response.context["counts"] == {"due": 0, "new": 2, "all": 4}
     html = response.content.decode()
-    assert "jen k opakování a nová (4)" in html
-    assert "Prázdné = bez omezení." in html
+    assert "jen k opakování a nová (2)" in html and "všechna (4)" in html
+    assert 'value="20"' in html and "Prázdné = bez omezení." in html
 
 
 def test_counts_follow_the_form(logged_client, himym, words):
     response = logged_client.get(
         reverse("study:counts"),
-        {"decks": [himym.pk], "direction": "F2N", "scope": "all", "max_cards": "5"},
+        {"decks": [himym.pk], "direction": "F2N", "scope": "all", "practice_cards": "5"},
         headers=HTMX,
     )
 
@@ -149,31 +139,6 @@ def test_counts_ignore_other_users_decks(client, other_user, himym, words):
     response = client.get(reverse("study:counts"), {"decks": [himym.pk], "direction": "F2N"})
 
     assert response.context["counts"] == {"due": 0, "new": 0, "all": 0}
-
-
-def test_setup_starts_session(logged_client, himym, words):
-    response = logged_client.post(
-        reverse("study:new"), {"decks": [himym.pk], "direction": "MIXED", "scope": "due"}
-    )
-
-    session = StudySession.objects.get()
-    assert response.url == reverse("study:card", args=[session.pk])
-    assert list(session.decks.all()) == [himym]
-
-
-def test_setup_needs_a_deck(logged_client, himym):
-    response = logged_client.post(reverse("study:new"), {"direction": "MIXED", "scope": "due"})
-
-    assert "Vyber aspoň jeden slovník" in response.content.decode()
-    assert not StudySession.objects.exists()
-
-
-def test_setup_refuses_other_users_deck(client, other_user, himym):
-    client.force_login(other_user)
-
-    client.post(reverse("study:new"), {"decks": [himym.pk], "direction": "MIXED", "scope": "due"})
-
-    assert not StudySession.objects.exists()
 
 
 # Card
@@ -358,11 +323,14 @@ def test_retry_without_mistakes_stays_on_summary(logged_client, user, himym, wor
     assert StudySession.objects.count() == 1
 
 
-def test_start_buttons_on_dashboard_and_deck(logged_client, himym):
+def test_start_buttons_on_dashboard_and_deck(logged_client, himym, words):
     dashboard = logged_client.get(reverse("dashboard")).content.decode()
     deck = logged_client.get(reverse("vocabulary:deck_detail", args=[himym.pk])).content.decode()
 
+    # ▶︎ Procvičit starts at once; the custom test is a link next to it
+    assert f'action="{reverse("study:practice")}"' in dashboard
     assert reverse("study:new") in dashboard
+    assert f'name="deck" value="{himym.pk}"' in deck
     assert f"{reverse('study:new')}?deck={himym.pk}" in deck
 
 

@@ -2453,10 +2453,40 @@ button.start-test {
   margin-bottom: 1rem;
 }
 
-/* "▶ Procvičit" in the bar and "▶ Procvičit slovník" on a deck: both open the setup of a test,
-   so they look the same, an indigo frame. The filled buttons really start a test. */
-a.practice-button {
+/* The page ▶ Procvičit: what a choice of "Které kartičky" means, small under it, in line
+   with its text */
+label.scope-choice {
+  display: block;
+  width: auto;
+  margin-bottom: 0.6rem;
+}
+
+.scope-choice small {
+  display: block;
+  width: auto;
+  margin: 0.1rem 0 0 1.85rem;
+}
+
+/* Under the decks of the dashboard: the same line as under "▶ Procvičit slovník" */
+.practice-note {
+  margin: 0.75rem 0 0;
+}
+
+/* "▶ Procvičit" in the bar and "▶ Procvičit slovník" on a deck: both start a test at once
+   (the cards by the settings), so they look the same, an indigo frame. */
+.practice-form,
+.practice-row form {
+  display: inline;
+  margin: 0;
+}
+
+.practice-button,
+button.practice-button[type="submit"] {
   display: inline-block;
+  width: auto;
+  margin: 0;
+  border: 0;
+  background: transparent;
   padding: 0.3rem 1rem;
   border-radius: var(--radius-control);
   box-shadow: inset 0 0 0 2px var(--pico-primary);
@@ -2468,8 +2498,16 @@ a.practice-button {
   white-space: nowrap;
 }
 
-a.practice-button:hover {
+.practice-button:hover,
+.practice-button:focus-visible {
   background: color-mix(in srgb, var(--pico-primary) 10%, transparent);
+  color: var(--pico-primary);
+}
+
+/* Under "▶ Procvičit slovník": what it starts, the settings and the test chosen by hand */
+.practice-info {
+  display: block;
+  margin-top: 0.35rem;
 }
 
 /* A fieldset as a card: the legend is the heading of the card */

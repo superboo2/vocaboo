@@ -6,7 +6,7 @@ from django.db.models.functions import Lower
 from django.utils.translation import gettext_lazy as _
 from django.utils.translation import pgettext_lazy
 
-from study.models import StudyDirection
+from study.models import StudyDirection, StudyScope
 
 
 class UserManager(DjangoUserManager):
@@ -52,12 +52,23 @@ class User(AbstractUser):
         on_delete=models.SET_NULL,
         related_name="+",
     )
-    # Direction chosen in a new test unless the user picks another one
+    # The buttons ▶︎ Practice (set on their page): direction, which cards, at most how many
+    # (empty = no limit), and for the button in the bar which decks (none = all decks, so a
+    # new deck is in too)
     default_direction = models.CharField(
-        _("default test direction"),
+        _("practice direction"),
         max_length=5,
         choices=StudyDirection.choices,
         default=StudyDirection.MIXED,
+    )
+    practice_scope = models.CharField(
+        _("practice cards"), max_length=3, choices=StudyScope.choices, default=StudyScope.DUE
+    )
+    practice_decks = models.ManyToManyField(
+        "vocabulary.Deck", verbose_name=_("practice decks"), blank=True, related_name="+"
+    )
+    practice_cards = models.PositiveSmallIntegerField(
+        _("max cards in practice"), null=True, blank=True, default=20
     )
     # Translation suggestions from the dictionary while a new word is typed
     show_suggestions = models.BooleanField(_("suggest translations"), default=True)
