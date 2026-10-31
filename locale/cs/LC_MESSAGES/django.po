@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-31 13:49+0100\n"
+"POT-Creation-Date: 2026-10-31 15:05+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -34,6 +34,16 @@ msgid ""
 "The language you translate your words into. It is filled in for a new deck."
 msgstr ""
 "Jazyk, do kterého si slovíčka překládáš. Předvyplní se u nového slovníku."
+
+msgid "Daily goal (min)"
+msgstr "Denní cíl (min)"
+
+msgid ""
+"How many minutes a day you want to spend in tests. At the top of the "
+"overview you see how much you have done today. Empty = no goal."
+msgstr ""
+"Kolik minut denně chceš strávit v testech. Nahoře na přehledu uvidíš, kolik "
+"máš dnes za sebou. Prázdné = bez cíle."
 
 msgid "App language"
 msgstr "Jazyk aplikace"
@@ -185,6 +195,9 @@ msgstr "slovníky procvičování"
 
 msgid "max cards in practice"
 msgstr "nejvýš kartiček v procvičení"
+
+msgid "daily goal (min)"
+msgstr "denní cíl (min)"
 
 msgid "suggest translations"
 msgstr "navrhovat překlad"
@@ -1274,6 +1287,20 @@ msgstr "Ukázat"
 msgid "%(label)s, again in %(when)s"
 msgstr "%(label)s, opakovat za %(when)s"
 
+msgid "Time in today’s tests. You set the goal in Settings."
+msgstr "Čas v dnešních testech. Cíl nastavíš v Nastavení."
+
+msgid "Daily goal"
+msgstr "Denní cíl"
+
+#, python-format
+msgid "%(minutes)s / %(goal)s min"
+msgstr "%(minutes)s / %(goal)s min"
+
+#, python-format
+msgid "<strong>%(minutes)s</strong> / %(goal)s min"
+msgstr "<strong>%(minutes)s</strong> / %(goal)s min"
+
 msgid "Turn over"
 msgstr "Otočit"
 
@@ -1979,6 +2006,13 @@ msgid_plural "%(counter)s words are waiting for a translation"
 msgstr[0] "%(counter)s slovíčko čeká na překlad"
 msgstr[1] "%(counter)s slovíčka čekají na překlad"
 msgstr[2] "%(counter)s slovíček čeká na překlad"
+
+#, python-format
+msgid "%(counter)s is waiting for a translation"
+msgid_plural "%(counter)s are waiting for a translation"
+msgstr[0] "%(counter)s čeká na překlad"
+msgstr[1] "%(counter)s čekají na překlad"
+msgstr[2] "%(counter)s čeká na překlad"
 
 msgid "Search words…"
 msgstr "Hledat slovíčko…"

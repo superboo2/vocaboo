@@ -29,6 +29,17 @@ def dashboard(request):
     # Cards "Co ti včera / naposledy nešlo": the last day with a test before today
     hard = stats.hard_words(request.user) if roots else {"day": None, "items": []}
     today = stats.today_overview(request.user) if roots else None
+    # The daily goal of the user: minutes in today's tests of the goal
+    goal = request.user.daily_goal
+    daily_goal = (
+        {
+            "minutes": today["minutes"],
+            "goal": goal,
+            "percent": min(100, 100 * today["minutes"] // goal),
+        }
+        if today and goal
+        else None
+    )
     return render(
         request,
         "dashboard.html",
@@ -39,9 +50,9 @@ def dashboard(request):
             "hard_day": hard["day"],
             "yesterday": timezone.localdate() - timedelta(days=1),
             "today": today,
+            "daily_goal": daily_goal,
             # Words saved for later, waiting for a translation (a card above the decks)
             "pending_count": vocabulary_services.pending_words(request.user).count(),
-            "pending_first": vocabulary_services.pending_words(request.user)[:2],
             # The decks of the button ▶︎ Practice in the bar; none = all decks
             "practice_decks": [deck.name for deck in request.user.practice_decks.all()],
         },

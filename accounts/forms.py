@@ -22,6 +22,16 @@ class SettingsForm(forms.ModelForm):
         required=False,
         help_text=_("The language you translate your words into. It is filled in for a new deck."),
     )
+    daily_goal = forms.IntegerField(
+        label=_("Daily goal (min)"),
+        required=False,
+        min_value=1,
+        max_value=600,
+        help_text=_(
+            "How many minutes a day you want to spend in tests. At the top of the overview you "
+            "see how much you have done today. Empty = no goal."
+        ),
+    )
 
     class Meta:
         model = User
@@ -29,6 +39,7 @@ class SettingsForm(forms.ModelForm):
             "ui_language",
             "native_language",
             "show_suggestions",
+            "daily_goal",
             "show_other_meanings",
             "autoplay_pronunciation",
             "autoplay_content",

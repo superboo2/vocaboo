@@ -251,6 +251,8 @@ def today_overview(user, now=None):
         }
 
     return {
+        # For the daily goal on the dashboard
+        "minutes": minutes[today],
         "metrics": [
             metric(
                 "tested",

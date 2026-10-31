@@ -191,8 +191,12 @@ def test_overview_and_deck_remind_of_words_for_later(logged_client, himym):
         reverse("vocabulary:deck_detail", args=[himym.pk])
     ).content.decode()
 
-    assert "1 slovíčko čeká na překlad" in overview and "Doplnit" in overview
-    assert "Odložené" in overview and "📝" not in overview
+    # On the overview a small card, all of it a link to the list
+    assert "1 čeká na překlad" in overview and "Odložené ›" in overview
+    assert (
+        f'href="{reverse("vocabulary:later_list")}" class="card-section pending-line"' in overview
+    )
+    assert "📝" not in overview
     # On the deck page the card is under the form and the word fills the form at once (HTMX)
     pending = PendingWord.objects.get()
     assert f"later/?deck={himym.pk}" in deck_page
@@ -205,14 +209,14 @@ def test_missing_words_lists_words_for_later(himym):
     assert "gnarly" in find_missing_words()
 
 
-def test_overview_card_shows_only_the_first_two_words(logged_client, himym):
+def test_deck_card_shows_only_the_first_two_words(logged_client, himym):
     for word in ["gnarly", "schmooze", "bummer"]:
         services.save_for_later(himym, foreign=word)
 
-    html = logged_client.get(reverse("dashboard")).content.decode()
+    html = logged_client.get(reverse("vocabulary:deck_detail", args=[himym.pk])).content.decode()
 
-    # The newest two, then "…"
-    assert "bummer, schmooze, …" in html
+    # The newest two (links that fill the form), then "…"
+    assert ">bummer</a>, " in html and ">schmooze</a>, …" in html
     assert "gnarly" not in html
 
 

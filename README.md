@@ -348,10 +348,11 @@ Such words are `vocabulary.PendingWord`, not words of the deck: no tests, statis
 The list `/later/` (or `/later/?deck=<id>`) is a small table: tap a word and its deck opens with the usual
 form filled in (`/decks/<id>/?later=<pk>`: the word, the sentence and the note, the cursor in the
 translation, the suggestions shown at once). After *Přidat slovíčko* the word is a normal word of
-the deck and leaves the list (the hidden field `later` tells `term_add`). The overview has a card
-*Odložené* like the other sections (no icon): how many words are waiting, the newest two (then `…`)
-and the link *Doplnit* to the list. The deck page has the same card under the form (only words of
-that deck), where the two words fill in the form at once by HTMX (`term_from_later`), without
+the deck and leaves the list (the hidden field `later` tells `term_add`). The overview has a small card
+`Odložené › 3 čekají na překlad` at the top (all of it a link to the list; next to *Denní cíl* on a
+computer, under it on a phone). The deck page has a bigger card under the form (only words of
+that deck): how many words are waiting, the newest two (then `…`) and the link *Doplnit*; the two
+words fill in the form at once by HTMX (`term_from_later`), without
 loading the page. The page moves only when the section *Nové slovíčko* is not all on the screen. `missing_words` lists them for the next extension of the dictionary.
 
 ```python
@@ -666,7 +667,10 @@ the browser and paused while the page is hidden (another app, locked phone).
   *▶︎ Procvičit* has the big button `▶ Spustit test` at the top and the cards *Slovníky*, *Směr* and *Které kartičky* (with the limit);
   the test has a thin progress bar above the card. The summary of a test, the statistics and
   the word page use the same cards; the word page has `✎ Upravit` next to the word and a menu `⋯`
-  (move, remove from this deck). The dashboard order is *Co ti nešlo* (only when there is
+  (move, remove from this deck). The dashboard order is *Denní cíl* (15 minutes by default,
+  set in Settings, empty = none: one line `Denní cíl ▬▬▬▭▭ 12 / 20 min`, green with `✓ 22 / 20 min` when it
+  is done; the minutes are the ⏱️ time of today's tests) next to *Odložené ›* (only when words
+  wait for a translation; two halves on a computer, one under the other on a phone), *Co ti nešlo* (only when there is
   something), *Slovníky*, *Dnes*.
 
 - **Hledat** (a light strip `Hledat slovíčko…` over the deck tree in the card *Slovníky*, **/** jumps into it; the results under the heading; Enter without JavaScript opens `/search/?q=cetka`): all the user's words, in every variant, the sentence and its

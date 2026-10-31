@@ -50,6 +50,7 @@
         <h2>{% translate "Test" %}</h2>
         {# How many cards, which direction and which decks are set on the page of the button #}
         <p><a href="{% url 'study:new' %}">▶︎ {% translate "Practice" %}</a>: <small class="muted">{% translate "how many cards, which direction and which decks" %}</small></p>
+        {{ form.daily_goal.as_field_group }}
         <fieldset>
           <label>{{ form.show_other_meanings }} {{ form.show_other_meanings.label }}</label>
           <small>{{ form.show_other_meanings.help_text }}</small>

@@ -1,0 +1,18 @@
+{% load i18n %}
+{# The daily goal at the top of the dashboard (Settings › Daily goal): a small card like the #}
+{# others, the bar fills up with the minutes of today's tests, green when it is done. One line #}
+{# on the whole width; next to "Odložené" (half of the width) the bar is under the heading. #}
+<section class="card-section daily-goal" title="{% translate 'Time in today’s tests. You set the goal in Settings.' %}">
+  <h2 class="section-title">{% translate "Daily goal" %}</h2>
+  <span class="goal-row">
+    <span class="goal-bar{% if daily_goal.percent == 100 %} done{% endif %}" role="progressbar"
+          aria-valuemin="0" aria-valuemax="{{ daily_goal.goal }}" aria-valuenow="{{ daily_goal.minutes }}">
+      <span style="width: {{ daily_goal.percent }}%"></span>
+    </span>
+    {% if daily_goal.percent == 100 %}
+      <span class="goal-value goal-done">✓ {% blocktranslate with minutes=daily_goal.minutes goal=daily_goal.goal %}{{ minutes }} / {{ goal }} min{% endblocktranslate %}</span>
+    {% else %}
+      <span class="goal-value">{% blocktranslate with minutes=daily_goal.minutes goal=daily_goal.goal %}<strong>{{ minutes }}</strong> / {{ goal }} min{% endblocktranslate %}</span>
+    {% endif %}
+  </span>
+</section>

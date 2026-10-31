@@ -70,6 +70,11 @@ class User(AbstractUser):
     practice_cards = models.PositiveSmallIntegerField(
         _("max cards in practice"), null=True, blank=True, default=20
     )
+    # Minutes a day the user wants to spend in tests; the dashboard shows how much is done
+    # (15 by default; empty = no goal, nothing is shown)
+    daily_goal = models.PositiveSmallIntegerField(
+        _("daily goal (min)"), null=True, blank=True, default=15
+    )
     # Translation suggestions from the dictionary while a new word is typed
     show_suggestions = models.BooleanField(_("suggest translations"), default=True)
     # Meanings from the dictionary on the back of a test card (the user's own are always shown)

@@ -24,6 +24,13 @@
 
   {% if roots %}
 
+    {# The daily goal and the words for later: small cards, next to each other on a computer #}
+    {% if daily_goal or pending_count %}
+      <div class="top-cards">
+        {% if daily_goal %}{% include "study/_daily_goal.html" %}{% endif %}
+        {% if pending_count %}{% include "vocabulary/_pending_line.html" %}{% endif %}
+      </div>
+    {% endif %}
     {# Order: what did not stick last time (to have it in sight), the decks, then today's numbers. #}
     {# The cards are about the last day with a test before today, so they stay all day. #}
     {% if hard_words %}
@@ -35,10 +42,6 @@
         </div>
         {% include "study/_hard_words.html" with items=hard_words compact=True %}
       </section>
-    {% endif %}
-    {# Words saved without a translation, only when some are waiting #}
-    {% if pending_count %}
-      {% include "vocabulary/_pending_card.html" %}
     {% endif %}
     {# The decks: a new deck next to the heading, the search over the tree (moving by dragging #}
     {# is explained in the help) #}

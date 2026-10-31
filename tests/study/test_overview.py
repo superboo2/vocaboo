@@ -364,3 +364,70 @@ def test_word_status_follows_the_statistics(user, tree):
     assert services.term_history(hello)["status"] == "learning"
     ReviewState.objects.filter(term=hello, direction="N2F").update(correct_streak=2)
     assert services.term_history(hello)["status"] == "known"
+
+
+# Daily goal
+
+
+def spend_minutes(user, deck, minutes):
+    """A test that took this many minutes (from its start to its last answer)."""
+    term = add(deck, f"word{minutes}")
+    session = services.start_session(user, [deck])
+    ReviewLog.objects.create(
+        user=user,
+        term=term,
+        session=session,
+        direction=Direction.F2N,
+        rating="ok",
+        rating_label="OK",
+        result="correct",
+        chosen_interval=timedelta(days=1),
+        reviewed_at=session.started_at + timedelta(minutes=minutes),
+    )
+
+
+def test_dashboard_has_a_goal_of_15_minutes_until_it_is_emptied(client, user, tree):
+    client.force_login(user)
+
+    assert "<strong>0</strong> / 15 min" in client.get(reverse("dashboard")).content.decode()
+
+    user.daily_goal = None
+    user.save()
+    assert "Denní cíl" not in client.get(reverse("dashboard")).content.decode()
+
+
+def test_dashboard_shows_minutes_of_the_goal(client, user, tree):
+    user.daily_goal = 20
+    user.save()
+    spend_minutes(user, tree["himym"], 12)
+    client.force_login(user)
+
+    html = client.get(reverse("dashboard")).content.decode()
+
+    assert "Denní cíl" in html and "<strong>12</strong> / 20 min" in html
+    assert 'style="width: 60%"' in html and "goal-bar done" not in html
+
+
+def test_dashboard_shows_a_done_goal(client, user, tree):
+    user.daily_goal = 20
+    user.save()
+    spend_minutes(user, tree["himym"], 22)
+    client.force_login(user)
+
+    html = client.get(reverse("dashboard")).content.decode()
+
+    assert "✓ 22 / 20 min" in html and "goal-bar done" in html
+    assert 'style="width: 100%"' in html
+
+
+def test_settings_save_the_daily_goal(client, user):
+    client.force_login(user)
+    data = {"autoplay_content": "word", "daily_goal": "20"}
+
+    client.post(reverse("settings"), data)
+    user.refresh_from_db()
+    assert user.daily_goal == 20
+
+    client.post(reverse("settings"), {**data, "daily_goal": ""})
+    user.refresh_from_db()
+    assert user.daily_goal is None
