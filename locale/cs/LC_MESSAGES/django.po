@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-31 15:53+0100\n"
+"POT-Creation-Date: 2026-10-31 16:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1640,15 +1640,6 @@ msgctxt "deck"
 msgid "New"
 msgstr "Nový"
 
-msgid "Practice takes cards from:"
-msgstr "Procvičit bere kartičky z:"
-
-msgid "Practice takes cards from all decks"
-msgstr "Procvičit bere kartičky ze všech slovníků"
-
-msgid "Set up"
-msgstr "Nastavit"
-
 msgid "You have no decks yet. Start by creating one."
 msgstr "Zatím nemáš žádné slovníky. Začni tím, že si jeden vytvoříš."
 
@@ -2197,6 +2188,9 @@ msgstr[2] "%(counter)s kartiček"
 
 msgid "nothing due, you practise the ones that don't stick"
 msgstr "nic k opakování, procvičíš si slovíčka, která ti nejdou"
+
+msgid "Set up"
+msgstr "Nastavit"
 
 msgid "New word"
 msgstr "Nové slovíčko"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-31 15:53+0100\n"
+"POT-Creation-Date: 2026-10-31 16:03+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1646,15 +1646,6 @@ msgctxt "deck"
 msgid "New"
 msgstr "Nuevo"
 
-msgid "Practice takes cards from:"
-msgstr "Practicar toma tarjetas de:"
-
-msgid "Practice takes cards from all decks"
-msgstr "Practicar toma tarjetas de todos los mazos"
-
-msgid "Set up"
-msgstr "Configurar"
-
 msgid "You have no decks yet. Start by creating one."
 msgstr "Aún no tienes mazos. Empieza creando uno."
 
@@ -2206,6 +2197,9 @@ msgstr[1] "%(counter)s tarjetas"
 
 msgid "nothing due, you practise the ones that don't stick"
 msgstr "nada pendiente, practicas las palabras que no se te quedan"
+
+msgid "Set up"
+msgstr "Configurar"
 
 msgid "New word"
 msgstr "Palabra nueva"

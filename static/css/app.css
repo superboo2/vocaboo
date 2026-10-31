@@ -2546,11 +2546,6 @@ a.pending-line:hover {
   font-weight: 600;
 }
 
-/* Under the decks of the dashboard: the same line as under "▶ Procvičit slovník" */
-.practice-note {
-  margin: 0.75rem 0 0;
-}
-
 /* "▶ Procvičit" in the bar and "▶ Procvičit slovník" on a deck: both start a test at once
    (the cards by the settings), so they look the same, an indigo frame. */
 .practice-form,

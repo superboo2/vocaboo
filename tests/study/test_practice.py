@@ -239,7 +239,6 @@ def test_page_from_the_bar_saves_the_decks(logged_client, user, deck, en, cs):
 
     assert response.url == reverse("dashboard")
     assert list(user.practice_decks.all()) == [deck]
-    assert "Procvičit bere kartičky z: Seriály" in logged_client.get(response.url).content.decode()
     # The bar button takes only this deck now
     logged_client.post(reverse("study:practice"))
     assert list(StudySession.objects.get().decks.all()) == [deck]

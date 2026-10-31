@@ -327,9 +327,9 @@ def test_start_buttons_on_dashboard_and_deck(logged_client, himym, words):
     dashboard = logged_client.get(reverse("dashboard")).content.decode()
     deck = logged_client.get(reverse("vocabulary:deck_detail", args=[himym.pk])).content.decode()
 
-    # ▶︎ Procvičit starts at once; the custom test is a link next to it
+    # ▶︎ Procvičit starts at once; its page is in Settings and under the deck button
     assert f'action="{reverse("study:practice")}"' in dashboard
-    assert reverse("study:new") in dashboard
+    assert "bere kartičky" not in dashboard
     assert f'name="deck" value="{himym.pk}"' in deck
     assert f"{reverse('study:new')}?deck={himym.pk}" in deck
 

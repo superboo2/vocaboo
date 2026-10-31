@@ -573,8 +573,8 @@ services.session_summary(session)
 small forms that `POST` to `study:practice` (with `deck=<id>` from a deck).
 
 What they start is set on **one page ▶︎ Procvičit** (`study:new`; the link *Nastavit* under
-the deck button and under the decks of the dashboard, *Nastavit procvičování* at the end of a
-test, and *Test › ▶︎ Procvičit* in Settings). The page looks the same from both places and
+the deck button, *Nastavit procvičování* at the end of a test, and *Test › ▶︎ Procvičit* in
+Settings). The page looks the same from both places and
 saves the choices for the user (`User.default_direction`, `practice_scope`, `practice_cards`,
 and for the bar button `practice_decks`; none = all decks):
 
@@ -604,8 +604,8 @@ in `StudySession.picked_cards`:
 
 So the test is never empty. *Všechna* is every card once, at most the limit. Under the deck button
 a small line says what it starts, e.g. `20 kartiček · EN ⇄ CS · Nastavit`, and adds *nic
-k opakování, procvičíš si slovíčka, která ti nejdou* when nothing is due. The dashboard says
-`▶︎ Procvičit bere kartičky ze všech slovníků · Nastavit` (or names the chosen decks). Then:
+k opakování, procvičíš si slovíčka, která ti nejdou* when nothing is due. The page for the bar button is in
+Settings (*Test › ▶︎ Procvičit*). Then:
 
 1. The card shows the question. In the foreign → native direction the sentence is shown too,
    with the word marked.

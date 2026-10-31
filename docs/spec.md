@@ -476,9 +476,9 @@ nastavením (sekce v Nastavení + stránka testu) ani jednorázový test.
 - **Odkazy na stránku:** pod *▶︎ Procvičit slovník* drobný řádek *20 kartiček · EN ⇄ CS ·
   Nastavit* (`?deck=<id>`; počet podle voleb níže, u *jen k opakování a nová* bez limitu
   počet čekajících; když nic nečeká, navíc *nic k opakování, procvičíš si slovíčka, která ti
-  nejdou*); ve slovníku bez slovíček tlačítko ani řádek nejsou. Na přehledu pod stromem
-  *▶︎ Procvičit bere kartičky ze všech slovníků · Nastavit* (nebo *… z: Seriály, Kniha*). Dál
-  *Nastavit procvičování* na konci testu a *Test › ▶︎ Procvičit* v Nastavení.
+  nejdou*); ve slovníku bez slovíček tlačítko ani řádek nejsou. Dál *Nastavit procvičování* na konci
+  testu a *Test › ▶︎ Procvičit* v Nastavení. Na přehledu pod stromem řádek pro tlačítko v liště
+  není (byl tam krátce, uživatel ho měl za zbytečný: ▶︎ Procvičit v liště je univerzální).
 - **Stránka:** nadpis *▶︎ Procvičit*, pod ním „Co spustí tlačítka ▶︎ Procvičit. Aplikace si to
   zapamatuje.“, hned velké **▶︎ Spustit test** (uloží a spustí), karty *Slovníky*, *Směr*
   a *Které kartičky* (s limitem), dole *Uložit* (uloží, zpět na slovník / přehled) a *Zrušit*.
