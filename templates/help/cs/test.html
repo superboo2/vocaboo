@@ -9,12 +9,12 @@
       V detailu slovníku spustí <strong>▶︎ Procvičit slovník</strong> stejný test jen z tohoto slovníku a jeho podslovníků.
       Co přesně se spustí, nastavíš na stránce <strong>▶︎ Procvičit</strong>.
     </p>
-    <p>Pod <em>▶︎ Procvičit slovník</em> je drobný řádek s tím, co se spustí, třeba <em>20 kartiček · EN ⇄ CS · Nastavit</em>. Když není nic k opakování, řekne to: <em>nic k opakování, procvičíš si slovíčka, která ti nejdou</em>. <strong>Nastavit</strong> otevře stránku ▶︎ Procvičit; je i na konci každého testu (<em>Nastavit procvičování</em>) a v <a href="{% url 'settings' %}">Nastavení</a>.</p>
+    <p>Pod <em>▶︎ Procvičit slovník</em> je drobný řádek s tím, co se spustí, třeba <em>20 kartiček · EN ⇄ CS · Nastavit</em>. Když není nic k opakování, řekne to: <em>nic k opakování, procvičíš si slovíčka, která ti nejdou</em>. <strong>Nastavit</strong> otevře stránku ▶︎ Procvičit pro tenhle slovník. Pro tlačítko v liště je ▶︎ Procvičit záložka <a href="{% url 'study:new' %}">Nastavení › Procvičit</a>; vede tam i odkaz na konci každého testu (<em>Nastavit procvičování</em>).</p>
 
     <h3>Stránka ▶︎ Procvičit</h3>
-    <p>Z obou míst vypadá stejně. Co tu vybereš, si aplikace zapamatuje a tlačítka ▶︎ Procvičit pak dělají přesně tohle. <strong>▶︎ Spustit test</strong> nahoře volby uloží a test rovnou spustí, <strong>Uložit</strong> dole je jen uloží a vrátí tě zpátky.</p>
+    <p>Ze slovníku je to samostatná stránka, v Nastavení záložka; volby jsou stejné. Co tu vybereš, si aplikace zapamatuje a tlačítka ▶︎ Procvičit pak dělají přesně tohle. Stránka jen ukládá (<strong>Uložit</strong>), test spustíš tlačítkem ▶︎ Procvičit v liště nebo ve slovníku. Ze slovníku tě <strong>Uložit</strong> i <strong>Zrušit</strong> vrátí zpátky do něj.</p>
     <ul>
-      <li><strong>Slovníky</strong>: ze slovníku jen jeho název a kolik má podslovníků. Z lišty a přehledu strom: které slovníky bere <em>▶︎ Procvičit</em> v liště. Když jsou zaškrtnuté všechny, bere všechny, i ty, které přidáš později. Podslovníky se zahrnou samy, slovíčko ve víc slovnících přijde jednou.</li>
+      <li><strong>Ze kterých slovníků</strong>: ze slovníku jen jeho název a kolik má podslovníků (nadpis <em>Slovník</em>). V Nastavení strom tvých slovníků: které bere <em>▶︎ Procvičit</em> v liště. Když jsou zaškrtnuté všechny, bere všechny, i ty, které přidáš později. Podslovníky se zahrnou samy, slovíčko ve víc slovnících přijde jednou.</li>
       <li><strong>Směr</strong>: jedním směrem, nebo oběma (<em>⇄</em>, karty obou směrů na přeskáčku). Směry jsou pojmenované podle jazyků slovníku, třeba <em>EN → CS</em>, <em>CS → EN</em> a <em>EN ⇄ CS</em>; u slovníků s různými jazyky obecně <em>cizí → rodný</em> a <em>rodný → cizí</em>.</li>
       <li><strong>Které kartičky</strong>:
         <ul>
@@ -59,15 +59,15 @@
       <li><em>„ahoj“ je i: hello</em>: stejný překlad má i jiné slovíčko.</li>
       <li><em>„She can read from her palm.“ 🔊</em>: větu přečte hlas prohlížeče, klik na 🔊 nebo klávesa <kbd>V</kbd>. Ve směru cizí → rodný hned, ve směru rodný → cizí až po otočení (jinak by prozradila odpověď).</li>
       <li><em>Hlas prohlížeče</em> zní podle zařízení: na Androidu, ve Windows, na Macu a v Chromu na Linuxu dobře, ve Firefoxu na Linuxu roboticky nebo vůbec. Když prohlížeč mluvit neumí vůbec, 🔊 se neukáže.</li>
-      <li><em>palm 🔊</em>: výslovnost cizího slova. Šedé 🔊 je u pravého okraje kartičky, na řádku cizího slova. Klik na 🔊 nebo klávesa <kbd>P</kbd> slovo přečte <strong>hlasem prohlížeče</strong>; ve směru cizí → rodný je 🔊 vidět hned, ve směru rodný → cizí po otočení. V <a href="{% url 'settings' %}">Nastavení</a> si můžeš zapnout, aby se slovo nebo celá věta přečetly samy. Kdo umí číst IPA, může si v <a href="{% url 'settings' %}">Nastavení</a> zapnout i zápis výslovnosti pod slovem ze slovníku, třeba <em>[pɑːm]</em>. Ve směru cizí → rodný je vidět hned, ve směru rodný → cizí po otočení.</li>
+      <li><em>palm 🔊</em>: výslovnost cizího slova. Šedé 🔊 je u pravého okraje kartičky, na řádku cizího slova. Klik na 🔊 nebo klávesa <kbd>P</kbd> slovo přečte <strong>hlasem prohlížeče</strong>; ve směru cizí → rodný je 🔊 vidět hned, ve směru rodný → cizí po otočení. V <a href="{% url 'settings_tab' 'card' %}">Nastavení</a> si můžeš zapnout, aby se slovo nebo celá věta přečetly samy. Kdo umí číst IPA, může si v <a href="{% url 'settings_tab' 'card' %}">Nastavení</a> zapnout i zápis výslovnosti pod slovem ze slovníku, třeba <em>[pɑːm]</em>. Ve směru cizí → rodný je vidět hned, ve směru rodný → cizí po otočení.</li>
       <li><em>Učíš se i</em>: tvoje další slovíčko se stejným cizím slovem, ale jiným překladem (<code>palm → palma</code>).</li>
-      <li><em>pracka · lehký · světlý +3</em>: úplně dole a menším písmem další významy cizího slova ze slovníku aplikace. Z každého významu jen první varianta. Ukáže se jich tolik, kolik se vejde na jeden řádek, a klik na <em>+3</em> ukáže zbytek. Všechny i se všemi variantami jsou v detailu slovíčka. Jde to vypnout v <a href="{% url 'settings' %}">Nastavení</a>.</li>
+      <li><em>pracka · lehký · světlý +3</em>: úplně dole a menším písmem další významy cizího slova ze slovníku aplikace. Z každého významu jen první varianta. Ukáže se jich tolik, kolik se vejde na jeden řádek, a klik na <em>+3</em> ukáže zbytek. Všechny i se všemi variantami jsou v detailu slovíčka. Jde to vypnout v <a href="{% url 'settings_tab' 'card' %}">Nastavení</a>.</li>
     </ul>
   </section>
 
   <section>
     <h2>Hodnocení a intervaly</h2>
-    <p>Po otočení se ohodnoť podle toho, jak dobře slovíčko znáš. Kdy slovíčko po kterém hodnocení přijde znovu, se pod tlačítky ve výchozím stavu neukazuje; zapneš to v <a href="{% url 'settings' %}">Nastavení</a> › Test › <em>Ukazovat, kdy slovíčko přijde znovu</em>.</p>
+    <p>Po otočení se ohodnoť podle toho, jak dobře slovíčko znáš. Kdy slovíčko po kterém hodnocení přijde znovu, se pod tlačítky ve výchozím stavu neukazuje; zapneš to v <a href="{% url 'settings_tab' 'card' %}">Nastavení</a> › Kartička › <em>Ukazovat, kdy slovíčko přijde znovu</em>.</p>
     <div class="overflow-auto"><table>
       <thead>
         <tr><th>Tlačítko</th><th>Klávesa</th><th>Poprvé</th><th>Další opakování</th></tr>

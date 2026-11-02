@@ -8,14 +8,21 @@ from django.urls import reverse
 from django.utils import timezone
 
 from accounts.models import EmailVerification
+from vocabulary.models import Language
 
 User = get_user_model()
 
 PASSWORD = "secret-pass-123"
 
 
-def register(client, email="new@example.com", password=PASSWORD, **extra):
-    data = {"email": email, "password1": password, "password2": password, **extra}
+def register(client, email="new@example.com", password=PASSWORD, language="cs", **extra):
+    data = {
+        "email": email,
+        "password1": password,
+        "password2": password,
+        "native_language": Language.objects.get(code=language).pk,
+        **extra,
+    }
     return client.post(reverse("register"), data)
 
 
@@ -54,12 +61,17 @@ def test_register_creates_inactive_user_and_sends_code(client, mailoutbox):
 
 
 @pytest.mark.django_db
-def test_new_user_gets_the_language_of_the_page(client, cs):
-    register(client)
+def test_new_user_gets_the_language_of_the_page(client, cs, es):
+    # "My language" is filled in with the language of the page
+    page = client.get(reverse("register")).content.decode()
+    assert f'<option value="{cs.pk}" selected>' in page
+    assert '<option value="" ' not in page and "---------" not in page
+
+    register(client, language="es")
 
     user = User.objects.get(email="new@example.com")
     assert user.ui_language == "cs"
-    assert user.native_language == cs
+    assert user.native_language == es
 
 
 @pytest.mark.django_db

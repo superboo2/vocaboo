@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-31 16:49+0100\n"
+"POT-Creation-Date: 2026-11-02 12:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -146,6 +146,12 @@ msgstr "Heslo"
 msgid "Password again"
 msgstr "Heslo znovu"
 
+msgid "My language"
+msgstr "Můj jazyk"
+
+msgid "The language you speak. Your words are translated into it."
+msgstr "Jazyk, kterým mluvíš. Do něj se překládají tvoje slovíčka."
+
 msgid "Invitation code"
 msgstr "Kód pozvánky"
 
@@ -279,23 +285,20 @@ msgstr "Pokud o registraci do Vocaboo nevíš, e-mail ignoruj."
 msgid "%(code)s is your Vocaboo code"
 msgstr "%(code)s je tvůj kód pro Vocaboo"
 
-msgid "Password change"
-msgstr "Změna hesla"
-
-msgid "Overview"
-msgstr "Přehled"
+msgid "Account"
+msgstr "Účet"
 
 msgid "Settings"
 msgstr "Nastavení"
 
+msgid "Overview"
+msgstr "Přehled"
+
+msgid "Password change"
+msgstr "Změna hesla"
+
 msgid "Change password"
 msgstr "Změnit heslo"
-
-msgid "Cancel"
-msgstr "Zrušit"
-
-msgid "App"
-msgstr "Aplikace"
 
 msgid "Put Vocaboo on your home screen"
 msgstr "Dej si Vocaboo na plochu"
@@ -306,26 +309,11 @@ msgstr "Otevře se jedním klepnutím, na celou obrazovku, jako jiné aplikace."
 msgid "Install"
 msgstr "Nainstalovat"
 
-msgid "Adding words"
-msgstr "Přidávání slovíček"
-
-msgid "Test"
-msgstr "Test"
-
-msgid "Practice"
-msgstr "Procvičit"
-
-msgid "how many cards, which direction and which decks"
-msgstr "kolik kartiček, jakým směrem a ze kterých slovníků"
-
 msgid "Audio"
-msgstr "Audio"
+msgstr "Zvuk"
 
 msgid "Save"
 msgstr "Uložit"
-
-msgid "Account"
-msgstr "Účet"
 
 #, python-format
 msgid "The password is too short, it needs at least %(count)d character."
@@ -360,6 +348,21 @@ msgstr "Heslo nemůže být jen z čísel."
 msgid "It must not be only numbers."
 msgstr "Nesmí být jen z čísel."
 
+msgid "App"
+msgstr "Aplikace"
+
+msgid "Practice"
+msgstr "Procvičit"
+
+msgid "Goals"
+msgstr "Cíle"
+
+msgid "Card"
+msgstr "Kartička"
+
+msgid "Parts of the settings"
+msgstr "Části nastavení"
+
 msgid "Settings saved."
 msgstr "Nastavení je uložené."
 
@@ -393,8 +396,8 @@ msgstr "Slovníky"
 msgid "Words"
 msgstr "Slovíčka"
 
-msgid "Overview and statistics"
-msgstr "Přehled a statistiky"
+msgid "Test"
+msgstr "Test"
 
 msgid "Help sections"
 msgstr "Části nápovědy"
@@ -637,6 +640,30 @@ msgctxt "part of speech"
 msgid "phrase"
 msgstr "fráze"
 
+msgid "English – first deck"
+msgstr "Angličtina – první slovníček"
+
+msgid "Animals"
+msgstr "Zvířata"
+
+msgid "Food"
+msgstr "Jídlo"
+
+msgid "Fruit"
+msgstr "Ovoce"
+
+msgid "Vegetables"
+msgstr "Zelenina"
+
+msgid ""
+"An example of a deck with folders. ▶︎ Practice here takes the words of all "
+"of them, in Food only those of Fruit and Vegetables. Add your own words to "
+"it, or delete it."
+msgstr ""
+"Ukázka slovníku se složkami. ▶︎ Procvičit tady vezme slovíčka ze všech, v "
+"Jídle jen z Ovoce a Zeleniny. Přidávej si sem vlastní slovíčka, nebo ho "
+"smaž."
+
 msgid "nouns"
 msgstr "podstatná jména"
 
@@ -676,12 +703,6 @@ msgstr "Oblečení"
 msgid "Food and drink"
 msgstr "Jídlo a pití"
 
-msgid "Fruit"
-msgstr "Ovoce"
-
-msgid "Vegetables"
-msgstr "Zelenina"
-
 msgid "Drinks"
 msgstr "Nápoje"
 
@@ -699,9 +720,6 @@ msgstr "Domácí práce"
 
 msgid "Nature"
 msgstr "Příroda"
-
-msgid "Animals"
-msgstr "Zvířata"
 
 msgid "Plants"
 msgstr "Rostliny"
@@ -1408,17 +1426,14 @@ msgstr ""
 msgid "Got it"
 msgstr "Rozumím"
 
+msgid "What the buttons ▶︎ Practice start. It is remembered."
+msgstr "Co spustí tlačítka ▶︎ Procvičit. Aplikace si to zapamatuje."
+
 msgid "First create a deck and add words to it."
 msgstr "Nejdřív si vytvoř slovník a přidej do něj slovíčka."
 
 msgid "New deck"
 msgstr "Nový slovník"
-
-msgid "What the buttons ▶︎ Practice start. It is remembered."
-msgstr "Co spustí tlačítka ▶︎ Procvičit. Aplikace si to zapamatuje."
-
-msgid "Start test"
-msgstr "Spustit test"
 
 #, python-format
 msgid "and %(counter)s sub-deck"
@@ -1427,12 +1442,18 @@ msgstr[0] "a %(counter)s podslovník"
 msgstr[1] "a %(counter)s podslovníky"
 msgstr[2] "a %(counter)s podslovníků"
 
+msgid "From which decks"
+msgstr "Ze kterých slovníků"
+
 msgid ""
-"For ▶︎ Practice in the bar. Sub-decks are included automatically. A word "
-"that is in more decks comes only once."
+"The ticked decks with their sub-decks. A word that is in more decks comes "
+"only once."
 msgstr ""
-"Pro ▶︎ Procvičit v liště. Podslovníky se zahrnou automaticky. Slovíčko, "
-"které je ve více slovnících, přijde jen jednou."
+"Zaškrtnuté slovníky i s jejich podslovníky. Slovíčko, které je ve více "
+"slovnících, přijde jen jednou."
+
+msgid "Cancel"
+msgstr "Zrušit"
 
 msgid "Statistics"
 msgstr "Statistiky"
@@ -1464,8 +1485,8 @@ msgstr "Umíš"
 msgid "You know a word when every tested direction got 2× in a row 😎 or 🤔."
 msgstr "Umíš = v každém testovaném směru 2× za sebou 😎 nebo 🤔."
 
-msgid "What you struggle with"
-msgstr "Co ti nejde"
+msgid "No tests yet."
+msgstr "Zatím žádné testy."
 
 msgid "In the last 30 days"
 msgstr "Za posledních 30 dní"
@@ -1520,6 +1541,17 @@ msgstr "za %(interval)s"
 msgid "%(seconds)s s"
 msgstr "%(seconds)s s"
 
+#, python-brace-format
+msgid ""
+"Settings of the quick test that the button {bar} at the top in the bar or "
+"{deck} on a deck starts."
+msgstr ""
+"Nastavení rychlého testu, který spustí tlačítko {bar} nahoře v liště nebo "
+"{deck} u slovníku."
+
+msgid "Practice deck"
+msgstr "Procvičit slovník"
+
 msgid "Invalid answer."
 msgstr "Neplatná odpověď."
 
@@ -1531,6 +1563,15 @@ msgstr "Věta je uložená."
 
 msgid "There are no wrong words in this test."
 msgstr "V tomto testu nejsou žádná chybná slovíčka."
+
+msgid "Tests"
+msgstr "Testy"
+
+msgid "What you struggle with"
+msgstr "Co ti nejde"
+
+msgid "Parts of the statistics"
+msgstr "Části statistik"
 
 msgid "Read the sentence (V)"
 msgstr "Přečíst větu (V)"
@@ -2170,9 +2211,6 @@ msgstr "Upravit název a popis"
 
 msgid "Move"
 msgstr "Přesunout"
-
-msgid "Practice deck"
-msgstr "Procvičit slovník"
 
 #, python-format
 msgid "%(counter)s card"

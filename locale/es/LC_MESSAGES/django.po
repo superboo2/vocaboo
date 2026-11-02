@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-10-31 16:49+0100\n"
+"POT-Creation-Date: 2026-11-02 12:54+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -151,6 +151,12 @@ msgstr "Contraseña"
 msgid "Password again"
 msgstr "Contraseña otra vez"
 
+msgid "My language"
+msgstr "Mi idioma"
+
+msgid "The language you speak. Your words are translated into it."
+msgstr "El idioma que hablas. Tus palabras se traducen a él."
+
 msgid "Invitation code"
 msgstr "Código de invitación"
 
@@ -288,23 +294,20 @@ msgstr "Si no te has registrado en Vocaboo, ignora este correo."
 msgid "%(code)s is your Vocaboo code"
 msgstr "%(code)s es tu código de Vocaboo"
 
-msgid "Password change"
-msgstr "Cambio de contraseña"
-
-msgid "Overview"
-msgstr "Inicio"
+msgid "Account"
+msgstr "Cuenta"
 
 msgid "Settings"
 msgstr "Ajustes"
 
+msgid "Overview"
+msgstr "Inicio"
+
+msgid "Password change"
+msgstr "Cambio de contraseña"
+
 msgid "Change password"
 msgstr "Cambiar la contraseña"
-
-msgid "Cancel"
-msgstr "Cancelar"
-
-msgid "App"
-msgstr "Aplicación"
 
 msgid "Put Vocaboo on your home screen"
 msgstr "Pon Vocaboo en tu pantalla de inicio"
@@ -315,26 +318,11 @@ msgstr "Se abre con un toque, a pantalla completa, como las demás apps."
 msgid "Install"
 msgstr "Instalar"
 
-msgid "Adding words"
-msgstr "Añadir palabras"
-
-msgid "Test"
-msgstr "Test"
-
-msgid "Practice"
-msgstr "Practicar"
-
-msgid "how many cards, which direction and which decks"
-msgstr "cuántas tarjetas, en qué dirección y de qué mazos"
-
 msgid "Audio"
 msgstr "Audio"
 
 msgid "Save"
 msgstr "Guardar"
-
-msgid "Account"
-msgstr "Cuenta"
 
 #, python-format
 msgid "The password is too short, it needs at least %(count)d character."
@@ -369,6 +357,21 @@ msgstr "La contraseña no puede tener solo números."
 msgid "It must not be only numbers."
 msgstr "No puede tener solo números."
 
+msgid "App"
+msgstr "Aplicación"
+
+msgid "Practice"
+msgstr "Practicar"
+
+msgid "Goals"
+msgstr "Metas"
+
+msgid "Card"
+msgstr "Tarjeta"
+
+msgid "Parts of the settings"
+msgstr "Partes de los ajustes"
+
 msgid "Settings saved."
 msgstr "Ajustes guardados."
 
@@ -402,8 +405,8 @@ msgstr "Mazos"
 msgid "Words"
 msgstr "Palabras"
 
-msgid "Overview and statistics"
-msgstr "Inicio y estadísticas"
+msgid "Test"
+msgstr "Test"
 
 msgid "Help sections"
 msgstr "Secciones de la ayuda"
@@ -646,6 +649,30 @@ msgctxt "part of speech"
 msgid "phrase"
 msgstr "expr."
 
+msgid "English – first deck"
+msgstr "Inglés – primer diccionario"
+
+msgid "Animals"
+msgstr "Animales"
+
+msgid "Food"
+msgstr "Comida"
+
+msgid "Fruit"
+msgstr "Fruta"
+
+msgid "Vegetables"
+msgstr "Verduras"
+
+msgid ""
+"An example of a deck with folders. ▶︎ Practice here takes the words of all "
+"of them, in Food only those of Fruit and Vegetables. Add your own words to "
+"it, or delete it."
+msgstr ""
+"Un ejemplo de diccionario con carpetas. ▶︎ Practicar aquí toma las palabras "
+"de todas, en Comida solo las de Fruta y Verduras. Añade tus propias palabras"
+" o bórralo."
+
 msgid "nouns"
 msgstr "sustantivos"
 
@@ -685,12 +712,6 @@ msgstr "Ropa"
 msgid "Food and drink"
 msgstr "Comida y bebida"
 
-msgid "Fruit"
-msgstr "Fruta"
-
-msgid "Vegetables"
-msgstr "Verduras"
-
 msgid "Drinks"
 msgstr "Bebidas"
 
@@ -708,9 +729,6 @@ msgstr "Tareas domésticas"
 
 msgid "Nature"
 msgstr "Naturaleza"
-
-msgid "Animals"
-msgstr "Animales"
 
 msgid "Plants"
 msgstr "Plantas"
@@ -1413,17 +1431,14 @@ msgstr ""
 msgid "Got it"
 msgstr "Entendido"
 
+msgid "What the buttons ▶︎ Practice start. It is remembered."
+msgstr "Lo que inician los botones ▶︎ Practicar. La aplicación lo recuerda."
+
 msgid "First create a deck and add words to it."
 msgstr "Primero crea un mazo y añádele palabras."
 
 msgid "New deck"
 msgstr "Nuevo mazo"
-
-msgid "What the buttons ▶︎ Practice start. It is remembered."
-msgstr "Lo que inician los botones ▶︎ Practicar. La aplicación lo recuerda."
-
-msgid "Start test"
-msgstr "Empezar test"
 
 #, python-format
 msgid "and %(counter)s sub-deck"
@@ -1431,12 +1446,18 @@ msgid_plural "and %(counter)s sub-decks"
 msgstr[0] "y %(counter)s submazo"
 msgstr[1] "y %(counter)s submazos"
 
+msgid "From which decks"
+msgstr "De qué mazos"
+
 msgid ""
-"For ▶︎ Practice in the bar. Sub-decks are included automatically. A word "
-"that is in more decks comes only once."
+"The ticked decks with their sub-decks. A word that is in more decks comes "
+"only once."
 msgstr ""
-"Para ▶︎ Practicar de la barra. Los submazos se incluyen automáticamente. Una"
-" palabra que está en varios mazos sale solo una vez."
+"Los mazos marcados, con sus submazos. Una palabra que está en varios mazos "
+"sale solo una vez."
+
+msgid "Cancel"
+msgstr "Cancelar"
 
 msgid "Statistics"
 msgstr "Estadísticas"
@@ -1468,8 +1489,8 @@ msgstr "Sabes"
 msgid "You know a word when every tested direction got 2× in a row 😎 or 🤔."
 msgstr "La sabes = en cada sentido probado 2 veces seguidas 😎 o 🤔."
 
-msgid "What you struggle with"
-msgstr "Lo que se te resiste"
+msgid "No tests yet."
+msgstr "Todavía no hay tests."
 
 msgid "In the last 30 days"
 msgstr "En los últimos 30 días"
@@ -1524,6 +1545,17 @@ msgstr "en %(interval)s"
 msgid "%(seconds)s s"
 msgstr "%(seconds)s s"
 
+#, python-brace-format
+msgid ""
+"Settings of the quick test that the button {bar} at the top in the bar or "
+"{deck} on a deck starts."
+msgstr ""
+"Ajustes del test rápido que empieza el botón {bar} arriba en la barra o "
+"{deck} en un mazo."
+
+msgid "Practice deck"
+msgstr "Practicar mazo"
+
 msgid "Invalid answer."
 msgstr "Respuesta no válida."
 
@@ -1535,6 +1567,15 @@ msgstr "Frase guardada."
 
 msgid "There are no wrong words in this test."
 msgstr "En este test no hay palabras falladas."
+
+msgid "Tests"
+msgstr "Tests"
+
+msgid "What you struggle with"
+msgstr "Lo que se te resiste"
+
+msgid "Parts of the statistics"
+msgstr "Partes de las estadísticas"
 
 msgid "Read the sentence (V)"
 msgstr "Leer la frase (V)"
@@ -2180,9 +2221,6 @@ msgstr "Editar nombre y descripción"
 
 msgid "Move"
 msgstr "Mover"
-
-msgid "Practice deck"
-msgstr "Practicar mazo"
 
 #, python-format
 msgid "%(counter)s card"

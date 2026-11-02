@@ -1,0 +1,9 @@
+{# Tabs like in a folder; put the content right after it into <div class="tab-panel">. #}
+{# tabs: list of {url, name, current}; label: the name of the tabs for screen readers #}
+<nav class="tabs" aria-label="{{ label }}">
+  <ul>
+    {% for tab in tabs %}
+      <li><a href="{{ tab.url }}"{% if tab.current %} aria-current="page"{% endif %}>{{ tab.name }}</a></li>
+    {% endfor %}
+  </ul>
+</nav>

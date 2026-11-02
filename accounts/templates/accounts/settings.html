@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n arrows %}
+{% load i18n %}
 
 {% block title %}{% translate "Settings" %} · Vocaboo{% endblock %}
 
@@ -12,74 +12,60 @@
   </nav>
 
   <h1>{% translate "Settings" %}</h1>
-  <p class="muted page-sub">{{ user.email }}</p>
 
-    <form method="post">
-      {% csrf_token %}
-      {# Settings in groups by the part of the app they change #}
-      <section class="settings-group card-section">
-        <h2>{% translate "App" %}</h2>
-        {{ form.ui_language.as_field_group }}
-        {# Shown by app.js only where the app can be installed and is not yet #}
-        <div class="install-offer" data-install-item hidden>
-          <div class="install-card-body">
-            {% include "_ghost_install.html" with class="install-icon" %}
-            <p><strong>{% translate "Put Vocaboo on your home screen" %}</strong><br>
-              <span class="muted">{% translate "It opens with one tap, on the whole screen, like other apps." %}</span></p>
-          </div>
-          <div class="install-card-actions">
-            <button type="button" data-install>{% translate "Install" %}</button>
-          </div>
+  {# Each tab is its own page with its own form: /settings/, /settings/goals/ and /settings/card/; #}
+  {# the tabs Practice and Account are pages of their own (study_new, password_change) #}
+  {% include "_tabs.html" with tabs=tabs label=tabs_label %}
+  <form method="post" class="tab-panel settings-panel">
+    {% csrf_token %}
+    {% if tab == "app" %}
+      {{ form.ui_language.as_field_group }}
+      <fieldset>
+        <label>{{ form.show_suggestions }} {{ form.show_suggestions.label }}</label>
+        <small>{{ form.show_suggestions.help_text }}</small>
+      </fieldset>
+      {# Shown by app.js only where the app can be installed and is not yet #}
+      <div class="install-offer" data-install-item hidden>
+        <div class="install-card-body">
+          {% include "_ghost_install.html" with class="install-icon" %}
+          <p><strong>{% translate "Put Vocaboo on your home screen" %}</strong><br>
+            <span class="muted">{% translate "It opens with one tap, on the whole screen, like other apps." %}</span></p>
         </div>
-      </section>
+        <div class="install-card-actions">
+          {# Outline: no part of the form, "Uložit" stays the one main button #}
+          <button type="button" class="outline" data-install>{% translate "Install" %}</button>
+        </div>
+      </div>
+    {% elif tab == "goals" %}
+      {{ form.daily_goal.as_field_group }}
+    {% else %}
+      {# What the card of a test shows and plays #}
+      <fieldset>
+        <label>{{ form.show_other_meanings }} {{ form.show_other_meanings.label }}</label>
+        <small>{{ form.show_other_meanings.help_text }}</small>
+      </fieldset>
+      <fieldset>
+        <label>{{ form.show_ipa }} {{ form.show_ipa.label }}</label>
+        <small>{{ form.show_ipa.help_text }}</small>
+      </fieldset>
+      <fieldset>
+        <label>{{ form.show_intervals }} {{ form.show_intervals.label }}</label>
+        <small>{{ form.show_intervals.help_text }}</small>
+      </fieldset>
 
-      <section class="settings-group card-section">
-        <h2>{% translate "Adding words" %}</h2>
-        <fieldset>
-          <label>{{ form.show_suggestions }} {{ form.show_suggestions.label }}</label>
-          <small>{{ form.show_suggestions.help_text }}</small>
-        </fieldset>
-      </section>
-
-      <section class="settings-group card-section">
-        <h2>{% translate "Test" %}</h2>
-        {# How many cards, which direction and which decks are set on the page of the button #}
-        <p><a href="{% url 'study:new' %}">▶︎ {% translate "Practice" %}</a>: <small class="muted">{% translate "how many cards, which direction and which decks" %}</small></p>
-        {{ form.daily_goal.as_field_group }}
-        <fieldset>
-          <label>{{ form.show_other_meanings }} {{ form.show_other_meanings.label }}</label>
-          <small>{{ form.show_other_meanings.help_text }}</small>
-        </fieldset>
-        <fieldset>
-          <label>{{ form.show_ipa }} {{ form.show_ipa.label }}</label>
-          <small>{{ form.show_ipa.help_text }}</small>
-        </fieldset>
-        <fieldset>
-          <label>{{ form.show_intervals }} {{ form.show_intervals.label }}</label>
-          <small>{{ form.show_intervals.help_text }}</small>
-        </fieldset>
-
-        {# A smaller group inside the test settings: everything about sound #}
-        <h3 class="settings-subgroup">🔊 {% translate "Audio" %}</h3>
-        {# The choice word / sentence is shown only when autoplay is ticked (CSS :has) #}
-        <fieldset class="autoplay">
-          <label>{{ form.autoplay_pronunciation }} {{ form.autoplay_pronunciation.label }}</label>
-          <small>{{ form.autoplay_pronunciation.help_text }}</small>
-          <div class="autoplay-content">
-            {% for radio in form.autoplay_content %}
-              <label>{{ radio.tag }} {{ radio.choice_label }}</label>
-            {% endfor %}
-            <small>{{ form.autoplay_content.help_text }}</small>
-          </div>
-        </fieldset>
-      </section>
-
-      <button type="submit" class="save-button">{% translate "Save" %}</button>
-    </form>
-
-    {# Outside the form above: the password has its own page #}
-    <section class="settings-group card-section settings-account">
-      <h2>{% translate "Account" %}</h2>
-      <p><a href="{% url 'password_change' %}">{% translate "Change password" %}</a></p>
-    </section>
+      <h2 class="settings-subgroup">🔊 {% translate "Audio" %}</h2>
+      {# The choice word / sentence is shown only when autoplay is ticked (CSS :has) #}
+      <fieldset class="autoplay">
+        <label>{{ form.autoplay_pronunciation }} {{ form.autoplay_pronunciation.label }}</label>
+        <small>{{ form.autoplay_pronunciation.help_text }}</small>
+        <div class="autoplay-content">
+          {% for radio in form.autoplay_content %}
+            <label>{{ radio.tag }} {{ radio.choice_label }}</label>
+          {% endfor %}
+          <small>{{ form.autoplay_content.help_text }}</small>
+        </div>
+      </fieldset>
+    {% endif %}
+    <button type="submit" class="save-button">{% translate "Save" %}</button>
+  </form>
 {% endblock %}

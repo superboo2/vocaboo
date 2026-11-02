@@ -214,20 +214,39 @@ def test_page_saves_the_choices_and_goes_back(logged_client, user, deck):
     assert user.practice_cards is None
 
 
-def test_page_starts_the_test_and_saves(logged_client, user, deck):
+def test_page_only_saves_and_the_bar_button_starts(logged_client, user, deck):
     add_words(deck, 3)
 
     response = logged_client.post(
-        reverse("study:new"), page_data(deck=deck.pk, scope="all", practice_cards="2", start="1")
+        reverse("study:new"), page_data(decks=[deck.pk], scope="all", practice_cards="2")
     )
 
+    # The tab of the settings saves and stays; no test starts
+    assert response.url == reverse("study:new")
+    assert not StudySession.objects.exists()
+    html = logged_client.get(reverse("study:new")).content.decode()
+    assert 'name="start"' not in html and "Spustit test" not in html
+    # The button in the bar starts it: all cards, the limit as the most cards
+    logged_client.post(reverse("study:practice"))
     session = StudySession.objects.get()
-    assert response.url == reverse("study:card", args=[session.pk])
-    # All cards: every card once, nothing picked, the limit as the most cards
-    assert not session.picked_cards.exists() and services.session_cards(session).count() == 3
-    assert session.max_cards == 2
-    user.refresh_from_db()
-    assert user.practice_scope == "all"
+    assert session.max_cards == 2 and services.session_cards(session).count() == 3
+
+
+def test_page_is_a_tab_of_the_settings(logged_client, user, deck):
+    add_words(deck, 1)
+
+    html = logged_client.get(reverse("study:new")).content.decode()
+    from_deck = logged_client.get(f"{reverse('study:new')}?deck={deck.pk}").content.decode()
+
+    assert f'href="{reverse("study:new")}" aria-current="page"' in html
+    assert f'href="{reverse("settings")}"' in html and "Zrušit" not in html
+    # From a deck: its own page without the tabs and the daily goal, Cancel goes back
+    assert 'class="tabs"' not in from_deck and "Zrušit" in from_deck
+    # The daily goal has its own tab
+    assert 'name="daily_goal"' not in html and 'name="daily_goal"' not in from_deck
+    assert "Nastavení rychlého testu" in html and "Ze kterých slovníků" in html
+    # The two buttons drawn grey in the note, only a picture (no links)
+    assert '<span class="button-sample">▶︎&nbsp;Procvičit slovník</span>' in html
 
 
 def test_page_from_the_bar_saves_the_decks(logged_client, user, deck, en, cs):
@@ -237,7 +256,7 @@ def test_page_from_the_bar_saves_the_decks(logged_client, user, deck, en, cs):
 
     response = logged_client.post(reverse("study:new"), page_data(decks=[deck.pk]))
 
-    assert response.url == reverse("dashboard")
+    assert response.url == reverse("study:new")
     assert list(user.practice_decks.all()) == [deck]
     # The bar button takes only this deck now
     logged_client.post(reverse("study:practice"))
@@ -252,7 +271,7 @@ def test_page_from_the_bar_saves_the_decks(logged_client, user, deck, en, cs):
 
 
 def test_page_needs_a_deck(logged_client, user, deck):
-    response = logged_client.post(reverse("study:new"), page_data(start="1"))
+    response = logged_client.post(reverse("study:new"), page_data())
 
     assert "Vyber aspoň jeden slovník" in response.content.decode()
     assert not StudySession.objects.exists()
@@ -262,8 +281,8 @@ def test_page_refuses_other_users_deck(client, other_user, deck):
     client.force_login(other_user)
 
     assert client.get(reverse("study:new") + f"?deck={deck.pk}").status_code == 404
-    client.post(reverse("study:new"), page_data(decks=[deck.pk], start="1"))
-    assert not StudySession.objects.exists()
+    client.post(reverse("study:new"), page_data(decks=[deck.pk]))
+    assert not other_user.practice_decks.exists()
 
 
 def test_settings_link_to_the_page(logged_client):

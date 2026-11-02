@@ -81,8 +81,9 @@ def test_settings_page_saves_preferences(client):
     user = User.objects.create_user(email="martin@example.com", password="secret-pass-123")
     client.force_login(user)
     page = client.get(reverse("settings"))
+    audio = reverse("settings_tab", args=["card"])
     response = client.post(
-        reverse("settings"),
+        audio,
         {
             "autoplay_pronunciation": "on",
             "autoplay_content": "sentence",
@@ -92,13 +93,41 @@ def test_settings_page_saves_preferences(client):
     assert page.status_code == 200
     # Suggestions are on for a new user, the check box is ticked
     assert 'id="id_show_suggestions" checked' in page.content.decode()
-    assert response.url == reverse("settings")
+    # Each tab is its own page and goes back to itself
+    assert response.url == audio
     # "Mluvím" is not in the settings any more (new decks remember it)
     assert 'name="native_language"' not in page.content.decode()
     user.refresh_from_db()
+    assert (user.autoplay_pronunciation, user.autoplay_content) == (True, "sentence")
+    # A tab saves only its own fields: the suggestions of the first tab stay on
+    assert user.show_suggestions is True
+
+    client.post(reverse("settings"), {"ui_language": ""})
+    user.refresh_from_db()
     # The check box was not sent, so the suggestions are off now
     assert user.show_suggestions is False
-    assert (user.autoplay_pronunciation, user.autoplay_content) == (True, "sentence")
+    assert user.autoplay_pronunciation is True
+
+
+@pytest.mark.django_db
+def test_settings_tabs(client):
+    user = User.objects.create_user(email="martin@example.com", password="secret-pass-123")
+    client.force_login(user)
+    card = reverse("settings_tab", args=["card"])
+
+    html = client.get(card).content.decode()
+
+    assert 'name="show_ipa"' in html and 'name="autoplay_pronunciation"' in html
+    assert 'name="ui_language"' not in html and 'name="daily_goal"' not in html
+    goals = reverse("settings_tab", args=["goals"])
+    for url in (reverse("settings"), reverse("study:new"), goals, reverse("password_change")):
+        assert f'href="{url}"' in html
+    assert f'href="{card}" aria-current="page"' in html
+    assert 'name="daily_goal"' in client.get(goals).content.decode()
+    assert client.get(reverse("settings_tab", args=["nothing"])).status_code == 404
+    # The old tabs Test and Audio are in Card now
+    for old in ("test", "audio"):
+        assert client.get(reverse("settings_tab", args=[old])).url == card
 
 
 @pytest.mark.django_db
@@ -125,7 +154,9 @@ def test_password_change_keeps_the_user_logged_in(client):
     )
 
     assert page.status_code == 200
-    assert response.url == reverse("settings")
+    # The tab Account of the settings, with the email
+    assert "martin@example.com" in page.content.decode()
+    assert response.url == reverse("password_change")
     user.refresh_from_db()
     assert user.check_password("new-ghost-pass-456")
     # Still logged in after the change

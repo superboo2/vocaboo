@@ -1,11 +1,14 @@
 from django.contrib import messages
 from django.core.exceptions import ValidationError
-from django.http import HttpResponse, HttpResponseBadRequest
+from django.http import Http404, HttpResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
+from django.utils.html import format_html
 from django.utils.translation import gettext as _
+from django.utils.translation import gettext_lazy
 from django.views.decorators.http import require_POST
 
+from accounts.views import settings_tabs
 from dictionary.providers import get_example_sentence, get_pronunciation
 from vocabulary import services as vocabulary_services
 from vocabulary.models import Deck, DeckTerm, Term
@@ -47,10 +50,10 @@ def study_practice(request):
 
 
 def study_new(request):
-    """The page ▶︎ Practice ("Nastavit" under the buttons): what the buttons start. The
-    choices are saved for the user; "Spustit test" also starts the test, "Uložit" goes back.
-    ?deck=<id> is the button of that deck: only the deck is shown, no tree, and the decks of
-    the button in the bar stay as they are."""
+    """The page ▶︎ Practice: what the buttons ▶︎ Practice start, saved for the user. Without
+    a deck it is the tab ▶︎ Practice of the settings (the decks of the button in the bar);
+    ?deck=<id> ("Nastavit" under the button of that deck) shows only that deck, without the
+    tabs, keeps the decks of the bar button as they are and "Uložit" goes back to the deck."""
     user = request.user
     one_deck = (request.POST if request.method == "POST" else request.GET).get("deck", "")
     deck = get_object_or_404(Deck, pk=one_deck, owner=user) if one_deck.isdigit() else None
@@ -64,19 +67,12 @@ def study_new(request):
     if data is not None and deck:
         data.setlist("decks", [str(deck.pk)])
     form = StudySetupForm(data, user=user, initial=initial)
-    back = reverse("vocabulary:deck_detail", args=[deck.pk]) if deck else reverse("dashboard")
+    back = reverse("vocabulary:deck_detail", args=[deck.pk]) if deck else reverse("study:new")
 
     if request.method == "POST" and form.is_valid():
         _save_practice(user, form.cleaned_data, with_decks=deck is None)
-        if "start" not in request.POST:
-            messages.success(request, _("Settings saved."))
-            return redirect(back)
-        try:
-            session = services.start_practice(user, list(form.cleaned_data["decks"]))
-        except ValidationError as error:
-            form.add_error(None, error)
-        else:
-            return redirect("study:card", pk=session.pk)
+        messages.success(request, _("Settings saved."))
+        return redirect(back)
 
     if form.is_bound:
         selected = {int(value) for value in form["decks"].value() or [] if str(value).isdigit()}
@@ -99,7 +95,24 @@ def study_new(request):
         "back": back,
         **_scope_context(user, decks, form["direction"].value()),
     }
+    if deck is None:
+        context.update(settings_tabs("practice"))
+        context["practice_note"] = _practice_note()
     return render(request, "study/setup.html", context)
+
+
+def _practice_note():
+    """The small note at the top of the tab ▶︎ Practice, with the two buttons drawn grey
+    (only a picture of them, no links), so it is clear which buttons it is about."""
+    sample = '<span class="button-sample">▶︎&nbsp;{}</span>'
+    return format_html(
+        _(
+            "Settings of the quick test that the button {bar} at the top in the bar or "
+            "{deck} on a deck starts."
+        ),
+        bar=format_html(sample, _("Practice")),
+        deck=format_html(sample, _("Practice deck")),
+    )
 
 
 def _save_practice(user, data, with_decks):
@@ -288,9 +301,34 @@ def study_retry(request, pk):
     return redirect("study:card", pk=retry.pk)
 
 
-def study_stats(request):
-    """Statistics of the user: words over time, success, activity and fun facts."""
-    return render(request, "study/stats.html", {"stats": stats.user_statistics(request.user)})
+# Tabs of the statistics page: (address, name); the first one is /stats/
+STATS_TABS = [
+    ("", gettext_lazy("Words")),
+    ("tests", gettext_lazy("Tests")),
+    ("hard", gettext_lazy("What you struggle with")),
+]
+
+
+def study_stats(request, tab=""):
+    """Statistics of the user: the numbers at the top, then a tab: words over time, the last
+    tests, or the words that do not stick."""
+    if tab not in dict(STATS_TABS):
+        raise Http404
+    tabs = [
+        {
+            "url": reverse("study:stats_tab", args=[slug]) if slug else reverse("study:stats"),
+            "name": name,
+            "current": slug == tab,
+        }
+        for slug, name in STATS_TABS
+    ]
+    context = {
+        "stats": stats.user_statistics(request.user),
+        "tab": tab or "words",
+        "tabs": tabs,
+        "tabs_label": _("Parts of the statistics"),
+    }
+    return render(request, "study/stats.html", context)
 
 
 @require_POST

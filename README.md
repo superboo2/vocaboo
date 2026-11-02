@@ -133,11 +133,28 @@ uv run python manage.py changepassword martin@example.com
 
 #### Registration
 
-1. *Vytvořit účet* on the login page: email, password twice and, when `VOCABOO_REGISTRATION_CODE`
-   is set, the invitation code.
+1. *Vytvořit účet* on the login page: email, password twice, *Můj jazyk* (the language the user
+   speaks, filled in with the language of the page) and, when `VOCABOO_REGISTRATION_CODE` is set,
+   the invitation code.
 2. The account is created turned off (`is_active=False`) and a six-digit code goes to the email
    (only its hash is saved, in `accounts.EmailVerification`).
 3. The user enters the code on `/accounts/verify/`: the account is turned on and logged in.
+4. When *Můj jazyk* is Czech or Spanish, the new account gets a first deck from the dictionary of
+   the app (`dictionary/starter.py`), so it does not start empty:
+
+   ```
+   Angličtina – první slovníček     16 words
+   ├── Zvířata                       7 words + "squirrel" for later
+   └── Jídlo                         9 words
+       ├── Ovoce                     5 words
+       └── Zelenina                  4 words
+   ```
+
+   Every deck has a different number of words, so it is clear how the numbers add up. The names
+   are in the user's language (`Inglés – primer diccionario`, `Animales` …), the words come with
+   their sentences. Words missing in the dictionary are skipped; without the dictionary (or for
+   another language, or when the user already has a deck) nothing is made. After that it is a
+   usual deck: nothing in it changes by itself.
 
 The code works for 15 minutes, a new one can be sent once a minute, 5 wrong tries block the code
 (then a new one is needed). Logging in to an account that is not confirmed yet sends a new code
@@ -186,8 +203,7 @@ Or from the shell:
 uv run python manage.py shell -c "from vocabulary.models import Language; Language.objects.create(code='de', name='Němčina')"
 ```
 
-Your own native language (filled in for a new deck) comes from the language of the page at
-registration; after that every new deck remembers its *Mluvím* for the next one. It can also be
+Your own native language (filled in for a new deck) is *Můj jazyk* from the registration; after that every new deck remembers its *Mluvím* for the next one. It can also be
 changed in the admin on your user: *Uživatelé → your email*.
 
 ### 8. Decks (dictionaries)
@@ -505,7 +521,7 @@ hidden and is shown when the browser can speak at all; the voice is chosen when 
 (`voiceFor` in `static/js/app.js`, an American voice is preferred for English; without a known
 voice the language alone is passed and the browser chooses). The speaker cannot be turned off. Voices are good on Android,
 Windows, Mac and in Chrome on Linux, robotic or missing in Firefox on Linux. It plays by itself
-(*Nastavení › Test › Audio › Přehrát automaticky*, on by default): foreign → native as
+(*Nastavení › Kartička › Přehrát automaticky*, on by default): foreign → native as
 soon as the card comes (the foreign word is the question, so 🔊 is on the front), native →
 foreign after *Ukázat* (the foreign word is the answer); it reads the *word* or the whole
 *sentence* (the word when there is no sentence). Browsers do not let a page speak before the
@@ -572,20 +588,20 @@ services.session_summary(session)
 **▶︎ Procvičit slovník** on a deck does the same with that deck and its sub-decks. Both are
 small forms that `POST` to `study:practice` (with `deck=<id>` from a deck).
 
-What they start is set on **one page ▶︎ Procvičit** (`study:new`; the link *Nastavit* under
-the deck button, *Nastavit procvičování* at the end of a test, and *Test › ▶︎ Procvičit* in
-Settings). The page looks the same from both places and
-saves the choices for the user (`User.default_direction`, `practice_scope`, `practice_cards`,
+What they start is set on **the page ▶︎ Procvičit** (`study:new`, `/settings/practice/`). For
+the bar button it is the tab *Procvičit* of the settings (also *Nastavit procvičování* at the
+end of a test); the link *Nastavit* under the deck button opens it with `?deck=<id>` as a page
+of its own, without the tabs, only for that deck. The page only saves (no button to start a
+test: ▶︎ Procvičit is in the bar on every page) the choices for the user (`User.default_direction`, `practice_scope`, `practice_cards`,
 and for the bar button `practice_decks`; none = all decks):
 
 ```text
-▶︎ Procvičit                         Co spustí tlačítka ▶︎ Procvičit. Aplikace si to zapamatuje.
-[ ▶︎ Spustit test ]                  saves and starts
-Slovníky          from a deck: only its name; from the bar: a tree (all ticked = all decks)
+Nastavení › Procvičit                small note: Nastavení rychlého testu, který spustí tlačítko [▶︎ Procvičit] nahoře v liště nebo [▶︎ Procvičit slovník] u slovníku (the buttons drawn grey, no links)
+Ze kterých slovníků  from a deck: only its name; in Settings: a tree (all ticked = all decks)
 Směr              EN → CS · CS → EN · EN ⇄ CS
 Které kartičky    jen k opakování a nová (42) · všechna (85)
 Nejvýš kartiček   20            (empty = no limit; for both choices)
-[ Uložit ] [ Zrušit ]                saves and goes back
+[ Uložit ]                           saves (from a deck also [ Zrušit ], both back to the deck)
 ```
 
 With *jen k opakování a nová* the cards are picked by `services.pick_practice_cards` and saved
@@ -604,8 +620,8 @@ in `StudySession.picked_cards`:
 
 So the test is never empty. *Všechna* is every card once, at most the limit. Under the deck button
 a small line says what it starts, e.g. `20 kartiček · EN ⇄ CS · Nastavit`, and adds *nic
-k opakování, procvičíš si slovíčka, která ti nejdou* when nothing is due. The page for the bar button is in
-Settings (*Test › ▶︎ Procvičit*). Then:
+k opakování, procvičíš si slovíčka, která ti nejdou* when nothing is due. The page for the bar button is the tab
+*Procvičit* of the settings. Then:
 
 1. The card shows the question. In the foreign → native direction the sentence is shown too,
    with the word marked.
@@ -665,11 +681,11 @@ the browser and paused while the page is hidden (another app, locked phone).
   the heading *Slovníky*. The deck page and the test pages look the same: the deck page has its
   name with a small menu `⋯` (rename, move, delete), the button `▶ Procvičit slovník` (the same indigo frame as `▶ Procvičit` in the bar; both start a test at once) with a small line under it
   and the cards *Nové slovíčko*, *Slovíčka* and *Podslovníky* (with `+ Nový`); the page
-  *▶︎ Procvičit* has the big button `▶ Spustit test` at the top and the cards *Slovníky*, *Směr* and *Které kartičky* (with the limit);
+  *▶︎ Procvičit* (a tab of the settings, from a deck a page of its own) has the parts *Slovníky*, *Směr* and *Které kartičky* (with the limit) and only *Uložit*;
   the test has a thin progress bar above the card. The summary of a test, the statistics and
   the word page use the same cards; the word page has `✎ Upravit` next to the word and a menu `⋯`
   (move, remove from this deck). The dashboard order is *Denní cíl* (15 minutes by default,
-  set in Settings, empty = none: a small card `⏱️ 12 / 15 min · denní cíl` like the numbers of *Dnes*,
+  set in *Nastavení › Cíle*, empty = none: a small card `⏱️ 12 / 15 min · denní cíl ›` like the numbers of *Dnes*, a link to the goal in the settings,
   green with `✓ 16 / 15 min` when it is done; the minutes are the time over the cards of today's tests, at most 20 s for one card, so
   a test left open does not fill the goal; ⏱️ *čas v testech* stays the whole length of the tests) next to `📝 3 · odložená čekají na překlad ›` (only when words
   wait for a translation; two halves on a computer, one under the other on a phone), *Co ti nešlo* (only when there is
@@ -686,7 +702,9 @@ services.search_terms(user, "impose")
 # [SearchHit(term=impose → obtěžovat, ...), SearchHit(term=trinket → cetka, found_in=[...])]
 ```
 
-- **Statistiky** (`/stats/`, in the navigation; on a phone only the icon 📊): tiles with the number
+- **Statistiky** (`/stats/`, in the navigation; on a phone only the icon 📊): the tiles at the top,
+  under them three tabs, each its own page: *Slovíčka* (`/stats/`, the charts), *Testy*
+  (`/stats/tests/`) and *Co ti nejde* (`/stats/hard/`). The tiles show the number
   of words, words known (foreign → native right at least twice in a row), the streak of days in a
   row 🔥 and answers; a line chart of all words from the day of the first word (by days for 2
   weeks, by weeks up to 4 months, by months up to 2 years, then by quarters; values on the y axis,
@@ -770,10 +788,24 @@ the home screen has its own cookies and its own login.
 ### 15. Help
 
 The app has a help page for users (*Nápověda* / *Help* in the top bar, `/help/`) with tabs
-*Slovníky*, *Slovíčka*, *Test* and *Přehled a statistiky*. Every tab is its own page in every
+*Slovníky*, *Slovíčka*, *Test* and *Přehled*. Every tab is its own page in every
 language: `templates/help/cs/`, `templates/help/en/` and `templates/help/es/<tab>.html` (a language without
 its own page gets the English one); the frame with the tabs is `templates/help/base_help.html`
-and the list of tabs is `HELP_TOPICS` in `config/views.py`. The
+and the list of tabs is `HELP_TOPICS` in `config/views.py`.
+
+The help, the settings and the statistics use the same tabs: ears on the top edge of a card,
+the current one joined to it. The tabs are `templates/_tabs.html` (a list of `{url, name,
+current}` from the view), the content goes right after it into `<div class="tab-panel">`; the
+sections inside the card have only a line between them. Every tab is its own page:
+
+| Page | Tabs |
+|---|---|
+| Help | `/help/slovniky/`, `/help/slovicka/`, `/help/test/`, `/help/prehled/` |
+| Settings | `/settings/` (Aplikace), `/settings/practice/` (Procvičit, `study:new`: the quick test of the buttons ▶︎ Procvičit), `/settings/goals/` (Cíle: the daily goal), `/settings/card/` (Kartička: what the card of a test shows and plays; the old `/settings/test/` and `/settings/audio/` redirect there), `/settings/password/` (Účet) |
+| Statistics | `/stats/` (Slovíčka), `/stats/tests/`, `/stats/hard/` (Co ti nejde) |
+
+Each settings tab has its own form and *Uložit*; it saves only its own fields
+(`SettingsForm.TABS`). The
 table of rating buttons is made from `study/ratings.py`, so it stays right when the buttons
 change. When a feature changes, update its help tab too, in all languages.
 

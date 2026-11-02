@@ -10,16 +10,9 @@
   <div class="help">
     <h1>{% translate "Help" %}</h1>
 
-    <nav class="tabs" aria-label="{{ tabs_label }}">
-      <ul>
-        {% for slug, name in topics %}
-          <li>
-            <a href="{% url 'help' slug %}"{% if slug == topic %} aria-current="page"{% endif %}>{{ name }}</a>
-          </li>
-        {% endfor %}
-      </ul>
-    </nav>
-
-    {% block help %}{% endblock %}
+    {% include "_tabs.html" with tabs=tabs label=tabs_label %}
+    <div class="tab-panel">
+      {% block help %}{% endblock %}
+    </div>
   </div>
 {% endblock %}

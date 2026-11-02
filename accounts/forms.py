@@ -7,7 +7,11 @@ from django.contrib.auth.forms import PasswordResetForm as DjangoPasswordResetFo
 from django.contrib.auth.forms import SetPasswordForm as DjangoSetPasswordForm
 from django.core.exceptions import ValidationError
 from django.utils.crypto import constant_time_compare
+from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
+
+from vocabulary.forms import LanguageChoiceField
+from vocabulary.models import Language
 
 from .models import User
 
@@ -73,12 +77,31 @@ class SettingsForm(forms.ModelForm):
         }
         widgets = {"autoplay_content": forms.RadioSelect}
 
-    def __init__(self, *args, **kwargs):
+    # The fields of each tab of the settings page (the tab "" is /settings/). The tab
+    # ▶︎ Practice is the page study_new.
+    TABS = {
+        "": ["ui_language", "show_suggestions"],
+        "goals": ["daily_goal"],
+        "card": [
+            "show_other_meanings",
+            "show_ipa",
+            "show_intervals",
+            "autoplay_pronunciation",
+            "autoplay_content",
+        ],
+    }
+
+    def __init__(self, *args, tab="", **kwargs):
         super().__init__(*args, **kwargs)
-        # The empty choice means "as the browser asks"
-        self.fields["ui_language"].choices = [("", _("Same as the browser"))] + list(
-            settings.LANGUAGES
-        )
+        # Only the fields of the tab: the others keep their values when it is saved
+        for name in list(self.fields):
+            if name not in self.TABS[tab]:
+                del self.fields[name]
+        if "ui_language" in self.fields:
+            # The empty choice means "as the browser asks"
+            self.fields["ui_language"].choices = [("", _("Same as the browser"))] + list(
+                settings.LANGUAGES
+            )
 
 
 PASSWORD_HELP = _(
@@ -162,6 +185,14 @@ class RegistrationForm(forms.Form):
         widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
         help_text=_("Once more, to check."),
     )
+    # Filled in with the language of the page; Czech and Spanish get a first deck to try
+    native_language = LanguageChoiceField(
+        queryset=Language.objects.all(),
+        # Only languages, no empty choice
+        empty_label=None,
+        label=_("My language"),
+        help_text=_("The language you speak. Your words are translated into it."),
+    )
     invitation = forms.CharField(
         label=_("Invitation code"),
         help_text=_("You got it from the person who invited you."),
@@ -184,6 +215,9 @@ class RegistrationForm(forms.Form):
         super().__init__(*args, **kwargs)
         if not settings.REGISTRATION_CODE:
             del self.fields["invitation"]
+        self.fields["native_language"].initial = Language.objects.filter(
+            code=get_language()
+        ).first()
 
     def clean_email(self):
         return User.objects.normalize_email(self.cleaned_data["email"]).lower()

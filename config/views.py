@@ -3,6 +3,7 @@ from datetime import timedelta
 from django.http import Http404
 from django.shortcuts import redirect, render
 from django.template.loader import select_template
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
@@ -18,7 +19,7 @@ HELP_TOPICS = [
     ("slovniky", _("Decks")),
     ("slovicka", _("Words")),
     ("test", _("Test")),
-    ("prehled", _("Overview and statistics")),
+    ("prehled", _("Overview")),
 ]
 
 
@@ -65,7 +66,10 @@ def help_page(request, topic):
         request,
         template.template.name,
         {
-            "topics": HELP_TOPICS,
+            "tabs": [
+                {"url": reverse("help", args=[slug]), "name": name, "current": slug == topic}
+                for slug, name in HELP_TOPICS
+            ],
             "topic": topic,
             "topic_name": topics[topic],
             # Name of the tabs for screen readers; here, because help templates are not scanned

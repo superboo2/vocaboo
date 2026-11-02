@@ -35,41 +35,48 @@
   {% if not stats.has_terms %}
     <p>{% translate "Nothing here yet. Add your first words and start a test." %}</p>
   {% else %}
-    <section class="stat-section">
-      <h2>{% translate "Words" %}</h2>
-      <p class="muted"><small>{{ stats.words_chart.subtitle }}</small></p>
-      {% include "study/_chart.html" with chart=stats.words_chart tone="chart-words" label=stats.words_chart.subtitle %}
-    </section>
+    {# Each tab is its own page: /stats/, /stats/tests/, /stats/hard/ #}
+    {% include "_tabs.html" with tabs=tabs label=tabs_label %}
+    <div class="tab-panel">
+      {% if tab == "words" %}
+        <section class="stat-section">
+          <h2>{% translate "Words" %}</h2>
+          <p class="muted"><small>{{ stats.words_chart.subtitle }}</small></p>
+          {% include "study/_chart.html" with chart=stats.words_chart tone="chart-words" label=stats.words_chart.subtitle %}
+        </section>
 
-    {# Known words on the same points, with their own y axis so the progress shows #}
-    {% if stats.known_chart %}
-      <section class="stat-section">
-        <h2>{% translate "You know" context "chart of known words" %}</h2>
-        {# When you know a word, with the smileys of the test buttons that count as right #}
-        <p class="muted"><small>{{ stats.known_chart.subtitle }}<br>{% translate "You know a word when every tested direction got 2× in a row 😎 or 🤔." %}</small></p>
-        {% include "study/_chart.html" with chart=stats.known_chart tone="chart-known" label=stats.known_chart.subtitle %}
-      </section>
-    {% endif %}
-
-    {% if stats.tests.rows %}
-      <section class="stat-section">
-        <h2>{% translate "Recent tests" %}</h2>
-        <p class="muted"><small>{{ stats.tests.summary }}</small></p>
-        {% include "study/_tests_table.html" with tests=stats.tests %}
-      </section>
-    {% endif %}
-
-    <section class="stat-section">
-      <h2>{% translate "What you struggle with" %}</h2>
-      {# Always the last 30 days (enough words for the cards, and still about now) #}
-      <p class="muted"><small>{% translate "In the last 30 days" %}</small></p>
-      {% if stats.facts.items %}
-        {% include "study/_hard_words.html" with items=stats.facts.items %}
-      {% elif stats.facts.answered %}
-        <p>{% translate "Everything went well in the last 30 days 🎉" %}</p>
+        {# Known words on the same points, with their own y axis so the progress shows #}
+        {% if stats.known_chart %}
+          <section class="stat-section">
+            <h2>{% translate "You know" context "chart of known words" %}</h2>
+            {# When you know a word, with the smileys of the test buttons that count as right #}
+            <p class="muted"><small>{{ stats.known_chart.subtitle }}<br>{% translate "You know a word when every tested direction got 2× in a row 😎 or 🤔." %}</small></p>
+            {% include "study/_chart.html" with chart=stats.known_chart tone="chart-known" label=stats.known_chart.subtitle %}
+          </section>
+        {% endif %}
+      {% elif tab == "tests" %}
+        <section class="stat-section">
+          <h2>{% translate "Recent tests" %}</h2>
+          {% if stats.tests.rows %}
+            <p class="muted"><small>{{ stats.tests.summary }}</small></p>
+            {% include "study/_tests_table.html" with tests=stats.tests %}
+          {% else %}
+            <p class="muted">{% translate "No tests yet." %}</p>
+          {% endif %}
+        </section>
       {% else %}
-        <p class="muted">{% translate "No tests in the last 30 days." %}</p>
+        <section class="stat-section">
+          {# Always the last 30 days (enough words for the cards, and still about now) #}
+          <p class="muted"><small>{% translate "In the last 30 days" %}</small></p>
+          {% if stats.facts.items %}
+            {% include "study/_hard_words.html" with items=stats.facts.items %}
+          {% elif stats.facts.answered %}
+            <p>{% translate "Everything went well in the last 30 days 🎉" %}</p>
+          {% else %}
+            <p class="muted">{% translate "No tests in the last 30 days." %}</p>
+          {% endif %}
+        </section>
       {% endif %}
-    </section>
+    </div>
   {% endif %}
 {% endblock %}

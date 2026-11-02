@@ -412,6 +412,8 @@ def test_dashboard_shows_minutes_of_the_goal(client, user, tree):
 
     assert "denní cíl" in html and "<strong>12 / 20 min</strong>" in html
     assert "goal-done" not in html
+    # The card is a link to the goal in Settings › Goals
+    assert f'href="{reverse("settings_tab", args=["goals"])}"' in html
 
 
 def test_dashboard_shows_a_done_goal(client, user, tree):
@@ -427,13 +429,20 @@ def test_dashboard_shows_a_done_goal(client, user, tree):
 
 def test_settings_save_the_daily_goal(client, user):
     client.force_login(user)
-    data = {"autoplay_content": "word", "daily_goal": "20"}
+    # The goal has its own tab in the settings
+    data = {"daily_goal": "20"}
+    url = reverse("settings_tab", args=["goals"])
 
-    client.post(reverse("settings"), data)
+    assert 'name="daily_goal"' in client.get(url).content.decode()
+    client.post(url, data)
     user.refresh_from_db()
     assert user.daily_goal == 20
 
-    client.post(reverse("settings"), {**data, "daily_goal": ""})
+    client.post(url, {**data, "daily_goal": ""})
+    user.refresh_from_db()
+    assert user.daily_goal is None
+    # A wrong goal is not saved
+    client.post(url, {"daily_goal": "0"})
     user.refresh_from_db()
     assert user.daily_goal is None
 

@@ -15,6 +15,7 @@ urlpatterns = [
     path("", include("study.urls")),
     path("settings/", accounts_views.settings_view, name="settings"),
     path("settings/password/", accounts_views.password_change, name="password_change"),
+    path("settings/<slug:tab>/", accounts_views.settings_view, name="settings_tab"),
     path("help/", views.help_index, name="help_index"),
     path("help/<slug:topic>/", views.help_page, name="help"),
     path("accounts/login/", accounts_views.LoginView.as_view(), name="login"),

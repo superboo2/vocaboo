@@ -178,9 +178,16 @@ def test_stats_page(client, user, deck):
     assert "<h2>Slovíčka</h2>" in html and "<h2>Umíš</h2>" in html
     assert "Umíš = v každém testovaném směru 2× za sebou 😎 nebo 🤔." in html
     assert "<polyline" in html
-    assert "Co ti nejde" in html
-    assert "Za posledních 30 dní" in html
     assert "?period=" not in html
+    # The other parts are tabs, each its own page
+    assert f'href="{reverse("study:stats_tab", args=["tests"])}"' in html
+    assert "Za posledních 30 dní" not in html
+    hard = client.get(reverse("study:stats_tab", args=["hard"])).content.decode()
+    assert "Co ti nejde" in hard and "Za posledních 30 dní" in hard
+    assert "<polyline" not in hard
+    tests = client.get(reverse("study:stats_tab", args=["tests"])).content.decode()
+    assert "Poslední testy" in tests
+    assert client.get(reverse("study:stats_tab", args=["nothing"])).status_code == 404
 
 
 def test_stats_page_shows_only_own_data(client, user, other_user, deck):
@@ -235,7 +242,7 @@ def test_detail_link_uses_the_word_in_its_deck(client, user, deck):
     answer(user, cat.term, 0, Result.WRONG, "dontknow")
     client.force_login(user)
 
-    html = client.get(reverse("study:stats")).content.decode()
+    html = client.get(reverse("study:stats_tab", args=["hard"])).content.decode()
 
     url = reverse("vocabulary:term_detail", args=[deck.pk, cat.pk])
     assert f'href="{url}"' in html

@@ -1,8 +1,9 @@
 {% load i18n %}
 {# The daily goal at the top of the dashboard (Settings › Daily goal): a small card like the #}
-{# numbers of "Dnes", a big "12 / 15 min" and a grey label; green with ✓ when it is done #}
-<section class="card-section top-card daily-goal{% if daily_goal.percent == 100 %} goal-done{% endif %}"
+{# numbers of "Dnes", a big "12 / 15 min" and a grey label; green with ✓ when it is done. #}
+{# All of it is a link to the goal in Settings › Goals. #}
+<a href="{% url 'settings_tab' 'goals' %}" class="card-section top-card daily-goal{% if daily_goal.percent == 100 %} goal-done{% endif %}"
          title="{% translate 'Time over the cards of today’s tests, at most 20 s for one card. You set the goal in Settings.' %}">
   <span class="top-card-value"><span aria-hidden="true">⏱️</span> <strong>{% if daily_goal.percent == 100 %}✓ {% endif %}{% blocktranslate with minutes=daily_goal.minutes goal=daily_goal.goal %}{{ minutes }} / {{ goal }} min{% endblocktranslate %}</strong></span>
-  <small class="muted">{% translate "daily goal" %}</small>
-</section>
+  <small class="muted">{% translate "daily goal" %} ›</small>
+</a>

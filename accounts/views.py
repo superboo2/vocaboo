@@ -3,44 +3,79 @@ from django.contrib import messages
 from django.contrib.auth import login, update_session_auth_hash
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_not_required
+from django.http import Http404
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.utils import translation
-from django.utils.translation import get_language, get_language_from_request
+from django.utils.translation import get_language, get_language_from_request, gettext_lazy
 from django.utils.translation import gettext as _
 from django.views.decorators.http import require_POST
 
-from vocabulary.models import Language
+from dictionary import starter
 
 from . import verification
 from .forms import LoginForm, PasswordChangeForm, RegistrationForm, SettingsForm, VerifyForm
 from .models import User
 
+# Tabs of the settings page: (address, name); the account tab is the password page and the
+# practice tab the page ▶︎ Practice of study
+SETTINGS_TABS = [
+    ("", gettext_lazy("App")),
+    # The page of the buttons ▶︎ Practice (study_new)
+    ("practice", gettext_lazy("Practice")),
+    ("goals", gettext_lazy("Goals")),
+    ("card", gettext_lazy("Card")),
+    ("account", gettext_lazy("Account")),
+]
+# Tabs that were merged into the tab Card (old links still work)
+OLD_TABS = {"test": "card", "audio": "card"}
 
-def settings_view(request):
-    form = SettingsForm(request.POST or None, instance=request.user)
+
+def settings_tabs(current):
+    tabs = []
+    for slug, name in SETTINGS_TABS:
+        if slug == "account":
+            url = reverse("password_change")
+        elif slug == "practice":
+            url = reverse("study:new")
+        else:
+            url = reverse("settings_tab", args=[slug]) if slug else reverse("settings")
+        tabs.append({"url": url, "name": name, "current": slug == current})
+    return {"tabs": tabs, "tabs_label": _("Parts of the settings")}
+
+
+def settings_view(request, tab=""):
+    if tab in OLD_TABS:
+        return redirect("settings_tab", OLD_TABS[tab])
+    if tab not in SettingsForm.TABS:
+        raise Http404
+    form = SettingsForm(request.POST or None, instance=request.user, tab=tab)
     if request.method == "POST" and form.is_valid():
         user = form.save()
         # The message and the next page already in the new language
         translation.activate(user.ui_language or get_language_from_request(request))
         messages.success(request, _("Settings saved."))
-        response = redirect("settings")
+        response = redirect(request.path)
         # The login page (logged out) then speaks the same language
-        if user.ui_language:
+        if user.ui_language and "ui_language" in form.fields:
             response.set_cookie(settings.LANGUAGE_COOKIE_NAME, user.ui_language)
         return response
-    return render(request, "accounts/settings.html", {"form": form})
+    context = {"form": form, "tab": tab or "app", **settings_tabs(tab)}
+    return render(request, "accounts/settings.html", context)
 
 
 def password_change(request):
-    """Change the password of the logged in user (the old one is needed, no e-mail is sent)."""
+    """The tab Account of the settings: change the password of the logged in user (the old one
+    is needed, no e-mail is sent)."""
     form = PasswordChangeForm(request.user, request.POST or None)
     if request.method == "POST" and form.is_valid():
         user = form.save()
         # A new password logs out other sessions; this one stays logged in
         update_session_auth_hash(request, user)
         messages.success(request, _("Password changed."))
-        return redirect("settings")
-    return render(request, "accounts/password_change.html", {"form": form})
+        return redirect("password_change")
+    context = {"form": form, **settings_tabs("account")}
+    return render(request, "accounts/password_change.html", context)
 
 
 class LoginView(auth_views.LoginView):
@@ -90,14 +125,14 @@ def register(request):
                 password=password,
                 is_active=False,
                 ui_language=language,
-                # The language of the app is most likely the one the user speaks
-                native_language=Language.objects.filter(code=language).first(),
+                native_language=form.cleaned_data["native_language"],
             )
             verification.send_code(user, language)
         elif not user.is_active and hasattr(user, "email_verification"):
             # Signed up again before confirming: the new password counts, a new code comes
             user.set_password(password)
-            user.save(update_fields=["password"])
+            user.native_language = form.cleaned_data["native_language"]
+            user.save(update_fields=["password", "native_language"])
             if verification.can_resend(user.email_verification):
                 verification.send_code(user, language)
         elif user.is_active:
@@ -120,6 +155,8 @@ def verify_email(request):
         result = verification.check_code(user, form.cleaned_data["code"]) if user else "wrong"
         if result == "ok":
             verification.activate(user)
+            # A small deck to try the app with, in the user's language
+            starter.create_first_deck(user)
             login(request, user, backend="django.contrib.auth.backends.ModelBackend")
             del request.session[verification.SESSION_KEY]
             messages.success(request, _("Your account is ready. Welcome to Vocaboo!"))

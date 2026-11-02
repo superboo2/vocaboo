@@ -4,27 +4,42 @@
 {% block title %}{% translate "Practice" %} · Vocaboo{% endblock %}
 
 {% block content %}
-  <nav aria-label="breadcrumb">
-    <ul>
-      <li><a href="{% url 'dashboard' %}">{% translate "Overview" %}</a></li>
-      {% if single_deck %}<li><a href="{% url 'vocabulary:deck_detail' single_deck.pk %}">{{ single_deck.name }}</a></li>{% endif %}
-      <li>{% translate "Practice" %}</li>
-    </ul>
-  </nav>
-
-  {# "Nastavit" under the buttons ▶︎ Practice: what they start. The choices are saved. #}
-  <h1>▶︎ {% translate "Practice" %}</h1>
+  {% if single_deck %}
+    {# "Nastavit" under ▶︎ Practice of a deck: its own page, back to the deck #}
+    <nav aria-label="breadcrumb">
+      <ul>
+        <li><a href="{% url 'dashboard' %}">{% translate "Overview" %}</a></li>
+        <li><a href="{% url 'vocabulary:deck_detail' single_deck.pk %}">{{ single_deck.name }}</a></li>
+        <li>{% translate "Practice" %}</li>
+      </ul>
+    </nav>
+    <h1>▶︎ {% translate "Practice" %}</h1>
+    <p class="muted page-sub">{% translate "What the buttons ▶︎ Practice start. It is remembered." %}</p>
+  {% else %}
+    {# The tab ▶︎ Practice of the settings: the button in the bar #}
+    <nav aria-label="breadcrumb">
+      <ul>
+        <li><a href="{% url 'dashboard' %}">{% translate "Overview" %}</a></li>
+        <li>{% translate "Settings" %}</li>
+      </ul>
+    </nav>
+    <h1>{% translate "Settings" %}</h1>
+    {% include "_tabs.html" with tabs=tabs label=tabs_label %}
+  {% endif %}
 
   {% if not roots %}
-    <p>{% translate "First create a deck and add words to it." %}</p>
-    <a href="{% url 'vocabulary:deck_create' %}" role="button">+ {% translate "New deck" %}</a>
+    <div class="tab-panel">
+      <p>{% translate "First create a deck and add words to it." %}</p>
+      <a href="{% url 'vocabulary:deck_create' %}" role="button">+ {% translate "New deck" %}</a>
+    </div>
   {% else %}
-    <p class="muted page-sub">{% translate "What the buttons ▶︎ Practice start. It is remembered." %}</p>
-    <form method="post" class="practice-setup">
+    <form method="post" class="practice-setup{% if not single_deck %} tab-panel{% endif %}">
       {% csrf_token %}
+      {% if not single_deck %}
+        {# Only a small note what the tab is for, the parts below have their own headings #}
+        <p class="muted practice-note"><small>{{ practice_note }}</small></p>
+      {% endif %}
       {{ form.non_field_errors }}
-      {# At the top, so nothing has to be scrolled; it also saves the choices #}
-      <button type="submit" name="start" value="1" class="start-test">▶︎ {% translate "Start test" %}</button>
 
       {% if single_deck %}
         {# The button of a deck: only that deck; the decks of the bar button stay as they are #}
@@ -39,8 +54,8 @@
         </section>
       {% else %}
         <fieldset class="card-section">
-          <legend class="section-title">{% translate "Decks" %}</legend>
-          <small class="muted">{% translate "For ▶︎ Practice in the bar. Sub-decks are included automatically. A word that is in more decks comes only once." %}</small>
+          <legend class="section-title">{% translate "From which decks" %}</legend>
+          <small class="muted">{% translate "The ticked decks with their sub-decks. A word that is in more decks comes only once." %}</small>
           {% if form.decks.errors %}<small class="field-error">{{ form.decks.errors|join:" " }}</small>{% endif %}
           <ul class="deck-tree deck-tree-root deck-pick">
             {% for deck in roots %}
@@ -52,9 +67,10 @@
 
       {% include "study/_options.html" %}
 
+      {# Only saving: a test starts with ▶︎ Practice in the bar or on the deck #}
       <div class="actions">
-        <button type="submit" class="secondary">{% translate "Save" %}</button>
-        <a href="{{ back }}" role="button" class="secondary outline">{% translate "Cancel" %}</a>
+        <button type="submit" class="save-button">{% translate "Save" %}</button>
+        {% if single_deck %}<a href="{{ back }}" role="button" class="secondary outline">{% translate "Cancel" %}</a>{% endif %}
       </div>
     </form>
   {% endif %}
