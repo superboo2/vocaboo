@@ -1,0 +1,200 @@
+{% extends "help/base_help.html" %}
+
+{% block help %}
+  <section>
+    <h2>Dodawanie słówka</h2>
+    <p>Słówka dodajesz na stronie słowniczka. Wymagane są tylko pierwsze dwa pola:</p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Pole</th><th>Przykład</th><th>Uwaga</th></tr></thead>
+      <tbody>
+        <tr><td>język obcy</td><td><code>hello; hi</code></td><td>kilka wariantów oddzielaj średnikiem</td></tr>
+        <tr><td>twój język</td><td><code>cześć; hej</code></td><td>tak samo</td></tr>
+        <tr><td>Zdanie</td><td><code>Hello, kids.</code></td><td>pod przyciskiem <em>+ zdanie, notatka</em>, gdzie słówko się pojawiło (pod obcym słówkiem)</td></tr>
+        <tr><td>Tłumaczenie zdania</td><td><code>Cześć, dzieci.</code></td><td>w tym samym miejscu, nieobowiązkowe, pomaga zrozumieć zdanie (pod tłumaczeniem). Słówko możesz oznaczyć nawiasami klamrowymi: <code>Uciekł {daleko}.</code></td></tr>
+        <tr><td>Notatka</td><td></td><td>w tym samym miejscu, cokolwiek dodatkowego</td></tr>
+      </tbody>
+    </table></div>
+    <p>
+      Sezonu ani odcinka nigdzie nie wpisuj, określa je słowniczek: słówka z pierwszego odcinka dodawaj do słowniczka
+      <em>Series 1 › Episode 1</em>.
+    </p>
+    <p>
+      <strong>Enter</strong> wysyła formularz (jak przycisk <em>Dodaj słówko</em>, na którym w trakcie wysyłania widać
+      <em>Dodawanie…</em>). Potem formularz się czyści, a kursor wraca do pierwszego pola,
+      więc od razu możesz wpisać kolejne słówko. To, że słówko zostało dodane, poznasz po wierszu
+      <em>✓ Dodano: słówko → tłumaczenie</em> nad polami (więc literówkę w tłumaczeniu widzisz od razu), który na 2 sekundy się podświetli. Jeśli słówko zostaje w
+      polach i nic się nie podświetliło, nie zostało dodane.
+    </p>
+  </section>
+
+  <section>
+    <h2>Wyszukiwanie</h2>
+    <p>Na przeglądzie, w zakładce <em>Słowniczki</em>, nad drzewem jest jasny pasek <strong>Szukaj słówek…</strong>: kliknij go (na komputerze możesz też nacisnąć <kbd>/</kbd>) i pisz, wyniki pojawiają się tuż pod nim.</p>
+    <ul>
+      <li>Przeszukuje wszystkie twoje słowniczki: obce słówko i tłumaczenie (wszystkie warianty), zdanie i jego tłumaczenie oraz notatkę.</li>
+      <li>Znaki diakrytyczne i wielkie litery nie mają znaczenia: „zolw” znajdzie też „Żółw”. Wyniki pojawiają się w trakcie pisania, od 2 liter.</li>
+      <li>Najpierw są słówka, w których pasuje słówko lub tłumaczenie, potem te, w których tekst jest w zdaniu lub notatce (zdanie jest pokazane pod słówkiem). Dopasowanie jest podświetlone.</li>
+      <li>Przy każdym słówku widać, w jakich jest słowniczkach (ostatnie 3 poziomy ścieżki, pełna ścieżka po najechaniu). Kliknij słówko, żeby otworzyć jego szczegóły, a ✎, żeby od razu je edytować.</li>
+      <li>Pokazuje się najwyżej 50 wyników.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Odłożone</h2>
+    <p>Oglądasz film, słyszysz słówko, nie wiesz, co znaczy, a podpowiedzi też go nie znają? Zapisz je <strong>bez tłumaczenia</strong> i wróć do niego później:</p>
+    <ul>
+      <li><strong>W słowniczku:</strong> wpisz obce słówko (ewentualnie zdanie i notatkę, np. serial i odcinek). Gdy podpowiedzi nie znają wpisanego słówka, w ich wierszu pojawi się <em>Podpowiedzi nie znają tego słówka · <strong>📝 Zapisz na później</strong></em>. Dotknij tego, a słówko zapisze się bez tłumaczenia.</li>
+      <li>Odłożone słówka <strong>nie pojawiają się w testach</strong> ani w liczbach drzewa i statystyk, dopóki nie mają tłumaczenia.</li>
+      <li>Na górze przeglądu jest mała karta <em>📝 3 · odłożone słówka czekają na tłumaczenie ›</em>; kliknięcie w dowolnym miejscu otwiera listę. Na stronie słowniczka pod formularzem jest większa karta <em>„3 słówka czekają na tłumaczenie”</em> z pierwszymi dwoma słówkami i odnośnikiem <em>Uzupełnij</em>; te dwa słówka to odnośniki, które wypełniają formularz. Na stronie <strong>Odłożone</strong> dotknij słówka: otworzy się jego słowniczek ze zwykłym formularzem, słówko, zdanie i notatka są już wypełnione (pole ze słówkiem na chwilę się podświetli), a kursor czeka w tłumaczeniu. Jeśli słownik aplikacji zna już w międzyczasie to słówko, podpowiedzi pokażą się od razu. Po <em>Dodaj słówko</em> słówko jest w słowniczku (i pojawia się w testach), znika z listy, a odnośnik <em>Następne odłożone</em> prowadzi do kolejnego.</li>
+      <li>Słówka, których podpowiedzi nie znają, trafią do następnego rozszerzenia słownika aplikacji.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Słówka z tematu</h2>
+    <p>Idealne, gdy nie masz czasu szukać i wypisywać słówek albo nie wiesz, od czego zacząć: na stronie słowniczka kliknij <strong>+ Z tematu</strong> obok nagłówka <em>Nowe słówko</em> (tylko gdy słownik aplikacji ma dość słów w obu językach słowniczka: dziś angielski, czeski, hiszpański i ukraiński, np. angielski → czeski). Wybierz temat (na przykład <em>Przyroda › Zwierzęta</em> albo całą grupę <em>Przyroda (wszystko)</em>), poziomy (A1–C2, domyślnie A1–B1) i części mowy (rzeczowniki, czasowniki, przymiotniki, inne; domyślnie wszystkie — dla słowniczka <em>Zwierzęta</em> może tylko rzeczowniki) i kliknij <em>Pokaż słówka</em>. Zobaczysz najczęstsze słówka tematu z tłumaczeniem i zdaniem, po 20 na stronie.</p>
+    <ul>
+      <li>Zaznacz te, których chcesz się uczyć, i kliknij <strong>+ Dodaj zaznaczone słówka</strong>. Zostaną dodane do słowniczka jako twoje własne słówka, ze zdaniem i jego tłumaczeniem; potem możesz je edytować jak każde inne. Zostajesz na tej samej stronie, a dodane słówka z niej znikają.</li>
+      <li>Słówka, które już masz w tym słowniczku, nie są proponowane. Te, które masz w innym słowniczku, są ukryte, więc drugi słowniczek z tego samego tematu zaczyna się od nowych słówek; nad listą widzisz, ile słówek ma temat, ile z nich masz już w innych słowniczkach i w tym słowniczku, oraz odnośnik <em>Pokaż je</em> (wtedy są wyszarzone z nazwą słowniczka i nie da się ich zaznaczyć).</li>
+      <li><em>Zaznacz wszystkie na tej stronie</em> zaznacza od razu wszystkie 20; potem możesz odznaczyć to, czego nie chcesz. Przycisk pokazuje, ile jest zaznaczonych.</li>
+      <li>Polecamy mniejsze słowniczki, po około 20 słówek: łatwiej się ich nauczyć. Kolejne dodaj, gdy już znasz te. Nie można dodać więcej niż jednej strony naraz.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Podpowiedzi tłumaczeń</h2>
+    <p>
+      Kiedy wpisujesz obce słówko, pod polem tłumaczenia pojawiają się <strong>podpowiedzi tłumaczeń</strong>
+      ze skrótem części mowy, na przykład <code>present</code> → <em>teraźniejszość</em> (rzecz.),
+      <em>prezent</em> (rzecz.), <em>przedstawić</em> (czas.). Jeśli nie mieszczą się w jednym wierszu, ciągną się w następnym.
+      Kliknięcie podpowiedzi wstawia ją do pola tłumaczenia, a wiersz się czyści, potem wystarczy Enter. Gdy słownik aplikacji ma zdanie dla tego znaczenia, uzupełnia też <strong>zdanie</strong> z tłumaczeniem (tylko jeśli zdania jeszcze nie ma) i zobaczysz je pod przyciskiem <em>Dodaj słówko</em>, na przykład <em>„Let's take the elevator.” · Pojedźmy windą.</em> Kliknij <em>edytuj</em>, żeby je otworzyć i zmienić lub usunąć, <em>gotowe</em> znowu je zamyka. Bez zdania i notatki jest tam <em>+ zdanie, notatka</em>.
+    </p>
+    <ul>
+      <li>Podpowiedzi pochodzą z własnego angielsko-czeskiego słownika aplikacji (około 10 000 najczęstszych słów i wyrażeń, uporządkowanych według częstości). Dla innych słów nic się nie pokazuje i tłumaczenie wpisujesz ręcznie. Słownika dla hiszpańskiego na razie nie ma.</li>
+      <li>Podpowiedź możesz po wstawieniu edytować, nic nie zapisuje się samo.</li>
+      <li>Jeśli po wybraniu podpowiedzi zmienisz obce słówko, zdanie wypełnione z podpowiedzi znika, bo należało do poprzedniego słówka. Twoje własne (wpisane lub edytowane) zdanie nie jest usuwane.</li>
+      <li>Podpowiedzi pojawiają się też przy <strong>edycji słówka</strong> (również w trakcie testu przez ✎), od razu dla słówka w formularzu. Kliknięcie podpowiedzi zastępuje tłumaczenie, a zdanie wypełnia tylko w pustych polach.</li>
+      <li>Jeśli nie chcesz podpowiedzi, wyłącz je w <a href="{% url 'settings' %}">Ustawieniach</a> (<em>Aplikacja › Podpowiadaj tłumaczenia</em>).</li>
+      <li>Zapisuje się tylko znaczenie, które wybierzesz. Inne znaczenia ze słownika aplikacji zobaczysz na tylnej stronie fiszki i w szczegółach słówka.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Warianty (synonimy)</h2>
+    <p>
+      <code>hello; hi</code> ↔ <code>cześć; hej</code> to jedno słówko z dwoma wariantami po każdej stronie.
+      W teście każdy z nich jest poprawny.
+    </p>
+    <p>
+      Warianty oznaczają, że <strong>każdy po lewej pasuje do każdego po prawej</strong>. Jeśli to nieprawda,
+      lepiej zrób dwa osobne słówka. Na przykład <code>hi</code> ≠ <code>dzień dobry</code>, więc:
+      <code>hello → dzień dobry; cześć</code> i <code>hi → cześć; hej</code> (potocznie).
+    </p>
+  </section>
+
+  <section>
+    <h2>Zdanie</h2>
+    <p>Wpisz zdanie normalnie, aplikacja sama znajdzie w nim słówko i je podświetli:</p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Wpisujesz</th><th>Co się dzieje</th></tr></thead>
+      <tbody>
+        <tr><td><code>She can read from her palm.</code></td><td>słówko <code>palm</code> zostaje znalezione automatycznie, <strong>zwykły przypadek</strong></td></tr>
+        <tr><td><code>She has small {palms}.</code></td><td>słówko w <strong>innej formie</strong> oznacz nawiasami klamrowymi, inaczej nie zostanie znalezione</td></tr>
+        <tr><td><code>He {ran} away.</code></td><td>dla słówka <code>run</code>: czas przeszły w nawiasach</td></tr>
+        <tr><td><code>She can read from her {}.</code></td><td>puste nawiasy = słówko z pierwszego pola (<code>palm</code>)</td></tr>
+      </tbody>
+    </table></div>
+    <p>Nawiasy nigdy nie są pokazywane. W teście zdanie wygląda tak:</p>
+    <div class="grid">
+      <article class="help-card">
+        <header>palm → ?</header>
+        <p class="help-card-main">palm</p>
+        <p class="card-sentence">“She can read from her <mark>palm</mark>.”</p>
+      </article>
+      <article class="help-card">
+        <header>dłoń → ?</header>
+        <p class="help-card-main">dłoń</p>
+        <p class="card-sentence">“She can read from her <span class="cloze">___</span>.”</p>
+      </article>
+    </div>
+    <p>
+      W kierunku z twojego języka całe zdanie zdradziłoby odpowiedź, więc przód pokazuje je z luką.
+      Pełne zdanie jest na tylnej stronie. Jeśli słówka nie da się znaleźć w zdaniu, zdanie jest tylko na tylnej stronie.
+    </p>
+  </section>
+
+  <section>
+    <h2>Więcej znaczeń (palm, present)</h2>
+    <p>
+      Każde znaczenie to <strong>osobne słówko</strong>. Aplikacja rozróżnia je po tłumaczeniu, nic więcej
+      nie musisz wypełniać:
+    </p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Obce</th><th>Tłumaczenie</th><th>Zdanie</th></tr></thead>
+      <tbody>
+        <tr><td>palm</td><td>dłoń</td><td><code>She read my palm.</code></td></tr>
+        <tr><td>palm</td><td>palma</td><td><code>A tall palm on the beach.</code></td></tr>
+        <tr><td>present</td><td>prezent</td><td><code>I bought her a present.</code></td></tr>
+        <tr><td>present</td><td>teraźniejszość</td><td><code>Live in the present.</code></td></tr>
+        <tr><td>present</td><td>prezentować</td><td><code>He {presented} the project.</code></td></tr>
+      </tbody>
+    </table></div>
+    <ul>
+      <li>To samo obce słówko z <strong>tym samym tłumaczeniem</strong> to duplikat. Z <strong>innym tłumaczeniem</strong> to kolejne znaczenie i zostanie zapisane.</li>
+      <li>W teście <code>palm → ?</code> pomaga zdanie. Bez zdania zobaczysz pod słówkiem <em>(2 znaczenia)</em>, więc wiesz, że jest wybór.</li>
+      <li><strong>Inne znaczenia</strong> ze słownika aplikacji i twoje inne słówka z tym samym słowem są na tylnej stronie fiszki i w szczegółach słówka. Tam przy znaczeniach ze słownika aplikacji jest przycisk <strong>+ Ucz się też tego znaczenia</strong>.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Sprawdzanie duplikatów</h2>
+    <p>W trakcie pisania aplikacja szuka słówek, które już masz, i proponuje, co z nimi zrobić:</p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Wpisujesz</th><th>Już masz</th><th>Proponuje</th></tr></thead>
+      <tbody>
+        <tr><td><code>hello</code> w Big Bang Theory</td><td><code>hello → cześć</code> w HIMYM</td><td><strong>Dodaj też tutaj</strong> (jedno słówko w dwóch słowniczkach)</td></tr>
+        <tr><td><code>hello; hi</code></td><td><code>hello → cześć</code></td><td>to samo, a <code>hi</code> zostanie dodane jako nowy wariant</td></tr>
+        <tr><td><code>hey → cześć</code></td><td><code>hello → cześć</code></td><td><strong>Dodaj „hey” jako wariant „hello”</strong> albo zapisz osobno</td></tr>
+        <tr><td><code>palm → palma</code></td><td><code>palm → dłoń</code></td><td>uwaga o innym tłumaczeniu: to samo znaczenie (dodaj jako wariant) albo inne znaczenie (po prostu zapisz)</td></tr>
+        <tr><td><code>czesc</code></td><td><code>cześć</code></td><td>tylko uwaga <em>Podobne (bez znaków diakrytycznych)</em>; <code>kat</code> i <code>kąt</code> to różne słowa</td></tr>
+      </tbody>
+    </table></div>
+    <p>Przycisk <strong>Dodaj słówko</strong> jest zablokowany, dopóki zapisanie utworzyłoby duplikat.</p>
+  </section>
+
+  <section>
+    <h2>Jedno słówko w kilku słowniczkach</h2>
+    <p>
+      Słówko należy do ciebie, słowniczki tylko do niego odsyłają. Gdy <code>hello</code> jest w 20 odcinkach,
+      test z całego serialu pyta o nie <strong>raz</strong>, a ocena liczy się we wszystkich słowniczkach.
+      Każdy słowniczek ma jednak własne zdanie.
+    </p>
+  </section>
+
+  <section>
+    <h2>Edytowanie i usuwanie</h2>
+    <ul>
+      <li>Kliknij słówko na liście, żeby otworzyć jego szczegóły, stamtąd <strong>✎ Edytuj</strong> (pod słówkiem i jego tłumaczeniem, obok <strong>🔊 Odtwórz</strong>) albo w menu <strong>⋯</strong> <strong>Usuń z tego słowniczka</strong>.</li>
+      <li>Zmiany wariantów i notatki obowiązują we wszystkich słowniczkach, zdania tylko w tym jednym.</li>
+      <li><strong>Przenieś</strong> (w menu ⋯ w szczegółach słówka) przenosi je do innego słowniczka.</li>
+      <li><strong>Zgłoś błąd</strong> (w menu ⋯ w szczegółach słówka): gdy tłumaczenie lub zdanie z podpowiedzi jest błędne, wybierz <em>Błędne podpowiedziane tłumaczenie</em>, <em>Błędne podpowiedziane zdanie</em> albo <em>Coś innego</em> i, jeśli chcesz, napisz uwagę, na przykład poprawne tłumaczenie. Zgłoszenie pomaga poprawić słownik aplikacji; twoje słówko się nie zmienia, popraw je przez <strong>✎ Edytuj</strong>. Gdy słówko jest już zgłoszone, strona o tym mówi i możesz zmienić zgłoszenie. Zgłosić możesz też od razu w teście przyciskiem ⚐ pod fiszką.</li>
+      <li>Usunięcie słówka ze słowniczka usuwa je <strong>tylko tam</strong>. Jeśli był to jego ostatni słowniczek, zostaje usunięte całkowicie, razem z historią powtórek; aplikacja najpierw cię ostrzeże.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Przenoszenie kilku słówek</h2>
+    <p>
+      Słówka trafiły do złego słowniczka, na przykład do <em>Series 1</em> zamiast do <em>Episode 1</em>?
+    </p>
+    <ol>
+      <li>Na liście słówek kliknij <strong>Zaznacz</strong>, a pojawią się pola wyboru (<em>Wszystko</em> zaznacza wszystkie).</li>
+      <li>Na dole kliknij <strong>Przenieś…</strong> i wybierz docelowy słowniczek. Proponowane są tylko słowniczki z tymi samymi językami.</li>
+      <li><strong>Przenieś</strong> przenosi słówka, <strong>Dodaj też tam</strong> zostawia je w obu słowniczkach.</li>
+    </ol>
+    <p>
+      Zdanie i postęp nauki zostają. Jeśli słówko jest już w docelowym słowniczku, nie zostanie zduplikowane,
+      uzupełni się tam tylko jego zdanie, jeśli go brakowało.
+    </p>
+  </section>
+{% endblock %}

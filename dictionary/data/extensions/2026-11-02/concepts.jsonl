@@ -1,0 +1,500 @@
+{"id": "the.determiner.1", "texts": {"uk": {"words": "цей; ця; це", "sentence": "Зачини, будь ласка, двері."}}}
+{"id": "be.verb.1", "texts": {"uk": {"words": "бути", "sentence": "Я хочу {бути} лікарем."}}}
+{"id": "be.verb.2", "texts": {"uk": {"words": "бути; знаходитися", "sentence": "Де {знаходиться} вокзал?"}}}
+{"id": "to.preposition.1", "texts": {"uk": {"words": "до; в; на", "sentence": "Ми їдемо {до} Лондона."}}}
+{"id": "of.preposition.1", "texts": {"uk": {"words": "з; від", "sentence": "Чашку кави, будь ласка."}}}
+{"id": "and.conjunction.1", "texts": {"uk": {"words": "і; та", "sentence": "Хліб {і} масло."}}}
+{"id": "a.determiner.1", "texts": {"uk": {"words": "якийсь; один", "sentence": "У мене є собака."}}}
+{"id": "in.preposition.1", "texts": {"uk": {"words": "в; у", "sentence": "Вона живе {в} Празі."}}}
+{"id": "in.preposition.2", "texts": {"uk": {"words": "через; за", "sentence": "Я повернуся {через} десять хвилин."}}}
+{"id": "that.pronoun.1", "texts": {"uk": {"words": "те; це", "sentence": "Що {це}?"}}}
+{"id": "that.pronoun.2", "texts": {"uk": {"words": "який; котрий", "sentence": "Машина, {яку} я купив, червона."}}}
+{"id": "that.conjunction.1", "texts": {"uk": {"words": "що", "sentence": "Я знаю, {що} ти втомлений."}}}
+{"id": "have.verb.1", "texts": {"uk": {"words": "мати", "sentence": "У тебе є машина?"}}}
+{"id": "have.verb.2", "texts": {"uk": {"words": "мусити; мати", "sentence": "Я {мушу} вже йти."}}}
+{"id": "have.verb.3", "texts": {"uk": {"words": "з’їсти; випити", "sentence": "Давай {пообідаємо}."}}}
+{"id": "I.pronoun.1", "texts": {"uk": {"words": "я", "sentence": "{Я} не знаю."}}}
+{"id": "it.pronoun.1", "texts": {"uk": {"words": "воно; це", "sentence": "Сьогодні холодно."}}}
+{"id": "it.pronoun.2", "texts": {"uk": {"words": "його; це", "sentence": "Я {це} обожнюю!"}}}
+{"id": "for.preposition.1", "texts": {"uk": {"words": "для", "sentence": "Цей подарунок {для} тебе."}}}
+{"id": "for.preposition.2", "texts": {"uk": {"words": "протягом; на", "sentence": "Ми пробули там {протягом} тижня."}}}
+{"id": "not.adverb.1", "texts": {"uk": {"words": "не", "sentence": "Я {не} голодний."}}}
+{"id": "on.preposition.1", "texts": {"uk": {"words": "на", "sentence": "Ключі лежать {на} столі."}}}
+{"id": "on.preposition.2", "texts": {"uk": {"words": "в; у", "sentence": "Побачимося {в} понеділок."}}}
+{"id": "with.preposition.1", "texts": {"uk": {"words": "з; із", "sentence": "Ходи {зі} мною."}}}
+{"id": "he.pronoun.1", "texts": {"uk": {"words": "він", "sentence": "{Він} мій брат."}}}
+{"id": "you.pronoun.1", "texts": {"uk": {"words": "ти; ви", "sentence": "{Ти} готовий?"}}}
+{"id": "you.pronoun.2", "texts": {"uk": {"words": "тебе; вас", "sentence": "Я сумую за {тобою}."}}}
+{"id": "do.verb.1", "texts": {"uk": {"words": "робити; зробити", "sentence": "Що ти {робиш}?"}}}
+{"id": "at.preposition.1", "texts": {"uk": {"words": "на; біля; в", "sentence": "Я чекатиму {на} зупинці."}}}
+{"id": "at.preposition.2", "texts": {"uk": {"words": "о; в", "sentence": "Фільм починається {о} восьмій."}}}
+{"id": "this.pronoun.1", "texts": {"uk": {"words": "цей; це", "sentence": "{Це} твоя сумка?"}}}
+{"id": "but.conjunction.1", "texts": {"uk": {"words": "але", "sentence": "Він маленький, {але} гарний."}}}
+{"id": "his.determiner.1", "texts": {"uk": {"words": "його", "sentence": "Це {його} машина."}}}
+{"id": "by.preposition.1", "texts": {"uk": {"words": "біля; коло", "sentence": "Наш столик {біля} вікна."}}}
+{"id": "by.preposition.2", "texts": {"uk": {"words": "до", "sentence": "Закінчи це {до} п’ятниці."}}}
+{"id": "from.preposition.1", "texts": {"uk": {"words": "з; із; від", "sentence": "Я {з} Брно."}}}
+{"id": "they.pronoun.1", "texts": {"uk": {"words": "вони", "sentence": "{Вони} знову запізнюються."}}}
+{"id": "we.pronoun.1", "texts": {"uk": {"words": "ми", "sentence": "{Нам} треба поговорити."}}}
+{"id": "say.verb.1", "texts": {"uk": {"words": "сказати; казати", "sentence": "Що ти {сказав}?"}}}
+{"id": "her.pronoun.1", "texts": {"uk": {"words": "її; їй", "sentence": "Я {їй} учора дзвонив."}}}
+{"id": "her.pronoun.2", "texts": {"uk": {"words": "її", "sentence": "{Її} звати Анна."}}}
+{"id": "she.pronoun.1", "texts": {"uk": {"words": "вона", "sentence": "{Вона} працює в банку."}}}
+{"id": "or.conjunction.1", "texts": {"uk": {"words": "або; чи", "sentence": "Чай {чи} кава?"}}}
+{"id": "will.verb.1", "texts": {"uk": {"words": "буду; буде", "sentence": "Я подзвоню тобі завтра."}}}
+{"id": "my.determiner.1", "texts": {"uk": {"words": "мій; моя; моє", "sentence": "Це {мій} друг."}}}
+{"id": "one.numeral.1", "texts": {"uk": {"words": "один; одна; одне", "sentence": "Ще {одну} хвилинку."}}}
+{"id": "all.determiner.1", "texts": {"uk": {"words": "весь; всі; усі", "sentence": "{Усі} мої друзі були там."}}}
+{"id": "would.verb.1", "texts": {"uk": {"words": "б; би", "sentence": "Я {б} випив кави."}}}
+{"id": "there.adverb.1", "texts": {"uk": {"words": "там", "sentence": "Поклади це он {там}."}}}
+{"id": "there.adverb.2", "texts": {"uk": {"words": "є; існує", "sentence": "{Є} проблема."}}}
+{"id": "their.determiner.1", "texts": {"uk": {"words": "їхній", "sentence": "{Їхній} будинок великий."}}}
+{"id": "what.pronoun.1", "texts": {"uk": {"words": "що", "sentence": "{Що} ти хочеш?"}}}
+{"id": "what.pronoun.2", "texts": {"uk": {"words": "який; котрий", "sentence": "{Котра} година?"}}}
+{"id": "so.adverb.1", "texts": {"uk": {"words": "так; настільки", "sentence": "Я {так} втомився."}}}
+{"id": "so.adverb.2", "texts": {"uk": {"words": "отже; тож", "sentence": "{Тож} що тепер?"}}}
+{"id": "up.adverb.1", "texts": {"uk": {"words": "вгору; нагору", "sentence": "Подивись {угору}!"}}}
+{"id": "out.adverb.1", "texts": {"uk": {"words": "надвір; назовні", "sentence": "Іди {надвір} погратися."}}}
+{"id": "if.conjunction.1", "texts": {"uk": {"words": "якщо; коли", "sentence": "Подзвони мені, {якщо} тобі потрібна допомога."}}}
+{"id": "about.preposition.1", "texts": {"uk": {"words": "про", "sentence": "Це фільм {про} кохання."}}}
+{"id": "about.preposition.2", "texts": {"uk": {"words": "приблизно; близько", "sentence": "Це коштує {приблизно} десять доларів."}}}
+{"id": "who.pronoun.1", "texts": {"uk": {"words": "хто", "sentence": "{Хто} це?"}}}
+{"id": "who.pronoun.2", "texts": {"uk": {"words": "який; котрий", "sentence": "Чоловік, {який} дзвонив, — мій начальник."}}}
+{"id": "get.verb.1", "texts": {"uk": {"words": "отримати; отримувати", "sentence": "Ти {отримав} моє повідомлення?"}}}
+{"id": "get.verb.2", "texts": {"uk": {"words": "купити; дістати", "sentence": "Я {куплю} молока."}}}
+{"id": "get.verb.3", "texts": {"uk": {"words": "дістатися; дістатися до", "sentence": "Як мені {дістатися} до аеропорту?"}}}
+{"id": "get.verb.4", "texts": {"uk": {"words": "ставати; стати", "sentence": "Він {стає} старим."}}}
+{"id": "get.verb.5", "texts": {"uk": {"words": "розуміти; зрозуміти", "sentence": "Я не {розумію}."}}}
+{"id": "go.verb.1", "texts": {"uk": {"words": "іти; їхати", "sentence": "{Ходімо} додому."}}}
+{"id": "go.verb.2", "texts": {"uk": {"words": "піти; йти", "sentence": "Мені треба {йти}."}}}
+{"id": "me.pronoun.1", "texts": {"uk": {"words": "мене; мені", "sentence": "Допоможи {мені}, будь ласка."}}}
+{"id": "when.adverb.1", "texts": {"uk": {"words": "коли", "sentence": "{Коли} в тебе день народження?"}}}
+{"id": "when.adverb.2", "texts": {"uk": {"words": "коли", "sentence": "Подзвони мені, {коли} прийдеш додому."}}}
+{"id": "make.verb.1", "texts": {"uk": {"words": "зробити; приготувати", "sentence": "Я {зроблю} чаю."}}}
+{"id": "make.verb.2", "texts": {"uk": {"words": "змусити; змушувати", "sentence": "Ти не можеш {змусити} мене піти."}}}
+{"id": "can.verb.1", "texts": {"uk": {"words": "могти; вміти", "sentence": "Ти {вмієш} плавати?"}}}
+{"id": "can.verb.2", "texts": {"uk": {"words": "могти; можна", "sentence": "{Можна} увійти?"}}}
+{"id": "like.verb.1", "texts": {"uk": {"words": "подобатися; любити", "sentence": "Мені {подобаються} твої черевики."}}}
+{"id": "like.preposition.1", "texts": {"uk": {"words": "як; схожий на", "sentence": "Ти {схожий на} маму."}}}
+{"id": "like.preposition.2", "texts": {"uk": {"words": "типу; ніби", "sentence": "Це було, {типу}, дуже дивно."}}}
+{"id": "know.verb.1", "texts": {"uk": {"words": "знати", "sentence": "Я не {знаю}."}}}
+{"id": "know.verb.2", "texts": {"uk": {"words": "знати", "sentence": "Ти її {знаєш}?"}}}
+{"id": "time.noun.1", "texts": {"uk": {"words": "час", "sentence": "У мене немає {часу}."}}}
+{"id": "time.noun.2", "texts": {"uk": {"words": "раз", "sentence": "Я казав тобі три {рази}!"}}}
+{"id": "no.interjection.1", "texts": {"uk": {"words": "ні", "sentence": "{Ні}, дякую."}}}
+{"id": "no.determiner.1", "texts": {"uk": {"words": "жодний; ніякий", "sentence": "Я не маю {жодного} уявлення."}}}
+{"id": "yes.interjection.1", "texts": {"uk": {"words": "так", "sentence": "{Так}, я впевнений."}}}
+{"id": "yeah.interjection.1", "texts": {"uk": {"words": "ага; еге ж", "sentence": "{Ага}, звучить добре."}}}
+{"id": "okay.interjection.1", "texts": {"uk": {"words": "гаразд; добре", "sentence": "{Гаразд}, зробімо це."}}}
+{"id": "okay.interjection.2", "texts": {"uk": {"words": "у порядку; нормально", "sentence": "Ти {у порядку}?"}}}
+{"id": "oh.interjection.1", "texts": {"uk": {"words": "о; ой; ах", "sentence": "{О}, я цього не знав."}}}
+{"id": "just.adverb.1", "texts": {"uk": {"words": "просто; лише", "sentence": "Я {просто} дивлюся."}}}
+{"id": "just.adverb.2", "texts": {"uk": {"words": "щойно; тільки що", "sentence": "Вона {щойно} пішла."}}}
+{"id": "just.adverb.3", "texts": {"uk": {"words": "просто", "sentence": "{Просто} зроби це."}}}
+{"id": "him.pronoun.1", "texts": {"uk": {"words": "його; йому", "sentence": "Скажи {йому}, щоб зачекав."}}}
+{"id": "take.verb.1", "texts": {"uk": {"words": "брати; взяти", "sentence": "{Візьми} парасольку."}}}
+{"id": "take.verb.2", "texts": {"uk": {"words": "тривати; займати", "sentence": "Це {займає} годину."}}}
+{"id": "take.verb.3", "texts": {"uk": {"words": "відвезти; відвозити", "sentence": "Я {відвезу} тебе додому."}}}
+{"id": "people.noun.1", "texts": {"uk": {"words": "люди", "sentence": "Там було так багато {людей}."}}}
+{"id": "into.preposition.1", "texts": {"uk": {"words": "в; у; до", "sentence": "Сідай {у} машину."}}}
+{"id": "year.noun.1", "texts": {"uk": {"words": "рік", "sentence": "Побачимося наступного {року}."}}}
+{"id": "your.determiner.1", "texts": {"uk": {"words": "твій; ваш; свій", "sentence": "Як {тебе} звати?"}}}
+{"id": "good.adjective.1", "texts": {"uk": {"words": "добрий; хороший", "sentence": "Це {гарна} ідея."}}}
+{"id": "good.adjective.2", "texts": {"uk": {"words": "чемний; слухняний", "sentence": "Будь {чемним}!"}}}
+{"id": "good.adjective.3", "texts": {"uk": {"words": "здібний; добрий", "sentence": "Вона {здібна} до математики."}}}
+{"id": "some.determiner.1", "texts": {"uk": {"words": "трохи; якийсь; кілька", "sentence": "Хочеш {трохи} води?"}}}
+{"id": "could.verb.1", "texts": {"uk": {"words": "міг би; могли б", "sentence": "Ти {міг би} мені допомогти?"}}}
+{"id": "could.verb.2", "texts": {"uk": {"words": "міг; вмів", "sentence": "Я {умів} плавати, коли мені було п’ять."}}}
+{"id": "them.pronoun.1", "texts": {"uk": {"words": "їх; їм", "sentence": "Я бачив {їх} учора."}}}
+{"id": "see.verb.1", "texts": {"uk": {"words": "бачити", "sentence": "Ти {бачиш} це?"}}}
+{"id": "see.verb.2", "texts": {"uk": {"words": "розуміти; зрозуміти", "sentence": "{Зрозуміло}."}}}
+{"id": "see.verb.3", "texts": {"uk": {"words": "бачитися; побачитися", "sentence": "{Побачимося} пізніше!"}}}
+{"id": "other.adjective.1", "texts": {"uk": {"words": "інший; решта", "sentence": "Де {інші} діти?"}}}
+{"id": "than.conjunction.1", "texts": {"uk": {"words": "ніж; за", "sentence": "Він вищий {за} мене."}}}
+{"id": "then.adverb.1", "texts": {"uk": {"words": "потім; тоді", "sentence": "Спочатку поїж, {потім} грайся."}}}
+{"id": "then.adverb.2", "texts": {"uk": {"words": "тоді", "sentence": "Я {тоді} був молодий."}}}
+{"id": "then.adverb.3", "texts": {"uk": {"words": "тоді; отже", "sentence": "Ну {тоді}, бувай."}}}
+{"id": "now.adverb.1", "texts": {"uk": {"words": "зараз; тепер", "sentence": "Я {зараз} зайнятий."}}}
+{"id": "look.verb.1", "texts": {"uk": {"words": "дивитися; подивитися", "sentence": "{Подивись} на мене."}}}
+{"id": "look.verb.2", "texts": {"uk": {"words": "виглядати; мати вигляд", "sentence": "Ти {виглядаєш} втомленим."}}}
+{"id": "look.verb.3", "texts": {"uk": {"words": "шукати", "sentence": "Я {шукаю} свої ключі."}}}
+{"id": "only.adverb.1", "texts": {"uk": {"words": "лише; тільки", "sentence": "Це {лише} гра."}}}
+{"id": "come.verb.1", "texts": {"uk": {"words": "прийти; приходити; приїхати", "sentence": "Ти можеш {прийти} завтра?"}}}
+{"id": "come.verb.2", "texts": {"uk": {"words": "походити; бути родом", "sentence": "Звідки ти {родом}?"}}}
+{"id": "think.verb.1", "texts": {"uk": {"words": "думати; вважати", "sentence": "Я {думаю}, ти маєш рацію."}}}
+{"id": "think.verb.2", "texts": {"uk": {"words": "думати; подумати", "sentence": "Дай мені {подумати}."}}}
+{"id": "back.adverb.1", "texts": {"uk": {"words": "назад", "sentence": "Я скоро повернуся {назад}."}}}
+{"id": "well.adverb.1", "texts": {"uk": {"words": "добре", "sentence": "Вона дуже {добре} співає."}}}
+{"id": "well.interjection.1", "texts": {"uk": {"words": "ну", "sentence": "{Ну}, я не знаю."}}}
+{"id": "right.adjective.1", "texts": {"uk": {"words": "правильний", "sentence": "Це {правильна} відповідь."}}}
+{"id": "right.adjective.2", "texts": {"uk": {"words": "правий", "sentence": "Підніми {праву} руку."}}}
+{"id": "right.interjection.1", "texts": {"uk": {"words": "так; правда", "sentence": "Ти прийдеш, {так}?"}}}
+{"id": "want.verb.1", "texts": {"uk": {"words": "хотіти", "sentence": "Що ти {хочеш}?"}}}
+{"id": "here.adverb.1", "texts": {"uk": {"words": "тут; сюди", "sentence": "Іди {сюди}."}}}
+{"id": "here.adverb.2", "texts": {"uk": {"words": "ось; тримай", "sentence": "{Ось}, тримай."}}}
+{"id": "how.adverb.1", "texts": {"uk": {"words": "як", "sentence": "{Як} справи?"}}}
+{"id": "how.adverb.2", "texts": {"uk": {"words": "скільки", "sentence": "{Скільки} це коштує?"}}}
+{"id": "thank.verb.1", "texts": {"uk": {"words": "дякувати; подякувати", "sentence": "{Дякую} тобі дуже."}}}
+{"id": "thanks.interjection.1", "texts": {"uk": {"words": "дякую; спасибі", "sentence": "{Дякую}, що прийшов."}}}
+{"id": "hey.interjection.1", "texts": {"uk": {"words": "привіт; гей", "sentence": "{Привіт}, як справи?"}}}
+{"id": "hey.interjection.2", "texts": {"uk": {"words": "гей; агов", "sentence": "{Гей}! Припини!"}}}
+{"id": "really.adverb.1", "texts": {"uk": {"words": "справді; дійсно", "sentence": "{Справді}? Я не знав."}}}
+{"id": "really.adverb.2", "texts": {"uk": {"words": "дуже; справді", "sentence": "Сьогодні {дуже} холодно."}}}
+{"id": "tell.verb.1", "texts": {"uk": {"words": "сказати; казати; розповісти", "sentence": "{Скажи} мені правду."}}}
+{"id": "tell.verb.2", "texts": {"uk": {"words": "розрізнити; відрізнити", "sentence": "Я не можу їх {розрізнити}."}}}
+{"id": "need.verb.1", "texts": {"uk": {"words": "потребувати; бути потрібним", "sentence": "Мені {потрібна} твоя допомога."}}}
+{"id": "because.conjunction.1", "texts": {"uk": {"words": "бо; тому що; оскільки", "sentence": "Я залишився вдома, {бо} захворів."}}}
+{"id": "sorry.interjection.1", "texts": {"uk": {"words": "вибач; вибачте; перепрошую", "sentence": "{Вибач}, я запізнився."}}}
+{"id": "sorry.interjection.2", "texts": {"uk": {"words": "перепрошую; що", "sentence": "{Перепрошую}? Що ти сказав?"}}}
+{"id": "why.adverb.1", "texts": {"uk": {"words": "чому", "sentence": "{Чому} ти плачеш?"}}}
+{"id": "let.verb.1", "texts": {"uk": {"words": "дозволити; дозволяти", "sentence": "{Дозволь} тобі допомогти."}}}
+{"id": "let.verb.2", "texts": {"uk": {"words": "давай; ходімо", "sentence": "{Ходімо}!"}}}
+{"id": "something.pronoun.1", "texts": {"uk": {"words": "щось", "sentence": "Я хочу тобі {щось} сказати."}}}
+{"id": "mean.verb.1", "texts": {"uk": {"words": "означати; значити", "sentence": "Що {означає} це слово?"}}}
+{"id": "mean.verb.2", "texts": {"uk": {"words": "мати на увазі; казати серйозно", "sentence": "Я {серйозно}."}}}
+{"id": "please.adverb.1", "texts": {"uk": {"words": "будь ласка", "sentence": "Дві кави, {будь ласка}."}}}
+{"id": "man.noun.1", "texts": {"uk": {"words": "чоловік", "sentence": "Хто той {чоловік}?"}}}
+{"id": "man.noun.2", "texts": {"uk": {"words": "друже; чувак", "sentence": "Давай, {друже}!"}}}
+{"id": "woman.noun.1", "texts": {"uk": {"words": "жінка", "sentence": "Вона чудова {жінка}."}}}
+{"id": "day.noun.1", "texts": {"uk": {"words": "день", "sentence": "Гарного {дня}!"}}}
+{"id": "thing.noun.1", "texts": {"uk": {"words": "річ", "sentence": "Збери свої {речі}."}}}
+{"id": "thing.noun.2", "texts": {"uk": {"words": "справа; річ", "sentence": "{Справа} в тому, що я без грошей."}}}
+{"id": "way.noun.1", "texts": {"uk": {"words": "дорога; шлях", "sentence": "Це {дорога} до пляжу?"}}}
+{"id": "way.noun.2", "texts": {"uk": {"words": "спосіб; манера", "sentence": "Мені подобається, {як} ти думаєш."}}}
+{"id": "way.noun.3", "texts": {"uk": {"words": "нізащо; ні в якому разі", "sentence": "{Нізащо}!"}}}
+{"id": "work.verb.1", "texts": {"uk": {"words": "працювати", "sentence": "Я {працюю} в лікарні."}}}
+{"id": "work.verb.2", "texts": {"uk": {"words": "працювати; діяти", "sentence": "Мій телефон не {працює}."}}}
+{"id": "work.noun.1", "texts": {"uk": {"words": "робота", "sentence": "Я ще на {роботі}."}}}
+{"id": "give.verb.1", "texts": {"uk": {"words": "давати; дати", "sentence": "{Дай} мені руку."}}}
+{"id": "find.verb.1", "texts": {"uk": {"words": "знайти; знаходити", "sentence": "Я не можу {знайти} свій телефон."}}}
+{"id": "find.verb.2", "texts": {"uk": {"words": "з’ясувати; дізнатися", "sentence": "Нам треба {з’ясувати} правду."}}}
+{"id": "call.verb.1", "texts": {"uk": {"words": "дзвонити; подзвонити", "sentence": "{Подзвони} мені ввечері."}}}
+{"id": "call.verb.2", "texts": {"uk": {"words": "називати; звати", "sentence": "Усі {називають} його Боб."}}}
+{"id": "try.verb.1", "texts": {"uk": {"words": "спробувати; намагатися", "sentence": "Дай я {спробую}."}}}
+{"id": "try.verb.2", "texts": {"uk": {"words": "скуштувати; спробувати", "sentence": "{Скуштуй} цей торт."}}}
+{"id": "ask.verb.1", "texts": {"uk": {"words": "питати; запитати", "sentence": "Можна тебе дещо {запитати}?"}}}
+{"id": "ask.verb.2", "texts": {"uk": {"words": "просити; попросити", "sentence": "Вона {попросила} допомоги."}}}
+{"id": "feel.verb.1", "texts": {"uk": {"words": "почуватися", "sentence": "Я {почуваюся} набагато краще."}}}
+{"id": "feel.verb.2", "texts": {"uk": {"words": "відчувати; відчути", "sentence": "Я {відчуваю} твоє серце."}}}
+{"id": "leave.verb.1", "texts": {"uk": {"words": "піти; поїхати; відійти", "sentence": "Автобус уже {поїхав}."}}}
+{"id": "leave.verb.2", "texts": {"uk": {"words": "залишити; лишити", "sentence": "Я {залишив} ключі вдома."}}}
+{"id": "leave.verb.3", "texts": {"uk": {"words": "дати спокій; залишити в спокої", "sentence": "{Дай} мені спокій!"}}}
+{"id": "put.verb.1", "texts": {"uk": {"words": "класти; покласти; поставити", "sentence": "{Поклади} це на стіл."}}}
+{"id": "put.verb.2", "texts": {"uk": {"words": "вдягати; вдягти", "sentence": "{Вдягни} пальто."}}}
+{"id": "keep.verb.1", "texts": {"uk": {"words": "залишити собі; зберегти", "sentence": "Можеш {залишити} це собі."}}}
+{"id": "keep.verb.2", "texts": {"uk": {"words": "продовжувати", "sentence": "{Продовжуй}!"}}}
+{"id": "keep.verb.3", "texts": {"uk": {"words": "дотримуватися; виконувати", "sentence": "Я завжди {дотримуюся} своїх обіцянок."}}}
+{"id": "talk.verb.1", "texts": {"uk": {"words": "говорити; розмовляти", "sentence": "Нам треба {поговорити}."}}}
+{"id": "love.verb.1", "texts": {"uk": {"words": "кохати; любити", "sentence": "Я тебе {кохаю}."}}}
+{"id": "love.verb.2", "texts": {"uk": {"words": "обожнювати; любити", "sentence": "Я {обожнюю} піцу."}}}
+{"id": "love.noun.1", "texts": {"uk": {"words": "кохання; любов", "sentence": "Це було {кохання} з першого погляду."}}}
+{"id": "love.noun.2", "texts": {"uk": {"words": "сонечко; любий; люба", "sentence": "Дякую, {сонечко}."}}}
+{"id": "help.verb.1", "texts": {"uk": {"words": "допомагати; допомогти", "sentence": "Ти можеш мені {допомогти}?"}}}
+{"id": "help.noun.1", "texts": {"uk": {"words": "допомога", "sentence": "Дякую за {допомогу}."}}}
+{"id": "wait.verb.1", "texts": {"uk": {"words": "чекати; почекати", "sentence": "{Почекай} на мене!"}}}
+{"id": "stop.verb.1", "texts": {"uk": {"words": "припинити; перестати", "sentence": "{Припини}!"}}}
+{"id": "stop.verb.2", "texts": {"uk": {"words": "зупинитися; зупинятися", "sentence": "Автобус {зупинився}."}}}
+{"id": "happen.verb.1", "texts": {"uk": {"words": "статися; траплятися", "sentence": "Що {сталося}?"}}}
+{"id": "believe.verb.1", "texts": {"uk": {"words": "вірити; повірити", "sentence": "Я не можу в це {повірити}!"}}}
+{"id": "remember.verb.1", "texts": {"uk": {"words": "пам’ятати; згадати", "sentence": "Ти мене {пам’ятаєш}?"}}}
+{"id": "remember.verb.2", "texts": {"uk": {"words": "не забути", "sentence": "{Не забудь} подзвонити мамі."}}}
+{"id": "understand.verb.1", "texts": {"uk": {"words": "розуміти; зрозуміти", "sentence": "Я не {розумію}."}}}
+{"id": "should.verb.1", "texts": {"uk": {"words": "слід; варто; мати б", "sentence": "Тобі {варто} піти до лікаря."}}}
+{"id": "must.verb.1", "texts": {"uk": {"words": "мусити; мабуть", "sentence": "Ти, {мабуть}, втомився."}}}
+{"id": "may.verb.1", "texts": {"uk": {"words": "можна; могти", "sentence": "{Можна} я тут сяду?"}}}
+{"id": "may.verb.2", "texts": {"uk": {"words": "можливо; могти", "sentence": "Пізніше {може} піти дощ."}}}
+{"id": "might.verb.1", "texts": {"uk": {"words": "можливо; може", "sentence": "Я, {можливо}, запізнюся."}}}
+{"id": "very.adverb.1", "texts": {"uk": {"words": "дуже", "sentence": "{Дуже} дякую."}}}
+{"id": "much.determiner.1", "texts": {"uk": {"words": "багато; дуже", "sentence": "У мене не {багато} часу."}}}
+{"id": "many.determiner.1", "texts": {"uk": {"words": "багато; чимало", "sentence": "У мене {багато} друзів."}}}
+{"id": "more.determiner.1", "texts": {"uk": {"words": "більше; ще", "sentence": "Хочеш {ще} кави?"}}}
+{"id": "little.adjective.1", "texts": {"uk": {"words": "маленький; малий", "sentence": "У неї є {маленька} сестричка."}}}
+{"id": "little.adjective.2", "texts": {"uk": {"words": "трохи", "sentence": "Я {трохи} втомився."}}}
+{"id": "big.adjective.1", "texts": {"uk": {"words": "великий", "sentence": "Це {великий} будинок."}}}
+{"id": "great.adjective.1", "texts": {"uk": {"words": "чудовий; класний", "sentence": "Це {чудова} новина!"}}}
+{"id": "great.adjective.2", "texts": {"uk": {"words": "великий; величезний", "sentence": "Це був {великий} успіх."}}}
+{"id": "new.adjective.1", "texts": {"uk": {"words": "новий", "sentence": "Мені потрібен {новий} телефон."}}}
+{"id": "old.adjective.1", "texts": {"uk": {"words": "старий", "sentence": "Ця машина дуже {стара}."}}}
+{"id": "old.adjective.2", "texts": {"uk": {"words": "років; вік", "sentence": "Скільки тобі {років}?"}}}
+{"id": "last.adjective.1", "texts": {"uk": {"words": "останній", "sentence": "Це твій {останній} шанс."}}}
+{"id": "last.adjective.2", "texts": {"uk": {"words": "минулий", "sentence": "Я бачив її {минулого} тижня."}}}
+{"id": "first.adjective.1", "texts": {"uk": {"words": "перший", "sentence": "Це моя {перша} машина."}}}
+{"id": "long.adjective.1", "texts": {"uk": {"words": "довгий", "sentence": "Це {довга} історія."}}}
+{"id": "long.adjective.2", "texts": {"uk": {"words": "довго; давно", "sentence": "Я тебе {давно} не бачив."}}}
+{"id": "sure.adjective.1", "texts": {"uk": {"words": "впевнений; певний", "sentence": "Ти {впевнений}?"}}}
+{"id": "sure.adjective.2", "texts": {"uk": {"words": "звісно; звичайно", "sentence": "{Звісно}, без проблем."}}}
+{"id": "nice.adjective.1", "texts": {"uk": {"words": "гарний; чудовий", "sentence": "Який {гарний} день!"}}}
+{"id": "nice.adjective.2", "texts": {"uk": {"words": "приємний; милий", "sentence": "Вона дуже {приємна}."}}}
+{"id": "bad.adjective.1", "texts": {"uk": {"words": "поганий", "sentence": "У мене {погані} новини."}}}
+{"id": "bad.adjective.2", "texts": {"uk": {"words": "сильний", "sentence": "У мене {сильний} головний біль."}}}
+{"id": "fine.adjective.1", "texts": {"uk": {"words": "нормально; добре", "sentence": "У мене все {добре}, дякую."}}}
+{"id": "fine.adjective.2", "texts": {"uk": {"words": "гаразд; добре", "sentence": "{Гаразд}, роби що хочеш."}}}
+{"id": "happy.adjective.1", "texts": {"uk": {"words": "щасливий; радий", "sentence": "Я так за тебе {рада}."}}}
+{"id": "happy.adjective.2", "texts": {"uk": {"words": "з днем народження; щасливий", "sentence": "{З днем народження}!"}}}
+{"id": "home.noun.1", "texts": {"uk": {"words": "додому; дім; вдома", "sentence": "Ходімо {додому}."}}}
+{"id": "house.noun.1", "texts": {"uk": {"words": "будинок; дім", "sentence": "Вони живуть у великому {будинку}."}}}
+{"id": "friend.noun.1", "texts": {"uk": {"words": "друг; подруга; товариш", "sentence": "Він мій найкращий {друг}."}}}
+{"id": "guy.noun.1", "texts": {"uk": {"words": "хлопець; чоловік", "sentence": "Він гарний {хлопець}."}}}
+{"id": "guy.noun.2", "texts": {"uk": {"words": "народ; хлопці", "sentence": "Привіт, {народ}!"}}}
+{"id": "kid.noun.1", "texts": {"uk": {"words": "дитина", "sentence": "У них двоє {дітей}."}}}
+{"id": "mom.noun.1", "texts": {"uk": {"words": "мама; мати", "sentence": "Я спитаю {маму}."}}}
+{"id": "dad.noun.1", "texts": {"uk": {"words": "тато; батько", "sentence": "Мій {тато} — учитель."}}}
+{"id": "money.noun.1", "texts": {"uk": {"words": "гроші", "sentence": "У мене зовсім немає {грошей}."}}}
+{"id": "night.noun.1", "texts": {"uk": {"words": "ніч", "sentence": "На добраніч!"}}}
+{"id": "night.noun.2", "texts": {"uk": {"words": "вечір", "sentence": "Що ти робиш завтра {ввечері}?"}}}
+{"id": "life.noun.1", "texts": {"uk": {"words": "життя", "sentence": "Ти врятував мені {життя}."}}}
+{"id": "world.noun.1", "texts": {"uk": {"words": "світ", "sentence": "Я хочу подорожувати {світом}."}}}
+{"id": "car.noun.1", "texts": {"uk": {"words": "машина; автомобіль", "sentence": "Сідай у {машину}."}}}
+{"id": "school.noun.1", "texts": {"uk": {"words": "школа", "sentence": "Діти в {школі}."}}}
+{"id": "name.noun.1", "texts": {"uk": {"words": "ім’я", "sentence": "Як твоє {ім’я}?"}}}
+{"id": "problem.noun.1", "texts": {"uk": {"words": "проблема", "sentence": "У чому {проблема}?"}}}
+{"id": "problem.noun.2", "texts": {"uk": {"words": "нема за що; без проблем", "sentence": "{Без проблем}."}}}
+{"id": "idea.noun.1", "texts": {"uk": {"words": "ідея", "sentence": "Це чудова {ідея}!"}}}
+{"id": "idea.noun.2", "texts": {"uk": {"words": "уявлення", "sentence": "Я не маю {уявлення}."}}}
+{"id": "minute.noun.1", "texts": {"uk": {"words": "хвилина", "sentence": "Я буду там за п’ять {хвилин}."}}}
+{"id": "minute.noun.2", "texts": {"uk": {"words": "хвилинка; момент", "sentence": "Зачекай {хвилинку}."}}}
+{"id": "hour.noun.1", "texts": {"uk": {"words": "година", "sentence": "Я чекав {годину}."}}}
+{"id": "week.noun.1", "texts": {"uk": {"words": "тиждень", "sentence": "Побачимося наступного {тижня}."}}}
+{"id": "today.adverb.1", "texts": {"uk": {"words": "сьогодні", "sentence": "Що ти робиш {сьогодні}?"}}}
+{"id": "tonight.adverb.1", "texts": {"uk": {"words": "сьогодні ввечері; цього вечора", "sentence": "Ти вільний {сьогодні ввечері}?"}}}
+{"id": "tomorrow.adverb.1", "texts": {"uk": {"words": "завтра", "sentence": "Побачимося {завтра}."}}}
+{"id": "yesterday.adverb.1", "texts": {"uk": {"words": "вчора", "sentence": "Я бачив його {вчора}."}}}
+{"id": "never.adverb.1", "texts": {"uk": {"words": "ніколи", "sentence": "Я {ніколи} такого не казав."}}}
+{"id": "always.adverb.1", "texts": {"uk": {"words": "завжди", "sentence": "Ти {завжди} запізнюєшся."}}}
+{"id": "again.adverb.1", "texts": {"uk": {"words": "знову; ще раз", "sentence": "Скажи це {ще раз}."}}}
+{"id": "still.adverb.1", "texts": {"uk": {"words": "досі; ще; все ще", "sentence": "Ти {досі} тут?"}}}
+{"id": "still.adverb.2", "texts": {"uk": {"words": "все одно; проте", "sentence": "Це дорого, але я {все одно} цього хочу."}}}
+{"id": "maybe.adverb.1", "texts": {"uk": {"words": "можливо; може", "sentence": "{Можливо}, наступного разу."}}}
+{"id": "already.adverb.1", "texts": {"uk": {"words": "вже", "sentence": "Я {вже} поїв."}}}
+{"id": "too.adverb.1", "texts": {"uk": {"words": "теж; також", "sentence": "Я {теж} тебе кохаю."}}}
+{"id": "too.adverb.2", "texts": {"uk": {"words": "занадто; надто", "sentence": "Тут {занадто} спекотно."}}}
+{"id": "also.adverb.1", "texts": {"uk": {"words": "також; теж", "sentence": "Вона {також} розмовляє французькою."}}}
+{"id": "even.adverb.1", "texts": {"uk": {"words": "навіть", "sentence": "Він {навіть} не попрощався."}}}
+{"id": "even.adverb.2", "texts": {"uk": {"words": "ще", "sentence": "Це {ще} краще."}}}
+{"id": "ever.adverb.1", "texts": {"uk": {"words": "коли-небудь; колись", "sentence": "Ти {колись} був у Парижі?"}}}
+{"id": "ever.adverb.2", "texts": {"uk": {"words": "у житті; за всі часи", "sentence": "Це найкращий день {у житті}!"}}}
+{"id": "away.adverb.1", "texts": {"uk": {"words": "геть", "sentence": "Іди {геть}!"}}}
+{"id": "away.adverb.2", "texts": {"uk": {"words": "звідси; далеко", "sentence": "Це за десять миль {звідси}."}}}
+{"id": "down.adverb.1", "texts": {"uk": {"words": "вниз; донизу", "sentence": "Подивись {униз}."}}}
+{"id": "off.adverb.1", "texts": {"uk": {"words": "вимкнути; вимкнений", "sentence": "{Вимкни} телевізор."}}}
+{"id": "off.adverb.2", "texts": {"uk": {"words": "з; із", "sentence": "Виходь {із} поїзда тут."}}}
+{"id": "off.adverb.3", "texts": {"uk": {"words": "вихідний", "sentence": "Завтра в мене {вихідний}."}}}
+{"id": "over.preposition.1", "texts": {"uk": {"words": "через; над", "sentence": "Він перестрибнув {через} паркан."}}}
+{"id": "over.preposition.2", "texts": {"uk": {"words": "понад; більше ніж", "sentence": "Це коштує {понад} сто доларів."}}}
+{"id": "over.preposition.3", "texts": {"uk": {"words": "скінчитися; кінець", "sentence": "Усе {скінчилося}."}}}
+{"id": "after.preposition.1", "texts": {"uk": {"words": "після", "sentence": "Зустріньмося {після} роботи."}}}
+{"id": "before.preposition.1", "texts": {"uk": {"words": "перед; до", "sentence": "Помий руки {перед} вечерею."}}}
+{"id": "before.preposition.2", "texts": {"uk": {"words": "раніше; до цього", "sentence": "Я {раніше} вже бачив цей фільм."}}}
+{"id": "around.adverb.1", "texts": {"uk": {"words": "навколо; довкола", "sentence": "Озирнися {навколо}."}}}
+{"id": "around.adverb.2", "texts": {"uk": {"words": "близько; приблизно", "sentence": "Побачимося {близько} шостої."}}}
+{"id": "everything.pronoun.1", "texts": {"uk": {"words": "все; усе", "sentence": "{Усе} гаразд."}}}
+{"id": "nothing.pronoun.1", "texts": {"uk": {"words": "ніщо; нічого", "sentence": "{Нічого} не сталося."}}}
+{"id": "anything.pronoun.1", "texts": {"uk": {"words": "щось; що-небудь", "sentence": "Тобі {щось} потрібно?"}}}
+{"id": "anything.pronoun.2", "texts": {"uk": {"words": "будь-що; що завгодно", "sentence": "Я зроблю для тебе {що завгодно}."}}}
+{"id": "someone.pronoun.1", "texts": {"uk": {"words": "хтось", "sentence": "{Хтось} стоїть біля дверей."}}}
+{"id": "everyone.pronoun.1", "texts": {"uk": {"words": "всі; кожен", "sentence": "{Усі} на тебе чекають."}}}
+{"id": "where.adverb.1", "texts": {"uk": {"words": "де; куди", "sentence": "{Куди} ти йдеш?"}}}
+{"id": "which.pronoun.1", "texts": {"uk": {"words": "який; котрий", "sentence": "{Який} ти хочеш?"}}}
+{"id": "our.determiner.1", "texts": {"uk": {"words": "наш; свій", "sentence": "Це {наша} нова квартира."}}}
+{"id": "us.pronoun.1", "texts": {"uk": {"words": "нас; нам", "sentence": "Ходи з {нами}."}}}
+{"id": "two.numeral.1", "texts": {"uk": {"words": "два; дві", "sentence": "У мене {два} брати."}}}
+{"id": "hello.interjection.1", "texts": {"uk": {"words": "привіт; добрий день; вітаю", "sentence": "{Добрий день}, приємно познайомитися."}}}
+{"id": "hello.interjection.2", "texts": {"uk": {"words": "алло", "sentence": "{Алло}? Хто це?"}}}
+{"id": "bye.interjection.1", "texts": {"uk": {"words": "бувай; па; до побачення", "sentence": "{Бувай}, до завтра!"}}}
+{"id": "start.verb.1", "texts": {"uk": {"words": "починатися; початися", "sentence": "Фільм {починається} о дев’ятій."}}}
+{"id": "start.verb.2", "texts": {"uk": {"words": "заводитися; завестися", "sentence": "Машина не {заводиться}."}}}
+{"id": "play.verb.1", "texts": {"uk": {"words": "гратися; бавитися", "sentence": "Діти {граються} надворі."}}}
+{"id": "play.verb.2", "texts": {"uk": {"words": "грати", "sentence": "Ти {граєш} на гітарі?"}}}
+{"id": "run.verb.1", "texts": {"uk": {"words": "бігти; тікати", "sentence": "{Тікай}! Він іде!"}}}
+{"id": "run.verb.2", "texts": {"uk": {"words": "керувати; вести", "sentence": "Вона {керує} невеликою кав’ярнею."}}}
+{"id": "run.verb.3", "texts": {"uk": {"words": "ходити; курсувати", "sentence": "Автобуси {ходять} кожні десять хвилин."}}}
+{"id": "live.verb.1", "texts": {"uk": {"words": "жити; мешкати", "sentence": "Де ти {живеш}?"}}}
+{"id": "live.verb.2", "texts": {"uk": {"words": "жити", "sentence": "Я хочу {жити} вічно."}}}
+{"id": "move.verb.1", "texts": {"uk": {"words": "рухатися; ворухнутися", "sentence": "Не {рухайся}!"}}}
+{"id": "move.verb.2", "texts": {"uk": {"words": "переїжджати; переїхати", "sentence": "Торік ми {переїхали} до Праги."}}}
+{"id": "turn.verb.1", "texts": {"uk": {"words": "повертати; повернути", "sentence": "На розі {поверни} ліворуч."}}}
+{"id": "turn.verb.2", "texts": {"uk": {"words": "вмикати; увімкнути", "sentence": "{Увімкни} світло."}}}
+{"id": "turn.verb.3", "texts": {"uk": {"words": "виповнитися; ставати", "sentence": "Їй {виповнилося} тридцять."}}}
+{"id": "bring.verb.1", "texts": {"uk": {"words": "принести; приносити", "sentence": "{Принеси} мені склянку води."}}}
+{"id": "buy.verb.1", "texts": {"uk": {"words": "купити; купувати", "sentence": "Я {купив} нову куртку."}}}
+{"id": "pay.verb.1", "texts": {"uk": {"words": "платити; заплатити", "sentence": "Можна {заплатити} карткою?"}}}
+{"id": "pay.verb.2", "texts": {"uk": {"words": "звертати увагу", "sentence": "{Зверни} увагу!"}}}
+{"id": "eat.verb.1", "texts": {"uk": {"words": "їсти; з’їсти", "sentence": "Давай {з’їмо} щось."}}}
+{"id": "drink.verb.1", "texts": {"uk": {"words": "пити; випити", "sentence": "Тобі варто {пити} більше води."}}}
+{"id": "sleep.verb.1", "texts": {"uk": {"words": "спати", "sentence": "Я не міг {спати} минулої ночі."}}}
+{"id": "read.verb.1", "texts": {"uk": {"words": "читати; прочитати", "sentence": "Я {читаю} гарну книжку."}}}
+{"id": "write.verb.1", "texts": {"uk": {"words": "писати; написати", "sentence": "{Напиши} тут своє ім’я."}}}
+{"id": "open.verb.1", "texts": {"uk": {"words": "відчиняти; відчинити; відкрити", "sentence": "Можеш {відчинити} вікно?"}}}
+{"id": "close.verb.1", "texts": {"uk": {"words": "заплющувати; заплющити; зачинити", "sentence": "{Заплющ} очі."}}}
+{"id": "show.verb.1", "texts": {"uk": {"words": "показувати; показати", "sentence": "{Покажи} мені свої фото."}}}
+{"id": "hear.verb.1", "texts": {"uk": {"words": "чути; почути", "sentence": "Ти мене {чуєш}?"}}}
+{"id": "hear.verb.2", "texts": {"uk": {"words": "чути; почути; дізнатися", "sentence": "Ти {чув} новину?"}}}
+{"id": "listen.verb.1", "texts": {"uk": {"words": "слухати; послухати", "sentence": "{Послухай} мене!"}}}
+{"id": "watch.verb.1", "texts": {"uk": {"words": "дивитися; переглядати", "sentence": "Давай {подивимося} фільм."}}}
+{"id": "watch.verb.2", "texts": {"uk": {"words": "обережно; стерегтися", "sentence": "{Обережно}!"}}}
+{"id": "meet.verb.1", "texts": {"uk": {"words": "зустрічатися; зустрітися", "sentence": "{Зустріньмося} на вокзалі."}}}
+{"id": "meet.verb.2", "texts": {"uk": {"words": "знайомитися; познайомитися", "sentence": "Приємно {познайомитися}."}}}
+{"id": "send.verb.1", "texts": {"uk": {"words": "надсилати; надіслати; послати", "sentence": "{Надішли} мені повідомлення."}}}
+{"id": "sit.verb.1", "texts": {"uk": {"words": "сидіти; сідати; сісти", "sentence": "{Сідайте}, будь ласка."}}}
+{"id": "stand.verb.1", "texts": {"uk": {"words": "стояти; встати", "sentence": "Будь ласка, {встаньте}."}}}
+{"id": "stand.verb.2", "texts": {"uk": {"words": "терпіти; виносити", "sentence": "Я його не {терплю}."}}}
+{"id": "walk.verb.1", "texts": {"uk": {"words": "ходити пішки; ходити", "sentence": "Я щодня {ходжу} на роботу пішки."}}}
+{"id": "walk.verb.2", "texts": {"uk": {"words": "вигулювати; вигуляти", "sentence": "Мені треба {вигуляти} собаку."}}}
+{"id": "drive.verb.1", "texts": {"uk": {"words": "водити; керувати", "sentence": "Ти вмієш {водити}?"}}}
+{"id": "drive.verb.2", "texts": {"uk": {"words": "відвезти; підвезти", "sentence": "Я {відвезу} тебе додому."}}}
+{"id": "change.verb.1", "texts": {"uk": {"words": "змінюватися; змінитися", "sentence": "Ти зовсім не {змінився}."}}}
+{"id": "change.verb.2", "texts": {"uk": {"words": "перевдягатися; перевдягнутися", "sentence": "Дай мені хвилинку {перевдягнутися}."}}}
+{"id": "use.verb.1", "texts": {"uk": {"words": "користуватися; використовувати", "sentence": "Можна {скористатися} твоїм телефоном?"}}}
+{"id": "use.verb.2", "texts": {"uk": {"words": "раніше; колись", "sentence": "{Раніше} я тут жив."}}}
+{"id": "learn.verb.1", "texts": {"uk": {"words": "вчити; вчитися; вивчати", "sentence": "Я {вчу} англійську."}}}
+{"id": "lose.verb.1", "texts": {"uk": {"words": "губити; загубити; втратити", "sentence": "Я {загубив} гаманець."}}}
+{"id": "lose.verb.2", "texts": {"uk": {"words": "програвати; програти", "sentence": "Ми {програли} гру."}}}
+{"id": "win.verb.1", "texts": {"uk": {"words": "вигравати; виграти; перемогти", "sentence": "Хто {виграв}?"}}}
+{"id": "kill.verb.1", "texts": {"uk": {"words": "вбивати; вбити", "sentence": "Він {убив} павука."}}}
+{"id": "kill.verb.2", "texts": {"uk": {"words": "вбити", "sentence": "Мама мене {уб’є}."}}}
+{"id": "die.verb.1", "texts": {"uk": {"words": "помирати; померти", "sentence": "Його дідусь {помер} торік."}}}
+{"id": "die.verb.2", "texts": {"uk": {"words": "вмирати; дуже хотіти", "sentence": "Я {вмираю} від бажання це побачити."}}}
+{"id": "fall.verb.1", "texts": {"uk": {"words": "падати; впасти", "sentence": "Обережно, не {впади}."}}}
+{"id": "fall.verb.2", "texts": {"uk": {"words": "закохатися; закохуватися", "sentence": "Я {закохався} в неї."}}}
+{"id": "hold.verb.1", "texts": {"uk": {"words": "тримати; потримати", "sentence": "Можеш {потримати} мою сумку?"}}}
+{"id": "hold.verb.2", "texts": {"uk": {"words": "зачекати; почекати", "sentence": "{Зачекай} секунду."}}}
+{"id": "forget.verb.1", "texts": {"uk": {"words": "забувати; забути", "sentence": "Не {забудь} ключі."}}}
+{"id": "hope.verb.1", "texts": {"uk": {"words": "сподіватися", "sentence": "Я {сподіваюся}, що ти маєш рацію."}}}
+{"id": "wish.verb.1", "texts": {"uk": {"words": "шкода; хотілося б", "sentence": "{Шкода}, що тебе тут немає."}}}
+{"id": "wish.verb.2", "texts": {"uk": {"words": "бажати; побажати", "sentence": "{Побажай} мені удачі!"}}}
+{"id": "worry.verb.1", "texts": {"uk": {"words": "хвилюватися; переживати", "sentence": "Не {хвилюйся}, зі мною все буде добре."}}}
+{"id": "care.verb.1", "texts": {"uk": {"words": "цікавити; бути байдуже", "sentence": "Мені {байдуже}."}}}
+{"id": "care.verb.2", "texts": {"uk": {"words": "доглядати; піклуватися", "sentence": "Хто {доглядатиме} собаку?"}}}
+{"id": "miss.verb.1", "texts": {"uk": {"words": "сумувати; скучати", "sentence": "Я за тобою {сумую}."}}}
+{"id": "miss.verb.2", "texts": {"uk": {"words": "спізнитися; пропустити", "sentence": "Ми {спізнилися} на потяг."}}}
+{"id": "miss.verb.3", "texts": {"uk": {"words": "схибити; не влучити", "sentence": "Він не {влучив} у м’яч."}}}
+{"id": "hate.verb.1", "texts": {"uk": {"words": "ненавидіти; не терпіти", "sentence": "Я {ненавиджу} понеділки."}}}
+{"id": "laugh.verb.1", "texts": {"uk": {"words": "сміятися", "sentence": "Чому ти {смієшся}?"}}}
+{"id": "cry.verb.1", "texts": {"uk": {"words": "плакати", "sentence": "Не {плач}."}}}
+{"id": "cry.verb.2", "texts": {"uk": {"words": "кричати; гукати", "sentence": "Вона {кликала} на допомогу."}}}
+{"id": "sell.verb.1", "texts": {"uk": {"words": "продавати; продати", "sentence": "Ми {продали} нашу стару машину."}}}
+{"id": "finish.verb.1", "texts": {"uk": {"words": "закінчувати; закінчити; доробити", "sentence": "Ти {доробив} домашнє завдання?"}}}
+{"id": "decide.verb.1", "texts": {"uk": {"words": "вирішувати; вирішити", "sentence": "Я не можу {вирішити}."}}}
+{"id": "follow.verb.1", "texts": {"uk": {"words": "йти за; слідувати", "sentence": "{Іди} за мною."}}}
+{"id": "follow.verb.2", "texts": {"uk": {"words": "стежити; підписатися", "sentence": "Я {стежу} за нею в Інстаграмі."}}}
+{"id": "kiss.verb.1", "texts": {"uk": {"words": "цілувати; поцілувати", "sentence": "Він її {поцілував}."}}}
+{"id": "fight.verb.1", "texts": {"uk": {"words": "битися; боротися", "sentence": "Припиніть {битися}!"}}}
+{"id": "fight.verb.2", "texts": {"uk": {"words": "сваритися; посваритися", "sentence": "Мої батьки постійно {сваряться}."}}}
+{"id": "hurt.verb.1", "texts": {"uk": {"words": "боліти", "sentence": "У мене {болить} спина."}}}
+{"id": "hurt.verb.2", "texts": {"uk": {"words": "кривдити; скривдити; поранити", "sentence": "Я не хотів тебе {скривдити}."}}}
+{"id": "break.verb.1", "texts": {"uk": {"words": "розбивати; розбити; зламати", "sentence": "Хто {розбив} вікно?"}}}
+{"id": "break.verb.2", "texts": {"uk": {"words": "розійтися; розлучитися", "sentence": "Вони {розійшлися} минулого місяця."}}}
+{"id": "cut.verb.1", "texts": {"uk": {"words": "різати; нарізати; стригти", "sentence": "{Наріж} хліба, будь ласка."}}}
+{"id": "cut.verb.2", "texts": {"uk": {"words": "порізатися; порізати", "sentence": "Я {порізав} палець."}}}
+{"id": "fix.verb.1", "texts": {"uk": {"words": "лагодити; полагодити", "sentence": "Можеш {полагодити} мій велосипед?"}}}
+{"id": "clean.verb.1", "texts": {"uk": {"words": "прибирати; прибрати; чистити", "sentence": "{Прибери} у своїй кімнаті!"}}}
+{"id": "cook.verb.1", "texts": {"uk": {"words": "готувати; приготувати; варити", "sentence": "Я {приготую} вечерю сьогодні."}}}
+{"id": "wear.verb.1", "texts": {"uk": {"words": "носити; вдягати", "sentence": "Що мені {вдягнути}?"}}}
+{"id": "wake.verb.1", "texts": {"uk": {"words": "прокидатися; прокинутися; будити", "sentence": "{Прокидайся}! Уже пізно."}}}
+{"id": "seem.verb.1", "texts": {"uk": {"words": "здаватися; виглядати", "sentence": "Ти {здаєшся} щасливим."}}}
+{"id": "become.verb.1", "texts": {"uk": {"words": "ставати; стати", "sentence": "Вона {стала} відомою співачкою."}}}
+{"id": "guess.verb.1", "texts": {"uk": {"words": "вгадувати; вгадати", "sentence": "{Вгадай}, хто тут!"}}}
+{"id": "guess.verb.2", "texts": {"uk": {"words": "мабуть; напевно", "sentence": "{Мабуть}, ти маєш рацію."}}}
+{"id": "speak.verb.1", "texts": {"uk": {"words": "розмовляти; говорити", "sentence": "Ти {розмовляєш} англійською?"}}}
+{"id": "speak.verb.2", "texts": {"uk": {"words": "поговорити; говорити", "sentence": "Можна {поговорити} з керівником?"}}}
+{"id": "answer.verb.1", "texts": {"uk": {"words": "відповідати; відповісти", "sentence": "{Відповідай} на запитання."}}}
+{"id": "answer.verb.2", "texts": {"uk": {"words": "відповідати; відповісти; взяти слухавку", "sentence": "Чому ти не {відповів} на дзвінок?"}}}
+{"id": "explain.verb.1", "texts": {"uk": {"words": "пояснювати; пояснити", "sentence": "Дай я {поясню}."}}}
+{"id": "agree.verb.1", "texts": {"uk": {"words": "погоджуватися; погодитися", "sentence": "Я з тобою {погоджуюся}."}}}
+{"id": "marry.verb.1", "texts": {"uk": {"words": "одружитися; вийти заміж", "sentence": "Ти {вийдеш} за мене?"}}}
+{"id": "visit.verb.1", "texts": {"uk": {"words": "відвідувати; відвідати", "sentence": "Ми {відвідали} бабусю."}}}
+{"id": "travel.verb.1", "texts": {"uk": {"words": "подорожувати", "sentence": "Я люблю {подорожувати}."}}}
+{"id": "enjoy.verb.1", "texts": {"uk": {"words": "насолоджуватися", "sentence": "Смачного!"}}}
+{"id": "enjoy.verb.2", "texts": {"uk": {"words": "любити; подобатися", "sentence": "Я {люблю} готувати."}}}
+{"id": "check.verb.1", "texts": {"uk": {"words": "перевіряти; перевірити", "sentence": "Дай я {перевірю}."}}}
+{"id": "check.verb.2", "texts": {"uk": {"words": "глянути; подивитися", "sentence": "{Глянь} на це!"}}}
+{"id": "catch.verb.1", "texts": {"uk": {"words": "ловити; спіймати", "sentence": "{Лови} м’яч!"}}}
+{"id": "catch.verb.2", "texts": {"uk": {"words": "встигнути; встигати", "sentence": "Мені треба {встигнути} на останній автобус."}}}
+{"id": "catch.verb.3", "texts": {"uk": {"words": "підхопити; застудитися", "sentence": "Здається, я {підхопив} застуду."}}}
+{"id": "sing.verb.1", "texts": {"uk": {"words": "співати", "sentence": "Вона гарно {співає}."}}}
+{"id": "dance.verb.1", "texts": {"uk": {"words": "танцювати", "sentence": "Хочеш {потанцювати}?"}}}
+{"id": "swim.verb.1", "texts": {"uk": {"words": "плавати", "sentence": "{Поплаваймо} в озері."}}}
+{"id": "smile.verb.1", "texts": {"uk": {"words": "усміхатися; усміхнутися", "sentence": "{Усміхніться} для фото!"}}}
+{"id": "sound.verb.1", "texts": {"uk": {"words": "звучати", "sentence": "Це {звучить} чудово!"}}}
+{"id": "save.verb.1", "texts": {"uk": {"words": "рятувати; врятувати", "sentence": "Ти {врятував} мені життя!"}}}
+{"id": "save.verb.2", "texts": {"uk": {"words": "заощаджувати; збирати гроші", "sentence": "Я {збираю} на нову машину."}}}
+{"id": "save.verb.3", "texts": {"uk": {"words": "зберігати; зберегти", "sentence": "Не забудь {зберегти} файл."}}}
+{"id": "spend.verb.1", "texts": {"uk": {"words": "витрачати; витратити", "sentence": "Я {витратив} усі свої гроші."}}}
+{"id": "spend.verb.2", "texts": {"uk": {"words": "проводити; провести", "sentence": "Ми {провели} вихідні вдома."}}}
+{"id": "promise.verb.1", "texts": {"uk": {"words": "обіцяти; пообіцяти", "sentence": "{Обіцяю}, я там буду."}}}
+{"id": "lie.verb.1", "texts": {"uk": {"words": "брехати; збрехати", "sentence": "Не {бреши} мені."}}}
+{"id": "lie.verb.2", "texts": {"uk": {"words": "лягти; лежати", "sentence": "Мені треба {лягти}."}}}
+{"id": "order.verb.1", "texts": {"uk": {"words": "замовляти; замовити", "sentence": "Ви готові {замовити}?"}}}
+{"id": "order.verb.2", "texts": {"uk": {"words": "наказувати; наказати", "sentence": "Він {наказав} нам піти."}}}
+{"id": "share.verb.1", "texts": {"uk": {"words": "ділитися; поділитися", "sentence": "Давай {поділимо} піцу."}}}
+{"id": "grow.verb.1", "texts": {"uk": {"words": "рости; вирости", "sentence": "Де ти {виріс}?"}}}
+{"id": "grow.verb.2", "texts": {"uk": {"words": "вирощувати; виростити", "sentence": "Ми {вирощуємо} помідори в саду."}}}
+{"id": "choose.verb.1", "texts": {"uk": {"words": "вибирати; вибрати; обрати", "sentence": "{Вибери} один."}}}
+{"id": "build.verb.1", "texts": {"uk": {"words": "будувати; збудувати", "sentence": "Вони {збудували} новий міст."}}}
+{"id": "carry.verb.1", "texts": {"uk": {"words": "нести; носити", "sentence": "Дай я {понесу} це за тебе."}}}
+{"id": "teach.verb.1", "texts": {"uk": {"words": "вчити; навчити", "sentence": "Можеш {навчити} мене водити?"}}}
+{"id": "family.noun.1", "texts": {"uk": {"words": "родина; сім’я", "sentence": "У мене велика {родина}."}}}
+{"id": "mother.noun.1", "texts": {"uk": {"words": "мати; мама", "sentence": "Її {мама} — лікарка."}}}
+{"id": "father.noun.1", "texts": {"uk": {"words": "батько; тато", "sentence": "Мій {батько} працює вночі."}}}
+{"id": "brother.noun.1", "texts": {"uk": {"words": "брат", "sentence": "Моєму молодшому {братові} десять."}}}
+{"id": "sister.noun.1", "texts": {"uk": {"words": "сестра", "sentence": "У тебе є {сестра}?"}}}
+{"id": "son.noun.1", "texts": {"uk": {"words": "син", "sentence": "Їхній {син} — студент."}}}
+{"id": "daughter.noun.1", "texts": {"uk": {"words": "донька; дочка", "sentence": "Це моя {донька} Емма."}}}
+{"id": "wife.noun.1", "texts": {"uk": {"words": "дружина", "sentence": "Я спитаю {дружину}."}}}
+{"id": "husband.noun.1", "texts": {"uk": {"words": "чоловік", "sentence": "Її {чоловік} дуже приємний."}}}
+{"id": "boyfriend.noun.1", "texts": {"uk": {"words": "хлопець", "sentence": "Він твій {хлопець}?"}}}
+{"id": "girlfriend.noun.1", "texts": {"uk": {"words": "дівчина", "sentence": "У нього нова {дівчина}."}}}
+{"id": "baby.noun.1", "texts": {"uk": {"words": "немовля; дитина", "sentence": "У них буде {дитина}."}}}
+{"id": "baby.noun.2", "texts": {"uk": {"words": "сонечко; люба; любий", "sentence": "Іди сюди, {сонечко}."}}}
+{"id": "boy.noun.1", "texts": {"uk": {"words": "хлопчик; хлопець", "sentence": "Він хороший {хлопчик}."}}}
+{"id": "girl.noun.1", "texts": {"uk": {"words": "дівчина; дівчинка", "sentence": "Хто ця {дівчина}?"}}}
+{"id": "parent.noun.1", "texts": {"uk": {"words": "батьки; батько; мати", "sentence": "Мої {батьки} живуть у Брно."}}}
+{"id": "child.noun.1", "texts": {"uk": {"words": "дитина", "sentence": "{Діти} сплять."}}}
+{"id": "person.noun.1", "texts": {"uk": {"words": "людина; особа", "sentence": "Вона дуже добра {людина}."}}}
+{"id": "head.noun.1", "texts": {"uk": {"words": "голова", "sentence": "У мене болить {голова}."}}}
+{"id": "head.noun.2", "texts": {"uk": {"words": "керівник; голова", "sentence": "Вона {керівниця} відділу."}}}
+{"id": "hand.noun.1", "texts": {"uk": {"words": "рука; долоня", "sentence": "Помий {руки}."}}}
+{"id": "hand.noun.2", "texts": {"uk": {"words": "допомога", "sentence": "Можеш мені {допомогти}?"}}}
+{"id": "eye.noun.1", "texts": {"uk": {"words": "око", "sentence": "У неї блакитні {очі}."}}}
+{"id": "face.noun.1", "texts": {"uk": {"words": "обличчя", "sentence": "Умий {обличчя}."}}}
+{"id": "heart.noun.1", "texts": {"uk": {"words": "серце", "sentence": "Ти розбив мені {серце}."}}}
+{"id": "hair.noun.1", "texts": {"uk": {"words": "волосся", "sentence": "Мені подобається твоє {волосся}."}}}
+{"id": "body.noun.1", "texts": {"uk": {"words": "тіло", "sentence": "У мене болить усе {тіло}."}}}
+{"id": "body.noun.2", "texts": {"uk": {"words": "тіло; труп", "sentence": "Поліція знайшла {тіло}."}}}
+{"id": "foot.noun.1", "texts": {"uk": {"words": "нога; стопа", "sentence": "У мене змерзли {ноги}."}}}
+{"id": "foot.noun.2", "texts": {"uk": {"words": "пішки", "sentence": "Ми пішли {пішки}."}}}
+{"id": "leg.noun.1", "texts": {"uk": {"words": "нога", "sentence": "Він зламав {ногу}."}}}
+{"id": "arm.noun.1", "texts": {"uk": {"words": "рука", "sentence": "Вона взяла мене під {руку}."}}}
+{"id": "back.noun.1", "texts": {"uk": {"words": "спина", "sentence": "У мене болить {спина}."}}}
+{"id": "back.noun.2", "texts": {"uk": {"words": "задня частина; ззаду", "sentence": "Сідай {ззаду}."}}}
+{"id": "mouth.noun.1", "texts": {"uk": {"words": "рот", "sentence": "Відкрий {рот}."}}}
+{"id": "door.noun.1", "texts": {"uk": {"words": "двері", "sentence": "Зачини, будь ласка, {двері}."}}}
+{"id": "room.noun.1", "texts": {"uk": {"words": "кімната", "sentence": "Іди до своєї {кімнати}!"}}}
+{"id": "room.noun.2", "texts": {"uk": {"words": "місце", "sentence": "У машині немає {місця}."}}}
+{"id": "bed.noun.1", "texts": {"uk": {"words": "ліжко", "sentence": "Час спати."}}}
+{"id": "table.noun.1", "texts": {"uk": {"words": "стіл", "sentence": "Вечеря на {столі}."}}}
+{"id": "table.noun.2", "texts": {"uk": {"words": "таблиця", "sentence": "Подивіться на {таблицю} нижче."}}}
+{"id": "window.noun.1", "texts": {"uk": {"words": "вікно", "sentence": "Відчини {вікно}."}}}
+{"id": "kitchen.noun.1", "texts": {"uk": {"words": "кухня", "sentence": "Мама на {кухні}."}}}
+{"id": "phone.noun.1", "texts": {"uk": {"words": "телефон; мобільний", "sentence": "Де мій {телефон}?"}}}
+{"id": "computer.noun.1", "texts": {"uk": {"words": "комп’ютер", "sentence": "Мій {комп’ютер} надто повільний."}}}
+{"id": "water.noun.1", "texts": {"uk": {"words": "вода", "sentence": "Можна мені {води}?"}}}
+{"id": "food.noun.1", "texts": {"uk": {"words": "їжа", "sentence": "{Їжа} тут чудова."}}}
+{"id": "coffee.noun.1", "texts": {"uk": {"words": "кава", "sentence": "Ходімо на {каву}."}}}
+{"id": "tea.noun.1", "texts": {"uk": {"words": "чай", "sentence": "Хочеш {чаю}?"}}}
+{"id": "beer.noun.1", "texts": {"uk": {"words": "пиво", "sentence": "Два {пива}, будь ласка."}}}
+{"id": "wine.noun.1", "texts": {"uk": {"words": "вино", "sentence": "Келих червоного {вина}, будь ласка."}}}
+{"id": "breakfast.noun.1", "texts": {"uk": {"words": "сніданок", "sentence": "Що на {сніданок}?"}}}
+{"id": "lunch.noun.1", "texts": {"uk": {"words": "обід", "sentence": "Пообідаймо разом."}}}
+{"id": "dinner.noun.1", "texts": {"uk": {"words": "вечеря", "sentence": "{Вечеря} готова!"}}}
+{"id": "bread.noun.1", "texts": {"uk": {"words": "хліб", "sentence": "Можеш купити {хліба}?"}}}
+{"id": "city.noun.1", "texts": {"uk": {"words": "місто", "sentence": "Нью-Йорк — величезне {місто}."}}}
+{"id": "town.noun.1", "texts": {"uk": {"words": "місто; містечко", "sentence": "Я виріс у маленькому {містечку}."}}}
+{"id": "town.noun.2", "texts": {"uk": {"words": "центр; місто", "sentence": "Я йду в {центр}."}}}
+{"id": "street.noun.1", "texts": {"uk": {"words": "вулиця", "sentence": "Ми живемо на цій {вулиці}."}}}
+{"id": "place.noun.1", "texts": {"uk": {"words": "місце", "sentence": "Це моє улюблене {місце}."}}}
+{"id": "place.noun.2", "texts": {"uk": {"words": "дім; квартира", "sentence": "Ходімо {до мене}."}}}
+{"id": "country.noun.1", "texts": {"uk": {"words": "країна", "sentence": "З якої ти {країни}?"}}}
+{"id": "country.noun.2", "texts": {"uk": {"words": "село; сільська місцевість", "sentence": "Вони живуть у {селі}."}}}
+{"id": "job.noun.1", "texts": {"uk": {"words": "робота", "sentence": "Я знайшов нову {роботу}!"}}}
+{"id": "job.noun.2", "texts": {"uk": {"words": "робота", "sentence": "Гарна {робота}!"}}}

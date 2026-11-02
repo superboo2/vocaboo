@@ -1,0 +1,1 @@
+added    de, fr, it, pl, ru, uk: 17 concepts (the words of the first deck, dictionary/starter.py)

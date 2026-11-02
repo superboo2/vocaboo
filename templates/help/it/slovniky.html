@@ -1,0 +1,90 @@
+{% extends "help/base_help.html" %}
+
+{% block help %}
+  <section>
+    <h2>Che cos'è un dizionario</h2>
+    <p>
+      Un dizionario è una cartella di parole. I dizionari si possono annidare, così puoi costruire un albero in base
+      a dove trovi le parole, per esempio per serie, stagione ed episodio:
+    </p>
+    <pre class="help-tree">📂 Inglese (EN → IT)
+   📂 Two and half men
+      📂 Series 1
+         📄 Episode 1
+         📄 Episode 2
+📄 Spagnolo (ES → IT)</pre>
+    <ul>
+      <li>L'albero può avere al massimo <strong>{{ max_depth }} livelli</strong>.</li>
+      <li>Ogni dizionario può contenere sia parole sia sottodizionari allo stesso tempo.</li>
+      <li>Un nome deve essere unico all'interno di una cartella, e maiuscole e minuscole non contano (<code>HIMYM</code> = <code>himym</code>).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Nuovo dizionario e lingue</h2>
+    <ol>
+      <li>Nella <a href="{% url 'dashboard' %}">Panoramica</a> fai clic su <strong>+ Nuovo dizionario</strong>.</li>
+      <li>Compila il nome e le lingue:
+        <ul>
+          <li><strong>Voglio imparare</strong>: la lingua delle parole, ad es. inglese. Puoi scegliere ceco, inglese, francese, tedesco, italiano, polacco, russo, spagnolo e ucraino; per ora le traduzioni suggerite dal dizionario dell'app ci sono solo per alcune (vedi Parole),</li>
+          <li><strong>Parlo</strong>: la lingua in cui traduci le parole, ad es. italiano. Viene compilata la lingua del tuo ultimo nuovo dizionario (all'inizio la lingua scelta alla registrazione).</li>
+        </ul>
+      </li>
+    </ol>
+    <p>
+      Solo un dizionario di primo livello ha una coppia di lingue, mostrata accanto al nome, ad es. <code>(EN → IT)</code>.
+      I sottodizionari la ereditano e non si può cambiare in seguito.
+    </p>
+    <p>
+      Per aggiungere un <strong>sottodizionario</strong>, apri il dizionario e fai clic su <strong>+ Nuovo</strong> accanto al titolo <em>Sottodizionari</em>.
+    </p>
+  </section>
+
+  <section>
+    <h2>L'albero nella Panoramica</h2>
+    <div class="overflow-auto"><table>
+      <tbody>
+        <tr><td>📂 / 📁</td><td>dizionario con sottodizionari, aperto / chiuso</td></tr>
+        <tr><td>📄</td><td>dizionario senza sottodizionari</td></tr>
+        <tr><td>clic sull'icona o sulla riga</td><td>chiude o apre la cartella; il browser ricorda come hai lasciato le cartelle, così l'albero resta uguale dopo un test o su un'altra pagina (ogni dispositivo lo ricorda per conto suo). Le cartelle su cui non hai ancora fatto clic mostrano aperto il primo livello e chiusi i livelli più profondi. Quando trascini un dizionario e lo tieni sopra una cartella chiusa, la cartella si apre dopo un momento</td></tr>
+        <tr><td>clic sul nome</td><td>apre il dizionario</td></tr>
+        <tr><td>numero a destra</td><td>numero di parole compresi i sottodizionari; una parola presente in più dizionari si conta una volta</td></tr>
+        <tr><td><strong>N da ripassare</strong></td><td>quante parole sono da ripassare adesso</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Spostare trascinando</h2>
+    <p><strong>Per spostare un dizionario nella Panoramica, trascinalo. Sul telefono prima tienilo premuto per un momento.</strong></p>
+    <p>Afferra il dizionario e trascinalo. Mentre trascini le righe non si muovono; vedi solo dove finirà il dizionario:</p>
+    <ul>
+      <li><strong>al centro di una riga</strong>: la riga si evidenzia e il dizionario va <strong>dentro</strong>, anche in un dizionario che non ha ancora sottodizionari,</li>
+      <li><strong>vicino al bordo superiore o inferiore di una riga</strong>: compare una linea e il dizionario va <strong>prima o dopo</strong> la riga. Così cambi l'ordine e sposti un dizionario anche al primo livello.</li>
+    </ul>
+    <p>
+      Con il mouse basta trascinare. <strong>Sul telefono prima tieni premuto il dizionario per un momento</strong>, poi trascinalo.
+      Uno scorrimento veloce fa solo scorrere la pagina.
+    </p>
+    <p>Lo spostamento viene salvato appena lasci andare. Non è possibile quando:</p>
+    <ul>
+      <li>la cartella di destinazione ha lingue diverse,</li>
+      <li>il dizionario finirebbe dentro se stesso o dentro uno dei suoi sottodizionari,</li>
+      <li>l'albero avrebbe più di {{ max_depth }} livelli,</li>
+      <li>nella cartella di destinazione c'è già un dizionario con lo stesso nome.</li>
+    </ul>
+    <p>In quel caso il dizionario torna al suo posto e il motivo compare sopra l'albero.</p>
+  </section>
+
+  <section>
+    <h2>Altre opzioni nella pagina del dizionario</h2>
+    <ul>
+      <li><strong>▶︎ Esercitati sul dizionario</strong>: avvia subito un test, solo da questo dizionario e dai suoi sottodizionari. Sotto c'è <em>Imposta</em> (quale direzione, quali schede e quante), vedi l'aiuto del test.</li>
+      <li><strong>⋯</strong> accanto al nome del dizionario apre un menu: <strong>Modifica nome e descrizione</strong>, <strong>Sposta</strong> ed <strong>Elimina</strong>.</li>
+      <li><strong>Modifica nome e descrizione</strong>: il nome e la descrizione.</li>
+      <li><strong>Sposta</strong>: sposta scegliendo da un elenco; vengono proposti solo i posti dove il dizionario può andare. Comodo anche se usi la tastiera.</li>
+      <li><strong>Frecce ↑ ↓</strong> accanto ai sottodizionari: cambiano l'ordine senza trascinare.</li>
+      <li><strong>Elimina</strong>: elimina il dizionario <strong>e i suoi sottodizionari</strong>, più le parole che non sono in nessun altro dizionario. Le parole presenti anche altrove restano. Prima di eliminare vedi quanto verrà rimosso di ciascuno.</li>
+    </ul>
+  </section>
+{% endblock %}

@@ -23,6 +23,11 @@ def add_service_errors(form, error):
 
 
 class LanguageChoiceField(forms.ModelChoiceField):
+    def __init__(self, *args, **kwargs):
+        # Our own empty choice: the one of Django ("- Select an option -") is not translated
+        kwargs.setdefault("empty_label", _("Choose a language…"))
+        super().__init__(*args, **kwargs)
+
     def label_from_instance(self, obj):
         return f"{obj.label} ({obj.code})"
 
@@ -115,11 +120,17 @@ class ErrorReportForm(forms.Form):
 
 # A word with two variants in each language, as the sample of an empty word field ("hello; hi").
 # These are words of the language, not texts of the app, so they are not translated. Only the
-# languages the dictionary of the app has; add one with each new language.
+# languages of the app (in the table of languages); add one with each new language.
 VARIANT_SAMPLES = {
     "cs": "ahoj; čau",
+    "de": "hallo; servus",
     "en": "hello; hi",
     "es": "hola; buenas",
+    "fr": "salut; bonjour",
+    "it": "ciao; salve",
+    "pl": "cześć; hej",
+    "ru": "привет; здравствуй",
+    "uk": "привіт; вітаю",
 }
 
 

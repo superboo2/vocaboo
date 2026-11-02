@@ -1,0 +1,150 @@
+{% extends "help/base_help.html" %}
+{% load study_tags %}
+
+{% block help %}
+  <section>
+    <h2>Lancer un test</h2>
+    <p>
+      Le bouton <strong>▶︎ S'entraîner</strong> de la barre du haut (il est sur chaque page) lance tout de suite un test, il n'y a rien
+      à choisir. Dans le détail d'un dictionnaire, <strong>▶︎ Entraîner le dictionnaire</strong> lance le même test, seulement à partir de ce dictionnaire et de ses sous-dictionnaires.
+      Ce qu'ils lancent exactement se règle sur la page <strong>▶︎ S'entraîner</strong>.
+    </p>
+    <p>Sous <em>▶︎ Entraîner le dictionnaire</em>, une petite ligne dit ce qu'il lance, p. ex. <em>20 cartes · EN ⇄ FR · Régler</em>. Quand rien n'est à réviser, elle le dit : <em>rien à réviser, tu t'entraînes sur les mots qui ne rentrent pas</em>. <strong>Régler</strong> ouvre la page ▶︎ S'entraîner pour ce dictionnaire. Pour le bouton de la barre, ▶︎ S'entraîner est un onglet des réglages, <a href="{% url 'study:new' %}">Réglages › S'entraîner</a> ; le lien à la fin de chaque test (<em>Régler l'entraînement</em>) y mène aussi.</p>
+
+    <h3>La page ▶︎ S'entraîner</h3>
+    <p>Depuis un dictionnaire, c'est une page à part, dans les Réglages un onglet ; les choix sont les mêmes. Ce que tu choisis ici est mémorisé, et les boutons ▶︎ S'entraîner font ensuite exactement cela. La page ne fait qu'enregistrer (<strong>Enregistrer</strong>) ; un test se lance avec le bouton ▶︎ S'entraîner de la barre ou du dictionnaire. Depuis un dictionnaire, <strong>Enregistrer</strong> comme <strong>Annuler</strong> t'y ramènent.</p>
+    <ul>
+      <li><strong>Depuis quels dictionnaires</strong> : depuis un dictionnaire, seulement son nom et combien de sous-dictionnaires il a (le titre <em>Dictionnaire</em>). Dans les Réglages, l'arborescence de tes dictionnaires : ceux que prend <em>▶︎ S'entraîner</em> de la barre. Quand tous sont cochés, il les prend tous, aussi ceux que tu ajouteras plus tard. Les sous-dictionnaires sont inclus automatiquement, et un mot présent dans plusieurs dictionnaires ne vient qu'une fois.</li>
+      <li><strong>Sens</strong> : dans un sens, ou dans les deux (<em>⇄</em>, les cartes des deux sens mélangées). Les sens sont nommés d'après les langues du dictionnaire, p. ex. <em>EN → FR</em>, <em>FR → EN</em> et <em>EN ⇄ FR</em> ; avec des dictionnaires de langues différentes, de façon générale <em>étrangère → ta langue</em> et <em>ta langue → étrangère</em>.</li>
+      <li><strong>Quelles cartes</strong> :
+        <ul>
+          <li><em>seulement à réviser et nouvelles</em> : l'apprentissage normal, les cartes à réviser et les mots qui n'ont pas encore été en test. Quand rien n'est à réviser, des mots qui ne rentrent pas sont ajoutés, voir plus bas,</li>
+          <li><em>toutes</em> : chaque carte une fois, peu importe quand elle est à réviser (p. ex. avant un examen).</li>
+        </ul>
+      </li>
+      <li><strong>Max. de cartes</strong> (20 par défaut) : pour les deux choix. Vide = sans limite.</li>
+    </ul>
+    <p>À côté des choix, tu vois entre parenthèses combien il y a de cartes, p. ex. <em>seulement à réviser et nouvelles (42)</em> ou <em>toutes (85)</em>. C'est calculé pour les dictionnaires cochés et le sens choisi, et ça change dès que tu changes un choix. Avec les deux sens (<em>⇄</em>), chaque mot y est deux fois, une fois dans chaque sens.</p>
+    <p>Avec <em>seulement à réviser et nouvelles</em>, voici ce qui vient :</p>
+    <ol>
+      <li>d'abord les cartes <strong>à réviser</strong>, celles qui attendent depuis le plus longtemps en premier,</li>
+      <li>puis les <strong>nouvelles</strong>,</li>
+      <li>quand il y en a moins que la limite, le reste est <strong>complété</strong> avec des mots qui seraient bientôt à réviser. Ce sont surtout ceux qui ne rentrent pas (ils ont des intervalles courts). Ils sont un peu mélangés, pour que ce ne soit pas toujours pareil. Sans limite, on ne complète que quand rien n'attend, avec 15 cartes.</li>
+    </ol>
+    <p>Le test n'est donc jamais vide, même quand tu as tout révisé. Quand il y a assez de mots, chacun ne vient que dans un seul sens. Les réponses comptent comme d'habitude.</p>
+  </section>
+
+  <section>
+    <h2>La carte</h2>
+    <p>Tu vois le recto. Essaie de te rappeler la réponse, puis retourne la carte (<strong>Afficher</strong> ou la <strong>barre d'espace</strong>). La carte se retourne comme une carte en papier : le recto disparaît et le verso prend sa place.</p>
+    <div class="grid">
+      <article class="help-card">
+        <header>Recto</header>
+        <p class="help-card-main">paume</p>
+        <p class="card-sentence">« Elle sait lire dans la <mark>paume</mark>. »</p>
+      </article>
+      <article class="help-card">
+        <header>Verso</header>
+        <p class="help-card-main">palm 🔊</p>
+        <p class="card-sentence">« She can read from her <mark>palm</mark>. »</p>
+        <p class="muted"><small>Tu apprends aussi : palm → palmier</small></p>
+        <p class="muted"><small>palme · escamoter · tenir dans la main <u>+3</u></small></p>
+      </article>
+    </div>
+    <ul>
+      <li>Chaque côté a un grand mot et en dessous une phrase dans la même langue, avec le mot marqué. La phrase t'indique le sens (palm : la main, ou l'arbre ?) et montre la forme du mot.</li>
+      <li>Dans le sens étrangère → ta langue, la phrase anglaise est au recto et sa traduction au verso. Dans le sens ta langue → étrangère, c'est l'inverse : au recto <em>« Ça me <strong>fait plaisir</strong> que tu sois là. »</em>, au verso <em>« I'm <strong>glad</strong> you came. »</em> Évalue-toi sur le mot ; tu n'as pas besoin de traduire toute la phrase.</li>
+      <li>Quand la phrase n'a pas de traduction, dans le sens ta langue → étrangère le recto montre la phrase anglaise avec un trou à la place du mot, et le verso la montre complète.</li>
+      <li>Si le mot est dans plusieurs dictionnaires du test, la phrase change à chaque fois.</li>
+      <li><em>« salut » c'est aussi : hello</em> : un autre mot a la même traduction.</li>
+      <li><em>« She can read from her palm. » 🔊</em> : la voix du navigateur lit la phrase quand tu cliques sur 🔊 ou appuies sur <kbd>V</kbd>. Dans le sens étrangère → ta langue tout de suite, dans le sens ta langue → étrangère seulement après avoir retourné la carte (sinon ça trahirait la réponse).</li>
+      <li>Le son de la <em>voix du navigateur</em> dépend de ton appareil : bon sur Android, Windows, Mac et dans Chrome sous Linux, robotique ou absent dans Firefox sous Linux. Si le navigateur ne sait pas parler du tout, 🔊 n'est pas affiché.</li>
+      <li><em>palm 🔊</em> : prononciation du mot étranger. Le 🔊 gris est au bord droit de la carte, sur la ligne du mot étranger. Clique sur 🔊 ou appuie sur <kbd>P</kbd> et la <strong>voix du navigateur</strong> lit le mot ; dans le sens étrangère → ta langue, 🔊 est visible tout de suite, dans le sens ta langue → étrangère après avoir retourné la carte. Dans les <a href="{% url 'settings_tab' 'card' %}">Réglages</a>, tu peux activer la lecture automatique du mot ou de toute la phrase. Si tu sais lire l'API, tu peux aussi activer la prononciation du dictionnaire sous le mot dans les <a href="{% url 'settings_tab' 'card' %}">Réglages</a>, par exemple <em>[pɑːm]</em>. Dans le sens étrangère → ta langue, elle est affichée tout de suite, dans le sens ta langue → étrangère après avoir retourné la carte.</li>
+      <li><em>Tu apprends aussi</em> : un autre de tes mots avec le même mot étranger mais une autre traduction (<code>palm → palmier</code>).</li>
+      <li><em>palme · escamoter · tenir dans la main +3</em> : tout en bas, en plus petit, d'autres sens du mot étranger tirés du dictionnaire de l'appli. Seulement la première variante de chaque sens. Il en est affiché autant qu'il en tient sur une ligne, et un clic sur <em>+3</em> montre le reste. Tous, avec toutes les variantes, sont dans le détail du mot. Tu peux désactiver cela dans les <a href="{% url 'settings_tab' 'card' %}">Réglages</a>.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Évaluations et intervalles</h2>
+    <p>Après avoir retourné la carte, évalue à quel point tu connais le mot. Quand le mot reviendra après chaque évaluation n'est pas affiché sous les boutons par défaut ; active-le dans les <a href="{% url 'settings_tab' 'card' %}">Réglages</a> › Carte › <em>Afficher quand le mot reviendra</em>.</p>
+    <div class="overflow-auto"><table>
+      <thead>
+        <tr><th>Bouton</th><th>Touche</th><th>Première fois</th><th>Révisions suivantes</th></tr>
+      </thead>
+      <tbody>
+        {% for rating in ratings %}
+          <tr>
+            <td><span aria-hidden="true">{{ rating.emoji }}</span> {{ rating.label }}</td>
+            <td><kbd>{{ rating.hotkey }}</kbd></td>
+            <td>{{ rating.min_interval|interval }}</td>
+            <td>
+              {% if rating.multiplier %}
+                intervalle précédent × {{ rating.multiplier|floatformat:"-1" }}
+              {% else %}
+                toujours {{ rating.min_interval|interval }}
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table></div>
+    <ul>
+      <li>L'intervalle grandit à chaque bonne réponse, jusqu'à <strong>{{ max_interval|interval }}</strong>. Par exemple, toujours 😎 : 7 jours → 28 → 112 → 1 an.</li>
+      <li>Après 😕 ou 😵, il recommence à grandir depuis le début.</li>
+      <li>Les intervalles d'un jour ou plus sont arrondis à des jours entiers.</li>
+      <li>Sous chaque emoji, tu vois le <strong>vrai prochain intervalle</strong> de cette carte précise.</li>
+      <li>L'évaluation s'applique dans tous les dictionnaires où se trouve le mot.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Commandes</h2>
+    <div class="overflow-auto"><table>
+      <tbody>
+        <tr><td><kbd>barre d'espace</kbd></td><td>retourne la carte</td></tr>
+        <tr><td><kbd>1</kbd> – <kbd>4</kbd></td><td>évalue la carte (😎 🤔 😕 😵)</td></tr>
+        <tr><td><kbd>P</kbd></td><td>lit la prononciation (dans le sens ta langue → étrangère après avoir retourné la carte)</td></tr>
+        <tr><td><kbd>V</kbd></td><td>lit la phrase (dans le sens ta langue → étrangère après avoir retourné la carte)</td></tr>
+        <tr><td><strong>?</strong> sous la carte</td><td>ouvre la fenêtre <em>Comment marche le test</em> (comment ça marche et ce que veulent dire les smileys) ; au premier test, elle s'ouvre toute seule, après <em>Compris</em> seulement avec <strong>?</strong> (c'est enregistré dans ton compte, donc sur tous les appareils)</td></tr>
+        <tr><td><strong>✎</strong> sous la carte ou <kbd>E</kbd></td><td>ouvre la modification du mot (une faute de frappe, une mauvaise traduction) ; le bouton <em>Enregistrer et revenir au test</em> ou <em>Revenir au test sans enregistrer</em> te ramène à la même carte. La carte n'a pas encore été évaluée, donc rien n'est compté deux fois. Les changements des variantes et de la note s'appliquent dans tous les dictionnaires où se trouve le mot.</td></tr>
+        <tr><td><strong>⚐</strong> sous la carte</td><td>signale une erreur dans le dictionnaire de l'appli : <em>Traduction proposée fausse</em>, <em>Phrase proposée fausse</em> ou <em>Autre chose</em>, avec une note facultative. Ensuite, il te ramène à la même carte. Le signalement aide à corriger le dictionnaire de l'appli ; ton mot ne change pas (corrige-le avec ✎).</td></tr>
+        <tr><td><strong>Terminer le test</strong></td><td>termine le test et affiche le bilan</td></tr>
+      </tbody>
+    </table></div>
+    <p>Sur un téléphone, touche simplement. La carte suivante se charge sans recharger la page.</p>
+  </section>
+
+  <section>
+    <h2>Ordre des cartes</h2>
+    <ul>
+      <li>D'abord les cartes à réviser, puis les nouveaux mots. Dans les deux groupes, l'ordre est <strong>aléatoire</strong>, différent à chaque test. Les deux sens d'un même mot sont donc en général loin l'un de l'autre, et tu ne réussis pas le deuxième sens juste parce que tu t'en souviens encore d'il y a un instant.</li>
+      <li>Le même mot dans l'autre sens, ou un autre sens du même mot (palm / palm), ne vient jamais juste après.</li>
+      <li>Une carte évaluée 😵 revient dans le même test au bout de 10 minutes.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Bilan</h2>
+    <p>
+      À la fin, tu vois le nombre de chaque évaluation et les mots évalués 😕 ou 😵.
+      <strong>Refaire les fausses</strong> lance un nouveau test avec seulement ces mots.
+    </p>
+    <p>
+      <strong>✍️ Ce mot ne rentre pas :</strong> quand le test a un mot qui échoue sans cesse avec le temps
+      (au moins la moitié des 8 dernières réponses fausses, 😕 compte pour une moitié) et qu'il n'a pas encore de phrase,
+      un formulaire est proposé pour lui : écris une phrase sous le mot étranger et sa traduction sous celui de ta langue.
+      Au-dessus du formulaire, il y a des <strong>points de couleur</strong> des dernières réponses pour chaque sens
+      (<em>EN → FR</em>, <em>FR → EN</em>), les plus anciennes à gauche : tu vois tout de suite dans quel sens le mot échoue
+      et s'il s'améliore. Les 8 dernières sont affichées, les plus anciennes sont cachées sous <em>+N</em> (survole-le pour voir comment elles se sont passées) ;
+      un clic dessus déplie jusqu'à 30 points, et il y en a plus dans le détail du mot.
+      Un mot dans une phrase s'apprend plus facilement. Si le dictionnaire a un exemple pour ce sens,
+      il est affiché avec un bouton <strong>Utiliser</strong> (il remplit la phrase et sa traduction). <strong>Pas maintenant</strong> masque le formulaire ;
+      le mot peut être proposé de nouveau après un autre test. Un mot que tu connais et que tu oublies une fois n'est pas proposé.
+    </p>
+    <p class="muted">
+      Pour chaque réponse, l'appli enregistre aussi ton temps de réflexion (jusqu'à ce que tu retournes la carte) pour les statistiques.
+      Quand tu verrouilles ton téléphone ou que tu passes à une autre appli, le chronomètre s'arrête.
+    </p>
+  </section>
+{% endblock %}

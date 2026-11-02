@@ -28,6 +28,17 @@ def test_create_root_deck(logged_client, en, cs):
     assert deck.language_pair == "EN → CS"
 
 
+def test_empty_language_choice_is_translated(logged_client, user):
+    # Django's own empty choice ("- Select an option -") has no translation
+    user.ui_language = "cs"
+    user.save()
+
+    html = logged_client.get(reverse("vocabulary:deck_create")).content.decode()
+
+    assert "Vyber jazyk…" in html
+    assert "Select an option" not in html
+
+
 def test_create_form_shows_error_for_same_languages(logged_client, cs):
     response = logged_client.post(
         reverse("vocabulary:deck_create"),

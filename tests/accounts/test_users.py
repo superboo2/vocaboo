@@ -242,6 +242,21 @@ def test_language_of_the_account_wins_over_the_browser(client):
 
 
 @pytest.mark.django_db
+def test_app_speaks_ukrainian(client):
+    user = User.objects.create_user(email="martin@example.com", password="secret-pass-123")
+    user.ui_language = "uk"
+    user.save()
+    client.force_login(user)
+
+    html = client.get(reverse("settings")).content.decode()
+    help_html = client.get(reverse("help", args=["test"])).content.decode()
+
+    assert '<html lang="uk">' in html
+    assert "Налаштування" in html
+    assert "Тренувати" in help_html
+
+
+@pytest.mark.django_db
 def test_empty_language_follows_the_browser(client):
     user = User.objects.create_user(email="martin@example.com", password="secret-pass-123")
     client.force_login(user)

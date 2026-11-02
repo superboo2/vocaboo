@@ -9,6 +9,7 @@ from django.urls import reverse
 from django.utils import translation
 from django.utils.translation import get_language, get_language_from_request, gettext_lazy
 from django.utils.translation import gettext as _
+from django.utils.translation.trans_real import parse_accept_lang_header
 from django.views.decorators.http import require_POST
 
 from dictionary import starter
@@ -109,11 +110,23 @@ def unverified_user(email):
     ).first()
 
 
+def _likely_languages(request):
+    """Codes of the languages the user probably speaks, the best first: the language chosen
+    with the switch under the login form, then the languages of the browser, also those the
+    app is not translated into (an Italian browser: "it", though the page is in English)."""
+    codes = []
+    if request.COOKIES.get(settings.LANGUAGE_COOKIE_NAME):
+        codes.append(get_language())
+    header = request.META.get("HTTP_ACCEPT_LANGUAGE", "")
+    codes += [tag.split("-")[0] for tag, _quality in parse_accept_lang_header(header) if tag != "*"]
+    return codes
+
+
 @login_not_required
 def register(request):
     if request.user.is_authenticated:
         return redirect("dashboard")
-    form = RegistrationForm(request.POST or None)
+    form = RegistrationForm(request.POST or None, language_codes=_likely_languages(request))
     if request.method == "POST" and form.is_valid():
         email = form.cleaned_data["email"]
         password = form.cleaned_data["password1"]

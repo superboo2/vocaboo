@@ -1,3 +1,5 @@
+import unicodedata
+
 import pytest
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
@@ -13,7 +15,7 @@ User = get_user_model()
 def test_initial_languages_exist():
     codes = set(Language.objects.values_list("code", flat=True))
 
-    assert {"cs", "en", "es"} <= codes
+    assert {"cs", "de", "en", "es", "fr", "it", "pl", "ru", "uk"} <= codes
     assert Language.objects.get(code="cs").name == "Čeština"
 
 
@@ -21,7 +23,8 @@ def test_initial_languages_exist():
 def test_languages_are_ordered_by_name():
     names = list(Language.objects.values_list("name", flat=True))
 
-    assert names == sorted(names)
+    # The database sorts "Š" next to "S", Python after "Z"; compare without the accents
+    assert names == sorted(names, key=lambda name: unicodedata.normalize("NFD", name))
 
 
 @pytest.mark.parametrize("code", ["cs", "de"])

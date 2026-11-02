@@ -1,0 +1,101 @@
+{% extends "help/base_help.html" %}
+
+{% block help %}
+  <section>
+    <h2>Disposition</h2>
+    <p>L'appli est la même sur un ordinateur et sur un téléphone : une seule colonne, avec les parties sous forme de cartes. En haut, il y a une barre avec le logo (un fantôme qui dépasse de derrière une carte – clique dessus pour revenir à l'accueil) <em>Vocaboo · ▶︎ S'entraîner · Statistiques · Aide</em> (sur un téléphone, Statistiques et Aide sont dans le menu du compte, et la barre ne garde que le logo, ▶︎ S'entraîner et le rond) et un rond avec la première lettre de ton e-mail – clique dessus pour ouvrir un menu avec ton e-mail, (sur un téléphone) 📊 Statistiques et ❓ Aide, le choix du thème <em>☀️ Clair · 🌙 Sombre · Auto</em> (Auto suit le réglage de ton système ; le choix ne vaut que dans ce navigateur), <em>Réglages</em> et <em>Se déconnecter</em>. Le bouton <strong>▶︎ S'entraîner</strong> de la barre lance tout de suite un test, depuis n'importe où (voir l'aide du test). Sur un téléphone, tu peux mettre l'appli sur ton écran d'accueil, voir <a href="#aplikace-na-plose">L'appli sur l'écran d'accueil</a>. L'accueil a les cartes <em>⏱️ 12 / 15 min · objectif du jour ›</em> (un grand nombre comme dans la partie Aujourd'hui ; en vert avec <em>✓</em> quand il est atteint ; un clic ouvre le réglage de l'objectif), <em>📝 3 · mots pour plus tard attendent une traduction ›</em> (seulement quand il y en a qui attendent, un clic ouvre la liste ; sur un ordinateur, les deux cartes sont côte à côte, sur un téléphone l'une sous l'autre), <em>Ce qui a coincé</em>, <em>Dictionnaires</em> (avec un lien <em>+ Nouveau</em> pour un nouveau dictionnaire) et <em>Aujourd'hui</em>.</p>
+  </section>
+
+  <section>
+    <h2>Les nombres de l'accueil</h2>
+    <div class="overflow-auto"><table>
+      <tbody>
+                <tr><td>nombre entre parenthèses à côté d'un dictionnaire, p. ex. <em>HIMYM (26)</em></td><td>mots du dictionnaire et de ses sous-dictionnaires</td></tr>
+        <tr><td>↻ et un nombre plus petit entre parenthèses, p. ex. <em>HIMYM (26 <span class="deck-due">↻ 9</span>)</em></td><td>combien de mots du dictionnaire (et de ses sous-dictionnaires) sont à réviser maintenant ; quand rien n'attend, les parenthèses ne montrent que le nombre de mots (au survol : « 9 à réviser »)</td></tr>
+      </tbody>
+    </table></div>
+    <p>Sous les dictionnaires se trouve <strong>Aujourd'hui</strong> : seulement ce que tu as fait dans les tests aujourd'hui. Chaque nombre est aussi un interrupteur : clique dessus pour afficher sous les nombres un graphique en barres des 7 derniers jours (un nombre au-dessus de chaque barre, les autres jours en indigo clair, aujourd'hui en indigo foncé).</p>
+    <ul>
+      <li>🎯 <strong>bon pour la première fois</strong> : mots répondus 😎 ou 🤔 aujourd'hui pour la toute première fois, dans n'importe quel sens (chaque mot une fois).</li>
+      <li>🎓 <strong>mots appris</strong> : mots qui sont devenus « connus » aujourd'hui pour la première fois, c'est-à-dire bons deux fois d'affilée dans chaque sens où ils ont été testés (comme dans les Statistiques). La deuxième bonne réponse ne vient qu'après un intervalle (7 jours après 😎), donc un nouveau mot apparaît ici au plus tôt quelques jours plus tard.</li>
+      <li>📚 <strong>mots en test</strong> : combien de mots différents étaient dans les tests aujourd'hui ; un mot dans les deux sens compte une fois.</li>
+      <li>⏱️ <strong>temps en tests</strong> : combien de temps ont duré tes tests aujourd'hui (jusqu'à la dernière réponse).</li>
+    </ul>
+    <p>Tout en haut (au-dessus des dictionnaires) se trouve la partie <strong>Ce qui a coincé</strong>, pour que les mots restent sous tes yeux : jusqu'à 3 petites cartes à retourner sur une ligne. Elles sont calculées à partir du <strong>dernier jour avant aujourd'hui où tu as fait un test</strong>. À côté du titre, le jour est en gris : <em>hier</em>, ou p. ex. <em>lun 26 octobre</em>. Les tests d'aujourd'hui apparaissent dans les cartes demain, donc les cartes ne changent pas pendant la journée, et pendant une pause sans tests elles restent les mêmes. Il y a 8 sortes de cartes (p. ex. 🐢 tu réfléchis longtemps, 🦀 dans un seul sens, 🦈 le plus souvent pas su) et chaque jour avec des tests en montre trois autres. Quand tout s'est bien passé ce jour-là, la partie n'est pas affichée. Les Statistiques montrent toutes les sortes de cartes (jusqu'à 8) pour les 30 derniers jours.</p>
+  </section>
+
+  <section>
+    <h2>Statistiques</h2>
+    <p>Le lien <strong>Statistiques</strong> de la barre du haut ouvre un aperçu de ton apprentissage. Les tuiles avec les nombres sont toujours en haut, en dessous il y a trois onglets : <strong>Mots</strong> (les graphiques Mots et Tu connais), <strong>Tests</strong> (les tests récents) et <strong>Ce qui coince</strong>.</p>
+    <ul>
+      <li><strong>Tuiles du haut</strong> : nombre total de mots (et combien ont été ajoutés cette semaine), combien tu en connais (bons au moins deux fois d'affilée dans chaque sens où le mot a été testé ; un sens pas encore testé ne compte pas), 🔥 depuis combien de jours d'affilée tu apprends et ta plus longue série, et le nombre de réponses.</li>
+      <li><strong>Mots › Mots</strong> : combien de mots tu as en tout, depuis le jour de ton premier mot. Le pas dépend de la durée de ton apprentissage : par jour les 2 premières semaines, par semaine jusqu'à 4 mois, par mois jusqu'à 2 ans, puis par trimestre. Les nombres à gauche indiquent la quantité ; survole un point pour voir la valeur exacte.</li>
+      <li><strong>Mots › Tu connais</strong> : combien de mots tu connais à chaque point du graphique, avec les mêmes pas que le graphique du dessus. Tu connais un mot quand chaque sens testé a eu 2× d'affilée 😎 ou 🤔 (comme la tuile <em>connus</em> en haut ; c'est aussi écrit sous le titre du graphique) ; après une erreur, le mot ressort. Le graphique a son propre axe, pour que chaque progrès se voie. Il apparaît après ta première réponse dans un test.</li>
+      <li><strong>Tests</strong> : tes 10 derniers tests, un par ligne : quand il a eu lieu (date et heure), le chemin du dictionnaire, ses 3 derniers niveaux (p. ex. <em>… › Series › HIMYM › S01</em> ; survole pour voir le chemin complet), le sens (p. ex. <em>EN → FR</em>, <em>FR → EN</em> ou <em>EN ⇄ FR</em> pour les deux sens), les cartes (toutes, à réviser + nouvelles, ou encore fausses) et la limite, le nombre de mots, le taux de réussite (la part de 😎 et 🤔 en pourcentage et une petite barre ; survole la barre ou ouvre le bilan du test pour voir le nombre de 😎 🤔 😕 😵) et la durée du test (⏹ pour un test non terminé). Avec les deux sens, chaque mot est deux fois dans le test, une fois dans chaque sens, et chacun est évalué à part. Au-dessus du tableau, tu vois le nombre de tests en 14 jours. Clique sur une ligne pour ouvrir le bilan du test. Les tests sans aucune réponse ne sont pas affichés.</li>
+      <li><strong>Ce qui coince</strong> : les mots qui te résistent, sous forme de cartes comme dans un test, pour que tu continues d'apprendre même en regardant tes statistiques. Le recto ne montre au milieu qu'un côté du mot, sur une couleur qui dépend de la raison pour laquelle il te résiste ; le verso a un petit animal avec une courte raison sous le mot (la liste des animaux est plus bas) (la moitié des cartes montre le mot étranger, l'autre moitié la traduction ; pour 🦀 toujours le sens qui te résiste). Touche la carte (ou appuie sur Entrée) pour la retourner : tu vois l'autre côté, pourquoi le mot est là, et un lien <em>Détails</em>. C'est basé sur les réponses des 30 derniers jours, donc les cartes changent sans cesse.</li>
+    </ul>
+    <p>Un mot te « résiste » quand il a eu la réponse 😵 <em>Aucune idée</em> ou 😕 <em>Je m'en souviens à moitié</em> pendant cette période et que tu ne le connais pas encore (dans un des sens, il n'a pas deux bonnes réponses d'affilée). Chaque mot n'est affiché qu'une fois :</p>
+    <ul>
+      <li>🦈 <strong>le plus souvent pas su</strong> : le plus de réponses « pas su du tout », combien entre parenthèses, p. ex. « le plus souvent pas su (3×) ».</li>
+      <li>🦀 <strong>dans un seul sens</strong> : tu le sais dans un sens mais pas dans l'autre ; la carte montre le sens difficile au recto.</li>
+      <li>🐢 <strong>tu réfléchis longtemps</strong> : le temps moyen le plus long avant de retourner la carte, p. ex. « tu réfléchis longtemps (9 s) ».</li>
+      <li>🐇 <strong>rapide et faux</strong> : le « pas su du tout » le plus rapide (moins de 3 s), p. ex. « rapide et faux (1,2 s) » – tu devines plutôt que de réfléchir.</li>
+      <li>🐿️ <strong>tu l'oublies</strong> : un mot qui a été bon au moins deux fois d'affilée puis faux, p. ex. « tu l'oublies (2×) ».</li>
+      <li>🐒 <strong>tantôt su, tantôt pas</strong> : « su » et « pas su » alternent le plus (au moins 3 changements), p. ex. « tantôt su, tantôt pas (4×) ».</li>
+      <li>🐌 <strong>en cours depuis le plus longtemps</strong> : le mot que tu as depuis le plus longtemps et qui te résiste encore, p. ex. « en cours depuis le plus longtemps (45 jours) ».</li>
+      <li>🦒 <strong>le plus long qui te résiste</strong> : le mot ou l'expression le plus long parmi ceux qui te résistent.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Détails d'un mot</h2>
+    <p>Clique sur un mot dans la liste d'un dictionnaire pour ouvrir ses détails. Sous le mot, sa traduction et les boutons, il y a <strong>Révisions</strong>. À droite de ce titre se trouve l'<strong>état</strong> du mot avec un point de couleur ; survole-le pour voir combien de fois il a été en test (<em>Tu le connais</em> quand chaque sens où il a été testé a été bon au moins deux fois d'affilée, sinon <em>En cours</em>, et <em>Nouveau</em> quand il n'a pas encore été en test, comme dans les Statistiques ; survole pour voir quand un mot compte comme connu). En dessous, un sens sous l'autre (p. ex. <em>EN → FR</em> et <em>FR → EN</em>) :</p>
+    <ul>
+      <li><strong>Prochaine révision</strong> : quand le mot revient (<em>maintenant</em>, <em>dans 3 jours</em>) ; survole pour voir la date exacte et combien de fois d'affilée tu as eu bon. Un mot qui n'a pas encore été en test indique seulement <em>Nouveau, pas encore en test</em>.</li>
+      <li><strong>Graphique des réponses</strong> : jusqu'aux 30 dernières réponses sur un axe du temps à partir de la gauche, les plus anciennes d'abord, chacune comme un point de la couleur de son évaluation, plus haut c'est mieux (😵 en bas, puis 😕, 🤔, 😎). La ligne entre les points montre si tu progresses : elle monte quand le mot va de mieux en mieux. Les réponses d'un même jour sont côte à côte (aussi quand le mot est venu plusieurs fois dans un test), une pause de plus d'une semaine est raccourcie et la ligne au-dessus est en pointillés. Les deux sens partagent le même axe du temps : le même jour est au même endroit dans les deux graphiques. Sous chaque graphique, il y a les dates de sa première et de sa dernière réponse (seulement la dernière quand elles sont le même jour ou trop proches). Survole un point ou garde le doigt dessus pour voir la date et l'évaluation. Avec une seule réponse, il n'y a qu'un point, sans ligne.</li>
+    </ul>
+    <p>En dessous, <strong>Dans les dictionnaires</strong> (tous les dictionnaires où se trouve le mot, avec la phrase), <strong>Autres sens</strong> du dictionnaire de l'appli et, à la fin, l'<strong>Historique des réponses</strong> replié : clique dessus pour voir chaque réponse (quand, sens, évaluation en smiley, temps de réflexion).</p>
+  </section>
+
+  <section>
+    <h2>Réglages</h2>
+    <p>Les réglages ont cinq onglets, selon l'endroit de l'appli où ils agissent : <strong>Appli</strong>, <strong>S'entraîner</strong>, <strong>Objectifs</strong>, <strong>Carte</strong> et <strong>Compte</strong>. Chaque onglet a son propre bouton <em>Enregistrer</em>, qui n'enregistre que ce qui s'y trouve.</p>
+    <ul>
+      <li><strong>Appli › Langue de l'appli</strong> : la langue des menus, des boutons et de l'aide (<em>Čeština</em>, <em>Deutsch</em>, <em>English</em>, <em>Español</em>, <em>Français</em>, <em>Italiano</em>, <em>Polski</em>, <em>Русский</em>, <em>Українська</em>, ou <em>Comme le navigateur</em>). Elle s'applique sur tous les appareils où tu te connectes. Tes mots et tes dictionnaires ne changent pas. Avant de te connecter, tu peux changer de langue sous le formulaire de connexion.</li>
+      <li><strong>Appli › Mets Vocaboo sur ton écran d'accueil</strong> : le bouton <em>Installer</em> met l'appli sur l'écran d'accueil de ton téléphone ou sur ton ordinateur, voir <a href="#aplikace-na-plose">L'appli sur l'écran d'accueil</a>. Il n'est affiché que là où le navigateur sait le faire et que l'appli n'est pas encore sur l'écran d'accueil.</li>
+      <li><strong>Appli › Proposer des traductions</strong> : des suggestions du dictionnaire de l'appli sous le champ de la traduction. Activé par défaut.</li>
+      <li><strong>S'entraîner</strong> : ce que lance le bouton ▶︎ S'entraîner de la barre : depuis quels dictionnaires, dans quel sens, quelles cartes et au maximum combien, voir l'aide du test.</li>
+      <li><strong>Objectifs › Objectif du jour (min)</strong> : combien de minutes par jour tu veux passer en tests. En haut de l'accueil, tu vois alors ce que tu as fait aujourd'hui. Le temps passé sur chaque carte est compté (réflexion et évaluation), au plus 20 s par carte. Ainsi, l'objectif ne se remplit pas tout seul quand tu laisses un test ouvert et que tu t'en vas. Il peut donc être un peu plus bas que <em>⏱️ temps en tests</em>, qui mesure toute la durée des tests. 15 minutes par défaut. Vide = pas d'objectif, la carte n'est pas affichée.</li>
+      <li><strong>Carte › Afficher d'autres sens du dictionnaire de l'appli</strong> : d'autres sens du dictionnaire de l'appli en bas du verso de la carte (autant qu'il en tient sur une ligne, le reste après un clic sur +N). Tes propres sens sont toujours affichés. Activé par défaut.</li>
+      <li><strong>Carte › Afficher la prononciation écrite (API)</strong> : sous le mot étranger sur la carte et dans les détails du mot, p. ex. <em>[pɑːm]</em>. Désactivé par défaut.</li>
+      <li><strong>Carte › Afficher quand le mot reviendra</strong> : sous les boutons d'évaluation d'un test, p. ex. <em>10 min</em>, <em>1 jour</em>, <em>3 jours</em>. Désactivé par défaut.</li>
+      <li><strong>Carte › Lire automatiquement</strong> : le mot étranger est lu à voix haute tout seul – dans le sens étrangère → ta langue dès que la carte apparaît, dans le sens ta langue → étrangère après un clic sur <em>Afficher</em>. Tu choisis soit le <em>mot</em>, soit <em>toute la phrase</em> (sans phrase, c'est le mot qui est lu). Le navigateur ne lit pas la toute première carte d'un test tant que tu n'as pas cliqué une première fois sur la page. Activé par défaut. 🔊 est toujours sur la carte et ne peut pas être désactivé.</li>
+      <li><strong>Compte</strong> : ton e-mail et un nouveau mot de passe. Saisis ton mot de passe actuel et le nouveau deux fois. L'icône en forme d'œil à droite du champ affiche le mot de passe, un deuxième clic le masque de nouveau (pareil à la connexion). Ta session reste ouverte sur cet appareil ; sur les autres, il faudra te reconnecter. Un mot de passe oublié peut être réinitialisé sur la page de connexion avec <em>Mot de passe oublié ?</em> : saisis ton e-mail et tu reçois un lien pour choisir un nouveau mot de passe (il est valable 24 heures).</li>
+    </ul>
+    <p><a href="{% url 'settings' %}">Ouvrir les réglages</a></p>
+  </section>
+
+  <section>
+    <h2>Compte</h2>
+    <p>Crée un compte sur la page de connexion avec <em>Créer un compte</em> : saisis ton e-mail, ton mot de passe deux fois et <strong>Ma langue</strong>, la langue que tu parles (remplie d'après le navigateur). Quand l'appli le demande, saisis aussi le code d'invitation de la personne qui t'invite. Un code à six chiffres arrive dans ton e-mail ; saisis-le sur la page suivante. Il est valable 15 minutes et <em>Envoyer un nouveau code</em> en envoie un autre. Ensuite, le compte est prêt et ta session est ouverte. Quand ta langue n'est pas l'anglais, l'accueil contient un dictionnaire d'exemple <em>Anglais – premier dictionnaire</em> avec les dossiers Animaux (7 mots) et Nourriture (Fruits 5, Légumes 4) et un mot pour plus tard. C'est un dictionnaire normal : entraîne-le tout de suite, ajoutes-y des mots ou supprime-le. Pas d'e-mail ? Regarde aussi dans les spams. Si tu fermes la page avec le code, connecte-toi simplement plus tard : l'appli envoie un nouveau code et rouvre la page. Un compte dont le code n'est pas saisi dans les 7 jours est supprimé.</p>
+  </section>
+
+  <section id="aplikace-na-plose">
+    <h2>L'appli sur l'écran d'accueil</h2>
+    <p>Tu peux mettre Vocaboo sur l'écran d'accueil de ton téléphone (ou sur ton ordinateur) comme une appli : elle s'ouvre d'un geste, en plein écran et sans la barre du navigateur. L'icône est le même fantôme sur un carré indigo. Rien n'est téléchargé depuis un store ; c'est toujours la même appli avec les mêmes données.</p>
+    <ul>
+      <li><strong>Android, Chrome ou Edge sur un ordinateur</strong> : dans <em>Réglages › Appli</em>, touche <em>Installer</em> et confirme dans la fenêtre du navigateur.</li>
+      <li><strong>iPhone et iPad</strong> : Apple ne permet pas d'installer avec un bouton, donc <em>Installer</em> affiche les étapes : touche <strong>Partager</strong> (le carré avec une flèche vers le haut ; si tu ne le vois pas, touche d'abord <strong>⋯</strong>), puis <strong>Sur l'écran d'accueil</strong> et <strong>Ajouter</strong>. Sur un iPhone, l'appli de l'écran d'accueil a sa propre connexion, connecte-toi donc encore une fois.</li>
+      <li><strong>Android avec Firefox et les navigateurs semblables</strong> (ils n'ont pas de fenêtre d'installation) : <em>Installer</em> affiche les étapes : dans le menu du navigateur <strong>⋮</strong> (en haut à droite, dans Firefox il peut être en bas), choisis <strong>Installer l'application</strong> ou <strong>Ajouter à l'écran d'accueil</strong> et confirme.</li>
+    </ul>
+    <p>Sur un téléphone, l'accueil le propose aussi une fois de lui-même (la carte <em>Mets Vocaboo sur ton écran d'accueil</em>) ; après <em>Pas maintenant</em>, elle ne revient pas, la proposition dans les Réglages reste. Quand l'appli est déjà sur l'écran d'accueil, ou que le navigateur ne sait pas le faire (p. ex. Firefox sur un ordinateur), la proposition n'est pas dans les Réglages. Ta session reste ouverte 90 jours après ta dernière visite.</p>
+  </section>
+
+  <section>
+    <h2>Plusieurs appareils</h2>
+    <p>
+      Tout est stocké sur le serveur. Quand tu te connectes à la fois sur ton téléphone et sur ton ordinateur, tu vois
+      partout les mêmes dictionnaires et la même progression des révisions.
+    </p>
+  </section>
+{% endblock %}

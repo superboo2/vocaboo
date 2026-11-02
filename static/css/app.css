@@ -405,9 +405,13 @@ label[for="id_website"] {
 /* Čeština · English under the login box */
 .language-switch {
   display: flex;
+  /* Nine languages: on a phone they wrap into more rows */
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.1rem 0.4rem;
+  max-width: 36rem;
+  margin: 0 auto;
   color: var(--pico-muted-color);
   font-size: 0.85rem;
 }
@@ -1621,6 +1625,20 @@ nav.tabs a[aria-current="page"] {
   }
 }
 
+/* A narrow phone (360 px): five tabs with longer names (Ukrainian) fit in one row too */
+@media (max-width: 400px) {
+  nav.tabs ul,
+  nav.tabs ul:first-of-type {
+    gap: 0.1rem;
+  }
+
+  nav.tabs a {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    font-size: 0.8rem;
+  }
+}
+
 .help-tree {
   padding: 0.75rem 1rem;
   line-height: 1.5;
@@ -2701,6 +2719,28 @@ fieldset.card-section > legend.section-title + * {
 
 .term-actions details.dropdown {
   margin: 0;
+}
+
+/* Phone: the menu ⋯ opens under its row and stays on the screen (it would run off the right
+   edge after a short name or with long texts); the row is its anchor, not the button */
+@media (max-width: 576px) {
+  .title-row,
+  .term-actions {
+    position: relative;
+  }
+
+  .title-row details.more-menu,
+  .term-actions details.more-menu {
+    position: static;
+  }
+
+  details.more-menu > summary + ul {
+    left: auto;
+    right: 0;
+    width: auto;
+    max-width: 100%;
+    white-space: normal;
+  }
 }
 
 .action-pill {

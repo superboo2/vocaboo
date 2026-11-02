@@ -1,0 +1,200 @@
+{% extends "help/base_help.html" %}
+
+{% block help %}
+  <section>
+    <h2>Aggiungere una parola</h2>
+    <p>Le parole si aggiungono nella pagina del dizionario. Solo i primi due campi sono obbligatori:</p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Campo</th><th>Esempio</th><th>Nota</th></tr></thead>
+      <tbody>
+        <tr><td>lingua straniera</td><td><code>hello; hi</code></td><td>separa più varianti con un punto e virgola</td></tr>
+        <tr><td>la tua lingua</td><td><code>ciao; salve</code></td><td>lo stesso qui</td></tr>
+        <tr><td>Frase</td><td><code>Hello, kids.</code></td><td>sotto il pulsante <em>+ frase, nota</em>, dove è comparsa la parola (sotto la parola straniera)</td></tr>
+        <tr><td>Traduzione della frase</td><td><code>Ciao, ragazzi.</code></td><td>nello stesso posto, facoltativa, ti aiuta a capire la frase (sotto la traduzione). Puoi segnare la parola con le graffe: <code>È scappato {via}.</code></td></tr>
+        <tr><td>Nota</td><td></td><td>nello stesso posto, qualsiasi cosa in più</td></tr>
+      </tbody>
+    </table></div>
+    <p>
+      Non scrivere da nessuna parte la stagione o l'episodio, li indica il dizionario: aggiungi le parole del primo episodio al dizionario
+      <em>Series 1 › Episode 1</em>.
+    </p>
+    <p>
+      <strong>Invio</strong> invia il modulo (come il pulsante <em>Aggiungi parola</em>, che durante l'invio mostra
+      <em>Aggiunta in corso…</em>). Poi il modulo si svuota e il cursore torna al primo campo,
+      così puoi scrivere subito la parola successiva. Capisci che la parola è stata aggiunta dalla riga
+      <em>✓ Aggiunta: parola → traduzione</em> sopra i campi (così vedi subito un errore di battitura nella traduzione), che si illumina per 2 secondi. Se la parola resta nei
+      campi e non si è illuminato niente, non è stata aggiunta.
+    </p>
+  </section>
+
+  <section>
+    <h2>Ricerca</h2>
+    <p>Nella panoramica, nella scheda <em>Dizionari</em>, sopra l'albero c'è una barra chiara <strong>Cerca parole…</strong>: fai clic (sul computer puoi anche premere <kbd>/</kbd>) e scrivi, i risultati compaiono subito sotto.</p>
+    <ul>
+      <li>Cerca in tutti i tuoi dizionari: la parola straniera e la traduzione (tutte le varianti), la frase e la sua traduzione e la nota.</li>
+      <li>Accenti e maiuscole non contano: “citta” trova anche “Città”. I risultati compaiono mentre scrivi, da 2 lettere.</li>
+      <li>Prima vengono le parole in cui corrisponde la parola o la traduzione, poi quelle in cui il testo è nella frase o nella nota (la frase è mostrata sotto la parola). La corrispondenza è evidenziata.</li>
+      <li>Ogni parola mostra in quali dizionari si trova (gli ultimi 3 livelli del percorso, il percorso completo passandoci sopra con il mouse). Fai clic su una parola per aprirne i dettagli, su ✎ per modificarla subito.</li>
+      <li>Vengono mostrati al massimo 50 risultati.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>In sospeso</h2>
+    <p>Guardi un film, senti una parola, non sai cosa significa e non la conoscono neanche i suggerimenti? Salvala <strong>senza traduzione</strong> e tornaci più tardi:</p>
+    <ul>
+      <li><strong>In un dizionario:</strong> scrivi la parola straniera (ed eventualmente una frase e una nota, ad es. la serie e l'episodio). Quando i suggerimenti non conoscono la parola scritta, la loro riga mostra <em>I suggerimenti non conoscono questa parola · <strong>📝 Salva per dopo</strong></em>. Toccalo e la parola viene salvata senza traduzione.</li>
+      <li>Le parole in sospeso <strong>non sono nei test</strong>, né nei conteggi dell'albero e delle statistiche, finché non hanno una traduzione.</li>
+      <li>In cima alla panoramica c'è una piccola scheda <em>📝 3 · parole in sospeso aspettano una traduzione ›</em>; un clic in qualsiasi punto apre l'elenco. Nella pagina del dizionario, sotto il modulo, c'è una scheda più grande <em>“3 parole aspettano una traduzione”</em> con le prime due parole e il link <em>Completa</em>; le due parole sono link che compilano il modulo. Nella pagina <strong>In sospeso</strong> tocca una parola: si apre il suo dizionario con il solito modulo, la parola, la frase e la nota sono già compilate (il campo con la parola si illumina per un momento) e il cursore aspetta nella traduzione. Se nel frattempo il dizionario dell'app conosce la parola, i suggerimenti compaiono subito. Dopo <em>Aggiungi parola</em> la parola è nel dizionario (e arriva nei test), esce dall'elenco e il link <em>Prossima in sospeso</em> ti porta alla successiva.</li>
+      <li>Le parole che i suggerimenti non conoscono finiscono nella prossima estensione del dizionario dell'app.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Parole da un argomento</h2>
+    <p>Ideale quando non hai tempo di cercare e scrivere le parole, o non sai da dove cominciare: fai clic su <strong>+ Da un argomento</strong> accanto al titolo <em>Nuova parola</em> nella pagina del dizionario (solo quando il dizionario dell'app ha abbastanza parole in entrambe le lingue del dizionario: oggi inglese, ceco, spagnolo e ucraino, ad es. inglese → ceco). Scegli un argomento (per esempio <em>Natura › Animali</em>, o un intero gruppo <em>Natura (tutto)</em>), i livelli (A1–C2, A1–B1 di default) e le parti del discorso (sostantivi, verbi, aggettivi, altro; tutte di default — per un dizionario <em>Animali</em> magari solo i sostantivi) e fai clic su <em>Mostra parole</em>. Vedrai le parole più comuni dell'argomento con traduzione e frase, 20 per pagina.</p>
+    <ul>
+      <li>Spunta quelle che vuoi imparare e fai clic su <strong>+ Aggiungi le parole spuntate</strong>. Vengono aggiunte al dizionario come parole tue, con la frase e la sua traduzione; poi puoi modificarle come qualsiasi altra. Resti sulla stessa pagina e le parole aggiunte spariscono.</li>
+      <li>Le parole che hai già in questo dizionario non vengono proposte. Quelle che hai in un altro dizionario sono nascoste, così un secondo dizionario dello stesso argomento parte con parole nuove; sopra l'elenco vedi quante parole ha l'argomento, quante sono già nei tuoi altri dizionari e in questo, e un link <em>Mostrale</em> (allora appaiono in grigio con il nome del dizionario e non si possono spuntare).</li>
+      <li><em>Seleziona tutto in questa pagina</em> spunta tutte e 20 in una volta; poi puoi togliere la spunta a quelle che non vuoi. Il pulsante mostra quante sono spuntate.</li>
+      <li>Consigliamo dizionari più piccoli, di circa 20 parole: si imparano meglio. Aggiungi le successive quando sai queste. Non puoi aggiungere più di una pagina alla volta.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Suggerimenti di traduzione</h2>
+    <p>
+      Quando scrivi una parola straniera, sotto il campo della traduzione compaiono i <strong>suggerimenti di traduzione</strong>
+      con l'abbreviazione della parte del discorso, per esempio <code>present</code> → <em>presente</em> (s.),
+      <em>regalo</em> (s.), <em>presentare</em> (v.). Se non stanno su una riga, continuano su quella successiva.
+      Fai clic su un suggerimento per inserirlo nel campo della traduzione e la riga si svuota, poi basta premere Invio. Quando il dizionario dell'app ha una frase per questo significato, compila anche la <strong>frase</strong> con la sua traduzione (solo se non c'è ancora una frase) e la vedrai sotto il pulsante <em>Aggiungi parola</em>, per esempio <em>“Let's take the elevator.” · Prendiamo l'ascensore.</em> Fai clic su <em>modifica</em> per aprirla e cambiarla o eliminarla, <em>fatto</em> la richiude. Senza frase e nota lì vedrai <em>+ frase, nota</em>.
+    </p>
+    <ul>
+      <li>I suggerimenti vengono dal dizionario inglese–ceco dell'app (circa 10.000 delle parole ed espressioni più comuni, ordinate per frequenza). Per le altre parole non compare niente e scrivi la traduzione a mano. Per lo spagnolo non c'è ancora un dizionario.</li>
+      <li>Puoi modificare un suggerimento dopo averlo inserito, niente viene salvato da solo.</li>
+      <li>Se cambi la parola straniera dopo aver scelto un suggerimento, la frase compilata dal suggerimento sparisce, perché apparteneva alla parola precedente. La tua frase (scritta o modificata) non viene cancellata.</li>
+      <li>I suggerimenti compaiono anche quando <strong>modifichi una parola</strong> (anche durante un test con ✎), subito per la parola nel modulo. Un clic su un suggerimento sostituisce la traduzione e compila la frase solo nei campi vuoti.</li>
+      <li>Se non vuoi i suggerimenti, disattivali nelle <a href="{% url 'settings' %}">Impostazioni</a> (<em>App › Suggerisci traduzioni</em>).</li>
+      <li>Viene salvato solo il significato che scegli. Gli altri significati dal dizionario dell'app li vedrai sul retro della scheda e nei dettagli della parola.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Varianti (sinonimi)</h2>
+    <p>
+      <code>hello; hi</code> ↔ <code>ciao; salve</code> è una sola parola con due varianti per lato.
+      In un test ognuna è corretta.
+    </p>
+    <p>
+      Le varianti significano che <strong>ognuna a sinistra corrisponde a ognuna a destra</strong>. Se non è così,
+      meglio creare due parole separate. Per esempio <code>hi</code> ≠ <code>buongiorno</code>, quindi:
+      <code>hello → buongiorno; ciao</code> e <code>hi → ciao; salve</code> (informale).
+    </p>
+  </section>
+
+  <section>
+    <h2>Frase</h2>
+    <p>Scrivi la frase normalmente, l'app trova da sola la parola e la evidenzia:</p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Scrivi</th><th>Cosa succede</th></tr></thead>
+      <tbody>
+        <tr><td><code>She can read from her palm.</code></td><td>la parola <code>palm</code> viene trovata da sola, <strong>il caso normale</strong></td></tr>
+        <tr><td><code>She has small {palms}.</code></td><td>segna con le graffe una parola in una <strong>forma diversa</strong>, altrimenti non viene trovata</td></tr>
+        <tr><td><code>He {ran} away.</code></td><td>per la parola <code>run</code>: il passato tra graffe</td></tr>
+        <tr><td><code>She can read from her {}.</code></td><td>graffe vuote = la parola del primo campo (<code>palm</code>)</td></tr>
+      </tbody>
+    </table></div>
+    <p>Le graffe non si vedono mai. In un test la frase appare così:</p>
+    <div class="grid">
+      <article class="help-card">
+        <header>palm → ?</header>
+        <p class="help-card-main">palm</p>
+        <p class="card-sentence">“She can read from her <mark>palm</mark>.”</p>
+      </article>
+      <article class="help-card">
+        <header>palmo → ?</header>
+        <p class="help-card-main">palmo</p>
+        <p class="card-sentence">“She can read from her <span class="cloze">___</span>.”</p>
+      </article>
+    </div>
+    <p>
+      Nella direzione dalla tua lingua la frase intera svelerebbe la risposta, quindi sul fronte compare con uno spazio vuoto.
+      La frase completa è sul retro. Se la parola non si trova nella frase, la frase è solo sul retro.
+    </p>
+  </section>
+
+  <section>
+    <h2>Più significati (palm, present)</h2>
+    <p>
+      Ogni significato è una <strong>parola separata</strong>. L'app li distingue dalla traduzione, non serve
+      compilare nient'altro:
+    </p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Straniera</th><th>Traduzione</th><th>Frase</th></tr></thead>
+      <tbody>
+        <tr><td>palm</td><td>palmo</td><td><code>She read my palm.</code></td></tr>
+        <tr><td>palm</td><td>palma</td><td><code>A tall palm on the beach.</code></td></tr>
+        <tr><td>present</td><td>regalo</td><td><code>I bought her a present.</code></td></tr>
+        <tr><td>present</td><td>presente</td><td><code>Live in the present.</code></td></tr>
+        <tr><td>present</td><td>presentare</td><td><code>He {presented} the project.</code></td></tr>
+      </tbody>
+    </table></div>
+    <ul>
+      <li>La stessa parola straniera con la <strong>stessa traduzione</strong> è un doppione. Con una <strong>traduzione diversa</strong> è un altro significato e viene salvata.</li>
+      <li>Nel test <code>palm → ?</code> aiuta la frase. Senza frase sotto la parola vedrai <em>(2 significati)</em>, così sai che c'è una scelta.</li>
+      <li>Gli <strong>Altri significati</strong> dal dizionario dell'app e le tue altre parole con la stessa parola sono sul retro della scheda e nei dettagli della parola. Lì i significati dal dizionario dell'app hanno un pulsante <strong>+ Impara anche questo significato</strong>.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Controllo dei doppioni</h2>
+    <p>Mentre scrivi, l'app cerca le parole che hai già e ti propone cosa farne:</p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Scrivi</th><th>Hai già</th><th>Propone</th></tr></thead>
+      <tbody>
+        <tr><td><code>hello</code> in Big Bang Theory</td><td><code>hello → ciao</code> in HIMYM</td><td><strong>Aggiungi anche qui</strong> (una parola in due dizionari)</td></tr>
+        <tr><td><code>hello; hi</code></td><td><code>hello → ciao</code></td><td>lo stesso, e <code>hi</code> viene aggiunta come nuova variante</td></tr>
+        <tr><td><code>hey → ciao</code></td><td><code>hello → ciao</code></td><td><strong>Aggiungi “hey” come variante di “hello”</strong>, oppure salvala a parte</td></tr>
+        <tr><td><code>palm → palma</code></td><td><code>palm → palmo</code></td><td>un avviso di traduzione diversa: stesso significato (aggiungi come variante) o significato diverso (salva e basta)</td></tr>
+        <tr><td><code>perche</code></td><td><code>perché</code></td><td>solo un avviso <em>Simili (senza accenti)</em>; <code>pero</code> e <code>però</code> sono parole diverse</td></tr>
+      </tbody>
+    </table></div>
+    <p>Il pulsante <strong>Aggiungi parola</strong> è bloccato finché il salvataggio creerebbe un doppione.</p>
+  </section>
+
+  <section>
+    <h2>Una parola in più dizionari</h2>
+    <p>
+      La parola è tua, i dizionari si limitano a collegarla. Quando <code>hello</code> è in 20 episodi,
+      un test dell'intera serie la chiede <strong>una volta</strong> e la valutazione vale in tutti i dizionari.
+      Ogni dizionario però conserva la sua frase.
+    </p>
+  </section>
+
+  <section>
+    <h2>Modificare e rimuovere</h2>
+    <ul>
+      <li>Fai clic su una parola nell'elenco per aprirne i dettagli, da lì <strong>✎ Modifica</strong> (sotto la parola e la sua traduzione, accanto a <strong>🔊 Ascolta</strong>) oppure, nel menu <strong>⋯</strong>, <strong>Rimuovi da questo dizionario</strong>.</li>
+      <li>Le modifiche alle varianti e alla nota valgono in tutti i dizionari, la frase solo in quello.</li>
+      <li><strong>Sposta</strong> (nel menu ⋯ nei dettagli della parola) la sposta in un altro dizionario.</li>
+      <li><strong>Segnala un errore</strong> (nel menu ⋯ nei dettagli della parola): quando una traduzione o una frase dei suggerimenti è sbagliata, scegli <em>Traduzione suggerita sbagliata</em>, <em>Frase suggerita sbagliata</em> o <em>Altro</em> e, se vuoi, scrivi una nota, per esempio la traduzione giusta. La segnalazione aiuta a correggere il dizionario dell'app; la tua parola non cambia, correggila con <strong>✎ Modifica</strong>. Se la parola è già stata segnalata, la pagina lo dice e puoi modificare la segnalazione. Puoi segnalarla anche direttamente in un test con il pulsante ⚐ sotto la scheda.</li>
+      <li>Rimuovere una parola da un dizionario la elimina <strong>solo lì</strong>. Se era il suo ultimo dizionario, viene eliminata del tutto, compresa la cronologia dei ripassi; l'app ti avvisa prima.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Spostare più parole</h2>
+    <p>
+      Delle parole sono finite nel dizionario sbagliato, per esempio in <em>Series 1</em> invece che in <em>Episode 1</em>?
+    </p>
+    <ol>
+      <li>Nell'elenco delle parole fai clic su <strong>Seleziona</strong> e compaiono le caselle (<em>Tutto</em> le seleziona tutte).</li>
+      <li>In basso fai clic su <strong>Sposta…</strong> e scegli il dizionario di destinazione. Vengono proposti solo dizionari con le stesse lingue.</li>
+      <li><strong>Sposta</strong> sposta le parole, <strong>Aggiungi anche lì</strong> le tiene in entrambi i dizionari.</li>
+    </ol>
+    <p>
+      La frase e i progressi restano. Se la parola è già nel dizionario di destinazione, non viene duplicata,
+      lì viene solo compilata la sua frase, se mancava.
+    </p>
+  </section>
+{% endblock %}

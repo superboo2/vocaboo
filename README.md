@@ -134,12 +134,14 @@ uv run python manage.py changepassword martin@example.com
 #### Registration
 
 1. *Vytvořit účet* on the login page: email, password twice, *Můj jazyk* (the language the user
-   speaks, filled in with the language of the page) and, when `VOCABOO_REGISTRATION_CODE` is set,
+   speaks, filled in with the language chosen with the switch, else the first browser language in
+   the table of languages, also one the app is not translated into: an Italian browser gets
+   *Italština* on an English page) and, when `VOCABOO_REGISTRATION_CODE` is set,
    the invitation code.
 2. The account is created turned off (`is_active=False`) and a six-digit code goes to the email
    (only its hash is saved, in `accounts.EmailVerification`).
 3. The user enters the code on `/accounts/verify/`: the account is turned on and logged in.
-4. When *Můj jazyk* is Czech or Spanish, the new account gets a first deck from the dictionary of
+4. When *Můj jazyk* is not English, the new account gets a first deck from the dictionary of
    the app (`dictionary/starter.py`), so it does not start empty:
 
    ```
@@ -149,6 +151,11 @@ uv run python manage.py changepassword martin@example.com
        ├── Ovoce                     5 words
        └── Zelenina                  4 words
    ```
+
+   The dictionary has the words of this deck in every language of the table of languages (German,
+   French, Italian, Polish and Russian only these words, package `2026-11-02-2`). The names of the
+   decks come from the translations of the app, so they are in the language of the user (e.g.
+   *Inglese – primo dizionario › Animali*).
 
    Every deck has a different number of words, so it is clear how the numbers add up. The names
    are in the user's language (`Inglés – primer diccionario`, `Animales` …), the words come with
@@ -181,9 +188,23 @@ uv run python manage.py cleanup_unverified --dry-run
 # Unverified accounts: 1.
 ```
 
+For trying the app there is a quicker way than the registration: an account that is turned on at
+once, the password is the same as the email, with the first deck as after a confirmed email. It
+takes the first free `testN@example.cz` and works only with `DJANGO_DEBUG=1` (never on the server):
+
+```bash
+uv run python manage.py create_test_user
+# First deck: Angličtina – první slovníček
+# test1@example.cz  (password: test1@example.cz)
+uv run python manage.py create_test_user --language it    # native Italian: Inglese – primo dizionario
+uv run python manage.py create_test_user --email me@example.cz --language uk --ui uk
+```
+
 ### 7. Languages
 
-The first migration adds three languages: `cs` Čeština, `en` Angličtina, `es` Španělština.
+The first migration adds three languages: `cs` Čeština, `en` Angličtina, `es` Španělština;
+later ones add `uk` Ukrajinština and, for decks only (no translation of the app, no
+dictionary yet), `de` Němčina, `fr` Francouzština, `it` Italština, `pl` Polština, `ru` Ruština.
 More languages can be added in the admin under *Vocabulary → Jazyky → Přidat*.
 
 The code must be an [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes)
@@ -465,6 +486,17 @@ uv run python manage.py missing_words --output missing.txt   # the same list int
 One word per line, each once, A–Z. A word is known when it is a headword or another spelling of
 an entry (`mum`); forms like `kids` or `ran` are listed, so the AI decides whether they need an
 entry. One letter and words with digits are left out.
+
+A new language of the dictionary (Spanish is done, Ukrainian is prepared) is translated in
+packages of the most common concepts first. The next ones without a text in that language,
+read from the files (the base and all packages), with what the translation needs:
+
+```bash
+uv run python manage.py translation_batch uk --count 1000 --output uk-next.jsonl
+uv run python manage.py translation_batch uk --count 2
+# {"id": "the.determiner.1", "en": {"words": "the", "sentence": "Close {the} door, please."}, "cs": {"words": "ten; ta; to", "note": "určitý člen, většinou se nepřekládá"}}
+# {"id": "be.verb.1", "en": {"words": "be", "sentence": "I want to {be} a doctor."}, "cs": {"words": "být", "note": ""}}
+```
 
 Mistakes the users reported on the word page (⋯ › *Report a mistake*) or in a test (the button
 ⚐ under the card, then back to the same card): wrong suggested translation, wrong suggested
@@ -811,7 +843,10 @@ change. When a feature changes, update its help tab too, in all languages.
 
 ### 16. Languages of the app (translations)
 
-The app speaks Czech, English and Spanish (European, *tú*; `LANGUAGES` in `config/settings.py`). The source texts in
+The app speaks Czech, German, English, Spanish (European, *tú*), French, Italian, Polish,
+Russian and Ukrainian (informal address everywhere, gender-neutral; `LANGUAGES` in
+`config/settings.py`). Every language has its help pages too. All but Czech and English are
+machine translations; a native speaker should check them. The source texts in
 the code are **English**; Czech is a translation in `locale/cs/LC_MESSAGES/django.po`. The
 compiled file `django.mo` is in git too, so the app and the tests work without gettext.
 
@@ -821,7 +856,7 @@ Which language a page has:
 |---|---|
 | logged in, *Nastavení › Aplikace › Jazyk aplikace* is set | that language (`User.ui_language`) |
 | logged in, the setting is *Podle prohlížeče* | the browser language (`Accept-Language`) |
-| not logged in | the switch *Čeština · English* under the login form (a cookie), else the browser |
+| not logged in | the switch of all nine languages under the login form (it wraps on a phone) (a cookie), else the browser |
 | a browser language the app does not have | English (`LANGUAGE_CODE`) |
 
 Mark every text for the user in the code, in English:

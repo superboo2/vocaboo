@@ -1,0 +1,150 @@
+{% extends "help/base_help.html" %}
+{% load study_tags %}
+
+{% block help %}
+  <section>
+    <h2>Avviare un test</h2>
+    <p>
+      Il pulsante <strong>▶︎ Esercitati</strong> nella barra in alto (c'è in ogni pagina) avvia subito un test, non c'è niente
+      da scegliere. Nei dettagli del dizionario, <strong>▶︎ Esercitati sul dizionario</strong> avvia lo stesso test solo da questo dizionario
+      e dai suoi sottodizionari. Cosa avviano esattamente si imposta nella pagina <strong>▶︎ Esercitati</strong>.
+    </p>
+    <p>Sotto <em>▶︎ Esercitati sul dizionario</em> una piccola riga dice cosa avvia, ad es. <em>20 schede · EN ⇄ IT · Imposta</em>. Quando non c'è niente da ripassare, lo dice: <em>niente da ripassare, ti eserciti sulle parole che non restano in testa</em>. <strong>Imposta</strong> apre la pagina ▶︎ Esercitati per questo dizionario. Per il pulsante nella barra, ▶︎ Esercitati è una scheda delle impostazioni, <a href="{% url 'study:new' %}">Impostazioni › Esercitati</a>; anche il link alla fine di ogni test (<em>Imposta l'esercizio</em>) porta lì.</p>
+
+    <h3>La pagina ▶︎ Esercitati</h3>
+    <p>Da un dizionario è una pagina a sé, nelle Impostazioni una scheda; le scelte sono le stesse. Quello che scegli qui viene memorizzato, e i pulsanti ▶︎ Esercitati poi fanno esattamente questo. La pagina salva soltanto (<strong>Salva</strong>); un test parte con il pulsante ▶︎ Esercitati nella barra o nel dizionario. Da un dizionario, sia <strong>Salva</strong> sia <strong>Annulla</strong> ti riportano lì.</p>
+    <ul>
+      <li><strong>Da quali dizionari</strong>: da un dizionario, solo il suo nome e quanti sottodizionari ha (il titolo <em>Dizionario</em>). Nelle Impostazioni, l'albero dei tuoi dizionari: quali prende <em>▶︎ Esercitati</em> nella barra. Quando sono tutti spuntati, li prende tutti, anche quelli che aggiungerai in seguito. I sottodizionari sono inclusi automaticamente, e una parola presente in più dizionari compare una volta sola.</li>
+      <li><strong>Direzione</strong>: in un senso, o in entrambi (<em>⇄</em>, le schede di entrambe le direzioni mescolate). Le direzioni prendono il nome dalle lingue del dizionario, ad es. <em>EN → IT</em>, <em>IT → EN</em> ed <em>EN ⇄ IT</em>; con dizionari di lingue diverse in generale <em>straniera → tua lingua</em> e <em>tua lingua → straniera</em>.</li>
+      <li><strong>Quali schede</strong>:
+        <ul>
+          <li><em>solo da ripassare e nuove</em>: l'apprendimento normale, le schede da ripassare e le parole che non sono ancora state in un test. Quando non c'è niente in attesa, si aggiungono le parole che non restano in testa, vedi sotto,</li>
+          <li><em>tutte</em>: ogni scheda una volta, indipendentemente da quando va ripassata (ad es. prima di un esame).</li>
+        </ul>
+      </li>
+      <li><strong>Max schede</strong> (20 di default): per entrambe le scelte. Vuoto = nessun limite.</li>
+    </ul>
+    <p>Accanto alle scelte vedi tra parentesi quante schede ci sono, ad es. <em>solo da ripassare e nuove (42)</em> o <em>tutte (85)</em>. Il conteggio vale per i dizionari spuntati e la direzione scelta e cambia appena modifichi una scelta. Con entrambe le direzioni (<em>⇄</em>) ogni parola c'è due volte, una per direzione.</p>
+    <p>Con <em>solo da ripassare e nuove</em> arrivano:</p>
+    <ol>
+      <li>prima le schede <strong>da ripassare</strong>, prima quelle che aspettano da più tempo,</li>
+      <li>poi quelle <strong>nuove</strong>,</li>
+      <li>quando sono meno del limite, il resto viene <strong>riempito</strong> con parole che sarebbero da ripassare presto. Sono soprattutto quelle che non restano in testa (hanno intervalli brevi). Vengono un po' mescolate, così non è sempre lo stesso. Senza limite si riempie solo quando non c'è niente in attesa, con 15 schede.</li>
+    </ol>
+    <p>Così il test non è mai vuoto, anche quando hai ripassato tutto. Quando ci sono abbastanza parole, ognuna arriva in una sola direzione. Le risposte contano come al solito.</p>
+  </section>
+
+  <section>
+    <h2>La scheda</h2>
+    <p>Vedi il fronte. Prova a ricordare la risposta, poi gira la scheda (<strong>Mostra</strong> o la <strong>barra spaziatrice</strong>). La scheda si gira come una di carta: il fronte scompare e il retro prende il suo posto.</p>
+    <div class="grid">
+      <article class="help-card">
+        <header>Fronte</header>
+        <p class="help-card-main">palmo</p>
+        <p class="card-sentence">“Sa leggere il <mark>palmo</mark> della mano.”</p>
+      </article>
+      <article class="help-card">
+        <header>Retro</header>
+        <p class="help-card-main">palm 🔊</p>
+        <p class="card-sentence">“She can read from her <mark>palm</mark>.”</p>
+        <p class="muted"><small>Stai imparando anche: palm → palma</small></p>
+        <p class="muted"><small>zampa · leggero · chiaro <u>+3</u></small></p>
+      </article>
+    </div>
+    <ul>
+      <li>Ogni lato ha una parola grande e sotto una frase nella stessa lingua, con la parola segnata. La frase ti dice il significato (palm: mano o albero?) e mostra la forma della parola.</li>
+      <li>Nella direzione straniera → tua lingua la frase inglese è sul fronte e la sua traduzione sul retro. Nella direzione tua lingua → straniera è il contrario: sul fronte <em>“Sono <strong>felice</strong> che tu sia venuto.”</em>, sul retro <em>“I'm <strong>glad</strong> you came.”</em> Valutati in base alla parola; non devi tradurre tutta la frase.</li>
+      <li>Quando la frase non ha traduzione, nella direzione tua lingua → straniera il fronte mostra la frase inglese con uno spazio vuoto al posto della parola, e il retro la mostra completa.</li>
+      <li>Se la parola è in più dizionari del test, la frase cambia ogni volta.</li>
+      <li><em>“ciao” è anche: hello</em>: un'altra parola ha la stessa traduzione.</li>
+      <li><em>“She can read from her palm.” 🔊</em>: la voce del browser legge la frase quando fai clic su 🔊 o premi <kbd>V</kbd>. Nella direzione straniera → tua lingua subito, nella direzione tua lingua → straniera solo dopo aver girato la scheda (altrimenti svelerebbe la risposta).</li>
+      <li>Come suona la <em>voce del browser</em> dipende dal dispositivo: bene su Android, Windows, Mac e in Chrome su Linux, robotica o per niente in Firefox su Linux. Se il browser non sa parlare affatto, 🔊 non viene mostrato.</li>
+      <li><em>palm 🔊</em>: pronuncia della parola straniera. Il 🔊 grigio è sul bordo destro della scheda, sulla riga della parola straniera. Fai clic su 🔊 o premi <kbd>P</kbd> e la <strong>voce del browser</strong> legge la parola; nella direzione straniera → tua lingua 🔊 si vede subito, nella direzione tua lingua → straniera dopo aver girato la scheda. Nelle <a href="{% url 'settings_tab' 'card' %}">Impostazioni</a> puoi attivare la lettura automatica della parola o dell'intera frase. Se sai leggere l'IPA, nelle <a href="{% url 'settings_tab' 'card' %}">Impostazioni</a> puoi attivare anche la pronuncia dal dizionario sotto la parola, per esempio <em>[pɑːm]</em>. Nella direzione straniera → tua lingua compare subito, nella direzione tua lingua → straniera dopo aver girato la scheda.</li>
+      <li><em>Stai imparando anche</em>: un'altra tua parola con la stessa parola straniera ma una traduzione diversa (<code>palm → palma</code>).</li>
+      <li><em>zampa · leggero · chiaro +3</em>: in fondo, in caratteri più piccoli, altri significati della parola straniera dal dizionario dell'app. Solo la prima variante di ogni significato. Ne vengono mostrati quanti stanno su una riga, e un clic su <em>+3</em> mostra il resto. Tutti, con tutte le varianti, sono nei dettagli della parola. Puoi disattivarlo nelle <a href="{% url 'settings_tab' 'card' %}">Impostazioni</a>.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Valutazioni e intervalli</h2>
+    <p>Dopo aver girato la scheda, valuta quanto bene sai la parola. Di default sotto i pulsanti non si vede quando torna la parola dopo ogni valutazione; attivalo in <a href="{% url 'settings_tab' 'card' %}">Impostazioni</a> › Scheda › <em>Mostra quando torna la parola</em>.</p>
+    <div class="overflow-auto"><table>
+      <thead>
+        <tr><th>Pulsante</th><th>Tasto</th><th>Prima volta</th><th>Ripassi successivi</th></tr>
+      </thead>
+      <tbody>
+        {% for rating in ratings %}
+          <tr>
+            <td><span aria-hidden="true">{{ rating.emoji }}</span> {{ rating.label }}</td>
+            <td><kbd>{{ rating.hotkey }}</kbd></td>
+            <td>{{ rating.min_interval|interval }}</td>
+            <td>
+              {% if rating.multiplier %}
+                intervallo precedente × {{ rating.multiplier|floatformat:"-1" }}
+              {% else %}
+                sempre {{ rating.min_interval|interval }}
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table></div>
+    <ul>
+      <li>L'intervallo cresce a ogni risposta buona, fino a <strong>{{ max_interval|interval }}</strong>. Per esempio, sempre 😎: 7 giorni → 28 → 112 → 1 anno.</li>
+      <li>Dopo 😕 o 😵 ricomincia a crescere dall'inizio.</li>
+      <li>Gli intervalli di un giorno o più vengono arrotondati a giorni interi.</li>
+      <li>Sotto ogni emoji puoi vedere il <strong>prossimo intervallo effettivo</strong> proprio di questa scheda.</li>
+      <li>La valutazione vale in tutti i dizionari in cui si trova la parola.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Comandi</h2>
+    <div class="overflow-auto"><table>
+      <tbody>
+        <tr><td><kbd>barra spaziatrice</kbd></td><td>gira la scheda</td></tr>
+        <tr><td><kbd>1</kbd> – <kbd>4</kbd></td><td>valuta la scheda (😎 🤔 😕 😵)</td></tr>
+        <tr><td><kbd>P</kbd></td><td>riproduce la pronuncia (nella direzione tua lingua → straniera dopo aver girato la scheda)</td></tr>
+        <tr><td><kbd>V</kbd></td><td>legge la frase (nella direzione tua lingua → straniera dopo aver girato la scheda)</td></tr>
+        <tr><td><strong>?</strong> sotto la scheda</td><td>apre la finestra <em>Come funziona il test</em> (come funziona e cosa significano le faccine); al primo test si apre da sola, dopo <em>Capito</em> solo con <strong>?</strong> (viene salvato nel tuo account, quindi su tutti i dispositivi)</td></tr>
+        <tr><td><strong>✎</strong> sotto la scheda o <kbd>E</kbd></td><td>apre la modifica della parola (un errore di battitura, una traduzione sbagliata); il pulsante <em>Salva e torna al test</em> o <em>Torna al test senza salvare</em> ti riporta alla stessa scheda. La scheda non è ancora stata valutata, quindi niente viene contato due volte. Le modifiche alle varianti e alla nota valgono in tutti i dizionari in cui si trova la parola.</td></tr>
+        <tr><td><strong>⚐</strong> sotto la scheda</td><td>segnala un errore nel dizionario dell'app: <em>Traduzione suggerita sbagliata</em>, <em>Frase suggerita sbagliata</em> o <em>Altro</em>, con una nota facoltativa. Poi ti riporta alla stessa scheda. La segnalazione aiuta a correggere il dizionario dell'app; la tua parola non cambia (correggila con ✎).</td></tr>
+        <tr><td><strong>Termina test</strong></td><td>chiude il test e mostra il riepilogo</td></tr>
+      </tbody>
+    </table></div>
+    <p>Sul telefono basta toccare. La scheda successiva si carica senza ricaricare la pagina.</p>
+  </section>
+
+  <section>
+    <h2>Ordine delle schede</h2>
+    <ul>
+      <li>Prima le schede da ripassare, poi le parole nuove. In entrambi i gruppi l'ordine è <strong>casuale</strong>, diverso in ogni test. Così le due direzioni della stessa parola di solito sono lontane, e non indovini la seconda direzione solo perché te la ricordi da un attimo prima.</li>
+      <li>La stessa parola nell'altra direzione, o un altro significato della stessa parola (palm / palm), non arriva mai subito dopo.</li>
+      <li>Una scheda valutata 😵 torna nello stesso test dopo 10 minuti.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Riepilogo</h2>
+    <p>
+      Alla fine vedi quante volte hai dato ogni valutazione e le parole valutate 😕 o 😵.
+      <strong>Esercitati di nuovo sulle sbagliate</strong> avvia un nuovo test solo con quelle parole.
+    </p>
+    <p>
+      <strong>✍️ Questa parola non resta in testa:</strong> quando nel test c'è una parola che continua a non andare nel tempo
+      (almeno metà delle ultime 8 risposte sbagliate, 😕 conta mezza) e non ha ancora una frase,
+      ti viene proposto un modulo: scrivi una frase sotto la parola straniera e la sua traduzione sotto quella nella tua lingua.
+      Sopra il modulo ci sono i <strong>pallini colorati</strong> delle ultime risposte per ogni direzione
+      (<em>EN → IT</em>, <em>IT → EN</em>), le più vecchie a sinistra: vedi subito in quale direzione la parola non va
+      e se sta migliorando. Vengono mostrate le ultime 8, le più vecchie sono nascoste sotto <em>+N</em> (passaci sopra con il mouse per vedere com'erano andate);
+      un clic le espande fino a 30 pallini, e altre sono nei dettagli della parola.
+      Una parola in una frase si impara meglio. Se il dizionario ha un esempio per questo significato,
+      viene mostrato con un pulsante <strong>Usa</strong> (compila la frase e la sua traduzione). <strong>Non ora</strong> nasconde il modulo;
+      la parola può essere proposta di nuovo dopo un altro test. Una parola che sai e dimentichi una volta non viene proposta.
+    </p>
+    <p class="muted">
+      Per ogni risposta l'app salva anche il tuo tempo per pensare (finché non giri la scheda) per le statistiche.
+      Quando blocchi il telefono o passi a un'altra app, il cronometro si ferma.
+    </p>
+  </section>
+{% endblock %}

@@ -1,0 +1,101 @@
+{% extends "help/base_help.html" %}
+
+{% block help %}
+  <section>
+    <h2>Układ</h2>
+    <p>Aplikacja wygląda tak samo na komputerze i na telefonie: jedna kolumna, części jako karty. Na górze jest pasek z logo (duszek wyglądający zza fiszki – kliknięcie wraca do przeglądu) <em>Vocaboo · ▶︎ Ćwicz · Statystyki · Pomoc</em> (na telefonie Statystyki i Pomoc są w menu konta, a w pasku zostaje tylko logo, ▶︎ Ćwicz i kółko) oraz kółko z pierwszą literą twojego e-maila – kliknięcie otwiera menu z twoim e-mailem, (na telefonie) 📊 Statystykami i ❓ Pomocą, przełącznikiem motywu <em>☀️ Jasny · 🌙 Ciemny · Auto</em> (Auto działa według ustawień systemu; wybór dotyczy tylko tej przeglądarki), <em>Ustawieniami</em> i <em>Wyloguj się</em>. Przycisk <strong>▶︎ Ćwicz</strong> w pasku od razu uruchamia test, z dowolnego miejsca (zobacz pomoc do testu). Na telefonie możesz dodać aplikację do ekranu głównego, zobacz <a href="#aplikace-na-plose">Aplikacja na ekranie głównym</a>. Na przeglądzie są karty <em>⏱️ 12 / 15 min · dzienny cel ›</em> (duża liczba jak w części Dziś; zielona z <em>✓</em>, gdy cel jest osiągnięty; kliknięcie otwiera ustawienie celu), <em>📝 3 · odłożone słówka czekają na tłumaczenie ›</em> (tylko gdy jakieś czekają, kliknięcie otwiera listę; na komputerze obie karty stoją obok siebie, na telefonie jedna pod drugą), <em>Co ci nie szło</em>, <em>Słowniczki</em> (z odnośnikiem <em>+ Nowy</em> do nowego słowniczka) i <em>Dziś</em>.</p>
+  </section>
+
+  <section>
+    <h2>Liczby na przeglądzie</h2>
+    <div class="overflow-auto"><table>
+      <tbody>
+                <tr><td>liczba w nawiasie obok słowniczka, np. <em>HIMYM (26)</em></td><td>słówka w słowniczku i jego podsłowniczkach</td></tr>
+        <tr><td>↻ i mniejsza liczba w nawiasie, np. <em>HIMYM (26 <span class="deck-due">↻ 9</span>)</em></td><td>ile słówek ze słowniczka (i jego podsłowniczków) jest teraz do powtórki; gdy nic nie czeka, w nawiasie jest tylko liczba słówek (po najechaniu: „9 do powtórki”)</td></tr>
+      </tbody>
+    </table></div>
+    <p>Pod słowniczkami jest <strong>Dziś</strong>: tylko to, co udało ci się dziś zrobić w testach. Każda liczba jest też przełącznikiem: kliknięcie pokazuje pod liczbami wykres słupkowy ostatnich 7 dni (nad każdym słupkiem liczba, pozostałe dni w jasnym indygo, dzisiejszy w mocnym indygo).</p>
+    <ul>
+      <li>🎯 <strong>dobrze pierwszy raz</strong>: słówka, na które dziś po raz pierwszy w historii pada odpowiedź 😎 lub 🤔, w dowolnym kierunku (każde słówko raz).</li>
+      <li>🎓 <strong>słówka nauczone</strong>: słówka, które dziś pierwszy raz stały się „znane”, czyli dobrze dwa razy z rzędu w każdym kierunku, w którym były testowane (tak samo jak w Statystykach). Druga dobra odpowiedź przychodzi dopiero po odstępie (7 dni po 😎), więc nowe słówko pojawi się tu najwcześniej po kilku dniach.</li>
+      <li>📚 <strong>słówka w testach</strong>: ile różnych słówek było dziś w testach; słówko w obu kierunkach liczy się raz.</li>
+      <li>⏱️ <strong>czas w testach</strong>: ile dziś trwały twoje testy (do ostatniej odpowiedzi).</li>
+    </ul>
+    <p>Na samej górze (nad słowniczkami) jest część <strong>Co ci nie szło</strong>, żeby słówka były na widoku: do 3 mniejszych odwracanych fiszek w jednym rzędzie. Liczą się z <strong>ostatniego dnia przed dzisiejszym, w którym był test</strong>. Obok nagłówka jest szarym kolorem dzień: <em>wczoraj</em> albo np. <em>pon. 26 października</em>. Dzisiejsze testy pojawią się w kartach jutro, więc karty nie zmieniają się w ciągu dnia, a w czasie przerwy od testów zostają takie same. Jest 8 rodzajów kart (np. 🐢 długo myślisz, 🦀 tylko w jedną stronę, 🦈 najczęściej nie wiesz) i każdy dzień z testami pokazuje inne trzy. Gdy tego dnia wszystko poszło dobrze, część się nie pokazuje. Statystyki pokazują wszystkie rodzaje kart (do 8) za ostatnie 30 dni.</p>
+  </section>
+
+  <section>
+    <h2>Statystyki</h2>
+    <p>Odnośnik <strong>Statystyki</strong> w górnym pasku otwiera przegląd twojej nauki. Kafelki z liczbami są zawsze na górze, pod nimi trzy zakładki: <strong>Słówka</strong> (wykresy Słówka i Znasz), <strong>Testy</strong> (ostatnie testy) i <strong>Co ci nie idzie</strong>.</p>
+    <ul>
+      <li><strong>Kafelki na górze</strong>: wszystkie słówka (i ile przybyło w tym tygodniu), ile znasz (dobrze co najmniej dwa razy z rzędu w każdym kierunku, w którym słówko było testowane; kierunek jeszcze nietestowany się nie liczy), 🔥 ile dni z rzędu się uczysz i twoja najdłuższa seria oraz liczba odpowiedzi.</li>
+      <li><strong>Słówka › Słówka</strong>: ile masz słówek łącznie, od dnia twojego pierwszego słówka. Krok zależy od tego, jak długo się uczysz: dziennie przez pierwsze 2 tygodnie, tygodniowo do 4 miesięcy, miesięcznie do 2 lat, potem kwartalnie. Liczby po lewej pokazują ilość; najedź na kropkę, żeby zobaczyć dokładną wartość.</li>
+      <li><strong>Słówka › Znasz</strong>: ile słówek znasz w każdym punkcie wykresu, w tych samych krokach co wykres powyżej. Znasz słówko, gdy w każdym testowanym kierunku 2× z rzędu pada 😎 lub 🤔 (tak samo jak na karcie <em>znasz</em> na górze; jest to też napisane pod tytułem wykresu); po błędzie słówko znowu wypada. Wykres ma własną oś, więc widać każdy postęp. Pojawia się po twojej pierwszej odpowiedzi w teście.</li>
+      <li><strong>Testy</strong>: twoje ostatnie 10 testów, jeden w wierszu: kiedy był (data i godzina), ścieżka do słowniczka, ostatnie 3 poziomy (np. <em>… › Series › HIMYM › S01</em>; najedź, żeby zobaczyć pełną ścieżkę), kierunek (np. <em>EN → PL</em>, <em>PL → EN</em> albo <em>EN ⇄ PL</em> dla obu kierunków), fiszki (wszystkie, do powtórki + nowe albo błędne jeszcze raz) i limit, liczba słówek, skuteczność (udział 😎 i 🤔 w procentach i mały pasek; najedź na pasek albo otwórz podsumowanie testu, żeby zobaczyć liczby 😎 🤔 😕 😵) i długość testu (⏹ przy niedokończonym teście). Przy obu kierunkach każde słówko jest w teście dwa razy, raz w każdym kierunku, i każde jest oceniane osobno. Nad tabelą widzisz liczbę testów w 14 dniach. Kliknij wiersz, żeby otworzyć podsumowanie testu. Testy bez ani jednej odpowiedzi się nie pokazują.</li>
+      <li><strong>Co ci nie idzie</strong>: słówka, które ci nie idą, jako fiszki jak w teście, więc uczysz się nawet przy oglądaniu statystyk. Przód pokazuje tylko jedną stronę słówka na środku, na kolorze zależnym od tego, dlaczego ci nie idzie; na tyle jest małe zwierzątko z krótkim powodem pod słówkiem (lista zwierzątek jest niżej) (połowa fiszek pokazuje obce słówko, połowa tłumaczenie; przy 🦀 zawsze kierunek, który ci nie idzie). Dotknij fiszki (albo naciśnij Enter), żeby ją odwrócić: zobaczysz drugą stronę, dlaczego słówko tu jest, i odnośnik <em>Szczegóły</em>. Opiera się na odpowiedziach z ostatnich 30 dni, więc fiszki ciągle się zmieniają.</li>
+    </ul>
+    <p>Słówko ci „nie idzie”, gdy w tym okresie padła przy nim odpowiedź 😵 <em>Nie mam pojęcia</em> lub 😕 <em>Pamiętam połowicznie</em> i jeszcze go nie znasz (w jakimś kierunku nie ma dwóch dobrych odpowiedzi z rzędu). Każde słówko pokazuje się tylko raz:</p>
+    <ul>
+      <li>🦈 <strong>najczęściej nie wiesz</strong>: najwięcej odpowiedzi „nie mam pojęcia”, ile – w nawiasie, np. „najczęściej nie wiesz (3×)”.</li>
+      <li>🦀 <strong>tylko w jedną stronę</strong>: w jedną stronę je znasz, w drugą nie; fiszka pokazuje z przodu trudny kierunek.</li>
+      <li>🐢 <strong>długo myślisz</strong>: najdłuższy średni czas, zanim odwrócisz fiszkę, np. „długo myślisz (9 s)”.</li>
+      <li>🐇 <strong>szybko i źle</strong>: najszybsze „nie mam pojęcia” (poniżej 3 s), np. „szybko i źle (1,2 s)” – raczej zgadujesz, niż myślisz.</li>
+      <li>🐿️ <strong>zapominasz</strong>: słówko, które było dobrze co najmniej dwa razy z rzędu, a potem źle, np. „zapominasz (2×)”.</li>
+      <li>🐒 <strong>raz wiesz, raz nie</strong>: „wiem” i „nie wiem” zmieniają się najczęściej (co najmniej 3 zmiany), np. „raz wiesz, raz nie (4×)”.</li>
+      <li>🐌 <strong>uczysz się najdłużej</strong>: słówko, które masz najdłużej i które wciąż ci nie idzie, np. „uczysz się najdłużej (45 dni)”.</li>
+      <li>🦒 <strong>najdłużej ci nie idzie</strong>: najdłuższe słówko lub wyrażenie spośród tych, które ci nie idą.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Szczegóły słówka</h2>
+    <p>Kliknij słówko na liście słowniczka, żeby otworzyć jego szczegóły. Pod słówkiem, jego tłumaczeniem i przyciskami są <strong>Powtórki</strong>. Po prawej stronie ich nagłówka jest <strong>stan</strong> słówka z kolorową kropką; najedź, żeby zobaczyć, ile razy było w teście (<em>Znasz je</em>, gdy każdy kierunek, w którym było testowane, był dobrze co najmniej dwa razy z rzędu, w przeciwnym razie <em>W nauce</em>, a <em>Nowe</em>, gdy jeszcze nie było w teście, tak samo jak w Statystykach; najedź, żeby zobaczyć, kiedy słówko liczy się jako znane). Pod tym, jeden kierunek pod drugim (np. <em>EN → PL</em> i <em>PL → EN</em>):</p>
+    <ul>
+      <li><strong>Następna powtórka</strong>: kiedy słówko wróci (<em>teraz</em>, <em>za 3 dni</em>); najedź, żeby zobaczyć dokładną datę i ile razy z rzędu było dobrze. Przy słówku, które jeszcze nie było w teście, jest tylko <em>Nowe, jeszcze nie w teście</em>.</li>
+      <li><strong>Wykres odpowiedzi</strong>: do ostatnich 30 odpowiedzi na osi czasu od lewej, najstarsze pierwsze, każda jako kropka w kolorze swojej oceny, wyżej znaczy lepiej (😵 na dole, potem 😕, 🤔, 😎). Linia między nimi pokazuje, czy idzie ci coraz lepiej: rośnie, gdy słówko idzie coraz lepiej. Odpowiedzi z jednego dnia stoją obok siebie (również gdy słówko pojawiło się kilka razy w teście), przerwa dłuższa niż tydzień jest skrócona, a linia nad nią jest przerywana. Oba kierunki mają wspólną oś czasu: ten sam dzień jest w tym samym miejscu na obu wykresach. Pod każdym wykresem są daty jego pierwszej i ostatniej odpowiedzi (tylko ostatniej, gdy są z tego samego dnia albo zbyt blisko siebie). Najedź na kropkę albo przytrzymaj na niej palec, żeby zobaczyć datę i ocenę. Przy jednej odpowiedzi jest tylko kropka, bez linii.</li>
+    </ul>
+    <p>Pod tym <strong>W słowniczkach</strong> (wszystkie słowniczki, w których jest słówko, ze zdaniem), <strong>Inne znaczenia</strong> ze słownika aplikacji, a na końcu zwinięta <strong>Historia odpowiedzi</strong>: kliknij ją, żeby zobaczyć każdą odpowiedź (kiedy, kierunek, ocena jako buźka, czas namysłu).</p>
+  </section>
+
+  <section>
+    <h2>Ustawienia</h2>
+    <p>Ustawienia mają pięć zakładek, według tego, gdzie w aplikacji działają: <strong>Aplikacja</strong>, <strong>Ćwicz</strong>, <strong>Cele</strong>, <strong>Fiszka</strong> i <strong>Konto</strong>. Każda zakładka ma własny przycisk <em>Zapisz</em>, który zapisuje tylko to, co jest na niej.</p>
+    <ul>
+      <li><strong>Aplikacja › Język aplikacji</strong>: język menu, przycisków i pomocy (<em>Čeština</em>, <em>Deutsch</em>, <em>English</em>, <em>Español</em>, <em>Français</em>, <em>Italiano</em>, <em>Polski</em>, <em>Русский</em>, <em>Українська</em> albo <em>Jak w przeglądarce</em>). Obowiązuje na wszystkich urządzeniach, na których się logujesz. Twoje słówka i słowniczki się nie zmieniają. Przed zalogowaniem możesz przełączyć język pod formularzem logowania.</li>
+      <li><strong>Aplikacja › Dodaj Vocaboo do ekranu głównego</strong>: przycisk <em>Zainstaluj</em> dodaje aplikację do ekranu głównego telefonu albo na komputer, zobacz <a href="#aplikace-na-plose">Aplikacja na ekranie głównym</a>. Pokazuje się tylko tam, gdzie przeglądarka to umie, a aplikacji jeszcze nie ma na ekranie głównym.</li>
+      <li><strong>Aplikacja › Podpowiadaj tłumaczenia</strong>: podpowiedzi ze słownika aplikacji pod polem tłumaczenia. Domyślnie włączone.</li>
+      <li><strong>Ćwicz</strong>: co uruchamia przycisk ▶︎ Ćwicz w pasku: z których słowniczków, w jakim kierunku, które fiszki i najwyżej ile, zobacz pomoc do testu.</li>
+      <li><strong>Cele › Dzienny cel (min)</strong>: ile minut dziennie chcesz spędzać na testach. Na górze przeglądu widzisz wtedy, ile masz już dziś za sobą. Liczy się czas nad każdą fiszką (namysł i ocena), najwyżej 20 s na jedną fiszkę. Dzięki temu cel nie wypełnia się sam, gdy zostawisz otwarty test i odejdziesz. Dlatego może być trochę mniejszy niż <em>⏱️ czas w testach</em>, który mierzy całą długość testów. Domyślnie 15 minut. Puste = bez celu, karta się nie pokazuje.</li>
+      <li><strong>Fiszka › Pokazuj inne znaczenia ze słownika aplikacji</strong>: inne znaczenia ze słownika aplikacji na dole tylnej strony fiszki (tyle, ile zmieści się w wierszu, reszta po kliknięciu +N). Twoje własne znaczenia są pokazywane zawsze. Domyślnie włączone.</li>
+      <li><strong>Fiszka › Pokazuj zapis wymowy (IPA)</strong>: pod obcym słówkiem na fiszce i w szczegółach słówka, np. <em>[pɑːm]</em>. Domyślnie wyłączone.</li>
+      <li><strong>Fiszka › Pokazuj, kiedy słówko wróci</strong>: pod przyciskami oceny w teście, np. <em>10 min</em>, <em>1 dzień</em>, <em>3 dni</em>. Domyślnie wyłączone.</li>
+      <li><strong>Fiszka › Odtwarzaj automatycznie</strong>: obce słówko czyta się samo – w kierunku obcy → ojczysty od razu, gdy pojawi się fiszka, w kierunku ojczysty → obcy po kliknięciu <em>Pokaż</em>. Wybierasz <em>słówko</em> albo <em>całe zdanie</em> (bez zdania czyta się słówko). Przeglądarka nie przeczyta pierwszej fiszki testu, dopóki pierwszy raz nie klikniesz na stronie. Domyślnie włączone. 🔊 jest na fiszce zawsze i nie da się go wyłączyć.</li>
+      <li><strong>Konto</strong>: twój e-mail i nowe hasło. Wpisz obecne hasło i dwa razy nowe. Ikona oka po prawej stronie pola pokazuje hasło, drugie kliknięcie znowu je ukrywa (tak samo przy logowaniu). Na tym urządzeniu logowanie zostaje; na innych urządzeniach trzeba będzie zalogować się ponownie. Zapomniane hasło możesz ustawić na nowo na stronie logowania przez <em>Nie pamiętasz hasła?</em>: wpisz swój e-mail, a dostaniesz odnośnik do ustawienia nowego hasła (działa 24 godziny).</li>
+    </ul>
+    <p><a href="{% url 'settings' %}">Otwórz ustawienia</a></p>
+  </section>
+
+  <section>
+    <h2>Konto</h2>
+    <p>Konto zakładasz na stronie logowania przez <em>Załóż konto</em>: wpisz swój e-mail, dwa razy hasło i <strong>Mój język</strong>, czyli język, którym mówisz (wypełniony według przeglądarki). Gdy aplikacja o to poprosi, wpisz też kod zaproszenia od osoby, która cię zaprasza. Na twój e-mail przyjdzie sześciocyfrowy kod; wpisz go na następnej stronie. Działa 15 minut, a <em>Wyślij nowy kod</em> wysyła kolejny. Potem konto jest gotowe i jesteś już w aplikacji. Gdy twój język nie jest angielski, na przeglądzie jest przykładowy słowniczek <em>Angielski – pierwszy słowniczek</em> z folderami Zwierzęta (7 słówek) i Jedzenie (Owoce 5, Warzywa 4) oraz jednym słówkiem na później. To zwykły słowniczek: od razu go przećwicz, dodaj do niego słówka albo go usuń. Nie ma e-maila? Zajrzyj też do spamu. Jeśli zamkniesz stronę z kodem, po prostu zaloguj się później: aplikacja wyśle nowy kod i znowu otworzy tę stronę. Konto, przy którym kod nie zostanie wpisany w ciągu 7 dni, jest usuwane.</p>
+  </section>
+
+  <section id="aplikace-na-plose">
+    <h2>Aplikacja na ekranie głównym</h2>
+    <p>Vocaboo możesz dodać do ekranu głównego telefonu (albo na komputer) jako aplikację: otwiera się jednym dotknięciem, na całym ekranie i bez paska przeglądarki. Ikona to ten sam duszek na kwadracie w kolorze indygo. Nic nie pobiera się ze sklepu; to wciąż ta sama aplikacja z tymi samymi danymi.</p>
+    <ul>
+      <li><strong>Android, Chrome lub Edge na komputerze</strong>: w <em>Ustawienia › Aplikacja</em> dotknij <em>Zainstaluj</em> i potwierdź w oknie przeglądarki.</li>
+      <li><strong>iPhone i iPad</strong>: Apple nie pozwala instalować przyciskiem, więc <em>Zainstaluj</em> pokazuje kroki: dotknij <strong>Udostępnij</strong> (kwadrat ze strzałką w górę; jeśli go nie widzisz, najpierw dotknij <strong>⋯</strong>), potem <strong>Do ekranu początkowego</strong> i <strong>Dodaj</strong>. Na iPhonie aplikacja na ekranie głównym ma własne logowanie, więc zaloguj się w niej jeszcze raz.</li>
+      <li><strong>Android z Firefoksem i podobnymi przeglądarkami</strong> (nie mają okna instalacji): <em>Zainstaluj</em> pokazuje kroki: w menu przeglądarki <strong>⋮</strong> (w prawym górnym rogu, w Firefoksie może być na dole) wybierz <strong>Zainstaluj aplikację</strong> lub <strong>Dodaj do ekranu głównego</strong> i potwierdź.</li>
+    </ul>
+    <p>Na telefonie przegląd raz zaproponuje to też sam (karta <em>Dodaj Vocaboo do ekranu głównego</em>); po <em>Nie teraz</em> już nie wraca, propozycja w Ustawieniach zostaje. Gdy aplikacja już jest na ekranie głównym albo przeglądarka tego nie umie (np. Firefox na komputerze), propozycji w Ustawieniach nie ma. Logowanie trwa 90 dni od ostatniej wizyty.</p>
+  </section>
+
+  <section>
+    <h2>Kilka urządzeń</h2>
+    <p>
+      Wszystko jest zapisane na serwerze. Gdy logujesz się i na telefonie, i na komputerze, wszędzie widzisz
+      te same słowniczki i ten sam postęp powtórek.
+    </p>
+  </section>
+{% endblock %}

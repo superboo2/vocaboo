@@ -32,6 +32,12 @@ RUDE = lexicon_entry(
 )
 
 
+@pytest.fixture(autouse=True)
+def small_dictionary(monkeypatch):
+    # The dictionary of these tests has a few words only; the limit is tested on its own
+    monkeypatch.setattr(topics, "MIN_TOPIC_TEXTS", 1)
+
+
 @pytest.fixture
 def deck(lexicon, user, en, cs):
     lexicon(DOG, CAT, BEAR, TREE, RUDE, tags=TAGS)
@@ -121,6 +127,28 @@ def test_deck_page_links_only_with_a_dictionary(logged_client, deck, user, es, c
     spanish_link = reverse("vocabulary:topic_words", args=[spanish.pk])
     assert spanish_link not in spanish_page.content.decode()
     assert logged_client.get(url(spanish, topic="zvire")).status_code == 404
+
+
+def test_no_topics_for_a_language_with_a_few_texts(deck, user, cs, monkeypatch):
+    from dictionary.models import ConceptText
+    from vocabulary.models import Language
+
+    # Italian has only the word dog (like the 17 words of the first deck)
+    ConceptText.objects.create(
+        concept=ConceptText.objects.get(language="en", words="dog").concept,
+        language="it",
+        words="cane",
+    )
+    italian = services.create_deck(
+        user,
+        "Inglese",
+        foreign_language=deck.foreign_language,
+        native_language=Language.objects.get(code="it"),
+    )
+    monkeypatch.setattr(topics, "MIN_TOPIC_TEXTS", 3)
+
+    assert topics.has_dictionary(deck)
+    assert not topics.has_dictionary(italian)
 
 
 def test_parts_of_speech_filter(lexicon, deck):

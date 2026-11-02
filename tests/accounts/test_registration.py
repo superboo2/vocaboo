@@ -2,6 +2,7 @@ import re
 from datetime import timedelta
 
 import pytest
+from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.management import call_command
 from django.urls import reverse
@@ -72,6 +73,23 @@ def test_new_user_gets_the_language_of_the_page(client, cs, es):
     user = User.objects.get(email="new@example.com")
     assert user.ui_language == "cs"
     assert user.native_language == es
+
+
+@pytest.mark.django_db
+def test_my_language_comes_from_the_browser_also_without_translation(client):
+    # An Italian browser: the page is not in Italian, but "My language" is
+    italian = Language.objects.get(code="it")
+    page = client.get(reverse("register"), HTTP_ACCEPT_LANGUAGE="it-IT,it;q=0.9,en;q=0.5")
+
+    assert f'<option value="{italian.pk}" selected>' in page.content.decode()
+
+
+@pytest.mark.django_db
+def test_my_language_prefers_the_language_chosen_with_the_switch(client, es):
+    client.cookies[settings.LANGUAGE_COOKIE_NAME] = "es"
+    page = client.get(reverse("register"), HTTP_ACCEPT_LANGUAGE="it")
+
+    assert f'<option value="{es.pk}" selected>' in page.content.decode()
 
 
 @pytest.mark.django_db

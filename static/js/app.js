@@ -122,7 +122,16 @@ const speech = window.speechSynthesis || null;
 let voices = [];
 
 // Which variant of a language sounds best (American English is the most common in series)
-const PREFERRED_LANG = { en: "en-us", es: "es-es" };
+const PREFERRED_LANG = {
+  de: "de-de",
+  en: "en-us",
+  es: "es-es",
+  fr: "fr-fr",
+  it: "it-it",
+  pl: "pl-pl",
+  ru: "ru-ru",
+  uk: "uk-ua",
+};
 // Names of voices that usually sound natural (online voices of Google and Microsoft)
 const GOOD_VOICE = /google|natural|online|neural/i;
 

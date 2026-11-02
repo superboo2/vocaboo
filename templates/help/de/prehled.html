@@ -1,0 +1,101 @@
+{% extends "help/base_help.html" %}
+
+{% block help %}
+  <section>
+    <h2>Aufbau</h2>
+    <p>Die App sieht auf dem Computer und auf dem Handy gleich aus: eine Spalte, Abschnitte als Karten. Oben ist eine Leiste mit dem Logo (ein Geist, der hinter einer Karte hervorschaut – ein Klick darauf bringt dich zurück zur Übersicht) <em>Vocaboo · ▶︎ Üben · Statistik · Hilfe</em> (auf dem Handy sind Statistik und Hilfe im Kontomenü, in der Leiste bleiben nur das Logo, ▶︎ Üben und der Kreis) und ein Kreis mit dem ersten Buchstaben deiner E-Mail – ein Klick darauf öffnet ein Menü mit deiner E-Mail, (auf dem Handy) 📊 Statistik und ❓ Hilfe, dem Umschalter für das Aussehen <em>☀️ Hell · 🌙 Dunkel · Auto</em> (Auto folgt der Einstellung deines Systems; die Wahl gilt nur in diesem Browser), <em>Einstellungen</em> und <em>Abmelden</em>. Die Schaltfläche <strong>▶︎ Üben</strong> in der Leiste startet sofort einen Test, von überall aus (siehe Hilfe zum Test). Auf dem Handy kannst du die App auf den Startbildschirm legen, siehe <a href="#aplikace-na-plose">Die App auf dem Startbildschirm</a>. In der Übersicht gibt es die Karten <em>⏱️ 12 / 15 min · Tagesziel ›</em> (eine große Zahl wie im Abschnitt Heute; grün mit <em>✓</em>, wenn es erreicht ist; ein Klick öffnet die Einstellung des Ziels), <em>📝 3 · für später warten auf eine Übersetzung ›</em> (nur wenn etwas wartet, ein Klick öffnet die Liste; auf dem Computer stehen beide Karten nebeneinander, auf dem Handy untereinander), <em>Was dir schwerfiel</em>, <em>Wörterbücher</em> (mit dem Link <em>+ Neu</em> für ein neues Wörterbuch) und <em>Heute</em>.</p>
+  </section>
+
+  <section>
+    <h2>Zahlen in der Übersicht</h2>
+    <div class="overflow-auto"><table>
+      <tbody>
+                <tr><td>Zahl in Klammern neben einem Wörterbuch, z. B. <em>HIMYM (26)</em></td><td>Vokabeln im Wörterbuch und in seinen Unterwörterbüchern</td></tr>
+        <tr><td>↻ und eine kleinere Zahl in Klammern, z. B. <em>HIMYM (26 <span class="deck-due">↻ 9</span>)</em></td><td>wie viele Vokabeln des Wörterbuchs (und seiner Unterwörterbücher) jetzt fällig sind; wenn nichts wartet, steht in Klammern nur die Zahl der Vokabeln (beim Darüberfahren mit der Maus: „9 zu wiederholen“)</td></tr>
+      </tbody>
+    </table></div>
+    <p>Unter den Wörterbüchern steht <strong>Heute</strong>: nur das, was du heute in Tests geschafft hast. Jede Zahl ist zugleich ein Schalter: Ein Klick darauf zeigt unter den Zahlen ein Säulendiagramm der letzten 7 Tage (eine Zahl über jeder Säule, die anderen Tage in hellem Indigo, heute in kräftigem Indigo).</p>
+    <ul>
+      <li>🎯 <strong>zum ersten Mal richtig</strong>: Vokabeln, die heute zum allerersten Mal mit 😎 oder 🤔 beantwortet wurden, in beliebiger Richtung (jede einmal).</li>
+      <li>🎓 <strong>Vokabeln gelernt</strong>: Vokabeln, die heute zum ersten Mal „gekonnt“ sind, also in jeder Richtung, in der sie getestet wurden, zweimal hintereinander richtig (genauso wie in der Statistik). Die zweite richtige Antwort kommt erst nach einem Intervall (bei 😎 nach 7 Tagen), deshalb taucht eine neue Vokabel hier frühestens nach ein paar Tagen auf.</li>
+      <li>📚 <strong>Vokabeln in Tests</strong>: wie viele verschiedene Vokabeln heute in Tests waren; eine Vokabel in beiden Richtungen zählt einmal.</li>
+      <li>⏱️ <strong>Zeit in Tests</strong>: wie lange deine Tests heute gedauert haben (bis zur letzten Antwort).</li>
+    </ul>
+    <p>Ganz oben (über den Wörterbüchern) steht der Abschnitt <strong>Was dir schwerfiel</strong>, damit die Vokabeln im Blick bleiben: bis zu 3 kleinere Karten zum Umdrehen in einer Reihe. Sie werden aus <strong>dem letzten Tag vor heute, an dem du einen Test hattest,</strong> berechnet. Neben der Überschrift steht dieser Tag in Grau: <em>gestern</em> oder z. B. <em>Mo 26.10.</em> Die heutigen Tests erscheinen erst morgen in den Karten, die Karten ändern sich also im Lauf des Tages nicht, und während einer Testpause bleiben sie gleich. Es gibt 8 Arten von Karten (z. B. 🐢 du überlegst lange, 🦀 nur in eine Richtung, 🦈 am häufigsten nicht gewusst), und jeder Tag mit Tests zeigt drei andere. Wenn an dem Tag alles gut lief, wird der Abschnitt nicht angezeigt. Die Statistik zeigt alle Arten von Karten (bis zu 8) für die letzten 30 Tage.</p>
+  </section>
+
+  <section>
+    <h2>Statistik</h2>
+    <p>Der Link <strong>Statistik</strong> in der oberen Leiste öffnet einen Überblick über dein Lernen. Oben stehen immer die Kacheln mit Zahlen, darunter drei Reiter: <strong>Vokabeln</strong> (die Diagramme Vokabeln und Gekonnt), <strong>Tests</strong> (die letzten Tests) und <strong>Was dir schwerfällt</strong>.</p>
+    <ul>
+      <li><strong>Kacheln oben</strong>: Vokabeln insgesamt (und wie viele diese Woche dazukamen), wie viele du kannst (in jeder Richtung, in der die Vokabel getestet wurde, mindestens zweimal hintereinander richtig; eine noch nicht getestete Richtung zählt nicht), 🔥 wie viele Tage in Folge du lernst und deine längste Serie sowie die Zahl der Antworten.</li>
+      <li><strong>Vokabeln › Vokabeln</strong>: wie viele Vokabeln du insgesamt hast, ab dem Tag deiner ersten Vokabel. Der Schritt hängt davon ab, wie lange du schon lernst: in den ersten 2 Wochen nach Tagen, bis 4 Monate nach Wochen, bis 2 Jahre nach Monaten, danach nach Quartalen. Die Zahlen links zeigen die Anzahl; fahr mit der Maus über einen Punkt, um den genauen Wert zu sehen.</li>
+      <li><strong>Vokabeln › Gekonnt</strong>: wie viele Vokabeln du an jedem Punkt des Diagramms kannst, in denselben Schritten wie das Diagramm darüber. Du kannst eine Vokabel, wenn sie in jeder getesteten Richtung 2× hintereinander 😎 oder 🤔 bekam (genauso wie die Kachel <em>Gekonnt</em> oben; es steht auch unter dem Titel des Diagramms); nach einem Fehler fällt die Vokabel wieder heraus. Das Diagramm hat eine eigene Achse, damit jeder Fortschritt sichtbar ist. Es erscheint nach deiner ersten Antwort in einem Test.</li>
+      <li><strong>Tests</strong>: deine letzten 10 Tests, einer pro Zeile: wann er war (Datum und Uhrzeit), der Pfad zum Wörterbuch, die letzten 3 Ebenen (z. B. <em>… › Serien › HIMYM › S01</em>; fahr mit der Maus darüber, um den ganzen Pfad zu sehen), die Richtung (z. B. <em>EN → DE</em>, <em>DE → EN</em> oder <em>EN ⇄ DE</em> für beide Richtungen), die Karten (alle, fällig + neu oder falsche nochmal) und das Limit, die Zahl der Vokabeln, die Erfolgsquote (der Anteil von 😎 und 🤔 als Prozentzahl und kleiner Balken; fahr über den Balken oder öffne die Zusammenfassung des Tests, um die Anzahl von 😎 🤔 😕 😵 zu sehen) und die Dauer des Tests (⏹ bei einem nicht beendeten Test). Bei beiden Richtungen ist jede Vokabel zweimal im Test, einmal in jeder Richtung, und jede wird einzeln bewertet. Über der Tabelle siehst du die Zahl der Tests in 14 Tagen. Ein Klick auf eine Zeile öffnet die Zusammenfassung des Tests. Tests ohne eine einzige Antwort werden nicht angezeigt.</li>
+      <li><strong>Was dir schwerfällt</strong>: Vokabeln, die dir schwerfallen, als Karten wie im Test, damit du auch beim Anschauen der Statistik weiterlernst. Vorne steht in der Mitte nur eine Seite der Vokabel, auf einer Farbe, die davon abhängt, warum sie dir schwerfällt; hinten steht unter der Vokabel ein kleines Tier mit einem kurzen Grund (die Liste der Tiere steht unten) (die Hälfte der Karten zeigt das Wort in der Fremdsprache, die Hälfte die Übersetzung; bei 🦀 immer die Richtung, die dir schwerfällt). Tippe auf die Karte (oder drück Enter), um sie umzudrehen: Du siehst die andere Seite, warum die Vokabel dort ist, und einen Link <em>Details</em>. Grundlage sind die Antworten der letzten 30 Tage, die Karten ändern sich also laufend.</li>
+    </ul>
+    <p>Eine Vokabel „fällt dir schwer“, wenn sie in diesem Zeitraum die Antwort 😵 <em>Keine Ahnung</em> oder 😕 <em>Weiß ich halb</em> bekam und du sie noch nicht kannst (in einer Richtung hat sie keine zwei richtigen Antworten hintereinander). Jede Vokabel wird nur einmal gezeigt:</p>
+    <ul>
+      <li>🦈 <strong>am häufigsten nicht gewusst</strong>: die meisten Antworten „keine Ahnung“, in Klammern wie oft, z. B. „am häufigsten nicht gewusst (3×)“.</li>
+      <li>🦀 <strong>nur in eine Richtung</strong>: In eine Richtung kannst du sie, in die andere nicht; die Karte zeigt vorne die schwierige Richtung.</li>
+      <li>🐢 <strong>du überlegst lange</strong>: die längste durchschnittliche Zeit, bevor du die Karte umdrehst, z. B. „du überlegst lange (9 s)“.</li>
+      <li>🐇 <strong>schnell und falsch</strong>: das schnellste „keine Ahnung“ (unter 3 s), z. B. „schnell und falsch (1,2 s)“ – du rätst eher, als dass du nachdenkst.</li>
+      <li>🐿️ <strong>du vergisst sie</strong>: eine Vokabel, die mindestens zweimal hintereinander richtig war und dann falsch, z. B. „du vergisst sie (2×)“.</li>
+      <li>🐒 <strong>mal gewusst, mal nicht</strong>: „gewusst“ und „nicht gewusst“ wechseln sich am häufigsten ab (mindestens 3 Wechsel), z. B. „mal gewusst, mal nicht (4×)“.</li>
+      <li>🐌 <strong>am längsten im Lernen</strong>: die Vokabel, die du am längsten hast und die dir immer noch schwerfällt, z. B. „am längsten im Lernen (45 Tage)“.</li>
+      <li>🦒 <strong>die längsten, die dir schwerfallen</strong>: das längste Wort oder die längste Wendung unter denen, die dir schwerfallen.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Details einer Vokabel</h2>
+    <p>Ein Klick auf eine Vokabel in der Liste eines Wörterbuchs öffnet ihre Details. Unter dem Wort, seiner Übersetzung und den Schaltflächen kommen die <strong>Wiederholungen</strong>. Rechts in ihrer Überschrift steht der <strong>Status</strong> der Vokabel mit einem farbigen Punkt; fahr mit der Maus darüber, um zu sehen, wie oft sie im Test war (<em>Gekonnt</em>, wenn jede Richtung, in der sie getestet wurde, mindestens zweimal hintereinander richtig war, sonst <em>Im Lernen</em>, und <em>Neu</em>, wenn sie noch in keinem Test war, genauso wie in der Statistik; beim Darüberfahren siehst du, wann eine Vokabel als gekonnt zählt). Darunter steht jede Richtung untereinander (z. B. <em>EN → DE</em> und <em>DE → EN</em>):</p>
+    <ul>
+      <li><strong>Nächste Wiederholung</strong>: wann die Vokabel wiederkommt (<em>jetzt</em>, <em>in 3 Tagen</em>); beim Darüberfahren siehst du das genaue Datum und wie oft hintereinander du richtig lagst. Bei einer Vokabel, die noch in keinem Test war, steht nur <em>Neu, noch in keinem Test</em>.</li>
+      <li><strong>Diagramm der Antworten</strong>: bis zu den letzten 30 Antworten auf einer Zeitachse von links, die älteste zuerst, jede als Punkt in der Farbe ihrer Bewertung, höher ist besser (😵 unten, dann 😕, 🤔, 😎). Die Linie dazwischen zeigt, ob du dich verbesserst: Sie steigt, wenn die Vokabel immer besser klappt. Antworten eines Tages stehen nebeneinander (auch wenn die Vokabel in einem Test mehrmals kam), eine Pause von mehr als einer Woche wird verkürzt und die Linie darüber ist gestrichelt. Beide Richtungen teilen sich eine Zeitachse: Derselbe Tag steht in beiden Diagrammen an derselben Stelle. Unter jedem Diagramm stehen die Daten seiner ersten und letzten Antwort (nur die letzte, wenn beide am selben Tag oder zu nah beieinander sind). Fahr mit der Maus über einen Punkt oder halte den Finger darauf, um Datum und Bewertung zu sehen. Bei einer einzigen Antwort gibt es nur einen Punkt, keine Linie.</li>
+    </ul>
+    <p>Darunter stehen <strong>In Wörterbüchern</strong> (alle Wörterbücher, in denen die Vokabel steht, mit dem Satz), <strong>Weitere Bedeutungen</strong> aus dem Wörterbuch der App und ganz am Ende der zugeklappte <strong>Antwortverlauf</strong>: Klick darauf, um jede Antwort zu sehen (wann, Richtung, Bewertung als Smiley, Bedenkzeit).</p>
+  </section>
+
+  <section>
+    <h2>Einstellungen</h2>
+    <p>Die Einstellungen haben fünf Reiter, je nachdem, wo sie in der App wirken: <strong>App</strong>, <strong>Üben</strong>, <strong>Ziele</strong>, <strong>Karte</strong> und <strong>Konto</strong>. Jeder Reiter hat seine eigene Schaltfläche <em>Speichern</em>, die nur speichert, was auf ihm steht.</p>
+    <ul>
+      <li><strong>App › App-Sprache</strong>: die Sprache von Menüs, Schaltflächen und Hilfe (<em>Čeština</em>, <em>Deutsch</em>, <em>English</em>, <em>Español</em>, <em>Français</em>, <em>Italiano</em>, <em>Polski</em>, <em>Русский</em>, <em>Українська</em> oder <em>Wie im Browser</em>). Sie gilt auf allen Geräten, auf denen du dich anmeldest. Deine Vokabeln und Wörterbücher ändern sich nicht. Vor dem Anmelden kannst du die Sprache unter dem Anmeldeformular umschalten.</li>
+      <li><strong>App › Leg Vocaboo auf deinen Startbildschirm</strong>: Die Schaltfläche <em>Installieren</em> legt die App auf den Startbildschirm deines Handys oder auf deinen Computer, siehe <a href="#aplikace-na-plose">Die App auf dem Startbildschirm</a>. Sie erscheint nur dort, wo der Browser das kann und die App noch nicht auf dem Startbildschirm ist.</li>
+      <li><strong>App › Übersetzungen vorschlagen</strong>: Vorschläge aus dem Wörterbuch der App unter dem Übersetzungsfeld. Standardmäßig an.</li>
+      <li><strong>Üben</strong>: was die Schaltfläche ▶︎ Üben in der Leiste startet: aus welchen Wörterbüchern, in welche Richtung, welche Karten und höchstens wie viele, siehe Hilfe zum Test.</li>
+      <li><strong>Ziele › Tagesziel (Min.)</strong>: wie viele Minuten täglich du in Tests verbringen willst. Oben in der Übersicht siehst du dann, wie viel du heute schon geschafft hast. Gezählt wird die Zeit über den einzelnen Karten (Überlegen und Bewerten), höchstens 20 s pro Karte. So füllt sich das Ziel nicht von selbst, wenn du einen Test offen lässt und weggehst. Deshalb kann es etwas weniger sein als <em>⏱️ Zeit in Tests</em>, die die ganze Dauer der Tests misst. Standardmäßig 15 Minuten. Leer = kein Ziel, die Karte wird nicht angezeigt.</li>
+      <li><strong>Karte › Weitere Bedeutungen aus dem Wörterbuch der App zeigen</strong>: weitere Bedeutungen aus dem Wörterbuch der App unten auf der Rückseite der Karte (so viele, wie in eine Zeile passen, der Rest nach einem Klick auf +N). Deine eigenen Bedeutungen werden immer gezeigt. Standardmäßig an.</li>
+      <li><strong>Karte › Lautschrift zeigen (IPA)</strong>: unter dem Wort in der Fremdsprache auf der Karte und in den Details der Vokabel, z. B. <em>[pɑːm]</em>. Standardmäßig aus.</li>
+      <li><strong>Karte › Zeigen, wann die Vokabel wiederkommt</strong>: unter den Bewertungsknöpfen im Test, z. B. <em>10 Min.</em>, <em>1 Tag</em>, <em>3 Tage</em>. Standardmäßig aus.</li>
+      <li><strong>Karte › Automatisch abspielen</strong>: Das Wort in der Fremdsprache wird von selbst vorgelesen – in der Richtung Fremdsprache → Muttersprache, sobald die Karte erscheint, in der Richtung Muttersprache → Fremdsprache, nachdem du auf <em>Aufdecken</em> geklickt hast. Du wählst entweder das <em>Wort</em> oder <em>den ganzen Satz</em> (ohne Satz wird das Wort vorgelesen). Die allererste Karte eines Tests liest der Browser erst vor, wenn du zum ersten Mal auf die Seite geklickt hast. Standardmäßig an. 🔊 ist immer auf der Karte und lässt sich nicht ausschalten.</li>
+      <li><strong>Konto</strong>: deine E-Mail und ein neues Passwort. Gib dein aktuelles Passwort ein und zweimal das neue. Das Augensymbol rechts im Feld zeigt das Passwort, ein zweiter Klick verbirgt es wieder (genauso beim Anmelden). Auf diesem Gerät bleibst du angemeldet; auf anderen Geräten musst du dich neu anmelden. Ein vergessenes Passwort kannst du auf der Anmeldeseite über <em>Passwort vergessen?</em> zurücksetzen: Gib deine E-Mail ein und du bekommst einen Link, mit dem du ein neues Passwort festlegst (er gilt 24 Stunden).</li>
+    </ul>
+    <p><a href="{% url 'settings' %}">Einstellungen öffnen</a></p>
+  </section>
+
+  <section>
+    <h2>Konto</h2>
+    <p>Ein Konto legst du auf der Anmeldeseite über <em>Konto erstellen</em> an: Gib deine E-Mail ein, zweimal dein Passwort und <strong>Meine Sprache</strong>, also die Sprache, die du sprichst (wird aus dem Browser vorausgefüllt). Wenn die App danach fragt, gib auch den Einladungscode der Person ein, die dich eingeladen hat. Ein sechsstelliger Code kommt an deine E-Mail; gib ihn auf der nächsten Seite ein. Er gilt 15 Minuten, und <em>Neuen Code senden</em> schickt dir einen weiteren. Dann ist das Konto fertig und du bist angemeldet. Wenn deine Sprache nicht Englisch ist, findest du in der Übersicht ein Beispielwörterbuch <em>Englisch – erstes Wörterbuch</em> mit den Ordnern Tiere (7 Vokabeln) und Essen (Obst 5, Gemüse 4) und einer Vokabel für später. Es ist ein ganz normales Wörterbuch: Üb es gleich, füg Vokabeln hinzu oder lösch es. Keine E-Mail bekommen? Schau auch im Spam nach. Wenn du die Seite mit dem Code schließt, melde dich einfach später an: Die App schickt einen neuen Code und öffnet die Seite wieder. Ein Konto, dessen Code nicht innerhalb von 7 Tagen eingegeben wird, wird gelöscht.</p>
+  </section>
+
+  <section id="aplikace-na-plose">
+    <h2>Die App auf dem Startbildschirm</h2>
+    <p>Du kannst Vocaboo als App auf den Startbildschirm deines Handys (oder auf deinen Computer) legen: Sie öffnet sich mit einem Tippen, im Vollbild und ohne die Leiste des Browsers. Das Symbol ist derselbe Geist auf einem indigoblauen Quadrat. Aus keinem Store wird etwas heruntergeladen; es ist immer noch dieselbe App mit denselben Daten.</p>
+    <ul>
+      <li><strong>Android, Chrome oder Edge auf dem Computer</strong>: Tippe in <em>Einstellungen › App</em> auf <em>Installieren</em> und bestätige es im Fenster des Browsers.</li>
+      <li><strong>iPhone und iPad</strong>: Apple erlaubt keine Installation per Schaltfläche, deshalb zeigt <em>Installieren</em> die Schritte: Tippe auf <strong>Teilen</strong> (das Quadrat mit dem Pfeil nach oben; wenn du es nicht siehst, tippe zuerst auf <strong>⋯</strong>), dann auf <strong>Zum Home-Bildschirm</strong> und <strong>Hinzufügen</strong>. Auf dem iPhone hat die App auf dem Startbildschirm eine eigene Anmeldung, melde dich dort also noch einmal an.</li>
+      <li><strong>Android mit Firefox und ähnlichen Browsern</strong> (sie haben kein Installationsfenster): <em>Installieren</em> zeigt die Schritte: Wähl im Menü des Browsers <strong>⋮</strong> (oben rechts, in Firefox kann es unten sein) <strong>App installieren</strong> oder <strong>Zum Startbildschirm hinzufügen</strong> und bestätige.</li>
+    </ul>
+    <p>Auf dem Handy bietet die Übersicht es dir auch einmal von selbst an (die Karte <em>Leg Vocaboo auf deinen Startbildschirm</em>); nach <em>Nicht jetzt</em> kommt sie nicht wieder, das Angebot in den Einstellungen bleibt. Wenn die App schon auf dem Startbildschirm ist oder der Browser es nicht kann (z. B. Firefox auf dem Computer), gibt es das Angebot in den Einstellungen nicht. Du bleibst 90 Tage seit deinem letzten Besuch angemeldet.</p>
+  </section>
+
+  <section>
+    <h2>Mehrere Geräte</h2>
+    <p>
+      Alles wird auf dem Server gespeichert. Wenn du dich auf dem Handy und auf dem Computer anmeldest, siehst du
+      überall dieselben Wörterbücher und denselben Stand der Wiederholungen.
+    </p>
+  </section>
+{% endblock %}

@@ -186,8 +186,14 @@ LANGUAGE_CODE = "en"
 # The names stay in their own language, so everybody finds theirs.
 LANGUAGES = [
     ("cs", "Čeština"),
+    ("de", "Deutsch"),
     ("en", "English"),
     ("es", "Español"),
+    ("fr", "Français"),
+    ("it", "Italiano"),
+    ("pl", "Polski"),
+    ("ru", "Русский"),
+    ("uk", "Українська"),
 ]
 
 # Translations of the app (makemessages / compilemessages)

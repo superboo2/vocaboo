@@ -59,7 +59,7 @@ stejně, ať je to dlaň, nebo palma). Dnes má slova jen angličtina.
 
 Při přidání nového jazyka do slovníku doplnit i ukázku pro prázdné pole slovíčka
 (`VARIANT_SAMPLES` ve `vocabulary/forms.py`, dvě varianty slova v tom jazyce, třeba
-`"es": "hola; buenas"`); ukázky jsou jen pro jazyky, které slovník má.
+`"es": "hola; buenas"`); ukázku má každý jazyk z tabulky jazyků, i bez slovníku.
 
 Pravidla ID: ID se **nikdy nemění** (věta se smí opravit, ID ne); nový pojem dostane další volné
 číslo u svého slova a druhu (`palm.noun.3`); pořadí významů je v seznamu `senses` slova, ne
@@ -136,6 +136,27 @@ s tím jazykem; nepřeložené se zatím neukazují.
 - Spuštění stejně jako u nových slov: `extend_lexicon dictionary/data/extensions/RRRR-MM-DD`.
 - Slova jazyka (`words_es.jsonl`: IPA, tvary, rod, četnost) později zvlášť.
 - K jazyku patří ukázka pro prázdné pole (`VARIANT_SAMPLES`, viz výše).
+- Vstup pro další balíček vypíše `translation_batch` (čte jen soubory, základ i všechny
+  balíčky): `uv run python manage.py translation_batch uk --count 1000 --output uk-next.jsonl`.
+  Každý řádek je pojem s anglickým slovem a větou a českým slovem a poznámkou, nejčastější první.
+
+**Ukrajinština (`uk`) – rozpracovaná** (od 2026-11-02; první balíček 500 nejčastějších pojmů): jazyk je v tabulce jazyků,
+aplikace má ukrajinské rozhraní, `VARIANT_SAMPLES` má `"uk": "привіт; вітаю"` a první slovníček
+(`dictionary/starter.py`, `NATIVE`) má `uk`. Slova slovníčku (17 pojmů) přidal zvlášť balíček
+`2026-11-02-2`, takže slovníček dostane každý nový účet s ukrajinštinou. Postup je stejný jako u španělštiny: balíčky
+`extensions/RRRR-MM-DD/` s řádky `{"id": "cat.noun.1", "texts": {"uk": {"words": "кіт; кішка",
+"sentence": "{Кіт} спить на дивані."}}}`, vstup z `translation_batch uk`. Pravidla navíc pro
+ukrajinštinu: spisovná ukrajinština (ne ruské tvary ani suržyk), apostrof `’`, uvozovky «…».
+
+**Slova prvního slovníčku v ostatních jazycích** (od 2026-11-02, balíček `2026-11-02-2`): němčina,
+francouzština, italština, polština, ruština a ukrajinština mají texty (slovo i větu) jen pro 17 pojmů
+prvního slovníčku (`dictionary/starter.py`: `DECKS` a `PENDING`), aby ho dostal každý nový účet, jehož
+jazyk není angličtina. Návrhy překladů pro tyto jazyky tím vzniknou jen pro těchto 17 slov. Při změně
+slov slovníčku přeložit nové pojmy do všech jazyků v `NATIVE`.
+**Nový jazyk vždy dostane slovníček:** s každým novým jazykem v tabulce jazyků přidat balíček
+s jeho texty (slovo i věta) pro těchto 17 pojmů, jazyk do `NATIVE` (`dictionary/starter.py`);
+názvy složek a popis jsou v překladech aplikace, takže nový jazyk potřebuje i překlad aplikace. Test
+`test_dictionary_files_have_the_words_in_every_language` hlídá, že nic nechybí.
 
 **Pravidla překladu (prompt pro AI):**
 
@@ -173,6 +194,8 @@ s tím jazykem; nepřeložené se zatím neukazují.
 | 2026-10-26-11 | es | dalších 1 000 (zbytek band 11 = 541, začátek band 12 = 459) |
 | 2026-10-26-12 | es | zbylých 964 (band 12–15); **španělština je u všech pojmů základu** (12 563, bez *would*) |
 | 2026-10-27 | cs, en, es | **opravy** po kontrole: 645 českých variant se závorkou (poznámka přesunutá do `note`, např. „zbavit se (get rid of)“), *bandit* (hvězdička ve větě), 3 španělské (duplicitní varianta, „…“ ve slovech) |
+| 2026-11-02 | uk | 500 nejčastějších (band 1); strojový překlad, kontrola až na konci |
+| 2026-11-02-2 | de, fr, it, pl, ru, uk | 17 slov prvního slovníčku (`starter.py`), ručně |
 
 ## Pravidla pro balíček (prompt pro AI)
 

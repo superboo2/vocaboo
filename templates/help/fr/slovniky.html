@@ -1,0 +1,90 @@
+{% extends "help/base_help.html" %}
+
+{% block help %}
+  <section>
+    <h2>Qu'est-ce qu'un dictionnaire</h2>
+    <p>
+      Un dictionnaire est un dossier de mots. Les dictionnaires peuvent être imbriqués, tu peux donc construire une arborescence selon
+      l'origine de tes mots, par exemple par série, saison et épisode :
+    </p>
+    <pre class="help-tree">📂 Anglais (EN → FR)
+   📂 Two and half men
+      📂 Series 1
+         📄 Episode 1
+         📄 Episode 2
+📄 Espagnol (ES → FR)</pre>
+    <ul>
+      <li>L'arborescence peut avoir au plus <strong>{{ max_depth }} niveaux</strong>.</li>
+      <li>Chaque dictionnaire peut avoir à la fois des mots et des sous-dictionnaires.</li>
+      <li>Un nom doit être unique dans un même dossier, et les majuscules ne comptent pas (<code>HIMYM</code> = <code>himym</code>).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Nouveau dictionnaire et langues</h2>
+    <ol>
+      <li>Sur l'<a href="{% url 'dashboard' %}">Accueil</a>, clique sur <strong>+ Nouveau dictionnaire</strong>.</li>
+      <li>Remplis le nom et les langues :
+        <ul>
+          <li><strong>Je veux apprendre</strong> : la langue des mots, p. ex. l'anglais. Tu peux choisir l'allemand, l'anglais, l'espagnol, le français, l'italien, le polonais, le russe, le tchèque et l'ukrainien ; les traductions proposées par le dictionnaire de l'appli n'existent pour l'instant que pour certaines d'entre elles (voir Mots),</li>
+          <li><strong>Je parle</strong> : la langue dans laquelle tu traduis les mots, p. ex. le français. La langue de ton dernier nouveau dictionnaire est déjà remplie (au début, la langue choisie à la création de ton compte).</li>
+        </ul>
+      </li>
+    </ol>
+    <p>
+      Seul un dictionnaire de premier niveau a une paire de langues, affichée à côté de son nom, p. ex. <code>(EN → FR)</code>.
+      Les sous-dictionnaires en héritent, et elle ne peut plus être changée.
+    </p>
+    <p>
+      Pour ajouter un <strong>sous-dictionnaire</strong>, ouvre le dictionnaire et clique sur <strong>+ Nouveau</strong> à côté du titre <em>Sous-dictionnaires</em>.
+    </p>
+  </section>
+
+  <section>
+    <h2>L'arborescence de l'Accueil</h2>
+    <div class="overflow-auto"><table>
+      <tbody>
+        <tr><td>📂 / 📁</td><td>dictionnaire avec des sous-dictionnaires, ouvert / fermé</td></tr>
+        <tr><td>📄</td><td>dictionnaire sans sous-dictionnaires</td></tr>
+        <tr><td>clic sur l'icône ou sur la ligne</td><td>replie ou déplie le dossier ; le navigateur retient l'état des dossiers, l'arborescence est donc la même après un test ou sur une autre page (chaque appareil le retient séparément). Les dossiers sur lesquels tu n'as pas encore cliqué montrent leur premier niveau ouvert et les niveaux plus profonds fermés. Quand tu fais glisser un dictionnaire et que tu le maintiens au-dessus d'un dossier fermé, le dossier s'ouvre au bout d'un moment</td></tr>
+        <tr><td>clic sur le nom</td><td>ouvre le dictionnaire</td></tr>
+        <tr><td>nombre à droite</td><td>nombre de mots, sous-dictionnaires compris ; un mot présent dans plusieurs dictionnaires est compté une fois</td></tr>
+        <tr><td><strong>N à réviser</strong></td><td>combien de mots sont à réviser maintenant</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Déplacer par glisser-déposer</h2>
+    <p><strong>Pour déplacer un dictionnaire sur l'Accueil, fais-le glisser. Sur un téléphone, appuie d'abord un moment dessus.</strong></p>
+    <p>Attrape le dictionnaire et fais-le glisser. Les lignes ne bougent pas pendant que tu le fais glisser ; tu vois seulement où le dictionnaire va atterrir :</p>
+    <ul>
+      <li><strong>au milieu d'une ligne</strong> : la ligne est mise en évidence et le dictionnaire va <strong>dedans</strong>, même dans un dictionnaire qui n'a pas encore de sous-dictionnaires,</li>
+      <li><strong>près du bord haut ou bas d'une ligne</strong> : une ligne apparaît et le dictionnaire est placé <strong>avant ou après</strong>. C'est ainsi que tu changes l'ordre et que tu ramènes aussi un dictionnaire au premier niveau.</li>
+    </ul>
+    <p>
+      Avec une souris, fais simplement glisser. <strong>Sur un téléphone, appuie d'abord un moment sur le dictionnaire</strong>, puis fais-le glisser.
+      Un balayage rapide fait seulement défiler la page.
+    </p>
+    <p>Le déplacement est enregistré dès que tu lâches. Il n'est pas possible quand :</p>
+    <ul>
+      <li>le dossier cible a d'autres langues,</li>
+      <li>le dictionnaire se retrouverait dans lui-même ou dans un de ses sous-dictionnaires,</li>
+      <li>l'arborescence aurait plus de {{ max_depth }} niveaux,</li>
+      <li>le dossier cible a déjà un dictionnaire du même nom.</li>
+    </ul>
+    <p>Dans ce cas, le dictionnaire revient à sa place et la raison est affichée au-dessus de l'arborescence.</p>
+  </section>
+
+  <section>
+    <h2>Plus d'options sur la page du dictionnaire</h2>
+    <ul>
+      <li><strong>▶︎ Entraîner le dictionnaire</strong> : lance tout de suite un test, seulement à partir de ce dictionnaire et de ses sous-dictionnaires. En dessous se trouve <em>Régler</em> (quel sens, quelles cartes et combien), voir l'aide du test.</li>
+      <li><strong>⋯</strong> à côté du nom du dictionnaire ouvre un menu : <strong>Modifier le nom et la description</strong>, <strong>Déplacer</strong> et <strong>Supprimer</strong>.</li>
+      <li><strong>Modifier le nom et la description</strong> : le nom et la description.</li>
+      <li><strong>Déplacer</strong> : déplacer en choisissant dans une liste ; seuls les endroits où le dictionnaire peut aller sont proposés. Pratique aussi si tu utilises le clavier.</li>
+      <li><strong>Flèches ↑ ↓</strong> à côté des sous-dictionnaires : changent l'ordre sans glisser.</li>
+      <li><strong>Supprimer</strong> : supprime le dictionnaire <strong>et ses sous-dictionnaires</strong>, ainsi que les mots qui ne sont dans aucun autre dictionnaire. Les mots qui sont aussi ailleurs restent. Avant la suppression, tu vois combien de chaque seront supprimés.</li>
+    </ul>
+  </section>
+{% endblock %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-02 12:54+0100\n"
+"POT-Creation-Date: 2026-11-02 15:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1776,6 +1776,9 @@ msgstr "Poslat nový kód"
 
 msgid "Use another email"
 msgstr "Použít jiný e-mail"
+
+msgid "Choose a language…"
+msgstr "Vyber jazyk…"
 
 msgid "Name"
 msgstr "Název"

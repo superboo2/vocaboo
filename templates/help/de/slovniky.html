@@ -1,0 +1,90 @@
+{% extends "help/base_help.html" %}
+
+{% block help %}
+  <section>
+    <h2>Was ist ein Wörterbuch</h2>
+    <p>
+      Ein Wörterbuch ist ein Ordner mit Vokabeln. Wörterbücher lassen sich ineinander verschachteln, so kannst du dir
+      einen Baum danach aufbauen, woher deine Vokabeln kommen, zum Beispiel nach Serie, Staffel und Folge:
+    </p>
+    <pre class="help-tree">📂 Englisch (EN → DE)
+   📂 Two and half men
+      📂 Series 1
+         📄 Episode 1
+         📄 Episode 2
+📄 Spanisch (ES → DE)</pre>
+    <ul>
+      <li>Der Baum kann höchstens <strong>{{ max_depth }} Ebenen</strong> haben.</li>
+      <li>Jedes Wörterbuch kann gleichzeitig Vokabeln und Unterwörterbücher haben.</li>
+      <li>Ein Name muss innerhalb eines Ordners eindeutig sein, Groß- und Kleinschreibung spielt keine Rolle (<code>HIMYM</code> = <code>himym</code>).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Neues Wörterbuch und Sprachen</h2>
+    <ol>
+      <li>Klick in der <a href="{% url 'dashboard' %}">Übersicht</a> auf <strong>+ Neues Wörterbuch</strong>.</li>
+      <li>Füll den Namen und die Sprachen aus:
+        <ul>
+          <li><strong>Ich lerne</strong>: die Sprache der Vokabeln, z. B. Englisch. Zur Wahl stehen Deutsch, Englisch, Französisch, Italienisch, Polnisch, Russisch, Spanisch, Tschechisch und Ukrainisch; Übersetzungsvorschläge aus dem Wörterbuch der App gibt es vorerst nur für einige davon (siehe Vokabeln),</li>
+          <li><strong>Ich spreche</strong>: die Sprache, in die du die Vokabeln übersetzt, z. B. Deutsch. Vorausgefüllt ist die Sprache deines letzten neuen Wörterbuchs (am Anfang die Sprache, die du bei der Registrierung gewählt hast).</li>
+        </ul>
+      </li>
+    </ol>
+    <p>
+      Nur ein Wörterbuch auf der obersten Ebene hat ein Sprachpaar, es steht neben seinem Namen, z. B. <code>(EN → DE)</code>.
+      Unterwörterbücher übernehmen es, und später lässt es sich nicht mehr ändern.
+    </p>
+    <p>
+      Ein <strong>Unterwörterbuch</strong> fügst du hinzu, indem du das Wörterbuch öffnest und neben der Überschrift <em>Unterwörterbücher</em> auf <strong>+ Neu</strong> klickst.
+    </p>
+  </section>
+
+  <section>
+    <h2>Der Baum in der Übersicht</h2>
+    <div class="overflow-auto"><table>
+      <tbody>
+        <tr><td>📂 / 📁</td><td>Wörterbuch mit Unterwörterbüchern, offen / geschlossen</td></tr>
+        <tr><td>📄</td><td>Wörterbuch ohne Unterwörterbücher</td></tr>
+        <tr><td>Klick auf das Symbol oder die Zeile</td><td>klappt den Ordner zu oder auf; der Browser merkt sich, wie du die Ordner zuletzt gelassen hast, sodass der Baum nach einem Test oder auf einer anderen Seite gleich aussieht (jedes Gerät merkt es sich separat). Ordner, die du noch nicht angeklickt hast, zeigen ihre erste Ebene offen und tiefere Ebenen geschlossen. Wenn du ein Wörterbuch ziehst und über einem geschlossenen Ordner hältst, öffnet sich der Ordner nach einem Moment</td></tr>
+        <tr><td>Klick auf den Namen</td><td>öffnet das Wörterbuch</td></tr>
+        <tr><td>Zahl rechts</td><td>Zahl der Vokabeln einschließlich Unterwörterbüchern; eine Vokabel, die in mehreren Wörterbüchern steht, zählt einmal</td></tr>
+        <tr><td><strong>N zu wiederholen</strong></td><td>wie viele Vokabeln gerade fällig sind</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Verschieben per Ziehen und Ablegen</h2>
+    <p><strong>Um ein Wörterbuch in der Übersicht zu verschieben, zieh es. Auf dem Handy halte es vorher kurz gedrückt.</strong></p>
+    <p>Pack das Wörterbuch und zieh es. Die Zeilen bewegen sich beim Ziehen nicht; du siehst nur, wo das Wörterbuch landen wird:</p>
+    <ul>
+      <li><strong>auf die Mitte einer Zeile</strong>: Die Zeile wird hervorgehoben und das Wörterbuch kommt <strong>hinein</strong>, auch in ein Wörterbuch, das noch keine Unterwörterbücher hat,</li>
+      <li><strong>nahe an den oberen oder unteren Rand einer Zeile</strong>: Eine Linie erscheint und das Wörterbuch wird <strong>davor oder dahinter</strong> eingereiht. So änderst du die Reihenfolge und verschiebst ein Wörterbuch auch auf die oberste Ebene.</li>
+    </ul>
+    <p>
+      Mit der Maus einfach ziehen. <strong>Auf dem Handy halte das Wörterbuch zuerst kurz gedrückt</strong>, dann zieh es.
+      Ein schnelles Wischen scrollt nur die Seite.
+    </p>
+    <p>Das Verschieben wird gespeichert, sobald du loslässt. Es geht nicht, wenn:</p>
+    <ul>
+      <li>der Zielordner andere Sprachen hat,</li>
+      <li>das Wörterbuch in sich selbst oder in einem seiner Unterwörterbücher landen würde,</li>
+      <li>der Baum mehr als {{ max_depth }} Ebenen hätte,</li>
+      <li>der Zielordner schon ein Wörterbuch mit demselben Namen hat.</li>
+    </ul>
+    <p>In diesem Fall springt das Wörterbuch an seinen alten Platz zurück und der Grund wird über dem Baum angezeigt.</p>
+  </section>
+
+  <section>
+    <h2>Weitere Möglichkeiten auf der Seite eines Wörterbuchs</h2>
+    <ul>
+      <li><strong>▶︎ Wörterbuch üben</strong>: startet sofort einen Test, nur aus diesem Wörterbuch und seinen Unterwörterbüchern. Darunter steht <em>Einstellen</em> (welche Richtung, welche Karten und wie viele), siehe Hilfe zum Test.</li>
+      <li><strong>⋯</strong> neben dem Namen des Wörterbuchs öffnet ein Menü: <strong>Name und Beschreibung bearbeiten</strong>, <strong>Verschieben</strong> und <strong>Löschen</strong>.</li>
+      <li><strong>Name und Beschreibung bearbeiten</strong>: der Name und die Beschreibung.</li>
+      <li><strong>Verschieben</strong>: verschieben durch Auswahl aus einer Liste; angeboten werden nur Orte, an die das Wörterbuch passt. Praktisch auch, wenn du die Tastatur benutzt.</li>
+      <li><strong>Pfeile ↑ ↓</strong> neben Unterwörterbüchern: ändern die Reihenfolge ohne Ziehen.</li>
+      <li><strong>Löschen</strong>: löscht das Wörterbuch <strong>und seine Unterwörterbücher</strong> sowie die Vokabeln, die in keinem anderen Wörterbuch stehen. Vokabeln, die auch anderswo stehen, bleiben. Vor dem Löschen siehst du, wie viel von allem entfernt wird.</li>
+    </ul>
+  </section>
+{% endblock %}

@@ -1,0 +1,150 @@
+{% extends "help/base_help.html" %}
+{% load study_tags %}
+
+{% block help %}
+  <section>
+    <h2>Rozpoczęcie testu</h2>
+    <p>
+      Przycisk <strong>▶︎ Ćwicz</strong> w górnym pasku (jest na każdej stronie) od razu uruchamia test, nie trzeba niczego
+      wybierać. Na stronie słowniczka <strong>▶︎ Ćwicz słowniczek</strong> uruchamia taki sam test, tylko z tego słowniczka i jego podsłowniczków.
+      Co dokładnie uruchamiają, ustawiasz na stronie <strong>▶︎ Ćwicz</strong>.
+    </p>
+    <p>Pod <em>▶︎ Ćwicz słowniczek</em> mały wiersz mówi, co uruchamia, np. <em>20 fiszek · EN ⇄ PL · Ustaw</em>. Gdy nic nie ma do powtórki, mówi to: <em>nic do powtórki, ćwiczysz słówka, które ci nie wchodzą do głowy</em>. <strong>Ustaw</strong> otwiera stronę ▶︎ Ćwicz dla tego słowniczka. Dla przycisku w pasku ▶︎ Ćwicz jest zakładką ustawień, <a href="{% url 'study:new' %}">Ustawienia › Ćwicz</a>; prowadzi tam też odnośnik na końcu każdego testu (<em>Ustaw ćwiczenie</em>).</p>
+
+    <h3>Strona ▶︎ Ćwicz</h3>
+    <p>Ze słowniczka to osobna strona, w Ustawieniach zakładka; wybory są te same. To, co tu wybierzesz, zostaje zapamiętane, a przyciski ▶︎ Ćwicz robią potem dokładnie to. Strona tylko zapisuje (<strong>Zapisz</strong>); test uruchamia przycisk ▶︎ Ćwicz w pasku lub przy słowniczku. Ze słowniczka zarówno <strong>Zapisz</strong>, jak i <strong>Anuluj</strong> prowadzą z powrotem do niego.</p>
+    <ul>
+      <li><strong>Z których słowniczków</strong>: ze słowniczka tylko jego nazwa i ile ma podsłowniczków (nagłówek <em>Słowniczek</em>). W Ustawieniach drzewo twoich słowniczków: które bierze <em>▶︎ Ćwicz</em> w pasku. Gdy wszystkie są zaznaczone, bierze wszystkie, także te dodane później. Podsłowniczki są wliczane automatycznie, a słówko, które jest w kilku słowniczkach, pojawi się tylko raz.</li>
+      <li><strong>Kierunek</strong>: w jedną stronę albo w obie (<em>⇄</em>, fiszki obu kierunków wymieszane). Kierunki są nazwane językami słowniczka, np. <em>EN → PL</em>, <em>PL → EN</em> i <em>EN ⇄ PL</em>; przy słowniczkach o różnych językach ogólnie <em>obcy → ojczysty</em> i <em>ojczysty → obcy</em>.</li>
+      <li><strong>Które fiszki</strong>:
+        <ul>
+          <li><em>tylko do powtórki i nowe</em>: zwykła nauka, fiszki do powtórki i słówka, które jeszcze nie były w teście. Gdy nic nie czeka, dochodzą słówka, które nie chcą wejść do głowy, zobacz niżej,</li>
+          <li><em>wszystkie</em>: każda fiszka raz, bez względu na to, kiedy jest do powtórki (np. przed egzaminem).</li>
+        </ul>
+      </li>
+      <li><strong>Maks. fiszek</strong> (domyślnie 20): dla obu wyborów. Puste = bez limitu.</li>
+    </ul>
+    <p>Obok wyborów widzisz w nawiasie, ile jest fiszek, np. <em>tylko do powtórki i nowe (42)</em> albo <em>wszystkie (85)</em>. Liczy się to dla zaznaczonych słowniczków i wybranego kierunku i zmienia, gdy tylko zmienisz wybór. Przy obu kierunkach (<em>⇄</em>) każde słówko jest dwa razy, raz w każdym kierunku.</p>
+    <p>Przy <em>tylko do powtórki i nowe</em> przychodzą:</p>
+    <ol>
+      <li>najpierw fiszki <strong>do powtórki</strong>, najdłużej czekające pierwsze,</li>
+      <li>potem <strong>nowe</strong>,</li>
+      <li>gdy jest ich mniej niż limit, reszta jest <strong>dopełniana</strong> słówkami, które wkrótce byłyby do powtórki. To głównie te, które nie chcą wejść do głowy (mają krótkie odstępy). Są trochę wymieszane, żeby nie było ciągle to samo. Bez limitu dopełnia się tylko wtedy, gdy nic nie czeka, 15 fiszkami.</li>
+    </ol>
+    <p>Test więc nigdy nie jest pusty, nawet gdy wszystko jest już powtórzone. Gdy słówek jest dość, każde przychodzi tylko w jednym kierunku. Odpowiedzi liczą się jak zwykle.</p>
+  </section>
+
+  <section>
+    <h2>Fiszka</h2>
+    <p>Widzisz przednią stronę. Spróbuj przypomnieć sobie odpowiedź, potem odwróć fiszkę (<strong>Pokaż</strong> albo <strong>spacja</strong>). Fiszka obraca się jak papierowa: przód znika, a jego miejsce zajmuje tył.</p>
+    <div class="grid">
+      <article class="help-card">
+        <header>Przód</header>
+        <p class="help-card-main">dłoń</p>
+        <p class="card-sentence">„Umie czytać z <mark>dłoni</mark>.”</p>
+      </article>
+      <article class="help-card">
+        <header>Tył</header>
+        <p class="help-card-main">palm 🔊</p>
+        <p class="card-sentence">„She can read from her <mark>palm</mark>.”</p>
+        <p class="muted"><small>Uczysz się też: palm → palma</small></p>
+        <p class="muted"><small>łapa · garść · palmowy <u>+3</u></small></p>
+      </article>
+    </div>
+    <ul>
+      <li>Każda strona ma duże słówko, a pod nim jedno zdanie w tym samym języku, z oznaczonym słówkiem. Zdanie podpowiada znaczenie (palm: dłoń czy drzewo?) i pokazuje formę słówka.</li>
+      <li>W kierunku obcy → ojczysty angielskie zdanie jest z przodu, a jego tłumaczenie z tyłu. W kierunku ojczysty → obcy jest odwrotnie: z przodu <em>„<strong>Cieszę się</strong>, że tu jesteś.”</em>, z tyłu <em>„I'm <strong>glad</strong> you came.”</em> Oceniaj się według słówka; nie musisz tłumaczyć całego zdania.</li>
+      <li>Gdy zdanie nie ma tłumaczenia, w kierunku ojczysty → obcy przód pokazuje angielskie zdanie z luką zamiast słówka, a tył – uzupełnione.</li>
+      <li>Jeśli słówko jest w kilku słowniczkach testu, zdanie za każdym razem się zmienia.</li>
+      <li><em>„cześć” to też: hello</em>: inne słówko ma to samo tłumaczenie.</li>
+      <li><em>„She can read from her palm.” 🔊</em>: głos przeglądarki czyta zdanie, gdy klikniesz 🔊 albo naciśniesz <kbd>V</kbd>. W kierunku obcy → ojczysty od razu, w kierunku ojczysty → obcy dopiero po odwróceniu fiszki (inaczej zdradziłby odpowiedź).</li>
+      <li>Jak brzmi <em>głos przeglądarki</em>, zależy od urządzenia: dobrze na Androidzie, Windowsie, Macu i w Chrome na Linuksie, robotycznie albo wcale w Firefoksie na Linuksie. Jeśli przeglądarka w ogóle nie umie mówić, 🔊 się nie pokazuje.</li>
+      <li><em>palm 🔊</em>: wymowa obcego słówka. Szare 🔊 jest przy prawej krawędzi fiszki, w wierszu obcego słówka. Kliknij 🔊 albo naciśnij <kbd>P</kbd>, a <strong>głos przeglądarki</strong> przeczyta słówko; w kierunku obcy → ojczysty 🔊 widać od razu, w kierunku ojczysty → obcy po odwróceniu fiszki. W <a href="{% url 'settings_tab' 'card' %}">Ustawieniach</a> możesz włączyć automatyczne czytanie słówka albo całego zdania. Jeśli umiesz czytać IPA, możesz też w <a href="{% url 'settings_tab' 'card' %}">Ustawieniach</a> włączyć zapis wymowy ze słownika pod słówkiem, na przykład <em>[pɑːm]</em>. W kierunku obcy → ojczysty jest widoczny od razu, w kierunku ojczysty → obcy po odwróceniu fiszki.</li>
+      <li><em>Uczysz się też</em>: inne twoje słówko z tym samym obcym słówkiem, ale innym tłumaczeniem (<code>palm → palma</code>).</li>
+      <li><em>łapa · garść · palmowy +3</em>: na samym dole, mniejszym tekstem, inne znaczenia obcego słówka ze słownika aplikacji. Tylko pierwszy wariant każdego znaczenia. Pokazuje się ich tyle, ile zmieści się w jednym wierszu, a kliknięcie <em>+3</em> pokazuje resztę. Wszystkie, ze wszystkimi wariantami, są w szczegółach słówka. Możesz to wyłączyć w <a href="{% url 'settings_tab' 'card' %}">Ustawieniach</a>.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Oceny i odstępy</h2>
+    <p>Po odwróceniu fiszki oceń, jak dobrze znasz słówko. Kiedy słówko wróci po każdej ocenie, domyślnie nie jest pokazywane pod przyciskami; włącz to w <a href="{% url 'settings_tab' 'card' %}">Ustawieniach</a> › Fiszka › <em>Pokazuj, kiedy słówko wróci</em>.</p>
+    <div class="overflow-auto"><table>
+      <thead>
+        <tr><th>Przycisk</th><th>Klawisz</th><th>Pierwszy raz</th><th>Kolejne powtórki</th></tr>
+      </thead>
+      <tbody>
+        {% for rating in ratings %}
+          <tr>
+            <td><span aria-hidden="true">{{ rating.emoji }}</span> {{ rating.label }}</td>
+            <td><kbd>{{ rating.hotkey }}</kbd></td>
+            <td>{{ rating.min_interval|interval }}</td>
+            <td>
+              {% if rating.multiplier %}
+                poprzedni odstęp × {{ rating.multiplier|floatformat:"-1" }}
+              {% else %}
+                zawsze {{ rating.min_interval|interval }}
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table></div>
+    <ul>
+      <li>Odstęp rośnie z każdą dobrą odpowiedzią, aż do <strong>{{ max_interval|interval }}</strong>. Na przykład zawsze 😎: 7 dni → 28 → 112 → 1 rok.</li>
+      <li>Po 😕 lub 😵 zaczyna rosnąć znowu od początku.</li>
+      <li>Odstępy od jednego dnia w górę są zaokrąglane do pełnych dni.</li>
+      <li>Pod każdą buźką widzisz <strong>rzeczywisty następny odstęp</strong> właśnie tej fiszki.</li>
+      <li>Ocena obowiązuje we wszystkich słowniczkach, w których jest słówko.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Sterowanie</h2>
+    <div class="overflow-auto"><table>
+      <tbody>
+        <tr><td><kbd>spacja</kbd></td><td>odwraca fiszkę</td></tr>
+        <tr><td><kbd>1</kbd> – <kbd>4</kbd></td><td>ocenia fiszkę (😎 🤔 😕 😵)</td></tr>
+        <tr><td><kbd>P</kbd></td><td>odtwarza wymowę (w kierunku ojczysty → obcy po odwróceniu)</td></tr>
+        <tr><td><kbd>V</kbd></td><td>czyta zdanie (w kierunku ojczysty → obcy po odwróceniu)</td></tr>
+        <tr><td><strong>?</strong> pod fiszką</td><td>otwiera okno <em>Jak działa test</em> (jak to działa i co znaczą buźki); przy pierwszym teście otwiera się samo, po <em>Rozumiem</em> już tylko przez <strong>?</strong> (zapisuje się to na twoim koncie, więc na wszystkich urządzeniach)</td></tr>
+        <tr><td><strong>✎</strong> pod fiszką lub <kbd>E</kbd></td><td>otwiera edycję słówka (literówka, złe tłumaczenie); przycisk <em>Zapisz i wróć do testu</em> lub <em>Wróć do testu bez zapisywania</em> prowadzi z powrotem do tej samej fiszki. Fiszka nie jest jeszcze oceniona, więc nic nie liczy się podwójnie. Zmiany wariantów i notatki obowiązują we wszystkich słowniczkach, w których jest słówko.</td></tr>
+        <tr><td><strong>⚐</strong> pod fiszką</td><td>zgłasza błąd w słowniku aplikacji: <em>Błędne podpowiedziane tłumaczenie</em>, <em>Błędne podpowiedziane zdanie</em> albo <em>Coś innego</em>, z nieobowiązkową uwagą. Potem prowadzi z powrotem do tej samej fiszki. Zgłoszenie pomaga poprawić słownik aplikacji; twoje słówko się nie zmienia (popraw je przez ✎).</td></tr>
+        <tr><td><strong>Zakończ test</strong></td><td>kończy test i pokazuje podsumowanie</td></tr>
+      </tbody>
+    </table></div>
+    <p>Na telefonie po prostu dotykaj. Kolejna fiszka wczytuje się bez przeładowania strony.</p>
+  </section>
+
+  <section>
+    <h2>Kolejność fiszek</h2>
+    <ul>
+      <li>Najpierw fiszki do powtórki, potem nowe słówka. W obu grupach kolejność jest <strong>losowa</strong>, w każdym teście inna. Dzięki temu oba kierunki tego samego słówka są zwykle daleko od siebie i drugiego kierunku nie odgadujesz tylko dlatego, że pamiętasz go sprzed chwili.</li>
+      <li>To samo słówko w drugim kierunku albo inne znaczenie tego samego słówka (palm / palm) nigdy nie przychodzi zaraz po nim.</li>
+      <li>Fiszka oceniona na 😵 wraca w tym samym teście po 10 minutach.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Podsumowanie</h2>
+    <p>
+      Na końcu widzisz liczbę każdej oceny i słówka ocenione na 😕 lub 😵.
+      <strong>Przećwicz błędne jeszcze raz</strong> uruchamia nowy test tylko z tymi słówkami.
+    </p>
+    <p>
+      <strong>✍️ To słówko nie chce wejść do głowy:</strong> gdy w teście jest słówko, które z czasem ciągle sprawia kłopot
+      (co najmniej połowa z ostatnich 8 odpowiedzi błędna, 😕 liczy się jako pół) i nie ma jeszcze zdania,
+      proponowany jest dla niego formularz: wpisz zdanie pod obcym słówkiem, a jego tłumaczenie pod ojczystym.
+      Nad formularzem są <strong>kolorowe kropki</strong> ostatnich odpowiedzi dla każdego kierunku
+      (<em>EN → PL</em>, <em>PL → EN</em>), najstarsze po lewej: od razu widzisz, w którym kierunku słówko nie wychodzi
+      i czy idzie coraz lepiej. Pokazanych jest ostatnich 8, starsze są ukryte pod <em>+N</em> (najedź, żeby zobaczyć, jak poszły);
+      kliknięcie rozwija do 30 kropek, a więcej jest w szczegółach słówka.
+      Słówko w zdaniu łatwiej zapamiętać. Jeśli słownik ma przykład dla tego znaczenia,
+      jest pokazany z przyciskiem <strong>Użyj</strong> (wypełnia zdanie i jego tłumaczenie). <strong>Nie teraz</strong> ukrywa formularz;
+      słówko może zostać zaproponowane znowu po kolejnym teście. Słówko, które znasz i raz zapomnisz, nie jest proponowane.
+    </p>
+    <p class="muted">
+      Przy każdej odpowiedzi aplikacja zapisuje też twój czas namysłu (do odwrócenia fiszki) do statystyk.
+      Gdy zablokujesz telefon albo przełączysz się na inną aplikację, licznik się zatrzymuje.
+    </p>
+  </section>
+{% endblock %}

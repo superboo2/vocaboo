@@ -111,3 +111,81 @@ def test_confirmed_account_gets_the_first_deck(lexicon, client, mailoutbox, cs):
     html = client.get(reverse("dashboard")).content.decode()
     assert "Angličtina – první slovníček" in html
     assert "odložené čeká na překlad" in html
+
+
+def test_ukrainian_gets_the_first_deck_once_the_dictionary_has_ukrainian(lexicon, user):
+    from dictionary.models import ConceptText
+    from vocabulary.models import Language
+
+    lexicon(*WORDS)
+    user.native_language = Language.objects.get(code="uk")
+    user.save()
+    # The dictionary has no Ukrainian texts yet
+    assert starter.create_first_deck(user) is None
+
+    ConceptText.objects.create(
+        concept=ConceptText.objects.get(language="en", words="dog").concept,
+        language="uk",
+        words="собака; пес",
+        sentence="Наш {собака} любить парк.",
+    )
+    root = starter.create_first_deck(user)
+
+    assert root.name == "Англійська – перший словник"
+    item = DeckTerm.objects.select_related("deck", "term").get()
+    assert (item.deck.name, item.term.main_foreign, item.term.main_native) == (
+        "Тварини",
+        "dog",
+        "собака",
+    )
+
+
+def test_italian_gets_italian_deck_names(lexicon, user):
+    from dictionary.models import ConceptText
+    from vocabulary.models import Language
+
+    lexicon(*WORDS)
+    user.native_language = Language.objects.get(code="it")
+    user.save()
+    ConceptText.objects.create(
+        concept=ConceptText.objects.get(language="en", words="dog").concept,
+        language="it",
+        words="cane",
+        sentence="Il nostro {cane} adora il parco.",
+    )
+
+    root = starter.create_first_deck(user)
+
+    assert root.name == "Inglese – primo dizionario"
+    assert set(Deck.objects.values_list("name", flat=True)) == {
+        "Inglese – primo dizionario",
+        "Animali",
+        "Cibo",
+        "Frutta",
+        "Verdura",
+    }
+    assert DeckTerm.objects.get().term.main_native == "cane"
+
+
+def test_the_app_is_translated_into_every_language_of_the_first_deck():
+    from django.conf import settings
+
+    # The names of the decks come from the translations of the app
+    assert set(starter.NATIVE) <= {code for code, _name in settings.LANGUAGES}
+
+
+def test_dictionary_files_have_the_words_in_every_language():
+    from dictionary import lexicon_files
+
+    layers = [lexicon_files.read_layer(lexicon_files.DATA_DIR, lexicon_files.BASE_SOURCE)]
+    layers += [lexicon_files.read_layer(p, p.name) for p in lexicon_files.package_folders()]
+    texts = {}
+    for layer in layers:
+        for item in layer.concepts:
+            texts.setdefault(item["id"], set()).update(item.get("texts", {}))
+    keys = [key for *_rest, words in starter.DECKS for key in words.split()] + [starter.PENDING[0]]
+
+    missing = [
+        (key, code) for key in keys for code in starter.NATIVE if code not in texts.get(key, set())
+    ]
+    assert missing == []

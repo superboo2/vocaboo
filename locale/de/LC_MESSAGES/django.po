@@ -1,0 +1,2706 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-02 15:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "Personal info"
+msgstr "Persönliche Daten"
+
+msgid "Permissions"
+msgstr "Berechtigungen"
+
+msgid "Important dates"
+msgstr "Wichtige Daten"
+
+msgid "Daily goal (min)"
+msgstr "Tagesziel (Min.)"
+
+msgid ""
+"How many minutes a day you want to spend in tests. At the top of the "
+"overview you see how much you have done today. Empty = no goal."
+msgstr ""
+"Wie viele Minuten du täglich in Tests verbringen willst. Oben in der "
+"Übersicht siehst du, wie viel du heute schon geschafft hast. Leer = kein "
+"Ziel."
+
+msgid "App language"
+msgstr "App-Sprache"
+
+msgid "Suggest translations"
+msgstr "Übersetzungen vorschlagen"
+
+msgid "Show other meanings from the app dictionary"
+msgstr "Weitere Bedeutungen aus dem Wörterbuch der App zeigen"
+
+msgid "Play automatically"
+msgstr "Automatisch abspielen"
+
+msgid "What to play"
+msgstr "Was abspielen"
+
+msgid "Show written pronunciation (IPA)"
+msgstr "Lautschrift zeigen (IPA)"
+
+msgid "Show when the word comes again"
+msgstr "Zeigen, wann die Vokabel wiederkommt"
+
+msgid "Menus, buttons and help. Your words stay the same."
+msgstr "Menüs, Schaltflächen und Hilfe. Deine Vokabeln bleiben gleich."
+
+msgid ""
+"While you type a foreign word, suggestions from the app dictionary show up "
+"under the translation field."
+msgstr ""
+"Während du ein Wort in der Fremdsprache tippst, erscheinen unter dem "
+"Übersetzungsfeld Vorschläge aus dem Wörterbuch der App."
+
+msgid ""
+"At the bottom of the back of the card, as many as fit on one line, the rest "
+"after clicking +N. Your own meanings (e.g. palm → dlaň and palma) are always"
+" shown."
+msgstr ""
+"Unten auf der Rückseite der Karte, so viele wie in eine Zeile passen, der "
+"Rest nach Klick auf +N. Deine eigenen Bedeutungen (z. B. palm → dlaň und "
+"palma) werden immer gezeigt."
+
+msgid ""
+"In the direction foreign → native as soon as the card shows up, in the "
+"direction native → foreign after clicking Show. The browser won't read the "
+"very first card of a test until you click on the page for the first time."
+msgstr ""
+"In der Richtung Fremdsprache → Muttersprache, sobald die Karte erscheint, in"
+" der Richtung Muttersprache → Fremdsprache nach Klick auf Aufdecken. Die "
+"allererste Karte eines Tests liest der Browser erst vor, wenn du zum ersten "
+"Mal auf die Seite klickst."
+
+msgid "If the word has no sentence, the word is played."
+msgstr "Wenn die Vokabel keinen Satz hat, wird das Wort abgespielt."
+
+msgid ""
+"Under the foreign word on the card and on the word page, e.g. [pɑːm]. Useful"
+" if you can read IPA."
+msgstr ""
+"Unter dem Wort in der Fremdsprache auf der Karte und auf der Vokabelseite, "
+"z. B. [pɑːm]. Praktisch, wenn du IPA lesen kannst."
+
+msgid ""
+"Under the rating buttons of a test, e.g. 10 min, 1 day, 3 days: when the "
+"word comes again after that rating."
+msgstr ""
+"Unter den Bewertungsknöpfen im Test, z. B. 10 Min., 1 Tag, 3 Tage: wann die "
+"Vokabel nach dieser Bewertung wiederkommt."
+
+msgid "Same as the browser"
+msgstr "Wie im Browser"
+
+msgid ""
+"At least 8 characters, not only numbers, not too common and not similar to "
+"your email."
+msgstr ""
+"Mindestens 8 Zeichen, nicht nur Ziffern, nicht zu gängig und nicht ähnlich "
+"wie deine E-Mail."
+
+msgid "Your current password is wrong, try again."
+msgstr "Dein aktuelles Passwort ist falsch, versuch es noch einmal."
+
+msgid "New passwords do not match."
+msgstr "Die neuen Passwörter stimmen nicht überein."
+
+msgid "Current password"
+msgstr "Aktuelles Passwort"
+
+msgid "New password"
+msgstr "Neues Passwort"
+
+msgid "New password again"
+msgstr "Neues Passwort wiederholen"
+
+msgid "Once more, to check."
+msgstr "Zur Kontrolle noch einmal."
+
+msgid "The email or password is wrong. Try again."
+msgstr "E-Mail oder Passwort ist falsch. Versuch es noch einmal."
+
+msgid "This account is turned off."
+msgstr "Dieses Konto ist deaktiviert."
+
+msgid "Email"
+msgstr "E-Mail"
+
+msgid "We will send you a code to check it."
+msgstr "Wir schicken dir einen Code zur Bestätigung."
+
+msgid "Password"
+msgstr "Passwort"
+
+msgid "Password again"
+msgstr "Passwort wiederholen"
+
+msgid "My language"
+msgstr "Meine Sprache"
+
+msgid "The language you speak. Your words are translated into it."
+msgstr "Die Sprache, die du sprichst. In sie werden deine Vokabeln übersetzt."
+
+msgid "Invitation code"
+msgstr "Einladungscode"
+
+msgid "You got it from the person who invited you."
+msgstr "Du hast ihn von der Person, die dich eingeladen hat."
+
+msgid "This invitation code is wrong."
+msgstr "Dieser Einladungscode stimmt nicht."
+
+msgid "Leave this field empty."
+msgstr "Lass dieses Feld leer."
+
+msgid "Passwords do not match."
+msgstr "Die Passwörter stimmen nicht überein."
+
+msgid "Code from the email"
+msgstr "Code aus der E-Mail"
+
+msgid "The code has 6 digits."
+msgstr "Der Code hat 6 Ziffern."
+
+msgid "The email you log in with."
+msgstr "Die E-Mail, mit der du dich anmeldest."
+
+msgid "email"
+msgstr "E-Mail"
+
+msgid "native language"
+msgstr "Muttersprache"
+
+msgid "practice direction"
+msgstr "Übungsrichtung"
+
+msgid "practice cards"
+msgstr "welche Karten üben"
+
+msgid "practice decks"
+msgstr "Wörterbücher zum Üben"
+
+msgid "max cards in practice"
+msgstr "max. Karten beim Üben"
+
+msgid "daily goal (min)"
+msgstr "Tagesziel (Min.)"
+
+msgid "suggest translations"
+msgstr "Übersetzungen vorschlagen"
+
+msgid "other meanings on the card"
+msgstr "weitere Bedeutungen auf der Karte"
+
+msgctxt "autoplay"
+msgid "word"
+msgstr "Wort"
+
+msgid "the whole sentence"
+msgstr "den ganzen Satz"
+
+msgid "play automatically"
+msgstr "automatisch abspielen"
+
+msgid "what to play"
+msgstr "was abspielen"
+
+msgid "written pronunciation (IPA)"
+msgstr "Lautschrift (IPA)"
+
+msgid "show when the word comes again"
+msgstr "zeigen, wann die Vokabel wiederkommt"
+
+msgid "has seen the help of the test"
+msgstr "Testhilfe schon gesehen"
+
+msgid "app language"
+msgstr "App-Sprache"
+
+msgid "user"
+msgstr "Konto"
+
+msgid "users"
+msgstr "Konten"
+
+msgid "sent"
+msgstr "gesendet"
+
+msgid "created"
+msgstr "erstellt"
+
+msgid "email verification"
+msgstr "E-Mail-Bestätigung"
+
+msgid "email verifications"
+msgstr "E-Mail-Bestätigungen"
+
+msgid "Hi,"
+msgstr "Hallo,"
+
+msgid ""
+"Somebody tried to create a Vocaboo account with this email, but you already "
+"have one."
+msgstr ""
+"jemand hat versucht, mit dieser E-Mail ein Vocaboo-Konto zu erstellen, aber "
+"du hast schon eins."
+
+msgid "Log in here:"
+msgstr "Hier kannst du dich anmelden:"
+
+msgid ""
+"Forgot your password? Set a new one here (the link works for 24 hours):"
+msgstr ""
+"Passwort vergessen? Hier legst du ein neues fest (der Link gilt 24 Stunden):"
+
+msgid "If it was not you, ignore this email, nothing changes."
+msgstr ""
+"Wenn du das nicht warst, ignoriere diese E-Mail, es ändert sich nichts."
+
+msgid "You already have a Vocaboo account"
+msgstr "Du hast schon ein Vocaboo-Konto"
+
+msgid "Your code to confirm the email:"
+msgstr "dein Code zur Bestätigung der E-Mail:"
+
+#, python-format
+msgid ""
+"Enter it on the Vocaboo page where you signed up. It works for %(minutes)s "
+"minutes."
+msgstr ""
+"Gib ihn auf der Vocaboo-Seite ein, auf der du dich registrierst. Er gilt "
+"%(minutes)s Minuten."
+
+msgid "If you did not sign up for Vocaboo, ignore this email."
+msgstr ""
+"Wenn du dich nicht bei Vocaboo registriert hast, ignoriere diese E-Mail."
+
+#, python-format
+msgid "%(code)s is your Vocaboo code"
+msgstr "%(code)s ist dein Vocaboo-Code"
+
+msgid "Account"
+msgstr "Konto"
+
+msgid "Settings"
+msgstr "Einstellungen"
+
+msgid "Overview"
+msgstr "Übersicht"
+
+msgid "Password change"
+msgstr "Passwort ändern"
+
+msgid "Change password"
+msgstr "Passwort ändern"
+
+msgid "Put Vocaboo on your home screen"
+msgstr "Leg Vocaboo auf deinen Startbildschirm"
+
+msgid "It opens with one tap, on the whole screen, like other apps."
+msgstr "Es öffnet sich mit einem Tippen, im Vollbild, wie andere Apps."
+
+msgid "Install"
+msgstr "Installieren"
+
+msgid "Audio"
+msgstr "Ton"
+
+msgid "Save"
+msgstr "Speichern"
+
+#, python-format
+msgid "The password is too short, it needs at least %(count)d character."
+msgid_plural ""
+"The password is too short, it needs at least %(count)d characters."
+msgstr[0] "Das Passwort ist zu kurz, es braucht mindestens %(count)d Zeichen."
+msgstr[1] "Das Passwort ist zu kurz, es braucht mindestens %(count)d Zeichen."
+
+#, python-format
+msgid "At least %(count)d character."
+msgid_plural "At least %(count)d characters."
+msgstr[0] "Mindestens %(count)d Zeichen."
+msgstr[1] "Mindestens %(count)d Zeichen."
+
+msgid "The password is too similar to your email."
+msgstr "Das Passwort ist deiner E-Mail zu ähnlich."
+
+msgid "It must not be similar to your email."
+msgstr "Es darf deiner E-Mail nicht ähnlich sein."
+
+msgid "The password is too common, think of another one."
+msgstr "Das Passwort ist zu gängig, denk dir ein anderes aus."
+
+msgid "It must not be too common."
+msgstr "Es darf nicht zu gängig sein."
+
+msgid "The password can't be only numbers."
+msgstr "Das Passwort darf nicht nur aus Ziffern bestehen."
+
+msgid "It must not be only numbers."
+msgstr "Es darf nicht nur aus Ziffern bestehen."
+
+msgid "App"
+msgstr "App"
+
+msgid "Practice"
+msgstr "Üben"
+
+msgid "Goals"
+msgstr "Ziele"
+
+msgid "Card"
+msgstr "Karte"
+
+msgid "Parts of the settings"
+msgstr "Bereiche der Einstellungen"
+
+msgid "Settings saved."
+msgstr "Einstellungen gespeichert."
+
+msgid "Password changed."
+msgstr "Passwort geändert."
+
+msgid "Your email is not confirmed yet. Enter the code from the email."
+msgstr ""
+"Deine E-Mail ist noch nicht bestätigt. Gib den Code aus der E-Mail ein."
+
+msgid "Your account is ready. Welcome to Vocaboo!"
+msgstr "Dein Konto ist fertig. Willkommen bei Vocaboo!"
+
+msgid "This code is wrong. Check it and try again."
+msgstr "Dieser Code stimmt nicht. Prüf ihn und versuch es noch einmal."
+
+msgid "This code no longer works. Send yourself a new one."
+msgstr "Dieser Code gilt nicht mehr. Schick dir einen neuen."
+
+msgid "Too many wrong tries. Send yourself a new code."
+msgstr "Zu viele falsche Versuche. Schick dir einen neuen Code."
+
+msgid "Wait a minute before asking for a new code."
+msgstr "Warte kurz, bevor du einen neuen Code anforderst."
+
+msgid "We sent you a new code."
+msgstr "Wir haben dir einen neuen Code geschickt."
+
+msgid "Decks"
+msgstr "Wörterbücher"
+
+msgid "Words"
+msgstr "Vokabeln"
+
+msgid "Test"
+msgstr "Test"
+
+msgid "Help sections"
+msgstr "Bereiche der Hilfe"
+
+msgid "dictionary words"
+msgstr "Wörter des Wörterbuchs"
+
+msgid "Mark as resolved"
+msgstr "Als erledigt markieren"
+
+msgid "code"
+msgstr "Code"
+
+msgid "name"
+msgstr "Name"
+
+msgid "parent tag"
+msgstr "übergeordneter Tag"
+
+msgid "dictionary tag"
+msgstr "Wörterbuch-Tag"
+
+msgid "dictionary tags"
+msgstr "Wörterbuch-Tags"
+
+msgid "noun"
+msgstr "Substantiv"
+
+msgid "verb"
+msgstr "Verb"
+
+msgid "adjective"
+msgstr "Adjektiv"
+
+msgid "adverb"
+msgstr "Adverb"
+
+msgid "pronoun"
+msgstr "Pronomen"
+
+msgid "determiner"
+msgstr "Determinativ"
+
+msgid "preposition"
+msgstr "Präposition"
+
+msgid "conjunction"
+msgstr "Konjunktion"
+
+msgid "interjection"
+msgstr "Interjektion"
+
+msgid "numeral"
+msgstr "Numerale"
+
+msgid "phrasal verb"
+msgstr "Phrasal Verb"
+
+msgid "phrase"
+msgstr "Wendung"
+
+msgid "key"
+msgstr "Schlüssel"
+
+msgid "tags"
+msgstr "Tags"
+
+msgid "source"
+msgstr "Quelle"
+
+msgid "concept"
+msgstr "Begriff"
+
+msgid "concepts"
+msgstr "Begriffe"
+
+msgid "language"
+msgstr "Sprache"
+
+msgid "words"
+msgstr "Vokabeln"
+
+msgid "note"
+msgstr "Notiz"
+
+msgid "sentence"
+msgstr "Satz"
+
+msgid "concept text"
+msgstr "Begriffstext"
+
+msgid "concept texts"
+msgstr "Begriffstexte"
+
+msgid "form"
+msgstr "Form"
+
+msgid "concept text form"
+msgstr "Form des Begriffstexts"
+
+msgid "concept text forms"
+msgstr "Formen der Begriffstexte"
+
+msgctxt "dictionary entry"
+msgid "word"
+msgstr "Wort"
+
+msgid "part of speech"
+msgstr "Wortart"
+
+msgid "frequency band"
+msgstr "Häufigkeitsband"
+
+msgid "level"
+msgstr "Niveau"
+
+msgid "pronunciation"
+msgstr "Aussprache"
+
+msgid "gender"
+msgstr "Genus"
+
+msgid "dictionary word"
+msgstr "Wörterbuchwort"
+
+msgid "word form"
+msgstr "Wortform"
+
+msgid "word forms"
+msgstr "Wortformen"
+
+msgid "position"
+msgstr "Reihenfolge"
+
+msgid "word meaning"
+msgstr "Wortbedeutung"
+
+msgid "word meanings"
+msgstr "Wortbedeutungen"
+
+msgid "package"
+msgstr "Paket"
+
+msgid "added"
+msgstr "hinzugefügt"
+
+msgid "dictionary package"
+msgstr "Wörterbuchpaket"
+
+msgid "dictionary packages"
+msgstr "Wörterbuchpakete"
+
+msgid "Wrong suggested translation"
+msgstr "Fehler in der vorgeschlagenen Übersetzung"
+
+msgid "Wrong suggested sentence"
+msgstr "Fehler im vorgeschlagenen Satz"
+
+msgid "Something else"
+msgstr "Etwas anderes"
+
+msgid "language to learn"
+msgstr "Lernsprache"
+
+msgid "language I speak"
+msgstr "Meine Sprache"
+
+msgid "foreign word"
+msgstr "Wort in der Fremdsprache"
+
+msgid "translation"
+msgstr "Übersetzung"
+
+msgid "sentence translation"
+msgstr "Übersetzung des Satzes"
+
+msgid "what is wrong"
+msgstr "was falsch ist"
+
+msgid "resolved"
+msgstr "erledigt"
+
+msgid "reported"
+msgstr "gemeldet"
+
+msgid "changed"
+msgstr "geändert"
+
+msgid "error report"
+msgstr "Fehlermeldung"
+
+msgid "error reports"
+msgstr "Fehlermeldungen"
+
+msgctxt "part of speech"
+msgid "n."
+msgstr "Subst."
+
+msgctxt "part of speech"
+msgid "v."
+msgstr "Verb"
+
+msgctxt "part of speech"
+msgid "adj."
+msgstr "Adj."
+
+msgctxt "part of speech"
+msgid "adv."
+msgstr "Adv."
+
+msgctxt "part of speech"
+msgid "pron."
+msgstr "Pron."
+
+msgctxt "part of speech"
+msgid "det."
+msgstr "Det."
+
+msgctxt "part of speech"
+msgid "prep."
+msgstr "Präp."
+
+msgctxt "part of speech"
+msgid "conj."
+msgstr "Konj."
+
+msgctxt "part of speech"
+msgid "interj."
+msgstr "Interj."
+
+msgctxt "part of speech"
+msgid "num."
+msgstr "Num."
+
+msgctxt "part of speech"
+msgid "phr. v."
+msgstr "Phr. V."
+
+msgctxt "part of speech"
+msgid "phrase"
+msgstr "Wendung"
+
+msgid "English – first deck"
+msgstr "Englisch – erstes Wörterbuch"
+
+msgid "Animals"
+msgstr "Tiere"
+
+msgid "Food"
+msgstr "Essen"
+
+msgid "Fruit"
+msgstr "Obst"
+
+msgid "Vegetables"
+msgstr "Gemüse"
+
+msgid ""
+"An example of a deck with folders. ▶︎ Practice here takes the words of all "
+"of them, in Food only those of Fruit and Vegetables. Add your own words to "
+"it, or delete it."
+msgstr ""
+"Ein Beispiel für ein Wörterbuch mit Ordnern. ▶︎ Üben nimmt hier die Vokabeln"
+" aus allen, in Essen nur die aus Obst und Gemüse. Füg eigene Vokabeln hinzu "
+"oder lösch es."
+
+msgid "nouns"
+msgstr "Substantive"
+
+msgid "verbs"
+msgstr "Verben"
+
+msgid "adjectives"
+msgstr "Adjektive"
+
+msgid "other"
+msgstr "Sonstiges"
+
+msgid "People"
+msgstr "Mensch"
+
+msgid "Body"
+msgstr "Körper"
+
+msgid "Health and illness"
+msgstr "Gesundheit und Krankheit"
+
+msgid "Family and relationships"
+msgstr "Familie und Beziehungen"
+
+msgid "Feelings and moods"
+msgstr "Gefühle und Stimmungen"
+
+msgid "Character"
+msgstr "Charakter"
+
+msgid "Appearance"
+msgstr "Aussehen"
+
+msgid "Clothes"
+msgstr "Kleidung"
+
+msgid "Food and drink"
+msgstr "Essen und Trinken"
+
+msgid "Drinks"
+msgstr "Getränke"
+
+msgid "Cooking and kitchen"
+msgstr "Kochen und Küche"
+
+msgid "Home"
+msgstr "Zuhause"
+
+msgid "Furniture and things at home"
+msgstr "Möbel und Dinge im Haushalt"
+
+msgid "Housework"
+msgstr "Hausarbeit"
+
+msgid "Nature"
+msgstr "Natur"
+
+msgid "Plants"
+msgstr "Pflanzen"
+
+msgid "Weather"
+msgstr "Wetter"
+
+msgid "Landscape"
+msgstr "Landschaft"
+
+msgid "Town and places"
+msgstr "Stadt und Orte"
+
+msgid "Buildings"
+msgstr "Gebäude"
+
+msgid "Transport"
+msgstr "Verkehr"
+
+msgid "Shopping"
+msgstr "Einkaufen"
+
+msgid "Travel"
+msgstr "Reisen"
+
+msgid "Work and school"
+msgstr "Arbeit und Schule"
+
+msgid "School and learning"
+msgstr "Schule und Lernen"
+
+msgid "Jobs"
+msgstr "Berufe"
+
+msgid "Money"
+msgstr "Geld"
+
+msgid "Office"
+msgstr "Büro"
+
+msgid "Free time"
+msgstr "Freizeit"
+
+msgid "Sport"
+msgstr "Sport"
+
+msgid "Music"
+msgstr "Musik"
+
+msgid "Films and series"
+msgstr "Filme und Serien"
+
+msgid "Games"
+msgstr "Spiele"
+
+msgid "Art and culture"
+msgstr "Kunst und Kultur"
+
+msgid "Communication"
+msgstr "Kommunikation"
+
+msgid "Greetings and politeness"
+msgstr "Grüße und Höflichkeit"
+
+msgid "Everyday conversation"
+msgstr "Alltagsgespräche"
+
+msgid "Phone, computer, internet"
+msgstr "Telefon, Computer, Internet"
+
+msgid "News and media"
+msgstr "Nachrichten und Medien"
+
+msgid "Society"
+msgstr "Gesellschaft"
+
+msgid "Law and crime"
+msgstr "Recht und Kriminalität"
+
+msgid "Politics"
+msgstr "Politik"
+
+msgid "War and army"
+msgstr "Krieg und Militär"
+
+msgid "Religion"
+msgstr "Religion"
+
+msgid "Time"
+msgstr "Zeit"
+
+msgid "Days, months, seasons"
+msgstr "Tage, Monate, Jahreszeiten"
+
+msgid "Numbers and amounts"
+msgstr "Zahlen und Mengen"
+
+msgid "Colours"
+msgstr "Farben"
+
+msgid "Place, direction, position"
+msgstr "Ort, Richtung, Lage"
+
+msgid "Movement"
+msgstr "Bewegung"
+
+msgid "Senses"
+msgstr "Sinne und Wahrnehmung"
+
+msgid "Thinking and knowing"
+msgstr "Denken und Wissen"
+
+#, python-format
+msgid "%(count)s meaning"
+msgid_plural "%(count)s meanings"
+msgstr[0] "%(count)s Bedeutung"
+msgstr[1] "%(count)s Bedeutungen"
+
+#, python-format
+msgid "%(count)s min"
+msgstr "%(count)s Min."
+
+#, python-format
+msgid "%(count)s h"
+msgstr "%(count)s Std."
+
+#, python-format
+msgid "%(count)s year"
+msgid_plural "%(count)s years"
+msgstr[0] "%(count)s Jahr"
+msgstr[1] "%(count)s Jahre"
+
+#, python-format
+msgid "%(count)s day"
+msgid_plural "%(count)s days"
+msgstr[0] "%(count)s Tag"
+msgstr[1] "%(count)s Tage"
+
+msgid "Choose at least one deck."
+msgstr "Wähl mindestens ein Wörterbuch."
+
+msgid "Direction"
+msgstr "Richtung"
+
+msgid "Which cards"
+msgstr "Welche Karten"
+
+msgid "Max cards"
+msgstr "Max. Karten"
+
+msgid "foreign → native"
+msgstr "Fremdsprache → Muttersprache"
+
+msgid "native → foreign"
+msgstr "Muttersprache → Fremdsprache"
+
+msgid "correct"
+msgstr "richtig"
+
+msgid "partial"
+msgstr "halb"
+
+msgid "wrong"
+msgstr "falsch"
+
+msgid "word"
+msgstr "Vokabel"
+
+msgid "direction"
+msgstr "Richtung"
+
+msgid "next review"
+msgstr "nächste Wiederholung"
+
+msgid "last reviewed"
+msgstr "zuletzt wiederholt"
+
+msgid "last rating"
+msgstr "letzte Bewertung"
+
+msgid "last interval"
+msgstr "letztes Intervall"
+
+msgid "correct in a row"
+msgstr "richtig in Folge"
+
+msgid "number of mistakes"
+msgstr "Anzahl Fehler"
+
+msgid "number of reviews"
+msgstr "Anzahl Wiederholungen"
+
+msgid "review state"
+msgstr "Wiederholungsstand"
+
+msgid "review states"
+msgstr "Wiederholungsstände"
+
+msgid "foreign ⇄ native"
+msgstr "Fremdsprache ⇄ Muttersprache"
+
+msgid "only due and new"
+msgstr "nur fällige und neue"
+
+msgctxt "study scope"
+msgid "all"
+msgstr "alle"
+
+msgid "decks"
+msgstr "Wörterbücher"
+
+msgid "picked cards"
+msgstr "ausgewählte Karten"
+
+msgid "scope"
+msgstr "Umfang"
+
+msgid "max. number of cards"
+msgstr "max. Anzahl Karten"
+
+msgid "start"
+msgstr "Beginn"
+
+msgid "end"
+msgstr "Ende"
+
+msgid "answers"
+msgstr "Antworten"
+
+msgid "random order"
+msgstr "zufällige Reihenfolge"
+
+msgid "session"
+msgstr "Sitzung"
+
+msgid "sessions"
+msgstr "Sitzungen"
+
+msgid "rating"
+msgstr "Bewertung"
+
+msgid "button name"
+msgstr "Name der Schaltfläche"
+
+msgid "result"
+msgstr "Ergebnis"
+
+msgid "interval"
+msgstr "Intervall"
+
+msgid "thinking (ms)"
+msgstr "Nachdenken (ms)"
+
+msgid "deciding (ms)"
+msgstr "Entscheiden (ms)"
+
+msgid "time"
+msgstr "Zeit"
+
+msgid "answer"
+msgstr "Antwort"
+
+msgid "answer history"
+msgstr "Antwortverlauf"
+
+msgid "I know"
+msgstr "Weiß ich"
+
+msgid "I know after thinking"
+msgstr "Nach Überlegen"
+
+msgid "I half remember"
+msgstr "Weiß ich halb"
+
+msgid "No idea"
+msgstr "Keine Ahnung"
+
+msgid "The deck belongs to another user."
+msgstr "Das Wörterbuch gehört zu einem anderen Konto."
+
+msgid "The word belongs to another user."
+msgstr "Die Vokabel gehört zu einem anderen Konto."
+
+msgid "The number of cards must be at least 1."
+msgstr "Die Anzahl der Karten muss mindestens 1 sein."
+
+msgid "There are no words to practise yet."
+msgstr "Noch keine Vokabeln zum Üben da."
+
+msgid "This card is not part of this test."
+msgstr "Diese Karte gehört nicht zu diesem Test."
+
+#, python-format
+msgid "%(count)d older: %(counts)s"
+msgstr "%(count)d ältere: %(counts)s"
+
+msgctxt "weekday short"
+msgid "Mon"
+msgstr "Mo"
+
+msgctxt "weekday short"
+msgid "Tue"
+msgstr "Di"
+
+msgctxt "weekday short"
+msgid "Wed"
+msgstr "Mi"
+
+msgctxt "weekday short"
+msgid "Thu"
+msgstr "Do"
+
+msgctxt "weekday short"
+msgid "Fri"
+msgstr "Fr"
+
+msgctxt "weekday short"
+msgid "Sat"
+msgstr "Sa"
+
+msgctxt "weekday short"
+msgid "Sun"
+msgstr "So"
+
+msgid "7 days"
+msgstr "7 Tage"
+
+msgid "30 days"
+msgstr "30 Tage"
+
+msgid "All"
+msgstr "Alle"
+
+msgid "most often you don't know"
+msgstr "am häufigsten nicht gewusst"
+
+msgid "only one way"
+msgstr "nur in eine Richtung"
+
+msgid "you think long"
+msgstr "du überlegst lange"
+
+msgid "quick and wrong"
+msgstr "schnell und falsch"
+
+msgid "you forget it"
+msgstr "du vergisst sie"
+
+msgid "you know it, then you don't"
+msgstr "mal gewusst, mal nicht"
+
+msgid "learning it longest"
+msgstr "am längsten im Lernen"
+
+msgid "the longest you struggle with"
+msgstr "die längsten, die dir schwerfallen"
+
+#, python-format
+msgid "%(count)s test in %(days)s days"
+msgid_plural "%(count)s tests in %(days)s days"
+msgstr[0] "%(count)s Test in %(days)s Tagen"
+msgstr[1] "%(count)s Tests in %(days)s Tagen"
+
+#, python-format
+msgid "on average %(count)s word"
+msgid_plural "on average %(count)s words"
+msgstr[0] "im Schnitt %(count)s Vokabel"
+msgstr[1] "im Schnitt %(count)s Vokabeln"
+
+msgctxt "weekday short"
+msgid "today"
+msgstr "heute"
+
+msgid "word in tests"
+msgid_plural "words in tests"
+msgstr[0] "Vokabel in Tests"
+msgstr[1] "Vokabeln in Tests"
+
+msgid ""
+"Different words that were in today's tests. A word in both directions counts"
+" once."
+msgstr ""
+"Verschiedene Vokabeln, die heute in Tests vorkamen. Eine Vokabel in beiden "
+"Richtungen zählt einmal."
+
+msgid "right for the first time"
+msgstr "zum ersten Mal richtig"
+
+msgid ""
+"Words answered 😎 or 🤔 today for the first time ever, in any direction. Each "
+"word counts once."
+msgstr ""
+"Vokabeln, die heute zum allerersten Mal mit 😎 oder 🤔 beantwortet wurden, in "
+"beliebiger Richtung. Jede Vokabel zählt einmal."
+
+msgid "word learned"
+msgid_plural "words learned"
+msgstr[0] "Vokabel gelernt"
+msgstr[1] "Vokabeln gelernt"
+
+msgid ""
+"Words that today became “known” for the first time: right twice in a row (😎 "
+"or 🤔) in every tested direction. The second right answer comes only after an"
+" interval, so for new words in a few days at the earliest."
+msgstr ""
+"Vokabeln, die heute zum ersten Mal „gekonnt“ sind: in jeder getesteten "
+"Richtung zweimal hintereinander richtig (😎 oder 🤔). Die zweite richtige "
+"Antwort kommt erst nach einem Intervall, bei neuen Vokabeln also frühestens "
+"in ein paar Tagen."
+
+msgid "time in tests"
+msgstr "Zeit in Tests"
+
+msgid ""
+"How long today's tests took (from the start of a test to its last answer)."
+msgstr ""
+"Wie lange die heutigen Tests gedauert haben (vom Start eines Tests bis zur "
+"letzten Antwort)."
+
+#, python-format
+msgid "%(value)s min"
+msgstr "%(value)s Min."
+
+msgctxt "language"
+msgid "foreign"
+msgstr "Fremdsprache"
+
+msgctxt "language"
+msgid "native"
+msgstr "Muttersprache"
+
+msgctxt "test scope"
+msgid "all"
+msgstr "alle"
+
+msgctxt "test scope"
+msgid "due + new"
+msgstr "fällig + neu"
+
+msgctxt "test scope"
+msgid "wrong again"
+msgstr "falsche nochmal"
+
+msgctxt "test scope"
+msgid "▶︎ practice"
+msgstr "▶︎ üben"
+
+#, python-format
+msgid "max %(count)s"
+msgstr "max. %(count)s"
+
+msgid "< 1 min"
+msgstr "< 1 Min."
+
+#, python-format
+msgid "%(hours)s h %(minutes)s min"
+msgstr "%(hours)s Std. %(minutes)s Min."
+
+#, python-format
+msgid "%(month)s/%(day)s"
+msgstr "%(day)s.%(month)s."
+
+#, python-format
+msgid "%(month)s/%(day)s/%(year)s"
+msgstr "%(day)s.%(month)s.%(year)s"
+
+#, python-format
+msgid "Total words %(unit)s since %(date)s"
+msgstr "Vokabeln insgesamt %(unit)s seit %(date)s"
+
+#, python-format
+msgid "Words you know %(unit)s since %(date)s"
+msgstr "Vokabeln, die du kannst, %(unit)s seit %(date)s"
+
+msgid "by day"
+msgstr "nach Tagen"
+
+msgid "by week"
+msgstr "nach Wochen"
+
+msgid "by month"
+msgstr "nach Monaten"
+
+msgid "by quarter"
+msgstr "nach Quartalen"
+
+msgctxt "month short"
+msgid "Jan"
+msgstr "Jan."
+
+msgctxt "month short"
+msgid "Feb"
+msgstr "Feb."
+
+msgctxt "month short"
+msgid "Mar"
+msgstr "März"
+
+msgctxt "month short"
+msgid "Apr"
+msgstr "Apr."
+
+msgctxt "month short"
+msgid "May"
+msgstr "Mai"
+
+msgctxt "month short"
+msgid "Jun"
+msgstr "Juni"
+
+msgctxt "month short"
+msgid "Jul"
+msgstr "Juli"
+
+msgctxt "month short"
+msgid "Aug"
+msgstr "Aug."
+
+msgctxt "month short"
+msgid "Sep"
+msgstr "Sep."
+
+msgctxt "month short"
+msgid "Oct"
+msgstr "Okt."
+
+msgctxt "month short"
+msgid "Nov"
+msgstr "Nov."
+
+msgctxt "month short"
+msgid "Dec"
+msgstr "Dez."
+
+#, python-format
+msgid "Q%(quarter)s %(year)s"
+msgstr "Q%(quarter)s %(year)s"
+
+#, python-format
+msgid "%(count)s character"
+msgid_plural "%(count)s characters"
+msgstr[0] "%(count)s Zeichen"
+msgstr[1] "%(count)s Zeichen"
+
+#, python-format
+msgid "%(percent)s%% correct of %(total)s answers"
+msgstr "%(percent)s %% richtig von %(total)s Antworten"
+
+msgid "full history"
+msgstr "ganzer Verlauf"
+
+#, python-format
+msgid "Done %(done)s · %(left)s left"
+msgstr "Erledigt %(done)s · noch %(left)s"
+
+msgid "also"
+msgstr "auch"
+
+msgid "You are also learning:"
+msgstr "Du lernst auch:"
+
+#, python-format
+msgid "“%(word)s” is also: %(others)s"
+msgstr "„%(word)s“ ist auch: %(others)s"
+
+msgid "Show"
+msgstr "Aufdecken"
+
+#, python-format
+msgid "%(label)s, again in %(when)s"
+msgstr "%(label)s, wieder in %(when)s"
+
+msgid ""
+"Time over the cards of today’s tests, at most 20 s for one card. You set the"
+" goal in Settings."
+msgstr ""
+"Zeit über den Karten der heutigen Tests, höchstens 20 s pro Karte. Das Ziel "
+"legst du in den Einstellungen fest."
+
+#, python-format
+msgid "%(minutes)s / %(goal)s min"
+msgstr "%(minutes)s / %(goal)s Min."
+
+msgid "daily goal"
+msgstr "Tagesziel"
+
+msgid "Turn over"
+msgstr "Umdrehen"
+
+msgid "Details"
+msgstr "Details"
+
+msgid "when nothing is waiting, words that don't stick are added"
+msgstr "wenn nichts wartet, kommen Vokabeln dazu, die nicht hängen bleiben"
+
+msgid "every card once, no matter when it is due"
+msgstr "jede Karte einmal, egal wann sie fällig ist"
+
+msgid "Empty = no limit."
+msgstr "Leer = keine Grenze."
+
+msgid "This word does not stick"
+msgstr "Diese Vokabel bleibt nicht hängen"
+
+#, python-format
+msgid "The sentence for “%(word)s” is saved, it will show at the next review."
+msgstr ""
+"Der Satz zu „%(word)s“ ist gespeichert, er erscheint bei der nächsten "
+"Wiederholung."
+
+msgid "Add a sentence to it, a word is easier to learn in a sentence."
+msgstr "Füg einen Satz hinzu, im Satz lernt sich eine Vokabel leichter."
+
+msgid "A sentence with this word"
+msgstr "Ein Satz mit diesem Wort"
+
+msgid "Its translation"
+msgstr "Seine Übersetzung"
+
+#, python-brace-format
+msgid ""
+"The word is found automatically; mark another form with braces: He {ran} "
+"away."
+msgstr ""
+"Das Wort im Satz wird automatisch gefunden. Eine andere Form markierst du "
+"mit Klammern: He {ran} away."
+
+msgid "The translation is optional."
+msgstr "Die Übersetzung ist optional."
+
+msgid "Example:"
+msgstr "Beispiel:"
+
+msgid "Use"
+msgstr "Übernehmen"
+
+msgid "Save sentence"
+msgstr "Satz speichern"
+
+msgid "Not now"
+msgstr "Nicht jetzt"
+
+msgid "Recent tests"
+msgstr "Letzte Tests"
+
+msgid "When"
+msgstr "Wann"
+
+msgid "Deck"
+msgstr "Wörterbuch"
+
+msgid "Cards"
+msgstr "Karten"
+
+msgid ""
+"With both directions (⇄) every word is in the test twice, once each way."
+msgstr ""
+"Bei beiden Richtungen (⇄) ist jede Vokabel zweimal im Test, einmal in jede "
+"Richtung."
+
+msgid "Success"
+msgstr "Erfolg"
+
+msgctxt "after a number"
+msgid "words"
+msgstr "Vokabeln"
+
+msgid "Test ended early"
+msgstr "Test vorzeitig beendet"
+
+msgid "Today"
+msgstr "Heute"
+
+msgid "in the last 7 days"
+msgstr "in den letzten 7 Tagen"
+
+msgid "Help with the buttons"
+msgstr "Hilfe zu den Knöpfen"
+
+msgid "Edit word"
+msgstr "Vokabel bearbeiten"
+
+msgid "Edit word (E)"
+msgstr "Vokabel bearbeiten (E)"
+
+msgid "Report a mistake"
+msgstr "Fehler melden"
+
+msgid "Finish test"
+msgstr "Test beenden"
+
+msgid "How the test works"
+msgstr "So funktioniert der Test"
+
+msgid ""
+"Try to recall the answer, turn the card and rate how well you knew it. The "
+"worse you knew it, the sooner it comes again."
+msgstr ""
+"Versuch, dich an die Antwort zu erinnern, dreh die Karte um und bewerte, wie"
+" gut du sie wusstest. Je schlechter, desto früher kommt sie wieder."
+
+msgid "Got it"
+msgstr "Verstanden"
+
+msgid "What the buttons ▶︎ Practice start. It is remembered."
+msgstr "Was die Knöpfe ▶︎ Üben starten. Wird gespeichert."
+
+msgid "First create a deck and add words to it."
+msgstr "Leg zuerst ein Wörterbuch an und füg Vokabeln hinzu."
+
+msgid "New deck"
+msgstr "Neues Wörterbuch"
+
+#, python-format
+msgid "and %(counter)s sub-deck"
+msgid_plural "and %(counter)s sub-decks"
+msgstr[0] "und %(counter)s Unterwörterbuch"
+msgstr[1] "und %(counter)s Unterwörterbücher"
+
+msgid "From which decks"
+msgstr "Aus welchen Wörterbüchern"
+
+msgid ""
+"The ticked decks with their sub-decks. A word that is in more decks comes "
+"only once."
+msgstr ""
+"Die angehakten Wörterbücher samt Unterwörterbüchern. Eine Vokabel, die in "
+"mehreren Wörterbüchern steht, kommt nur einmal."
+
+msgid "Cancel"
+msgstr "Abbrechen"
+
+msgid "Statistics"
+msgstr "Statistik"
+
+msgid "this week"
+msgstr "diese Woche"
+
+msgid "known"
+msgstr "gekonnt"
+
+#, python-format
+msgid "learning %(learning)s · new %(new)s"
+msgstr "im Lernen %(learning)s · neu %(new)s"
+
+msgid "days in a row"
+msgstr "Tage in Folge"
+
+#, python-format
+msgid "longest streak %(longest)s"
+msgstr "längste Serie %(longest)s"
+
+msgid "Nothing here yet. Add your first words and start a test."
+msgstr ""
+"Hier ist noch nichts. Füg deine ersten Vokabeln hinzu und starte einen Test."
+
+msgctxt "chart of known words"
+msgid "You know"
+msgstr "Gekonnt"
+
+msgid "You know a word when every tested direction got 2× in a row 😎 or 🤔."
+msgstr ""
+"Eine Vokabel kannst du, wenn sie in jeder getesteten Richtung 2× "
+"hintereinander 😎 oder 🤔 bekam."
+
+msgid "No tests yet."
+msgstr "Noch keine Tests."
+
+msgid "In the last 30 days"
+msgstr "In den letzten 30 Tagen"
+
+msgid "Everything went well in the last 30 days 🎉"
+msgstr "In den letzten 30 Tagen lief alles gut 🎉"
+
+msgid "No tests in the last 30 days."
+msgstr "Keine Tests in den letzten 30 Tagen."
+
+msgid "Test summary"
+msgstr "Testübersicht"
+
+#, python-format
+msgid "Cards rated: %(counter)s"
+msgstr "Bewertete Karten: %(counter)s"
+
+msgid "How it went"
+msgstr "Wie es lief"
+
+msgid "To review"
+msgstr "Zum Wiederholen"
+
+msgid "Practice the wrong ones again"
+msgstr "Falsche nochmal üben"
+
+msgid "All correct!"
+msgstr "Alles richtig!"
+
+msgid "No cards were rated in this test."
+msgstr "In diesem Test wurde keine Karte bewertet."
+
+msgid "Set up practice"
+msgstr "Üben einstellen"
+
+msgid "Back to overview"
+msgstr "Zurück zur Übersicht"
+
+msgctxt "due"
+msgid "new"
+msgstr "neu"
+
+msgctxt "due"
+msgid "now"
+msgstr "jetzt"
+
+#, python-format
+msgid "in %(interval)s"
+msgstr "in %(interval)s"
+
+#, python-format
+msgid "%(seconds)s s"
+msgstr "%(seconds)s s"
+
+#, python-brace-format
+msgid ""
+"Settings of the quick test that the button {bar} at the top in the bar or "
+"{deck} on a deck starts."
+msgstr ""
+"Einstellungen des Schnelltests, den der Knopf {bar} oben in der Leiste oder "
+"{deck} bei einem Wörterbuch startet."
+
+msgid "Practice deck"
+msgstr "Wörterbuch üben"
+
+msgid "Invalid answer."
+msgstr "Ungültige Antwort."
+
+msgid "Write at least the sentence in the foreign language."
+msgstr "Schreib mindestens den Satz in der Fremdsprache."
+
+msgid "Sentence saved."
+msgstr "Satz gespeichert."
+
+msgid "There are no wrong words in this test."
+msgstr "In diesem Test gibt es keine falschen Vokabeln."
+
+msgid "Tests"
+msgstr "Tests"
+
+msgid "What you struggle with"
+msgstr "Was dir schwerfällt"
+
+msgid "Parts of the statistics"
+msgstr "Bereiche der Statistik"
+
+msgid "Read the sentence (V)"
+msgstr "Satz vorlesen (V)"
+
+msgid "Play the pronunciation (P)"
+msgstr "Aussprache abspielen (P)"
+
+msgid "Read the sentence"
+msgstr "Satz vorlesen"
+
+msgid "Play the pronunciation"
+msgstr "Aussprache abspielen"
+
+msgctxt "pronunciation"
+msgid "Play"
+msgstr "Abspielen"
+
+msgid "Skip to content"
+msgstr "Zum Inhalt springen"
+
+msgid "Help"
+msgstr "Hilfe"
+
+msgid "Theme"
+msgstr "Design"
+
+msgctxt "theme"
+msgid "Light"
+msgstr "Hell"
+
+msgctxt "theme"
+msgid "Dark"
+msgstr "Dunkel"
+
+msgctxt "theme"
+msgid "Auto"
+msgstr "Auto"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Log out"
+msgstr "Abmelden"
+
+msgid "Close"
+msgstr "Schließen"
+
+msgid "Vocaboo on the home screen"
+msgstr "Vocaboo auf dem Startbildschirm"
+
+msgid ""
+"Tap <strong>Share</strong> (the square with an arrow up). In Safari it is at"
+" the bottom; if you don't see it, tap <strong>⋯</strong> first."
+msgstr ""
+"Tippe auf <strong>Teilen</strong> (das Quadrat mit dem Pfeil nach oben). In "
+"Safari ist es unten; wenn du es nicht siehst, tippe zuerst auf "
+"<strong>⋯</strong>."
+
+msgid "Scroll down and tap <strong>Add to Home Screen</strong>."
+msgstr "Scroll nach unten und tippe auf <strong>Zum Home-Bildschirm</strong>."
+
+msgid ""
+"Tap <strong>Add</strong>. Vocaboo is now on the home screen, next to the "
+"other apps."
+msgstr ""
+"Tippe auf <strong>Hinzufügen</strong>. Vocaboo ist jetzt auf dem "
+"Startbildschirm, neben den anderen Apps."
+
+msgid ""
+"The app on the home screen has its own login, so log in there once more."
+msgstr ""
+"Die App auf dem Startbildschirm hat eine eigene Anmeldung, melde dich dort "
+"also noch einmal an."
+
+msgid "OK"
+msgstr "OK"
+
+msgid ""
+"Open the browser menu: <strong>⋮</strong> at the top right (in Firefox it "
+"can be at the bottom)."
+msgstr ""
+"Öffne das Browsermenü: <strong>⋮</strong> oben rechts (in Firefox kann es "
+"unten sein)."
+
+msgid ""
+"Tap <strong>Install app</strong> or <strong>Add to Home screen</strong>."
+msgstr ""
+"Tippe auf <strong>App installieren</strong> oder <strong>Zum Startbildschirm"
+" hinzufügen</strong>."
+
+msgid ""
+"Confirm with <strong>Install</strong> or <strong>Add</strong>. Vocaboo is "
+"now on the home screen, next to the other apps."
+msgstr ""
+"Bestätige mit <strong>Installieren</strong> oder "
+"<strong>Hinzufügen</strong>. Vocaboo ist jetzt auf dem Startbildschirm, "
+"neben den anderen Apps."
+
+msgid "What you struggled with"
+msgstr "Was dir schwerfiel"
+
+msgid "yesterday"
+msgstr "gestern"
+
+msgctxt "deck"
+msgid "New"
+msgstr "Neu"
+
+msgid "You have no decks yet. Start by creating one."
+msgstr "Du hast noch keine Wörterbücher. Leg zuerst eins an."
+
+msgctxt "page title"
+msgid "Log in"
+msgstr "Anmeldung"
+
+msgid "Log in with your email."
+msgstr "Melde dich mit deiner E-Mail an."
+
+msgid "Log in"
+msgstr "Anmelden"
+
+msgid "Forgot your password?"
+msgstr "Passwort vergessen?"
+
+msgid "Create an account"
+msgstr "Konto erstellen"
+
+msgid "Password changed"
+msgstr "Passwort geändert"
+
+msgid "Now log in with the new password."
+msgstr "Melde dich jetzt mit dem neuen Passwort an."
+
+msgid ""
+"This link no longer works. It was used already or it is older than 24 hours."
+msgstr ""
+"Dieser Link gilt nicht mehr. Er wurde schon benutzt oder ist älter als 24 "
+"Stunden."
+
+msgid "Save the password"
+msgstr "Passwort speichern"
+
+msgid "Send a new link"
+msgstr "Neuen Link senden"
+
+msgid "Forgotten password"
+msgstr "Passwort vergessen"
+
+msgid "Check your email"
+msgstr "Schau in deine E-Mails"
+
+msgid ""
+"If there is an account for this email, a link to set a new password is on "
+"its way. It works for 24 hours. No email? Check your spam folder too."
+msgstr ""
+"Wenn es zu dieser E-Mail ein Konto gibt, ist ein Link zum Festlegen eines "
+"neuen Passworts unterwegs. Er gilt 24 Stunden. Keine E-Mail? Schau auch im "
+"Spam-Ordner nach."
+
+msgid "Back to login"
+msgstr "Zurück zur Anmeldung"
+
+msgid ""
+"Somebody asked for a new password for your Vocaboo account. Set it here:"
+msgstr ""
+"jemand hat ein neues Passwort für dein Vocaboo-Konto angefordert. Hier legst"
+" du es fest:"
+
+msgid ""
+"The link works for 24 hours. If you did not ask for it, ignore this email, "
+"your password stays the same."
+msgstr ""
+"Der Link gilt 24 Stunden. Wenn du es nicht angefordert hast, ignoriere diese"
+" E-Mail, dein Passwort bleibt gleich."
+
+msgid "We will send you a link to set a new password."
+msgstr "Wir schicken dir einen Link zum Festlegen eines neuen Passworts."
+
+msgid "Send the link"
+msgstr "Link senden"
+
+msgid "New password for Vocaboo"
+msgstr "Neues Passwort für Vocaboo"
+
+msgid "Then we will send you a code to confirm your email."
+msgstr "Dann schicken wir dir einen Code, um deine E-Mail zu bestätigen."
+
+msgid "Already have an account?"
+msgstr "Schon ein Konto?"
+
+msgid "Confirm your email"
+msgstr "Bestätige deine E-Mail"
+
+#, python-format
+msgid ""
+"We sent a code to <strong>%(email)s</strong>. It works for %(minutes)s "
+"minutes."
+msgstr ""
+"Wir haben einen Code an <strong>%(email)s</strong> geschickt. Er gilt "
+"%(minutes)s Minuten."
+
+msgid "Confirm"
+msgstr "Bestätigen"
+
+msgid "No email? Check your spam folder too."
+msgstr "Keine E-Mail? Schau auch im Spam-Ordner nach."
+
+msgid "Send a new code"
+msgstr "Neuen Code senden"
+
+msgid "Use another email"
+msgstr "Andere E-Mail verwenden"
+
+msgid "Choose a language…"
+msgstr "Sprache wählen…"
+
+msgid "Name"
+msgstr "Name"
+
+msgid "I want to learn"
+msgstr "Ich lerne"
+
+msgid "For example, English."
+msgstr "Zum Beispiel Englisch."
+
+msgid "I speak"
+msgstr "Ich spreche"
+
+msgid "The language you translate the words into, for example, Czech."
+msgstr "Die Sprache, in die du die Vokabeln übersetzt, zum Beispiel Deutsch."
+
+msgid "Description"
+msgstr "Beschreibung"
+
+msgid ""
+"The language you want to learn and the language you speak must be different."
+msgstr ""
+"Die Sprache, die du lernst, und die Sprache, die du sprichst, müssen "
+"verschieden sein."
+
+msgid "Move under"
+msgstr "Verschieben unter"
+
+msgid "— top level —"
+msgstr "— oberste Ebene —"
+
+msgid "To deck"
+msgstr "In Wörterbuch"
+
+msgid "What is wrong?"
+msgstr "Was ist falsch?"
+
+msgid "Note"
+msgstr "Notiz"
+
+msgid "Optional, e.g. the right translation."
+msgstr "Optional, z. B. die richtige Übersetzung."
+
+msgid "Sentence"
+msgstr "Satz"
+
+msgid "Sentence translation"
+msgstr "Übersetzung des Satzes"
+
+#, no-python-brace-format
+msgid ""
+"Optional, to help understand the sentence. You can mark the word: He ran "
+"{away}."
+msgstr ""
+"Optional, zum Verständnis des Satzes. Du kannst das Wort markieren: Er "
+"rannte {weg}."
+
+msgid "Separate more variants with a semicolon"
+msgstr "Mehrere Varianten mit Semikolon trennen"
+
+msgid "Czech"
+msgstr "Tschechisch"
+
+msgid "German"
+msgstr "Deutsch"
+
+msgid "English"
+msgstr "Englisch"
+
+msgid "Spanish"
+msgstr "Spanisch"
+
+msgid "French"
+msgstr "Französisch"
+
+msgid "Italian"
+msgstr "Italienisch"
+
+msgid "Japanese"
+msgstr "Japanisch"
+
+msgid "Dutch"
+msgstr "Niederländisch"
+
+msgid "Polish"
+msgstr "Polnisch"
+
+msgid "Portuguese"
+msgstr "Portugiesisch"
+
+msgid "Russian"
+msgstr "Russisch"
+
+msgid "Slovak"
+msgstr "Slowakisch"
+
+msgid "Ukrainian"
+msgstr "Ukrainisch"
+
+msgid "Chinese"
+msgstr "Chinesisch"
+
+msgid "Enter a two-letter ISO 639-1 code in lowercase, for example, cs or en."
+msgstr ""
+"Gib einen zweibuchstabigen ISO-639-1-Code in Kleinbuchstaben ein, zum "
+"Beispiel cs oder en."
+
+msgid "ISO 639-1, for example, cs, en, es. Note: Czech is cs, not cz."
+msgstr ""
+"ISO 639-1, zum Beispiel cs, en, es. Achtung: Tschechisch ist cs, nicht cz."
+
+msgid "languages"
+msgstr "Sprachen"
+
+msgid "owner"
+msgstr "Konto"
+
+msgid "parent deck"
+msgstr "übergeordnetes Wörterbuch"
+
+msgid "description"
+msgstr "Beschreibung"
+
+msgid "deck"
+msgstr "Wörterbuch"
+
+msgid "A deck with this name already exists here."
+msgstr "Ein Wörterbuch mit diesem Namen gibt es hier schon."
+
+msgid "manual"
+msgstr "manuell"
+
+msgid "translator"
+msgstr "Übersetzungsdienst"
+
+msgid "voice"
+msgstr "Stimme"
+
+msgid "import"
+msgstr "Import"
+
+msgid "dictionary"
+msgstr "Wörterbuch der App"
+
+msgid "main foreign variant"
+msgstr "fremdsprachige Hauptvariante"
+
+msgid "main translation"
+msgstr "Hauptübersetzung"
+
+msgid "origin"
+msgstr "Herkunft"
+
+msgid "You already have this word."
+msgstr "Diese Vokabel hast du schon."
+
+msgid "foreign"
+msgstr "Fremdsprache"
+
+msgid "native"
+msgstr "Muttersprache"
+
+msgid "side"
+msgstr "Seite"
+
+msgid "text"
+msgstr "Text"
+
+msgid "variant"
+msgstr "Variante"
+
+msgid "variants"
+msgstr "Varianten"
+
+msgid "word in deck"
+msgstr "Vokabel im Wörterbuch"
+
+msgid "words in decks"
+msgstr "Vokabeln in Wörterbüchern"
+
+msgid "saved"
+msgstr "gespeichert"
+
+msgid "word for later"
+msgstr "Vokabel für später"
+
+msgid "words for later"
+msgstr "Vokabeln für später"
+
+msgid "missing word"
+msgstr "ausgelassenes Wort"
+
+msgid "The parent deck belongs to another user."
+msgstr "Das übergeordnete Wörterbuch gehört zu einem anderen Konto."
+
+#, python-format
+msgid "Decks can have at most %(max)d levels."
+msgstr "Wörterbücher können höchstens %(max)d Ebenen haben."
+
+msgid "Choose the language you want to learn and the language you speak."
+msgstr ""
+"Wähl die Sprache, die du lernen willst, und die Sprache, die du sprichst."
+
+msgid "The target deck belongs to another user."
+msgstr "Das Zielwörterbuch gehört zu einem anderen Konto."
+
+msgid "A deck cannot be moved into itself or into its own sub-deck."
+msgstr ""
+"Ein Wörterbuch kann nicht in sich selbst oder in ein eigenes Unterwörterbuch"
+" verschoben werden."
+
+msgid "A deck can only be moved under a deck with the same languages."
+msgstr ""
+"Ein Wörterbuch kann nur unter ein Wörterbuch mit denselben Sprachen "
+"verschoben werden."
+
+#, python-format
+msgid "After the move, the tree would have more than %(max)d levels."
+msgstr "Nach dem Verschieben hätte der Baum mehr als %(max)d Ebenen."
+
+msgid "The word does not belong to this deck."
+msgstr "Die Vokabel gehört nicht zu diesem Wörterbuch."
+
+#, python-format
+msgid "A variant can have at most %(max)d characters."
+msgstr "Eine Variante darf höchstens %(max)d Zeichen haben."
+
+msgid "Words can only be moved to a deck with the same languages."
+msgstr ""
+"Vokabeln können nur in ein Wörterbuch mit denselben Sprachen verschoben "
+"werden."
+
+msgid "by date added"
+msgstr "nach Hinzufügen"
+
+msgid "alphabetically"
+msgstr "alphabetisch"
+
+msgid "by next review"
+msgstr "nach nächster Wiederholung"
+
+msgid "Enter the word."
+msgstr "Gib die Vokabel ein."
+
+msgid "Enter at least one variant."
+msgstr "Gib mindestens eine Variante ein."
+
+#, python-format
+msgid "You already have the word “%(word)s → %(native)s” (%(decks)s)."
+msgstr "Die Vokabel „%(word)s → %(native)s“ hast du schon (%(decks)s)."
+
+#, python-format
+msgid "%(count)s to review"
+msgstr "%(count)s zu wiederholen"
+
+msgid "to review"
+msgstr "zu wiederholen"
+
+msgctxt "words saved for later"
+msgid "Pending"
+msgstr "Für später"
+
+msgid "Fill in"
+msgstr "Ergänzen"
+
+#, python-format
+msgid "%(counter)s word is waiting for a translation"
+msgid_plural "%(counter)s words are waiting for a translation"
+msgstr[0] "%(counter)s Vokabel wartet auf eine Übersetzung"
+msgstr[1] "%(counter)s Vokabeln warten auf eine Übersetzung"
+
+msgid "word for later waits for a translation"
+msgid_plural "words for later wait for a translation"
+msgstr[0] "für später wartet auf eine Übersetzung"
+msgstr[1] "für später warten auf eine Übersetzung"
+
+msgid "Search words…"
+msgstr "Vokabeln suchen…"
+
+msgid "Search a word, translation, sentence…"
+msgstr "Vokabel, Übersetzung, Satz suchen…"
+
+msgid "Search in words"
+msgstr "In Vokabeln suchen"
+
+#, python-format
+msgid "Showing the first %(limit)s results, try a more exact search."
+msgstr "Die ersten %(limit)s Ergebnisse werden gezeigt, such genauer."
+
+#, python-format
+msgid "Nothing found for “%(query)s”."
+msgstr "Für „%(query)s“ wurde nichts gefunden."
+
+#, python-format
+msgid "Move %(name)s up"
+msgstr "%(name)s nach oben schieben"
+
+#, python-format
+msgid "Move %(name)s down"
+msgstr "%(name)s nach unten schieben"
+
+msgid "Add word"
+msgstr "Vokabel hinzufügen"
+
+msgid "Adding…"
+msgstr "Wird hinzugefügt…"
+
+#, python-format
+msgid "“%(word)s” is already in this deck."
+msgstr "„%(word)s“ ist schon in diesem Wörterbuch."
+
+msgid "View"
+msgstr "Details"
+
+msgid "Add new variants"
+msgstr "Neue Varianten hinzufügen"
+
+#, python-format
+msgid "You already have “%(word)s” in: %(decks)s."
+msgstr "„%(word)s“ hast du schon in: %(decks)s."
+
+msgid "Add here too"
+msgstr "Auch hier hinzufügen"
+
+#, python-format
+msgid "You already have “%(word)s” with another translation:"
+msgstr "„%(word)s“ hast du schon mit einer anderen Übersetzung:"
+
+msgid "Same meaning: add as a variant"
+msgstr "Gleiche Bedeutung: als Variante hinzufügen"
+
+msgid "Same meaning: add here"
+msgstr "Gleiche Bedeutung: hier hinzufügen"
+
+msgid "A different meaning? Just save the word, it will be another meaning."
+msgstr ""
+"Andere Bedeutung? Speicher die Vokabel einfach, sie wird eine weitere "
+"Bedeutung."
+
+#, python-format
+msgid "You already have a similar word: “%(word)s” (%(decks)s)."
+msgstr "Du hast schon eine ähnliche Vokabel: „%(word)s“ (%(decks)s)."
+
+msgid "Add new variants to it"
+msgstr "Neue Varianten dazu hinzufügen"
+
+msgid "Add it here"
+msgstr "Hier hinzufügen"
+
+#, python-format
+msgid ""
+"You already have “%(native)s” as a translation of “%(word)s” (%(decks)s)."
+msgstr ""
+"„%(native)s“ hast du schon als Übersetzung von „%(word)s“ (%(decks)s)."
+
+#, python-format
+msgid "Add “%(new)s” as a variant of “%(word)s”"
+msgstr "„%(new)s“ als Variante von „%(word)s“ hinzufügen"
+
+msgid "Or save it separately (a different shade, for example, informal)."
+msgstr ""
+"Oder separat speichern (andere Nuance, zum Beispiel umgangssprachlich)."
+
+msgid "Similar (without accents):"
+msgstr "Ähnlich (ohne Akzente):"
+
+msgid "Added:"
+msgstr "Hinzugefügt:"
+
+#, python-format
+msgid "Next pending (%(counter)s)"
+msgid_plural "Next pending (%(counter)s)"
+msgstr[0] "Nächste für später (%(counter)s)"
+msgstr[1] "Nächste für später (%(counter)s)"
+
+msgid "Saved for later:"
+msgstr "Für später gespeichert:"
+
+msgid "sentence, note"
+msgstr "Satz, Notiz"
+
+msgid "edit"
+msgstr "bearbeiten"
+
+msgid "done"
+msgstr "fertig"
+
+msgid "Sort"
+msgstr "Sortieren"
+
+msgid "Select"
+msgstr "Auswählen"
+
+#, python-format
+msgid "Select “%(word)s”"
+msgstr "„%(word)s“ auswählen"
+
+msgid "Move…"
+msgstr "Verschieben…"
+
+msgid "No words here yet. Add the first one with the form above."
+msgstr ""
+"Hier sind noch keine Vokabeln. Füg die erste mit dem Formular oben hinzu."
+
+msgid "The suggestions don't know this word"
+msgstr "Die Vorschläge kennen dieses Wort nicht"
+
+msgid "Save for later"
+msgstr "Für später"
+
+msgid "Suggestions:"
+msgstr "Vorschläge:"
+
+msgid "Delete deck"
+msgstr "Wörterbuch löschen"
+
+msgid "Delete"
+msgstr "Löschen"
+
+#, python-format
+msgid "Really delete the deck “%(name)s”?"
+msgstr "Das Wörterbuch „%(name)s“ wirklich löschen?"
+
+#, python-format
+msgid "This also deletes %(counter)s sub-deck."
+msgid_plural "This also deletes %(counter)s sub-decks."
+msgstr[0] "Damit wird auch %(counter)s Unterwörterbuch gelöscht."
+msgstr[1] "Damit werden auch %(counter)s Unterwörterbücher gelöscht."
+
+#, python-format
+msgid "This also deletes %(counter)s word that is in no other deck."
+msgid_plural "This also deletes %(counter)s words that are in no other deck."
+msgstr[0] ""
+"Damit wird auch %(counter)s Vokabel gelöscht, die in keinem anderen "
+"Wörterbuch steht."
+msgstr[1] ""
+"Damit werden auch %(counter)s Vokabeln gelöscht, die in keinem anderen "
+"Wörterbuch stehen."
+
+msgid "This cannot be undone."
+msgstr "Das kann nicht rückgängig gemacht werden."
+
+msgid "More actions"
+msgstr "Weitere Aktionen"
+
+msgid "Edit name and description"
+msgstr "Name und Beschreibung bearbeiten"
+
+msgid "Move"
+msgstr "Verschieben"
+
+#, python-format
+msgid "%(counter)s card"
+msgid_plural "%(counter)s cards"
+msgstr[0] "%(counter)s Karte"
+msgstr[1] "%(counter)s Karten"
+
+msgid "nothing due, you practise the ones that don't stick"
+msgstr "nichts fällig, du übst die Vokabeln, die nicht hängen bleiben"
+
+msgid "Set up"
+msgstr "Einstellen"
+
+msgid "New word"
+msgstr "Neue Vokabel"
+
+msgid "From a topic"
+msgstr "Aus einem Thema"
+
+msgid "Sub-decks"
+msgstr "Unterwörterbücher"
+
+msgid "New"
+msgstr "Neu"
+
+msgid "No sub-decks yet."
+msgstr "Noch keine Unterwörterbücher."
+
+#, python-format
+msgid ""
+"No more sub-decks can be added here, the tree can have at most %(max_depth)s"
+" levels."
+msgstr ""
+"Hier kann kein weiteres Unterwörterbuch hinzugefügt werden, der Baum darf "
+"höchstens %(max_depth)s Ebenen haben."
+
+#, python-format
+msgid "The sub-deck takes over the languages of “%(name)s” (%(pair)s)."
+msgstr "Das Unterwörterbuch übernimmt die Sprachen von „%(name)s“ (%(pair)s)."
+
+msgid ""
+"Words saved without a translation. Tap a word: its deck opens with the word "
+"filled in, add the translation there."
+msgstr ""
+"Vokabeln, die ohne Übersetzung gespeichert wurden. Tippe auf eine Vokabel: "
+"Ihr Wörterbuch öffnet sich mit dem ausgefüllten Wort, dort ergänzt du die "
+"Übersetzung."
+
+msgid "Word"
+msgstr "Vokabel"
+
+msgctxt "word for later"
+msgid "Saved"
+msgstr "Gespeichert"
+
+#, python-format
+msgid "Delete %(word)s"
+msgstr "%(word)s löschen"
+
+msgid "No word is waiting for a translation."
+msgstr "Keine Vokabel wartet auf eine Übersetzung."
+
+#, python-format
+msgid "Back to the deck “%(name)s”"
+msgstr "Zurück zum Wörterbuch „%(name)s“"
+
+msgid "Search"
+msgstr "Suchen"
+
+msgid ""
+"Searches all your decks: word, translation, sentence and note, ignoring "
+"accents and letter case."
+msgstr ""
+"Sucht in allen deinen Wörterbüchern: Wort, Übersetzung, Satz und Notiz, ohne"
+" Rücksicht auf Akzente und Groß-/Kleinschreibung."
+
+msgid "Remove word"
+msgstr "Vokabel entfernen"
+
+#, python-format
+msgid "Remove “%(word)s” from the deck “%(name)s”?"
+msgstr "„%(word)s“ aus dem Wörterbuch „%(name)s“ entfernen?"
+
+msgid "The word stays in the decks:"
+msgstr "Die Vokabel bleibt in den Wörterbüchern:"
+
+msgid "The review history is kept."
+msgstr "Der Wiederholungsverlauf bleibt erhalten."
+
+msgid ""
+"The word is in no other deck, so it will be deleted completely, together "
+"with its review history."
+msgstr ""
+"Die Vokabel steht in keinem anderen Wörterbuch, sie wird also komplett "
+"gelöscht, samt Wiederholungsverlauf."
+
+msgid "Remove"
+msgstr "Entfernen"
+
+msgid "Edit"
+msgstr "Bearbeiten"
+
+msgid "Remove from this deck"
+msgstr "Aus diesem Wörterbuch entfernen"
+
+msgid "Reviews"
+msgstr "Wiederholungen"
+
+#, python-format
+msgid "%(counter)s× in a test"
+msgid_plural "%(counter)s× in a test"
+msgstr[0] "%(counter)s× in einem Test"
+msgstr[1] "%(counter)s× in einem Test"
+
+#, python-format
+msgid ""
+"You know it: every tested direction right at least %(counter)s time in a row"
+msgid_plural ""
+"You know it: every tested direction right at least %(counter)s times in a "
+"row"
+msgstr[0] ""
+"Gekonnt: jede getestete Richtung mindestens %(counter)s× hintereinander "
+"richtig"
+msgstr[1] ""
+"Gekonnt: jede getestete Richtung mindestens %(counter)s× hintereinander "
+"richtig"
+
+#, python-format
+msgid ""
+"You know it once every tested direction is right %(counter)s time in a row"
+msgid_plural ""
+"You know it once every tested direction is right %(counter)s times in a row"
+msgstr[0] ""
+"Gekonnt, sobald jede getestete Richtung %(counter)s× hintereinander richtig "
+"ist"
+msgstr[1] ""
+"Gekonnt, sobald jede getestete Richtung %(counter)s× hintereinander richtig "
+"ist"
+
+msgid "The word has not been in any test yet."
+msgstr "Die Vokabel war noch in keinem Test."
+
+msgid "You know it"
+msgstr "Gekonnt"
+
+msgid "Learning"
+msgstr "Im Lernen"
+
+msgctxt "word status"
+msgid "New"
+msgstr "Neu"
+
+#, python-format
+msgid "correct in a row: %(streak)s"
+msgstr "richtig in Folge: %(streak)s"
+
+msgid "Next review"
+msgstr "Nächste Wiederholung"
+
+msgid "New, not in a test yet"
+msgstr "Neu, noch in keinem Test"
+
+msgid "In decks"
+msgstr "In Wörterbüchern"
+
+msgid "Other meanings"
+msgstr "Weitere Bedeutungen"
+
+msgid "you have it already"
+msgstr "hast du schon"
+
+msgid "Learn this meaning too"
+msgstr "Auch diese Bedeutung lernen"
+
+msgid "Answer history"
+msgstr "Antwortverlauf"
+
+msgid "Rating"
+msgstr "Bewertung"
+
+msgid "Thinking time"
+msgstr "Nachdenkzeit"
+
+msgid "Editing a word during a test"
+msgstr "Vokabel im Test bearbeiten"
+
+msgid "The word is also in the decks:"
+msgstr "Die Vokabel steht auch in den Wörterbüchern:"
+
+msgid ""
+"Changes to variants and the note apply everywhere, the sentence only here."
+msgstr "Änderungen an Varianten und Notiz gelten überall, der Satz nur hier."
+
+msgid "Save and back to the test"
+msgstr "Speichern und zurück zum Test"
+
+msgid "Back to the test without saving"
+msgstr "Ohne Speichern zurück zum Test"
+
+msgid "Translation:"
+msgstr "Übersetzung:"
+
+msgid "Sentence:"
+msgstr "Satz:"
+
+msgid "Sentence translation:"
+msgstr "Übersetzung des Satzes:"
+
+#, python-format
+msgid "Reported on %(day)s. You can change it here."
+msgstr "Gemeldet am %(day)s. Du kannst die Meldung hier ändern."
+
+msgid ""
+"The report helps to fix the dictionary of the app. Your word does not "
+"change: you can fix it with Edit."
+msgstr ""
+"Die Meldung hilft, das Wörterbuch der App zu verbessern. Deine Vokabel "
+"ändert sich dadurch nicht: Du kannst sie über Bearbeiten korrigieren."
+
+msgid "Save changes"
+msgstr "Änderungen speichern"
+
+msgid "Report"
+msgstr "Melden"
+
+msgid "Move words"
+msgstr "Vokabeln verschieben"
+
+#, python-format
+msgid "From the deck “%(name)s” (%(pair)s)"
+msgstr "Aus dem Wörterbuch „%(name)s“ (%(pair)s)"
+
+msgid ""
+"The sentence and the learning progress stay. “Add there too” keeps the word "
+"in this deck as well."
+msgstr ""
+"Der Satz und der Lernfortschritt bleiben. „Auch dort hinzufügen“ lässt die "
+"Vokabel auch in diesem Wörterbuch."
+
+msgid "Add there too"
+msgstr "Auch dort hinzufügen"
+
+msgid ""
+"You have no other deck with the same languages. Create one first, for "
+"example, a sub-deck."
+msgstr ""
+"Du hast kein anderes Wörterbuch mit denselben Sprachen. Leg zuerst eins an, "
+"zum Beispiel ein Unterwörterbuch."
+
+msgid "Add sub-deck"
+msgstr "Unterwörterbuch hinzufügen"
+
+msgid "Back"
+msgstr "Zurück"
+
+msgid "Words from a topic"
+msgstr "Vokabeln aus einem Thema"
+
+#, python-format
+msgid "Tick the words you want to learn; they are added to “%(name)s”."
+msgstr ""
+"Hake die Vokabeln an, die du lernen willst; sie werden zu „%(name)s“ "
+"hinzugefügt."
+
+msgid "Topic"
+msgstr "Thema"
+
+msgid "Choose a topic…"
+msgstr "Thema wählen…"
+
+#, python-format
+msgid "%(name)s (all)"
+msgstr "%(name)s (alle)"
+
+msgid "Level"
+msgstr "Niveau"
+
+msgid "Part of speech"
+msgstr "Wortart"
+
+msgid "Show words"
+msgstr "Vokabeln zeigen"
+
+#, python-format
+msgid "%(counter)s word in the topic (%(levels)s)"
+msgid_plural "%(counter)s words in the topic (%(levels)s)"
+msgstr[0] "%(counter)s Vokabel im Thema (%(levels)s)"
+msgstr[1] "%(counter)s Vokabeln im Thema (%(levels)s)"
+
+#, python-format
+msgid "%(counter)s in other decks"
+msgid_plural "%(counter)s in other decks"
+msgstr[0] "%(counter)s in anderen Wörterbüchern"
+msgstr[1] "%(counter)s in anderen Wörterbüchern"
+
+msgid "hidden"
+msgstr "ausgeblendet"
+
+#, python-format
+msgid "%(counter)s already in this deck"
+msgid_plural "%(counter)s already in this deck"
+msgstr[0] "%(counter)s schon in diesem Wörterbuch"
+msgstr[1] "%(counter)s schon in diesem Wörterbuch"
+
+msgid "Hide them"
+msgstr "Ausblenden"
+
+msgid "Show them"
+msgstr "Einblenden"
+
+#, python-format
+msgid ""
+"Small decks are easier to learn: we recommend about %(counter)s word in a "
+"deck."
+msgid_plural ""
+"Small decks are easier to learn: we recommend about %(counter)s words in a "
+"deck."
+msgstr[0] ""
+"Kleine Wörterbücher lernen sich leichter: Wir empfehlen etwa %(counter)s "
+"Vokabel pro Wörterbuch."
+msgstr[1] ""
+"Kleine Wörterbücher lernen sich leichter: Wir empfehlen etwa %(counter)s "
+"Vokabeln pro Wörterbuch."
+
+#, python-format
+msgid "You already have it in “%(names)s”"
+msgstr "Hast du schon in „%(names)s“"
+
+msgid "Pages"
+msgstr "Seiten"
+
+msgid "Previous"
+msgstr "Zurück"
+
+msgid "Next"
+msgstr "Weiter"
+
+msgid "Select all on this page"
+msgstr "Alle auf dieser Seite auswählen"
+
+msgid "Add ticked words"
+msgstr "Angehakte Vokabeln hinzufügen"
+
+msgid "No more words for this topic and level. Try another level."
+msgstr ""
+"Für dieses Thema und Niveau gibt es nichts mehr. Versuch ein anderes Niveau."
+
+msgid "Back to the deck"
+msgstr "Zurück zum Wörterbuch"
+
+msgid "to"
+msgstr "nach"
+
+msgid "and back"
+msgstr "und zurück"
+
+msgid "both directions"
+msgstr "beide Richtungen"
+
+#, python-format
+msgid "Deck “%(name)s” created."
+msgstr "Wörterbuch „%(name)s“ erstellt."
+
+msgid "Create"
+msgstr "Erstellen"
+
+#, python-format
+msgid "Added %(count)s word to “%(deck)s”."
+msgid_plural "Added %(count)s words to “%(deck)s”."
+msgstr[0] "%(count)s Vokabel zu „%(deck)s“ hinzugefügt."
+msgstr[1] "%(count)s Vokabeln zu „%(deck)s“ hinzugefügt."
+
+msgid "Tick the words you want to add."
+msgstr "Hake die Vokabeln an, die du hinzufügen willst."
+
+msgid "New sub-deck"
+msgstr "Neues Unterwörterbuch"
+
+msgid "Changes saved."
+msgstr "Änderungen gespeichert."
+
+msgid "Deck moved."
+msgstr "Wörterbuch verschoben."
+
+msgid "Move deck"
+msgstr "Wörterbuch verschieben"
+
+#, python-format
+msgid ""
+"Only decks with the same languages where the tree fits are offered (at most "
+"%(max)d levels)."
+msgstr ""
+"Angeboten werden nur Wörterbücher mit denselben Sprachen, in die der Baum "
+"passt (höchstens %(max)d Ebenen)."
+
+#, python-format
+msgid "Deck “%(name)s” deleted (decks: %(decks)d, words: %(terms)d)."
+msgstr ""
+"Wörterbuch „%(name)s“ gelöscht (Wörterbücher: %(decks)d, Vokabeln: "
+"%(terms)d)."
+
+msgid "Could not tell where to move the deck. Try again."
+msgstr ""
+"Es war nicht klar, wohin das Wörterbuch verschoben werden soll. Versuch es "
+"noch einmal."
+
+msgid "Word added."
+msgstr "Vokabel hinzugefügt."
+
+msgid "The word could not be added, check the form."
+msgstr "Die Vokabel konnte nicht hinzugefügt werden, prüf das Formular."
+
+msgid "Report updated."
+msgstr "Meldung aktualisiert."
+
+msgid "Thanks, the mistake is reported."
+msgstr "Danke, der Fehler ist gemeldet."
+
+#, python-format
+msgid "Added: %(word)s → %(native)s"
+msgstr "Hinzugefügt: %(word)s → %(native)s"
+
+msgid "Choose at least one word."
+msgstr "Wähl mindestens eine Vokabel."
+
+#, python-format
+msgid "%(count)s word"
+msgid_plural "%(count)s words"
+msgstr[0] "%(count)s Vokabel"
+msgstr[1] "%(count)s Vokabeln"
+
+#, python-format
+msgid "Also added to “%(deck)s”: %(words)s."
+msgstr "Auch zu „%(deck)s“ hinzugefügt: %(words)s."
+
+#, python-format
+msgid "Moved to “%(deck)s”: %(words)s."
+msgstr "Nach „%(deck)s“ verschoben: %(words)s."
+
+#, python-format
+msgid "Already there: %(count)d."
+msgstr "Schon vorhanden: %(count)d."
+
+#, python-format
+msgid "Word “%(word)s” deleted."
+msgstr "Vokabel „%(word)s“ gelöscht."
+
+#, python-format
+msgid "Word “%(word)s” removed from this deck."
+msgstr "Vokabel „%(word)s“ aus diesem Wörterbuch entfernt."
+
+#, python-format
+msgid "Saved for later: %(word)s"
+msgstr "Für später gespeichert: %(word)s"
+
+#, python-format
+msgid "Deleted: %(word)s"
+msgstr "Gelöscht: %(word)s"

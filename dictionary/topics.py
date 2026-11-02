@@ -6,7 +6,7 @@ most PAGE words, no "select all".
 from dataclasses import dataclass, field
 
 from django.core.exceptions import ValidationError
-from django.db.models import Q
+from django.db.models import Count, Q
 from django.utils.translation import gettext_lazy as _
 
 from vocabulary import services as vocabulary_services
@@ -16,6 +16,10 @@ from .models import ConceptText, LexiconTag, WordSense
 
 # At most this many words on a page, and in one adding
 PAGE = 20
+# A language needs at least this many texts in the dictionary for the topics (a new language
+# gets its first package of 500 most common concepts; the 17 words of the first deck are not
+# enough)
+MIN_TOPIC_TEXTS = 500
 LEVELS = ("A1", "A2", "B1", "B2", "C1", "C2")
 DEFAULT_LEVELS = ("A1", "A2", "B1")
 # Groups of parts of speech for the filter; "other" is everything else (adverbs, phrases …)
@@ -120,10 +124,16 @@ class TopicWord:
 
 
 def has_dictionary(deck):
-    """The dictionary of the app has texts in both languages of the deck (any pair)."""
+    """The dictionary of the app has enough texts in both languages of the deck (any pair) for
+    the topics; a language with only a few (the words of the first deck) has none."""
     languages = {deck.foreign_language.code, deck.native_language.code}
-    found = ConceptText.objects.filter(language__in=languages).values_list("language", flat=True)
-    return set(found.distinct()) == languages
+    counts = (
+        ConceptText.objects.filter(language__in=languages)
+        .values("language")
+        .annotate(count=Count("id"))
+    )
+    enough = {row["language"] for row in counts if row["count"] >= MIN_TOPIC_TEXTS}
+    return enough == languages
 
 
 def topic_name(tag):

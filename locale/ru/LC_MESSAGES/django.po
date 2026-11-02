@@ -1,0 +1,2723 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-11-02 15:57+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+msgid "Personal info"
+msgstr "Личные данные"
+
+msgid "Permissions"
+msgstr "Права доступа"
+
+msgid "Important dates"
+msgstr "Важные даты"
+
+msgid "Daily goal (min)"
+msgstr "Дневная цель (мин)"
+
+msgid ""
+"How many minutes a day you want to spend in tests. At the top of the "
+"overview you see how much you have done today. Empty = no goal."
+msgstr ""
+"Сколько минут в день ты хочешь заниматься тестами. Вверху обзора видно, "
+"сколько уже сделано сегодня. Пусто = без цели."
+
+msgid "App language"
+msgstr "Язык приложения"
+
+msgid "Suggest translations"
+msgstr "Предлагать перевод"
+
+msgid "Show other meanings from the app dictionary"
+msgstr "Показывать другие значения из словаря приложения"
+
+msgid "Play automatically"
+msgstr "Воспроизводить автоматически"
+
+msgid "What to play"
+msgstr "Что воспроизводить"
+
+msgid "Show written pronunciation (IPA)"
+msgstr "Показывать запись произношения (МФА)"
+
+msgid "Show when the word comes again"
+msgstr "Показывать, когда слово вернётся"
+
+msgid "Menus, buttons and help. Your words stay the same."
+msgstr "Меню, кнопки и справка. Твои слова не меняются."
+
+msgid ""
+"While you type a foreign word, suggestions from the app dictionary show up "
+"under the translation field."
+msgstr ""
+"Когда ты вводишь иностранное слово, под полем перевода появляются подсказки "
+"из словаря приложения."
+
+msgid ""
+"At the bottom of the back of the card, as many as fit on one line, the rest "
+"after clicking +N. Your own meanings (e.g. palm → dlaň and palma) are always"
+" shown."
+msgstr ""
+"Внизу на обороте карточки — столько, сколько помещается в одну строку, "
+"остальные по нажатию на +N. Твои собственные значения (например, palm → "
+"ладонь и пальма) показываются всегда."
+
+msgid ""
+"In the direction foreign → native as soon as the card shows up, in the "
+"direction native → foreign after clicking Show. The browser won't read the "
+"very first card of a test until you click on the page for the first time."
+msgstr ""
+"В направлении иностранный → родной — сразу, как появляется карточка, в "
+"направлении родной → иностранный — после нажатия «Показать». Самую первую "
+"карточку теста браузер не прочитает, пока ты в первый раз не нажмёшь на "
+"страницу."
+
+msgid "If the word has no sentence, the word is played."
+msgstr "Если у слова нет предложения, воспроизводится слово."
+
+msgid ""
+"Under the foreign word on the card and on the word page, e.g. [pɑːm]. Useful"
+" if you can read IPA."
+msgstr ""
+"Под иностранным словом на карточке и на странице слова, например [pɑːm]. "
+"Полезно, если ты умеешь читать МФА."
+
+msgid ""
+"Under the rating buttons of a test, e.g. 10 min, 1 day, 3 days: when the "
+"word comes again after that rating."
+msgstr ""
+"Под кнопками оценки в тесте, например 10 мин, 1 день, 3 дня: когда слово "
+"вернётся после такой оценки."
+
+msgid "Same as the browser"
+msgstr "Как в браузере"
+
+msgid ""
+"At least 8 characters, not only numbers, not too common and not similar to "
+"your email."
+msgstr ""
+"Минимум 8 символов, не только цифры, не слишком простой и не похожий на твою"
+" почту."
+
+msgid "Your current password is wrong, try again."
+msgstr "Текущий пароль неверный, попробуй ещё раз."
+
+msgid "New passwords do not match."
+msgstr "Новые пароли не совпадают."
+
+msgid "Current password"
+msgstr "Текущий пароль"
+
+msgid "New password"
+msgstr "Новый пароль"
+
+msgid "New password again"
+msgstr "Новый пароль ещё раз"
+
+msgid "Once more, to check."
+msgstr "Ещё раз, для проверки."
+
+msgid "The email or password is wrong. Try again."
+msgstr "Неверная почта или пароль. Попробуй ещё раз."
+
+msgid "This account is turned off."
+msgstr "Этот аккаунт отключён."
+
+msgid "Email"
+msgstr "Эл. почта"
+
+msgid "We will send you a code to check it."
+msgstr "Мы отправим тебе код для проверки."
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Password again"
+msgstr "Пароль ещё раз"
+
+msgid "My language"
+msgstr "Мой язык"
+
+msgid "The language you speak. Your words are translated into it."
+msgstr "Язык, на котором ты говоришь. На него переводятся твои слова."
+
+msgid "Invitation code"
+msgstr "Код приглашения"
+
+msgid "You got it from the person who invited you."
+msgstr "Его даёт тот, кто тебя пригласил."
+
+msgid "This invitation code is wrong."
+msgstr "Неверный код приглашения."
+
+msgid "Leave this field empty."
+msgstr "Оставь это поле пустым."
+
+msgid "Passwords do not match."
+msgstr "Пароли не совпадают."
+
+msgid "Code from the email"
+msgstr "Код из письма"
+
+msgid "The code has 6 digits."
+msgstr "Код состоит из 6 цифр."
+
+msgid "The email you log in with."
+msgstr "Почта, с которой ты входишь."
+
+msgid "email"
+msgstr "эл. почта"
+
+msgid "native language"
+msgstr "родной язык"
+
+msgid "practice direction"
+msgstr "направление тренировки"
+
+msgid "practice cards"
+msgstr "карточки тренировки"
+
+msgid "practice decks"
+msgstr "словари тренировки"
+
+msgid "max cards in practice"
+msgstr "макс. карточек в тренировке"
+
+msgid "daily goal (min)"
+msgstr "дневная цель (мин)"
+
+msgid "suggest translations"
+msgstr "предлагать перевод"
+
+msgid "other meanings on the card"
+msgstr "другие значения на карточке"
+
+msgctxt "autoplay"
+msgid "word"
+msgstr "слово"
+
+msgid "the whole sentence"
+msgstr "всё предложение"
+
+msgid "play automatically"
+msgstr "воспроизводить автоматически"
+
+msgid "what to play"
+msgstr "что воспроизводить"
+
+msgid "written pronunciation (IPA)"
+msgstr "запись произношения (МФА)"
+
+msgid "show when the word comes again"
+msgstr "показывать, когда слово вернётся"
+
+msgid "has seen the help of the test"
+msgstr "справка по тесту просмотрена"
+
+msgid "app language"
+msgstr "язык приложения"
+
+msgid "user"
+msgstr "пользователь"
+
+msgid "users"
+msgstr "пользователи"
+
+msgid "sent"
+msgstr "отправлено"
+
+msgid "created"
+msgstr "создано"
+
+msgid "email verification"
+msgstr "подтверждение почты"
+
+msgid "email verifications"
+msgstr "подтверждения почты"
+
+msgid "Hi,"
+msgstr "Привет!"
+
+msgid ""
+"Somebody tried to create a Vocaboo account with this email, but you already "
+"have one."
+msgstr ""
+"Кто-то попытался создать аккаунт Vocaboo с этой почтой, но у тебя он уже "
+"есть."
+
+msgid "Log in here:"
+msgstr "Войти можно здесь:"
+
+msgid ""
+"Forgot your password? Set a new one here (the link works for 24 hours):"
+msgstr "Не помнишь пароль? Задай новый здесь (ссылка действует 24 часа):"
+
+msgid "If it was not you, ignore this email, nothing changes."
+msgstr ""
+"Если это не твой запрос, просто проигнорируй письмо, ничего не изменится."
+
+msgid "You already have a Vocaboo account"
+msgstr "У тебя уже есть аккаунт Vocaboo"
+
+msgid "Your code to confirm the email:"
+msgstr "Твой код для подтверждения почты:"
+
+#, python-format
+msgid ""
+"Enter it on the Vocaboo page where you signed up. It works for %(minutes)s "
+"minutes."
+msgstr ""
+"Введи его на странице Vocaboo, где идёт регистрация. Код действует "
+"%(minutes)s мин."
+
+msgid "If you did not sign up for Vocaboo, ignore this email."
+msgstr "Если ты не регистрируешься в Vocaboo, просто проигнорируй это письмо."
+
+#, python-format
+msgid "%(code)s is your Vocaboo code"
+msgstr "%(code)s — твой код Vocaboo"
+
+msgid "Account"
+msgstr "Аккаунт"
+
+msgid "Settings"
+msgstr "Настройки"
+
+msgid "Overview"
+msgstr "Обзор"
+
+msgid "Password change"
+msgstr "Смена пароля"
+
+msgid "Change password"
+msgstr "Сменить пароль"
+
+msgid "Put Vocaboo on your home screen"
+msgstr "Добавь Vocaboo на главный экран"
+
+msgid "It opens with one tap, on the whole screen, like other apps."
+msgstr "Открывается одним касанием, на весь экран, как другие приложения."
+
+msgid "Install"
+msgstr "Установить"
+
+msgid "Audio"
+msgstr "Звук"
+
+msgid "Save"
+msgstr "Сохранить"
+
+#, python-format
+msgid "The password is too short, it needs at least %(count)d character."
+msgid_plural ""
+"The password is too short, it needs at least %(count)d characters."
+msgstr[0] "Пароль слишком короткий, нужно минимум %(count)d символ."
+msgstr[1] "Пароль слишком короткий, нужно минимум %(count)d символа."
+msgstr[2] "Пароль слишком короткий, нужно минимум %(count)d символов."
+msgstr[3] "Пароль слишком короткий, нужно минимум %(count)d символа."
+
+#, python-format
+msgid "At least %(count)d character."
+msgid_plural "At least %(count)d characters."
+msgstr[0] "Минимум %(count)d символ."
+msgstr[1] "Минимум %(count)d символа."
+msgstr[2] "Минимум %(count)d символов."
+msgstr[3] "Минимум %(count)d символа."
+
+msgid "The password is too similar to your email."
+msgstr "Пароль слишком похож на твою почту."
+
+msgid "It must not be similar to your email."
+msgstr "Он не должен быть похож на твою почту."
+
+msgid "The password is too common, think of another one."
+msgstr "Пароль слишком распространённый, придумай другой."
+
+msgid "It must not be too common."
+msgstr "Он не должен быть слишком распространённым."
+
+msgid "The password can't be only numbers."
+msgstr "Пароль не может состоять только из цифр."
+
+msgid "It must not be only numbers."
+msgstr "Он не должен состоять только из цифр."
+
+msgid "App"
+msgstr "Общее"
+
+msgid "Practice"
+msgstr "Учить"
+
+msgid "Goals"
+msgstr "Цели"
+
+msgid "Card"
+msgstr "Карточка"
+
+msgid "Parts of the settings"
+msgstr "Разделы настроек"
+
+msgid "Settings saved."
+msgstr "Настройки сохранены."
+
+msgid "Password changed."
+msgstr "Пароль изменён."
+
+msgid "Your email is not confirmed yet. Enter the code from the email."
+msgstr "Твоя почта ещё не подтверждена. Введи код из письма."
+
+msgid "Your account is ready. Welcome to Vocaboo!"
+msgstr "Аккаунт готов. Добро пожаловать в Vocaboo!"
+
+msgid "This code is wrong. Check it and try again."
+msgstr "Неверный код. Проверь его и попробуй ещё раз."
+
+msgid "This code no longer works. Send yourself a new one."
+msgstr "Этот код больше не действует. Отправь себе новый."
+
+msgid "Too many wrong tries. Send yourself a new code."
+msgstr "Слишком много неверных попыток. Отправь себе новый код."
+
+msgid "Wait a minute before asking for a new code."
+msgstr "Подожди минуту, прежде чем запрашивать новый код."
+
+msgid "We sent you a new code."
+msgstr "Мы отправили тебе новый код."
+
+msgid "Decks"
+msgstr "Словари"
+
+msgid "Words"
+msgstr "Слова"
+
+msgid "Test"
+msgstr "Тест"
+
+msgid "Help sections"
+msgstr "Разделы справки"
+
+msgid "dictionary words"
+msgstr "слова словаря"
+
+msgid "Mark as resolved"
+msgstr "Отметить как решённое"
+
+msgid "code"
+msgstr "код"
+
+msgid "name"
+msgstr "название"
+
+msgid "parent tag"
+msgstr "родительский тег"
+
+msgid "dictionary tag"
+msgstr "тег словаря"
+
+msgid "dictionary tags"
+msgstr "теги словаря"
+
+msgid "noun"
+msgstr "существительное"
+
+msgid "verb"
+msgstr "глагол"
+
+msgid "adjective"
+msgstr "прилагательное"
+
+msgid "adverb"
+msgstr "наречие"
+
+msgid "pronoun"
+msgstr "местоимение"
+
+msgid "determiner"
+msgstr "определитель"
+
+msgid "preposition"
+msgstr "предлог"
+
+msgid "conjunction"
+msgstr "союз"
+
+msgid "interjection"
+msgstr "междометие"
+
+msgid "numeral"
+msgstr "числительное"
+
+msgid "phrasal verb"
+msgstr "фразовый глагол"
+
+msgid "phrase"
+msgstr "фраза"
+
+msgid "key"
+msgstr "ключ"
+
+msgid "tags"
+msgstr "теги"
+
+msgid "source"
+msgstr "источник"
+
+msgid "concept"
+msgstr "понятие"
+
+msgid "concepts"
+msgstr "понятия"
+
+msgid "language"
+msgstr "язык"
+
+msgid "words"
+msgstr "слова"
+
+msgid "note"
+msgstr "заметка"
+
+msgid "sentence"
+msgstr "предложение"
+
+msgid "concept text"
+msgstr "текст понятия"
+
+msgid "concept texts"
+msgstr "тексты понятий"
+
+msgid "form"
+msgstr "форма"
+
+msgid "concept text form"
+msgstr "форма текста понятия"
+
+msgid "concept text forms"
+msgstr "формы текстов понятий"
+
+msgctxt "dictionary entry"
+msgid "word"
+msgstr "слово"
+
+msgid "part of speech"
+msgstr "часть речи"
+
+msgid "frequency band"
+msgstr "частотный диапазон"
+
+msgid "level"
+msgstr "уровень"
+
+msgid "pronunciation"
+msgstr "произношение"
+
+msgid "gender"
+msgstr "род"
+
+msgid "dictionary word"
+msgstr "слово словаря"
+
+msgid "word form"
+msgstr "словоформа"
+
+msgid "word forms"
+msgstr "словоформы"
+
+msgid "position"
+msgstr "позиция"
+
+msgid "word meaning"
+msgstr "значение слова"
+
+msgid "word meanings"
+msgstr "значения слова"
+
+msgid "package"
+msgstr "пакет"
+
+msgid "added"
+msgstr "добавлено"
+
+msgid "dictionary package"
+msgstr "пакет словаря"
+
+msgid "dictionary packages"
+msgstr "пакеты словаря"
+
+msgid "Wrong suggested translation"
+msgstr "Неверный перевод в подсказке"
+
+msgid "Wrong suggested sentence"
+msgstr "Неверное предложение в подсказке"
+
+msgid "Something else"
+msgstr "Другое"
+
+msgid "language to learn"
+msgstr "изучаемый язык"
+
+msgid "language I speak"
+msgstr "мой язык"
+
+msgid "foreign word"
+msgstr "иностранное слово"
+
+msgid "translation"
+msgstr "перевод"
+
+msgid "sentence translation"
+msgstr "перевод предложения"
+
+msgid "what is wrong"
+msgstr "что не так"
+
+msgid "resolved"
+msgstr "решено"
+
+msgid "reported"
+msgstr "сообщено"
+
+msgid "changed"
+msgstr "изменено"
+
+msgid "error report"
+msgstr "сообщение об ошибке"
+
+msgid "error reports"
+msgstr "сообщения об ошибках"
+
+msgctxt "part of speech"
+msgid "n."
+msgstr "сущ."
+
+msgctxt "part of speech"
+msgid "v."
+msgstr "гл."
+
+msgctxt "part of speech"
+msgid "adj."
+msgstr "прил."
+
+msgctxt "part of speech"
+msgid "adv."
+msgstr "нар."
+
+msgctxt "part of speech"
+msgid "pron."
+msgstr "мест."
+
+msgctxt "part of speech"
+msgid "det."
+msgstr "опред."
+
+msgctxt "part of speech"
+msgid "prep."
+msgstr "предл."
+
+msgctxt "part of speech"
+msgid "conj."
+msgstr "союз"
+
+msgctxt "part of speech"
+msgid "interj."
+msgstr "межд."
+
+msgctxt "part of speech"
+msgid "num."
+msgstr "числ."
+
+msgctxt "part of speech"
+msgid "phr. v."
+msgstr "фраз. гл."
+
+msgctxt "part of speech"
+msgid "phrase"
+msgstr "фраза"
+
+msgid "English – first deck"
+msgstr "Английский – первый словарик"
+
+msgid "Animals"
+msgstr "Животные"
+
+msgid "Food"
+msgstr "Еда"
+
+msgid "Fruit"
+msgstr "Фрукты"
+
+msgid "Vegetables"
+msgstr "Овощи"
+
+msgid ""
+"An example of a deck with folders. ▶︎ Practice here takes the words of all "
+"of them, in Food only those of Fruit and Vegetables. Add your own words to "
+"it, or delete it."
+msgstr ""
+"Пример словаря с папками. ▶︎ Учить здесь берёт слова из всех, в «Еде» — "
+"только из «Фруктов» и «Овощей». Добавляй сюда свои слова или удали его."
+
+msgid "nouns"
+msgstr "существительные"
+
+msgid "verbs"
+msgstr "глаголы"
+
+msgid "adjectives"
+msgstr "прилагательные"
+
+msgid "other"
+msgstr "другое"
+
+msgid "People"
+msgstr "Люди"
+
+msgid "Body"
+msgstr "Тело"
+
+msgid "Health and illness"
+msgstr "Здоровье и болезни"
+
+msgid "Family and relationships"
+msgstr "Семья и отношения"
+
+msgid "Feelings and moods"
+msgstr "Чувства и настроение"
+
+msgid "Character"
+msgstr "Характер"
+
+msgid "Appearance"
+msgstr "Внешность"
+
+msgid "Clothes"
+msgstr "Одежда"
+
+msgid "Food and drink"
+msgstr "Еда и напитки"
+
+msgid "Drinks"
+msgstr "Напитки"
+
+msgid "Cooking and kitchen"
+msgstr "Готовка и кухня"
+
+msgid "Home"
+msgstr "Дом"
+
+msgid "Furniture and things at home"
+msgstr "Мебель и вещи в доме"
+
+msgid "Housework"
+msgstr "Домашние дела"
+
+msgid "Nature"
+msgstr "Природа"
+
+msgid "Plants"
+msgstr "Растения"
+
+msgid "Weather"
+msgstr "Погода"
+
+msgid "Landscape"
+msgstr "Пейзаж"
+
+msgid "Town and places"
+msgstr "Город и места"
+
+msgid "Buildings"
+msgstr "Здания"
+
+msgid "Transport"
+msgstr "Транспорт"
+
+msgid "Shopping"
+msgstr "Покупки"
+
+msgid "Travel"
+msgstr "Путешествия"
+
+msgid "Work and school"
+msgstr "Работа и учёба"
+
+msgid "School and learning"
+msgstr "Школа и обучение"
+
+msgid "Jobs"
+msgstr "Профессии"
+
+msgid "Money"
+msgstr "Деньги"
+
+msgid "Office"
+msgstr "Офис"
+
+msgid "Free time"
+msgstr "Свободное время"
+
+msgid "Sport"
+msgstr "Спорт"
+
+msgid "Music"
+msgstr "Музыка"
+
+msgid "Films and series"
+msgstr "Фильмы и сериалы"
+
+msgid "Games"
+msgstr "Игры"
+
+msgid "Art and culture"
+msgstr "Искусство и культура"
+
+msgid "Communication"
+msgstr "Общение"
+
+msgid "Greetings and politeness"
+msgstr "Приветствия и вежливость"
+
+msgid "Everyday conversation"
+msgstr "Повседневный разговор"
+
+msgid "Phone, computer, internet"
+msgstr "Телефон, компьютер, интернет"
+
+msgid "News and media"
+msgstr "Новости и СМИ"
+
+msgid "Society"
+msgstr "Общество"
+
+msgid "Law and crime"
+msgstr "Право и преступность"
+
+msgid "Politics"
+msgstr "Политика"
+
+msgid "War and army"
+msgstr "Война и армия"
+
+msgid "Religion"
+msgstr "Религия"
+
+msgid "Time"
+msgstr "Время"
+
+msgid "Days, months, seasons"
+msgstr "Дни, месяцы, времена года"
+
+msgid "Numbers and amounts"
+msgstr "Числа и количество"
+
+msgid "Colours"
+msgstr "Цвета"
+
+msgid "Place, direction, position"
+msgstr "Место, направление, положение"
+
+msgid "Movement"
+msgstr "Движение"
+
+msgid "Senses"
+msgstr "Органы чувств"
+
+msgid "Thinking and knowing"
+msgstr "Мышление и знание"
+
+#, python-format
+msgid "%(count)s meaning"
+msgid_plural "%(count)s meanings"
+msgstr[0] "%(count)s значение"
+msgstr[1] "%(count)s значения"
+msgstr[2] "%(count)s значений"
+msgstr[3] "%(count)s значения"
+
+#, python-format
+msgid "%(count)s min"
+msgstr "%(count)s мин"
+
+#, python-format
+msgid "%(count)s h"
+msgstr "%(count)s ч"
+
+#, python-format
+msgid "%(count)s year"
+msgid_plural "%(count)s years"
+msgstr[0] "%(count)s год"
+msgstr[1] "%(count)s года"
+msgstr[2] "%(count)s лет"
+msgstr[3] "%(count)s года"
+
+#, python-format
+msgid "%(count)s day"
+msgid_plural "%(count)s days"
+msgstr[0] "%(count)s день"
+msgstr[1] "%(count)s дня"
+msgstr[2] "%(count)s дней"
+msgstr[3] "%(count)s дня"
+
+msgid "Choose at least one deck."
+msgstr "Выбери хотя бы один словарь."
+
+msgid "Direction"
+msgstr "Направление"
+
+msgid "Which cards"
+msgstr "Какие карточки"
+
+msgid "Max cards"
+msgstr "Макс. карточек"
+
+msgid "foreign → native"
+msgstr "иностранный → родной"
+
+msgid "native → foreign"
+msgstr "родной → иностранный"
+
+msgid "correct"
+msgstr "верно"
+
+msgid "partial"
+msgstr "частично"
+
+msgid "wrong"
+msgstr "неверно"
+
+msgid "word"
+msgstr "слово"
+
+msgid "direction"
+msgstr "направление"
+
+msgid "next review"
+msgstr "следующее повторение"
+
+msgid "last reviewed"
+msgstr "последнее повторение"
+
+msgid "last rating"
+msgstr "последняя оценка"
+
+msgid "last interval"
+msgstr "последний интервал"
+
+msgid "correct in a row"
+msgstr "верно подряд"
+
+msgid "number of mistakes"
+msgstr "число ошибок"
+
+msgid "number of reviews"
+msgstr "число повторений"
+
+msgid "review state"
+msgstr "состояние повторения"
+
+msgid "review states"
+msgstr "состояния повторения"
+
+msgid "foreign ⇄ native"
+msgstr "иностранный ⇄ родной"
+
+msgid "only due and new"
+msgstr "только к повторению и новые"
+
+msgctxt "study scope"
+msgid "all"
+msgstr "все"
+
+msgid "decks"
+msgstr "словари"
+
+msgid "picked cards"
+msgstr "выбранные карточки"
+
+msgid "scope"
+msgstr "охват"
+
+msgid "max. number of cards"
+msgstr "макс. число карточек"
+
+msgid "start"
+msgstr "начало"
+
+msgid "end"
+msgstr "конец"
+
+msgid "answers"
+msgstr "ответы"
+
+msgid "random order"
+msgstr "случайный порядок"
+
+msgid "session"
+msgstr "сессия"
+
+msgid "sessions"
+msgstr "сессии"
+
+msgid "rating"
+msgstr "оценка"
+
+msgid "button name"
+msgstr "название кнопки"
+
+msgid "result"
+msgstr "результат"
+
+msgid "interval"
+msgstr "интервал"
+
+msgid "thinking (ms)"
+msgstr "раздумье (мс)"
+
+msgid "deciding (ms)"
+msgstr "решение (мс)"
+
+msgid "time"
+msgstr "время"
+
+msgid "answer"
+msgstr "ответ"
+
+msgid "answer history"
+msgstr "история ответов"
+
+msgid "I know"
+msgstr "Знаю"
+
+msgid "I know after thinking"
+msgstr "Знаю, но не сразу"
+
+msgid "I half remember"
+msgstr "Помню наполовину"
+
+msgid "No idea"
+msgstr "Не знаю"
+
+msgid "The deck belongs to another user."
+msgstr "Словарь принадлежит другому пользователю."
+
+msgid "The word belongs to another user."
+msgstr "Слово принадлежит другому пользователю."
+
+msgid "The number of cards must be at least 1."
+msgstr "Число карточек должно быть не меньше 1."
+
+msgid "There are no words to practise yet."
+msgstr "Пока нет слов для тренировки."
+
+msgid "This card is not part of this test."
+msgstr "Этой карточки нет в этом тесте."
+
+#, python-format
+msgid "%(count)d older: %(counts)s"
+msgstr "%(count)d более ранних: %(counts)s"
+
+msgctxt "weekday short"
+msgid "Mon"
+msgstr "Пн"
+
+msgctxt "weekday short"
+msgid "Tue"
+msgstr "Вт"
+
+msgctxt "weekday short"
+msgid "Wed"
+msgstr "Ср"
+
+msgctxt "weekday short"
+msgid "Thu"
+msgstr "Чт"
+
+msgctxt "weekday short"
+msgid "Fri"
+msgstr "Пт"
+
+msgctxt "weekday short"
+msgid "Sat"
+msgstr "Сб"
+
+msgctxt "weekday short"
+msgid "Sun"
+msgstr "Вс"
+
+msgid "7 days"
+msgstr "7 дней"
+
+msgid "30 days"
+msgstr "30 дней"
+
+msgid "All"
+msgstr "Все"
+
+msgid "most often you don't know"
+msgstr "чаще всего не знаешь"
+
+msgid "only one way"
+msgstr "только в одну сторону"
+
+msgid "you think long"
+msgstr "долго думаешь"
+
+msgid "quick and wrong"
+msgstr "быстро и неверно"
+
+msgid "you forget it"
+msgstr "забываешь"
+
+msgid "you know it, then you don't"
+msgstr "то знаешь, то нет"
+
+msgid "learning it longest"
+msgstr "учишь дольше всего"
+
+msgid "the longest you struggle with"
+msgstr "самые длинные из трудных"
+
+#, python-format
+msgid "%(count)s test in %(days)s days"
+msgid_plural "%(count)s tests in %(days)s days"
+msgstr[0] "%(count)s тест за %(days)s дн."
+msgstr[1] "%(count)s теста за %(days)s дн."
+msgstr[2] "%(count)s тестов за %(days)s дн."
+msgstr[3] "%(count)s теста за %(days)s дн."
+
+#, python-format
+msgid "on average %(count)s word"
+msgid_plural "on average %(count)s words"
+msgstr[0] "в среднем %(count)s слово"
+msgstr[1] "в среднем %(count)s слова"
+msgstr[2] "в среднем %(count)s слов"
+msgstr[3] "в среднем %(count)s слова"
+
+msgctxt "weekday short"
+msgid "today"
+msgstr "сегодня"
+
+msgid "word in tests"
+msgid_plural "words in tests"
+msgstr[0] "слово в тестах"
+msgstr[1] "слова в тестах"
+msgstr[2] "слов в тестах"
+msgstr[3] "слова в тестах"
+
+msgid ""
+"Different words that were in today's tests. A word in both directions counts"
+" once."
+msgstr ""
+"Разные слова, которые были в сегодняшних тестах. Слово в обоих направлениях "
+"считается один раз."
+
+msgid "right for the first time"
+msgstr "впервые верно"
+
+msgid ""
+"Words answered 😎 or 🤔 today for the first time ever, in any direction. Each "
+"word counts once."
+msgstr ""
+"Слова, которые сегодня впервые получили 😎 или 🤔, в любом направлении. Каждое"
+" слово считается один раз."
+
+msgid "word learned"
+msgid_plural "words learned"
+msgstr[0] "слово выучено"
+msgstr[1] "слова выучены"
+msgstr[2] "слов выучено"
+msgstr[3] "слова выучено"
+
+msgid ""
+"Words that today became “known” for the first time: right twice in a row (😎 "
+"or 🤔) in every tested direction. The second right answer comes only after an"
+" interval, so for new words in a few days at the earliest."
+msgstr ""
+"Слова, которые сегодня впервые стали «известными»: дважды подряд верно (😎 "
+"или 🤔) в каждом проверенном направлении. Второй верный ответ бывает только "
+"после интервала, так что у новых слов — не раньше чем через несколько дней."
+
+msgid "time in tests"
+msgstr "время в тестах"
+
+msgid ""
+"How long today's tests took (from the start of a test to its last answer)."
+msgstr ""
+"Сколько длились сегодняшние тесты (от начала теста до последнего ответа)."
+
+#, python-format
+msgid "%(value)s min"
+msgstr "%(value)s мин"
+
+msgctxt "language"
+msgid "foreign"
+msgstr "иностранный"
+
+msgctxt "language"
+msgid "native"
+msgstr "родной"
+
+msgctxt "test scope"
+msgid "all"
+msgstr "все"
+
+msgctxt "test scope"
+msgid "due + new"
+msgstr "к повторению + новые"
+
+msgctxt "test scope"
+msgid "wrong again"
+msgstr "ошибки снова"
+
+msgctxt "test scope"
+msgid "▶︎ practice"
+msgstr "▶︎ тренировать"
+
+#, python-format
+msgid "max %(count)s"
+msgstr "макс. %(count)s"
+
+msgid "< 1 min"
+msgstr "< 1 мин"
+
+#, python-format
+msgid "%(hours)s h %(minutes)s min"
+msgstr "%(hours)s ч %(minutes)s мин"
+
+#, python-format
+msgid "%(month)s/%(day)s"
+msgstr "%(day)s.%(month)s"
+
+#, python-format
+msgid "%(month)s/%(day)s/%(year)s"
+msgstr "%(day)s.%(month)s.%(year)s"
+
+#, python-format
+msgid "Total words %(unit)s since %(date)s"
+msgstr "Всего слов %(unit)s с %(date)s"
+
+#, python-format
+msgid "Words you know %(unit)s since %(date)s"
+msgstr "Известных слов %(unit)s с %(date)s"
+
+msgid "by day"
+msgstr "по дням"
+
+msgid "by week"
+msgstr "по неделям"
+
+msgid "by month"
+msgstr "по месяцам"
+
+msgid "by quarter"
+msgstr "по кварталам"
+
+msgctxt "month short"
+msgid "Jan"
+msgstr "янв"
+
+msgctxt "month short"
+msgid "Feb"
+msgstr "фев"
+
+msgctxt "month short"
+msgid "Mar"
+msgstr "мар"
+
+msgctxt "month short"
+msgid "Apr"
+msgstr "апр"
+
+msgctxt "month short"
+msgid "May"
+msgstr "май"
+
+msgctxt "month short"
+msgid "Jun"
+msgstr "июн"
+
+msgctxt "month short"
+msgid "Jul"
+msgstr "июл"
+
+msgctxt "month short"
+msgid "Aug"
+msgstr "авг"
+
+msgctxt "month short"
+msgid "Sep"
+msgstr "сен"
+
+msgctxt "month short"
+msgid "Oct"
+msgstr "окт"
+
+msgctxt "month short"
+msgid "Nov"
+msgstr "ноя"
+
+msgctxt "month short"
+msgid "Dec"
+msgstr "дек"
+
+#, python-format
+msgid "Q%(quarter)s %(year)s"
+msgstr "%(quarter)s кв. %(year)s"
+
+#, python-format
+msgid "%(count)s character"
+msgid_plural "%(count)s characters"
+msgstr[0] "%(count)s символ"
+msgstr[1] "%(count)s символа"
+msgstr[2] "%(count)s символов"
+msgstr[3] "%(count)s символа"
+
+#, python-format
+msgid "%(percent)s%% correct of %(total)s answers"
+msgstr "%(percent)s%% верных ответов (всего: %(total)s)"
+
+msgid "full history"
+msgstr "вся история"
+
+#, python-format
+msgid "Done %(done)s · %(left)s left"
+msgstr "Готово %(done)s · осталось %(left)s"
+
+msgid "also"
+msgstr "также"
+
+msgid "You are also learning:"
+msgstr "Ты также учишь:"
+
+#, python-format
+msgid "“%(word)s” is also: %(others)s"
+msgstr "«%(word)s» — это также: %(others)s"
+
+msgid "Show"
+msgstr "Показать"
+
+#, python-format
+msgid "%(label)s, again in %(when)s"
+msgstr "%(label)s, снова через %(when)s"
+
+msgid ""
+"Time over the cards of today’s tests, at most 20 s for one card. You set the"
+" goal in Settings."
+msgstr ""
+"Время над карточками сегодняшних тестов, не больше 20 с на одну карточку. "
+"Цель задаётся в настройках."
+
+#, python-format
+msgid "%(minutes)s / %(goal)s min"
+msgstr "%(minutes)s / %(goal)s мин"
+
+msgid "daily goal"
+msgstr "дневная цель"
+
+msgid "Turn over"
+msgstr "Перевернуть"
+
+msgid "Details"
+msgstr "Подробнее"
+
+msgid "when nothing is waiting, words that don't stick are added"
+msgstr "если ничего не ждёт, добавляются слова, которые не даются"
+
+msgid "every card once, no matter when it is due"
+msgstr "каждая карточка один раз, неважно, когда её повторять"
+
+msgid "Empty = no limit."
+msgstr "Пусто = без ограничения."
+
+msgid "This word does not stick"
+msgstr "Это слово не даётся"
+
+#, python-format
+msgid "The sentence for “%(word)s” is saved, it will show at the next review."
+msgstr ""
+"Предложение для «%(word)s» сохранено, оно появится при следующем повторении."
+
+msgid "Add a sentence to it, a word is easier to learn in a sentence."
+msgstr "Добавь к нему предложение: слово легче выучить в предложении."
+
+msgid "A sentence with this word"
+msgstr "Предложение с этим словом"
+
+msgid "Its translation"
+msgstr "Его перевод"
+
+#, python-brace-format
+msgid ""
+"The word is found automatically; mark another form with braces: He {ran} "
+"away."
+msgstr ""
+"Слово находится автоматически; другую форму отметь фигурными скобками: He "
+"{ran} away."
+
+msgid "The translation is optional."
+msgstr "Перевод необязателен."
+
+msgid "Example:"
+msgstr "Пример:"
+
+msgid "Use"
+msgstr "Использовать"
+
+msgid "Save sentence"
+msgstr "Сохранить предложение"
+
+msgid "Not now"
+msgstr "Не сейчас"
+
+msgid "Recent tests"
+msgstr "Последние тесты"
+
+msgid "When"
+msgstr "Когда"
+
+msgid "Deck"
+msgstr "Словарь"
+
+msgid "Cards"
+msgstr "Карточки"
+
+msgid ""
+"With both directions (⇄) every word is in the test twice, once each way."
+msgstr ""
+"В обоих направлениях (⇄) каждое слово попадает в тест дважды, по разу в "
+"каждую сторону."
+
+msgid "Success"
+msgstr "Успешность"
+
+msgctxt "after a number"
+msgid "words"
+msgstr "слов"
+
+msgid "Test ended early"
+msgstr "Тест завершён досрочно"
+
+msgid "Today"
+msgstr "Сегодня"
+
+msgid "in the last 7 days"
+msgstr "за последние 7 дней"
+
+msgid "Help with the buttons"
+msgstr "Помощь с кнопками"
+
+msgid "Edit word"
+msgstr "Изменить слово"
+
+msgid "Edit word (E)"
+msgstr "Изменить слово (E)"
+
+msgid "Report a mistake"
+msgstr "Сообщить об ошибке"
+
+msgid "Finish test"
+msgstr "Завершить тест"
+
+msgid "How the test works"
+msgstr "Как работает тест"
+
+msgid ""
+"Try to recall the answer, turn the card and rate how well you knew it. The "
+"worse you knew it, the sooner it comes again."
+msgstr ""
+"Постарайся вспомнить ответ, переверни карточку и оцени, насколько хорошо ты "
+"его знаешь. Чем хуже знаешь, тем скорее карточка вернётся."
+
+msgid "Got it"
+msgstr "Понятно"
+
+msgid "What the buttons ▶︎ Practice start. It is remembered."
+msgstr "Что запускают кнопки ▶︎ Учить. Приложение это запомнит."
+
+msgid "First create a deck and add words to it."
+msgstr "Сначала создай словарь и добавь в него слова."
+
+msgid "New deck"
+msgstr "Новый словарь"
+
+#, python-format
+msgid "and %(counter)s sub-deck"
+msgid_plural "and %(counter)s sub-decks"
+msgstr[0] "и %(counter)s подсловарь"
+msgstr[1] "и %(counter)s подсловаря"
+msgstr[2] "и %(counter)s подсловарей"
+msgstr[3] "и %(counter)s подсловаря"
+
+msgid "From which decks"
+msgstr "Из каких словарей"
+
+msgid ""
+"The ticked decks with their sub-decks. A word that is in more decks comes "
+"only once."
+msgstr ""
+"Отмеченные словари вместе с подсловарями. Слово, которое есть в нескольких "
+"словарях, попадается только один раз."
+
+msgid "Cancel"
+msgstr "Отмена"
+
+msgid "Statistics"
+msgstr "Статистика"
+
+msgid "this week"
+msgstr "на этой неделе"
+
+msgid "known"
+msgstr "известные"
+
+#, python-format
+msgid "learning %(learning)s · new %(new)s"
+msgstr "учишь %(learning)s · новых %(new)s"
+
+msgid "days in a row"
+msgstr "дней подряд"
+
+#, python-format
+msgid "longest streak %(longest)s"
+msgstr "самая длинная серия %(longest)s"
+
+msgid "Nothing here yet. Add your first words and start a test."
+msgstr "Здесь пока пусто. Добавь первые слова и начни тест."
+
+msgctxt "chart of known words"
+msgid "You know"
+msgstr "Знаешь"
+
+msgid "You know a word when every tested direction got 2× in a row 😎 or 🤔."
+msgstr ""
+"Слово считается известным, когда в каждом проверенном направлении 2× подряд "
+"😎 или 🤔."
+
+msgid "No tests yet."
+msgstr "Тестов пока нет."
+
+msgid "In the last 30 days"
+msgstr "За последние 30 дней"
+
+msgid "Everything went well in the last 30 days 🎉"
+msgstr "За последние 30 дней всё прошло хорошо 🎉"
+
+msgid "No tests in the last 30 days."
+msgstr "Нет тестов за последние 30 дней."
+
+msgid "Test summary"
+msgstr "Итоги теста"
+
+#, python-format
+msgid "Cards rated: %(counter)s"
+msgstr "Оценено карточек: %(counter)s"
+
+msgid "How it went"
+msgstr "Как прошло"
+
+msgid "To review"
+msgstr "На повторение"
+
+msgid "Practice the wrong ones again"
+msgstr "Повторить ошибки ещё раз"
+
+msgid "All correct!"
+msgstr "Всё верно!"
+
+msgid "No cards were rated in this test."
+msgstr "В этом тесте не оценено ни одной карточки."
+
+msgid "Set up practice"
+msgstr "Настроить тренировку"
+
+msgid "Back to overview"
+msgstr "Назад к обзору"
+
+msgctxt "due"
+msgid "new"
+msgstr "новое"
+
+msgctxt "due"
+msgid "now"
+msgstr "сейчас"
+
+#, python-format
+msgid "in %(interval)s"
+msgstr "через %(interval)s"
+
+#, python-format
+msgid "%(seconds)s s"
+msgstr "%(seconds)s с"
+
+#, python-brace-format
+msgid ""
+"Settings of the quick test that the button {bar} at the top in the bar or "
+"{deck} on a deck starts."
+msgstr ""
+"Настройки быстрого теста, который запускает кнопка {bar} вверху на панели "
+"или {deck} у словаря."
+
+msgid "Practice deck"
+msgstr "Учить словарь"
+
+msgid "Invalid answer."
+msgstr "Неверный ответ."
+
+msgid "Write at least the sentence in the foreign language."
+msgstr "Напиши хотя бы предложение на иностранном языке."
+
+msgid "Sentence saved."
+msgstr "Предложение сохранено."
+
+msgid "There are no wrong words in this test."
+msgstr "В этом тесте нет слов с ошибками."
+
+msgid "Tests"
+msgstr "Тесты"
+
+msgid "What you struggle with"
+msgstr "Что не даётся"
+
+msgid "Parts of the statistics"
+msgstr "Разделы статистики"
+
+msgid "Read the sentence (V)"
+msgstr "Прочитать предложение (V)"
+
+msgid "Play the pronunciation (P)"
+msgstr "Воспроизвести произношение (P)"
+
+msgid "Read the sentence"
+msgstr "Прочитать предложение"
+
+msgid "Play the pronunciation"
+msgstr "Воспроизвести произношение"
+
+msgctxt "pronunciation"
+msgid "Play"
+msgstr "Прослушать"
+
+msgid "Skip to content"
+msgstr "Перейти к содержимому"
+
+msgid "Help"
+msgstr "Справка"
+
+msgid "Theme"
+msgstr "Оформление"
+
+msgctxt "theme"
+msgid "Light"
+msgstr "Светлое"
+
+msgctxt "theme"
+msgid "Dark"
+msgstr "Тёмное"
+
+msgctxt "theme"
+msgid "Auto"
+msgstr "Авто"
+
+msgid "Admin"
+msgstr "Админка"
+
+msgid "Log out"
+msgstr "Выйти"
+
+msgid "Close"
+msgstr "Закрыть"
+
+msgid "Vocaboo on the home screen"
+msgstr "Vocaboo на главном экране"
+
+msgid ""
+"Tap <strong>Share</strong> (the square with an arrow up). In Safari it is at"
+" the bottom; if you don't see it, tap <strong>⋯</strong> first."
+msgstr ""
+"Нажми <strong>Поделиться</strong> (квадрат со стрелкой вверх). В Safari эта "
+"кнопка внизу; если её не видно, сначала нажми <strong>⋯</strong>."
+
+msgid "Scroll down and tap <strong>Add to Home Screen</strong>."
+msgstr "Прокрути вниз и нажми <strong>На экран «Домой»</strong>."
+
+msgid ""
+"Tap <strong>Add</strong>. Vocaboo is now on the home screen, next to the "
+"other apps."
+msgstr ""
+"Нажми <strong>Добавить</strong>. Теперь Vocaboo на главном экране, рядом с "
+"другими приложениями."
+
+msgid ""
+"The app on the home screen has its own login, so log in there once more."
+msgstr "У приложения на главном экране свой вход, поэтому войди там ещё раз."
+
+msgid "OK"
+msgstr "ОК"
+
+msgid ""
+"Open the browser menu: <strong>⋮</strong> at the top right (in Firefox it "
+"can be at the bottom)."
+msgstr ""
+"Открой меню браузера: <strong>⋮</strong> справа вверху (в Firefox оно может "
+"быть внизу)."
+
+msgid ""
+"Tap <strong>Install app</strong> or <strong>Add to Home screen</strong>."
+msgstr ""
+"Нажми <strong>Установить приложение</strong> или <strong>Добавить на главный"
+" экран</strong>."
+
+msgid ""
+"Confirm with <strong>Install</strong> or <strong>Add</strong>. Vocaboo is "
+"now on the home screen, next to the other apps."
+msgstr ""
+"Подтверди кнопкой <strong>Установить</strong> или <strong>Добавить</strong>."
+" Теперь Vocaboo на главном экране, рядом с другими приложениями."
+
+msgid "What you struggled with"
+msgstr "Что не давалось"
+
+msgid "yesterday"
+msgstr "вчера"
+
+msgctxt "deck"
+msgid "New"
+msgstr "Новый"
+
+msgid "You have no decks yet. Start by creating one."
+msgstr "У тебя пока нет словарей. Начни с создания первого."
+
+msgctxt "page title"
+msgid "Log in"
+msgstr "Вход"
+
+msgid "Log in with your email."
+msgstr "Войди с помощью своей почты."
+
+msgid "Log in"
+msgstr "Войти"
+
+msgid "Forgot your password?"
+msgstr "Не помнишь пароль?"
+
+msgid "Create an account"
+msgstr "Создать аккаунт"
+
+msgid "Password changed"
+msgstr "Пароль изменён"
+
+msgid "Now log in with the new password."
+msgstr "Теперь войди с новым паролем."
+
+msgid ""
+"This link no longer works. It was used already or it is older than 24 hours."
+msgstr ""
+"Эта ссылка больше не действует. Она уже использована или ей больше 24 часов."
+
+msgid "Save the password"
+msgstr "Сохранить пароль"
+
+msgid "Send a new link"
+msgstr "Отправить новую ссылку"
+
+msgid "Forgotten password"
+msgstr "Восстановление пароля"
+
+msgid "Check your email"
+msgstr "Проверь почту"
+
+msgid ""
+"If there is an account for this email, a link to set a new password is on "
+"its way. It works for 24 hours. No email? Check your spam folder too."
+msgstr ""
+"Если для этой почты есть аккаунт, ссылка для нового пароля уже в пути. Она "
+"действует 24 часа. Нет письма? Проверь и папку «Спам»."
+
+msgid "Back to login"
+msgstr "Назад ко входу"
+
+msgid ""
+"Somebody asked for a new password for your Vocaboo account. Set it here:"
+msgstr ""
+"Кто-то запросил новый пароль для твоего аккаунта Vocaboo. Задай его здесь:"
+
+msgid ""
+"The link works for 24 hours. If you did not ask for it, ignore this email, "
+"your password stays the same."
+msgstr ""
+"Ссылка действует 24 часа. Если запрос был не от тебя, проигнорируй это "
+"письмо, пароль останется прежним."
+
+msgid "We will send you a link to set a new password."
+msgstr "Мы отправим тебе ссылку для нового пароля."
+
+msgid "Send the link"
+msgstr "Отправить ссылку"
+
+msgid "New password for Vocaboo"
+msgstr "Новый пароль для Vocaboo"
+
+msgid "Then we will send you a code to confirm your email."
+msgstr "Потом мы отправим тебе код для подтверждения почты."
+
+msgid "Already have an account?"
+msgstr "Уже есть аккаунт?"
+
+msgid "Confirm your email"
+msgstr "Подтверди почту"
+
+#, python-format
+msgid ""
+"We sent a code to <strong>%(email)s</strong>. It works for %(minutes)s "
+"minutes."
+msgstr ""
+"Мы отправили код на <strong>%(email)s</strong>. Он действует %(minutes)s "
+"мин."
+
+msgid "Confirm"
+msgstr "Подтвердить"
+
+msgid "No email? Check your spam folder too."
+msgstr "Нет письма? Проверь и папку «Спам»."
+
+msgid "Send a new code"
+msgstr "Отправить новый код"
+
+msgid "Use another email"
+msgstr "Указать другую почту"
+
+msgid "Choose a language…"
+msgstr "Выбери язык…"
+
+msgid "Name"
+msgstr "Название"
+
+msgid "I want to learn"
+msgstr "Хочу учить"
+
+msgid "For example, English."
+msgstr "Например, английский."
+
+msgid "I speak"
+msgstr "Мой язык"
+
+msgid "The language you translate the words into, for example, Czech."
+msgstr "Язык, на который ты переводишь слова, например, русский."
+
+msgid "Description"
+msgstr "Описание"
+
+msgid ""
+"The language you want to learn and the language you speak must be different."
+msgstr "Изучаемый язык и твой язык должны отличаться."
+
+msgid "Move under"
+msgstr "Переместить в"
+
+msgid "— top level —"
+msgstr "— верхний уровень —"
+
+msgid "To deck"
+msgstr "В словарь"
+
+msgid "What is wrong?"
+msgstr "Что не так?"
+
+msgid "Note"
+msgstr "Заметка"
+
+msgid "Optional, e.g. the right translation."
+msgstr "Необязательно, например, правильный перевод."
+
+msgid "Sentence"
+msgstr "Предложение"
+
+msgid "Sentence translation"
+msgstr "Перевод предложения"
+
+#, no-python-brace-format
+msgid ""
+"Optional, to help understand the sentence. You can mark the word: He ran "
+"{away}."
+msgstr ""
+"Необязательно, помогает понять предложение. Слово можно отметить: He ran "
+"{away}."
+
+msgid "Separate more variants with a semicolon"
+msgstr "Несколько вариантов раздели точкой с запятой"
+
+msgid "Czech"
+msgstr "Чешский"
+
+msgid "German"
+msgstr "Немецкий"
+
+msgid "English"
+msgstr "Английский"
+
+msgid "Spanish"
+msgstr "Испанский"
+
+msgid "French"
+msgstr "Французский"
+
+msgid "Italian"
+msgstr "Итальянский"
+
+msgid "Japanese"
+msgstr "Японский"
+
+msgid "Dutch"
+msgstr "Нидерландский"
+
+msgid "Polish"
+msgstr "Польский"
+
+msgid "Portuguese"
+msgstr "Португальский"
+
+msgid "Russian"
+msgstr "Русский"
+
+msgid "Slovak"
+msgstr "Словацкий"
+
+msgid "Ukrainian"
+msgstr "Украинский"
+
+msgid "Chinese"
+msgstr "Китайский"
+
+msgid "Enter a two-letter ISO 639-1 code in lowercase, for example, cs or en."
+msgstr ""
+"Введи двухбуквенный код ISO 639-1 строчными буквами, например, cs или en."
+
+msgid "ISO 639-1, for example, cs, en, es. Note: Czech is cs, not cz."
+msgstr "ISO 639-1, например, cs, en, es. Внимание: чешский — cs, а не cz."
+
+msgid "languages"
+msgstr "языки"
+
+msgid "owner"
+msgstr "владелец"
+
+msgid "parent deck"
+msgstr "родительский словарь"
+
+msgid "description"
+msgstr "описание"
+
+msgid "deck"
+msgstr "словарь"
+
+msgid "A deck with this name already exists here."
+msgstr "Словарь с таким названием здесь уже есть."
+
+msgid "manual"
+msgstr "вручную"
+
+msgid "translator"
+msgstr "переводчик"
+
+msgid "voice"
+msgstr "голос"
+
+msgid "import"
+msgstr "импорт"
+
+msgid "dictionary"
+msgstr "словарь"
+
+msgid "main foreign variant"
+msgstr "основной иностранный вариант"
+
+msgid "main translation"
+msgstr "основной перевод"
+
+msgid "origin"
+msgstr "происхождение"
+
+msgid "You already have this word."
+msgstr "Это слово у тебя уже есть."
+
+msgid "foreign"
+msgstr "иностранный"
+
+msgid "native"
+msgstr "родной"
+
+msgid "side"
+msgstr "сторона"
+
+msgid "text"
+msgstr "текст"
+
+msgid "variant"
+msgstr "вариант"
+
+msgid "variants"
+msgstr "варианты"
+
+msgid "word in deck"
+msgstr "слово в словаре"
+
+msgid "words in decks"
+msgstr "слова в словарях"
+
+msgid "saved"
+msgstr "сохранено"
+
+msgid "word for later"
+msgstr "отложенное слово"
+
+msgid "words for later"
+msgstr "отложенные слова"
+
+msgid "missing word"
+msgstr "пропущенное слово"
+
+msgid "The parent deck belongs to another user."
+msgstr "Родительский словарь принадлежит другому пользователю."
+
+#, python-format
+msgid "Decks can have at most %(max)d levels."
+msgstr "У словарей может быть не больше %(max)d уровней."
+
+msgid "Choose the language you want to learn and the language you speak."
+msgstr "Выбери язык, который хочешь учить, и язык, на котором говоришь."
+
+msgid "The target deck belongs to another user."
+msgstr "Целевой словарь принадлежит другому пользователю."
+
+msgid "A deck cannot be moved into itself or into its own sub-deck."
+msgstr "Словарь нельзя переместить в самого себя или в его подсловарь."
+
+msgid "A deck can only be moved under a deck with the same languages."
+msgstr "Словарь можно переместить только в словарь с теми же языками."
+
+#, python-format
+msgid "After the move, the tree would have more than %(max)d levels."
+msgstr "После перемещения в дереве будет больше %(max)d уровней."
+
+msgid "The word does not belong to this deck."
+msgstr "Слово не относится к этому словарю."
+
+#, python-format
+msgid "A variant can have at most %(max)d characters."
+msgstr "Вариант может содержать не больше %(max)d символов."
+
+msgid "Words can only be moved to a deck with the same languages."
+msgstr "Слова можно перемещать только в словарь с теми же языками."
+
+msgid "by date added"
+msgstr "по дате добавления"
+
+msgid "alphabetically"
+msgstr "по алфавиту"
+
+msgid "by next review"
+msgstr "по следующему повторению"
+
+msgid "Enter the word."
+msgstr "Введи слово."
+
+msgid "Enter at least one variant."
+msgstr "Введи хотя бы один вариант."
+
+#, python-format
+msgid "You already have the word “%(word)s → %(native)s” (%(decks)s)."
+msgstr "Слово «%(word)s → %(native)s» у тебя уже есть (%(decks)s)."
+
+#, python-format
+msgid "%(count)s to review"
+msgstr "%(count)s к повторению"
+
+msgid "to review"
+msgstr "к повторению"
+
+msgctxt "words saved for later"
+msgid "Pending"
+msgstr "Отложенные"
+
+msgid "Fill in"
+msgstr "Дополнить"
+
+#, python-format
+msgid "%(counter)s word is waiting for a translation"
+msgid_plural "%(counter)s words are waiting for a translation"
+msgstr[0] "%(counter)s слово ждёт перевода"
+msgstr[1] "%(counter)s слова ждут перевода"
+msgstr[2] "%(counter)s слов ждут перевода"
+msgstr[3] "%(counter)s слова ждут перевода"
+
+msgid "word for later waits for a translation"
+msgid_plural "words for later wait for a translation"
+msgstr[0] "отложенное слово ждёт перевода"
+msgstr[1] "отложенных слова ждут перевода"
+msgstr[2] "отложенных слов ждут перевода"
+msgstr[3] "отложенного слова ждут перевода"
+
+msgid "Search words…"
+msgstr "Искать слова…"
+
+msgid "Search a word, translation, sentence…"
+msgstr "Искать слово, перевод, предложение…"
+
+msgid "Search in words"
+msgstr "Поиск по словам"
+
+#, python-format
+msgid "Showing the first %(limit)s results, try a more exact search."
+msgstr "Показаны первые результаты (%(limit)s), уточни запрос."
+
+#, python-format
+msgid "Nothing found for “%(query)s”."
+msgstr "По запросу «%(query)s» ничего не найдено."
+
+#, python-format
+msgid "Move %(name)s up"
+msgstr "Переместить %(name)s выше"
+
+#, python-format
+msgid "Move %(name)s down"
+msgstr "Переместить %(name)s ниже"
+
+msgid "Add word"
+msgstr "Добавить слово"
+
+msgid "Adding…"
+msgstr "Добавление…"
+
+#, python-format
+msgid "“%(word)s” is already in this deck."
+msgstr "«%(word)s» уже есть в этом словаре."
+
+msgid "View"
+msgstr "Открыть"
+
+msgid "Add new variants"
+msgstr "Добавить новые варианты"
+
+#, python-format
+msgid "You already have “%(word)s” in: %(decks)s."
+msgstr "«%(word)s» у тебя уже есть в: %(decks)s."
+
+msgid "Add here too"
+msgstr "Добавить и сюда"
+
+#, python-format
+msgid "You already have “%(word)s” with another translation:"
+msgstr "«%(word)s» у тебя уже есть с другим переводом:"
+
+msgid "Same meaning: add as a variant"
+msgstr "То же значение: добавить как вариант"
+
+msgid "Same meaning: add here"
+msgstr "То же значение: добавить сюда"
+
+msgid "A different meaning? Just save the word, it will be another meaning."
+msgstr "Другое значение? Просто сохрани слово, это будет ещё одно значение."
+
+#, python-format
+msgid "You already have a similar word: “%(word)s” (%(decks)s)."
+msgstr "У тебя уже есть похожее слово: «%(word)s» (%(decks)s)."
+
+msgid "Add new variants to it"
+msgstr "Добавить к нему новые варианты"
+
+msgid "Add it here"
+msgstr "Добавить его сюда"
+
+#, python-format
+msgid ""
+"You already have “%(native)s” as a translation of “%(word)s” (%(decks)s)."
+msgstr "«%(native)s» у тебя уже есть как перевод «%(word)s» (%(decks)s)."
+
+#, python-format
+msgid "Add “%(new)s” as a variant of “%(word)s”"
+msgstr "Добавить «%(new)s» как вариант «%(word)s»"
+
+msgid "Or save it separately (a different shade, for example, informal)."
+msgstr "Или сохранить отдельно (другой оттенок, например, разговорный)."
+
+msgid "Similar (without accents):"
+msgstr "Похожие (без диакритики):"
+
+msgid "Added:"
+msgstr "Добавлено:"
+
+#, python-format
+msgid "Next pending (%(counter)s)"
+msgid_plural "Next pending (%(counter)s)"
+msgstr[0] "Следующее отложенное (%(counter)s)"
+msgstr[1] "Следующее отложенное (%(counter)s)"
+msgstr[2] "Следующее отложенное (%(counter)s)"
+msgstr[3] "Следующее отложенное (%(counter)s)"
+
+msgid "Saved for later:"
+msgstr "Отложено:"
+
+msgid "sentence, note"
+msgstr "предложение, заметка"
+
+msgid "edit"
+msgstr "изменить"
+
+msgid "done"
+msgstr "готово"
+
+msgid "Sort"
+msgstr "Сортировка"
+
+msgid "Select"
+msgstr "Выбрать"
+
+#, python-format
+msgid "Select “%(word)s”"
+msgstr "Выбрать «%(word)s»"
+
+msgid "Move…"
+msgstr "Переместить…"
+
+msgid "No words here yet. Add the first one with the form above."
+msgstr "Здесь пока нет слов. Добавь первое через форму выше."
+
+msgid "The suggestions don't know this word"
+msgstr "Подсказки не знают этого слова"
+
+msgid "Save for later"
+msgstr "Отложить"
+
+msgid "Suggestions:"
+msgstr "Подсказки:"
+
+msgid "Delete deck"
+msgstr "Удалить словарь"
+
+msgid "Delete"
+msgstr "Удалить"
+
+#, python-format
+msgid "Really delete the deck “%(name)s”?"
+msgstr "Точно удалить словарь «%(name)s»?"
+
+#, python-format
+msgid "This also deletes %(counter)s sub-deck."
+msgid_plural "This also deletes %(counter)s sub-decks."
+msgstr[0] "Будет удалён и %(counter)s подсловарь."
+msgstr[1] "Будут удалены и %(counter)s подсловаря."
+msgstr[2] "Будут удалены и %(counter)s подсловарей."
+msgstr[3] "Будут удалены и %(counter)s подсловаря."
+
+#, python-format
+msgid "This also deletes %(counter)s word that is in no other deck."
+msgid_plural "This also deletes %(counter)s words that are in no other deck."
+msgstr[0] "Будет удалено и %(counter)s слово, которого нет в других словарях."
+msgstr[1] "Будут удалены и %(counter)s слова, которых нет в других словарях."
+msgstr[2] "Будут удалены и %(counter)s слов, которых нет в других словарях."
+msgstr[3] "Будут удалены и %(counter)s слова, которых нет в других словарях."
+
+msgid "This cannot be undone."
+msgstr "Это нельзя отменить."
+
+msgid "More actions"
+msgstr "Ещё действия"
+
+msgid "Edit name and description"
+msgstr "Изменить название и описание"
+
+msgid "Move"
+msgstr "Переместить"
+
+#, python-format
+msgid "%(counter)s card"
+msgid_plural "%(counter)s cards"
+msgstr[0] "%(counter)s карточка"
+msgstr[1] "%(counter)s карточки"
+msgstr[2] "%(counter)s карточек"
+msgstr[3] "%(counter)s карточки"
+
+msgid "nothing due, you practise the ones that don't stick"
+msgstr "нечего повторять, тренируешь слова, которые не даются"
+
+msgid "Set up"
+msgstr "Настроить"
+
+msgid "New word"
+msgstr "Новое слово"
+
+msgid "From a topic"
+msgstr "Из темы"
+
+msgid "Sub-decks"
+msgstr "Подсловари"
+
+msgid "New"
+msgstr "Новый"
+
+msgid "No sub-decks yet."
+msgstr "Подсловарей пока нет."
+
+#, python-format
+msgid ""
+"No more sub-decks can be added here, the tree can have at most %(max_depth)s"
+" levels."
+msgstr ""
+"Сюда больше нельзя добавить подсловари, в дереве может быть не больше "
+"%(max_depth)s уровней."
+
+#, python-format
+msgid "The sub-deck takes over the languages of “%(name)s” (%(pair)s)."
+msgstr "Подсловарь берёт языки словаря «%(name)s» (%(pair)s)."
+
+msgid ""
+"Words saved without a translation. Tap a word: its deck opens with the word "
+"filled in, add the translation there."
+msgstr ""
+"Слова, сохранённые без перевода. Нажми на слово: откроется его словарь с уже"
+" заполненным словом, там добавь перевод."
+
+msgid "Word"
+msgstr "Слово"
+
+msgctxt "word for later"
+msgid "Saved"
+msgstr "Сохранено"
+
+#, python-format
+msgid "Delete %(word)s"
+msgstr "Удалить %(word)s"
+
+msgid "No word is waiting for a translation."
+msgstr "Ни одно слово не ждёт перевода."
+
+#, python-format
+msgid "Back to the deck “%(name)s”"
+msgstr "Назад к словарю «%(name)s»"
+
+msgid "Search"
+msgstr "Поиск"
+
+msgid ""
+"Searches all your decks: word, translation, sentence and note, ignoring "
+"accents and letter case."
+msgstr ""
+"Ищет во всех твоих словарях: слово, перевод, предложение и заметку, без "
+"учёта диакритики и регистра."
+
+msgid "Remove word"
+msgstr "Убрать слово"
+
+#, python-format
+msgid "Remove “%(word)s” from the deck “%(name)s”?"
+msgstr "Убрать «%(word)s» из словаря «%(name)s»?"
+
+msgid "The word stays in the decks:"
+msgstr "Слово останется в словарях:"
+
+msgid "The review history is kept."
+msgstr "История повторений сохранится."
+
+msgid ""
+"The word is in no other deck, so it will be deleted completely, together "
+"with its review history."
+msgstr ""
+"Слова нет ни в одном другом словаре, поэтому оно будет удалено полностью "
+"вместе с историей повторений."
+
+msgid "Remove"
+msgstr "Убрать"
+
+msgid "Edit"
+msgstr "Изменить"
+
+msgid "Remove from this deck"
+msgstr "Убрать из этого словаря"
+
+msgid "Reviews"
+msgstr "Повторения"
+
+#, python-format
+msgid "%(counter)s× in a test"
+msgid_plural "%(counter)s× in a test"
+msgstr[0] "%(counter)s× в тесте"
+msgstr[1] "%(counter)s× в тесте"
+msgstr[2] "%(counter)s× в тесте"
+msgstr[3] "%(counter)s× в тесте"
+
+#, python-format
+msgid ""
+"You know it: every tested direction right at least %(counter)s time in a row"
+msgid_plural ""
+"You know it: every tested direction right at least %(counter)s times in a "
+"row"
+msgstr[0] ""
+"Знаешь: каждое проверенное направление верно не меньше %(counter)s раза "
+"подряд"
+msgstr[1] ""
+"Знаешь: каждое проверенное направление верно не меньше %(counter)s раз "
+"подряд"
+msgstr[2] ""
+"Знаешь: каждое проверенное направление верно не меньше %(counter)s раз "
+"подряд"
+msgstr[3] ""
+"Знаешь: каждое проверенное направление верно не меньше %(counter)s раза "
+"подряд"
+
+#, python-format
+msgid ""
+"You know it once every tested direction is right %(counter)s time in a row"
+msgid_plural ""
+"You know it once every tested direction is right %(counter)s times in a row"
+msgstr[0] ""
+"Слово будет известным, когда каждое проверенное направление будет верно "
+"%(counter)s раз подряд"
+msgstr[1] ""
+"Слово будет известным, когда каждое проверенное направление будет верно "
+"%(counter)s раза подряд"
+msgstr[2] ""
+"Слово будет известным, когда каждое проверенное направление будет верно "
+"%(counter)s раз подряд"
+msgstr[3] ""
+"Слово будет известным, когда каждое проверенное направление будет верно "
+"%(counter)s раза подряд"
+
+msgid "The word has not been in any test yet."
+msgstr "Слово ещё не было ни в одном тесте."
+
+msgid "You know it"
+msgstr "Знаешь"
+
+msgid "Learning"
+msgstr "Учишь"
+
+msgctxt "word status"
+msgid "New"
+msgstr "Новое"
+
+#, python-format
+msgid "correct in a row: %(streak)s"
+msgstr "верно подряд: %(streak)s"
+
+msgid "Next review"
+msgstr "Следующее повторение"
+
+msgid "New, not in a test yet"
+msgstr "Новое, ещё не было в тесте"
+
+msgid "In decks"
+msgstr "В словарях"
+
+msgid "Other meanings"
+msgstr "Другие значения"
+
+msgid "you have it already"
+msgstr "уже есть"
+
+msgid "Learn this meaning too"
+msgstr "Учить и это значение"
+
+msgid "Answer history"
+msgstr "История ответов"
+
+msgid "Rating"
+msgstr "Оценка"
+
+msgid "Thinking time"
+msgstr "Время раздумья"
+
+msgid "Editing a word during a test"
+msgstr "Изменение слова во время теста"
+
+msgid "The word is also in the decks:"
+msgstr "Слово есть и в словарях:"
+
+msgid ""
+"Changes to variants and the note apply everywhere, the sentence only here."
+msgstr ""
+"Изменения вариантов и заметки применяются везде, предложения — только здесь."
+
+msgid "Save and back to the test"
+msgstr "Сохранить и вернуться к тесту"
+
+msgid "Back to the test without saving"
+msgstr "Вернуться к тесту без сохранения"
+
+msgid "Translation:"
+msgstr "Перевод:"
+
+msgid "Sentence:"
+msgstr "Предложение:"
+
+msgid "Sentence translation:"
+msgstr "Перевод предложения:"
+
+#, python-format
+msgid "Reported on %(day)s. You can change it here."
+msgstr "Сообщение отправлено %(day)s. Здесь его можно изменить."
+
+msgid ""
+"The report helps to fix the dictionary of the app. Your word does not "
+"change: you can fix it with Edit."
+msgstr ""
+"Сообщение помогает исправить словарь приложения. Твоё слово не меняется: его"
+" можно исправить через «Изменить»."
+
+msgid "Save changes"
+msgstr "Сохранить изменения"
+
+msgid "Report"
+msgstr "Сообщить"
+
+msgid "Move words"
+msgstr "Переместить слова"
+
+#, python-format
+msgid "From the deck “%(name)s” (%(pair)s)"
+msgstr "Из словаря «%(name)s» (%(pair)s)"
+
+msgid ""
+"The sentence and the learning progress stay. “Add there too” keeps the word "
+"in this deck as well."
+msgstr ""
+"Предложение и прогресс обучения сохраняются. «Добавить и туда» оставляет "
+"слово и в этом словаре."
+
+msgid "Add there too"
+msgstr "Добавить и туда"
+
+msgid ""
+"You have no other deck with the same languages. Create one first, for "
+"example, a sub-deck."
+msgstr ""
+"У тебя нет другого словаря с теми же языками. Сначала создай его, например, "
+"подсловарь."
+
+msgid "Add sub-deck"
+msgstr "Добавить подсловарь"
+
+msgid "Back"
+msgstr "Назад"
+
+msgid "Words from a topic"
+msgstr "Слова из темы"
+
+#, python-format
+msgid "Tick the words you want to learn; they are added to “%(name)s”."
+msgstr "Отметь слова, которые хочешь учить; они добавятся в «%(name)s»."
+
+msgid "Topic"
+msgstr "Тема"
+
+msgid "Choose a topic…"
+msgstr "Выбери тему…"
+
+#, python-format
+msgid "%(name)s (all)"
+msgstr "%(name)s (все)"
+
+msgid "Level"
+msgstr "Уровень"
+
+msgid "Part of speech"
+msgstr "Часть речи"
+
+msgid "Show words"
+msgstr "Показать слова"
+
+#, python-format
+msgid "%(counter)s word in the topic (%(levels)s)"
+msgid_plural "%(counter)s words in the topic (%(levels)s)"
+msgstr[0] "%(counter)s слово в теме (%(levels)s)"
+msgstr[1] "%(counter)s слова в теме (%(levels)s)"
+msgstr[2] "%(counter)s слов в теме (%(levels)s)"
+msgstr[3] "%(counter)s слова в теме (%(levels)s)"
+
+#, python-format
+msgid "%(counter)s in other decks"
+msgid_plural "%(counter)s in other decks"
+msgstr[0] "%(counter)s в других словарях"
+msgstr[1] "%(counter)s в других словарях"
+msgstr[2] "%(counter)s в других словарях"
+msgstr[3] "%(counter)s в других словарях"
+
+msgid "hidden"
+msgstr "скрыто"
+
+#, python-format
+msgid "%(counter)s already in this deck"
+msgid_plural "%(counter)s already in this deck"
+msgstr[0] "%(counter)s уже в этом словаре"
+msgstr[1] "%(counter)s уже в этом словаре"
+msgstr[2] "%(counter)s уже в этом словаре"
+msgstr[3] "%(counter)s уже в этом словаре"
+
+msgid "Hide them"
+msgstr "Скрыть их"
+
+msgid "Show them"
+msgstr "Показать их"
+
+#, python-format
+msgid ""
+"Small decks are easier to learn: we recommend about %(counter)s word in a "
+"deck."
+msgid_plural ""
+"Small decks are easier to learn: we recommend about %(counter)s words in a "
+"deck."
+msgstr[0] ""
+"Маленькие словари легче учить: советуем около %(counter)s слова в словаре."
+msgstr[1] ""
+"Маленькие словари легче учить: советуем около %(counter)s слов в словаре."
+msgstr[2] ""
+"Маленькие словари легче учить: советуем около %(counter)s слов в словаре."
+msgstr[3] ""
+"Маленькие словари легче учить: советуем около %(counter)s слова в словаре."
+
+#, python-format
+msgid "You already have it in “%(names)s”"
+msgstr "Уже есть в «%(names)s»"
+
+msgid "Pages"
+msgstr "Страницы"
+
+msgid "Previous"
+msgstr "Предыдущая"
+
+msgid "Next"
+msgstr "Следующая"
+
+msgid "Select all on this page"
+msgstr "Выбрать все на этой странице"
+
+msgid "Add ticked words"
+msgstr "Добавить отмеченные слова"
+
+msgid "No more words for this topic and level. Try another level."
+msgstr "Для этой темы и уровня слов больше нет. Попробуй другой уровень."
+
+msgid "Back to the deck"
+msgstr "Назад к словарю"
+
+msgid "to"
+msgstr "на"
+
+msgid "and back"
+msgstr "и обратно"
+
+msgid "both directions"
+msgstr "оба направления"
+
+#, python-format
+msgid "Deck “%(name)s” created."
+msgstr "Словарь «%(name)s» создан."
+
+msgid "Create"
+msgstr "Создать"
+
+#, python-format
+msgid "Added %(count)s word to “%(deck)s”."
+msgid_plural "Added %(count)s words to “%(deck)s”."
+msgstr[0] "В «%(deck)s» добавлено %(count)s слово."
+msgstr[1] "В «%(deck)s» добавлено %(count)s слова."
+msgstr[2] "В «%(deck)s» добавлено %(count)s слов."
+msgstr[3] "В «%(deck)s» добавлено %(count)s слова."
+
+msgid "Tick the words you want to add."
+msgstr "Отметь слова, которые хочешь добавить."
+
+msgid "New sub-deck"
+msgstr "Новый подсловарь"
+
+msgid "Changes saved."
+msgstr "Изменения сохранены."
+
+msgid "Deck moved."
+msgstr "Словарь перемещён."
+
+msgid "Move deck"
+msgstr "Переместить словарь"
+
+#, python-format
+msgid ""
+"Only decks with the same languages where the tree fits are offered (at most "
+"%(max)d levels)."
+msgstr ""
+"Предлагаются только словари с теми же языками, куда помещается дерево (не "
+"больше %(max)d уровней)."
+
+#, python-format
+msgid "Deck “%(name)s” deleted (decks: %(decks)d, words: %(terms)d)."
+msgstr "Словарь «%(name)s» удалён (словарей: %(decks)d, слов: %(terms)d)."
+
+msgid "Could not tell where to move the deck. Try again."
+msgstr "Не удалось понять, куда переместить словарь. Попробуй ещё раз."
+
+msgid "Word added."
+msgstr "Слово добавлено."
+
+msgid "The word could not be added, check the form."
+msgstr "Не удалось добавить слово, проверь форму."
+
+msgid "Report updated."
+msgstr "Сообщение обновлено."
+
+msgid "Thanks, the mistake is reported."
+msgstr "Спасибо, сообщение об ошибке отправлено."
+
+#, python-format
+msgid "Added: %(word)s → %(native)s"
+msgstr "Добавлено: %(word)s → %(native)s"
+
+msgid "Choose at least one word."
+msgstr "Выбери хотя бы одно слово."
+
+#, python-format
+msgid "%(count)s word"
+msgid_plural "%(count)s words"
+msgstr[0] "%(count)s слово"
+msgstr[1] "%(count)s слова"
+msgstr[2] "%(count)s слов"
+msgstr[3] "%(count)s слова"
+
+#, python-format
+msgid "Also added to “%(deck)s”: %(words)s."
+msgstr "Также добавлено в «%(deck)s»: %(words)s."
+
+#, python-format
+msgid "Moved to “%(deck)s”: %(words)s."
+msgstr "Перемещено в «%(deck)s»: %(words)s."
+
+#, python-format
+msgid "Already there: %(count)d."
+msgstr "Уже были там: %(count)d."
+
+#, python-format
+msgid "Word “%(word)s” deleted."
+msgstr "Слово «%(word)s» удалено."
+
+#, python-format
+msgid "Word “%(word)s” removed from this deck."
+msgstr "Слово «%(word)s» убрано из этого словаря."
+
+#, python-format
+msgid "Saved for later: %(word)s"
+msgstr "Отложено: %(word)s"
+
+#, python-format
+msgid "Deleted: %(word)s"
+msgstr "Удалено: %(word)s"

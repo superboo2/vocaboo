@@ -1,0 +1,200 @@
+{% extends "help/base_help.html" %}
+
+{% block help %}
+  <section>
+    <h2>Eine Vokabel hinzufügen</h2>
+    <p>Vokabeln fügst du auf der Seite eines Wörterbuchs hinzu. Pflicht sind nur die ersten beiden Felder:</p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Feld</th><th>Beispiel</th><th>Hinweis</th></tr></thead>
+      <tbody>
+        <tr><td>Fremdsprache</td><td><code>hello; hi</code></td><td>mehrere Varianten mit Semikolon trennen</td></tr>
+        <tr><td>deine Sprache</td><td><code>hallo; servus</code></td><td>genauso</td></tr>
+        <tr><td>Satz</td><td><code>Hello, kids.</code></td><td>unter der Schaltfläche <em>+ Satz, Notiz</em>, wo das Wort vorkam (unter dem Wort in der Fremdsprache)</td></tr>
+        <tr><td>Übersetzung des Satzes</td><td><code>Hallo, Kinder.</code></td><td>an derselben Stelle, optional, hilft dir, den Satz zu verstehen (unter der Übersetzung). Du kannst das Wort mit geschweiften Klammern markieren: <code>Er rannte {weg}.</code></td></tr>
+        <tr><td>Notiz</td><td></td><td>an derselben Stelle, alles Weitere</td></tr>
+      </tbody>
+    </table></div>
+    <p>
+      Staffel oder Folge schreibst du nirgendwo hin, das bestimmt das Wörterbuch: Vokabeln aus der ersten Folge fügst du dem Wörterbuch
+      <em>Series 1 › Episode 1</em> hinzu.
+    </p>
+    <p>
+      <strong>Enter</strong> schickt das Formular ab (wie die Schaltfläche <em>Vokabel hinzufügen</em>, auf der beim Senden
+      <em>Wird hinzugefügt…</em> steht). Dann wird das Formular geleert und der Cursor springt zurück ins erste Feld,
+      sodass du gleich die nächste Vokabel tippen kannst. Dass die Vokabel hinzugefügt wurde, erkennst du an der Zeile
+      <em>✓ Hinzugefügt: Wort → Übersetzung</em> über den Feldern (so siehst du einen Tippfehler in der Übersetzung sofort), die 2 Sekunden lang aufleuchtet. Wenn die Vokabel in den
+      Feldern bleibt und nichts aufgeleuchtet hat, wurde sie nicht hinzugefügt.
+    </p>
+  </section>
+
+  <section>
+    <h2>Suche</h2>
+    <p>In der Übersicht gibt es im Reiter <em>Wörterbücher</em> über dem Baum eine helle Leiste <strong>Vokabeln suchen…</strong>: Klick hinein (auf dem Computer geht auch die Taste <kbd>/</kbd>) und tippe, die Ergebnisse erscheinen direkt darunter.</p>
+    <ul>
+      <li>Gesucht wird in allen deinen Wörterbüchern: im Wort in der Fremdsprache und in der Übersetzung (alle Varianten), im Satz und seiner Übersetzung und in der Notiz.</li>
+      <li>Akzente, Umlaute und Großbuchstaben spielen keine Rolle: „uber“ findet auch „Über“. Die Ergebnisse erscheinen schon beim Tippen, ab 2 Buchstaben.</li>
+      <li>Zuerst kommen die Vokabeln, bei denen Wort oder Übersetzung passen, dann die, bei denen der Text im Satz oder in der Notiz steht (der Satz wird unter der Vokabel gezeigt). Der Treffer ist hervorgehoben.</li>
+      <li>Bei jeder Vokabel steht, in welchen Wörterbüchern sie ist (die letzten 3 Ebenen des Pfads, der ganze Pfad beim Darüberfahren mit der Maus). Ein Klick auf eine Vokabel öffnet ihre Details, ✎ öffnet direkt die Bearbeitung.</li>
+      <li>Es werden höchstens 50 Ergebnisse gezeigt.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Für später</h2>
+    <p>Du schaust einen Film, hörst ein Wort, weißt nicht, was es bedeutet, und die Vorschläge kennen es auch nicht? Speichere es <strong>ohne Übersetzung</strong> und komm später darauf zurück:</p>
+    <ul>
+      <li><strong>In einem Wörterbuch:</strong> Tippe das Wort in der Fremdsprache (und vielleicht einen Satz und eine Notiz, z. B. Serie und Folge). Wenn die Vorschläge das getippte Wort nicht kennen, steht in ihrer Zeile <em>Die Vorschläge kennen dieses Wort nicht · <strong>📝 Für später</strong></em>. Tippe darauf und die Vokabel wird ohne Übersetzung gespeichert.</li>
+      <li>Vokabeln für später <strong>kommen nicht in Tests</strong> und zählen weder im Baum noch in der Statistik mit, bis sie eine Übersetzung haben.</li>
+      <li>Oben in der Übersicht gibt es eine kleine Karte <em>📝 3 · für später warten auf eine Übersetzung ›</em>; ein Klick irgendwo darauf öffnet die Liste. Auf der Seite eines Wörterbuchs steht unter dem Formular eine größere Karte <em>„3 Vokabeln warten auf eine Übersetzung“</em> mit den ersten beiden Wörtern und dem Link <em>Ergänzen</em>; die beiden Wörter sind Links, die das Formular ausfüllen. Tippe auf der Seite <strong>Für später</strong> auf eine Vokabel: Ihr Wörterbuch öffnet sich mit dem üblichen Formular, Wort, Satz und Notiz sind schon ausgefüllt (das Feld mit dem Wort leuchtet kurz auf) und der Cursor wartet in der Übersetzung. Wenn das Wörterbuch der App das Wort inzwischen kennt, erscheinen die Vorschläge sofort. Nach <em>Vokabel hinzufügen</em> ist die Vokabel im Wörterbuch (und kommt in Tests), sie verschwindet aus der Liste und der Link <em>Nächste für später</em> bringt dich zur nächsten.</li>
+      <li>Wörter, die die Vorschläge nicht kennen, kommen in die nächste Erweiterung des Wörterbuchs der App.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Vokabeln aus einem Thema</h2>
+    <p>Ideal, wenn du keine Zeit hast, Vokabeln nachzuschlagen und aufzuschreiben, oder nicht weißt, womit du anfangen sollst: Klick auf der Seite eines Wörterbuchs neben der Überschrift <em>Neue Vokabel</em> auf <strong>+ Aus einem Thema</strong> (nur wenn das Wörterbuch der App genug Wörter in beiden Sprachen des Wörterbuchs hat: derzeit Englisch, Tschechisch, Spanisch und Ukrainisch, z. B. Englisch → Tschechisch). Wähl ein Thema (zum Beispiel <em>Natur › Tiere</em> oder eine ganze Gruppe <em>Natur (alle)</em>), Niveaus (A1–C2, standardmäßig A1–B1) und Wortarten (Substantive, Verben, Adjektive, Sonstiges; standardmäßig alle — für ein Wörterbuch <em>Tiere</em> vielleicht nur Substantive) und klick auf <em>Vokabeln zeigen</em>. Du siehst die häufigsten Vokabeln des Themas mit Übersetzung und Satz, 20 pro Seite.</p>
+    <ul>
+      <li>Hake die an, die du lernen willst, und klick auf <strong>+ Angehakte Vokabeln hinzufügen</strong>. Sie werden dem Wörterbuch als deine eigenen Vokabeln hinzugefügt, mit dem Satz und seiner Übersetzung; danach kannst du sie wie alle anderen bearbeiten. Du bleibst auf derselben Seite und die hinzugefügten Vokabeln verschwinden von ihr.</li>
+      <li>Vokabeln, die du schon in diesem Wörterbuch hast, werden nicht angeboten. Die, die du in einem anderen Wörterbuch hast, sind ausgeblendet, sodass ein zweites Wörterbuch zum selben Thema mit neuen Vokabeln beginnt; über der Liste siehst du, wie viele Vokabeln das Thema hat, wie viele davon schon in deinen anderen Wörterbüchern und in diesem Wörterbuch sind, und einen Link <em>Einblenden</em> (dann sind sie grau mit dem Namen des Wörterbuchs und lassen sich nicht anhaken).</li>
+      <li><em>Alle auf dieser Seite auswählen</em> hakt alle 20 auf einmal an; dann kannst du abhaken, was du nicht willst. Die Schaltfläche zeigt, wie viele angehakt sind.</li>
+      <li>Wir empfehlen kleinere Wörterbücher mit etwa 20 Vokabeln: Sie lernen sich leichter. Füg die nächsten hinzu, wenn du diese kannst. Mehr als eine Seite auf einmal kannst du nicht hinzufügen.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Übersetzungsvorschläge</h2>
+    <p>
+      Wenn du ein Wort in der Fremdsprache tippst, erscheinen unter dem Übersetzungsfeld <strong>Übersetzungsvorschläge</strong>
+      mit einer Abkürzung der Wortart, zum Beispiel <code>present</code> → <em>Gegenwart</em> (Subst.),
+      <em>Geschenk</em> (Subst.), <em>vorstellen</em> (Verb). Wenn sie nicht in eine Zeile passen, geht es in der nächsten weiter.
+      Ein Klick auf einen Vorschlag setzt ihn ins Übersetzungsfeld und die Zeile leert sich, dann einfach Enter drücken. Wenn das Wörterbuch der App für diese Bedeutung einen Satz hat, füllt es auch den <strong>Satz</strong> mit seiner Übersetzung aus (nur wenn noch kein Satz da ist), und du siehst ihn unter der Schaltfläche <em>Vokabel hinzufügen</em>, zum Beispiel <em>„Let's take the elevator.“ · Nehmen wir den Aufzug.</em> Ein Klick auf <em>bearbeiten</em> öffnet ihn, damit du ihn ändern oder löschen kannst, <em>fertig</em> schließt ihn wieder. Ohne Satz und Notiz steht dort <em>+ Satz, Notiz</em>.
+    </p>
+    <ul>
+      <li>Die Vorschläge kommen aus dem eigenen englisch-tschechischen Wörterbuch der App (etwa 10.000 der häufigsten Wörter und Wendungen, nach Häufigkeit sortiert). Bei anderen Wörtern erscheint nichts und du schreibst die Übersetzung von Hand. Für Spanisch gibt es noch kein Wörterbuch.</li>
+      <li>Einen Vorschlag kannst du nach dem Einfügen bearbeiten, nichts wird von selbst gespeichert.</li>
+      <li>Wenn du das Wort in der Fremdsprache änderst, nachdem du einen Vorschlag gewählt hast, verschwindet der aus dem Vorschlag ausgefüllte Satz, weil er zum vorherigen Wort gehörte. Dein eigener (geschriebener oder bearbeiteter) Satz wird nicht gelöscht.</li>
+      <li>Vorschläge erscheinen auch beim <strong>Bearbeiten einer Vokabel</strong> (auch während eines Tests über ✎), sofort für das Wort im Formular. Ein Klick auf einen Vorschlag ersetzt die Übersetzung und füllt den Satz nur in leere Felder.</li>
+      <li>Wenn du keine Vorschläge willst, schalte sie in den <a href="{% url 'settings' %}">Einstellungen</a> aus (<em>App › Übersetzungen vorschlagen</em>).</li>
+      <li>Gespeichert wird nur die Bedeutung, die du wählst. Die anderen Bedeutungen aus dem Wörterbuch der App siehst du auf der Rückseite der Karte und in den Details der Vokabel.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Varianten (Synonyme)</h2>
+    <p>
+      <code>hello; hi</code> ↔ <code>hallo; servus</code> ist eine Vokabel mit zwei Varianten auf jeder Seite.
+      Im Test ist jede von ihnen richtig.
+    </p>
+    <p>
+      Varianten bedeuten, dass <strong>jede links zu jeder rechts passt</strong>. Wenn das nicht stimmt,
+      mach lieber zwei getrennte Vokabeln. Zum Beispiel <code>hi</code> ≠ <code>guten Tag</code>, also:
+      <code>hello → guten Tag; hallo</code> und <code>hi → hallo; servus</code> (umgangssprachlich).
+    </p>
+  </section>
+
+  <section>
+    <h2>Satz</h2>
+    <p>Schreib den Satz ganz normal, die App findet das Wort darin selbst und hebt es hervor:</p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Du tippst</th><th>Was passiert</th></tr></thead>
+      <tbody>
+        <tr><td><code>She can read from her palm.</code></td><td>das Wort <code>palm</code> wird automatisch gefunden, <strong>der übliche Fall</strong></td></tr>
+        <tr><td><code>She has small {palms}.</code></td><td>ein Wort in einer <strong>anderen Form</strong> markierst du mit geschweiften Klammern, sonst wird es nicht gefunden</td></tr>
+        <tr><td><code>He {ran} away.</code></td><td>für die Vokabel <code>run</code>: Vergangenheit in Klammern</td></tr>
+        <tr><td><code>She can read from her {}.</code></td><td>leere Klammern = das Wort aus dem ersten Feld (<code>palm</code>)</td></tr>
+      </tbody>
+    </table></div>
+    <p>Die Klammern werden nie angezeigt. Im Test sieht der Satz so aus:</p>
+    <div class="grid">
+      <article class="help-card">
+        <header>palm → ?</header>
+        <p class="help-card-main">palm</p>
+        <p class="card-sentence">„She can read from her <mark>palm</mark>.“</p>
+      </article>
+      <article class="help-card">
+        <header>Handfläche → ?</header>
+        <p class="help-card-main">Handfläche</p>
+        <p class="card-sentence">„She can read from her <span class="cloze">___</span>.“</p>
+      </article>
+    </div>
+    <p>
+      In der Richtung aus deiner Sprache würde der ganze Satz die Antwort verraten, deshalb zeigt ihn die Vorderseite mit einer Lücke.
+      Der vollständige Satz steht auf der Rückseite. Wenn das Wort im Satz nicht gefunden wird, steht der Satz nur auf der Rückseite.
+    </p>
+  </section>
+
+  <section>
+    <h2>Mehrere Bedeutungen (palm, present)</h2>
+    <p>
+      Jede Bedeutung ist eine <strong>eigene Vokabel</strong>. Die App unterscheidet sie an der Übersetzung, du musst
+      nichts weiter ausfüllen:
+    </p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Fremdsprache</th><th>Übersetzung</th><th>Satz</th></tr></thead>
+      <tbody>
+        <tr><td>palm</td><td>Handfläche</td><td><code>She read my palm.</code></td></tr>
+        <tr><td>palm</td><td>Palme</td><td><code>A tall palm on the beach.</code></td></tr>
+        <tr><td>present</td><td>Geschenk</td><td><code>I bought her a present.</code></td></tr>
+        <tr><td>present</td><td>Gegenwart</td><td><code>Live in the present.</code></td></tr>
+        <tr><td>present</td><td>präsentieren</td><td><code>He {presented} the project.</code></td></tr>
+      </tbody>
+    </table></div>
+    <ul>
+      <li>Dasselbe Wort in der Fremdsprache mit <strong>derselben Übersetzung</strong> ist ein Duplikat. Mit einer <strong>anderen Übersetzung</strong> ist es eine weitere Bedeutung und wird gespeichert.</li>
+      <li>Im Test <code>palm → ?</code> hilft der Satz. Ohne Satz siehst du unter dem Wort <em>(2 Bedeutungen)</em>, damit du weißt, dass es eine Wahl gibt.</li>
+      <li><strong>Weitere Bedeutungen</strong> aus dem Wörterbuch der App und deine anderen Vokabeln mit demselben Wort stehen auf der Rückseite der Karte und in den Details der Vokabel. Dort haben Bedeutungen aus dem Wörterbuch der App eine Schaltfläche <strong>+ Auch diese Bedeutung lernen</strong>.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Prüfung auf Duplikate</h2>
+    <p>Während du tippst, sucht die App nach Vokabeln, die du schon hast, und bietet an, was du damit machen kannst:</p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Du tippst</th><th>Du hast schon</th><th>Angeboten wird</th></tr></thead>
+      <tbody>
+        <tr><td><code>hello</code> in Big Bang Theory</td><td><code>hello → hallo</code> in HIMYM</td><td><strong>Auch hier hinzufügen</strong> (eine Vokabel in zwei Wörterbüchern)</td></tr>
+        <tr><td><code>hello; hi</code></td><td><code>hello → hallo</code></td><td>dasselbe, und <code>hi</code> wird als neue Variante hinzugefügt</td></tr>
+        <tr><td><code>hey → hallo</code></td><td><code>hello → hallo</code></td><td><strong>„hey“ als Variante von „hello“ hinzufügen</strong> oder getrennt speichern</td></tr>
+        <tr><td><code>palm → Palme</code></td><td><code>palm → Handfläche</code></td><td>ein Hinweis auf eine andere Übersetzung: gleiche Bedeutung (als Variante hinzufügen) oder andere Bedeutung (einfach speichern)</td></tr>
+        <tr><td><code>uber</code></td><td><code>über</code></td><td>nur ein Hinweis <em>Ähnlich (ohne Akzente)</em>; <code>schon</code> und <code>schön</code> sind verschiedene Wörter</td></tr>
+      </tbody>
+    </table></div>
+    <p>Die Schaltfläche <strong>Vokabel hinzufügen</strong> ist gesperrt, solange das Speichern ein Duplikat erzeugen würde.</p>
+  </section>
+
+  <section>
+    <h2>Eine Vokabel in mehreren Wörterbüchern</h2>
+    <p>
+      Die Vokabel gehört dir, Wörterbücher verweisen nur auf sie. Wenn <code>hello</code> in 20 Folgen steht,
+      fragt ein Test aus der ganzen Staffel sie <strong>einmal</strong> ab, und die Bewertung zählt in allen Wörterbüchern.
+      Jedes Wörterbuch behält aber seinen eigenen Satz.
+    </p>
+  </section>
+
+  <section>
+    <h2>Bearbeiten und Entfernen</h2>
+    <ul>
+      <li>Ein Klick auf eine Vokabel in der Liste öffnet ihre Details, von dort <strong>✎ Bearbeiten</strong> (unter dem Wort und seiner Übersetzung, neben <strong>🔊 Abspielen</strong>) oder im Menü <strong>⋯</strong> <strong>Aus diesem Wörterbuch entfernen</strong>.</li>
+      <li>Änderungen an Varianten und Notiz gelten in allen Wörterbüchern, der Satz nur in diesem einen.</li>
+      <li><strong>Verschieben</strong> (im Menü ⋯ in den Details der Vokabel) verschiebt sie in ein anderes Wörterbuch.</li>
+      <li><strong>Fehler melden</strong> (im Menü ⋯ in den Details der Vokabel): Wenn eine Übersetzung oder ein Satz aus den Vorschlägen falsch ist, wähl <em>Fehler in der vorgeschlagenen Übersetzung</em>, <em>Fehler im vorgeschlagenen Satz</em> oder <em>Etwas anderes</em> und schreib, wenn du magst, eine Notiz dazu, zum Beispiel die richtige Übersetzung. Die Meldung hilft, das Wörterbuch der App zu verbessern; deine Vokabel ändert sich dadurch nicht, korrigier sie über <strong>✎ Bearbeiten</strong>. Wenn die Vokabel schon gemeldet ist, steht das auf der Seite und du kannst die Meldung ändern. Du kannst auch direkt im Test mit der Schaltfläche ⚐ unter der Karte melden.</li>
+      <li>Wenn du eine Vokabel aus einem Wörterbuch entfernst, wird sie <strong>nur dort</strong> gelöscht. War es ihr letztes Wörterbuch, wird sie komplett gelöscht, samt ihrem Wiederholungsverlauf; die App warnt dich vorher.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Mehrere Vokabeln verschieben</h2>
+    <p>
+      Sind Vokabeln im falschen Wörterbuch gelandet, zum Beispiel in <em>Series 1</em> statt in <em>Episode 1</em>?
+    </p>
+    <ol>
+      <li>Klick in der Vokabelliste auf <strong>Auswählen</strong>, dann erscheinen Kästchen zum Anhaken (<em>Alle</em> wählt alle aus).</li>
+      <li>Klick unten auf <strong>Verschieben…</strong> und wähl das Zielwörterbuch. Angeboten werden nur Wörterbücher mit denselben Sprachen.</li>
+      <li><strong>Verschieben</strong> verschiebt die Vokabeln, <strong>Auch dort hinzufügen</strong> behält sie in beiden Wörterbüchern.</li>
+    </ol>
+    <p>
+      Der Satz und der Lernfortschritt bleiben. Wenn die Vokabel schon im Zielwörterbuch ist, wird sie nicht verdoppelt,
+      dort wird nur ihr Satz ergänzt, falls er fehlte.
+    </p>
+  </section>
+{% endblock %}

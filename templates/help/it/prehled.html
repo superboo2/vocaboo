@@ -1,0 +1,101 @@
+{% extends "help/base_help.html" %}
+
+{% block help %}
+  <section>
+    <h2>Struttura</h2>
+    <p>L'app ha lo stesso aspetto sul computer e sul telefono: una colonna, con le sezioni come schede. In alto c'è una barra con il logo (un fantasmino che sbuca da dietro una scheda – fai clic per tornare alla panoramica) <em>Vocaboo · ▶︎ Esercitati · Statistiche · Aiuto</em> (sul telefono Statistiche e Aiuto sono nel menu dell'account, e nella barra restano solo il logo, ▶︎ Esercitati e il cerchio) e un cerchio con la prima lettera della tua email – fai clic per aprire un menu con la tua email, (sul telefono) 📊 Statistiche e ❓ Aiuto, il selettore del tema <em>☀️ Chiaro · 🌙 Scuro · Auto</em> (Auto segue l'impostazione del sistema; la scelta vale solo in questo browser), <em>Impostazioni</em> ed <em>Esci</em>. Il pulsante <strong>▶︎ Esercitati</strong> nella barra avvia subito un test, da qualsiasi punto (vedi l'aiuto del test). Sul telefono puoi mettere l'app nella schermata Home, vedi <a href="#aplikace-na-plose">L'app nella schermata Home</a>. La panoramica ha le schede <em>⏱️ 12 / 15 min · obiettivo giornaliero ›</em> (un numero grande come nella sezione Oggi; verde con <em>✓</em> quando è raggiunto; un clic apre l'impostazione dell'obiettivo), <em>📝 3 · parole in sospeso aspettano una traduzione ›</em> (solo quando qualcuna aspetta, un clic apre l'elenco; sul computer le due schede stanno una accanto all'altra, sul telefono una sotto l'altra), <em>Cosa ti ha messo in difficoltà</em>, <em>Dizionari</em> (con un link <em>+ Nuovo</em> per un nuovo dizionario) e <em>Oggi</em>.</p>
+  </section>
+
+  <section>
+    <h2>Numeri nella panoramica</h2>
+    <div class="overflow-auto"><table>
+      <tbody>
+                <tr><td>numero tra parentesi accanto a un dizionario, ad es. <em>HIMYM (26)</em></td><td>parole nel dizionario e nei suoi sottodizionari</td></tr>
+        <tr><td>↻ e un numero più piccolo tra parentesi, ad es. <em>HIMYM (26 <span class="deck-due">↻ 9</span>)</em></td><td>quante parole del dizionario (e dei suoi sottodizionari) sono da ripassare adesso; quando non c'è niente in attesa, le parentesi mostrano solo il numero di parole (passandoci sopra con il mouse: “9 da ripassare”)</td></tr>
+      </tbody>
+    </table></div>
+    <p>Sotto i dizionari c'è <strong>Oggi</strong>: solo quello che hai ottenuto oggi nei test. Ogni numero è anche un interruttore: fai clic per mostrare sotto i numeri un grafico a barre degli ultimi 7 giorni (un numero sopra ogni barra, gli altri giorni in indaco chiaro, oggi in indaco intenso).</p>
+    <ul>
+      <li>🎯 <strong>giuste per la prima volta</strong>: parole a cui oggi hai risposto 😎 o 🤔 per la prima volta in assoluto, in qualsiasi direzione (ogni parola una volta).</li>
+      <li>🎓 <strong>parole imparate</strong>: parole che oggi sono diventate “sai” per la prima volta, cioè giuste due volte di fila in ogni direzione in cui sono state testate (come nelle Statistiche). La seconda risposta giusta arriva solo dopo un intervallo (7 giorni dopo 😎), quindi una parola nuova compare qui al più presto qualche giorno dopo.</li>
+      <li>📚 <strong>parole nei test</strong>: quante parole diverse sono state nei test oggi; una parola in entrambe le direzioni conta una volta.</li>
+      <li>⏱️ <strong>tempo nei test</strong>: quanto sono durati oggi i tuoi test (fino all'ultima risposta).</li>
+    </ul>
+    <p>In cima (sopra i dizionari) c'è la sezione <strong>Cosa ti ha messo in difficoltà</strong>, così le parole restano sotto gli occhi: fino a 3 schede più piccole da girare, in una riga. Si calcolano dall'<strong>ultimo giorno prima di oggi in cui hai fatto un test</strong>. Accanto al titolo c'è il giorno in grigio: <em>ieri</em>, oppure ad es. <em>lun 26 ottobre</em>. I test di oggi compaiono nelle schede domani, così le schede non cambiano durante il giorno, e durante una pausa dai test restano uguali. Ci sono 8 tipi di schede (ad es. 🐢 ci pensi a lungo, 🦀 solo in una direzione, 🦈 quella che più spesso non sai) e ogni giorno con test ne mostra altre tre. Quando quel giorno è andato tutto bene, la sezione non viene mostrata. Le Statistiche mostrano tutti i tipi di schede (fino a 8) degli ultimi 30 giorni.</p>
+  </section>
+
+  <section>
+    <h2>Statistiche</h2>
+    <p>Il link <strong>Statistiche</strong> nella barra in alto apre una panoramica del tuo apprendimento. I riquadri con i numeri sono sempre in alto, sotto ci sono tre schede: <strong>Parole</strong> (i grafici Parole e Sai), <strong>Test</strong> (i test recenti) e <strong>Punti deboli</strong>.</p>
+    <ul>
+      <li><strong>Riquadri in alto</strong>: parole in totale (e quante ne sono state aggiunte questa settimana), quante ne sai (giuste almeno due volte di fila in ogni direzione in cui la parola è stata testata; una direzione non ancora testata non conta), 🔥 da quanti giorni di fila stai imparando e la tua serie più lunga, e il numero di risposte.</li>
+      <li><strong>Parole › Parole</strong>: quante parole hai in totale, dal giorno della tua prima parola. Il passo dipende da quanto tempo stai imparando: per giorno nelle prime 2 settimane, per settimana fino a 4 mesi, per mese fino a 2 anni, poi per trimestre. I numeri a sinistra mostrano il conteggio; passa con il mouse su un punto per vedere il valore esatto.</li>
+      <li><strong>Parole › Sai</strong>: quante parole sai in ogni punto del grafico, con gli stessi passi del grafico sopra. Sai una parola quando ogni direzione testata ha avuto 2 volte di fila 😎 o 🤔 (come il riquadro <em>le sai</em> in alto; è scritto anche sotto il titolo del grafico); dopo un errore la parola esce di nuovo. Il grafico ha un suo asse, così si vede ogni progresso. Compare dopo la tua prima risposta in un test.</li>
+      <li><strong>Test</strong>: i tuoi ultimi 10 test, uno per riga: quando è stato (data e ora), il percorso del dizionario, ultimi 3 livelli (ad es. <em>… › Series › HIMYM › S01</em>; passa con il mouse per vedere il percorso completo), la direzione (ad es. <em>EN → IT</em>, <em>IT → EN</em> o <em>EN ⇄ IT</em> per entrambe le direzioni), le schede (tutte, da ripassare + nuove, o di nuovo le sbagliate) e il limite, il numero di parole, la percentuale di successo (la quota di 😎 e 🤔 in percentuale e una piccola barra; passa con il mouse sulla barra o apri il riepilogo del test per vedere i conteggi di 😎 🤔 😕 😵) e la durata del test (⏹ per un test non finito). Con entrambe le direzioni ogni parola è nel test due volte, una per direzione, e ognuna viene valutata a parte. Sopra la tabella vedi il numero di test in 14 giorni. Fai clic su una riga per aprire il riepilogo del test. I test senza nemmeno una risposta non vengono mostrati.</li>
+      <li><strong>Punti deboli</strong>: le parole che ti mettono in difficoltà, come schede di un test, così continui a imparare anche mentre guardi le statistiche. Il fronte mostra al centro solo un lato della parola, su un colore che dipende dal motivo della difficoltà; il retro ha un animaletto con un breve motivo sotto la parola (l'elenco degli animali è qui sotto) (metà delle schede mostra la parola straniera, metà la traduzione; per 🦀 sempre la direzione che ti mette in difficoltà). Tocca la scheda (o premi Invio) per girarla: vedi l'altro lato, perché la parola è lì e un link <em>Dettagli</em>. Si basa sulle risposte degli ultimi 30 giorni, quindi le schede cambiano continuamente.</li>
+    </ul>
+    <p>Una parola ti “mette in difficoltà” quando in quel periodo ha ricevuto la risposta 😵 <em>Non ne ho idea</em> o 😕 <em>Lo ricordo a metà</em> e non la sai ancora (in qualche direzione non ha due risposte giuste di fila). Ogni parola viene mostrata una volta sola:</p>
+    <ul>
+      <li>🦈 <strong>quella che più spesso non sai</strong>: il maggior numero di risposte “non la so per niente”, quante tra parentesi, ad es. “quella che più spesso non sai (3×)”.</li>
+      <li>🦀 <strong>solo in una direzione</strong>: la sai in un senso ma non nell'altro; la scheda mostra sul fronte la direzione difficile.</li>
+      <li>🐢 <strong>ci pensi a lungo</strong>: il tempo medio più lungo prima di girare la scheda, ad es. “ci pensi a lungo (9 s)”.</li>
+      <li>🐇 <strong>veloce e sbagliata</strong>: il “non la so per niente” più rapido (sotto i 3 s), ad es. “veloce e sbagliata (1,2 s)” – tiri a indovinare invece di pensare.</li>
+      <li>🐿️ <strong>la dimentichi</strong>: una parola giusta almeno due volte di fila e poi sbagliata, ad es. “la dimentichi (2×)”.</li>
+      <li>🐒 <strong>a volte la sai, a volte no</strong>: “la so” e “non la so” si alternano di più (almeno 3 cambi), ad es. “a volte la sai, a volte no (4×)”.</li>
+      <li>🐌 <strong>la impari da più tempo</strong>: la parola che hai da più tempo e che ti mette ancora in difficoltà, ad es. “la impari da più tempo (45 giorni)”.</li>
+      <li>🦒 <strong>la più lunga che ti dà filo da torcere</strong>: la parola o espressione più lunga tra quelle che ti mettono in difficoltà.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Dettagli della parola</h2>
+    <p>Fai clic su una parola nell'elenco di un dizionario per aprirne i dettagli. Sotto la parola, la sua traduzione e i pulsanti vengono i <strong>Ripassi</strong>. A destra del titolo c'è lo <strong>stato</strong> della parola con un pallino colorato; passaci sopra con il mouse per vedere quante volte è stata in un test (<em>La sai</em> quando ogni direzione in cui è stata testata è stata giusta almeno due volte di fila, altrimenti <em>In corso</em>, e <em>Nuova</em> quando non è ancora stata in un test, come nelle Statistiche; passaci sopra per vedere quando una parola conta come saputa). Sotto, una direzione sotto l'altra (ad es. <em>EN → IT</em> e <em>IT → EN</em>):</p>
+    <ul>
+      <li><strong>Prossimo ripasso</strong>: quando torna la parola (<em>ora</em>, <em>tra 3 giorni</em>); passaci sopra per vedere la data esatta e quante volte di fila hai risposto giusto. Una parola che non è ancora stata in un test dice solo <em>Nuova, non ancora in un test</em>.</li>
+      <li><strong>Grafico delle risposte</strong>: fino alle ultime 30 risposte su un asse del tempo da sinistra, le più vecchie per prime, ognuna come un pallino del colore della sua valutazione, più in alto è meglio (😵 in basso, poi 😕, 🤔, 😎). La linea tra i pallini mostra se stai migliorando: sale quando la parola va sempre meglio. Le risposte di uno stesso giorno stanno una accanto all'altra (anche quando la parola è arrivata più volte in un test), una pausa più lunga di una settimana viene accorciata e la linea sopra è tratteggiata. Entrambe le direzioni condividono un asse del tempo: lo stesso giorno è nello stesso punto in entrambi i grafici. Sotto ogni grafico ci sono le date della prima e dell'ultima risposta (solo l'ultima quando sono nello stesso giorno o troppo vicine). Passa con il mouse su un pallino o tienici sopra il dito per vedere la data e la valutazione. Con una sola risposta c'è solo un pallino, senza linea.</li>
+    </ul>
+    <p>Sotto ci sono <strong>Nei dizionari</strong> (tutti i dizionari in cui si trova la parola, con la frase), <strong>Altri significati</strong> dal dizionario dell'app e alla fine la <strong>Cronologia delle risposte</strong> chiusa: fai clic per vedere ogni risposta (quando, direzione, valutazione come faccina, tempo per pensare).</p>
+  </section>
+
+  <section>
+    <h2>Impostazioni</h2>
+    <p>Le impostazioni hanno cinque schede, in base a dove agiscono nell'app: <strong>App</strong>, <strong>Esercitati</strong>, <strong>Obiettivi</strong>, <strong>Scheda</strong> e <strong>Account</strong>. Ogni scheda ha il suo pulsante <em>Salva</em>, che salva solo quello che c'è su di essa.</p>
+    <ul>
+      <li><strong>App › Lingua dell'app</strong>: la lingua di menu, pulsanti e aiuto (<em>Čeština</em>, <em>Deutsch</em>, <em>English</em>, <em>Español</em>, <em>Français</em>, <em>Italiano</em>, <em>Polski</em>, <em>Русский</em>, <em>Українська</em>, oppure <em>Come il browser</em>). Vale su tutti i dispositivi da cui accedi. Le tue parole e i tuoi dizionari non cambiano. Prima di accedere puoi cambiare la lingua sotto il modulo di accesso.</li>
+      <li><strong>App › Metti Vocaboo nella schermata Home</strong>: il pulsante <em>Installa</em> mette l'app nella schermata Home del telefono o sul computer, vedi <a href="#aplikace-na-plose">L'app nella schermata Home</a>. Viene mostrato solo dove il browser lo sa fare e l'app non è ancora nella schermata Home.</li>
+      <li><strong>App › Suggerisci traduzioni</strong>: suggerimenti dal dizionario dell'app sotto il campo della traduzione. Attivo di default.</li>
+      <li><strong>Esercitati</strong>: cosa avvia il pulsante ▶︎ Esercitati nella barra: da quali dizionari, in quale direzione, quali schede e al massimo quante, vedi l'aiuto del test.</li>
+      <li><strong>Obiettivi › Obiettivo giornaliero (min)</strong>: quanti minuti al giorno vuoi dedicare ai test. In cima alla panoramica vedi poi quanto hai fatto oggi. Conta il tempo su ogni scheda (pensare e valutare), al massimo 20 s per scheda. Così l'obiettivo non si riempie da solo quando lasci un test aperto e ti allontani. Per questo può essere un po' meno del <em>⏱️ tempo nei test</em>, che misura l'intera durata dei test. 15 minuti di default. Vuoto = nessun obiettivo, la scheda non viene mostrata.</li>
+      <li><strong>Scheda › Mostra altri significati dal dizionario dell'app</strong>: altri significati dal dizionario dell'app in fondo al retro della scheda (quanti ne stanno su una riga, il resto dopo un clic su +N). I tuoi significati vengono sempre mostrati. Attivo di default.</li>
+      <li><strong>Scheda › Mostra la pronuncia scritta (IPA)</strong>: sotto la parola straniera sulla scheda e nei dettagli della parola, ad es. <em>[pɑːm]</em>. Disattivo di default.</li>
+      <li><strong>Scheda › Mostra quando torna la parola</strong>: sotto i pulsanti di valutazione di un test, ad es. <em>10 min</em>, <em>1 giorno</em>, <em>3 giorni</em>. Disattivo di default.</li>
+      <li><strong>Scheda › Riproduci automaticamente</strong>: la parola straniera viene letta ad alta voce da sola – nella direzione straniera → tua lingua appena compare la scheda, nella direzione tua lingua → straniera dopo che fai clic su <em>Mostra</em>. Scegli la <em>parola</em> oppure <em>l'intera frase</em> (senza frase viene letta la parola). Il browser non legge la primissima scheda di un test finché non fai clic sulla pagina per la prima volta. Attivo di default. 🔊 è sempre sulla scheda e non si può disattivare.</li>
+      <li><strong>Account</strong>: la tua email e una nuova password. Inserisci la password attuale e quella nuova due volte. L'icona dell'occhio a destra del campo mostra la password, un secondo clic la nasconde di nuovo (lo stesso all'accesso). Su questo dispositivo l'accesso resta attivo; sugli altri dispositivi dovrai accedere di nuovo. Una password dimenticata si può reimpostare nella pagina di accesso con <em>Password dimenticata?</em>: inserisci la tua email e ricevi un link per impostare una nuova password (funziona per 24 ore).</li>
+    </ul>
+    <p><a href="{% url 'settings' %}">Apri le impostazioni</a></p>
+  </section>
+
+  <section>
+    <h2>Account</h2>
+    <p>Crea un account nella pagina di accesso con <em>Crea un account</em>: inserisci la tua email, la password due volte e <strong>La mia lingua</strong>, la lingua che parli (compilata dal browser). Quando l'app lo chiede, inserisci anche il codice d'invito della persona che ti ha invitato. Alla tua email arriva un codice di sei cifre; inseriscilo nella pagina successiva. Funziona per 15 minuti e <em>Invia un nuovo codice</em> ne invia un altro. Poi l'account è pronto e l'accesso è fatto. Quando la tua lingua non è l'inglese, la panoramica ha un dizionario di esempio <em>Inglese – primo dizionario</em> con le cartelle Animali (7 parole) e Cibo (Frutta 5, Verdura 4) e una parola in sospeso. È un dizionario normale: esercitati subito, aggiungici parole o eliminalo. Nessuna email? Guarda anche nello spam. Se chiudi la pagina con il codice, basta accedere più tardi: l'app invia un nuovo codice e riapre la pagina. Un account il cui codice non viene inserito entro 7 giorni viene eliminato.</p>
+  </section>
+
+  <section id="aplikace-na-plose">
+    <h2>L'app nella schermata Home</h2>
+    <p>Puoi mettere Vocaboo nella schermata Home del telefono (o sul computer) come un'app: si apre con un tocco, a schermo intero e senza la barra del browser. L'icona è lo stesso fantasmino su un quadrato indaco. Non si scarica niente da uno store; è sempre la stessa app con gli stessi dati.</p>
+    <ul>
+      <li><strong>Android, Chrome o Edge sul computer</strong>: in <em>Impostazioni › App</em> tocca <em>Installa</em> e conferma nella finestra del browser.</li>
+      <li><strong>iPhone e iPad</strong>: Apple non permette di installare con un pulsante, quindi <em>Installa</em> mostra i passaggi: tocca <strong>Condividi</strong> (il quadrato con una freccia verso l'alto; se non lo vedi, tocca prima <strong>⋯</strong>), poi <strong>Aggiungi alla schermata Home</strong> e <strong>Aggiungi</strong>. Su iPhone l'app nella schermata Home ha un accesso tutto suo, quindi lì accedi ancora una volta.</li>
+      <li><strong>Android con Firefox e browser simili</strong> (non hanno una finestra di installazione): <em>Installa</em> mostra i passaggi: nel menu del browser <strong>⋮</strong> (in alto a destra, in Firefox può essere in basso) scegli <strong>Installa app</strong> o <strong>Aggiungi a schermata Home</strong> e conferma.</li>
+    </ul>
+    <p>Sul telefono anche la panoramica lo propone da sola una volta (la scheda <em>Metti Vocaboo nella schermata Home</em>); dopo <em>Non ora</em> non torna, l'offerta nelle Impostazioni resta. Quando l'app è già nella schermata Home, o il browser non lo sa fare (ad es. Firefox sul computer), l'offerta nelle Impostazioni non c'è. L'accesso resta attivo per 90 giorni dall'ultima visita.</p>
+  </section>
+
+  <section>
+    <h2>Più dispositivi</h2>
+    <p>
+      Tutto è salvato sul server. Quando accedi sia dal telefono sia dal computer, vedi ovunque
+      gli stessi dizionari e gli stessi progressi nei ripassi.
+    </p>
+  </section>
+{% endblock %}

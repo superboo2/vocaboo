@@ -18,8 +18,10 @@ from vocabulary.models import Language, Term
 from .models import ConceptText
 
 FOREIGN = "en"
-# Native languages with the first deck
-NATIVE = ("cs", "es")
+# Native languages with the first deck: the dictionary has their texts of its words (de, fr,
+# it, pl, ru only these words, package 2026-11-02-2). The app is translated into all of them,
+# so the names of the decks are in the language of the user.
+NATIVE = ("cs", "de", "es", "fr", "it", "pl", "ru", "uk")
 
 ROOT = gettext_noop("English – first deck")
 # (name, name of the parent, concept keys of the words), parents first. Each deck has

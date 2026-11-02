@@ -1,0 +1,150 @@
+{% extends "help/base_help.html" %}
+{% load study_tags %}
+
+{% block help %}
+  <section>
+    <h2>Einen Test starten</h2>
+    <p>
+      Die Schaltfläche <strong>▶︎ Üben</strong> in der oberen Leiste (sie ist auf jeder Seite) startet sofort einen Test, es gibt nichts
+      auszuwählen. Auf der Seite eines Wörterbuchs startet <strong>▶︎ Wörterbuch üben</strong> denselben Test, nur aus diesem Wörterbuch und seinen Unterwörterbüchern.
+      Was genau sie starten, stellst du auf der Seite <strong>▶︎ Üben</strong> ein.
+    </p>
+    <p>Unter <em>▶︎ Wörterbuch üben</em> steht eine kleine Zeile, was gestartet wird, z. B. <em>20 Karten · EN ⇄ DE · Einstellen</em>. Wenn nichts fällig ist, steht das dort: <em>nichts fällig, du übst die Vokabeln, die nicht hängen bleiben</em>. <strong>Einstellen</strong> öffnet die Seite ▶︎ Üben für dieses Wörterbuch. Für die Schaltfläche in der Leiste ist ▶︎ Üben ein Reiter der Einstellungen, <a href="{% url 'study:new' %}">Einstellungen › Üben</a>; dorthin führt auch der Link am Ende jedes Tests (<em>Üben einstellen</em>).</p>
+
+    <h3>Die Seite ▶︎ Üben</h3>
+    <p>Von einem Wörterbuch aus ist es eine eigene Seite, in den Einstellungen ein Reiter; die Auswahl ist dieselbe. Was du hier wählst, wird gespeichert, und die Schaltflächen ▶︎ Üben machen dann genau das. Die Seite speichert nur (<strong>Speichern</strong>); ein Test startet mit der Schaltfläche ▶︎ Üben in der Leiste oder im Wörterbuch. Von einem Wörterbuch aus bringen dich <strong>Speichern</strong> und <strong>Abbrechen</strong> beide dorthin zurück.</p>
+    <ul>
+      <li><strong>Aus welchen Wörterbüchern</strong>: von einem Wörterbuch aus nur sein Name und wie viele Unterwörterbücher es hat (die Überschrift <em>Wörterbuch</em>). In den Einstellungen der Baum deiner Wörterbücher: welche <em>▶︎ Üben</em> in der Leiste nimmt. Wenn alle angehakt sind, nimmt es alle, auch die, die du später hinzufügst. Unterwörterbücher sind automatisch dabei, und eine Vokabel, die in mehreren Wörterbüchern steht, kommt nur einmal.</li>
+      <li><strong>Richtung</strong>: in eine Richtung oder in beide (<em>⇄</em>, die Karten beider Richtungen gemischt). Die Richtungen heißen nach den Sprachen des Wörterbuchs, z. B. <em>EN → DE</em>, <em>DE → EN</em> und <em>EN ⇄ DE</em>; bei Wörterbüchern mit verschiedenen Sprachen allgemein <em>Fremdsprache → Muttersprache</em> und <em>Muttersprache → Fremdsprache</em>.</li>
+      <li><strong>Welche Karten</strong>:
+        <ul>
+          <li><em>nur fällige und neue</em>: normales Lernen, die fälligen Karten und die Vokabeln, die noch in keinem Test waren. Wenn nichts wartet, kommen Vokabeln dazu, die nicht hängen bleiben, siehe unten,</li>
+          <li><em>alle</em>: jede Karte einmal, egal wann sie fällig ist (z. B. vor einer Prüfung).</li>
+        </ul>
+      </li>
+      <li><strong>Max. Karten</strong> (standardmäßig 20): für beide Möglichkeiten. Leer = kein Limit.</li>
+    </ul>
+    <p>Neben der Auswahl siehst du in Klammern, wie viele Karten es sind, z. B. <em>nur fällige und neue (42)</em> oder <em>alle (85)</em>. Gezählt wird für die angehakten Wörterbücher und die gewählte Richtung, und die Zahl ändert sich, sobald du etwas an der Auswahl änderst. Bei beiden Richtungen (<em>⇄</em>) ist jede Vokabel zweimal dabei, einmal in jeder Richtung.</p>
+    <p>Bei <em>nur fällige und neue</em> kommen:</p>
+    <ol>
+      <li>zuerst die <strong>fälligen</strong> Karten, die am längsten wartenden zuerst,</li>
+      <li>dann die <strong>neuen</strong>,</li>
+      <li>wenn es weniger sind als das Limit, wird der Rest mit Vokabeln <strong>aufgefüllt</strong>, die bald fällig wären. Das sind meist die, die nicht hängen bleiben (sie haben kurze Intervalle). Sie werden ein wenig gemischt, damit es nicht immer dasselbe ist. Ohne Limit wird nur aufgefüllt, wenn nichts wartet, und zwar mit 15 Karten.</li>
+    </ol>
+    <p>So ist der Test nie leer, auch wenn du alles wiederholt hast. Wenn es genug Vokabeln gibt, kommt jede nur in einer Richtung. Die Antworten zählen wie gewohnt.</p>
+  </section>
+
+  <section>
+    <h2>Die Karte</h2>
+    <p>Du siehst die Vorderseite. Versuch, dich an die Antwort zu erinnern, dann dreh die Karte um (<strong>Aufdecken</strong> oder die <strong>Leertaste</strong>). Die Karte dreht sich wie eine aus Papier: Die Vorderseite verschwindet und die Rückseite tritt an ihre Stelle.</p>
+    <div class="grid">
+      <article class="help-card">
+        <header>Vorderseite</header>
+        <p class="help-card-main">Handfläche</p>
+        <p class="card-sentence">„Sie kann aus der <mark>Handfläche</mark> lesen.“</p>
+      </article>
+      <article class="help-card">
+        <header>Rückseite</header>
+        <p class="help-card-main">palm 🔊</p>
+        <p class="card-sentence">„She can read from her <mark>palm</mark>.“</p>
+        <p class="muted"><small>Du lernst auch: palm → Palme</small></p>
+        <p class="muted"><small>Pranke · leicht · hell <u>+3</u></small></p>
+      </article>
+    </div>
+    <ul>
+      <li>Jede Seite hat ein großes Wort und darunter einen Satz in derselben Sprache, in dem das Wort markiert ist. Der Satz verrät dir die Bedeutung (palm: Hand oder Baum?) und zeigt die Form des Wortes.</li>
+      <li>In der Richtung Fremdsprache → Muttersprache steht der englische Satz vorne und seine Übersetzung hinten. In der Richtung Muttersprache → Fremdsprache ist es umgekehrt: vorne <em>„Ich bin <strong>froh</strong>, dass du gekommen bist.“</em>, hinten <em>„I'm <strong>glad</strong> you came.“</em> Bewerte dich nach dem Wort; den ganzen Satz musst du nicht übersetzen.</li>
+      <li>Wenn der Satz keine Übersetzung hat, zeigt die Vorderseite in der Richtung Muttersprache → Fremdsprache den englischen Satz mit einer Lücke statt des Wortes, und die Rückseite zeigt ihn vollständig.</li>
+      <li>Wenn die Vokabel in mehreren Wörterbüchern des Tests steht, wechselt der Satz jedes Mal.</li>
+      <li><em>„hallo“ ist auch: hello</em>: Eine andere Vokabel hat dieselbe Übersetzung.</li>
+      <li><em>„She can read from her palm.“ 🔊</em>: Die Stimme des Browsers liest den Satz vor, wenn du auf 🔊 klickst oder <kbd>V</kbd> drückst. In der Richtung Fremdsprache → Muttersprache sofort, in der Richtung Muttersprache → Fremdsprache erst, nachdem du die Karte umgedreht hast (sonst würde er die Antwort verraten).</li>
+      <li>Wie die <em>Stimme des Browsers</em> klingt, hängt von deinem Gerät ab: gut auf Android, Windows, Mac und in Chrome unter Linux, roboterhaft oder gar nicht in Firefox unter Linux. Wenn der Browser überhaupt nicht sprechen kann, wird 🔊 nicht angezeigt.</li>
+      <li><em>palm 🔊</em>: Aussprache des Wortes in der Fremdsprache. Das graue 🔊 steht am rechten Rand der Karte, in der Zeile des Wortes in der Fremdsprache. Klick auf 🔊 oder drück <kbd>P</kbd>, und die <strong>Stimme des Browsers</strong> liest das Wort vor; in der Richtung Fremdsprache → Muttersprache ist 🔊 sofort sichtbar, in der Richtung Muttersprache → Fremdsprache nach dem Umdrehen. In den <a href="{% url 'settings_tab' 'card' %}">Einstellungen</a> kannst du einschalten, dass das Wort oder der ganze Satz automatisch vorgelesen wird. Wenn du IPA lesen kannst, kannst du in den <a href="{% url 'settings_tab' 'card' %}">Einstellungen</a> auch die Lautschrift aus dem Wörterbuch unter dem Wort einschalten, zum Beispiel <em>[pɑːm]</em>. In der Richtung Fremdsprache → Muttersprache erscheint sie sofort, in der Richtung Muttersprache → Fremdsprache nach dem Umdrehen.</li>
+      <li><em>Du lernst auch</em>: eine andere Vokabel von dir mit demselben Wort in der Fremdsprache, aber einer anderen Übersetzung (<code>palm → Palme</code>).</li>
+      <li><em>Pranke · leicht · hell +3</em>: ganz unten, in kleinerer Schrift, weitere Bedeutungen des Wortes in der Fremdsprache aus dem Wörterbuch der App. Nur die erste Variante jeder Bedeutung. Es werden so viele gezeigt, wie in eine Zeile passen, und ein Klick auf <em>+3</em> zeigt den Rest. Alle, mit allen Varianten, stehen in den Details der Vokabel. Du kannst das in den <a href="{% url 'settings_tab' 'card' %}">Einstellungen</a> ausschalten.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Bewertungen und Intervalle</h2>
+    <p>Nachdem du die Karte umgedreht hast, bewerte, wie gut du die Vokabel kannst. Wann die Vokabel nach jeder Bewertung wiederkommt, wird unter den Schaltflächen standardmäßig nicht gezeigt; schalte es in den <a href="{% url 'settings_tab' 'card' %}">Einstellungen</a> › Karte › <em>Zeigen, wann die Vokabel wiederkommt</em> ein.</p>
+    <div class="overflow-auto"><table>
+      <thead>
+        <tr><th>Schaltfläche</th><th>Taste</th><th>Beim ersten Mal</th><th>Weitere Wiederholungen</th></tr>
+      </thead>
+      <tbody>
+        {% for rating in ratings %}
+          <tr>
+            <td><span aria-hidden="true">{{ rating.emoji }}</span> {{ rating.label }}</td>
+            <td><kbd>{{ rating.hotkey }}</kbd></td>
+            <td>{{ rating.min_interval|interval }}</td>
+            <td>
+              {% if rating.multiplier %}
+                vorheriges Intervall × {{ rating.multiplier|floatformat:"-1" }}
+              {% else %}
+                immer {{ rating.min_interval|interval }}
+              {% endif %}
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table></div>
+    <ul>
+      <li>Das Intervall wächst mit jeder guten Antwort, bis zu <strong>{{ max_interval|interval }}</strong>. Zum Beispiel immer 😎: 7 Tage → 28 → 112 → 1 Jahr.</li>
+      <li>Nach 😕 oder 😵 wächst es wieder von vorne.</li>
+      <li>Intervalle von einem Tag oder mehr werden auf ganze Tage gerundet.</li>
+      <li>Unter jedem Emoji siehst du das <strong>tatsächliche nächste Intervall</strong> genau dieser Karte.</li>
+      <li>Die Bewertung gilt in allen Wörterbüchern, in denen die Vokabel steht.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Bedienung</h2>
+    <div class="overflow-auto"><table>
+      <tbody>
+        <tr><td><kbd>Leertaste</kbd></td><td>dreht die Karte um</td></tr>
+        <tr><td><kbd>1</kbd> – <kbd>4</kbd></td><td>bewertet die Karte (😎 🤔 😕 😵)</td></tr>
+        <tr><td><kbd>P</kbd></td><td>spielt die Aussprache ab (in der Richtung Muttersprache → Fremdsprache nach dem Umdrehen)</td></tr>
+        <tr><td><kbd>V</kbd></td><td>liest den Satz vor (in der Richtung Muttersprache → Fremdsprache nach dem Umdrehen)</td></tr>
+        <tr><td><strong>?</strong> unter der Karte</td><td>öffnet das Fenster <em>So funktioniert der Test</em> (wie es funktioniert und was die Smileys bedeuten); beim ersten Test öffnet es sich von selbst, nach <em>Verstanden</em> nur noch über <strong>?</strong> (das wird in deinem Konto gespeichert, gilt also auf allen Geräten)</td></tr>
+        <tr><td><strong>✎</strong> unter der Karte oder <kbd>E</kbd></td><td>öffnet die Bearbeitung der Vokabel (ein Tippfehler, eine falsche Übersetzung); die Schaltfläche <em>Speichern und zurück zum Test</em> oder <em>Ohne Speichern zurück zum Test</em> bringt dich zur selben Karte zurück. Die Karte ist noch nicht bewertet, also wird nichts doppelt gezählt. Änderungen an Varianten und Notiz gelten in allen Wörterbüchern, in denen die Vokabel steht.</td></tr>
+        <tr><td><strong>⚐</strong> unter der Karte</td><td>meldet einen Fehler im Wörterbuch der App: <em>Fehler in der vorgeschlagenen Übersetzung</em>, <em>Fehler im vorgeschlagenen Satz</em> oder <em>Etwas anderes</em>, mit einer optionalen Notiz. Danach bringt es dich zur selben Karte zurück. Die Meldung hilft, das Wörterbuch der App zu verbessern; deine Vokabel ändert sich dadurch nicht (korrigier sie mit ✎).</td></tr>
+        <tr><td><strong>Test beenden</strong></td><td>beendet den Test und zeigt die Zusammenfassung</td></tr>
+      </tbody>
+    </table></div>
+    <p>Auf dem Handy einfach tippen. Die nächste Karte lädt, ohne dass die Seite neu geladen wird.</p>
+  </section>
+
+  <section>
+    <h2>Reihenfolge der Karten</h2>
+    <ul>
+      <li>Zuerst die fälligen Karten, dann neue Vokabeln. In beiden Gruppen ist die Reihenfolge <strong>zufällig</strong>, in jedem Test anders. So liegen beide Richtungen derselben Vokabel meist weit auseinander, und du weißt die zweite Richtung nicht nur deshalb, weil du sie von eben noch im Kopf hast.</li>
+      <li>Dieselbe Vokabel in der anderen Richtung oder eine andere Bedeutung desselben Wortes (palm / palm) kommt nie direkt danach.</li>
+      <li>Eine mit 😵 bewertete Karte kommt im selben Test nach 10 Minuten wieder.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Zusammenfassung</h2>
+    <p>
+      Am Ende siehst du die Anzahl jeder Bewertung und die Vokabeln, die mit 😕 oder 😵 bewertet wurden.
+      <strong>Falsche nochmal üben</strong> startet einen neuen Test nur mit diesen Vokabeln.
+    </p>
+    <p>
+      <strong>✍️ Diese Vokabel bleibt nicht hängen:</strong> Wenn im Test eine Vokabel ist, die über längere Zeit immer wieder danebengeht
+      (mindestens die Hälfte der letzten 8 Antworten falsch, 😕 zählt halb) und noch keinen Satz hat,
+      wird dafür ein Formular angeboten: Schreib einen Satz unter das Wort in der Fremdsprache und seine Übersetzung unter das Wort in deiner Sprache.
+      Über dem Formular stehen <strong>farbige Punkte</strong> der letzten Antworten für jede Richtung
+      (<em>EN → DE</em>, <em>DE → EN</em>), die älteste links: Du siehst sofort, in welcher Richtung die Vokabel danebengeht
+      und ob es besser wird. Gezeigt werden die letzten 8, ältere verstecken sich hinter <em>+N</em> (fahr mit der Maus darüber, um zu sehen, wie sie ausgingen);
+      ein Klick darauf zeigt bis zu 30 Punkte, weitere stehen in den Details der Vokabel.
+      Eine Vokabel in einem Satz lernt sich leichter. Wenn das Wörterbuch ein Beispiel für diese Bedeutung hat,
+      wird es mit einer Schaltfläche <strong>Übernehmen</strong> gezeigt (sie füllt den Satz und seine Übersetzung aus). <strong>Nicht jetzt</strong> blendet das Formular aus;
+      die Vokabel kann nach einem weiteren Test wieder angeboten werden. Eine Vokabel, die du kannst und einmal vergisst, wird nicht angeboten.
+    </p>
+    <p class="muted">
+      Zu jeder Antwort speichert die App für die Statistik auch deine Bedenkzeit (bis du die Karte umdrehst).
+      Wenn du dein Handy sperrst oder zu einer anderen App wechselst, hält die Zeit an.
+    </p>
+  </section>
+{% endblock %}

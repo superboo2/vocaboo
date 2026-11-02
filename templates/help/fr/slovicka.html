@@ -1,0 +1,200 @@
+{% extends "help/base_help.html" %}
+
+{% block help %}
+  <section>
+    <h2>Ajouter un mot</h2>
+    <p>Tu ajoutes les mots sur la page de détail du dictionnaire. Seuls les deux premiers champs sont obligatoires :</p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Champ</th><th>Exemple</th><th>Remarque</th></tr></thead>
+      <tbody>
+        <tr><td>langue étrangère</td><td><code>hello; hi</code></td><td>sépare plusieurs variantes par un point-virgule</td></tr>
+        <tr><td>ta langue</td><td><code>salut; coucou</code></td><td>pareil ici</td></tr>
+        <tr><td>Phrase</td><td><code>Hello, kids.</code></td><td>sous le bouton <em>+ phrase, note</em>, là où le mot est apparu (sous le mot étranger)</td></tr>
+        <tr><td>Traduction de la phrase</td><td><code>Salut, les enfants.</code></td><td>même endroit, facultative, t'aide à comprendre la phrase (sous la traduction). Tu peux marquer le mot avec des accolades : <code>Il s'est {enfui}.</code></td></tr>
+        <tr><td>Note</td><td></td><td>même endroit, tout ce que tu veux en plus</td></tr>
+      </tbody>
+    </table></div>
+    <p>
+      N'écris la saison ou l'épisode nulle part, c'est le dictionnaire qui le dit : ajoute les mots du premier épisode au dictionnaire
+      <em>Series 1 › Episode 1</em>.
+    </p>
+    <p>
+      <strong>Entrée</strong> envoie le formulaire (comme le bouton <em>Ajouter le mot</em>, qui affiche
+      <em>Ajout…</em> pendant l'envoi). Ensuite, le formulaire se vide et le curseur revient au premier champ,
+      pour que tu puisses taper le mot suivant tout de suite. Tu sais que le mot a été ajouté grâce à la ligne
+      <em>✓ Ajouté : mot → traduction</em> au-dessus des champs (tu vois donc tout de suite une faute de frappe dans la traduction), qui s'allume pendant 2 secondes. Si le mot reste dans les
+      champs et que rien ne s'est allumé, il n'a pas été ajouté.
+    </p>
+  </section>
+
+  <section>
+    <h2>Recherche</h2>
+    <p>Sur l'accueil, dans l'onglet <em>Dictionnaires</em>, il y a une barre claire <strong>Chercher des mots…</strong> au-dessus de l'arborescence : clique dessus (sur un ordinateur, tu peux aussi appuyer sur <kbd>/</kbd>) et tape, les résultats s'affichent juste en dessous.</p>
+    <ul>
+      <li>La recherche porte sur tous tes dictionnaires : le mot étranger et la traduction (toutes les variantes), la phrase et sa traduction, et la note.</li>
+      <li>Les accents et les majuscules ne comptent pas : « elephant » trouve aussi « Éléphant ». Les résultats s'affichent pendant que tu tapes, dès 2 lettres.</li>
+      <li>D'abord viennent les mots dont le mot ou la traduction correspond, puis ceux où le texte se trouve dans la phrase ou la note (la phrase est affichée sous le mot). La correspondance est mise en évidence.</li>
+      <li>Chaque mot montre dans quels dictionnaires il se trouve (les 3 derniers niveaux du chemin, le chemin complet au survol). Clique sur un mot pour ouvrir son détail, sur ✎ pour le modifier tout de suite.</li>
+      <li>Au plus 50 résultats sont affichés.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>En attente</h2>
+    <p>Tu regardes un film, tu entends un mot, tu ne sais pas ce qu'il veut dire et les suggestions ne le connaissent pas non plus ? Garde-le <strong>sans traduction</strong> et reviens-y plus tard :</p>
+    <ul>
+      <li><strong>Dans un dictionnaire :</strong> tape le mot étranger (et éventuellement une phrase et une note, p. ex. la série et l'épisode). Quand les suggestions ne connaissent pas le mot tapé, leur ligne affiche <em>Les suggestions ne connaissent pas ce mot · <strong>📝 Garder pour plus tard</strong></em>. Touche-le et le mot est enregistré sans traduction.</li>
+      <li>Les mots en attente <strong>ne sont pas dans les tests</strong>, ni dans les nombres de l'arborescence et des statistiques, tant qu'ils n'ont pas de traduction.</li>
+      <li>En haut de l'accueil, il y a une petite carte <em>📝 3 · mots pour plus tard attendent une traduction ›</em> ; un clic n'importe où dessus ouvre la liste. Sur la page du dictionnaire, sous le formulaire, il y a une plus grande carte <em>« 3 mots attendent une traduction »</em> avec les deux premiers mots et le lien <em>Compléter</em> ; les deux mots sont des liens qui remplissent le formulaire. Sur la page <strong>En attente</strong>, touche un mot : son dictionnaire s'ouvre avec le formulaire habituel, le mot, la phrase et la note sont remplis (le champ du mot s'allume un instant) et le curseur attend dans la traduction. Si le dictionnaire de l'appli connaît le mot d'ici là, les suggestions s'affichent tout de suite. Après <em>Ajouter le mot</em>, le mot est dans le dictionnaire (et vient dans les tests), il quitte la liste et le lien <em>Suivant en attente</em> t'emmène au suivant.</li>
+      <li>Les mots que les suggestions ne connaissent pas vont dans la prochaine extension du dictionnaire de l'appli.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Mots d'un thème</h2>
+    <p>Idéal quand tu n'as pas le temps de chercher et de noter des mots, ou que tu ne sais pas par où commencer : clique sur <strong>+ Depuis un thème</strong> à côté du titre <em>Nouveau mot</em> sur la page du dictionnaire (seulement quand le dictionnaire de l'appli a assez de mots dans les deux langues du dictionnaire : aujourd'hui l'anglais, le tchèque, l'espagnol et l'ukrainien, p. ex. anglais → tchèque). Choisis un thème (par exemple <em>Nature › Animaux</em>, ou tout un groupe <em>Nature (tout)</em>), des niveaux (A1–C2, A1–B1 par défaut) et des parties du discours (noms, verbes, adjectifs, autres ; toutes par défaut — pour un dictionnaire <em>Animaux</em>, peut-être seulement les noms) et clique sur <em>Afficher les mots</em>. Tu vois les mots les plus courants du thème avec une traduction et une phrase, 20 par page.</p>
+    <ul>
+      <li>Coche ceux que tu veux apprendre et clique sur <strong>+ Ajouter les mots cochés</strong>. Ils sont ajoutés au dictionnaire comme tes propres mots, avec la phrase et sa traduction ; tu peux ensuite les modifier comme n'importe quel autre. Tu restes sur la même page et les mots ajoutés en disparaissent.</li>
+      <li>Les mots que tu as déjà dans ce dictionnaire ne sont pas proposés. Ceux que tu as dans un autre dictionnaire sont masqués, donc un deuxième dictionnaire du même thème commence avec de nouveaux mots ; au-dessus de la liste, tu vois combien de mots a le thème, combien d'entre eux sont déjà dans tes autres dictionnaires et dans celui-ci, et un lien <em>Les afficher</em> (ils sont alors grisés avec le nom du dictionnaire et ne peuvent pas être cochés).</li>
+      <li><em>Tout sélectionner sur cette page</em> coche les 20 d'un coup ; tu peux ensuite décocher ce que tu ne veux pas. Le bouton indique combien sont cochés.</li>
+      <li>Nous recommandons des dictionnaires plus petits d'environ 20 mots : ils sont plus faciles à apprendre. Ajoute les suivants quand tu connais ceux-là. Tu ne peux pas ajouter plus d'une page à la fois.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Suggestions de traduction</h2>
+    <p>
+      Quand tu tapes un mot étranger, des <strong>suggestions de traduction</strong> s'affichent sous le champ de la traduction
+      avec l'abréviation de la partie du discours, par exemple <code>present</code> → <em>présent</em> (n.),
+      <em>cadeau</em> (n.), <em>présenter</em> (v.). Si elles ne tiennent pas sur une ligne, elles continuent sur la suivante.
+      Clique sur une suggestion pour la mettre dans le champ de la traduction et la ligne se vide, puis appuie simplement sur Entrée. Quand le dictionnaire de l'appli a une phrase pour ce sens, il remplit aussi la <strong>phrase</strong> avec sa traduction (seulement s'il n'y a pas encore de phrase) et tu la vois sous le bouton <em>Ajouter le mot</em>, par exemple <em>« Let's take the elevator. » · Prenons l'ascenseur.</em> Clique sur <em>modifier</em> pour l'ouvrir et la changer ou la supprimer, <em>terminé</em> la referme. Sans phrase ni note, tu vois là <em>+ phrase, note</em>.
+    </p>
+    <ul>
+      <li>Les suggestions viennent du propre dictionnaire anglais–tchèque de l'appli (environ 10 000 des mots et expressions les plus courants, triés par fréquence). Pour les autres mots, rien ne s'affiche et tu écris la traduction à la main. Il n'y a pas encore de dictionnaire pour l'espagnol.</li>
+      <li>Tu peux modifier une suggestion après l'avoir insérée, rien n'est enregistré tout seul.</li>
+      <li>Si tu changes le mot étranger après avoir choisi une suggestion, la phrase remplie par la suggestion disparaît, car elle appartenait au mot précédent. Ta propre phrase (écrite ou modifiée) n'est pas supprimée.</li>
+      <li>Les suggestions s'affichent aussi quand tu <strong>modifies un mot</strong> (même pendant un test avec ✎), tout de suite pour le mot du formulaire. Un clic sur une suggestion remplace la traduction et ne remplit la phrase que dans les champs vides.</li>
+      <li>Si tu ne veux pas de suggestions, désactive-les dans les <a href="{% url 'settings' %}">Réglages</a> (<em>Appli › Proposer des traductions</em>).</li>
+      <li>Seul le sens que tu choisis est enregistré. Tu verras les autres sens du dictionnaire de l'appli au verso de la carte et dans le détail du mot.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Variantes (synonymes)</h2>
+    <p>
+      <code>hello; hi</code> ↔ <code>salut; coucou</code> est un seul mot avec deux variantes de chaque côté.
+      Dans un test, n'importe laquelle est correcte.
+    </p>
+    <p>
+      Les variantes signifient que <strong>chacune à gauche correspond à chacune à droite</strong>. Si ce n'est pas le cas,
+      mieux vaut faire deux mots séparés. Par exemple <code>hi</code> ≠ <code>bonjour</code>, donc :
+      <code>hello → bonjour; salut</code> et <code>hi → salut; coucou</code> (familier).
+    </p>
+  </section>
+
+  <section>
+    <h2>Phrase</h2>
+    <p>Écris la phrase normalement, l'appli y trouve le mot toute seule et le met en évidence :</p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Tu tapes</th><th>Ce qui se passe</th></tr></thead>
+      <tbody>
+        <tr><td><code>She can read from her palm.</code></td><td>le mot <code>palm</code> est trouvé automatiquement, <strong>le cas habituel</strong></td></tr>
+        <tr><td><code>She has small {palms}.</code></td><td>marque un mot sous une <strong>autre forme</strong> avec des accolades, sinon il n'est pas trouvé</td></tr>
+        <tr><td><code>He {ran} away.</code></td><td>pour le mot <code>run</code> : le passé entre accolades</td></tr>
+        <tr><td><code>She can read from her {}.</code></td><td>accolades vides = le mot du premier champ (<code>palm</code>)</td></tr>
+      </tbody>
+    </table></div>
+    <p>Les accolades ne sont jamais affichées. Dans un test, la phrase ressemble à ceci :</p>
+    <div class="grid">
+      <article class="help-card">
+        <header>palm → ?</header>
+        <p class="help-card-main">palm</p>
+        <p class="card-sentence">« She can read from her <mark>palm</mark>. »</p>
+      </article>
+      <article class="help-card">
+        <header>paume → ?</header>
+        <p class="help-card-main">paume</p>
+        <p class="card-sentence">« She can read from her <span class="cloze">___</span>. »</p>
+      </article>
+    </div>
+    <p>
+      Dans le sens depuis ta langue, la phrase entière trahirait la réponse, donc le recto la montre avec un trou.
+      La phrase complète est au verso. Si le mot ne peut pas être trouvé dans la phrase, la phrase n'est qu'au verso.
+    </p>
+  </section>
+
+  <section>
+    <h2>Plusieurs sens (palm, present)</h2>
+    <p>
+      Chaque sens est un <strong>mot séparé</strong>. L'appli les distingue par la traduction, tu n'as besoin
+      de rien remplir d'autre :
+    </p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Étranger</th><th>Traduction</th><th>Phrase</th></tr></thead>
+      <tbody>
+        <tr><td>palm</td><td>paume</td><td><code>She read my palm.</code></td></tr>
+        <tr><td>palm</td><td>palmier</td><td><code>A tall palm on the beach.</code></td></tr>
+        <tr><td>present</td><td>cadeau</td><td><code>I bought her a present.</code></td></tr>
+        <tr><td>present</td><td>présent</td><td><code>Live in the present.</code></td></tr>
+        <tr><td>present</td><td>présenter</td><td><code>He {presented} the project.</code></td></tr>
+      </tbody>
+    </table></div>
+    <ul>
+      <li>Le même mot étranger avec la <strong>même traduction</strong> est un doublon. Avec une <strong>autre traduction</strong>, c'est un autre sens et il est enregistré.</li>
+      <li>Dans le test <code>palm → ?</code>, la phrase aide. Sans phrase, tu vois <em>(2 sens)</em> sous le mot, tu sais donc qu'il y a un choix.</li>
+      <li>Les <strong>Autres sens</strong> du dictionnaire de l'appli et tes autres mots avec le même mot sont au verso de la carte et dans le détail du mot. Là, les sens du dictionnaire de l'appli ont un bouton <strong>+ Apprendre aussi ce sens</strong>.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Contrôle des doublons</h2>
+    <p>Pendant que tu tapes, l'appli cherche les mots que tu as déjà et propose quoi en faire :</p>
+    <div class="overflow-auto"><table>
+      <thead><tr><th>Tu tapes</th><th>Tu as déjà</th><th>Elle propose</th></tr></thead>
+      <tbody>
+        <tr><td><code>hello</code> dans Big Bang Theory</td><td><code>hello → salut</code> dans HIMYM</td><td><strong>Ajouter aussi ici</strong> (un mot dans deux dictionnaires)</td></tr>
+        <tr><td><code>hello; hi</code></td><td><code>hello → salut</code></td><td>la même chose, et <code>hi</code> est ajouté comme nouvelle variante</td></tr>
+        <tr><td><code>hey → salut</code></td><td><code>hello → salut</code></td><td><strong>Ajouter « hey » comme variante de « hello »</strong>, ou l'enregistrer à part</td></tr>
+        <tr><td><code>palm → palmier</code></td><td><code>palm → paume</code></td><td>un avis sur une autre traduction : même sens (ajouter comme variante), ou autre sens (enregistrer simplement)</td></tr>
+        <tr><td><code>cafe</code></td><td><code>café</code></td><td>juste un avis <em>Proches (sans accents)</em> ; <code>ou</code> et <code>où</code> sont des mots différents</td></tr>
+      </tbody>
+    </table></div>
+    <p>Le bouton <strong>Ajouter le mot</strong> est bloqué tant que l'enregistrement créerait un doublon.</p>
+  </section>
+
+  <section>
+    <h2>Un mot dans plusieurs dictionnaires</h2>
+    <p>
+      Le mot t'appartient, les dictionnaires ne font que pointer vers lui. Quand <code>hello</code> est dans 20 épisodes,
+      un test de toute la série le demande <strong>une fois</strong> et l'évaluation compte dans tous les dictionnaires.
+      Mais chaque dictionnaire garde sa propre phrase.
+    </p>
+  </section>
+
+  <section>
+    <h2>Modifier et retirer</h2>
+    <ul>
+      <li>Clique sur un mot de la liste pour ouvrir son détail, de là <strong>✎ Modifier</strong> (sous le mot et sa traduction, à côté de <strong>🔊 Écouter</strong>) ou, dans le menu <strong>⋯</strong>, <strong>Retirer de ce dictionnaire</strong>.</li>
+      <li>Les changements des variantes et de la note s'appliquent dans tous les dictionnaires, la phrase seulement dans celui-là.</li>
+      <li><strong>Déplacer</strong> (dans le menu ⋯ du détail du mot) le déplace vers un autre dictionnaire.</li>
+      <li><strong>Signaler une erreur</strong> (dans le menu ⋯ du détail du mot) : quand une traduction ou une phrase des suggestions est fausse, choisis <em>Traduction proposée fausse</em>, <em>Phrase proposée fausse</em> ou <em>Autre chose</em> et, si tu veux, écris une note, par exemple la bonne traduction. Le signalement aide à corriger le dictionnaire de l'appli ; ton mot ne change pas, corrige-le avec <strong>✎ Modifier</strong>. Quand le mot est déjà signalé, la page le dit et tu peux modifier le signalement. Tu peux aussi le signaler directement dans un test avec le bouton ⚐ sous la carte.</li>
+      <li>Retirer un mot d'un dictionnaire ne le supprime <strong>que là</strong>. Si c'était son dernier dictionnaire, il est supprimé complètement, avec son historique de révisions ; l'appli te prévient d'abord.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Déplacer plusieurs mots</h2>
+    <p>
+      Des mots ont atterri dans le mauvais dictionnaire, par exemple dans <em>Series 1</em> au lieu d'<em>Episode 1</em> ?
+    </p>
+    <ol>
+      <li>Dans la liste des mots, clique sur <strong>Sélectionner</strong> et des cases à cocher apparaissent (<em>Tout</em> les sélectionne toutes).</li>
+      <li>En bas, clique sur <strong>Déplacer…</strong> et choisis le dictionnaire cible. Seuls les dictionnaires avec les mêmes langues sont proposés.</li>
+      <li><strong>Déplacer</strong> déplace les mots, <strong>Ajouter aussi là-bas</strong> les garde dans les deux dictionnaires.</li>
+    </ol>
+    <p>
+      La phrase et la progression restent. Si le mot est déjà dans le dictionnaire cible, il n'est pas dupliqué,
+      seule sa phrase y est remplie si elle manquait.
+    </p>
+  </section>
+{% endblock %}

@@ -1,0 +1,90 @@
+{% extends "help/base_help.html" %}
+
+{% block help %}
+  <section>
+    <h2>Czym jest słowniczek</h2>
+    <p>
+      Słowniczek to folder ze słówkami. Słowniczki można zagnieżdżać, więc możesz zbudować drzewo według tego, skąd
+      pochodzą twoje słówka, na przykład według serialu, sezonu i odcinka:
+    </p>
+    <pre class="help-tree">📂 Angielski (EN → PL)
+   📂 Two and half men
+      📂 Series 1
+         📄 Episode 1
+         📄 Episode 2
+📄 Hiszpański (ES → PL)</pre>
+    <ul>
+      <li>Drzewo może mieć najwyżej <strong>{{ max_depth }} poziomów</strong>.</li>
+      <li>Każdy słowniczek może mieć jednocześnie słówka i podsłowniczki.</li>
+      <li>Nazwa musi być niepowtarzalna w obrębie jednego folderu, a wielkość liter nie ma znaczenia (<code>HIMYM</code> = <code>himym</code>).</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Nowy słowniczek i języki</h2>
+    <ol>
+      <li>Na <a href="{% url 'dashboard' %}">Przeglądzie</a> kliknij <strong>+ Nowy słowniczek</strong>.</li>
+      <li>Wpisz nazwę i wybierz języki:
+        <ul>
+          <li><strong>Chcę się uczyć</strong>: język słówek, np. angielski. Do wyboru są czeski, angielski, francuski, niemiecki, włoski, polski, rosyjski, hiszpański i ukraiński; podpowiedzi tłumaczeń ze słownika aplikacji są na razie tylko dla niektórych z nich (zobacz Słówka),</li>
+          <li><strong>Mój język</strong>: język, na który tłumaczysz słówka, np. polski. Wypełniony jest język twojego ostatniego nowego słowniczka (na początku język wybrany przy rejestracji).</li>
+        </ul>
+      </li>
+    </ol>
+    <p>
+      Parę języków ma tylko słowniczek najwyższego poziomu, jest pokazana obok jego nazwy, np. <code>(EN → PL)</code>.
+      Podsłowniczki ją dziedziczą i nie da się jej później zmienić.
+    </p>
+    <p>
+      Żeby dodać <strong>podsłowniczek</strong>, otwórz słowniczek i kliknij <strong>+ Nowy</strong> obok nagłówka <em>Podsłowniczki</em>.
+    </p>
+  </section>
+
+  <section>
+    <h2>Drzewo na Przeglądzie</h2>
+    <div class="overflow-auto"><table>
+      <tbody>
+        <tr><td>📂 / 📁</td><td>słowniczek z podsłowniczkami, otwarty / zamknięty</td></tr>
+        <tr><td>📄</td><td>słowniczek bez podsłowniczków</td></tr>
+        <tr><td>kliknięcie ikony lub wiersza</td><td>zwija lub rozwija folder; przeglądarka pamięta, jak foldery zostały ustawione, więc drzewo wygląda tak samo po teście czy na innej stronie (każde urządzenie pamięta to osobno). Foldery jeszcze nieruszane mają otwarty pierwszy poziom, a głębsze zamknięte. Gdy przeciągasz słowniczek i przytrzymasz go nad zamkniętym folderem, folder po chwili się otworzy</td></tr>
+        <tr><td>kliknięcie nazwy</td><td>otwiera słowniczek</td></tr>
+        <tr><td>liczba po prawej</td><td>liczba słówek łącznie z podsłowniczkami; słówko, które jest w kilku słowniczkach, liczy się raz</td></tr>
+        <tr><td><strong>N do powtórki</strong></td><td>ile słówek jest właśnie do powtórki</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section>
+    <h2>Przenoszenie przeciąganiem</h2>
+    <p><strong>Żeby przenieść słowniczek na Przeglądzie, przeciągnij go. Na telefonie najpierw przytrzymaj go chwilę.</strong></p>
+    <p>Chwyć słowniczek i przeciągnij. Wiersze się nie przesuwają w trakcie przeciągania; widzisz tylko, gdzie słowniczek wyląduje:</p>
+    <ul>
+      <li><strong>na środek wiersza</strong>: wiersz się podświetli, a słowniczek trafi <strong>do środka</strong>, nawet do słowniczka, który jeszcze nie ma podsłowniczków,</li>
+      <li><strong>przy górnej lub dolnej krawędzi wiersza</strong>: pojawi się linia, a słowniczek stanie <strong>przed lub za</strong> nim. Tak zmieniasz kolejność, a także przenosisz słowniczek na najwyższy poziom.</li>
+    </ul>
+    <p>
+      Myszą po prostu przeciągnij. <strong>Na telefonie najpierw przytrzymaj słowniczek chwilę</strong>, potem przeciągnij.
+      Szybkie przesunięcie palcem tylko przewija stronę.
+    </p>
+    <p>Przeniesienie zapisuje się, gdy tylko puścisz. Nie jest możliwe, gdy:</p>
+    <ul>
+      <li>docelowy folder ma inne języki,</li>
+      <li>słowniczek trafiłby do samego siebie albo do któregoś ze swoich podsłowniczków,</li>
+      <li>drzewo miałoby więcej niż {{ max_depth }} poziomów,</li>
+      <li>docelowy folder ma już słowniczek o tej samej nazwie.</li>
+    </ul>
+    <p>Wtedy słowniczek wraca na swoje miejsce, a powód pokazuje się nad drzewem.</p>
+  </section>
+
+  <section>
+    <h2>Więcej możliwości na stronie słowniczka</h2>
+    <ul>
+      <li><strong>▶︎ Ćwicz słowniczek</strong>: od razu uruchamia test, tylko z tego słowniczka i jego podsłowniczków. Pod nim jest <em>Ustaw</em> (który kierunek, które fiszki i ile), zobacz pomoc do testu.</li>
+      <li><strong>⋯</strong> obok nazwy słowniczka otwiera menu: <strong>Edytuj nazwę i opis</strong>, <strong>Przenieś</strong> i <strong>Usuń</strong>.</li>
+      <li><strong>Edytuj nazwę i opis</strong>: nazwa i opis.</li>
+      <li><strong>Przenieś</strong>: przeniesienie przez wybór z listy; proponowane są tylko miejsca, do których słowniczek może trafić. Przydaje się też, jeśli używasz klawiatury.</li>
+      <li><strong>Strzałki ↑ ↓</strong> obok podsłowniczków: zmiana kolejności bez przeciągania.</li>
+      <li><strong>Usuń</strong>: usuwa słowniczek <strong>i jego podsłowniczki</strong> oraz słówka, które nie są w żadnym innym słowniczku. Słówka, które są też gdzie indziej, zostają. Przed usunięciem widzisz, ile czego zostanie usunięte.</li>
+    </ul>
+  </section>
+{% endblock %}

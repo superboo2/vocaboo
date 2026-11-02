@@ -211,13 +211,19 @@ class RegistrationForm(forms.Form):
         label="",
     )
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args, language_codes=(), **kwargs):
+        """language_codes: the likely languages of the user, the best first (the view takes
+        them from the browser); the first one in the table of languages is filled in, else the
+        language of the page."""
         super().__init__(*args, **kwargs)
         if not settings.REGISTRATION_CODE:
             del self.fields["invitation"]
-        self.fields["native_language"].initial = Language.objects.filter(
-            code=get_language()
-        ).first()
+        codes = [*language_codes, get_language()]
+        found = Language.objects.filter(code__in=codes)
+        languages = {language.code: language for language in found}
+        self.fields["native_language"].initial = next(
+            (languages[code] for code in codes if code in languages), None
+        )
 
     def clean_email(self):
         return User.objects.normalize_email(self.cleaned_data["email"]).lower()
