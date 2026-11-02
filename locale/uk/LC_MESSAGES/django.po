@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-02 15:23+0100\n"
+"POT-Creation-Date: 2026-11-02 22:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -226,6 +226,9 @@ msgstr "показувати, коли слово з’явиться знову
 
 msgid "has seen the help of the test"
 msgstr "довідку тесту вже показано"
+
+msgid "has seen the guide"
+msgstr "знайомство вже показано"
 
 msgid "app language"
 msgstr "мова застосунку"
@@ -1605,6 +1608,91 @@ msgctxt "pronunciation"
 msgid "Play"
 msgstr "Відтворити"
 
+msgid "Guide"
+msgstr "Знайомство"
+
+msgid "Vocaboo on the home screen"
+msgstr "Vocaboo на головний екран"
+
+#, python-format
+msgid ""
+"Tap <strong>%(install)s</strong>. You can also do it later: profile <span "
+"class=\"tutorial-avatar\">%(letter)s</span> › "
+"<strong>%(settings_name)s</strong> › <strong>%(app_name)s</strong>."
+msgstr ""
+"Торкнися <strong>%(install)s</strong>. Пізніше це можна зробити й через "
+"профіль <span class=\"tutorial-avatar\">%(letter)s</span> › "
+"<strong>%(settings_name)s</strong> › <strong>%(app_name)s</strong>."
+
+msgid "You add words in a deck"
+msgstr "Слова додаються у словнику"
+
+msgid "New word"
+msgstr "Нове слово"
+
+msgctxt "deck"
+msgid "New"
+msgstr "Новий"
+
+#, python-format
+msgid ""
+"Tap a deck and you find the form <strong>%(new_word)s</strong> at the top. A"
+" new deck is added on the overview with "
+"<strong>+&nbsp;%(new_deck)s</strong>. You can <strong>drag</strong> a deck "
+"elsewhere, also into another deck (on a phone, hold it for a moment first)."
+msgstr ""
+"Торкнися словника — угорі буде форма <strong>%(new_word)s</strong>. Новий "
+"словник додається на головній кнопкою <strong>+ %(new_deck)s</strong>. "
+"Словник можна <strong>перетягнути</strong> в інше місце, зокрема в інший "
+"словник (на телефоні спершу трохи потримай його)."
+
+msgid "Practising"
+msgstr "Тренування"
+
+msgid "at the top of every page"
+msgstr "угорі на кожній сторінці"
+
+#, python-format
+msgid "%(counter)s card"
+msgid_plural "%(counter)s cards"
+msgstr[0] "%(counter)s картка"
+msgstr[1] "%(counter)s картки"
+msgstr[2] "%(counter)s карток"
+msgstr[3] "%(counter)s картки"
+
+msgid "Set up"
+msgstr "Налаштувати"
+
+#, python-format
+msgid ""
+"The button at the top practises a few words from your decks. How many and "
+"from which decks, you set in profile <span class=\"tutorial-"
+"avatar\">%(letter)s</span> › <strong>%(settings_name)s</strong> › "
+"<strong>%(practice_name)s</strong>. The button in a deck practises only that"
+" deck; set it up with <strong>%(set_up)s</strong> next to it."
+msgstr ""
+"Кнопка вгорі тренує кілька слів із твоїх словників. Скільки й з яких "
+"словників, налаштуєш через профіль <span class=\"tutorial-"
+"avatar\">%(letter)s</span> › <strong>%(settings_name)s</strong> › "
+"<strong>%(practice_name)s</strong>. Кнопка у словнику тренує лише цей "
+"словник; налаштуєш її через <strong>%(set_up)s</strong> поруч."
+
+msgctxt "guide"
+msgid "Skip"
+msgstr "Пропустити"
+
+msgctxt "guide"
+msgid "Back"
+msgstr "Назад"
+
+msgctxt "guide"
+msgid "Start"
+msgstr "Почати"
+
+msgctxt "guide"
+msgid "Next"
+msgstr "Далі"
+
 msgid "Skip to content"
 msgstr "Перейти до вмісту"
 
@@ -1634,9 +1722,6 @@ msgstr "Вийти"
 
 msgid "Close"
 msgstr "Закрити"
-
-msgid "Vocaboo on the home screen"
-msgstr "Vocaboo на головний екран"
 
 msgid ""
 "Tap <strong>Share</strong> (the square with an arrow up). In Safari it is at"
@@ -1688,10 +1773,6 @@ msgstr "Що тобі не далося"
 
 msgid "yesterday"
 msgstr "учора"
-
-msgctxt "deck"
-msgid "New"
-msgstr "Новий"
 
 msgid "You have no decks yet. Start by creating one."
 msgstr "У тебе ще немає словників. Почни зі створення одного."
@@ -2243,22 +2324,8 @@ msgstr "Редагувати назву й опис"
 msgid "Move"
 msgstr "Перемістити"
 
-#, python-format
-msgid "%(counter)s card"
-msgid_plural "%(counter)s cards"
-msgstr[0] "%(counter)s картка"
-msgstr[1] "%(counter)s картки"
-msgstr[2] "%(counter)s карток"
-msgstr[3] "%(counter)s картки"
-
 msgid "nothing due, you practise the ones that don't stick"
 msgstr "нічого на повторення, потренуєш слова, які тобі не даються"
-
-msgid "Set up"
-msgstr "Налаштувати"
-
-msgid "New word"
-msgstr "Нове слово"
 
 msgid "From a topic"
 msgstr "З теми"

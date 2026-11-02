@@ -98,6 +98,8 @@ class User(AbstractUser):
     show_intervals = models.BooleanField(_("show when the word comes again"), default=False)
     # The help of the test screen opens by itself only until the user closes it once
     seen_test_help = models.BooleanField(_("has seen the help of the test"), default=False)
+    # The short guide on the overview opens by itself only until the user closes it once
+    seen_tutorial = models.BooleanField(_("has seen the guide"), default=False)
 
     # Language of the app (menus, buttons, help); empty = as the browser asks
     ui_language = models.CharField(

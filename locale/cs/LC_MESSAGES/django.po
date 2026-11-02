@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-02 15:23+0100\n"
+"POT-Creation-Date: 2026-11-02 22:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -224,6 +224,9 @@ msgstr "ukazovat, kdy slovíčko přijde znovu"
 
 msgid "has seen the help of the test"
 msgstr "nápověda testu už zobrazena"
+
+msgid "has seen the guide"
+msgstr "průvodce už zobrazen"
 
 msgid "app language"
 msgstr "jazyk aplikace"
@@ -1589,6 +1592,90 @@ msgctxt "pronunciation"
 msgid "Play"
 msgstr "Přehrát"
 
+msgid "Guide"
+msgstr "Průvodce"
+
+msgid "Vocaboo on the home screen"
+msgstr "Vocaboo na plochu"
+
+#, python-format
+msgid ""
+"Tap <strong>%(install)s</strong>. You can also do it later: profile <span "
+"class=\"tutorial-avatar\">%(letter)s</span> › "
+"<strong>%(settings_name)s</strong> › <strong>%(app_name)s</strong>."
+msgstr ""
+"Klepni na <strong>%(install)s</strong>. Později to najdeš i přes profil "
+"<span class=\"tutorial-avatar\">%(letter)s</span> › "
+"<strong>%(settings_name)s</strong> › <strong>%(app_name)s</strong>."
+
+msgid "You add words in a deck"
+msgstr "Slovíčka přidáváš ve slovníku"
+
+msgid "New word"
+msgstr "Nové slovíčko"
+
+msgctxt "deck"
+msgid "New"
+msgstr "Nový"
+
+#, python-format
+msgid ""
+"Tap a deck and you find the form <strong>%(new_word)s</strong> at the top. A"
+" new deck is added on the overview with "
+"<strong>+&nbsp;%(new_deck)s</strong>. You can <strong>drag</strong> a deck "
+"elsewhere, also into another deck (on a phone, hold it for a moment first)."
+msgstr ""
+"Klepni na slovník a nahoře najdeš formulář <strong>%(new_word)s</strong>. "
+"Nový slovník přidáš na přehledu přes <strong>+ %(new_deck)s</strong>. "
+"Slovník můžeš <strong>přetáhnout</strong> jinam, i do jiného slovníku (na "
+"telefonu ho nejdřív chvilku podrž)."
+
+msgid "Practising"
+msgstr "Procvičování"
+
+msgid "at the top of every page"
+msgstr "nahoře na každé stránce"
+
+#, python-format
+msgid "%(counter)s card"
+msgid_plural "%(counter)s cards"
+msgstr[0] "%(counter)s kartička"
+msgstr[1] "%(counter)s kartičky"
+msgstr[2] "%(counter)s kartiček"
+
+msgid "Set up"
+msgstr "Nastavit"
+
+#, python-format
+msgid ""
+"The button at the top practises a few words from your decks. How many and "
+"from which decks, you set in profile <span class=\"tutorial-"
+"avatar\">%(letter)s</span> › <strong>%(settings_name)s</strong> › "
+"<strong>%(practice_name)s</strong>. The button in a deck practises only that"
+" deck; set it up with <strong>%(set_up)s</strong> next to it."
+msgstr ""
+"Tlačítko nahoře procvičí několik slovíček z tvých slovníků. Kolik a ze "
+"kterých slovníků, nastavíš přes profil <span class=\"tutorial-"
+"avatar\">%(letter)s</span> › <strong>%(settings_name)s</strong> › "
+"<strong>%(practice_name)s</strong>. Tlačítko ve slovníku procvičí jen ten "
+"slovník, nastavíš ho přes <strong>%(set_up)s</strong> vedle něj."
+
+msgctxt "guide"
+msgid "Skip"
+msgstr "Přeskočit"
+
+msgctxt "guide"
+msgid "Back"
+msgstr "Zpět"
+
+msgctxt "guide"
+msgid "Start"
+msgstr "Začít"
+
+msgctxt "guide"
+msgid "Next"
+msgstr "Další"
+
 msgid "Skip to content"
 msgstr "Přeskočit na obsah"
 
@@ -1618,9 +1705,6 @@ msgstr "Odhlásit"
 
 msgid "Close"
 msgstr "Zavřít"
-
-msgid "Vocaboo on the home screen"
-msgstr "Vocaboo na plochu"
 
 msgid ""
 "Tap <strong>Share</strong> (the square with an arrow up). In Safari it is at"
@@ -1672,10 +1756,6 @@ msgstr "Co ti nešlo"
 
 msgid "yesterday"
 msgstr "včera"
-
-msgctxt "deck"
-msgid "New"
-msgstr "Nový"
 
 msgid "You have no decks yet. Start by creating one."
 msgstr "Zatím nemáš žádné slovníky. Začni tím, že si jeden vytvoříš."
@@ -2215,21 +2295,8 @@ msgstr "Upravit název a popis"
 msgid "Move"
 msgstr "Přesunout"
 
-#, python-format
-msgid "%(counter)s card"
-msgid_plural "%(counter)s cards"
-msgstr[0] "%(counter)s kartička"
-msgstr[1] "%(counter)s kartičky"
-msgstr[2] "%(counter)s kartiček"
-
 msgid "nothing due, you practise the ones that don't stick"
 msgstr "nic k opakování, procvičíš si slovíčka, která ti nejdou"
-
-msgid "Set up"
-msgstr "Nastavit"
-
-msgid "New word"
-msgstr "Nové slovíčko"
 
 msgid "From a topic"
 msgstr "Z tématu"

@@ -3229,6 +3229,146 @@ body {
   margin: 0;
 }
 
+/* The short guide on the overview (_tutorial.html): a window over the page */
+.tutorial-dialog > .tutorial {
+  max-width: 26rem;
+  padding: 1.25rem 1.25rem 1rem;
+}
+
+/* All steps sit in the same cell, so the window is as tall as the tallest step and the */
+/* buttons at the bottom do not jump */
+.tutorial-steps {
+  display: grid;
+}
+
+.tutorial-step {
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+
+.tutorial-step.is-current {
+  visibility: visible;
+}
+
+.tutorial-step[hidden] {
+  display: none;
+}
+
+.tutorial .section-title {
+  margin-bottom: 0.5rem;
+}
+
+.tutorial-step p {
+  margin: 0.75rem 0 1rem;
+}
+
+/* The picture: parts of the app in a frame, only to look at */
+.tutorial-pic {
+  padding: 0.75rem;
+  border: 1px solid var(--pico-muted-border-color);
+  border-radius: 0.75rem;
+  font-size: 0.9rem;
+}
+
+.tutorial-pic[aria-hidden] {
+  pointer-events: none;
+}
+
+.tutorial-pic .install-card-body {
+  margin-bottom: 0.75rem;
+}
+
+.tutorial-pic button {
+  width: auto;
+  margin: 0;
+}
+
+.tutorial-pic .deck-tree {
+  margin-bottom: 0;
+}
+
+.tutorial-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.6rem;
+}
+
+.tutorial-row + .tutorial-row {
+  margin-top: 0.75rem;
+}
+
+.tutorial-tap {
+  margin-left: auto;
+}
+
+/* What the step is about: an orange frame */
+.tutorial-mark {
+  border-radius: 0.4rem;
+  outline: 3px solid #f2a33a;
+  outline-offset: 3px;
+}
+
+/* The profile circle of the bar, small inside the text */
+.tutorial-avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  vertical-align: 0.1em;
+}
+
+/* The dots on their own row above the buttons, so long words fit on a phone */
+.tutorial-foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.tutorial-foot button {
+  width: auto;
+  margin: 0;
+  padding: 0.45rem 0.8rem;
+}
+
+.tutorial-foot .link-button {
+  padding: 0;
+  font-size: 0.85rem;
+}
+
+.tutorial-buttons {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.tutorial-dots {
+  display: flex;
+  flex-basis: 100%;
+  justify-content: center;
+  gap: 0.35rem;
+  order: -1;
+  margin-bottom: 0.25rem;
+}
+
+.tutorial-dots span {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--pico-muted-border-color);
+}
+
+.tutorial-dots span.is-current {
+  background: var(--primary);
+}
+
 /* The steps for an iPhone in the dialog */
 .install-steps li {
   margin-bottom: 0.5rem;

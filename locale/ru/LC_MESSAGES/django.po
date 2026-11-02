@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-02 15:57+0100\n"
+"POT-Creation-Date: 2026-11-02 22:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -228,6 +228,9 @@ msgstr "показывать, когда слово вернётся"
 
 msgid "has seen the help of the test"
 msgstr "справка по тесту просмотрена"
+
+msgid "has seen the guide"
+msgstr "знакомство уже показано"
 
 msgid "app language"
 msgstr "язык приложения"
@@ -1611,6 +1614,91 @@ msgctxt "pronunciation"
 msgid "Play"
 msgstr "Прослушать"
 
+msgid "Guide"
+msgstr "Знакомство"
+
+msgid "Vocaboo on the home screen"
+msgstr "Vocaboo на главном экране"
+
+#, python-format
+msgid ""
+"Tap <strong>%(install)s</strong>. You can also do it later: profile <span "
+"class=\"tutorial-avatar\">%(letter)s</span> › "
+"<strong>%(settings_name)s</strong> › <strong>%(app_name)s</strong>."
+msgstr ""
+"Нажми <strong>%(install)s</strong>. Позже это можно сделать и через профиль "
+"<span class=\"tutorial-avatar\">%(letter)s</span> › "
+"<strong>%(settings_name)s</strong> › <strong>%(app_name)s</strong>."
+
+msgid "You add words in a deck"
+msgstr "Слова добавляются в словаре"
+
+msgid "New word"
+msgstr "Новое слово"
+
+msgctxt "deck"
+msgid "New"
+msgstr "Новый"
+
+#, python-format
+msgid ""
+"Tap a deck and you find the form <strong>%(new_word)s</strong> at the top. A"
+" new deck is added on the overview with "
+"<strong>+&nbsp;%(new_deck)s</strong>. You can <strong>drag</strong> a deck "
+"elsewhere, also into another deck (on a phone, hold it for a moment first)."
+msgstr ""
+"Нажми на словарь — наверху будет форма <strong>%(new_word)s</strong>. Новый "
+"словарь добавляется на главной кнопкой <strong>+ %(new_deck)s</strong>. "
+"Словарь можно <strong>перетащить</strong> в другое место, в том числе в "
+"другой словарь (на телефоне сначала немного подержи его)."
+
+msgid "Practising"
+msgstr "Учить слова"
+
+msgid "at the top of every page"
+msgstr "наверху каждой страницы"
+
+#, python-format
+msgid "%(counter)s card"
+msgid_plural "%(counter)s cards"
+msgstr[0] "%(counter)s карточка"
+msgstr[1] "%(counter)s карточки"
+msgstr[2] "%(counter)s карточек"
+msgstr[3] "%(counter)s карточки"
+
+msgid "Set up"
+msgstr "Настроить"
+
+#, python-format
+msgid ""
+"The button at the top practises a few words from your decks. How many and "
+"from which decks, you set in profile <span class=\"tutorial-"
+"avatar\">%(letter)s</span> › <strong>%(settings_name)s</strong> › "
+"<strong>%(practice_name)s</strong>. The button in a deck practises only that"
+" deck; set it up with <strong>%(set_up)s</strong> next to it."
+msgstr ""
+"Кнопка наверху даёт поучить несколько слов из твоих словарей. Сколько и из "
+"каких словарей, настраивается через профиль <span class=\"tutorial-"
+"avatar\">%(letter)s</span> › <strong>%(settings_name)s</strong> › "
+"<strong>%(practice_name)s</strong>. Кнопка в словаре — только этот словарь; "
+"настроить её можно через <strong>%(set_up)s</strong> рядом."
+
+msgctxt "guide"
+msgid "Skip"
+msgstr "Пропустить"
+
+msgctxt "guide"
+msgid "Back"
+msgstr "Назад"
+
+msgctxt "guide"
+msgid "Start"
+msgstr "Начать"
+
+msgctxt "guide"
+msgid "Next"
+msgstr "Дальше"
+
 msgid "Skip to content"
 msgstr "Перейти к содержимому"
 
@@ -1640,9 +1728,6 @@ msgstr "Выйти"
 
 msgid "Close"
 msgstr "Закрыть"
-
-msgid "Vocaboo on the home screen"
-msgstr "Vocaboo на главном экране"
 
 msgid ""
 "Tap <strong>Share</strong> (the square with an arrow up). In Safari it is at"
@@ -1693,10 +1778,6 @@ msgstr "Что не давалось"
 
 msgid "yesterday"
 msgstr "вчера"
-
-msgctxt "deck"
-msgid "New"
-msgstr "Новый"
 
 msgid "You have no decks yet. Start by creating one."
 msgstr "У тебя пока нет словарей. Начни с создания первого."
@@ -2243,22 +2324,8 @@ msgstr "Изменить название и описание"
 msgid "Move"
 msgstr "Переместить"
 
-#, python-format
-msgid "%(counter)s card"
-msgid_plural "%(counter)s cards"
-msgstr[0] "%(counter)s карточка"
-msgstr[1] "%(counter)s карточки"
-msgstr[2] "%(counter)s карточек"
-msgstr[3] "%(counter)s карточки"
-
 msgid "nothing due, you practise the ones that don't stick"
 msgstr "нечего повторять, тренируешь слова, которые не даются"
-
-msgid "Set up"
-msgstr "Настроить"
-
-msgid "New word"
-msgstr "Новое слово"
 
 msgid "From a topic"
 msgstr "Из темы"

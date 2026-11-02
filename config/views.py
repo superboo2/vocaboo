@@ -1,12 +1,13 @@
 from datetime import timedelta
 
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.template.loader import select_template
 from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
+from django.views.decorators.http import require_POST
 
 from study import services as study_services
 from study import stats
@@ -49,8 +50,19 @@ def dashboard(request):
             "daily_goal": daily_goal,
             # Words saved for later, waiting for a translation (a card above the decks)
             "pending_count": vocabulary_services.pending_words(request.user).count(),
+            # The short guide: by itself until it is closed once, again with ?tour=1 (help)
+            "show_tutorial": not request.user.seen_tutorial or "tour" in request.GET,
         },
     )
+
+
+@require_POST
+def tutorial_seen(request):
+    """The user closed the guide on the overview: it does not open by itself any more."""
+    if not request.user.seen_tutorial:
+        request.user.seen_tutorial = True
+        request.user.save(update_fields=["seen_tutorial"])
+    return HttpResponse(status=204)
 
 
 def help_index(request):

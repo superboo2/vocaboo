@@ -75,6 +75,9 @@ def test_pages_have_tags_for_the_home_screen(client, db):
 
 
 def test_install_offer_waits_hidden_for_the_script(client, user):
+    # Without the guide, which has its own install step
+    user.seen_tutorial = True
+    user.save()
     client.force_login(user)
 
     html = client.get(reverse("dashboard")).content.decode()

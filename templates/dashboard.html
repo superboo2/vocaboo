@@ -71,4 +71,5 @@
       <a href="{% url 'vocabulary:deck_create' %}" role="button">+ {% translate "New deck" %}</a>
     </section>
   {% endif %}
+  {% if show_tutorial %}{% include "_tutorial.html" %}{% endif %}
 {% endblock %}

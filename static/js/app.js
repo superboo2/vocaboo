@@ -431,9 +431,12 @@ function showInstall() {
   });
   // The offer on the overview only on a phone or tablet, and only until "Not now"
   const phone = window.matchMedia("(pointer: coarse)").matches;
+  // Not while the guide is open: it has its own step about this
+  const guideOpen = document.getElementById("tutorial")?.open === true;
   document.querySelectorAll("[data-install-card]").forEach(function (card) {
-    card.hidden = !(canInstall && phone && !installDismissed());
+    card.hidden = !(canInstall && phone && !installDismissed() && !guideOpen);
   });
+  updateTutorial();
 }
 
 window.addEventListener("beforeinstallprompt", function (event) {
@@ -483,6 +486,89 @@ document.addEventListener("click", function (event) {
 });
 
 document.addEventListener("DOMContentLoaded", showInstall);
+
+// The short guide on the overview (templates/_tutorial.html): one step at a time, the step
+// about installing only where the app can be installed (showInstall shows or hides it)
+let tutorialStep = null;
+let tutorialMoved = false;
+
+function tutorialSteps(tutorial) {
+  return Array.from(tutorial.querySelectorAll(".tutorial-step")).filter(function (step) {
+    return !step.hidden;
+  });
+}
+
+function showTutorialStep(step) {
+  const tutorial = document.getElementById("tutorial");
+  const steps = tutorialSteps(tutorial);
+  tutorialStep = step;
+  steps.forEach(function (item) {
+    item.classList.toggle("is-current", item === step);
+  });
+  const dots = tutorial.querySelector(".tutorial-dots");
+  dots.replaceChildren();
+  steps.forEach(function (item) {
+    const dot = document.createElement("span");
+    dot.classList.toggle("is-current", item === step);
+    dots.append(dot);
+  });
+  const index = steps.indexOf(step);
+  tutorial.querySelector("[data-tutorial='back']").style.visibility = index > 0 ? "visible" : "hidden";
+  const next = tutorial.querySelector("[data-tutorial='next']");
+  next.dataset.next ??= next.textContent;
+  next.textContent = index === steps.length - 1 ? next.dataset.last : next.dataset.next;
+}
+
+// After showInstall: the install step can come or go (the browser tells it a bit later)
+function updateTutorial() {
+  const tutorial = document.getElementById("tutorial");
+  if (!tutorial?.open) {
+    return;
+  }
+  const steps = tutorialSteps(tutorial);
+  // Until the user moves, the guide starts at the first step, also when it is a new one
+  showTutorialStep(tutorialMoved && steps.includes(tutorialStep) ? tutorialStep : steps[0]);
+}
+
+document.addEventListener("click", function (event) {
+  const button = event.target.closest("[data-tutorial]");
+  if (!button) {
+    return;
+  }
+  const tutorial = document.getElementById("tutorial");
+  const steps = tutorialSteps(tutorial);
+  const index = steps.indexOf(tutorialStep) + (button.dataset.tutorial === "back" ? -1 : 1);
+  if (button.dataset.tutorial === "close" || index >= steps.length) {
+    tutorial.close();
+  } else if (index >= 0) {
+    tutorialMoved = true;
+    showTutorialStep(steps[index]);
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+  const tutorial = document.getElementById("tutorial");
+  if (!tutorial) {
+    return;
+  }
+  // Closed by "Skip", "Start" or Esc
+  tutorial.addEventListener("close", function () {
+    // The first time: tell the server, so it does not open by itself again (on any device)
+    if ("first" in tutorial.dataset) {
+      delete tutorial.dataset.first;
+      const token = document.querySelector("[name=csrfmiddlewaretoken]");
+      fetch(tutorial.dataset.seenUrl, {
+        method: "POST",
+        headers: { "X-CSRFToken": token ? token.value : "" },
+      }).catch(function () {
+        // Offline: the guide opens once more next time, nothing else happens
+      });
+    }
+    showInstall();
+  });
+  tutorial.showModal();
+  showInstall();
+});
 
 // Password fields: an eye button inside the field shows the password and hides it again
 const EYE_OPEN =

@@ -11,6 +11,7 @@ from . import views
 
 urlpatterns = [
     path("", views.dashboard, name="dashboard"),
+    path("tutorial/seen/", views.tutorial_seen, name="tutorial_seen"),
     path("", include("vocabulary.urls")),
     path("", include("study.urls")),
     path("settings/", accounts_views.settings_view, name="settings"),

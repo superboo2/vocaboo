@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-02 15:57+0100\n"
+"POT-Creation-Date: 2026-11-02 22:42+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -229,6 +229,9 @@ msgstr "zeigen, wann die Vokabel wiederkommt"
 
 msgid "has seen the help of the test"
 msgstr "Testhilfe schon gesehen"
+
+msgid "has seen the guide"
+msgstr "hat die Einführung gesehen"
 
 msgid "app language"
 msgstr "App-Sprache"
@@ -1598,6 +1601,91 @@ msgctxt "pronunciation"
 msgid "Play"
 msgstr "Abspielen"
 
+msgid "Guide"
+msgstr "Einführung"
+
+msgid "Vocaboo on the home screen"
+msgstr "Vocaboo auf dem Startbildschirm"
+
+#, python-format
+msgid ""
+"Tap <strong>%(install)s</strong>. You can also do it later: profile <span "
+"class=\"tutorial-avatar\">%(letter)s</span> › "
+"<strong>%(settings_name)s</strong> › <strong>%(app_name)s</strong>."
+msgstr ""
+"Tippe auf <strong>%(install)s</strong>. Später geht das auch über Profil "
+"<span class=\"tutorial-avatar\">%(letter)s</span> › "
+"<strong>%(settings_name)s</strong> › <strong>%(app_name)s</strong>."
+
+msgid "You add words in a deck"
+msgstr "Vokabeln fügst du im Wörterbuch hinzu"
+
+msgid "New word"
+msgstr "Neue Vokabel"
+
+msgctxt "deck"
+msgid "New"
+msgstr "Neu"
+
+#, python-format
+msgid ""
+"Tap a deck and you find the form <strong>%(new_word)s</strong> at the top. A"
+" new deck is added on the overview with "
+"<strong>+&nbsp;%(new_deck)s</strong>. You can <strong>drag</strong> a deck "
+"elsewhere, also into another deck (on a phone, hold it for a moment first)."
+msgstr ""
+"Tippe auf ein Wörterbuch, oben findest du das Formular "
+"<strong>%(new_word)s</strong>. Ein neues Wörterbuch legst du in der "
+"Übersicht mit <strong>+ %(new_deck)s</strong> an. Du kannst ein Wörterbuch "
+"woandershin <strong>ziehen</strong>, auch in ein anderes Wörterbuch (am "
+"Handy erst kurz gedrückt halten)."
+
+msgid "Practising"
+msgstr "Üben"
+
+msgid "at the top of every page"
+msgstr "oben auf jeder Seite"
+
+#, python-format
+msgid "%(counter)s card"
+msgid_plural "%(counter)s cards"
+msgstr[0] "%(counter)s Karte"
+msgstr[1] "%(counter)s Karten"
+
+msgid "Set up"
+msgstr "Einstellen"
+
+#, python-format
+msgid ""
+"The button at the top practises a few words from your decks. How many and "
+"from which decks, you set in profile <span class=\"tutorial-"
+"avatar\">%(letter)s</span> › <strong>%(settings_name)s</strong> › "
+"<strong>%(practice_name)s</strong>. The button in a deck practises only that"
+" deck; set it up with <strong>%(set_up)s</strong> next to it."
+msgstr ""
+"Der Button oben übt ein paar Vokabeln aus deinen Wörterbüchern. Wie viele "
+"und aus welchen Wörterbüchern, stellst du unter Profil <span "
+"class=\"tutorial-avatar\">%(letter)s</span> › "
+"<strong>%(settings_name)s</strong> › <strong>%(practice_name)s</strong> ein."
+" Der Button im Wörterbuch übt nur dieses Wörterbuch; einstellen kannst du "
+"ihn mit <strong>%(set_up)s</strong> daneben."
+
+msgctxt "guide"
+msgid "Skip"
+msgstr "Überspringen"
+
+msgctxt "guide"
+msgid "Back"
+msgstr "Zurück"
+
+msgctxt "guide"
+msgid "Start"
+msgstr "Fertig"
+
+msgctxt "guide"
+msgid "Next"
+msgstr "Weiter"
+
 msgid "Skip to content"
 msgstr "Zum Inhalt springen"
 
@@ -1627,9 +1715,6 @@ msgstr "Abmelden"
 
 msgid "Close"
 msgstr "Schließen"
-
-msgid "Vocaboo on the home screen"
-msgstr "Vocaboo auf dem Startbildschirm"
 
 msgid ""
 "Tap <strong>Share</strong> (the square with an arrow up). In Safari it is at"
@@ -1684,10 +1769,6 @@ msgstr "Was dir schwerfiel"
 
 msgid "yesterday"
 msgstr "gestern"
-
-msgctxt "deck"
-msgid "New"
-msgstr "Neu"
 
 msgid "You have no decks yet. Start by creating one."
 msgstr "Du hast noch keine Wörterbücher. Leg zuerst eins an."
@@ -2247,20 +2328,8 @@ msgstr "Name und Beschreibung bearbeiten"
 msgid "Move"
 msgstr "Verschieben"
 
-#, python-format
-msgid "%(counter)s card"
-msgid_plural "%(counter)s cards"
-msgstr[0] "%(counter)s Karte"
-msgstr[1] "%(counter)s Karten"
-
 msgid "nothing due, you practise the ones that don't stick"
 msgstr "nichts fällig, du übst die Vokabeln, die nicht hängen bleiben"
-
-msgid "Set up"
-msgstr "Einstellen"
-
-msgid "New word"
-msgstr "Neue Vokabel"
 
 msgid "From a topic"
 msgstr "Aus einem Thema"

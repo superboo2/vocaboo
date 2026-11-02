@@ -1,0 +1,85 @@
+{% load i18n %}
+{# The short guide on the overview: one window, one thing per step. It opens by itself until #}
+{# the user closes it once (User.seen_tutorial), again from the help with ?tour=1. #}
+{# The pictures are made of the same parts as the app; app.js moves between the steps. #}
+{% with letter=user.email|first|upper %}
+{% translate "Settings" as settings_name %}
+<dialog id="tutorial" class="tutorial-dialog" aria-label="{% translate 'Guide' %}"
+        data-seen-url="{% url 'tutorial_seen' %}" {% if not user.seen_tutorial %}data-first{% endif %}>
+  <article class="tutorial">
+    <div class="tutorial-steps">
+      {# Only where the app can be installed and is not yet: app.js shows it like the offer in #}
+      {# the settings. The button works here too. #}
+      <section class="tutorial-step" data-install-item hidden>
+        <h2 class="section-title">📱 {% translate "Vocaboo on the home screen" %}</h2>
+        <div class="tutorial-pic">
+          <div class="install-card-body">
+            {% include "_ghost_install.html" with class="install-icon" %}
+            <p><strong>{% translate "Put Vocaboo on your home screen" %}</strong><br>
+              <span class="muted">{% translate "It opens with one tap, on the whole screen, like other apps." %}</span></p>
+          </div>
+          <button type="button" class="outline tutorial-mark" data-install>{% translate "Install" %}</button>
+        </div>
+        {% translate "App" as app_name %}
+        {% translate "Install" as install %}
+        <p>{% blocktranslate trimmed %}
+          Tap <strong>{{ install }}</strong>. You can also do it later: profile
+          <span class="tutorial-avatar">{{ letter }}</span> › <strong>{{ settings_name }}</strong> › <strong>{{ app_name }}</strong>.
+        {% endblocktranslate %}</p>
+      </section>
+
+      <section class="tutorial-step">
+        <h2 class="section-title">✏️ {% translate "You add words in a deck" %}</h2>
+        <div class="tutorial-pic" aria-hidden="true">
+          <ul class="deck-tree deck-tree-root">
+            <li class="deck-node">
+              <div class="deck-row"><span class="deck-icon deck-icon-folder"></span><a class="deck-name">{% translate "English – first deck" %}</a></div>
+              <ul class="deck-tree">
+                <li class="deck-node"><div class="deck-row tutorial-mark"><span class="deck-icon">📄</span><a class="deck-name">{% translate "Animals" %}</a> <small class="deck-counts">(7)</small><span class="tutorial-tap">👆</span></div></li>
+                <li class="deck-node"><div class="deck-row"><span class="deck-icon">📄</span><a class="deck-name">{% translate "Fruit" %}</a> <small class="deck-counts">(5)</small></div></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        {% translate "New word" as new_word %}
+        {% translate "New" context "deck" as new_deck %}
+        <p>{% blocktranslate trimmed %}
+          Tap a deck and you find the form <strong>{{ new_word }}</strong> at the top. A new deck
+          is added on the overview with <strong>+&nbsp;{{ new_deck }}</strong>. You can <strong>drag</strong>
+          a deck elsewhere, also into another deck (on a phone, hold it for a moment first).
+        {% endblocktranslate %}</p>
+      </section>
+
+      <section class="tutorial-step">
+        <h2 class="section-title">▶︎ {% translate "Practising" %}</h2>
+        <div class="tutorial-pic" aria-hidden="true">
+          <div class="tutorial-row">
+            <button type="button" class="practice-button tutorial-mark" tabindex="-1">▶︎ {% translate "Practice" %}</button>
+            <small class="muted">{% translate "at the top of every page" %}</small>
+          </div>
+          <div class="tutorial-row">
+            <button type="button" class="practice-button tutorial-mark" tabindex="-1">▶︎ {% translate "Practice deck" %}</button>
+            <small class="muted">{% blocktranslate count counter=10 trimmed %}{{ counter }} card{% plural %}{{ counter }} cards{% endblocktranslate %} · <a class="tutorial-mark">{% translate "Set up" %}</a></small>
+          </div>
+        </div>
+        {% translate "Practice" as practice_name %}
+        {% translate "Set up" as set_up %}
+        <p>{% blocktranslate trimmed %}
+          The button at the top practises a few words from your decks. How many and from which
+          decks, you set in profile <span class="tutorial-avatar">{{ letter }}</span> › <strong>{{ settings_name }}</strong> › <strong>{{ practice_name }}</strong>.
+          The button in a deck practises only that deck; set it up with <strong>{{ set_up }}</strong> next to it.
+        {% endblocktranslate %}</p>
+      </section>
+    </div>
+
+    <div class="tutorial-foot">
+      <button type="button" class="link-button" data-tutorial="close">{% translate "Skip" context "guide" %}</button>
+      <span class="tutorial-dots" aria-hidden="true"></span>
+      <span class="tutorial-buttons">
+        <button type="button" class="secondary outline" data-tutorial="back">{% translate "Back" context "guide" %}</button>
+        <button type="button" data-tutorial="next" autofocus data-last="{% translate 'Start' context 'guide' %}">{% translate "Next" context "guide" %}</button>
+      </span>
+    </div>
+  </article>
+</dialog>
+{% endwith %}
