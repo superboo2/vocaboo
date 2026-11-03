@@ -52,22 +52,24 @@
   {# Words of this deck saved without a translation, only when some are waiting #}
   {% include "vocabulary/_pending_card_deck.html" %}
 
-  <section class="card-section">
-    {% include "vocabulary/_term_list.html" %}
-  </section>
+  {# Sub-decks before the words: a few lines to go further, not under a long list. With none #}
+  {# yet only a small link to add one. #}
+  {% if children %}
+    <section class="card-section">
+      <div class="section-head">
+        <h2 class="section-title">{% translate "Sub-decks" %}</h2>
+        {% if can_add_child %}<a href="{% url 'vocabulary:deck_create_child' deck.pk %}" class="section-add">+ {% translate "New" %}</a>{% endif %}
+      </div>
+      {% include "vocabulary/_sibling_list.html" with decks=children %}
+      {% if not can_add_child %}
+        <p class="muted"><small>{% blocktranslate %}No more sub-decks can be added here, the tree can have at most {{ max_depth }} levels.{% endblocktranslate %}</small></p>
+      {% endif %}
+    </section>
+  {% elif can_add_child %}
+    <p class="add-subdeck"><a href="{% url 'vocabulary:deck_create_child' deck.pk %}" class="section-add">+ {% translate "New sub-deck" %}</a></p>
+  {% endif %}
 
   <section class="card-section">
-    <div class="section-head">
-      <h2 class="section-title">{% translate "Sub-decks" %}</h2>
-      {% if can_add_child %}<a href="{% url 'vocabulary:deck_create_child' deck.pk %}" class="section-add">+ {% translate "New" %}</a>{% endif %}
-    </div>
-    {% if children %}
-      {% include "vocabulary/_sibling_list.html" with decks=children %}
-    {% else %}
-      <p class="muted">{% translate "No sub-decks yet." %}</p>
-    {% endif %}
-    {% if not can_add_child %}
-      <p class="muted"><small>{% blocktranslate %}No more sub-decks can be added here, the tree can have at most {{ max_depth }} levels.{% endblocktranslate %}</small></p>
-    {% endif %}
+    {% include "vocabulary/_term_list.html" %}
   </section>
 {% endblock %}

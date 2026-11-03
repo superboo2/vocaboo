@@ -40,6 +40,8 @@
         <strong>{% if history.status == "known" %}{% translate "You know it" %}{% elif history.status == "learning" %}{% translate "Learning" %}{% else %}{% translate "New" context "word status" %}{% endif %}</strong>
       </p>
     </div>
+    {# When the word came into the app; moving it to another deck does not change it #}
+    <p class="term-added-date muted">{% blocktranslate with date=term.created_at|date:"DATE_FORMAT" trimmed %}Added {{ date }}{% endblocktranslate %}</p>
     {% for row in history.directions %}
       {% with state=row.state chart=row.chart %}
         <div class="review-row">

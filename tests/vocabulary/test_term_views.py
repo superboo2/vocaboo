@@ -1,3 +1,5 @@
+import datetime
+
 import pytest
 from django.urls import reverse
 
@@ -190,3 +192,17 @@ def test_sentence_line_shows_what_is_in_the_fields(logged_client, himym):
 
     assert "„Take the elevator.“" in html
     assert "upravit" in html
+
+
+def test_word_page_shows_when_the_word_was_added(logged_client, himym):
+    deck_term = services.add_term(himym, foreign="cat", native="kočka")
+    Term.objects.filter(pk=deck_term.term_id).update(
+        created_at=datetime.datetime(2026, 11, 3, 12, tzinfo=datetime.UTC)
+    )
+
+    url = reverse("vocabulary:term_detail", args=[himym.pk, deck_term.pk])
+    html = logged_client.get(url).content.decode()
+
+    # In the card "Opakování", also for a word not in a test yet
+    assert "přidáno 3. listopadu 2026" in html
+    assert html.index("Opakování") < html.index("přidáno")

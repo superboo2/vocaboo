@@ -261,3 +261,67 @@ def test_dashboard_tree_has_data_for_drag_and_drop(logged_client, english):
     assert f'data-parent-id="{english.pk}"' in html
     assert 'data-parent-id=""' in html
     assert "Sortable.min.js" in html
+
+
+def test_sub_decks_are_above_the_words(logged_client, user, english):
+    services.create_deck(user, "Zvířata", parent=english)
+
+    html = logged_client.get(reverse("vocabulary:deck_detail", args=[english.pk])).content.decode()
+
+    assert html.index("Podslovníky") < html.index('id="term-list"')
+
+
+def test_deck_without_sub_decks_has_only_a_link(logged_client, english):
+    html = logged_client.get(reverse("vocabulary:deck_detail", args=[english.pk])).content.decode()
+
+    assert "+ Nový podslovník" in html
+    assert "Podslovníky" not in html
+
+
+def test_only_the_first_20_words_are_shown(logged_client, english):
+    for number in range(45):
+        services.add_term(english, foreign=f"word{number}", native=f"slovo{number}")
+    url = reverse("vocabulary:deck_detail", args=[english.pk])
+
+    html = logged_client.get(url).content.decode()
+
+    # All are on the page (for "Vybrat"), only the first 20 visible
+    assert html.count('class="term-later"') == 25
+    assert "20 / 45" in html
+    assert "shown=40#term-more" in html
+
+
+def test_show_more_adds_20_words(logged_client, english):
+    for number in range(45):
+        services.add_term(english, foreign=f"word{number}", native=f"slovo{number}")
+    url = reverse("vocabulary:deck_detail", args=[english.pk])
+
+    html = logged_client.get(url + "?shown=40").content.decode()
+
+    assert html.count('class="term-later"') == 5
+    assert "40 / 45" in html
+    # The page opens at the 21st word, the first of the new ones
+    assert html.index('id="term-more"') > html.index(">word25<")
+    assert html.index('id="term-more"') < html.index(">word24<")
+    html = logged_client.get(url + "?shown=60").content.decode()
+    assert "Zobrazit další" not in html
+
+
+def test_short_list_has_no_show_more(logged_client, english):
+    services.add_term(english, foreign="cat", native="kočka")
+
+    html = logged_client.get(reverse("vocabulary:deck_detail", args=[english.pk])).content.decode()
+
+    assert "term-later" not in html
+    assert "Zobrazit další" not in html
+
+
+def test_empty_deck_hides_the_word_card(logged_client, english):
+    url = reverse("vocabulary:deck_detail", args=[english.pk])
+
+    html = logged_client.get(url).content.decode()
+
+    # The empty box stays, HTMX puts the list into it after the first word
+    assert 'id="term-list" class="is-empty"' in html
+    services.add_term(english, foreign="cat", native="kočka")
+    assert "is-empty" not in logged_client.get(url).content.decode()

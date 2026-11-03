@@ -1,7 +1,10 @@
 {% load i18n vocabulary_tags arrows %}
 {# Words in the deck. With oob=True HTMX swaps it "out of band" after adding a word. #}
 {# "Vybrat" shows check boxes; the chosen words go to the page for moving (views.terms_move). #}
-<div id="term-list"{% if oob %} hx-swap-oob="true"{% endif %}>
+{# Only the first "shown" words are visible, 20 more after each "Zobrazit další" (?shown=40), #}
+{# all of them after "Vybrat". The others are on the page too, so "Vše" takes the whole deck. #}
+{# An empty deck hides the whole card; the div stays for the list after the first word. #}
+<div id="term-list"{% if not deck_terms %} class="is-empty"{% endif %}{% if oob %} hx-swap-oob="true"{% endif %}>
   {% with count=deck_terms|length %}
     <div class="list-head">
       <h2 class="section-title">{% translate "Words" %} <small class="muted">({{ count }})</small></h2>
@@ -23,7 +26,7 @@
           {% for item in deck_terms %}
             {% with term=item.term %}
               {% with foreign=term.foreign_variants native=term.native_variants %}
-                <li>
+                <li{% if forloop.counter > shown %} class="term-later"{% endif %}{% if shown > terms_step and forloop.counter == shown|minus:terms_step|add:1 %} id="term-more"{% endif %}>
                   <input type="checkbox" name="ids" value="{{ item.pk }}" class="select-box" aria-label="{% blocktranslate with word=foreign.0 %}Select “{{ word }}”{% endblocktranslate %}">
                   <div class="term-body">
                     <div class="term-texts">
@@ -44,14 +47,19 @@
             {% endwith %}
           {% endfor %}
         </ul>
+        {% if count > shown %}
+          {# The page opens at the first of the newly shown words #}
+          <p class="term-show-more">
+            <a href="?sort={{ sort }}&amp;shown={{ shown|add:terms_step }}#term-more">{% translate "Show more" %}</a>
+            <small class="muted">{{ shown }} / {{ count }}</small>
+          </p>
+        {% endif %}
         <div class="select-bar">
           <label><input type="checkbox" data-action="select-all"> {% translate "All" %}</label>
           <button type="submit" disabled>{% translate "Move…" %} <span data-select-count></span></button>
           <button type="button" class="secondary outline" data-action="toggle-select">{% translate "Cancel" %}</button>
         </div>
       </form>
-    {% else %}
-      <p class="muted">{% translate "No words here yet. Add the first one with the form above." %}</p>
     {% endif %}
   {% endwith %}
 </div>

@@ -725,6 +725,34 @@ nav[aria-label="breadcrumb"] ul li:not(:last-child)::after {
   font-weight: bold;
 }
 
+/* A deck without sub-decks: only the small link between the form and the words */
+.add-subdeck {
+  margin: 0 0 1rem 0.25rem;
+}
+
+/* An empty deck: no card "Slovíčka", the form above is enough */
+.card-section:has(> #term-list.is-empty) {
+  display: none;
+}
+
+/* Only the first words; more after "Zobrazit další", all of them when choosing words */
+#term-list:not(.selecting) .term-later {
+  display: none;
+}
+
+/* "Zobrazit další  20 / 30" in the middle under the list */
+.term-show-more {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 0.6rem;
+  margin: 0.75rem 0 0;
+}
+
+#term-list.selecting .term-show-more {
+  display: none;
+}
+
 /* Choosing words for moving: check boxes and a bar at the bottom, only after "Vybrat" */
 .select-box,
 .select-bar,
@@ -1258,6 +1286,12 @@ article.flashcard {
 
 .reviews-head .section-title {
   margin: 0;
+}
+
+/* "přidáno 3. listopadu 2026" under the heading Opakování */
+.term-added-date {
+  margin: -0.5rem 0 0.75rem;
+  font-size: 0.85rem;
 }
 
 .word-status {
@@ -2828,8 +2862,9 @@ button.test-button {
   min-width: 12rem;
 }
 
-/* "+ Nový" next to the heading "Slovníky" */
-.section-head a.section-add {
+/* "+ Nový" next to the heading "Slovníky"; alone as "+ Nový podslovník" on a deck without any */
+.section-head a.section-add,
+.add-subdeck a.section-add {
   color: var(--primary);
   font-size: 0.9rem;
   font-weight: 600;

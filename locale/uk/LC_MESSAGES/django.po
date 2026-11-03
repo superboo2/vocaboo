@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-02 22:42+0100\n"
+"POT-Creation-Date: 2026-11-03 10:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2266,11 +2266,11 @@ msgstr "Вибрати"
 msgid "Select “%(word)s”"
 msgstr "Вибрати «%(word)s»"
 
+msgid "Show more"
+msgstr "Показати ще"
+
 msgid "Move…"
 msgstr "Перемістити…"
-
-msgid "No words here yet. Add the first one with the form above."
-msgstr "Тут ще немає слів. Додай перше через форму вище."
 
 msgid "The suggestions don't know this word"
 msgstr "Підказки не знають цього слова"
@@ -2336,9 +2336,6 @@ msgstr "Підсловники"
 msgid "New"
 msgstr "Новий"
 
-msgid "No sub-decks yet."
-msgstr "Ще немає підсловників."
-
 #, python-format
 msgid ""
 "No more sub-decks can be added here, the tree can have at most %(max_depth)s"
@@ -2346,6 +2343,9 @@ msgid ""
 msgstr ""
 "Тут уже не можна додати підсловник, дерево може мати щонайбільше "
 "%(max_depth)s рівнів."
+
+msgid "New sub-deck"
+msgstr "Новий підсловник"
 
 #, python-format
 msgid "The sub-deck takes over the languages of “%(name)s” (%(pair)s)."
@@ -2467,6 +2467,10 @@ msgstr "Вивчаєш"
 msgctxt "word status"
 msgid "New"
 msgstr "Нове"
+
+#, python-format
+msgid "Added %(date)s"
+msgstr "додано %(date)s"
 
 #, python-format
 msgid "correct in a row: %(streak)s"
@@ -2697,9 +2701,6 @@ msgstr[3] "Додано %(count)s слова до «%(deck)s»."
 
 msgid "Tick the words you want to add."
 msgstr "Познач слова, які хочеш додати."
-
-msgid "New sub-deck"
-msgstr "Новий підсловник"
 
 msgid "Changes saved."
 msgstr "Зміни збережено."

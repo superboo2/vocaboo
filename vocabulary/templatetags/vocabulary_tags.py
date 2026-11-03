@@ -15,3 +15,9 @@ def marked_sentence(sentence, words):
 def plain_sentence(sentence, words):
     """{{ item.context_sentence|plain_sentence:term.foreign_variants }} -> text without braces."""
     return sentences.plain(sentence, words)
+
+
+@register.filter
+def minus(value, other):
+    """{{ count|minus:shown }} -> the difference of two numbers."""
+    return value - other

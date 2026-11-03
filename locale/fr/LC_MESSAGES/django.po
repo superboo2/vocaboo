@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-02 22:42+0100\n"
+"POT-Creation-Date: 2026-11-03 10:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2281,12 +2281,11 @@ msgstr "Sélectionner"
 msgid "Select “%(word)s”"
 msgstr "Sélectionner « %(word)s »"
 
+msgid "Show more"
+msgstr "Afficher plus"
+
 msgid "Move…"
 msgstr "Déplacer…"
-
-msgid "No words here yet. Add the first one with the form above."
-msgstr ""
-"Pas encore de mots ici. Ajoute le premier avec le formulaire ci-dessus."
 
 msgid "The suggestions don't know this word"
 msgstr "Les suggestions ne connaissent pas ce mot"
@@ -2350,9 +2349,6 @@ msgstr "Sous-dictionnaires"
 msgid "New"
 msgstr "Nouveau"
 
-msgid "No sub-decks yet."
-msgstr "Pas encore de sous-dictionnaires."
-
 #, python-format
 msgid ""
 "No more sub-decks can be added here, the tree can have at most %(max_depth)s"
@@ -2360,6 +2356,9 @@ msgid ""
 msgstr ""
 "Impossible d'ajouter d'autres sous-dictionnaires ici, l'arborescence peut "
 "avoir au plus %(max_depth)s niveaux."
+
+msgid "New sub-deck"
+msgstr "Nouveau sous-dictionnaire"
 
 #, python-format
 msgid "The sub-deck takes over the languages of “%(name)s” (%(pair)s)."
@@ -2476,6 +2475,10 @@ msgstr "En cours"
 msgctxt "word status"
 msgid "New"
 msgstr "Nouveau"
+
+#, python-format
+msgid "Added %(date)s"
+msgstr "ajouté le %(date)s"
 
 #, python-format
 msgid "correct in a row: %(streak)s"
@@ -2706,9 +2709,6 @@ msgstr[2] "%(count)s mots ajoutés à « %(deck)s »."
 
 msgid "Tick the words you want to add."
 msgstr "Coche les mots que tu veux ajouter."
-
-msgid "New sub-deck"
-msgstr "Nouveau sous-dictionnaire"
 
 msgid "Changes saved."
 msgstr "Modifications enregistrées."

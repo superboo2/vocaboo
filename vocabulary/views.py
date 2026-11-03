@@ -69,6 +69,16 @@ def _get_sort(request):
     return sort if sort in services.TERM_SORTS else "added"
 
 
+# Words shown in a deck at first; "Zobrazit další" shows this many more
+TERMS_STEP = 20
+
+
+def _get_shown(request):
+    """How many words of the deck to show (?shown=40 after "Zobrazit další")."""
+    shown = request.GET.get("shown", "")
+    return max(int(shown), TERMS_STEP) if shown.isdigit() else TERMS_STEP
+
+
 def deck_detail(request, pk):
     deck = _get_deck(request, pk)
     children = list(deck.children.all())
@@ -96,6 +106,8 @@ def deck_detail(request, pk):
             "deck_terms": services.list_deck_terms(deck, sort),
             "sort": sort,
             "sorts": services.TERM_SORTS,
+            "shown": _get_shown(request),
+            "terms_step": TERMS_STEP,
             "has_dictionary": topics.has_dictionary(deck),
             "practice": study_services.practice_preview(request.user, deck),
             "pending_count": services.pending_words(request.user, deck).count(),
@@ -408,6 +420,8 @@ def _term_form_response(
             "deck_terms": services.list_deck_terms(deck, sort),
             "sort": sort,
             "sorts": services.TERM_SORTS,
+            "shown": TERMS_STEP,
+            "terms_step": TERMS_STEP,
         },
     )
 

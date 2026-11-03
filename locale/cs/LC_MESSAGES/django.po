@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-02 22:42+0100\n"
+"POT-Creation-Date: 2026-11-03 10:18+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2241,11 +2241,11 @@ msgstr "Vybrat"
 msgid "Select “%(word)s”"
 msgstr "Vybrat „%(word)s“"
 
+msgid "Show more"
+msgstr "Zobrazit další"
+
 msgid "Move…"
 msgstr "Přesunout…"
-
-msgid "No words here yet. Add the first one with the form above."
-msgstr "Zatím tu nejsou žádná slovíčka. Přidej první formulářem výše."
 
 msgid "The suggestions don't know this word"
 msgstr "Návrhy toto slovo neznají"
@@ -2307,9 +2307,6 @@ msgstr "Podslovníky"
 msgid "New"
 msgstr "Nový"
 
-msgid "No sub-decks yet."
-msgstr "Zatím žádné podslovníky."
-
 #, python-format
 msgid ""
 "No more sub-decks can be added here, the tree can have at most %(max_depth)s"
@@ -2317,6 +2314,9 @@ msgid ""
 msgstr ""
 "Tady už další podslovník nejde přidat, strom může mít nejvýš %(max_depth)s "
 "úrovní."
+
+msgid "New sub-deck"
+msgstr "Nový podslovník"
 
 #, python-format
 msgid "The sub-deck takes over the languages of “%(name)s” (%(pair)s)."
@@ -2427,6 +2427,10 @@ msgstr "Učíš se"
 msgctxt "word status"
 msgid "New"
 msgstr "Nové"
+
+#, python-format
+msgid "Added %(date)s"
+msgstr "přidáno %(date)s"
 
 #, python-format
 msgid "correct in a row: %(streak)s"
@@ -2651,9 +2655,6 @@ msgstr[2] "Přidáno %(count)s slovíček do „%(deck)s“."
 
 msgid "Tick the words you want to add."
 msgstr "Zaškrtni slovíčka, která chceš přidat."
-
-msgid "New sub-deck"
-msgstr "Nový podslovník"
 
 msgid "Changes saved."
 msgstr "Změny jsou uložené."
