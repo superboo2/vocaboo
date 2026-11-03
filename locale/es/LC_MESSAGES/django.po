@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-03 10:18+0100\n"
+"POT-Creation-Date: 2026-11-03 11:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1372,6 +1372,20 @@ msgstr "Guardar frase"
 msgid "Not now"
 msgstr "Ahora no"
 
+msgid "A day counts when you reach your daily goal."
+msgstr "Un día cuenta cuando cumples tu objetivo diario."
+
+msgid "A day counts when you answer at least one card in a test."
+msgstr "Un día cuenta cuando respondes al menos una tarjeta en un test."
+
+msgid "day in a row"
+msgid_plural "days in a row"
+msgstr[0] "día seguido"
+msgstr[1] "días seguidos"
+
+msgid "not today yet"
+msgstr "hoy todavía no"
+
 msgid "Recent tests"
 msgstr "Tests recientes"
 
@@ -1756,12 +1770,6 @@ msgid ""
 msgstr ""
 "Confirma con <strong>Instalar</strong> o <strong>Añadir</strong>. Vocaboo ya"
 " está en la pantalla de inicio, junto a las demás apps."
-
-msgid "What you struggled with"
-msgstr "Lo que te costó"
-
-msgid "yesterday"
-msgstr "ayer"
 
 msgid "You have no decks yet. Start by creating one."
 msgstr "Aún no tienes mazos. Empieza creando uno."

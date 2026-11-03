@@ -1,0 +1,9 @@
+{% load i18n %}
+{# Days in a row on the dashboard (stats.day_streak), a small card like the daily goal next to #}
+{# it, a link to the statistics. Until today counts, the flame is grey with "dnes ještě ne": #}
+{# the streak still holds until midnight. Also with 0, once there is a test, to start one. #}
+<a href="{% url 'study:stats' %}" class="card-section top-card streak-card{% if not streak.today_done %} streak-waiting{% endif %}"
+   title="{% if user.daily_goal %}{% translate 'A day counts when you reach your daily goal.' %}{% else %}{% translate 'A day counts when you answer at least one card in a test.' %}{% endif %}">
+  <span class="top-card-value"><span class="streak-flame" aria-hidden="true">🔥</span> <strong>{{ streak.current }}</strong></span>
+  <small class="muted">{% blocktranslate count counter=streak.current trimmed %}day in a row{% plural %}days in a row{% endblocktranslate %}{% if not streak.today_done %} · {% translate "not today yet" %}{% endif %} ›</small>
+</a>

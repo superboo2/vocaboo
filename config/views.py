@@ -1,10 +1,7 @@
-from datetime import timedelta
-
 from django.http import Http404, HttpResponse
 from django.shortcuts import redirect, render
 from django.template.loader import select_template
 from django.urls import reverse
-from django.utils import timezone
 from django.utils.translation import get_language
 from django.utils.translation import gettext_lazy as _
 from django.views.decorators.http import require_POST
@@ -28,8 +25,6 @@ def dashboard(request):
     # Start page; it shows data from more apps (decks, study), so it lives here
     roots = vocabulary_services.load_tree(request.user)
     totals = study_services.annotate_deck_counts(roots, request.user)
-    # Cards "Co ti včera / naposledy nešlo": the last day with a test before today
-    hard = stats.hard_words(request.user) if roots else {"day": None, "items": []}
     today = stats.today_overview(request.user) if roots else None
     # The daily goal of the user: minutes in today's tests of the goal
     goal = request.user.daily_goal
@@ -43,11 +38,10 @@ def dashboard(request):
         {
             "roots": roots,
             "totals": totals,
-            "hard_words": hard["items"],
-            "hard_day": hard["day"],
-            "yesterday": timezone.localdate() - timedelta(days=1),
             "today": today,
             "daily_goal": daily_goal,
+            # Days in a row (with a goal: days with the goal reached), grey until today counts
+            "streak": stats.day_streak(request.user) if today else None,
             # Words saved for later, waiting for a translation (a card above the decks)
             "pending_count": vocabulary_services.pending_words(request.user).count(),
             # The short guide: by itself until it is closed once, again with ?tour=1 (help)

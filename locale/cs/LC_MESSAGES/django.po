@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-03 10:18+0100\n"
+"POT-Creation-Date: 2026-11-03 11:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1367,6 +1367,21 @@ msgstr "Uložit větu"
 msgid "Not now"
 msgstr "Teď ne"
 
+msgid "A day counts when you reach your daily goal."
+msgstr "Den se počítá, když splníš denní cíl."
+
+msgid "A day counts when you answer at least one card in a test."
+msgstr "Den se počítá, když v testu odpovíš aspoň na jednu kartičku."
+
+msgid "day in a row"
+msgid_plural "days in a row"
+msgstr[0] "den v řadě"
+msgstr[1] "dny v řadě"
+msgstr[2] "dní v řadě"
+
+msgid "not today yet"
+msgstr "dnes ještě ne"
+
 msgid "Recent tests"
 msgstr "Poslední testy"
 
@@ -1750,12 +1765,6 @@ msgid ""
 msgstr ""
 "Potvrď <strong>Instalovat</strong> nebo <strong>Přidat</strong>. Vocaboo je "
 "teď na ploše vedle ostatních aplikací."
-
-msgid "What you struggled with"
-msgstr "Co ti nešlo"
-
-msgid "yesterday"
-msgstr "včera"
 
 msgid "You have no decks yet. Start by creating one."
 msgstr "Zatím nemáš žádné slovníky. Začni tím, že si jeden vytvoříš."

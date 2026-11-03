@@ -2442,28 +2442,6 @@ nav.tabs a[aria-current="page"] {
   --stripe: var(--rating-dontknow);
 }
 
-/* The dashboard: 3 cards in a row; on a phone lower cards under each other */
-.hard-words.hard-words-compact {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.6rem;
-}
-
-@media (max-width: 576px) {
-  .hard-words.hard-words-compact {
-    grid-template-columns: 1fr;
-    gap: 0.45rem;
-  }
-
-  .hard-words-compact .hard-word-face {
-    height: 5.6rem;
-  }
-
-  .hard-words-compact .hard-word-word {
-    font-size: 1.2rem;
-  }
-}
-
-
 /* Today on the dashboard: a line with the tests and time, then the ring of today's ratings
    and the bar chart of the last 7 days next to each other (one under the other on a phone) */
 
@@ -2579,9 +2557,10 @@ label.scope-choice {
   margin: 0.1rem 0 0 1.85rem;
 }
 
-/* The daily goal and the words for later at the top of the dashboard: small cards like the
-   numbers of "Dnes", a big value and a grey label under it. On a computer two of them stand
-   next to each other; on a phone one under the other, the label next to the value. */
+/* The daily goal, the days in a row and the words for later at the top of the dashboard:
+   small cards like the numbers of "Dnes", a big value and a grey label under it. On a
+   computer they stand next to each other; on a phone one under the other, the label next to
+   the value. */
 .top-cards {
   display: grid;
   gap: 0.75rem;
@@ -2590,6 +2569,10 @@ label.scope-choice {
 
 .top-cards:has(> :nth-child(2)) {
   grid-template-columns: 1fr 1fr;
+}
+
+.top-cards:has(> :nth-child(3)) {
+  grid-template-columns: 1fr 1fr 1fr;
 }
 
 .top-cards > .top-card {
@@ -2613,8 +2596,15 @@ label.scope-choice {
   color: var(--rating-ok);
 }
 
+/* Days in a row: a grey flame until today counts */
+.streak-waiting .streak-flame {
+  filter: grayscale(1);
+  opacity: 0.55;
+}
+
 @media (max-width: 576px) {
-  .top-cards:has(> :nth-child(2)) {
+  .top-cards:has(> :nth-child(2)),
+  .top-cards:has(> :nth-child(3)) {
     grid-template-columns: 1fr;
   }
 
@@ -2626,7 +2616,7 @@ label.scope-choice {
 }
 
 /* "Odložené ›": the whole card is a link */
-/* The cards that are links (pending words, the daily goal) */
+/* The cards that are links (pending words, the daily goal, the days in a row) */
 a.top-card {
   color: inherit;
   text-decoration: none;
@@ -2968,12 +2958,6 @@ button.test-button {
 
 .section-head .section-title {
   margin: 0;
-}
-
-/* The day of the cards "Co ti nešlo": small and grey, the heading stays short */
-.section-day {
-  color: var(--pico-muted-color);
-  font-size: 0.9rem;
 }
 
 /* The same height with the magnifier and with the field, so nothing moves */

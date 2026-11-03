@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-03 10:18+0100\n"
+"POT-Creation-Date: 2026-11-03 11:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1386,6 +1386,23 @@ msgstr "Сохранить предложение"
 msgid "Not now"
 msgstr "Не сейчас"
 
+msgid "A day counts when you reach your daily goal."
+msgstr "День засчитывается, когда ты выполняешь дневную цель."
+
+msgid "A day counts when you answer at least one card in a test."
+msgstr ""
+"День засчитывается, когда ты отвечаешь в тесте хотя бы на одну карточку."
+
+msgid "day in a row"
+msgid_plural "days in a row"
+msgstr[0] "день подряд"
+msgstr[1] "дня подряд"
+msgstr[2] "дней подряд"
+msgstr[3] "дней подряд"
+
+msgid "not today yet"
+msgstr "сегодня ещё нет"
+
 msgid "Recent tests"
 msgstr "Последние тесты"
 
@@ -1772,12 +1789,6 @@ msgid ""
 msgstr ""
 "Подтверди кнопкой <strong>Установить</strong> или <strong>Добавить</strong>."
 " Теперь Vocaboo на главном экране, рядом с другими приложениями."
-
-msgid "What you struggled with"
-msgstr "Что не давалось"
-
-msgid "yesterday"
-msgstr "вчера"
 
 msgid "You have no decks yet. Start by creating one."
 msgstr "У тебя пока нет словарей. Начни с создания первого."

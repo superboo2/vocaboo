@@ -24,24 +24,14 @@
 
   {% if roots %}
 
-    {# The daily goal and the words for later: small cards, next to each other on a computer #}
-    {% if daily_goal or pending_count %}
+    {# The daily goal, the days in a row and the words for later: small cards, next to each #}
+    {# other on a computer #}
+    {% if daily_goal or streak.has_answers or pending_count %}
       <div class="top-cards">
         {% if daily_goal %}{% include "study/_daily_goal.html" %}{% endif %}
+        {% if streak.has_answers %}{% include "study/_streak_card.html" %}{% endif %}
         {% if pending_count %}{% include "vocabulary/_pending_line.html" %}{% endif %}
       </div>
-    {% endif %}
-    {# Order: what did not stick last time (to have it in sight), the decks, then today's numbers. #}
-    {# The cards are about the last day with a test before today, so they stay all day. #}
-    {% if hard_words %}
-      <section class="card-section">
-        {# A short heading like the others, the day small and grey next to it #}
-        <div class="section-head">
-          <h2 class="section-title">{% translate "What you struggled with" %}</h2>
-          <span class="section-day">{% if hard_day == yesterday %}{% translate "yesterday" %}{% else %}{{ hard_day|date:"D" }} {{ hard_day|date:"MONTH_DAY_FORMAT" }}{% endif %}</span>
-        </div>
-        {% include "study/_hard_words.html" with items=hard_words compact=True %}
-      </section>
     {% endif %}
     {# The decks: a new deck next to the heading, the search over the tree (moving by dragging #}
     {# is explained in the help) #}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-03 10:18+0100\n"
+"POT-Creation-Date: 2026-11-03 11:51+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1382,6 +1382,23 @@ msgstr "Зберегти речення"
 msgid "Not now"
 msgstr "Не зараз"
 
+msgid "A day counts when you reach your daily goal."
+msgstr "День зараховується, коли ти виконуєш денну ціль."
+
+msgid "A day counts when you answer at least one card in a test."
+msgstr ""
+"День зараховується, коли ти відповідаєш у тесті хоча б на одну картку."
+
+msgid "day in a row"
+msgid_plural "days in a row"
+msgstr[0] "день поспіль"
+msgstr[1] "дні поспіль"
+msgstr[2] "днів поспіль"
+msgstr[3] "днів поспіль"
+
+msgid "not today yet"
+msgstr "сьогодні ще ні"
+
 msgid "Recent tests"
 msgstr "Останні тести"
 
@@ -1767,12 +1784,6 @@ msgid ""
 msgstr ""
 "Підтверди <strong>Встановити</strong> або <strong>Додати</strong>. Vocaboo "
 "тепер на головному екрані поруч з іншими застосунками."
-
-msgid "What you struggled with"
-msgstr "Що тобі не далося"
-
-msgid "yesterday"
-msgstr "учора"
 
 msgid "You have no decks yet. Start by creating one."
 msgstr "У тебе ще немає словників. Почни зі створення одного."

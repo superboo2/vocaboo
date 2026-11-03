@@ -720,8 +720,12 @@ the browser and paused while the page is hidden (another app, locked phone).
   set in *Nastavení › Cíle*, empty = none: a small card `⏱️ 12 / 15 min · denní cíl ›` like the numbers of *Dnes*, a link to the goal in the settings,
   green with `✓ 16 / 15 min` when it is done; the minutes are the time over the cards of today's tests, at most 20 s for one card, so
   a test left open does not fill the goal; ⏱️ *čas v testech* stays the whole length of the tests) next to `📝 3 · odložená čekají na překlad ›` (only when words
-  wait for a translation; two halves on a computer, one under the other on a phone), *Co ti nešlo* (only when there is
-  something), *Slovníky*, *Dnes*.
+  wait for a translation; two halves on a computer, one under the other on a phone), `🔥 5 · dní v řadě ›` next to the goal (days in a row with the goal
+  reached, a link to the statistics; the flame is grey with `· dnes ještě ne` until today counts,
+  the streak holds until midnight; shown also at 0 once there is an answer, hidden before the first test), *Slovníky*, *Dnes*. The flip cards of the hard words
+  (*Co ti nejde*) are only on the statistics page: the dashboard had them until 2026-11-03,
+  but they took much space and gave nothing to do; a wrong word comes back in the tests by
+  itself anyway (😵 in 10 minutes, 😕 the next day).
 
 - **Hledat** (a light strip `Hledat slovíčko…` over the deck tree in the card *Slovníky*, **/** jumps into it; the results under the heading; Enter without JavaScript opens `/search/?q=cetka`): all the user's words, in every variant, the sentence and its
   translation and the note, without accents and case (`cetka` finds `Četka`), from 2 letters,
@@ -738,7 +742,7 @@ services.search_terms(user, "impose")
   under them three tabs, each its own page: *Slovíčka* (`/stats/`, the charts), *Testy*
   (`/stats/tests/`) and *Co ti nejde* (`/stats/hard/`). The tiles show the number
   of words, words known (foreign → native right at least twice in a row), the streak of days in a
-  row 🔥 and answers; a line chart of all words from the day of the first word (by days for 2
+  row 🔥 (days with the daily goal reached; without a goal a day with one answer is enough) and answers; a line chart of all words from the day of the first word (by days for 2
   weeks, by weeks up to 4 months, by months up to 2 years, then by quarters; values on the y axis,
   e.g. 0 / 20 / 40 / 60 / 80; the exact number on hover over a dot), **Poslední testy** (the last 10
   tests with an answer, one row each: the date and time, the last 3 decks of the path, e.g. `… ›
@@ -766,13 +770,6 @@ services.search_terms(user, "impose")
   time in tests. Each number is a tab: a click shows its last 7 days in a bar chart under
   them (the value above each bar, the other days light blue, today blue), without reloading the
   page.
-- The dashboard shows **Co ti nešlo**: up to 3 smaller flip cards in one row from **the last
-  day with a test before today** (`stats.hard_words`); the day is small and grey next to the
-  heading (*včera*, or e.g. *po 26. 10.*). Everything is as it was at the end of that day
-  (later answers are left out, the streaks come from the answers, not from `ReviewState`), so the
-  cards do not change during the day nor during a pause. The 10 kinds are mixed by the date of
-  that day (`random.Random(day.toordinal())`) and the first 3 with a word are shown, so another
-  day of tests shows other kinds. The section is not there when nothing was hard that day.
 - The card *Slovníky* has only `+ Nový`, the search and the tree (the totals are on the
   statistics page, moving by dragging is explained in the help).
 - Each deck in the tree has its words in brackets right after the name, e.g.
