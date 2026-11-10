@@ -151,7 +151,10 @@ ukrajinštinu: spisovná ukrajinština (ne ruské tvary ani suržyk), apostrof `
 **Slova prvního slovníčku v ostatních jazycích** (od 2026-11-02, balíček `2026-11-02-2`): němčina,
 francouzština, italština, polština, ruština a ukrajinština mají texty (slovo i větu) jen pro 17 pojmů
 prvního slovníčku (`dictionary/starter.py`: `DECKS` a `PENDING`), aby ho dostal každý nový účet, jehož
-jazyk není angličtina. Návrhy překladů pro tyto jazyky tím vzniknou jen pro těchto 17 slov. Při změně
+jazyk není angličtina. Návrhy překladů pro tyto jazyky tím vzniknou jen pro těchto 17 slov. Od balíčku `2026-11-09` mají němčina, francouzština, italština, polština a ruština navíc
+stejných 500 nejčastějších pojmů jako ukrajinština; další balíčky přes `translation_batch <jazyk>`
+a pravidla překladu níže (u polštiny a ruštiny nedokonavé sloveso první, dokonavé jako varianta;
+u francouzštiny mezera před `?` `!` `:` `;`). Při změně
 slov slovníčku přeložit nové pojmy do všech jazyků v `NATIVE`.
 **Nový jazyk vždy dostane slovníček:** s každým novým jazykem v tabulce jazyků přidat balíček
 s jeho texty (slovo i věta) pro těchto 17 pojmů, jazyk do `NATIVE` (`dictionary/starter.py`);
@@ -196,6 +199,7 @@ názvy složek a popis jsou v překladech aplikace, takže nový jazyk potřebuj
 | 2026-10-27 | cs, en, es | **opravy** po kontrole: 645 českých variant se závorkou (poznámka přesunutá do `note`, např. „zbavit se (get rid of)“), *bandit* (hvězdička ve větě), 3 španělské (duplicitní varianta, „…“ ve slovech) |
 | 2026-11-02 | uk | 500 nejčastějších (band 1); strojový překlad, kontrola až na konci |
 | 2026-11-02-2 | de, fr, it, pl, ru, uk | 17 slov prvního slovníčku (`starter.py`), ručně |
+| 2026-11-09 | de, fr, it, pl, ru | stejných 500 pojmů jako ukrajinština v 2026-11-02 (band 1), aby i tyto jazyky měly témata (`MIN_TOPIC_TEXTS` = 500) a návrhy běžných slov; italština bez *will.verb.1* (v italštině je to jen koncovka); strojový překlad, kontrola až na konci |
 
 ## Pravidla pro balíček (prompt pro AI)
 
