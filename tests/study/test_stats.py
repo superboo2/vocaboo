@@ -291,6 +291,8 @@ def test_detail_link_uses_the_word_in_its_deck(client, user, deck):
     cat = vocabulary.add_term(deck, foreign="cat", native="kočka")
     assert cat.pk != cat.term.pk
     answer(user, cat.term, 0, Result.WRONG, "dontknow")
+    # The page counts from the real now (the last 30 days), not from NOW
+    ReviewLog.objects.filter(term=cat.term).update(reviewed_at=timezone.now())
     client.force_login(user)
 
     html = client.get(reverse("study:stats_tab", args=["hard"])).content.decode()
@@ -575,17 +577,45 @@ def test_known_chart_counts_known_words_from_the_history(user, deck):
 
     chart = stats.user_statistics(user, now=NOW)["known_chart"]
 
-    # The same days as the words chart, the known words at the end of each day
+    # The same days as the words chart, the known words at the end of each day; cat was
+    # forgotten, so the second line (known at least once) stays at 2
     assert [point["title"] for point in chart["points"]] == [
-        "8. 10.: 0",
-        "9. 10.: 0",
-        "10. 10.: 1",
-        "11. 10.: 1",
-        "12. 10.: 2",
-        "13. 10.: 1",
-        "14. 10.: 1",
+        "8. 10.: 0, aspoň jednou 0",
+        "9. 10.: 0, aspoň jednou 0",
+        "10. 10.: 1, aspoň jednou 1",
+        "11. 10.: 1, aspoň jednou 1",
+        "12. 10.: 2, aspoň jednou 2",
+        "13. 10.: 1, aspoň jednou 2",
+        "14. 10.: 1, aspoň jednou 2",
     ]
+    assert chart["second_line"].endswith("100.00,50.00")
     assert chart["subtitle"].startswith("Slovíčka, která umíš, po dnech")
+
+
+def test_known_chart_second_line_only_after_forgetting(client, user, deck):
+    cat = vocabulary.add_term(deck, foreign="cat", native="kočka").term
+    Term.objects.filter(pk=cat.pk).update(created_at=NOW - timedelta(days=6))
+    answer(user, cat, 5)
+    answer(user, cat, 4)
+    ReviewState.objects.filter(term=cat, direction="F2N").update(
+        correct_streak=2, last_reviewed_at=NOW - timedelta(days=4)
+    )
+    client.force_login(user)
+
+    chart = stats.user_statistics(user, now=NOW)["known_chart"]
+    html = client.get(reverse("study:stats")).content.decode()
+
+    # Nothing forgotten: one line, plain titles and no legend
+    assert chart["second_line"] == ""
+    assert chart["points"][-1]["title"] == "14. 10.: 1"
+    assert "aspoň jednou" not in html
+
+    answer(user, cat, 1, Result.WRONG, "dontknow")
+    ReviewState.objects.filter(term=cat, direction="F2N").update(correct_streak=0)
+    html = client.get(reverse("study:stats")).content.decode()
+
+    assert "line-chart-second" in html
+    assert "naučená aspoň jednou" in html and "Mezera mezi čarami" in html
 
 
 def test_known_chart_only_with_answers(client, user, deck):

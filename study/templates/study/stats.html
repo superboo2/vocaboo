@@ -51,6 +51,14 @@
             <h2>{% translate "You know" context "chart of known words" %}</h2>
             {# When you know a word, with the smileys of the test buttons that count as right #}
             <p class="muted"><small>{{ stats.known_chart.subtitle }}<br>{% translate "You know a word when every tested direction got 2× in a row 😎 or 🤔." %}</small></p>
+            {# The legend only with the second line: words known at least once #}
+            {% if stats.known_chart.second_line %}
+              <p class="chart-legend muted"><small>
+                <span class="chart-legend-item"><span class="chart-key"></span> {% translate "you know now" %}</span>
+                <span class="chart-legend-item"><span class="chart-key chart-key-second"></span> {% translate "learned at least once" %}</span>
+                <br>{% translate "The gap between the lines are words you forgot. They come back in tests." %}
+              </small></p>
+            {% endif %}
             {% include "study/_chart.html" with chart=stats.known_chart tone="chart-known" label=stats.known_chart.subtitle %}
           </section>
         {% endif %}

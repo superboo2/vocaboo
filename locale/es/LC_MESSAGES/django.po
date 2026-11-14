@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-03 11:51+0100\n"
+"POT-Creation-Date: 2026-11-14 01:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1271,6 +1271,10 @@ msgid "Q%(quarter)s %(year)s"
 msgstr "T%(quarter)s %(year)s"
 
 #, python-format
+msgid "%(label)s: %(value)s, at least once %(ever)s"
+msgstr "%(label)s: %(value)s, al menos una vez %(ever)s"
+
+#, python-format
 msgid "%(count)s character"
 msgid_plural "%(count)s characters"
 msgstr[0] "%(count)s carácter"
@@ -1505,6 +1509,17 @@ msgstr "Sabes"
 
 msgid "You know a word when every tested direction got 2× in a row 😎 or 🤔."
 msgstr "La sabes = en cada sentido probado 2 veces seguidas 😎 o 🤔."
+
+msgid "you know now"
+msgstr "sabes ahora"
+
+msgid "learned at least once"
+msgstr "aprendidas al menos una vez"
+
+msgid ""
+"The gap between the lines are words you forgot. They come back in tests."
+msgstr ""
+"El espacio entre las líneas son palabras olvidadas. Vuelven en los tests."
 
 msgid "No tests yet."
 msgstr "Todavía no hay tests."

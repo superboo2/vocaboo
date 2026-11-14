@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-03 11:51+0100\n"
+"POT-Creation-Date: 2026-11-14 01:13+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1266,6 +1266,10 @@ msgid "Q%(quarter)s %(year)s"
 msgstr "Q%(quarter)s %(year)s"
 
 #, python-format
+msgid "%(label)s: %(value)s, at least once %(ever)s"
+msgstr "%(label)s: %(value)s, aspoň jednou %(ever)s"
+
+#, python-format
 msgid "%(count)s character"
 msgid_plural "%(count)s characters"
 msgstr[0] "%(count)s znak"
@@ -1502,6 +1506,16 @@ msgstr "Umíš"
 
 msgid "You know a word when every tested direction got 2× in a row 😎 or 🤔."
 msgstr "Umíš = v každém testovaném směru 2× za sebou 😎 nebo 🤔."
+
+msgid "you know now"
+msgstr "umíš teď"
+
+msgid "learned at least once"
+msgstr "naučená aspoň jednou"
+
+msgid ""
+"The gap between the lines are words you forgot. They come back in tests."
+msgstr "Mezera mezi čarami jsou zapomenutá slovíčka. Vrátí se ti v testech."
 
 msgid "No tests yet."
 msgstr "Zatím žádné testy."

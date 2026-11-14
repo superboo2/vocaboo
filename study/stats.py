@@ -478,7 +478,11 @@ def _known_chart(terms, logs, known_now, today):
     ends = [_day_start(day) for day in [*starts[1:], today + timedelta(days=1)]]
     streaks = {}  # {term: {direction: right answers in a row}}
     known = set()
+    # Words known at least once: they stay here after a wrong answer, so this line never
+    # goes down. The gap between the two lines are the words you forgot.
+    ever = set()
     counts = []
+    ever_counts = []
     index = 0
     for end in ends:
         while index < len(logs) and logs[index][0] < end:
@@ -489,12 +493,18 @@ def _known_chart(terms, logs, known_now, today):
             )
             if is_known(directions.values()):
                 known.add(term_id)
+                ever.add(term_id)
             else:
                 known.discard(term_id)
             index += 1
         counts.append(len(known))
+        ever_counts.append(len(ever))
+    # The second line only when some word was forgotten, else it would hide under the first
+    forgotten = ever_counts != counts
     counts[-1] = known_now
-    chart = _line_chart([_bucket_label(start, unit) for start in starts], counts)
+    ever_counts[-1] = max(ever_counts[-1], known_now)
+    second = ever_counts if forgotten else None
+    chart = _line_chart([_bucket_label(start, unit) for start in starts], counts, second=second)
     chart["subtitle"] = _("Words you know %(unit)s since %(date)s") % {
         "unit": UNIT_NAMES[unit],
         "date": _since(first),
@@ -565,14 +575,19 @@ def _nice_top(value):
     return int(40 * power)
 
 
-def _line_chart(labels, values, most_labels=5):
+def _line_chart(labels, values, most_labels=5, second=None):
     """A simple line chart: a point for each label and the y axis with 5 round values.
 
     Positions are percents of the drawing area (0 = left / top): the SVG draws the line in a
     0–100 box stretched to the page, the dots and labels are HTML placed by the same percents.
     A value None breaks the line. One point sits in the middle.
+
+    second: values of a second, dashed line without dots (the known chart: words known at
+    least once). Its value is in the title of the dot of the first line.
     """
-    top = _nice_top(max((value for value in values if value is not None), default=0))
+    top = _nice_top(
+        max((value for value in [*values, *(second or [])] if value is not None), default=0)
+    )
     last = len(labels) - 1
 
     def left_of(index):
@@ -589,10 +604,23 @@ def _line_chart(labels, values, most_labels=5):
             continue
         left = left_of(index)
         y = 100 - 100 * value / top
-        points.append({"left": f"{left:.2f}", "top": f"{y:.2f}", "title": f"{label}: {value}"})
+        title = f"{label}: {value}"
+        if second is not None:
+            title = _("%(label)s: %(value)s, at least once %(ever)s") % {
+                "label": label,
+                "value": value,
+                "ever": second[index],
+            }
+        points.append({"left": f"{left:.2f}", "top": f"{y:.2f}", "title": title})
         segment.append(f"{left:.2f},{y:.2f}")
     if segment:
         segments.append(segment)
+    second_line = ""
+    if second is not None:
+        second_line = " ".join(
+            f"{left_of(index):.2f},{100 - 100 * value / top:.2f}"
+            for index, value in enumerate(second)
+        )
     ticks = [{"label": str(top * part // 4), "top": f"{100 - 25 * part:.0f}"} for part in range(5)]
     # At most a few labels under the axis, evenly from the last one back, so they do not touch
     every = max(1, -(-len(labels) // most_labels))
@@ -604,6 +632,7 @@ def _line_chart(labels, values, most_labels=5):
     return {
         "points": points,
         "segments": [" ".join(segment) for segment in segments],
+        "second_line": second_line,
         "ticks": ticks,
         "labels": shown,
         # The longest number of the y axis, so its column is just as wide
