@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-17 23:40+0100\n"
+"POT-Creation-Date: 2026-11-17 23:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1199,20 +1199,18 @@ msgid "%(month)s/%(day)s/%(year)s"
 msgstr "%(day)s.%(month)s.%(year)s"
 
 #, python-format
+msgid ""
+"%(label)s: %(words)s words, you know %(known)s, forgotten %(forgotten)s"
+msgstr ""
+"%(label)s: %(words)s Vokabeln, gekonnt %(known)s, vergessen %(forgotten)s"
+
+#, python-format
 msgid "Total words %(unit)s since %(date)s"
 msgstr "Vokabeln insgesamt %(unit)s seit %(date)s"
 
 #, python-format
 msgid "%(unit)s since %(date)s"
 msgstr "%(unit)s seit %(date)s"
-
-#, python-format
-msgid "%(label)s: you know %(known)s, forgotten %(forgotten)s"
-msgstr "%(label)s: gekonnt %(known)s, vergessen %(forgotten)s"
-
-#, python-format
-msgid "Words you know and forgotten words %(unit)s since %(date)s"
-msgstr "Gekonnte und vergessene Vokabeln %(unit)s seit %(date)s"
 
 msgid "by day"
 msgstr "nach Tagen"
@@ -1511,8 +1509,9 @@ msgid "Nothing here yet. Add your first words and start a test."
 msgstr ""
 "Hier ist noch nichts. Füg deine ersten Vokabeln hinzu und starte einen Test."
 
-msgid "Known and forgotten"
-msgstr "Gekonnt und vergessen"
+msgctxt "words in the chart"
+msgid "words"
+msgstr "Vokabeln"
 
 msgctxt "words in the chart"
 msgid "you know"
@@ -1526,11 +1525,13 @@ msgid "What it means"
 msgstr "Was das heißt"
 
 msgid ""
-"Green: the words you knew at that time. Red: forgotten words, you knew them "
-"once but not at that time; they come back in tests."
+"Purple: all your words. Green: the words you knew at that time. Red: "
+"forgotten words, you knew them once but not at that time; they come back in "
+"tests."
 msgstr ""
-"Grün: die Vokabeln, die du damals konntest. Rot: vergessene Vokabeln, die du"
-" einmal konntest, damals aber nicht; sie kommen in Tests wieder."
+"Lila: alle deine Vokabeln. Grün: die Vokabeln, die du damals konntest. Rot: "
+"vergessene Vokabeln, die du einmal konntest, damals aber nicht; sie kommen "
+"in Tests wieder."
 
 msgid "You know a word when every tested direction got 2× in a row 😎 or 🤔."
 msgstr ""

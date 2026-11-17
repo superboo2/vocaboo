@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-17 23:40+0100\n"
+"POT-Creation-Date: 2026-11-17 23:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1210,20 +1210,17 @@ msgid "%(month)s/%(day)s/%(year)s"
 msgstr "%(day)s.%(month)s.%(year)s"
 
 #, python-format
+msgid ""
+"%(label)s: %(words)s words, you know %(known)s, forgotten %(forgotten)s"
+msgstr "%(label)s: слов %(words)s, знаешь %(known)s, забыто %(forgotten)s"
+
+#, python-format
 msgid "Total words %(unit)s since %(date)s"
 msgstr "Всего слов %(unit)s с %(date)s"
 
 #, python-format
 msgid "%(unit)s since %(date)s"
 msgstr "%(unit)s с %(date)s"
-
-#, python-format
-msgid "%(label)s: you know %(known)s, forgotten %(forgotten)s"
-msgstr "%(label)s: знаешь %(known)s, забыто %(forgotten)s"
-
-#, python-format
-msgid "Words you know and forgotten words %(unit)s since %(date)s"
-msgstr "Известные и забытые слова %(unit)s с %(date)s"
 
 msgid "by day"
 msgstr "по дням"
@@ -1526,8 +1523,9 @@ msgstr "самая длинная серия %(longest)s"
 msgid "Nothing here yet. Add your first words and start a test."
 msgstr "Здесь пока пусто. Добавь первые слова и начни тест."
 
-msgid "Known and forgotten"
-msgstr "Знаешь и забыто"
+msgctxt "words in the chart"
+msgid "words"
+msgstr "слов"
 
 msgctxt "words in the chart"
 msgid "you know"
@@ -1541,11 +1539,13 @@ msgid "What it means"
 msgstr "Что это значит"
 
 msgid ""
-"Green: the words you knew at that time. Red: forgotten words, you knew them "
-"once but not at that time; they come back in tests."
+"Purple: all your words. Green: the words you knew at that time. Red: "
+"forgotten words, you knew them once but not at that time; they come back in "
+"tests."
 msgstr ""
-"Зелёным: слова, которые были известны в тот момент. Красным: забытые слова –"
-" когда-то были известны, но в тот момент нет; они вернутся в тестах."
+"Фиолетовым: все твои слова. Зелёным: слова, которые были известны в тот "
+"момент. Красным: забытые слова – когда-то были известны, но в тот момент "
+"нет; они вернутся в тестах."
 
 msgid "You know a word when every tested direction got 2× in a row 😎 or 🤔."
 msgstr ""

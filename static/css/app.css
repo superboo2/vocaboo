@@ -2087,10 +2087,6 @@ nav.tabs a[aria-current="page"] {
   stroke-linecap: round;
 }
 
-/* The second line of the known chart: forgotten words, in red */
-.line-chart-second {
-  stroke: var(--rating-dontknow);
-}
 
 .line-chart-dot {
   position: absolute;
@@ -2100,10 +2096,6 @@ nav.tabs a[aria-current="page"] {
   border-radius: 50%;
   background: var(--pico-background-color);
   transform: translate(-50%, -50%);
-}
-
-.line-chart-dot-second {
-  border-color: var(--rating-dontknow);
 }
 
 .line-chart-x {
@@ -2131,14 +2123,18 @@ nav.tabs a[aria-current="page"] {
   }
 }
 
-/* The line of the words chart in the second colour (green is for the ratings) */
-.chart-words {
+/* The colours of the lines of the words chart (and their dots): all words in the second
+   colour, you know in the green of the good answers, forgotten in the red of "vůbec nevím" */
+.line-words {
   --chart-color: var(--primary);
 }
 
-/* Known words in the green of the good answers */
-.chart-known {
+.line-known {
   --chart-color: var(--rating-ok);
+}
+
+.line-forgotten {
+  --chart-color: var(--rating-dontknow);
 }
 
 /* The legend above a chart: a short piece of each line, its name and number, and ⓘ that
@@ -2166,6 +2162,10 @@ nav.tabs a[aria-current="page"] {
 
 .chart-key-forgotten {
   border-top-color: var(--rating-dontknow);
+}
+
+.chart-key-words {
+  border-top-color: var(--primary);
 }
 
 .chart-info {

@@ -114,8 +114,7 @@ def user_statistics(user, now=None, period=DEFAULT_PERIOD):
 
     return {
         "totals": _totals(terms, logs, known, tested, today),
-        "words_chart": _words_chart(terms, today),
-        "known_chart": _known_chart(terms, logs, known, today) if logs else None,
+        "words_chart": _words_chart(terms, logs, known, today),
         "streak": _streak(logs, today, user.daily_goal),
         "tests": recent_tests(user, now),
         "facts": _facts(user, logs, now, period),
@@ -456,32 +455,50 @@ def _since(first):
     }
 
 
-def _words_chart(terms, today):
-    """All words over time (the total at the end of each point)."""
+def _words_chart(terms, logs, known_now, today):
+    """All words over time (the total at the end of each point). With answers also the words
+    you know and the forgotten words on the same points and scale (_known_counts), so one
+    chart shows how many of your words you know: they are never more than all words."""
     unit, first, starts = _chart_steps(terms, today)
     days = [_local_day(created) for created, _word, _pk in terms]
     nexts = [*starts[1:], today + timedelta(days=1)]
     totals = [sum(1 for day in days if day < end) for end in nexts]
-    chart = _line_chart([_bucket_label(start, unit) for start in starts], totals)
+    labels = [_bucket_label(start, unit) for start in starts]
+    if logs:
+        known, forgotten = _known_counts(nexts, logs, known_now)
+        titles = [
+            _("%(label)s: %(words)s words, you know %(known)s, forgotten %(forgotten)s")
+            % {"label": label, "words": words, "known": known_count, "forgotten": forgotten_count}
+            for label, words, known_count, forgotten_count in zip(
+                labels, totals, known, forgotten, strict=True
+            )
+        ]
+        # Drawn in this order: you know goes on top, it matters most
+        series = [("words", totals), ("forgotten", forgotten), ("known", known)]
+        chart = _line_chart(labels, series, titles=titles)
+        chart["known"] = known[-1]
+        chart["forgotten"] = forgotten[-1]
+    else:
+        chart = _line_chart(labels, [("words", totals)])
     chart["subtitle"] = _("Total words %(unit)s since %(date)s") % {
         "unit": UNIT_NAMES[unit],
         "date": _since(first),
     }
     chart["axis"] = _("%(unit)s since %(date)s") % {"unit": UNIT_NAMES[unit], "date": _since(first)}
+    chart["words"] = totals[-1]
     return chart
 
 
-def _known_chart(terms, logs, known_now, today):
-    """Known and forgotten words over time, on the same points as the words chart, counted
-    again from the history (the answers up to the end of each point). Both are the state at
-    the end of each point, so both lines grow slowly as you learn:
+def _known_counts(nexts, logs, known_now):
+    """Known and forgotten words at each point (its end is the day in nexts), counted again
+    from the history (the answers up to the end of each point). Both are the state then, so
+    both grow slowly as you learn:
 
     - known: words you know then ("umíš", is_known); the last point is the number of the card
       above (known_words);
     - forgotten: words you knew at least once but not then. Words never known are in neither.
     """
-    unit, first, starts = _chart_steps(terms, today)
-    ends = [_day_start(day) for day in [*starts[1:], today + timedelta(days=1)]]
+    ends = [_day_start(day) for day in nexts]
     streaks = {}  # {term: {direction: right answers in a row}}
     known = set()
     ever = set()
@@ -505,23 +522,7 @@ def _known_chart(terms, logs, known_now, today):
         forgotten_counts.append(len(ever - known))
     known_counts[-1] = known_now
     forgotten_counts[-1] = max(len(ever) - known_now, 0)
-    labels = [_bucket_label(start, unit) for start in starts]
-    titles = [
-        _("%(label)s: you know %(known)s, forgotten %(forgotten)s")
-        % {"label": label, "known": known_count, "forgotten": forgotten_count}
-        for label, known_count, forgotten_count in zip(
-            labels, known_counts, forgotten_counts, strict=True
-        )
-    ]
-    chart = _line_chart(labels, known_counts, second=forgotten_counts, titles=titles)
-    chart["subtitle"] = _("Words you know and forgotten words %(unit)s since %(date)s") % {
-        "unit": UNIT_NAMES[unit],
-        "date": _since(first),
-    }
-    chart["axis"] = _("%(unit)s since %(date)s") % {"unit": UNIT_NAMES[unit], "date": _since(first)}
-    chart["known"] = known_counts[-1]
-    chart["forgotten"] = forgotten_counts[-1]
-    return chart
+    return known_counts, forgotten_counts
 
 
 # The words chart: by days up to 2 weeks after the first word, by weeks up to 4 months, by
@@ -587,25 +588,29 @@ def _nice_top(value):
     return int(40 * power)
 
 
-def _line_chart(labels, values, most_labels=5, second=None, titles=None):
+def _line_chart(labels, series, most_labels=5, titles=None):
     """A simple line chart: a point for each label and the y axis with 5 round values.
 
-    Positions are percents of the drawing area (0 = left / top): the SVG draws the line in a
-    0–100 box stretched to the page, the dots and labels are HTML placed by the same percents.
-    A value None breaks the line. One point sits in the middle.
+    series: [(name, values)], one line each, on one scale; the name is the CSS class of its
+    line and dots (its colour) and they are drawn in this order. A value None breaks a line.
+    titles: the title of the dots of each point, else "label: value".
 
-    second: the values of a second line with its own dots, on the same scale (the known chart:
-    forgotten words). titles: the titles of the dots of each point, else "label: value".
+    Positions are percents of the drawing area (0 = left / top): the SVG draws the lines in a
+    0–100 box stretched to the page, the dots and labels are HTML placed by the same percents.
+    One point sits in the middle.
     """
     top = _nice_top(
-        max((value for value in [*values, *(second or [])] if value is not None), default=0)
+        max(
+            (value for _name, values in series for value in values if value is not None),
+            default=0,
+        )
     )
-
-    def dots(series):
+    lines = []
+    for name, values in series:
         points = []
         segments = []
         segment = []
-        for index, (label, value) in enumerate(zip(labels, series, strict=True)):
+        for index, (label, value) in enumerate(zip(labels, values, strict=True)):
             if value is None:
                 if segment:
                     segments.append(segment)
@@ -618,16 +623,16 @@ def _line_chart(labels, values, most_labels=5, second=None, titles=None):
             segment.append(f"{left:.2f},{y:.2f}")
         if segment:
             segments.append(segment)
-        return points, [" ".join(segment) for segment in segments]
-
-    points, segments = dots(values)
-    second_points, second_segments = dots(second) if second is not None else ([], [])
+        lines.append(
+            {
+                "name": name,
+                "points": points,
+                "segments": [" ".join(segment) for segment in segments],
+            }
+        )
     ticks = [{"label": str(top * part // 4), "top": f"{100 - 25 * part:.0f}"} for part in range(5)]
     return {
-        "points": points,
-        "segments": segments,
-        "second_points": second_points,
-        "second_segments": second_segments,
+        "lines": lines,
         "ticks": ticks,
         "labels": _chart_labels(labels, most_labels),
         # The longest number of the y axis, so its column is just as wide

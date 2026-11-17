@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-17 23:40+0100\n"
+"POT-Creation-Date: 2026-11-17 23:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1194,20 +1194,18 @@ msgid "%(month)s/%(day)s/%(year)s"
 msgstr "%(day)s. %(month)s. %(year)s"
 
 #, python-format
+msgid ""
+"%(label)s: %(words)s words, you know %(known)s, forgotten %(forgotten)s"
+msgstr ""
+"%(label)s: slovíček %(words)s, umíš %(known)s, zapomenuto %(forgotten)s"
+
+#, python-format
 msgid "Total words %(unit)s since %(date)s"
 msgstr "Slovíček celkem %(unit)s od %(date)s"
 
 #, python-format
 msgid "%(unit)s since %(date)s"
 msgstr "%(unit)s od %(date)s"
-
-#, python-format
-msgid "%(label)s: you know %(known)s, forgotten %(forgotten)s"
-msgstr "%(label)s: umíš %(known)s, zapomenuto %(forgotten)s"
-
-#, python-format
-msgid "Words you know and forgotten words %(unit)s since %(date)s"
-msgstr "Slovíčka, která umíš, a zapomenutá slovíčka %(unit)s od %(date)s"
 
 msgid "by day"
 msgstr "po dnech"
@@ -1504,8 +1502,9 @@ msgstr "nejdelší série %(longest)s"
 msgid "Nothing here yet. Add your first words and start a test."
 msgstr "Zatím tu nic není. Přidej si první slovíčka a pusť se do testu."
 
-msgid "Known and forgotten"
-msgstr "Umíš a zapomenuto"
+msgctxt "words in the chart"
+msgid "words"
+msgstr "slovíček"
 
 msgctxt "words in the chart"
 msgid "you know"
@@ -1519,11 +1518,13 @@ msgid "What it means"
 msgstr "Co to znamená"
 
 msgid ""
-"Green: the words you knew at that time. Red: forgotten words, you knew them "
-"once but not at that time; they come back in tests."
+"Purple: all your words. Green: the words you knew at that time. Red: "
+"forgotten words, you knew them once but not at that time; they come back in "
+"tests."
 msgstr ""
-"Zeleně: slovíčka, která tehdy byla naučená. Červeně: zapomenutá slovíčka – "
-"někdy byla naučená, ale tehdy ne; vrátí se ti v testech."
+"Fialově: všechna tvoje slovíčka. Zeleně: slovíčka, která tehdy byla naučená."
+" Červeně: zapomenutá slovíčka – někdy byla naučená, ale tehdy ne; vrátí se "
+"ti v testech."
 
 msgid "You know a word when every tested direction got 2× in a row 😎 or 🤔."
 msgstr "Umíš = v každém testovaném směru 2× za sebou 😎 nebo 🤔."

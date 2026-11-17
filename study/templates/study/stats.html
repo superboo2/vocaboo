@@ -39,25 +39,21 @@
     {% include "_tabs.html" with tabs=tabs label=tabs_label %}
     <div class="tab-panel">
       {% if tab == "words" %}
+        {# All words, and with answers the words you know and the forgotten ones on the same #}
+        {# scale; the legend has the numbers of now #}
         <section class="stat-section">
           <h2>{% translate "Words" %}</h2>
-          {% include "study/_chart.html" with chart=stats.words_chart tone="chart-words" label=stats.words_chart.subtitle %}
+          <div class="chart-legend muted">
+            <span class="chart-legend-item"><span class="chart-key chart-key-words"></span> {% translate "words" context "words in the chart" %} <strong>{{ stats.words_chart.words }}</strong></span>
+            {% if stats.has_logs %}
+              <span class="chart-legend-item"><span class="chart-key"></span> {% translate "you know" context "words in the chart" %} <strong>{{ stats.words_chart.known }}</strong></span>
+              <span class="chart-legend-item"><span class="chart-key chart-key-forgotten"></span> {% translate "forgotten" context "words in the chart" %} <strong>{{ stats.words_chart.forgotten }}</strong></span>
+              <details class="chart-info"><summary aria-label="{% translate "What it means" %}">ⓘ</summary><p>{% translate "Purple: all your words. Green: the words you knew at that time. Red: forgotten words, you knew them once but not at that time; they come back in tests." %}</p>{# When you know a word, with the smileys of the test buttons that count as right #}<p>{% translate "You know a word when every tested direction got 2× in a row 😎 or 🤔." %}</p></details>
+            {% endif %}
+          </div>
+          {% include "study/_chart.html" with chart=stats.words_chart label=stats.words_chart.subtitle %}
           <p class="chart-axis muted"><small>{{ stats.words_chart.axis }}</small></p>
         </section>
-
-        {% if stats.known_chart %}
-          {# Known and forgotten words at each point, the numbers of now in the legend #}
-          <section class="stat-section">
-            <h2>{% translate "Known and forgotten" %}</h2>
-            <div class="chart-legend muted">
-              <span class="chart-legend-item"><span class="chart-key"></span> {% translate "you know" context "words in the chart" %} <strong>{{ stats.known_chart.known }}</strong></span>
-              <span class="chart-legend-item"><span class="chart-key chart-key-forgotten"></span> {% translate "forgotten" context "words in the chart" %} <strong>{{ stats.known_chart.forgotten }}</strong></span>
-              <details class="chart-info"><summary aria-label="{% translate "What it means" %}">ⓘ</summary><p>{% translate "Green: the words you knew at that time. Red: forgotten words, you knew them once but not at that time; they come back in tests." %}</p>{# When you know a word, with the smileys of the test buttons that count as right #}<p>{% translate "You know a word when every tested direction got 2× in a row 😎 or 🤔." %}</p></details>
-            </div>
-            {% include "study/_chart.html" with chart=stats.known_chart tone="chart-known" label=stats.known_chart.subtitle %}
-            <p class="chart-axis muted"><small>{{ stats.known_chart.axis }}</small></p>
-          </section>
-        {% endif %}
       {% elif tab == "tests" %}
         <section class="stat-section">
           <h2>{% translate "Recent tests" %}</h2>
