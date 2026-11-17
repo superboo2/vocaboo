@@ -45,18 +45,17 @@
           <p class="chart-axis muted"><small>{{ stats.words_chart.axis }}</small></p>
         </section>
 
-        {% if stats.flow_chart %}
-          {# Learned up, forgotten down, on the same points; the legend has the last 7 days #}
+        {% if stats.known_chart %}
+          {# Known and forgotten words at each point, the numbers of now in the legend #}
           <section class="stat-section">
-            <h2>{% translate "Learned and forgotten" %}</h2>
+            <h2>{% translate "Known and forgotten" %}</h2>
             <div class="chart-legend muted">
-              <span class="chart-legend-item"><span class="chart-key"></span> {% translate "learned" context "words in the chart" %} <strong>{{ stats.flow_chart.last_week.learned }}</strong></span>
-              <span class="chart-legend-item"><span class="chart-key chart-key-forgotten"></span> {% translate "forgotten" context "words in the chart" %} <strong>{{ stats.flow_chart.last_week.forgotten }}</strong></span>
-              <span class="chart-legend-item">{% translate "in 7 days" %}</span>
-              <details class="chart-info"><summary aria-label="{% translate "What it means" %}">ⓘ</summary><p>{% translate "Up learned: words that became known, the first time or again. Down forgotten: words that dropped out of known; they come back in tests." %}</p>{# When you know a word, with the smileys of the test buttons that count as right #}<p>{% translate "You know a word when every tested direction got 2× in a row 😎 or 🤔." %}</p></details>
+              <span class="chart-legend-item"><span class="chart-key"></span> {% translate "you know" context "words in the chart" %} <strong>{{ stats.known_chart.known }}</strong></span>
+              <span class="chart-legend-item"><span class="chart-key chart-key-forgotten"></span> {% translate "forgotten" context "words in the chart" %} <strong>{{ stats.known_chart.forgotten }}</strong></span>
+              <details class="chart-info"><summary aria-label="{% translate "What it means" %}">ⓘ</summary><p>{% translate "Green: the words you knew at that time. Red: forgotten words, you knew them once but not at that time; they come back in tests." %}</p>{# When you know a word, with the smileys of the test buttons that count as right #}<p>{% translate "You know a word when every tested direction got 2× in a row 😎 or 🤔." %}</p></details>
             </div>
-            {% include "study/_chart.html" with chart=stats.flow_chart tone="chart-known chart-flow" label=stats.flow_chart.subtitle %}
-            <p class="chart-axis muted"><small>{{ stats.flow_chart.axis }}</small></p>
+            {% include "study/_chart.html" with chart=stats.known_chart tone="chart-known" label=stats.known_chart.subtitle %}
+            <p class="chart-axis muted"><small>{{ stats.known_chart.axis }}</small></p>
           </section>
         {% endif %}
       {% elif tab == "tests" %}

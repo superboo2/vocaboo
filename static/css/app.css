@@ -2087,15 +2087,9 @@ nav.tabs a[aria-current="page"] {
   stroke-linecap: round;
 }
 
-/* The second line of a mirror chart: forgotten words below zero, in red */
+/* The second line of the known chart: forgotten words, in red */
 .line-chart-second {
   stroke: var(--rating-dontknow);
-}
-
-/* The zero line in the middle of a mirror chart */
-.line-chart-zero {
-  stroke: var(--pico-muted-color);
-  stroke-width: 1.5;
 }
 
 .line-chart-dot {

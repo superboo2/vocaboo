@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-17 23:28+0100\n"
+"POT-Creation-Date: 2026-11-17 23:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1207,8 +1207,12 @@ msgid "%(unit)s since %(date)s"
 msgstr "%(unit)s seit %(date)s"
 
 #, python-format
-msgid "Words learned and forgotten %(unit)s since %(date)s"
-msgstr "Gelernte und vergessene Vokabeln %(unit)s seit %(date)s"
+msgid "%(label)s: you know %(known)s, forgotten %(forgotten)s"
+msgstr "%(label)s: gekonnt %(known)s, vergessen %(forgotten)s"
+
+#, python-format
+msgid "Words you know and forgotten words %(unit)s since %(date)s"
+msgstr "Gekonnte und vergessene Vokabeln %(unit)s seit %(date)s"
 
 msgid "by day"
 msgstr "nach Tagen"
@@ -1273,10 +1277,6 @@ msgstr "Dez."
 #, python-format
 msgid "Q%(quarter)s %(year)s"
 msgstr "Q%(quarter)s %(year)s"
-
-#, python-format
-msgid "%(label)s: +%(learned)s learned, −%(forgotten)s forgotten"
-msgstr "%(label)s: +%(learned)s gelernt, −%(forgotten)s vergessen"
 
 #, python-format
 msgid "%(count)s character"
@@ -1511,30 +1511,26 @@ msgid "Nothing here yet. Add your first words and start a test."
 msgstr ""
 "Hier ist noch nichts. Füg deine ersten Vokabeln hinzu und starte einen Test."
 
-msgid "Learned and forgotten"
-msgstr "Gelernt und vergessen"
+msgid "Known and forgotten"
+msgstr "Gekonnt und vergessen"
 
 msgctxt "words in the chart"
-msgid "learned"
-msgstr "gelernt"
+msgid "you know"
+msgstr "gekonnt"
 
 msgctxt "words in the chart"
 msgid "forgotten"
 msgstr "vergessen"
 
-msgid "in 7 days"
-msgstr "in 7 Tagen"
-
 msgid "What it means"
 msgstr "Was das heißt"
 
 msgid ""
-"Up learned: words that became known, the first time or again. Down "
-"forgotten: words that dropped out of known; they come back in tests."
+"Green: the words you knew at that time. Red: forgotten words, you knew them "
+"once but not at that time; they come back in tests."
 msgstr ""
-"Nach oben gelernt: Vokabeln, die du jetzt kannst, zum ersten Mal oder "
-"wieder. Nach unten vergessen: Vokabeln, die aus „Gekonnt“ herausgefallen "
-"sind; sie kommen in Tests wieder."
+"Grün: die Vokabeln, die du damals konntest. Rot: vergessene Vokabeln, die du"
+" einmal konntest, damals aber nicht; sie kommen in Tests wieder."
 
 msgid "You know a word when every tested direction got 2× in a row 😎 or 🤔."
 msgstr ""

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-17 23:28+0100\n"
+"POT-Creation-Date: 2026-11-17 23:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1218,8 +1218,12 @@ msgid "%(unit)s since %(date)s"
 msgstr "%(unit)s с %(date)s"
 
 #, python-format
-msgid "Words learned and forgotten %(unit)s since %(date)s"
-msgstr "Выученные и забытые слова %(unit)s с %(date)s"
+msgid "%(label)s: you know %(known)s, forgotten %(forgotten)s"
+msgstr "%(label)s: знаешь %(known)s, забыто %(forgotten)s"
+
+#, python-format
+msgid "Words you know and forgotten words %(unit)s since %(date)s"
+msgstr "Известные и забытые слова %(unit)s с %(date)s"
 
 msgid "by day"
 msgstr "по дням"
@@ -1284,10 +1288,6 @@ msgstr "дек"
 #, python-format
 msgid "Q%(quarter)s %(year)s"
 msgstr "%(quarter)s кв. %(year)s"
-
-#, python-format
-msgid "%(label)s: +%(learned)s learned, −%(forgotten)s forgotten"
-msgstr "%(label)s: +%(learned)s выучено, −%(forgotten)s забыто"
 
 #, python-format
 msgid "%(count)s character"
@@ -1526,29 +1526,26 @@ msgstr "самая длинная серия %(longest)s"
 msgid "Nothing here yet. Add your first words and start a test."
 msgstr "Здесь пока пусто. Добавь первые слова и начни тест."
 
-msgid "Learned and forgotten"
-msgstr "Выучено и забыто"
+msgid "Known and forgotten"
+msgstr "Знаешь и забыто"
 
 msgctxt "words in the chart"
-msgid "learned"
-msgstr "выучено"
+msgid "you know"
+msgstr "знаешь"
 
 msgctxt "words in the chart"
 msgid "forgotten"
 msgstr "забыто"
 
-msgid "in 7 days"
-msgstr "за 7 дней"
-
 msgid "What it means"
 msgstr "Что это значит"
 
 msgid ""
-"Up learned: words that became known, the first time or again. Down "
-"forgotten: words that dropped out of known; they come back in tests."
+"Green: the words you knew at that time. Red: forgotten words, you knew them "
+"once but not at that time; they come back in tests."
 msgstr ""
-"Вверх выучено: слова, которые стали известными, впервые или снова. Вниз "
-"забыто: слова, которые выпали из известных; они вернутся в тестах."
+"Зелёным: слова, которые были известны в тот момент. Красным: забытые слова –"
+" когда-то были известны, но в тот момент нет; они вернутся в тестах."
 
 msgid "You know a word when every tested direction got 2× in a row 😎 or 🤔."
 msgstr ""

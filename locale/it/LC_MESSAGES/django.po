@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-17 23:28+0100\n"
+"POT-Creation-Date: 2026-11-17 23:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1204,8 +1204,12 @@ msgid "%(unit)s since %(date)s"
 msgstr "%(unit)s dal %(date)s"
 
 #, python-format
-msgid "Words learned and forgotten %(unit)s since %(date)s"
-msgstr "Parole imparate e dimenticate %(unit)s dal %(date)s"
+msgid "%(label)s: you know %(known)s, forgotten %(forgotten)s"
+msgstr "%(label)s: sai %(known)s, dimenticate %(forgotten)s"
+
+#, python-format
+msgid "Words you know and forgotten words %(unit)s since %(date)s"
+msgstr "Parole che sai e parole dimenticate %(unit)s dal %(date)s"
 
 msgid "by day"
 msgstr "per giorno"
@@ -1270,10 +1274,6 @@ msgstr "dic"
 #, python-format
 msgid "Q%(quarter)s %(year)s"
 msgstr "T%(quarter)s %(year)s"
-
-#, python-format
-msgid "%(label)s: +%(learned)s learned, −%(forgotten)s forgotten"
-msgstr "%(label)s: +%(learned)s imparate, −%(forgotten)s dimenticate"
 
 #, python-format
 msgid "%(count)s character"
@@ -1506,29 +1506,26 @@ msgstr "serie più lunga %(longest)s"
 msgid "Nothing here yet. Add your first words and start a test."
 msgstr "Qui non c'è ancora niente. Aggiungi le prime parole e avvia un test."
 
-msgid "Learned and forgotten"
-msgstr "Imparate e dimenticate"
+msgid "Known and forgotten"
+msgstr "Sai e dimenticate"
 
 msgctxt "words in the chart"
-msgid "learned"
-msgstr "imparate"
+msgid "you know"
+msgstr "sai"
 
 msgctxt "words in the chart"
 msgid "forgotten"
 msgstr "dimenticate"
 
-msgid "in 7 days"
-msgstr "in 7 giorni"
-
 msgid "What it means"
 msgstr "Cosa significa"
 
 msgid ""
-"Up learned: words that became known, the first time or again. Down "
-"forgotten: words that dropped out of known; they come back in tests."
+"Green: the words you knew at that time. Red: forgotten words, you knew them "
+"once but not at that time; they come back in tests."
 msgstr ""
-"In alto imparate: parole che sono diventate «le sai», la prima volta o di "
-"nuovo. In basso dimenticate: parole uscite da «le sai»; tornano nei test."
+"Verde: le parole che sapevi in quel momento. Rosso: parole dimenticate, che "
+"hai saputo una volta ma non in quel momento; tornano nei test."
 
 msgid "You know a word when every tested direction got 2× in a row 😎 or 🤔."
 msgstr ""

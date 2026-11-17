@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-17 23:28+0100\n"
+"POT-Creation-Date: 2026-11-17 23:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1214,8 +1214,12 @@ msgid "%(unit)s since %(date)s"
 msgstr "%(unit)s з %(date)s"
 
 #, python-format
-msgid "Words learned and forgotten %(unit)s since %(date)s"
-msgstr "Вивчені та забуті слова %(unit)s з %(date)s"
+msgid "%(label)s: you know %(known)s, forgotten %(forgotten)s"
+msgstr "%(label)s: знаєш %(known)s, забуто %(forgotten)s"
+
+#, python-format
+msgid "Words you know and forgotten words %(unit)s since %(date)s"
+msgstr "Відомі й забуті слова %(unit)s з %(date)s"
 
 msgid "by day"
 msgstr "по днях"
@@ -1280,10 +1284,6 @@ msgstr "гру"
 #, python-format
 msgid "Q%(quarter)s %(year)s"
 msgstr "Q%(quarter)s %(year)s"
-
-#, python-format
-msgid "%(label)s: +%(learned)s learned, −%(forgotten)s forgotten"
-msgstr "%(label)s: +%(learned)s вивчено, −%(forgotten)s забуто"
 
 #, python-format
 msgid "%(count)s character"
@@ -1522,29 +1522,26 @@ msgstr "найдовша серія %(longest)s"
 msgid "Nothing here yet. Add your first words and start a test."
 msgstr "Тут поки нічого немає. Додай перші слова й почни тест."
 
-msgid "Learned and forgotten"
-msgstr "Вивчено й забуто"
+msgid "Known and forgotten"
+msgstr "Знаєш і забуто"
 
 msgctxt "words in the chart"
-msgid "learned"
-msgstr "вивчено"
+msgid "you know"
+msgstr "знаєш"
 
 msgctxt "words in the chart"
 msgid "forgotten"
 msgstr "забуто"
 
-msgid "in 7 days"
-msgstr "за 7 днів"
-
 msgid "What it means"
 msgstr "Що це означає"
 
 msgid ""
-"Up learned: words that became known, the first time or again. Down "
-"forgotten: words that dropped out of known; they come back in tests."
+"Green: the words you knew at that time. Red: forgotten words, you knew them "
+"once but not at that time; they come back in tests."
 msgstr ""
-"Угору вивчено: слова, які стали «знаєш», уперше або знову. Униз забуто: "
-"слова, які випали зі «знаєш»; вони повернуться в тестах."
+"Зеленим: слова, які були відомі в той момент. Червоним: забуті слова – "
+"колись були відомі, але в той момент ні; вони повернуться в тестах."
 
 msgid "You know a word when every tested direction got 2× in a row 😎 or 🤔."
 msgstr "Знаєш = у кожному тестованому напрямку 2× поспіль 😎 або 🤔."
