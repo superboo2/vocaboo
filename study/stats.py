@@ -115,7 +115,7 @@ def user_statistics(user, now=None, period=DEFAULT_PERIOD):
     return {
         "totals": _totals(terms, logs, known, tested, today),
         "words_chart": _words_chart(terms, today),
-        "known_chart": _known_chart(terms, logs, known, today) if logs else None,
+        "flow_chart": _flow_chart(terms, logs, today) if logs else None,
         "streak": _streak(logs, today, user.daily_goal),
         "tests": recent_tests(user, now),
         "facts": _facts(user, logs, now, period),
@@ -467,48 +467,57 @@ def _words_chart(terms, today):
         "unit": UNIT_NAMES[unit],
         "date": _since(first),
     }
+    chart["axis"] = _("%(unit)s since %(date)s") % {"unit": UNIT_NAMES[unit], "date": _since(first)}
     return chart
 
 
-def _known_chart(terms, logs, known_now, today):
-    """Known words ("umíš", is_known) over time, on the same points as the words chart, with
-    its own y axis so the progress shows. Counted again from the history: the answers up to
-    the end of each point. The last point is the number of the card above (known_words)."""
+def _flow_chart(terms, logs, today):
+    """Learned and forgotten words on the same points as the words chart, counted again from
+    the history: how many words became known ("umíš", is_known) in each point (learned, the
+    first time or again) and how many dropped out of known (forgotten). Learned goes up,
+    forgotten down, on one scale, so you see whether you gained or lost. Its legend has the
+    last 7 days. (A chart of the known words themselves was dropped: the number is on the
+    card above and the user found this chart enough.)
+    """
     unit, first, starts = _chart_steps(terms, today)
     ends = [_day_start(day) for day in [*starts[1:], today + timedelta(days=1)]]
+    week_ago = _day_start(today - timedelta(days=6))
     streaks = {}  # {term: {direction: right answers in a row}}
     known = set()
-    # Words known at least once: they stay here after a wrong answer, so this line never
-    # goes down. The gap between the two lines are the words you forgot.
-    ever = set()
-    counts = []
-    ever_counts = []
+    learned = []
+    forgotten = []
+    last_week = {"learned": 0, "forgotten": 0}
     index = 0
     for end in ends:
+        learned.append(0)
+        forgotten.append(0)
         while index < len(logs) and logs[index][0] < end:
             reviewed_at, result, *_rest, term_id, direction = logs[index]
             directions = streaks.setdefault(term_id, {})
             directions[direction] = (
                 directions.get(direction, 0) + 1 if result == Result.CORRECT else 0
             )
+            change = None
             if is_known(directions.values()):
-                known.add(term_id)
-                ever.add(term_id)
-            else:
+                if term_id not in known:
+                    known.add(term_id)
+                    learned[-1] += 1
+                    change = "learned"
+            elif term_id in known:
                 known.discard(term_id)
+                forgotten[-1] += 1
+                change = "forgotten"
+            if change and reviewed_at >= week_ago:
+                last_week[change] += 1
             index += 1
-        counts.append(len(known))
-        ever_counts.append(len(ever))
-    # The second line only when some word was forgotten, else it would hide under the first
-    forgotten = ever_counts != counts
-    counts[-1] = known_now
-    ever_counts[-1] = max(ever_counts[-1], known_now)
-    second = ever_counts if forgotten else None
-    chart = _line_chart([_bucket_label(start, unit) for start in starts], counts, second=second)
-    chart["subtitle"] = _("Words you know %(unit)s since %(date)s") % {
+    labels = [_bucket_label(start, unit) for start in starts]
+    chart = _mirror_chart(labels, learned, forgotten)
+    chart["subtitle"] = _("Words learned and forgotten %(unit)s since %(date)s") % {
         "unit": UNIT_NAMES[unit],
         "date": _since(first),
     }
+    chart["axis"] = _("%(unit)s since %(date)s") % {"unit": UNIT_NAMES[unit], "date": _since(first)}
+    chart["last_week"] = last_week
     return chart
 
 
@@ -575,24 +584,14 @@ def _nice_top(value):
     return int(40 * power)
 
 
-def _line_chart(labels, values, most_labels=5, second=None):
+def _line_chart(labels, values, most_labels=5):
     """A simple line chart: a point for each label and the y axis with 5 round values.
 
     Positions are percents of the drawing area (0 = left / top): the SVG draws the line in a
     0–100 box stretched to the page, the dots and labels are HTML placed by the same percents.
     A value None breaks the line. One point sits in the middle.
-
-    second: values of a second, dashed line without dots (the known chart: words known at
-    least once). Its value is in the title of the dot of the first line.
     """
-    top = _nice_top(
-        max((value for value in [*values, *(second or [])] if value is not None), default=0)
-    )
-    last = len(labels) - 1
-
-    def left_of(index):
-        return 50 if last == 0 else 100 * index / last
-
+    top = _nice_top(max((value for value in values if value is not None), default=0))
     points = []
     segments = []
     segment = []
@@ -602,42 +601,77 @@ def _line_chart(labels, values, most_labels=5, second=None):
                 segments.append(segment)
             segment = []
             continue
-        left = left_of(index)
+        left = _chart_left(index, labels)
         y = 100 - 100 * value / top
-        title = f"{label}: {value}"
-        if second is not None:
-            title = _("%(label)s: %(value)s, at least once %(ever)s") % {
-                "label": label,
-                "value": value,
-                "ever": second[index],
-            }
-        points.append({"left": f"{left:.2f}", "top": f"{y:.2f}", "title": title})
+        points.append({"left": f"{left:.2f}", "top": f"{y:.2f}", "title": f"{label}: {value}"})
         segment.append(f"{left:.2f},{y:.2f}")
     if segment:
         segments.append(segment)
-    second_line = ""
-    if second is not None:
-        second_line = " ".join(
-            f"{left_of(index):.2f},{100 - 100 * value / top:.2f}"
-            for index, value in enumerate(second)
-        )
     ticks = [{"label": str(top * part // 4), "top": f"{100 - 25 * part:.0f}"} for part in range(5)]
-    # At most a few labels under the axis, evenly from the last one back, so they do not touch
-    every = max(1, -(-len(labels) // most_labels))
-    shown = [
-        {"label": label, "left": f"{left_of(index):.2f}"}
-        for index, label in enumerate(labels)
-        if (last - index) % every == 0
-    ]
     return {
         "points": points,
         "segments": [" ".join(segment) for segment in segments],
-        "second_line": second_line,
         "ticks": ticks,
-        "labels": shown,
+        "labels": _chart_labels(labels, most_labels),
         # The longest number of the y axis, so its column is just as wide
         "axis_chars": max(len(tick["label"]) for tick in ticks),
     }
+
+
+def _mirror_chart(labels, up, down, most_labels=5):
+    """A line chart with zero in the middle: the up values above it (green), the down values
+    below it (red), on one scale. The title of every dot has both numbers of its point.
+
+    Where both are 0 only the up dot is drawn, so two dots do not lie on each other.
+    """
+    top = _nice_top(max([*up, *down], default=0))
+    points = []
+    down_points = []
+    for index, (label, plus, minus) in enumerate(zip(labels, up, down, strict=True)):
+        left = f"{_chart_left(index, labels):.2f}"
+        title = _("%(label)s: +%(learned)s learned, −%(forgotten)s forgotten") % {
+            "label": label,
+            "learned": plus,
+            "forgotten": minus,
+        }
+        points.append({"left": left, "top": f"{50 - 50 * plus / top:.2f}", "title": title})
+        down_points.append({"left": left, "top": f"{50 + 50 * minus / top:.2f}", "title": title})
+    ticks = [
+        {"label": f"+{top}", "top": "0"},
+        {"label": f"+{top // 2}", "top": "25"},
+        {"label": "0", "top": "50", "zero": True},
+        {"label": f"−{top // 2}", "top": "75"},
+        {"label": f"−{top}", "top": "100"},
+    ]
+    return {
+        "points": points,
+        "segments": [" ".join(f"{point['left']},{point['top']}" for point in points)],
+        "second_points": [
+            point for point, plus, minus in zip(down_points, up, down, strict=True) if plus or minus
+        ],
+        "second_line": " ".join(f"{point['left']},{point['top']}" for point in down_points),
+        "ticks": ticks,
+        "labels": _chart_labels(labels, most_labels),
+        "axis_chars": max(len(tick["label"]) for tick in ticks),
+    }
+
+
+def _chart_left(index, labels):
+    """The left of a point in percent; one point sits in the middle."""
+    last = len(labels) - 1
+    return 50 if last == 0 else 100 * index / last
+
+
+def _chart_labels(labels, most_labels):
+    """At most a few labels under the axis, evenly from the last one back, so they do not
+    touch."""
+    last = len(labels) - 1
+    every = max(1, -(-len(labels) // most_labels))
+    return [
+        {"label": label, "left": f"{_chart_left(index, labels):.2f}"}
+        for index, label in enumerate(labels)
+        if (last - index) % every == 0
+    ]
 
 
 def _streak(logs, today, goal=None):

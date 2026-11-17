@@ -41,25 +41,22 @@
       {% if tab == "words" %}
         <section class="stat-section">
           <h2>{% translate "Words" %}</h2>
-          <p class="muted"><small>{{ stats.words_chart.subtitle }}</small></p>
           {% include "study/_chart.html" with chart=stats.words_chart tone="chart-words" label=stats.words_chart.subtitle %}
+          <p class="chart-axis muted"><small>{{ stats.words_chart.axis }}</small></p>
         </section>
 
-        {# Known words on the same points, with their own y axis so the progress shows #}
-        {% if stats.known_chart %}
+        {% if stats.flow_chart %}
+          {# Learned up, forgotten down, on the same points; the legend has the last 7 days #}
           <section class="stat-section">
-            <h2>{% translate "You know" context "chart of known words" %}</h2>
-            {# When you know a word, with the smileys of the test buttons that count as right #}
-            <p class="muted"><small>{{ stats.known_chart.subtitle }}<br>{% translate "You know a word when every tested direction got 2× in a row 😎 or 🤔." %}</small></p>
-            {# The legend only with the second line: words known at least once #}
-            {% if stats.known_chart.second_line %}
-              <p class="chart-legend muted"><small>
-                <span class="chart-legend-item"><span class="chart-key"></span> {% translate "you know now" %}</span>
-                <span class="chart-legend-item"><span class="chart-key chart-key-second"></span> {% translate "learned at least once" %}</span>
-                <br>{% translate "The gap between the lines are words you forgot. They come back in tests." %}
-              </small></p>
-            {% endif %}
-            {% include "study/_chart.html" with chart=stats.known_chart tone="chart-known" label=stats.known_chart.subtitle %}
+            <h2>{% translate "Learned and forgotten" %}</h2>
+            <div class="chart-legend muted">
+              <span class="chart-legend-item"><span class="chart-key"></span> {% translate "learned" context "words in the chart" %} <strong>{{ stats.flow_chart.last_week.learned }}</strong></span>
+              <span class="chart-legend-item"><span class="chart-key chart-key-forgotten"></span> {% translate "forgotten" context "words in the chart" %} <strong>{{ stats.flow_chart.last_week.forgotten }}</strong></span>
+              <span class="chart-legend-item">{% translate "in 7 days" %}</span>
+              <details class="chart-info"><summary aria-label="{% translate "What it means" %}">ⓘ</summary><p>{% translate "Up learned: words that became known, the first time or again. Down forgotten: words that dropped out of known; they come back in tests." %}</p>{# When you know a word, with the smileys of the test buttons that count as right #}<p>{% translate "You know a word when every tested direction got 2× in a row 😎 or 🤔." %}</p></details>
+            </div>
+            {% include "study/_chart.html" with chart=stats.flow_chart tone="chart-known chart-flow" label=stats.flow_chart.subtitle %}
+            <p class="chart-axis muted"><small>{{ stats.flow_chart.axis }}</small></p>
           </section>
         {% endif %}
       {% elif tab == "tests" %}

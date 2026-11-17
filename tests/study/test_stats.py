@@ -250,7 +250,7 @@ def test_stats_page(client, user, deck):
     html = client.get(reverse("study:stats")).content.decode()
 
     assert "Statistiky" in html
-    assert "<h2>Slovíčka</h2>" in html and "<h2>Umíš</h2>" in html
+    assert "<h2>Slovíčka</h2>" in html and "<h2>Naučeno a zapomenuto</h2>" in html
     assert "Umíš = v každém testovaném směru 2× za sebou 😎 nebo 🤔." in html
     assert "<polyline" in html
     assert "?period=" not in html
@@ -560,72 +560,71 @@ def test_words_chart_by_days_months_and_quarters(user, deck):
     assert [point["left"] for point in single["points"]] == ["50.00"]
 
 
-def test_known_chart_counts_known_words_from_the_history(user, deck):
+def test_flow_chart_counts_learned_and_forgotten_from_the_history(user, deck):
     cat = vocabulary.add_term(deck, foreign="cat", native="kočka").term
     dog = vocabulary.add_term(deck, foreign="dog", native="pes").term
     Term.objects.filter(pk__in=[cat.pk, dog.pk]).update(created_at=NOW - timedelta(days=6))
-    # cat: right twice (known from 4 days ago), wrong yesterday (not known any more);
-    # dog: right twice up to 2 days ago, then known
+    # cat: right twice (learned 4 days ago), wrong yesterday (forgotten);
+    # dog: right twice up to 2 days ago (learned)
     answer(user, cat, 5)
     answer(user, cat, 4)
     answer(user, cat, 1, Result.WRONG, "dontknow")
     answer(user, dog, 3)
     answer(user, dog, 2)
-    ReviewState.objects.filter(term=dog, direction="F2N").update(
-        correct_streak=2, last_reviewed_at=NOW - timedelta(days=2)
-    )
 
-    chart = stats.user_statistics(user, now=NOW)["known_chart"]
+    flow = stats.user_statistics(user, now=NOW)["flow_chart"]
 
-    # The same days as the words chart, the known words at the end of each day; cat was
-    # forgotten, so the second line (known at least once) stays at 2
-    assert [point["title"] for point in chart["points"]] == [
-        "8. 10.: 0, aspoň jednou 0",
-        "9. 10.: 0, aspoň jednou 0",
-        "10. 10.: 1, aspoň jednou 1",
-        "11. 10.: 1, aspoň jednou 1",
-        "12. 10.: 2, aspoň jednou 2",
-        "13. 10.: 1, aspoň jednou 2",
-        "14. 10.: 1, aspoň jednou 2",
+    # The same days as the words chart; learned up, forgotten down, both numbers in the title
+    assert [point["title"] for point in flow["points"]] == [
+        "8. 10.: +0 naučeno, −0 zapomenuto",
+        "9. 10.: +0 naučeno, −0 zapomenuto",
+        "10. 10.: +1 naučeno, −0 zapomenuto",
+        "11. 10.: +0 naučeno, −0 zapomenuto",
+        "12. 10.: +1 naučeno, −0 zapomenuto",
+        "13. 10.: +0 naučeno, −1 zapomenuto",
+        "14. 10.: +0 naučeno, −0 zapomenuto",
     ]
-    assert chart["second_line"].endswith("100.00,50.00")
-    assert chart["subtitle"].startswith("Slovíčka, která umíš, po dnech")
+    assert [point["top"] for point in flow["points"]][:3] == ["50.00", "50.00", "37.50"]
+    # A dot below zero only where something happened, so two dots do not lie on each other
+    assert [point["title"][:7] for point in flow["second_points"]] == [
+        "10. 10.",
+        "12. 10.",
+        "13. 10.",
+    ]
+    assert flow["second_points"][2]["top"] == "62.50"
+    assert [tick["label"] for tick in flow["ticks"]] == ["+4", "+2", "0", "−2", "−4"]
+    assert flow["last_week"] == {"learned": 2, "forgotten": 1}
+    assert flow["subtitle"].startswith("Naučená a zapomenutá slovíčka po dnech")
+    assert flow["axis"] == "po dnech od 8. 10. 2026"
 
 
-def test_known_chart_second_line_only_after_forgetting(client, user, deck):
+def test_stats_page_has_the_learned_chart_with_its_legend(client, user, deck):
     cat = vocabulary.add_term(deck, foreign="cat", native="kočka").term
-    Term.objects.filter(pk=cat.pk).update(created_at=NOW - timedelta(days=6))
-    answer(user, cat, 5)
-    answer(user, cat, 4)
-    ReviewState.objects.filter(term=cat, direction="F2N").update(
-        correct_streak=2, last_reviewed_at=NOW - timedelta(days=4)
-    )
+    answer(user, cat, 2)
     client.force_login(user)
 
-    chart = stats.user_statistics(user, now=NOW)["known_chart"]
     html = client.get(reverse("study:stats")).content.decode()
 
-    # Nothing forgotten: one line, plain titles and no legend
-    assert chart["second_line"] == ""
-    assert chart["points"][-1]["title"] == "14. 10.: 1"
-    assert "aspoň jednou" not in html
-
-    answer(user, cat, 1, Result.WRONG, "dontknow")
-    ReviewState.objects.filter(term=cat, direction="F2N").update(correct_streak=0)
-    html = client.get(reverse("study:stats")).content.decode()
-
-    assert "line-chart-second" in html
-    assert "naučená aspoň jednou" in html and "Mezera mezi čarami" in html
+    assert "<h2>Naučeno a zapomenuto</h2>" in html
+    assert "zapomenuto <strong>0</strong>" in html and "za 7 dní" in html
+    # ⓘ explains the chart and when you know a word
+    assert 'class="chart-info"' in html and "Nahoru naučeno" in html
+    assert "2× za sebou" in html
+    # No chart of the known words; the text of the axis is under both charts
+    assert "<h2>Umíš</h2>" not in html
+    assert html.count('class="chart-axis muted"') == 2
+    assert "line-chart-zero" in html
 
 
-def test_known_chart_only_with_answers(client, user, deck):
+def test_flow_chart_only_with_answers(client, user, deck):
     vocabulary.add_term(deck, foreign="cat", native="kočka")
     client.force_login(user)
 
     html = client.get(reverse("study:stats")).content.decode()
 
-    assert stats.user_statistics(user, now=NOW)["known_chart"] is None
-    assert "<h2>Slovíčka</h2>" in html and "<h2>Umíš</h2>" not in html
+    assert stats.user_statistics(user, now=NOW)["flow_chart"] is None
+    assert "<h2>Slovíčka</h2>" in html
+    assert "Naučeno a zapomenuto" not in html
 
 
 def test_known_needs_every_tested_direction(user, deck):

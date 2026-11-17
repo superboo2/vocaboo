@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-14 01:13+0100\n"
+"POT-Creation-Date: 2026-11-17 23:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1214,8 +1214,12 @@ msgid "Total words %(unit)s since %(date)s"
 msgstr "Всего слов %(unit)s с %(date)s"
 
 #, python-format
-msgid "Words you know %(unit)s since %(date)s"
-msgstr "Известных слов %(unit)s с %(date)s"
+msgid "%(unit)s since %(date)s"
+msgstr "%(unit)s с %(date)s"
+
+#, python-format
+msgid "Words learned and forgotten %(unit)s since %(date)s"
+msgstr "Выученные и забытые слова %(unit)s с %(date)s"
 
 msgid "by day"
 msgstr "по дням"
@@ -1282,8 +1286,8 @@ msgid "Q%(quarter)s %(year)s"
 msgstr "%(quarter)s кв. %(year)s"
 
 #, python-format
-msgid "%(label)s: %(value)s, at least once %(ever)s"
-msgstr "%(label)s: %(value)s, хотя бы раз %(ever)s"
+msgid "%(label)s: +%(learned)s learned, −%(forgotten)s forgotten"
+msgstr "%(label)s: +%(learned)s выучено, −%(forgotten)s забыто"
 
 #, python-format
 msgid "%(count)s character"
@@ -1522,24 +1526,34 @@ msgstr "самая длинная серия %(longest)s"
 msgid "Nothing here yet. Add your first words and start a test."
 msgstr "Здесь пока пусто. Добавь первые слова и начни тест."
 
-msgctxt "chart of known words"
-msgid "You know"
-msgstr "Знаешь"
+msgid "Learned and forgotten"
+msgstr "Выучено и забыто"
+
+msgctxt "words in the chart"
+msgid "learned"
+msgstr "выучено"
+
+msgctxt "words in the chart"
+msgid "forgotten"
+msgstr "забыто"
+
+msgid "in 7 days"
+msgstr "за 7 дней"
+
+msgid "What it means"
+msgstr "Что это значит"
+
+msgid ""
+"Up learned: words that became known, the first time or again. Down "
+"forgotten: words that dropped out of known; they come back in tests."
+msgstr ""
+"Вверх выучено: слова, которые стали известными, впервые или снова. Вниз "
+"забыто: слова, которые выпали из известных; они вернутся в тестах."
 
 msgid "You know a word when every tested direction got 2× in a row 😎 or 🤔."
 msgstr ""
 "Слово считается известным, когда в каждом проверенном направлении 2× подряд "
 "😎 или 🤔."
-
-msgid "you know now"
-msgstr "знаешь сейчас"
-
-msgid "learned at least once"
-msgstr "выучено хотя бы раз"
-
-msgid ""
-"The gap between the lines are words you forgot. They come back in tests."
-msgstr "Разрыв между линиями — это забытые слова. Они вернутся в тестах."
 
 msgid "No tests yet."
 msgstr "Тестов пока нет."

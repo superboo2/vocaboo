@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-14 01:13+0100\n"
+"POT-Creation-Date: 2026-11-17 23:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1210,8 +1210,12 @@ msgid "Total words %(unit)s since %(date)s"
 msgstr "Усього слів %(unit)s з %(date)s"
 
 #, python-format
-msgid "Words you know %(unit)s since %(date)s"
-msgstr "Слова, які знаєш, %(unit)s з %(date)s"
+msgid "%(unit)s since %(date)s"
+msgstr "%(unit)s з %(date)s"
+
+#, python-format
+msgid "Words learned and forgotten %(unit)s since %(date)s"
+msgstr "Вивчені та забуті слова %(unit)s з %(date)s"
 
 msgid "by day"
 msgstr "по днях"
@@ -1278,8 +1282,8 @@ msgid "Q%(quarter)s %(year)s"
 msgstr "Q%(quarter)s %(year)s"
 
 #, python-format
-msgid "%(label)s: %(value)s, at least once %(ever)s"
-msgstr "%(label)s: %(value)s, хоча б раз %(ever)s"
+msgid "%(label)s: +%(learned)s learned, −%(forgotten)s forgotten"
+msgstr "%(label)s: +%(learned)s вивчено, −%(forgotten)s забуто"
 
 #, python-format
 msgid "%(count)s character"
@@ -1518,22 +1522,32 @@ msgstr "найдовша серія %(longest)s"
 msgid "Nothing here yet. Add your first words and start a test."
 msgstr "Тут поки нічого немає. Додай перші слова й почни тест."
 
-msgctxt "chart of known words"
-msgid "You know"
-msgstr "Знаєш"
+msgid "Learned and forgotten"
+msgstr "Вивчено й забуто"
+
+msgctxt "words in the chart"
+msgid "learned"
+msgstr "вивчено"
+
+msgctxt "words in the chart"
+msgid "forgotten"
+msgstr "забуто"
+
+msgid "in 7 days"
+msgstr "за 7 днів"
+
+msgid "What it means"
+msgstr "Що це означає"
+
+msgid ""
+"Up learned: words that became known, the first time or again. Down "
+"forgotten: words that dropped out of known; they come back in tests."
+msgstr ""
+"Угору вивчено: слова, які стали «знаєш», уперше або знову. Униз забуто: "
+"слова, які випали зі «знаєш»; вони повернуться в тестах."
 
 msgid "You know a word when every tested direction got 2× in a row 😎 or 🤔."
 msgstr "Знаєш = у кожному тестованому напрямку 2× поспіль 😎 або 🤔."
-
-msgid "you know now"
-msgstr "знаєш зараз"
-
-msgid "learned at least once"
-msgstr "вивчено хоча б раз"
-
-msgid ""
-"The gap between the lines are words you forgot. They come back in tests."
-msgstr "Проміжок між лініями — це забуті слова. Вони повернуться в тестах."
 
 msgid "No tests yet."
 msgstr "Поки жодних тестів."

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-14 01:13+0100\n"
+"POT-Creation-Date: 2026-11-17 23:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1214,8 +1214,12 @@ msgid "Total words %(unit)s since %(date)s"
 msgstr "Wszystkie słówka %(unit)s od %(date)s"
 
 #, python-format
-msgid "Words you know %(unit)s since %(date)s"
-msgstr "Słówka, które znasz, %(unit)s od %(date)s"
+msgid "%(unit)s since %(date)s"
+msgstr "%(unit)s od %(date)s"
+
+#, python-format
+msgid "Words learned and forgotten %(unit)s since %(date)s"
+msgstr "Nauczone i zapomniane słówka %(unit)s od %(date)s"
 
 msgid "by day"
 msgstr "dziennie"
@@ -1282,8 +1286,8 @@ msgid "Q%(quarter)s %(year)s"
 msgstr "%(quarter)s kw. %(year)s"
 
 #, python-format
-msgid "%(label)s: %(value)s, at least once %(ever)s"
-msgstr "%(label)s: %(value)s, co najmniej raz %(ever)s"
+msgid "%(label)s: +%(learned)s learned, −%(forgotten)s forgotten"
+msgstr "%(label)s: +%(learned)s nauczone, −%(forgotten)s zapomniane"
 
 #, python-format
 msgid "%(count)s character"
@@ -1521,23 +1525,33 @@ msgstr "najdłuższa seria %(longest)s"
 msgid "Nothing here yet. Add your first words and start a test."
 msgstr "Na razie nic tu nie ma. Dodaj pierwsze słówka i zacznij test."
 
-msgctxt "chart of known words"
-msgid "You know"
-msgstr "Znasz"
+msgid "Learned and forgotten"
+msgstr "Nauczone i zapomniane"
+
+msgctxt "words in the chart"
+msgid "learned"
+msgstr "nauczone"
+
+msgctxt "words in the chart"
+msgid "forgotten"
+msgstr "zapomniane"
+
+msgid "in 7 days"
+msgstr "w 7 dni"
+
+msgid "What it means"
+msgstr "Co to znaczy"
+
+msgid ""
+"Up learned: words that became known, the first time or again. Down "
+"forgotten: words that dropped out of known; they come back in tests."
+msgstr ""
+"W górę nauczone: słówka, które stały się „znasz”, pierwszy raz lub znowu. W "
+"dół zapomniane: słówka, które wypadły ze „znasz”; wrócą w testach."
 
 msgid "You know a word when every tested direction got 2× in a row 😎 or 🤔."
 msgstr ""
 "Znasz słówko, gdy w każdym testowanym kierunku 2× z rzędu pada 😎 lub 🤔."
-
-msgid "you know now"
-msgstr "umiesz teraz"
-
-msgid "learned at least once"
-msgstr "nauczone co najmniej raz"
-
-msgid ""
-"The gap between the lines are words you forgot. They come back in tests."
-msgstr "Odstęp między liniami to zapomniane słówka. Wrócą w testach."
 
 msgid "No tests yet."
 msgstr "Na razie brak testów."

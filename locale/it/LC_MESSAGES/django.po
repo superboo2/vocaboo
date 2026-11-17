@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-11-14 01:13+0100\n"
+"POT-Creation-Date: 2026-11-17 23:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1200,8 +1200,12 @@ msgid "Total words %(unit)s since %(date)s"
 msgstr "Parole totali %(unit)s dal %(date)s"
 
 #, python-format
-msgid "Words you know %(unit)s since %(date)s"
-msgstr "Parole che sai %(unit)s dal %(date)s"
+msgid "%(unit)s since %(date)s"
+msgstr "%(unit)s dal %(date)s"
+
+#, python-format
+msgid "Words learned and forgotten %(unit)s since %(date)s"
+msgstr "Parole imparate e dimenticate %(unit)s dal %(date)s"
 
 msgid "by day"
 msgstr "per giorno"
@@ -1268,8 +1272,8 @@ msgid "Q%(quarter)s %(year)s"
 msgstr "T%(quarter)s %(year)s"
 
 #, python-format
-msgid "%(label)s: %(value)s, at least once %(ever)s"
-msgstr "%(label)s: %(value)s, almeno una volta %(ever)s"
+msgid "%(label)s: +%(learned)s learned, −%(forgotten)s forgotten"
+msgstr "%(label)s: +%(learned)s imparate, −%(forgotten)s dimenticate"
 
 #, python-format
 msgid "%(count)s character"
@@ -1502,23 +1506,33 @@ msgstr "serie più lunga %(longest)s"
 msgid "Nothing here yet. Add your first words and start a test."
 msgstr "Qui non c'è ancora niente. Aggiungi le prime parole e avvia un test."
 
-msgctxt "chart of known words"
-msgid "You know"
-msgstr "Sai"
+msgid "Learned and forgotten"
+msgstr "Imparate e dimenticate"
+
+msgctxt "words in the chart"
+msgid "learned"
+msgstr "imparate"
+
+msgctxt "words in the chart"
+msgid "forgotten"
+msgstr "dimenticate"
+
+msgid "in 7 days"
+msgstr "in 7 giorni"
+
+msgid "What it means"
+msgstr "Cosa significa"
+
+msgid ""
+"Up learned: words that became known, the first time or again. Down "
+"forgotten: words that dropped out of known; they come back in tests."
+msgstr ""
+"In alto imparate: parole che sono diventate «le sai», la prima volta o di "
+"nuovo. In basso dimenticate: parole uscite da «le sai»; tornano nei test."
 
 msgid "You know a word when every tested direction got 2× in a row 😎 or 🤔."
 msgstr ""
 "Sai una parola quando ogni direzione testata ha avuto 2 volte di fila 😎 o 🤔."
-
-msgid "you know now"
-msgstr "sai ora"
-
-msgid "learned at least once"
-msgstr "imparate almeno una volta"
-
-msgid ""
-"The gap between the lines are words you forgot. They come back in tests."
-msgstr "Lo spazio tra le linee sono le parole dimenticate. Tornano nei test."
 
 msgid "No tests yet."
 msgstr "Ancora nessun test."

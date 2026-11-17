@@ -2087,11 +2087,15 @@ nav.tabs a[aria-current="page"] {
   stroke-linecap: round;
 }
 
-/* The second line of the known chart: words known at least once, dashed and lighter */
+/* The second line of a mirror chart: forgotten words below zero, in red */
 .line-chart-second {
-  stroke-width: 2;
-  stroke-dasharray: 6 5;
-  opacity: 0.5;
+  stroke: var(--rating-dontknow);
+}
+
+/* The zero line in the middle of a mirror chart */
+.line-chart-zero {
+  stroke: var(--pico-muted-color);
+  stroke-width: 1.5;
 }
 
 .line-chart-dot {
@@ -2102,6 +2106,10 @@ nav.tabs a[aria-current="page"] {
   border-radius: 50%;
   background: var(--pico-background-color);
   transform: translate(-50%, -50%);
+}
+
+.line-chart-dot-second {
+  border-color: var(--rating-dontknow);
 }
 
 .line-chart-x {
@@ -2139,14 +2147,18 @@ nav.tabs a[aria-current="page"] {
   --chart-color: var(--rating-ok);
 }
 
-/* The legend of the known chart: a short piece of each line before its name */
+/* The legend above a chart: a short piece of each line, its name and number, and ⓘ that
+   opens a short explanation */
 .chart-legend {
-  margin-bottom: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: 0.8rem;
+  font-size: 0.8rem;
 }
 
 /* One item of the legend does not break in the middle */
 .chart-legend-item {
-  margin-right: 0.8rem;
   white-space: nowrap;
 }
 
@@ -2158,9 +2170,38 @@ nav.tabs a[aria-current="page"] {
   border-top: 3px solid var(--rating-ok);
 }
 
-.chart-key-second {
-  border-top: 2px dashed var(--rating-ok);
-  opacity: 0.6;
+.chart-key-forgotten {
+  border-top-color: var(--rating-dontknow);
+}
+
+.chart-info {
+  margin: 0;
+}
+
+.chart-info summary {
+  display: inline;
+  list-style: none;
+  cursor: pointer;
+}
+
+.chart-info summary::-webkit-details-marker,
+.chart-info summary::after {
+  display: none;
+}
+
+.chart-info[open] {
+  flex-basis: 100%;
+}
+
+.chart-info p {
+  margin: 0.2rem 0 0.3rem;
+}
+
+/* "po týdnech od 28. 7." under a chart, below its dates */
+.stat-section .chart-axis {
+  margin: -0.4rem 0 0;
+  text-align: center;
+  font-size: 0.75rem;
 }
 
 /* "Poslední testy": a table made of grid rows, so a whole row can be a link */
